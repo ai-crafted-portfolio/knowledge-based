@@ -1,0 +1,105 @@
+<!doctype html><meta charset="utf-8"><pre class="official-markdown">目的
+/etc/inetd.conf ファイルまたは同様のシステムの構成ファイルの内容を変更します。
+
+説明
+chsubserver
+コマンドは、デフォルトの
+/etc/inetd.conf
+システム構成ファイル、またはこれに類似する構成ファイルのエントリーを追加、削除、または変更します。 これらのエントリーは、DARPA インターネットで使用される既知のサービスに関連があり、
+inetd
+サーバーで使用される情報にも関連があります。
+inetd
+サーバーのエントリーは、システムがインターネット・サービス要求をどのように処理するかを決定します。
+chsubserver
+コマンドにより、
+-r
+フラグを使用してサーバーをリフレッシュすることもできます。 指定のサーバーには、その構成ファイルを再読み取りをするために、
+SIGHUP
+シグナルが送られます。 これにより、構成ファイルを編集し、変更内容を即座に有効にすることができます。
+各サービス・エントリーには、既知のサービスに関する情報と、
+inetd
+サーバーが使用する情報が入っています。
+chsubserver
+コマンドは、既知のサービスと
+inetd
+サーバーまたは他のサブサーバー情報に関して、以下の項目を操作します。
+ServiceName
+変数によって指定された公式インターネット・サービス名。
+サービスに使用される、
+protocol
+変数で指定されるトランスポート・プロトコル。
+サービスに関連付けられた、
+SocketType
+変数によって指定されたソケットのタイプ。 サービスに関連するソケット・タイプは、ストリーム・ソケットまたはデータグラム・ソケットです。 ストリーム・ソケットを指定する場合は、
+nowait
+フラグのみを使用してください。 データグラム・ソケットを指定する場合は、
+wait
+フラグまたは
+nowait
+フラグのいずれかを使用してください。
+wait
+または
+nowait
+フラグ。
+WaitIndicator
+変数で指定します。
+wait
+または
+nowait
+フラグは、
+inetd
+サーバーがソケット側で引き続き listen する前に、データグラム・サーバーがソケットを解放するのを待つかどうかを示します。
+inetd
+サーバーがサブサーバーを始動するために使用する、
+user
+変数で指定されたユーザー名。
+このコマンドは、System Management Interface Tool (SMIT)
+smit inetdconf
+高速パスを使用しても実行できます。
+
+構文
+サーバーまたはサブサーバーのエントリーを追加または活動化する サブサーバー [ -a 値 ] -v (V) ServiceName P- プロトコル [ T ソケット・タイプ ][ -w (W) WaitIndicator ] [ -ウー ユーザー ] [ - プログラム ] [ - サーバー ] [ -C ConfigFile ] [ プログラム ] [ 引数 ] サーバー・エントリーを変更するには、以下のようにします。 chsubserver -c -v ServiceName -p protocol [ -t SocketType ] [ -w WaitIndicator ] [ -u user ] [ -g program ] [ -V NewServiceName ] [ -P NewProtocol ] [ -T NewSocketType ] [ -W NewWaitIndicator ] [ -U NewUser ] [ -G NewProgram ] [ -r server ] [ -C ConfigFile ] [ program ] [ args ] サーバー・エントリーまたは inetd サブサーバー・エントリーを非活動化する サブサーバー -d 年 -v (V) ServiceName P- プロトコル [ T SocketType ] [ -w (W) WaitIndicator ] [ -ウー ユーザー ] [ - プログラム ] [ - サーバー ] [ -C ConfigFile ] [ プログラム ] [ 引数 ]
+
+オプション
+フラグ
+項目 | 説明
+-a | 構成ファイル内のエントリーを追加または活動化にします。 要求されたサービスが構成ファイル内に存在する場合は、 -a フラグはその行からコメント文字を削除します。 行が存在しなければ、 -a フラグはその行を構成ファイルに追加します。 これはデフォルトのアクションです。
+-c | 構成ファイル内のエントリーを変更します。
+-C | /etc/inetd.conf に類似する構成ファイルを指定します。
+-d | 構成ファイル内の行をコメント化し、ファイル内のエントリーを非活動化にします。
+-G NewProgram | 始動する既存のプログラムを変更します。
+-g プログラム | 始動するプログラムを指定します。
+-P NewProtocol | 現行プロトコル名の新しいプロトコル名を指定します。
+-p プロトコル | プロトコルを指定します。
+-r サーバー | 指定サーバーに SIGHUP を送信します。
+-T NewSocketType | 既存のソケット・タイプ、つまりストリーム・ソケットの場合は stream 値、またはデータグラム・ソケットの場合は dgram 値を置き換えます。
+-t SocketType | ソケットのタイプ、つまりストリーム・ソケットの場合は stream の値、またはデータグラム・ソケットの場合は dgram の値を指定します。
+-U NewUser | 既存のユーザー名を置き換えます。
+-u ユーザー | ユーザー名を指定します。
+-V NewName | 新しいサービス名を指定します。
+-v ServiceName | サービス名を指定します。
+-W NewWaitIndicator | 既存の WaitIndicator を置き換えます。
+-w WaitIndicator | wait の値を持つ単一スレッド・サービスまたは nowait の値を持つマルチスレッド・サービスを指定します。
+
+例
+/etc/inetd.conf ファイルの uucp 行のコメントを外すには、次のように入力します。
+chsubserver -a -v uucp -p tcp
+gregserv サービスを記述し、プログラムを実行する行を
+/etc/inetd.conf
+ファイルに追加するには、以下のようにします。
+/usr/sbin/gregserv
+ストリーム・ソケットおよび ftpd の引数を使用して udp プロトコル上の root として、以下のように 1 行で入力します。
+chsubserver -a -r inetd -v gregserv -p udp -t stream -w nowait -u
+root -g /usr/sbin/gregserv ftpd
+inetd
+は確認を待ちません。 この行をファイルに追加し終ると、
+inetd
+プログラムに
+SIGHUP
+シグナルが送信されます。
+/tmp/inetd.conf
+ファイルで、既存のサービスをストリーム・ソケットの使用から dgram ソケットの使用に変更するには、以下のように 1 行で入力します。
+chsubserver -c -v gregserv -p udp -t stream -T dgram -C /tmp/inetd.conf
+/etc/inetd.conf
+ファイル内の udp を介して gregserv サービスをコメント化するには、次のように入力します。
+chsubserver -d -v gregserv -p udp</pre>

@@ -1,0 +1,158 @@
+<!doctype html><meta charset="utf-8"><pre class="official-markdown">目的
+PPP (Point-to-Point プロトコル) サブシステムの始動と管理を制御します。
+
+説明
+pppcontrold
+デーモンは、PPP サブシステムのインストールおよび構成のために
+/etc/ppp/lcp_config
+および
+/etc/ppp/if_conf
+ファイルを読み込みます。 SMIT を使用して、
+/etc/ppp/lcp_config
+と
+/etc/ppp/if_conf.
+の両方を生成する必要があります。これらのファイルを変更するには、ユーザーが root 権限を持っているか、uucp グループのメンバーでなければなりません。 構成ファイルは、適切なストリーム・モジュールが構成されロードされる初期化の際に読まれ、tcpip ネットワーク・インターフェース・レイヤーはシステムにインストールされます。 サブシステムの構成後、
+pppcontrold
+デーモンは、IP および IPv6 インターフェースに関連付けられているストリームをモニターして、IP アドレスの設定や、IP および IPv6 インターフェースのフラグの設定などの操作を実行します。
+pppcontrold
+デーモンは、SIGTERM の受信時または
+stopsrc
+コマンドの起動時に終了します。
+pppcontrold
+デーモンを開始および停止するための推奨される方法は、SRC (システム・リソース・コントローラー) を使用する方法です。 src コマンドを実行するには、root 権限を持っていなければなりません。
+エラーおよびメッセージは、
+syslog
+機能を使用してログに記録されます。
+pppcontrold
+デーモンは、
+/etc/ppp/pppcontrold.pid
+ファイルを作成します。このファイルには、
+pppcontrold
+デーモンを終了するために使用されるコマンド・プロセス ID を含む単一行が含まれています。
+
+構文
+システム・リソース・コントローラーを使用して開始および停止するには startsrc -s pppcontrold stopsrc -s pppcontrold
+
+オプション
+フラグ
+なし
+/etc/ppp/lcp_config
+File
+このファイルは、サブシステムに必要な構成情報を提供します。 これらの値は、サブシステムが構成されるときのストレージの正しい割り当てを保証するために使用されます。 これらの値はカーネル内で割り振られるストレージを定義するため、必要なものだけを構成することが重要です。 構成ファイルでは、ブランク行および
+# (pound sign)
+で始まる行は無視されます。 インターフェース定義内では、ブランク行または
+# (pound sign)
+で始まる行を使用しないでください。 これらの行は、インターフェース定義間のみで使用してください。
+必要なキーワード |
+server_name 名 | このシステムの名前。 この名前は、システムに固有でなければなりません。 名前の初めの 20 バイトが固有であるようにしてください。
+lcp_server # | サーバー接続の数。 サブシステムが許可するサーバー接続の数を表します。 指定されたすべての接続のストレージは、サブシステムの構成時に割り振られます。 最小値は 0 で、最大値はシステム内のメモリー量によってゲートされます。
+lcp_demand # | PPP LCP マルチプレクサーにサポートさせる要求リンクの最大数を指定します。 この値は、構成する予定の要求インターフェースの数に 設定します。 デフォルト値は 0 です。
+lcp_client # | クライアント接続の数。 最小値は 0 で、最大値はシステム内のメモリー量によってゲートされます。 クライアント接続は、アドレスなしで構成される IP および IPv6 インターフェースです。
+num_if # | 構成する IP および IPv6 インターフェースの数。 lcp_server + lcp_client 以下でなければなりません。
+
+num_if6 # | 許容する TCP/IPv6 インターフェースの最大数。 この値は 10 進数です。 この数は、「max ip interfaces」および「max ip &amp; ipv6 interfaces」とともに、サーバー、クライアント、およびデマンド・リンクの合計最大数 (max server links + max client links + max demand links = max ip interfaces + max ipv6 interfaces + max ip &amp; ipv6 interfaces) より大きくすることはできません。 マシンが 1 つのサーバーに接続するクライアントとしてのみ使用される場合、このフィールドは 1 に設定されます。 サーバーでは、このフィールドは、サーバーに同時に接続できる IPv6 クライアントの最大数に設定されます。 この場合、十分な数の IPv6 インターフェースが定義済みであることを確認してください。
+num_if_and_if6 # | 許容する TCP/IP および IPv6 インターフェースの最大数。 この値は 10 進数です。 この数と「max ip interfaces」および「max ipv6 interfaces」を、サーバー、クライアント、およびデマンド・リンクの合計最大数 (最大サーバー・リンク + 最大クライアント・リンク + 最大デマンド・リンク = 最大 IP インターフェース + 最大 ipv6 インターフェース + 最大 IP &amp; ipv6 インターフェース) より大きくすることはできません。 マシンが 1 つのサーバーに接続するクライアントとしてのみ使用される場合、このフィールドは 1 に設定されます。 サーバーでは、このフィールドは、サーバーに同時に接続できる IP および IPv6 クライアントの最大数に設定されます。 この場合、十分な数の IP および IPv6 インターフェースが定義済みであることを確認してください。
+
+num_hdlc # | アクティブにできる並行非同期 PPP セッション (サーバー、クライアント、および要求) の最大数。 このフィールドは 10 進数です。 この値を、サーバー、クライアント、およびデマンド・リンクの合計最大数 ( [max server connections + max client connections + max demand connections] = max async hdlc attachments = [max ip interfaces + max ipv6 interfaces + max ip &amp; ipv6 interfaces]) より大きくすることはできません。
+オプション・キーワード |
+|
+これらのキーワードは、グローバル・デフォルト LCP オプションをオーバーライドします。
+項目 | 説明
+txacm 0xXXXXXXXX | 非同期文字マップを送信します。
+-negacm | 非同期文字マッピングをネゴシエーションしません。 このオプションを含むピア構成情報フレームを拒否します。
+-negmru | MRU (最大受信単位) をネゴシエーションしません。 このオプションを含むピア構成情報フレームを拒否します。
+mru # | 必要な MRU。 デフォルトは 1500 です。
+-negacf | ACF (アドレス制御フィールド) 圧縮をネゴシエーションしません。 ACF は圧縮されません。 このオプションを含むピア構成情報フレームをリジェクトします。
+-negprotocolcompress | プロトコル圧縮をネゴシエーションしません。 通常、PPP プロトコル・フィールドは、ネットワーク・プロトコル用に 1 バイト圧縮されます。 これは、フレームの受信および送信の両方に対するこのオプションのネゴシエーションを使用不可にします。
+/etc/ppp/if_conf File
+このファイルでは、サーバー TCP/IP インターフェースすべてが定義されます。 構成ファイルでは、ブランク行および
+# (pound sign)
+で始まる行は無視されます。 インターフェース定義内では、ブランク行または
+# (pound sign)
+で始まる行を使用しないでください。 これらの行は、インターフェース定義間のみで使用してください。
+キーワード |
+interface | 新規のインターフェース定義が開始されていることを示します。
+
+ip および ipv6 | このインターフェースに使用され、local_ip、 local_ip6、remote_ip、および remote_ip6 キーワードと一致するプロトコル (複数可) を指定します。 これらのキーワードは単独でも複数の組み合わせでも使用できます。
+server | インターフェースがサーバー接続であることを示します。 以下のキーワードが必要です。 local_ip xxx.yyy.zzz.qqq remote_ip xxx.yyy.zzz.qqq local_ip6 ::XXXX:XXXX:XXXX:XXXX remote_ip6 ::XXXX:XXXX:XXXX:XXXX ただし、これらのアドレスはペア単位で異なる必要があり、ローカル IP および IPv6 アドレスはすべての PPP インターフェースで同じにすることができます。 特定のサーバーでは、リモート・アドレスは固有でなければなりません。 インターフェースの構成に「smitty PPP IP Interfaces」メニューが使用されている場合、「interface」の「server」項目には local_ip アドレスと remote_ip アドレスのみが含まれます。 remote_ip6 および local_ip6 は、 「smitty PPP」 IPv6 インターフェース」 メニューが使用されている場合に項目に表示されます。 最後に、 smitty PPP IP および IPv6 インターフェース が使用されている場合は、4 つすべてが検出されます。
+client | これは IPv6 オプションのみです。 すべての IPv6 接続には、クライアント・インターフェースが必要です。 アドレスは、システム・モデルおよび ID に基づいてランダムに生成されます。 アドレス (::0:0:0:0 or simply ::) をゼロにすることを選択し、サーバーに IPv6 アドレスをクライアントに割り当てることができます。 例として if_conf ファイル・エントリーを以下に示します。 interface client ipv6 local_ip6 ::0000:0000:0000:0000 interface client ip ipv6 local_ip6 ::0007:0000:0000:4445
+
+demand | プロトコル・タイプ (IP、 IPv6 、またはその両方) に依存する local_XXX および remote_XXX があります。 認証を行うホスト (サーバー) との接続を確立するために、引用符で囲まれたコマンド・ストリングも 必要です。 例として if_conf ファイル・エントリーを以下に示します。 interface demand ipv6 local_ip6 ::0007:0000:0000:4444 remote_ip6 ::0009:0000:0000:5555 dcmd &quot;exec /usr/sbin/pppattachd /dev/tty3 demand ipv6 &gt;/dev/tty3 nodaemon&quot; interface demand ip ipv6 local_ip 44.44.44.46 remote_ip 66.66.66.66 netmask 255.255.255.0 local_ip6 ::0007:0000:0000:4446 remote_ip6 ::0009:0000:0000:6666 dcmd &quot;exec /usr/sbin/pppattachd /dev/tty4 demand ip ipv6 &gt;/dev/tty4 nodaemon&quot;
+オプション・キーワード |
+netmask xxx.xxx.xxx.xxx | IPv4 インターフェースに対するネットマスクを指定します。
+
+例
+/ect/ppp/lcp_config
+ファイルの例:
+# Comment line
+server_name pppclient
+lcp_server 0
+lcp_client 3
+lcp_demand 2
+num_if 1
+num_if6 2
+num_if_and_if6 2
+num_hdlc 5
+/ect/ppp/if_conf
+ファイルの例
+# Sample ip server configuration information.
+# Note that the complete stanza does not contain
+# comments or blank lines
+interface
+server
+ip
+local_ip 129.35.130.45
+remote_ip 129.35.131.191
+netmask 255.255.240.0
+# Sample ipv6 server configuration information.
+# Note that the complete stanza does not contain
+# comments or blank lines
+interface
+server
+ipv6
+local_ip6 ::0009:2313:4C00:3193
+remote_ip6 ::0009:2313:4C00:3194
+#However between stanzas one can have blank or
+# comment lines.
+interface
+server
+ip
+local_ip 129.35.130.45
+remote_ip 129.35.131.196
+netmask 255.255.240.0
+interface
+server
+ip
+local_ip 129.35.130.45
+remote_ip 129.35.131.197
+netmask 255.255.240.0
+interface
+server
+ip
+local_ip 129.35.130.45
+remote_ip 129.35.131.201
+netmask 255.255.240.0
+interface
+server
+ip
+local_ip 129.35.130.45
+remote_ip 129.35.131.212
+netmask 255.255.240.0
+これらのファイルの前の構成では、以下のように、IP および IPv6 インターフェースをインストールするサブシステムが作成されます。
+
+pp0: flags=71&lt;UP,POINTOPOINT,NOTRAILERS&gt;
+inet 129.35.130.45 --&gt; 129.35.131.191 netmask 0xfffff000
+pp1: flags=31&lt;UP,POINTOPOINT,NOTRAILERS&gt;
+inet 129.35.130.45 --&gt; 129.35.131.196 netmask 0xfffff000
+pp2: flags=31&lt;UP,POINTOPOINT,NOTRAILERS&gt;
+inet 129.35.130.45 --&gt; 129.35.131.197 netmask 0xfffff000
+pp3: flags=31&lt;UP,POINTOPOINT,NOTRAILERS&gt;
+inet 129.35.130.45 --&gt; 129.35.131.201 netmask 0xfffff000
+pp4: flags=31&lt;UP,POINTOPOINT,NOTRAILERS&gt;
+inet 129.35.130.45 --&gt; 129.35.131.212 netmask 0xfffff000
+pp5: flags=30&lt;POINTOPOINT,NOTRAILERS&gt;
+inet netmask
+注:
+pp5 は、
+/etc/ppp/lcp_config
+ファイル (lcp_client 1) 内の lcp_client キーワードの結果です。 「サーバーとの接続が確立され、IPCP または IPV6CPを介して IP がネゴシエーションされるまで、IP と IPv6 クライアント・インターフェースの両方にアドレスが関連付けられていません。 唯一の例外は、要求クライアント・インターフェースの場合です。 これらのインターフェースは、独自のアドレスを指定し、ネゴシエーション中にそれを要求します。 そのため、PPP サブシステムの始動時にインターフェースに IP アドレスと IPv6 アドレスが関連付けられます。</pre>

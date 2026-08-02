@@ -1,0 +1,52 @@
+<!doctype html><meta charset="utf-8"><pre class="official-markdown">目的
+設定されているすべてのプリンタと、指定されたキュー内のプロッタキューデバイスの名前を一覧表示します。
+
+説明
+デフォルトでは、「
+lsallqdev
+コマンドは、「
+/etc/qconfig
+ファイル内の指定された キュー内の、設定されたすべてのデバイス名をリストアップする。
+プリンタ AIX サブシステムの拡張機能が無効になっている場合、この
+lsallqdev
+コマンドは指定されたキュー内の設定済みデバイス名をすべて表示します。
+/etc/qconfig.bin
+調整可能な
+printer_scalability
+パラメータの詳細については、
+その他の調整可能なパラメータ
+ページの該当
+printer_scalability
+セクションを参照してください。
+また、System Management Interface Tool (SMIT)
+smit lsallqdev
+高速パスを使用しても、このコマンドを実行できます。
+
+構文
+lsallqdev [ -c] -q Name
+
+オプション
+フラグ
+表 1. フラグ
+項目 | 説明
+-q 名前 | キュー名を指定します。
+-c | コロン・フォーマットの出力を SMIT で使えるようにします。
+
+例
+/etc/qconfig
+ファイル内の &#x27;
+lp0
+キュー内の、設定されたキュー・デバイスの名前を 一覧表示するには、以下のコマンドを入力する：
+lsallqdev -q lp0
+以下のようなリストが表示される：
+lpd0
+lpd1
+lpd2
+/etc/qconfig
+ファイル内の &#x27;
+lp0
+キュー内の、設定されたキュー・デバイスの名前をコロン 形式で列挙するには、以下のコマンドを入力する：
+lsallqdev -q lp0 -c
+以下のようなリストが表示される：
+lp0:lpd1
+lp0:lpd2</pre>

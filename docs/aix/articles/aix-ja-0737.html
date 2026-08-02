@@ -1,0 +1,158 @@
+<!doctype html><meta charset="utf-8"><pre class="official-markdown">目的
+リソースまたはリソース・クラスのアクション定義を表示します。
+
+説明
+lsactdef
+コマンドは、リソースまたはリソース・クラスのアクション定義のリストを表示します。 デフォルトでは、このコマンドは
+リソース
+のアクション定義を表示します。
+リソース・クラス
+のアクション定義を表示するには、
+-c
+フラグを指定します。
+コマンド行にアクションを指定しない場合、このコマンドは
+public
+として定義されているアクションのみを表示します。 このデフォルトをオーバーライドするには、
+-p
+フラグを使用するか、表示する定義があるアクションの名前をコマンド行で指定します。
+このアクションの呼び出し時に入力として必要な構造化データ定義を表示するには、
+-s i
+フラグを指定します。 このアクションを呼び出した結果の出力にリンクされた構造化データ定義を表示するには、
+-s o
+フラグを指定します。
+デフォルトでは、このコマンドはアクションの記述を表示しません。 アクションの定義と説明を表示するには、
+-e
+フラグを指定します。
+
+構文
+リソース のアクション定義を表示するには、次のようにします。 lsactdef [ -p property ] [ -s i | o ] [ -e ] [ -l | -i | -t | -d | -D delimiter ] [ -x ] [ -h ] [ -TV ] resource_class [ action1 [ action2 ...] ] リソース・クラス のアクション定義を表示するには、次のようにします。 lsactdef -c [ -p プロパティー ] [ -s i | o ] [ -e ] [ -l | -i | -t | -d | -D delimiter ] [ -x ] [ -h ] [ -TV ] resource_class [ action1 [ action2 ...] ] すべてのリソース・クラス名を表示するには、以下のようにします。 lsactdef
+
+オプション
+フラグ
+-c
+resource_class
+のアクション定義を表示します。
+-d
+区切り文字により書式設定された出力を指定します。 デフォルトの区切り文字はコロン (:) です。 デフォルトの区切り文字を変更する場合は、
+-D
+フラグを使用します。
+--D
+デリミタ
+指定した区切り文字により書式設定された出力を指定します。 このフラグを使用して、デフォルトのコロン (:) 以外の区切り文字を指定します。 例えば、表示されるデータにコロンが含まれている場合です。 このフラグを使用して、1 つ以上の文字からなる区切り文字を指定します。
+-e
+拡張形式を指定します。 アクション定義とともに記述も表示します。
+-i
+入力フォーマットを指定します。
+resource_data_input_file
+のテンプレートを生成します。 出力は長い (スタンザ) フォーマットで表示されます。 属性の SD エレメント・データ・タイプは、
+attr=value
+として表示されます。 このフラグを使用する場合は、
+lsactdef
+コマンドの出力をファイルに送ることをお勧めします。 このフラグは、
+-s o
+フラグをオーバーライドします。
+-l
+「長い」フォーマット (1 行ごとに 1 つのエントリー) を指定します。 これは、デフォルトの表示形式です。
+lsactdef
+コマンドが
+-l
+フラグを指定して発行されたが、リソース・クラス名が指定されていない場合、コマンドが定義済みリソース・クラス名のリストを返すときに
+-l
+フラグは無視されます。
+--p
+プロパティ
+指定された
+property
+を持つアクションを表示します。 デフォルトでは、共用アクションの定義のみが表示されます。 アクション・プロパティーに関係なくすべてのアクション定義を表示するには、
+-p 0
+フラグを使用します。
+アクション・プロパティー:
+0x0001
+long_running
+0x0002
+public
+属性に 10 進値または 16 進値を指定することができます。 1 つ以上のプロパティーを持つすべてのアクションのアクション定義を要求するには、対象のプロパティーを一緒に「OR」してから、
+-p
+フラグで「OR」演算された値を指定します。 例えば、
+long_running
+または
+public
+であるすべてのアクションのアクション定義を要求するには、次のように入力します。
+-p 0x03
+-s i | o
+アクション入力またはアクション応答のための構造化データ定義を表示します。
+i
+
+アクション入力構造化データ定義を表示します。 これはデフォルトです。
+o
+アクション応答 (出力) 構造化データ定義を表示します。
+-t
+表形式を指定します。 属性ごとにそれぞれ別個の列に表示され、1 行に 1 個のリソースが表示されます。
+-x
+ヘッダー印刷を抑制します。
+-h
+コマンドの使用ステートメント (使用法) を標準出力に書き込みます。
+-T
+コマンドのトレース・メッセージを標準エラーに書き込みます。 ソフトウェア・サービスの編成の使用の場合のみです。
+-V
+コマンドの詳細メッセージを標準出力に書き込みます。
+
+例
+すべてのリソース・クラスの名前をリストするには、次のように入力します。
+lsactdef
+出力は次のようになります。
+class_name
+&quot;IBM.Association&quot;
+&quot;IBM.AuditLog&quot;
+&quot;IBM.AuditLogTemplate&quot;
+&quot;IBM.Condition&quot;
+&quot;IBM.EventResponse&quot;
+&quot;IBM.Host&quot;
+&quot;IBM.Program&quot;
+&quot;IBM.Sensor&quot;
+&quot;IBM.ManagedNode&quot;
+...
+リソース・クラスIBM®.AuditLog,のパブリック・リソース・アクション定義を一覧表示するには、次のように入力します：
+lsactdef IBM.AuditLog
+出力は次のようになります。
+Resource Action Definitions for
+class_name: IBM.AuditLog
+action 1:
+action_name = &quot;GetRecords&quot;
+display_name = &quot;&quot;
+description = &quot;&quot;
+properties = {&quot;public&quot;}
+confirm_prompt = &quot;&quot;
+action_id = 0
+variety_list = {{1..1}}
+variety_count = 1
+timeout = 0
+action 2:
+action_name = &quot;DeleteRecords&quot;
+display_name = &quot;&quot;
+description = &quot;&quot;
+properties = {&quot;public&quot;}
+confirm_prompt = &quot;&quot;
+action_id = 1
+variety_list = {{1..1}}
+variety_count = 1
+timeout = 0
+....
+リソース・クラスIBM.AuditLog,アクションGetRecords,のリソースに対するアクションの起動に必要な構造化データ定義をリストするには、次のように入力します：
+lsactdef -s i IBM.AuditLog GetRecords
+出力は次のようになります。
+Resource Action Input for: IBM.AuditLog
+action_name GetRecords:
+sd_element 1:
+element_name = &quot;MatchCriteria&quot;
+display_name = &quot;&quot;
+description = &quot;&quot;
+element_data_type = &quot;char_ptr&quot;
+element_index = 0
+
+sd_element 2:
+element_name = &quot;IncludeDetail&quot;
+display_name = &quot;&quot;
+description = &quot;&quot;
+element_data_type = &quot;uint32&quot;
+element_index = 1</pre>

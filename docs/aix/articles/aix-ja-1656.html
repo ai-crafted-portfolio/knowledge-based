@@ -1,0 +1,32 @@
+<!doctype html><meta charset="utf-8"><pre class="official-markdown">目的
+undefvsd
+- 仮想共有ディスクを定義解除します。
+
+説明
+このコマンドは、すべての仮想共用ディスク・ノード上の指定された
+VSAM 名
+について、仮想共用ディスク定義および特殊装置ファイルを
+/dev
+から除去するために使用されます。 仮想共有ディスクは、
+すべての仮想共有ディスク・ノード上で構成解除され、定義状態にあることが必要です。
+System Management Interface Tool (SMIT) を使用して、
+undefvsd
+コマンドを実行することができます。 SMIT を使用するには、以下のように入力します。
+smit delete_vsd
+そして、「
+Undefine a Virtual Shared Disk (仮想共有ディスクを定義解除)
+」オプションを選択します。
+
+構文
+undefvsd VSAM 名 …
+
+オプション
+フラグ
+なし。
+
+例
+仮想共有ディスク
+vsd1vg2n1
+に関連した情報を削除するには、
+次のように入力します。
+undefvsd vsd1vg2n1</pre>

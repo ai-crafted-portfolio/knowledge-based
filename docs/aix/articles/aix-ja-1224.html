@@ -1,0 +1,54 @@
+<!doctype html><meta charset="utf-8"><pre class="official-markdown">目的
+RADIUS
+認証デーモン、許可デーモン、およびアカウンティング・デーモンを開始、停止、または再始動します。
+
+説明
+radiusctl
+コマンドは、ネットワークの認証、許可、およびアカウンティングを制御するために使用される
+RADIUS
+サーバー・デーモンを開始、停止、または再始動します。
+このコマンドは、
+AIX
+拡張パック・メディアに同梱されているOpenSSLパッケージと組み合わせて、
+AIX
+RADIUS
+サーバーで完全な EAP-TLS サポートを有効にします。
+AIX
+RADIUS
+サーバーのローカル・ユーザー・データベースは、サーバーの稼働中に更新できますが、新しい変更はシステムの再始動後にのみ有効になります。
+radiusctl
+コマンドを使用して行うことも可能です。
+注：
+このコマンドは、
+AIX
+RADIUS
+サーバーを起動および停止する古い方法（例えば、
+startsrc-sradiusd
+、
+stopsrc-sradiusd
+など）を推奨しない。
+
+構文
+radiusctl start radiusctl stop radiusctl restart
+
+オプション
+フラグ
+項目 | 説明
+start | RADIUS サーバーの実行を開始します。 注： EAP-TLSがOpenSSL,を通じて有効になっている場合、サーバーを起動または再起動しようとすると、秘密鍵のパスワードを入力するよう求められます。
+停止 | RADIUS サーバーを停止します。
+再始動 | 現在実行中かどうかに関係なく、 RADIUS サーバーを再始動します。 このサーバーが稼働中でない場合、このフラグによる動きは start フラグと同じです。
+
+例
+AIX
+RADIUS
+サーバーの実行を開始するには、次のコマンドを入力します。
+radiusctl start
+既に実行中の
+AIX
+RADIUS
+サーバーを再始動するには、次のコマンドを入力します。
+radiusctl restart
+AIX
+RADIUS
+サーバーの実行を停止するには、次のコマンドを入力します。
+radiusctl stop</pre>

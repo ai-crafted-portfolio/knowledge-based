@@ -1,0 +1,430 @@
+<!doctype html><meta charset="utf-8"><pre class="official-markdown">目的
+ローカル・ホストとリモート・ホスト間でファイルを転送します。
+
+説明
+ftp
+コマンドは、ファイル転送プロトコル (FTP) を使って、ローカル・ホストとリモート・ホストの間で、または 2 つのリモート・ホストの間でファイルを転送します。
+ftp
+コマンドのリモート実行はお勧めしません。
+FTP プロトコルを使うと、異なるファイルシステムを使っているホスト間でデータ転送が可能になります。 このプロトコルはデータ転送には高い柔軟性を持っていますが、それぞれのファイルシステムに固有のファイル属性 (ファイルの保護モードまたは変更時間など) を保存するようには設計されていません。 さらに、このプロトコルはファイルシステムの構造全般についてほとんど仮定を行わず、また、サブディレクトリーを再帰的にコピーするような機能を提供することもありません。
+注:
+システム間でファイルを転送していて、ファイル属性を保持するか、サブディレクトリーを再帰的にコピーする必要がある場合は、
+rcp
+コマンドを使用してください。
+サブコマンドの発行
+時刻
+ftp&gt;
+prompt サブコマンドを入力して、リモート・ディレクトリーのリスト、現行のローカルおよびリモート・ディレクトリーの変更、単一の要求での複数ファイルの転送、ディレクトリーの作成と除去、およびシェル・コマンドを実行するためのローカル・シェルへのエスケープなどのタスクを実行することができます。 各サブコマンドの説明については、
+サブコマンド
+のセクションを参照してください。
+リモート・ホストに対して
+HostName
+パラメーターを指定せずに
+ftp
+コマンドを実行すると、
+ftp
+コマンドは即時に
+ftp&gt;
+プロンプトを出し、
+ftp
+サブコマンドを待ちます。 リモート・ホストに接続するには、
+open
+サブコマンド
+を実行します。
+ftp
+コマンドがリモート・ホストに接続すると、
+ftp
+コマンドはログイン名とパスワードの入力を求めるプロンプトを出してから、
+ftp&gt;
+プロンプトを出します。 リモート・ホスト側でログイン名のパスワードが定義されていないと、
+ftp
+コマンドは失敗に終わります。
+ftp
+コマンド・インタープリター。これは、以下の場所で入力されたすべてのサブコマンドを処理します。
+ftp&gt;
+prompt は、以下のような、ほとんどのファイル転送プログラムでは使用できない機能を提供します。
+ftp
+サブコマンドのファイル名パラメーターを処理する。
+サブコマンドのグループを収集して単一のサブコマンド・マクロを作成する。
+$HOME/.netrc
+ファイルからマクロをロードする。
+
+これらの機能を使用すると、反復タスクを単純化して、
+ftp
+コマンドを不在モードで使用することができます。
+このコマンド・インタープリターは、ファイル名パラメーターを次の規則に従って処理します。
+パラメーターに-(ハイフン) が指定されている場合、読み取り操作には標準入力 (stdin) が使用され、書き込み操作には標準出力 (stdout) が使用されます。
+上記の検査が適用されず、ファイル名拡張が使用可能な場合 (
+-g
+フラグまたは
+glob
+サブコマンドを参照)、 インタープリターは、C シェルの規則に従ってファイル名を展開します。 グロビング機能が使用可能であり、
+単一のファイル名を期待するサブコマンドにパターン・マッチング文字が使用されていると、
+予期しない結果が起こることがあります。
+例えば、
+append
+および
+put
+サブコマンドは、ファイル名の拡張を実行してから、生成された最初のファイル名のみを使用します。 その他の
+ftp
+サブコマンド (
+cd
+、
+delete
+など)
+get
+、
+mkdir
+、
+rename
+、 および
+rmdir
+は、ファイル名の拡張を実行せず、パターン・マッチング文字を文字どおりに使用します。
+get
+の場合、
+put
+、
+mget
+、および
+mput
+サブコマンド、 インタープリターには、異なるローカルおよびリモートのファイル名構文スタイル間で変換およびマップする機能があります (
+case
+、
+ntrans
+、 および
+nmap
+サブコマンド)、およびローカル・ファイル名が固有でない場合にそれを変更する機能 (
+runique
+サブコマンドを参照)。 さらに、
+ftp
+コマンドは、リモート
+ftpd
+サーバーが固有でない場合にリモート・ファイル名を変更するように指示を送信することができます (
+sunique
+サブコマンドを参照)。
+二重引用符 (&quot;&quot;) を使用する ブランク文字を含むパラメーターを指定します。
+注:
+ftp
+コマンド・インタープリターはパイプをサポートしません。 また、すべてのマルチバイト文字ファイル名がサポートされるとは限りません。
+対話式に実行しているときに
+ftp
+セッションを終了するには、次のようにします。
+quit
+または
+bye
+サブコマンドまたはファイルの終わり (Ctrl-D) キー・シーケンスを使用する
+ftp&gt;
+できます。 ファイル転送を完了前に終了するには、割り込みキー・シーケンスを押します。 デフォルトの割り込みキー・シーケンスは Ctrl-C です。
+stty
+
+コマンドを使用して、このキー・シーケンスを再定義することができます。
+通常、
+ftp
+コマンドは (ローカル・ホストからリモート・ホストへ) 送られる転送を即座に停止します。
+ftp
+コマンドは、リモート・ホストから送信され、
+ローカル・ホストで受信されるデータ転送を停止するのに、
+リモート FTP サーバーに FTP ABOR 命令を送信し着信するファイル転送パケットをすべて廃棄して、
+リモート・サーバーが送信を停止するといった方法をとります。 リモート・サーバーが ABOR 命令をサポートしない場合、
+ftp
+コマンドは ABOR 命令を表示しません。
+ftp&gt;
+リモート・サーバーが要求されたすべてのファイルを送信するまでプロンプトを出します。 また、リモート・サーバーが予期しない動作を行う場合は、ローカル
+ftp
+プロセスを終了しなければならないことがあります。
+セキュリティーと自動ログイン
+標準が現行認証メソッドである場合
+ftp
+コマンドはさらに、リモート・ホストにパスワードを送ってセキュリティーを提供し、自動ログイン、ファイル転送、ログアウトを許可します。
+ftp
+コマンドを実行してリモート・ホストのホスト名 (
+HostName
+) を指定すると、
+ftp
+コマンドは直ちに指定されたホストへの接続を設定しようとします。
+ftp
+コマンドが正常に接続すると、
+ftp
+コマンドは現行ディレクトリーまたはホーム・ディレクトリー内でローカル
+$HOME/.netrc
+ファイルを検索します。 ファイルがあれば、
+ftp
+コマンドはそのファイル内で、ログイン処理を開始するエントリーと、リモート・ホストのコマンド・マクロ定義を検索します。
+$HOME/.netrc
+ファイルまたは自動ログイン・エントリーが存在しない場合、またはシステムが
+securetcpip
+コマンドで保護されている場合、
+ftp
+コマンドはユーザーにユーザー名とパスワードの入力を求めるプロンプトを出します。 これは
+HostName
+パラメーターがコマンド・ラインで指定されているかどうかにかかわらず行われます。
+注:
+キューイング・システムはマルチバイトのホスト名をサポートしません。
+ftp
+コマンドが指定されたホストの
+$HOME/.netrc
+自動ログイン・エントリーを検出すると、
+ftp
+コマンドはそのエントリーの情報を使用してリモート・ホストにログインしようとします。 さらに、
+ftp
+
+コマンドはその自動ログイン・エントリー内で定義されたコマンド・マクロをすべてロードします。 場合によっては (例えば、必要なパスワードが自動ログイン・エントリーにリストされていない場合)、
+ftp
+コマンドはパスワードの入力を求めるプロンプトを出してから、
+ftp&gt;
+できます。
+ftp
+コマンドが自動ログインを完了すると、マクロが自動ログイン・エントリーに定義されていれば、
+ftp
+コマンドは
+init
+マクロを実行します。
+init
+マクロが存在しないか、
+quit
+または
+bye
+サブコマンドを含んでいない場合は、次のようにします。
+ftp
+コマンドを使用すると、
+ftp&gt;
+プロンプトを出し、サブコマンドを待ちます。
+注:
+プロンプトまたは
+$HOME/.netrc
+ファイルのいずれかで指定されたリモート・ユーザー名が存在し、リモート・ホストでパスワードが定義されている必要があります。 そうでない場合、
+ftp
+コマンドは失敗に終わります。
+Kerberos 5 が現行認証メソッドである場合
+ftp
+コマンドは、ftp 仕様への拡張機能を、IETF ドラフト文書「draft-ietf-cat-ftpsec-09.txt」で定義された通りに使用します。 FTP セキュリティー拡張機能は、Generic Security Service API (GSSAPI) のセキュリティー・メカニズムを用いて
+インプリメントされます。 GSSAPI は、基礎となるセキュリティーおよび通信メカニズムとは別のサービスを
+提供します。 GSSAPI は rfc 1508 および 1509 で定義されます。
+ftp
+コマンドは、
+ftpd
+デーモンを用いて認証する AUTH と ADAT コマンドを使用します。 AUTH と ADAT の両方のコマンドが Kerberos 認証をサポートしている場合、それらはローカル・ユーザー DCE 認証を用いて、リモート・システム上のユーザーの認証を行います。 これが失敗し、両システムで標準の認証が構成される場合は、上記のプロセスが使用されます。
+HostName
+パラメーターはファイルの転送先となるホスト・コンピューターの名前です。 オプションの
+Port
+パラメーターにより、転送時に使われるポートの ID を指定します。 (デフォルトのポートは
+/etc/services
+ファイルで指定されます。)
+注:
+
+レジストリーの値が現在の認証スキームに正しく設定されている場合、FTP 認証は Active Directory パスワードを使用して機能します。 レジストリーの値がヌルに設定されている場合は、ファイルのデフォルト値 (ローカル・ユーザー認証) が使用されます。
+トランスポート層セキュリティーのサポート
+ftp
+コマンドは、RFC 4217 で定義されているトランスポート層セキュリティー (TLS) をサポートします。 TLS は、クライアントとサーバー間で安全な通信を行うための暗号プロトコルです。
+ftp
+コマンドは、
+AUTH TLS
+と
+PROT P
+コマンドを
+使用して、
+ftpd
+デーモンとの通信を保護します。
+AUTH TLS
+と
+PROT P
+コマンドの両方が TLS プロトコルをサポートしていると、保護されたチャネルが確立されます。 標準認証方式のみがサポートされています。
+ftp
+コマンドの実行時に
+-s
+フラグが指定されていると、
+ftp
+コマンドはユーザーのホーム・ディレクトリー内でローカル
+$HOME/.ftpcnf
+ファイルを検索します。 このファイルが見つかると、
+ftp
+コマンドは以下の構成パラメーターを使用して、サーバーとの TLS セッションを
+セットアップします。 このファイルが見つからないか、構成パラメーターが欠落している場合、
+ftp
+コマンドは
+構成パラメーターを使用しないでサーバーへの接続を試行します。
+CRL_PATH
+CRL_PATH パラメーターは、証明書取り消しリスト・ファイルのパスを提供します。このファイルは Privacy Enhanced Mail (PEM) フォーマットでなければなりません。 これを指定すると、サーバーが提供するデジタル証明書が証明書取り消しリストと照合されます。 証明書が取り消されていた場合、TLS セッションは失敗します。 このパラメーターが無指定の場合、
+デジタル証明書は証明書取り消しリストと照合されません。
+CA_PATH
+CA_PATH パラメーターは、認証局ファイルへのパスを提供します。このファイルは PEM フォーマットでなければなりません。 これを指定すると、サーバー証明書が認証局と照合されます。 サーバーが提供するデジタル証明書がセキュリティー機関によって署名されていなかった場合は、TLS セッションが失敗します。 このパラメーターが無指定の場合、サーバーが提供するデジタル証明書は証明書取り消しリストと照合されません。
+CIPHER_LIST
+
+CIPHER_LIST パラメーターを指定すると、このリストが TLS セッション中に使用されます。 指定しないと、デフォルトの暗号リストが使用されます。
+DEPTH
+CA_PATH 構成パラメーターを指定すると、デジタル証明書階層内の
+ftpd
+サーバーが提供する証明書を検証するために DEPTH 値が使用されます。 指定しないと、デフォルト値の 9 が使用されます。
+CERTIFICATE
+CERTIFICATE パラメーターは、PEM フォーマットの有効なデジタル証明書チェーン・ファイルへのパスを提供します。 このファイルは TLS セッションで使用されます。
+CERTIFICATE_PRIVATE_KEY
+CERTIFICATE_PRIVATE_KEY パラメーターには、証明書秘密鍵 (PEM 形式) へのパスが含まれます。
+これは TLS セッション中に使用されます。 TLS をサポートするには、
+AIX® Web Download Pack Programs
+Web サイトから最新バージョンの OpenSSL ツールをインストールする必要があります。
+
+構文
+ftp [ -d ] [ -D DataConnTimeOut ][ -g ] [ -i ] [ -n ] [ -v ] [ -f ] [ -K ] [ -k realm ] [ -q ] [ -C ] [ -s ] [ -M ] [ HostName [ポート］ [ -H ]
+
+オプション
+フラグ
+項目 | 説明
+-C | ユーザーは、 send_file コマンドを使用して送信される発信ファイルをネットワーク・バッファー・キャッシュ (NBC) にキャッシュする必要があることを指定できます。 このフラグは、 -q フラグが指定されていなければ指定できません。 このフラグは、ファイルがバイナリー・モードで保護されずに送信される場合にのみ適用されます。
+-d | ftp コマンド操作に関するデバッグ情報を syslogd デーモンに送ります。 -d フラグを指定した場合、 /etc/syslog.conf ファイル を編集して、次のいずれか 1 つのエントリーを追加しなければなりません。 user.info FileName または user.debug FileName 注: syslogd デーモンのデバッグ・レベルには、情報レベル・メッセージが含まれます。 /etc/syslog.conf ファイルを編集しないと、メッセージはなにも生成されません。 /etc/syslog.conf ファイルを変更した後、 refresh -s syslogd または kill -1 SyslogdPID コマンドを実行して、 syslogd デーモンに設定ファイルの変更を通知します。 デバッグ・レベルの詳細については、 /etc/syslog.conf ファイルを参照してください。 また、 debug サブコマンド も参照してください。
+-D DataConnTimeOut | ftp コマンドがデータ接続を保持する最大秒数を指定します。 デフォルト値は 300 秒です。値は 300 秒から 3600 秒の範囲で指定することができます。
+-f | これを指定すると、証明書が転送されます。 このフラグは、Kerberos 5 が現在の認証メソッドでない場合は無視されます。
+-g | ファイル名のメタキャラクターの拡張を使用不可にします。 メタキャラクターの解釈は、ファイル名の拡張 (グロビングともいう) として参照されます。 glob サブコマンドを参照してください。
+-H | FILE_Unlink イベントの監査ロギングをオンにします (このイベントがユーザーに対して有効になっている場合)。
+-i | 複数のファイルを転送する間、対話式のプロンプト表示をオフにします。 prompt 、 mget 、 mput を参照してください。 および mdelete サブコマンドを使用して、複数ファイル転送時のプロンプトの説明を表示します。
+
+-K | 制御接続とデータ接続の両方で、 sys/socket.h ファイルに定義されている SO_KEEPALIVE オプションを使用不可にします。
+-k レルム | これを使用することで、ユーザーは、リモート端末のレルムを指定できます。 このような目的では、レルムは DCE セルと同義です。 このフラグは、Kerberos 5 が現在の認証メソッドでない場合は無視されます。
+-M | ローカル・ホストとリモート・ホスト間でファイルが転送された後に ftp コマンドがブロックされないようにします。
+-n | 最初の接続時の自動ログインを防止します。 このフラグを指定しないと、 ftp コマンドは、ログインおよびリモート・ホスト用の初期化処理を記述した $HOME/.netrc エントリーを探します。 user サブコマンドを参照してください。
+-q | ネットワーク上でファイルを送信するために send_file サブルーチンを使用しなければならないことをユーザーが指定できるようにします。 このフラグは、ファイルがバイナリー・モードで保護されずに送信される場合にのみ適用されます。
+-v | リモート・サーバーからの応答をすべて表示し、データ転送の統計を提供します。 ftp コマンドの出力がコンソールやディスプレイなどの端末に対して行われる場合、これがデフォルトの表示モードになります。 stdin が端末でない場合、 FTP コマンドは冗長モードを使用不可にします。ただし、ユーザーが -v (V) フラグを指定して FTP コマンドを呼び出した場合、または 詳細 サブコマンドを発行した場合を除きます。
+-s | AUTH TLS コマンドと PROT P コマンドを ftpd デーモンに送信することで、サーバーとの TLS セッションを開始します。 TLS セッションが確立され、ユーザーが標準認証方式を使用して認証されると、データとコマンドの転送は暗号化されます。
+
+例
+ftp
+コマンドを呼び出すには、システムにログインします。
+canopus
+、 ローカル・ヘルプ情報の表示, リモート・ヘルプ情報の表示, 状況の表示,
+ベル
+の切り替え,
+プロンプト
+,
+runique
+,
+トレース
+,
+verbose
+サブコマンドを使用して終了するには、次のように入力します。
+$ ftp canopus
+Connected to canopus.austin.century.com.
+220 canopus.austin.century.com FTP server (Version 4.1 Sat Nov 23 12:52:09 CST 1991) ready.
+Name (canopus:eric): dee
+331 Password required for dee.
+Password:
+230 User dee logged in.
+ftp&gt; help
+Commands may be abbreviated. Commands are:
+! delete mdelete proxy runique
+$ debug mdir sendport send
+account dir mget put size
+append disconnect mkdir pwd status
+ascii form mls quit struct
+bell get mode quote sunique
+binary glob modtime recv system
+bye hash mput remotehelp tenex
+case help nmap rstatus trace
+cd image nlist rhelp type
+cdup lcd ntrans rename user
+close ls open reset verbose
+cr macdef prompt rmdir ?
+clear private protect safe
+ftp&gt; remotehelp
+214-The following commands are recognized(* =&gt;&#x27;s unimplemented).
+USER PORT RETR MSND* ALLO DELE SITE* XMKD CDUP
+PASS PASV STOR MSOM* REST* CWD STAT* RMD XCUP
+ACCT* TYPE APPE MSAM* RNFR XCWD HELP XRMD STOU
+
+REIN* STRU MLFL* MRSQ* RNTO LIST NOOP PWD
+QUIT MODE MAIL* MRCP* ABOR NLST MKD XPWD
+AUTH ADAT PROT PBSZ MIC ENC CCC
+214 Direct comments to ftp-bugs@canopus.austin.century.com.
+ftp&gt; status
+Connected to canopus.austin.century.com.
+No proxy connection.
+Mode: stream; Type: ascii; Form: non-print; Structure: file
+Verbose: on; Bell: off; Prompting: on; Globbing: on
+Store unique: off; Receive unique: off
+Case: off; CR stripping: on
+Ntrans: off
+Nmap: off
+Hash mark printing: off; Use of PORT cmds: on
+ftp&gt; bell
+Bell mode on.
+ftp&gt; prompt
+Interactive mode off.
+ftp&gt; runique
+Receive unique on.
+ftp&gt; trace
+Packet tracing on.
+ftp&gt; verbose
+Verbose mode off.
+ftp&gt; quit
+$
+ftp
+コマンドを呼び出すには、システムにログインします。
+canopus
+、作業ディレクトリーを印刷し、作業ディレクトリーを変更し、ファイル転送タイプを ASCII に設定し、ローカル・ファイルをリモート・ホストに送信し、作業ディレクトリーを親ディレクトリーに変更してから、終了します。
+$ ftp canopus
+Connected to canopus.austin.century.com.
+220 canopus.austin.century.com FTP server (Version 4.1 Sat Nov 23 12:52:09 CST 1991) ready.
+Name (canopus:eric): dee
+331 Password required for dee.
+Password:
+230 User dee logged in.
+ftp&gt; pwd
+257 &quot;/home/dee&quot; is current directory.
+
+ftp&gt; cd desktop
+250 CWD command successful.
+ftp&gt; type ascii
+200 Type set to A.
+ftp&gt; send typescript
+200 PORT command successful.
+150 Opening data connection for typescript (128.114.4.99,1412).
+226 Transfer complete.
+ftp&gt; cdup
+250 CWD command successful.
+ftp&gt; bye
+221 Goodbye.
+$
+(
+.netrc
+ファイルを使用して) 自動ログオンで
+ftp
+コマンドを呼び出すには、システムとのセッションをオープンします。
+canopus
+、ログインし、作業ディレクトリーを親ディレクトリーに変更し、作業ディレクトリーを印刷し、現行ディレクトリーの内容をリストし、ファイルを削除し、現行ディレクトリーの内容のリストをローカル・ファイルに書き込み、セッションをクローズしてから、終了します。
+$ ftp canopus
+Connected to canopus.austin.century.com.
+220 canopus.austin.century.com FTP server (Version 4.1 Sat Nov 23 12:52:09 CST 1991) ready.
+331 Password required for dee.
+230 User dee logged in.
+ftp&gt; cdup
+250 CWD command successful.
+ftp&gt; pwd
+257 &quot;/home&quot; is current directory.
+ftp&gt; dir
+200 PORT command successful.
+150 Opening data connection for /usr/bin/ls (128.114.4.99,1407)
+(0 bytes).
+total 104
+drwxr-xr-x 2 system 32 Feb 23 17:55 bin
+Drwxr-xr-x 26 rios 4000 May 30 17:18 bin1
+drwxr-xr-x 2 system 32 Feb 23 17:55 books
+drwxrwxrwx 18 rios 1152 Jun 5 13:41 dee
+-r--r--r-- 1 system 9452 May 17 12:21 filesystems
+
+drwxr-xr-x 2 system 32 Feb 23 17:55 jim
+drwxr-xr-x 5 system 80 Feb 23 17:55 krs
+drwxrwxrwx 2 rios 16432 Feb 23 17:36 lost+found
+-rwxr-xr-x 1 rios 3651 May 24 16:45 oldmail
+drwxr-xr-x 2 system 256 Feb 23 17:55 pubserv
+drwxrwxrwx 2 system 144 Feb 23 17:55 rein989
+drwxr-xr-x 2 system 112 Feb 23 17:55 reinstall
+226 Transfer complete.
+ftp&gt; delete oldmail
+250 DELE command successful.
+ftp&gt; mdir /home/dee/bin binlist
+output to local-file: binlist? y
+200 PORT command successful.
+150 Opening data connection for /usr/bin/ls (128.114.4.99,1408) (0 bytes).
+226 Transfer complete.
+ftp&gt; close
+221 Goodbye.
+ftp&gt; quit
+$</pre>

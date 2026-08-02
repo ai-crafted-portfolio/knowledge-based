@@ -21,7 +21,7 @@ hide:
 
 <div class="grid cards kb-cats" markdown>
 
-- __[AIX 7.3](categories/c01/index.md)__
+- __[AIX 7.3](aix/index.html)__
 
     技術項目 920 件
 

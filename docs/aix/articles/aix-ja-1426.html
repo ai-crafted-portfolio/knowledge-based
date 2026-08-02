@@ -1,0 +1,36 @@
+<!doctype html><meta charset="utf-8"><pre class="official-markdown">目的
+ファイルのアクセス時刻と変更時刻を更新します。
+
+説明
+settime
+は、デフォルトでは、現行のアクセス時刻と
+変更時刻を使用して、引数ファイルを更新します。 ファイルが存在しない
+場合は、ファイルは作成されません。 ファイルが存在しない
+場合も、
+settime
+コマンドは自動的に操作を継続します。
+注:
+2038 年以降のすべての日付は、
+settime
+コマンドでは無効です。
+
+構文
+settime [[ MMddhhmm [ yy ] ] | [ -f ReferenceFile ]] ファイル ...
+
+オプション
+フラグ
+項目 | 説明
+-f ReferenceFile | 現在時刻の代わりに、 ReferenceFile の該当時刻を使用します。
+
+例
+ファイル「infile」のアクセス時刻と変更時刻を現在時刻に更新するには、
+次のように入力します。
+settime infile
+ファイル「infile」のアクセス時刻と変更時刻を「reffile」と
+同じにするには、次のように入力します。
+settime -f reffile infile
+複数のファイルのアクセス時刻と変更時刻を更新するには、次のように入力します。
+settime file1 file2 file3
+ファイルのアクセス時刻と変更時刻を 2002 年 4 月 9 日 23 時 59 分に更新するには、
+次のように入力します。
+settime 0409235902 infile</pre>

@@ -1,0 +1,47 @@
+<!doctype html><meta charset="utf-8"><pre class="official-markdown">目的
+ノードまたはデバイスを並行して ping します。
+
+説明
+dping
+コマンドは、指定されたサーバーを ping します。 このコマンドは、ノード状況を取得するため、または Rational® Method Composer (RMC) とそのハートビートに問題があると考えられる場合に使用できます。
+dping
+コマンドは、ノードまたはデバイスを並行して ping するのに使用されます。
+- Ping
+ノードは、シリーズの 2 つおきのノード・インターフェースに ping を実行します。 例えば、
+eth1
+または
+mryi0
+および
+- Direct
+ノードは、他のノードに ping を実行します。
+
+構文
+ひたすら [ -h ] [ -v ] [ -a ] [ -s ] [ -S ] [ -r ] [ -i インターフェイス］ [ -w &quot; セレクトストール &quot;] [ -H ホストリスト ] [ -f ファイル名 ] [ -N ノードグループ... ] [ -d デバイス名... ] [ -D デバイスグループ ] [[ -n ] ノードリスト ]
+
+例
+すべてのノードを ping するには、次のように入力します。
+dping -a
+出力は以下のようになります。
+node1.localdomain: ping (alive)
+node2.localdomain: noping (unreachable)
+node3.localdomain:
+ping (alive)
+group1
+ノード・グループ
+および
+eth1
+ノード・インターフェースを ping するには、次のように入力します。
+dping -N group1 -i eth1
+出力は以下のようになります。
+node1-eth1.localdomain: ping (alive)
+node2-eth1.localdomain: noping (unreachable)
+ホスト名
+node1-eth2.clusters.com
+を ping するには、次のように入力します。
+dping -i eth2 node1.clusters.com
+出力は以下のようになります。
+終了状況 0 (コマンドは正常に完了しました。)
+1
+コマンドが失敗しました。
+10
+(ノードまたはデバイスが指定されませんでした。)</pre>

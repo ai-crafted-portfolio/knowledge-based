@@ -1,0 +1,39 @@
+<!doctype html><meta charset="utf-8"><pre class="official-markdown">目的
+以前の
+AIXバージョン 4
+形式の監査ビンを
+AIXバージョン 4
+形式に変換します。
+
+説明
+AuditConv
+コマンドは、以前のバージョンのオペレーティング・システムで生成された監査レコードを、
+AIX バージョン 4
+以降のオペレーティング・システムで使用される形式に変換します。
+監査レコードは、
+OldFile
+ファイルから読み取られ、
+NewFile
+ファイルに書き込まれます。 各監査レコードはスレッド情報により更新されます。デフォルトのスレッド ID は 0 です。
+注:
+OldFile
+パラメーターと
+NewFile
+パラメーターは異なっていなければならず、監査システムによって現在使用されていてはなりません。
+AIX バージョン 4
+以降のオペレーティング・システムでは、
+AIX バージョン 4
+より前の監査ビンを処理できません。 したがって、古いビンは
+auditconv
+コマンドを使って変換する必要があります。
+
+構文
+オーディットコンヴ OldFile NewFile
+
+例
+旧監査ファイル
+pre_v4_auditbin
+を変換し、その結果を
+converted_auditbin
+に格納するには、次のコマンドを入力します。
+/usr/sbin/auditconv pre_v4_auditbin converted_auditbin</pre>

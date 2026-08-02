@@ -1,0 +1,55 @@
+<!doctype html><meta charset="utf-8"><pre class="official-markdown">目的
+現在または保留中のセキュリティー・モード構成および鍵タイプをフォーマットされた出力に表示します。
+
+説明
+lssecmode
+コマンドは、現在または保留中のセキュリティー・モード構成および鍵タイプに関する情報を表示します。 この情報は、コンプライアンス・モード、公開鍵または秘密鍵のタイプ、およびデフォルトの対称鍵タイプで構成されています。
+注:
+フラグを指定しない場合は、現在のセキュリティー構成モードと鍵タイプが表示されます。
+
+構文
+lssecmode [ ] [ | -p -d -D delim ] [ ] [ ] [ ] [ ]。 -x -T -V -h
+
+オプション
+フラグ
+項目 | 説明
+-d | 区切り文字フォーマットの出力を表示します。 デフォルトの区切り文字はコロン (:) です。 -D フラグを使用して、デフォルトの区切り文字を変更することができます。
+-D デリム | フォーマットされた出力で使用される区切り文字を指定します。 デフォルトでは、出力の区切り文字としてコロン (:) 文字が使用されます。 このフラグを使用して、1 つ以上の文字を含む別の区切り文字で出力をフォーマットすることができます。 例えば、出力データに既にコロンが含まれている場合にデフォルトの区切り文字を使用すると、混乱を招くことがあります。
+-h | コマンドの使用法を表示します。
+-p | 保留中のセキュリティー・モード構成および鍵タイプを表示します。
+-T | コマンドのトレース・メッセージを標準出力に書き込みます。
+-V | コマンドの詳細メッセージを標準出力に書き出します。
+-x | ヘッダー情報を表示してはならないことを指定します。
+
+例
+現在のセキュリティー構成モードおよび鍵タイプを表示するには、次のコマンドを入力します。
+# lssecmode
+次の例に示すような出力が表示されます。
+Current Security Mode Configuration
+Compliance Mode : none
+Asymmetric Key Type : rsa512
+Symmetric Key Type : default
+保留中のセキュリティー構成モードおよび鍵タイプを表示するには、次のコマンドを入力します。
+# lssecmode -p
+保留中のセキュリティー構成モードがなく、ステージング・ファイルが存在しない場合、次の出力が表示されます。
+2650-384 There are no pending configuration available
+区切り文字
+::
+で出力をフォーマットするには、次のコマンドを入力します。
+# lssecmode -D &quot;::&quot;
+次の例に示すような出力が表示されます。
+Current Security Mode Configuration
+Compliance Mode :: none
+Asymmetric Key Type :: rsa512
+Symmetric Key Type :: default
+保留中のセキュリティー構成モードおよび鍵タイプをコマンドの詳細メッセージと共に、ヘッダー情報なしに表示するには、次のコマンドを入力します。
+# lssecmode -p -x -V -D &quot;::&quot; -T
+次の例に示すような出力が表示されます。
+Invoked with parameters: -p -x -V -D :: -T
+Invoking lssecmode to get the pending security mode and key types....
+No header information required..
+Compliance Mode :: none
+Asymmetric Key Type :: rsa512
+Symmetric Key Type :: default
+Checking lssecmode log file size and backup if necessary....
+No log file exist. No backup is needed</pre>

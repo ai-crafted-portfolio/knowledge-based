@@ -1,0 +1,47 @@
+<!doctype html><meta charset="utf-8"><pre class="official-markdown">目的
+ファイル内の 1 つ以上のチューナブル・スタンザを更新します。
+
+説明
+tunchange
+コマンドは、チューナブル・ファイルを無条件に更新します。 このコマンドを使用して、別のファイルを現行ファイルとマージすることもできます。
+注:
+メッセージは表示されません (bosboot タイプのパラメーターが変更された場合でも)。
+
+構文
+tunchange -f ファイル名 ( -t スタンザ ({ -o パラメーター [= Value ]} | -D ) | -m Filename2 )
+
+オプション
+フラグ
+項目 | 説明
+-f ファイル名 | 更新されるチューナブル・ファイルの名前。 この名前に 「 / 」(スラッシュ) 文字が含まれていない場合は、 この名前は /etc/tunables に関連していると見なされます。
+-t Stanza | 更新するスタンザの名前。 スタンザ は、 schedo 、 vmo 、 ioo 、 no 、 nfso 、または raso のいずれかです。 Stanza は、 -o フラグで指定されたパラメーター (複数の場合もある) を更新できるコマンドの名前に対応しています。
+-o Parameter= Value | パラメーターを Value に設定します。 これは、 -t フラグで指定された Stanza で有効で、 -f フラグで指定されたファイルの他のパラメーターと整合性がある必要があります。
+-D | Stanza のすべてのパラメーターをデフォルト値にリセットします。
+-m Filename2 | Filename2 ファイルを現行の Filename ファイルとマージします。
+
+例
+/etc/tunables/nextboot
+ファイル内の
+pacefork
+パラメーターを更新するには、
+次のように入力します。
+tunchange -f nextboot -t schedo -o pacefork=10
+/home/mine/mytunable
+ファイル内の
+pacefork
+パラメーターを更新するには、
+次のように入力します。
+tunchange -f /home/mine/mytunable -t schedo -o pacefork=10
+すべての
+schedo
+スタンザ・パラメーターを
+/etc/tunables/nextboot
+ファイル内のデフォルト値にリセットするには、
+次のように入力します。
+tunchange -f nextboot -t schedo -D
+/home/mine/mytunable
+ファイルを
+/etc/tunables/nextboot
+ファイルとマージするには、
+次のように入力します。
+tunchange -f nextboot -m /home/mine/mytunable</pre>

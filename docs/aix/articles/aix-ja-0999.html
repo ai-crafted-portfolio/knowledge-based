@@ -1,0 +1,35 @@
+<!doctype html><meta charset="utf-8"><pre class="official-markdown">目的
+IPv6 の隣接ディスカバリーを表示して制御します。
+
+説明
+ndp
+プログラムは、IPv6 NDP (隣接ディスカバリー・プロトコル) によって使用される IPv6-to-Ethernet、IPv6-to-TokenRing、または IPv6-to-InfiniBand アドレス変換テーブルを表示し、修正します。
+フラグを指定しない場合、プログラムは
+hostname
+の現在の
+ndp
+エントリーを表示します。 ホストは、IPv6 テキスト表記を使用して、名前や番号で指定されることがあります。
+
+構文
+ndp [ -n ] ホスト名 ndp [ -n ] -a ndp [ -d ] ホスト名 | IpAddress ndp [ -i インターフェース番号 ] -s ホスト名 アドレス [ テンポラリ ]
+
+オプション
+フラグ
+項目 | 説明
+-a | 現在の ndp エントリーをすべて表示します。
+-d | スーパーユーザーが、 -d フラグを指定して hostname というホストのエントリーを削除できるようにします。
+-i インターフェース・インデックス | -s フラグ (ローカル・リンク・インターフェースで有用) と共に ndp エントリーを追加する場合に使用するインターフェースの索引を指定します。
+-n | ネットワーク・アドレスを数字で表示します (通常、 ndp は、アドレスを記号で表示しようとします)。
+-s ホスト名アドレス | ハードウェア・アドレス addr を使用して hostname の ndp エントリーを作成します。 ハードウェア・アドレスはコロンで区切られた 6 つの 16 進バイトで指定されます。 コマンド内に temp が指定されていない限り、このエントリーは永続となります。
+
+例
+- a
+フラグの出力例を示します。
+# ndp -a
+e-crankv6 (::903:9182) at link#2 0:20:af:db:b8:cf
+e-crankv6-11 (fe80:0:100::20:afdb:b8cf) at link#2 0:20:af:db:b8:cf
+e-crankv6-11 (fe80::2:c903:1:1e85) at link#5 SQP:0xe SLID0x49 DQP:0x48 DLID:0xf
+0:48:fe80::2:c903:1:1e85 [InfiniBand]
+# ndp -d e-crankv6-11
+e-crankv6-11 (fe80:0:100::20:afdb:b8cf) deleted
+# ndp -d fe80::2:c903:1:1e85</pre>

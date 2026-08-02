@@ -1,0 +1,99 @@
+<!doctype html><meta charset="utf-8"><pre class="official-markdown">目的
+certlist
+は、1 つ以上の証明書の内容をリストします。
+
+説明
+certlist
+コマンドは、1 つ以上の証明書の内容をリストします。
+-c
+オプションを使用すると、出力は、
+次のようにコロンで区切られたデータとしてフォーマットされ、
+属性名は直前の行の各フィールドに関連付けられます。
+# name: attribute1: attribute2: ...
+User: value1: value2: ...
+-f
+オプションを使用すると、出力は、
+スタンザ・ファイル・フォーマットでフォーマットされ、
+ユーザー名属性はスタンザ名として与えられます。
+attribute=value
+の各対は、次のように、個別の行にリストされます。
+user:
+attribute1=value
+attribute2=value
+attribute3=value
+これらのコマンド・ライン・オプションのいずれも選択しないと、属性は
+attribute=value
+の対として出力されます。
+-a
+オプションは、出力する 1 つ以上の証明書属性のリストを選択します。 ロード・モジュールによってサポートされる属性に加えて、それぞれの証明書ごとに、
+いくつかの疑似属性も提供されます。
+次のような属性があります。
+項目 | 説明
+auth_user | ユーザーの認証証明書。
+distinguished_name | 証明書内のユーザーの対象識別名。
+代替名 | 証明書内のユーザーの対象代替名。
+バリダフター (validafter) | ユーザーの証明書が有効になる日付。
+有効期限 | ユーザーの証明書が無効になる日付。
+tag | この証明書を一意的に識別する名前。
+発行者 | 証明書の発行者の識別名。
+ラベル | この証明書を識別するプライベート鍵ストア内のラベル。
+鍵ストア (keystore) | 証明書の秘密鍵用のプライベート鍵ストアの場所。
+serialNumber | 証明書のシリアル番号。
+検査済み | true ユーザーが秘密鍵を所有していることを示しています。
+
+構文
+certlist [ -c ] [ -a attr [attr....] ] tag [ username ]
+
+オプション
+フラグ
+項目 | 説明
+-c | 出力をコロンで区切ったレコードの形式で表示します。
+-f | 出力をスタンザ形式で表示します。
+-a 属性 | 表示する属性を 1 つ以上選択します。
+tag
+パラメーターは、ユーザーの証明書のいずれを出力するかを選択します。 予約済みの値
+ALL
+は、当該ユーザーの証明書をすべてリストすることを示します。
+username
+パラメータは、照会する
+AIX
+ユーザー名を指定する。
+username
+パラメーターを指定しないで
+certdelete
+コマンドを起動すると、現行ユーザーの名前が使用されます。
+
+例
+$ certlist -f -a verified keystore label signcert bob
+bob:
+verified=false
+keystore=file:/var/pki/security/keys/bob
+label=signcert
+$ certlist -c -a validafter validbefore issuer signcert bob
+#name:validafter:validuntil:issuer
+bob:1018091201:1018091301:c=US,o=xyz
+$ certlist -f ALL bob
+bob:
+auth_cert=logincert
+distinguished_name=c=US,o=xyz,cn=bob
+alternate_name=bob@xyz.com
+validafter=0921154701
+validuntil=0921154801
+issuer=c=US,o=xyz
+tag=logincert
+verified=true
+label=loginkey
+keystore=file:/var/pki/security/keys/bob
+serialnumber=03
+bob:
+auth_cert=logincert
+distinguished_name=c=US,o=xyz,cn=bob
+alternate_name=bob@ibm.com
+validafter=1018091201
+validuntil=1018091301
+issuer=c=US,o=xyz
+tag=signcert
+verified=false
+label=signkey
+keystore=file:/var/pki/security/keys/bob
+serialnumber=02</pre>

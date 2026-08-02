@@ -1,0 +1,107 @@
+<!doctype html><meta charset="utf-8"><pre class="official-markdown">目的
+セキュリティー・スタンザ・ファイル内の属性をリストします。
+
+説明
+lssec
+コマンドは、セキュリティー構成スタンザ・ファイルに保管されている属性をリストします。 次のセキュリティー構成ファイルには、
+Attribute
+パラメーターで指定できる属性が入っています。
+/etc/security/environ
+/etc/security/group
+/etc/security/audit/hosts
+/etc/security/lastlog
+/etc/security/limits
+/etc/security/login.cfg
+/usr/lib/security/mkuser.default
+/etc/nscontrol.conf
+/etc/security/passwd
+/etc/security/portlog
+/etc/security/pwdalg.cfg
+/etc/security/roles
+/etc/security/smitacl.user
+/etc/security/smitacl.group
+/etc/security/user
+/etc/security/user.roles
+/etc/security/rtc/rtcd_policy.conf
+/etc/security/uattr
+/etc/security/environ
+、
+/etc/security/lastlog
+、
+/etc/security/limits
+、
+/etc/security/passwd
+内の属性をリストする場合、
+/etc/security/uattr
+、
+および
+/etc/security/user
+ファイル、
+スタンザ
+・パラメーターによって指定されるスタンザ名は、有効なユーザー名であるか、または
+default
+.
+/etc/security/group
+ファイル内の属性をリストする場合、
+スタンザ
+・パラメーターによって指定されるスタンザ名は、有効なグループ名または
+default
+.
+/usr/lib/security/mkuser.default
+ファイル内の属性をリストする場合、
+スタンザ
+・パラメーターは次のいずれかでなければなりません。
+admin
+または
+user
+.
+/etc/security/portlog
+ファイル内の属性をリストする場合、
+スタンザ
+・パラメーターは有効なポート名でなければなりません。
+/etc/security/login.cfg
+ファイル内の属性をリストする場合、
+Stanza
+パラメーターは有効なポート名、メソッド名または
+usw
+属性でなければなりません。
+
+lssec
+コマンドを使用して
+/etc/security/passwd
+ファイルの
+password
+属性をリストすることはできません。
+root ユーザーまたは PasswdAdmin 権限を持つユーザーのみが、
+管理ユーザーに関する最終更新およびフラグの属性をリストすることができます。
+
+構文
+Lssec [ 「-c」 ] [ 「-f」 ファイル ] [ -s スタンザ ] [ -a 値 属性 ... ]
+
+オプション
+フラグ
+項目 | 説明
+-c | コロンで区切ったフォーマットで出力するように指定します。
+-f ファイル | リストするスタンザ・ファイルの名前を指定します。
+-s スタンザ | リストするスタンザの名前を指定します。
+-a 属性 | リストする属性を指定します。
+
+例
+root ユーザーの最後の正常なログイン以降に失敗した、root ユーザーによるログイン試行の回数をリストするには、次のように入力します。
+lssec -f /etc/security/lastlog -s root -a unsuccessful_login_count
+システムは次のような結果を表示します。
+root unsuccessful_login_count=15
+/dev/tty2
+ポートでログインが許可される回数をリストするには、次のように入力します。
+lssec -f /etc/security/login.cfg -s /dev/tty2 -a logintimes
+システムは次のような結果を表示します。
+/dev/tty0 logintimes=!january1,!july4,!december25
+tpath
+属性および
+ttys
+属性のデフォルト設定をコロン・フォーマットでリストするには、次のようにします。
+次のように入力します。
+lssec -c -f /etc/security/user -s default -a tpath -a ttys
+システムは次のような結果を表示します。
+#name:tpath:ttys
+default:nosak:ALL</pre>

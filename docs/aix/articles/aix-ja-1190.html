@@ -1,0 +1,124 @@
+<!doctype html><meta charset="utf-8"><pre class="official-markdown">目的
+Precision Time Protocol (1588-2008) デーモン (
+ptpd
+) を開始します。
+
+説明
+ptpd
+デーモンは、IEEE 1588-2008 標準で定義された Precision Time Protocol (PTP) バージョン 2 を実装します。 PTP は、LAN で接続されたコンピューターの正確な時間調整を行います。 このデーモンを root 権限で実行して、システム・クロックを操作し、より小さいポート番号を使用します。
+ptpd
+デーモンは、IPv4 マルチキャスト、ユニキャスト、ハイブリッド・モード (混合)、およびイーサネット・モードの操作をサポートします。
+ptpd
+デーモンは、ハードウェアの支援がなくても、マイクロ秒以下のレベルのタイミング精度を達成し維持できます。
+/etc/ptpd2.conf
+構成ファイル (デフォルト・ファイル) を使用して
+ptpd
+デーモンを構成します。 ショート (
+-x
+) フラグとロング (
+--xxxxx
+) フラグは、デーモンの操作に対する基本制御を提供し、基本 PTP プロトコル設定のみを提供します。 その他の設定は、
+-h
+、
+-H
+、および
+-e
+の各フラグで表示できます。
+ptpd
+デーモンは、システム・リソース・コントローラー (SRC) からも、コマンド・ラインからも開始できます。
+ptpd
+デーモンを操作するには、次の SRC コマンドを使用します。
+startsrc
+サブシステム、サブシステム・グループ、またはサブサーバーを始動します。
+stopsrc
+サブシステム、サブシステムのグループ、またはサブサーバーを停止します。
+refresh
+サブシステム、またはサブシステムのグループに、再度、適切な構成ファイルを読み取らせます。
+lssrc
+サブシステム、サブシステムのグループ、またはサブサーバーの状況を取得します。
+注:
+ptpd
+デーモンは、Network Time Protocol (NTP) および Simple Network Management Protocol (SNMP) 関連の機能をサポートしません。
+ptpd
+デーモンでは、以下の用語を使用します。
+slave device
+ptpd
+デーモンを実行しているシステム。
+master
+デバイスからのコマンドを受け入れ、システム時刻を同期化して、関連付けられた境界クロック時間に一致させます。
+master device
+同じネットワーク上の 1 つ以上の PTP
+スレーブ
+・デバイスのセットと時刻を同期する境界クロックにバインドされているデバイス。
+grandmaster device
+
+Best Master Clock アルゴリズムによって提供される最適なクロックを持つ
+マスター
+・デバイス。 これは、他のすべての
+マスター
+・デバイス (境界クロックとも呼ばれる) を同期化します。これにより、関連する
+スレーブ
+・デバイスが更新され、同期化されます。 グランドマスター・クロックは、ベスト・マスター・クロックまたはベスト・クロックとも呼ばれます。
+
+構文
+/usr/sbin/ptpd [ -? ] [ -h ] [ -H ] [ -e setting ] [ -k ] [ -v ] [ -O ] [ -L ] [ -A ] [ -s ] [ -m ] [ -M ] [ -y ] [ -E ] [ -P ] [ -a ] [ -n ] [ -C ] [ -V ] [ -c file ] [ -R dir ] [ -f file ] [ -S file ] [ -d domain_number ] [ -u IP_address ] [ -r number ] [ -l file ] [ -i dev ]
+
+オプション
+フラグ
+表 1. フラグ
+ショート・フラグ | ロング・フラグ | 説明
+-a | --delay-override | ワーカー状態のマスターによって通知された要求間隔の遅延をオーバーライドします。 このフラグは、 ptpengine 属性を次の設定値に設定します。 ptpengine:log_delayreq_override
+-A | --auto-lock | 事前設定されたまたはポート・モード固有のロック・ファイル名を使用します。 このフラグは、 ptpd デーモンの複数インスタンスを実行する場合に便利です。
+-c ファイル | --config-file ファイル | 構成ファイルのパスを指定します。
+-C | --foreground | フォアグラウンドで実行するコマンドを指定します。 このフラグは、 global 属性を次のように設定します。 global:foreground=Y 注: ptpd デーモンが SRC から開始された場合、このオプションは無視されます。
+-d ドメイン番号 (domain_number) | --domain ドメイン番号 (domain_number) | 所属する PTP ドメイン番号を指定します。 このフラグは、 ptpengine 属性を次のように設定します。 ptpengine:domain
+-D [DD] | --debug | デバッグ・レベルを指定します。 このフラグは、 global 属性を次のように設定します。 global:debug_level デバッグ・レベル情報を増やすには、複数インスタンスを指定できます。 例えば、 -D オプションは、最小デバッグ情報を指定します。 -DD オプションは、詳細デバッグ情報を指定します。 -DDD オプションは、最大デバッグ情報を指定します。
+-e 設定 | --explain 設定 | 単一の設定のヘルプ情報を表示します。 このフラグは、 section 属性を次のように設定します。 section:key
+-E | --e2e | エンドツーエンド遅延検出を指定します。 このフラグは、 ptpengine 属性を次のように設定します。 ptpengine:delay_mechanism=E2E
+-f ファイル | --log-file ファイル | ログ・ファイルへのパスを指定します。 このフラグは、 global 属性を次のように設定します。 global:logfile
+-h | --help | ヘルプ画面を表示します。
+
+-H | --long-help | すべての設定および動作の詳細ヘルプを表示します。
+-i 開発 | --interface 開発 | ptpd 実装に使用するインターフェースを指定します。 例えば、 en0 などです。 このフラグは、 ptpengine 属性を次のように設定します。 ptpengine:interface
+-k | --check-config | PTP 構成と出口を検査します。 構成が正しい場合は 0 を返します。
+-l ファイル | --lockfile ファイル | ロック・ファイルのパスを指定します。 このフラグは、 global 属性を次のように設定します。 global:lock_file
+-L | --ignore-lock | ロック・ファイルの検査とロッキングをスキップします。 このフラグは、 global 属性を次のように設定します。 global:ignore_lock
+-m | --masterslave | 完全な IEEE 1588 インプリメンテーションを指定します。すなわち、マスター、スレーブ (孫でない場合) (ベスト・マスター) です。 このフラグは、 ptpengine 属性を次のように設定します。 ptpengine:preset=masterslave
+-M | --masteronly | マスター専用モードを指定します。最良の GM でない場合はパッシブです。 このフラグは、 ptpengine 属性を次のように設定します。 ptpengine:preset=masteronly
+-n | --clock:no_adjust | クロックを調整しないことを指定します。 このフラグは、 clock 属性を次のように設定します。 clock:no_adjust
+-O | --default-config | デフォルト構成と出口を表示します。 この出力は、構成ファイルとして使用できます。
+-p | --print-lockfile | ロック・ファイルのパスと出口を出力します。 このフラグは、自動ロック・ファイルを使用する init スクリプトに役立ちます。
+-P | --p2p | ピアツーピア遅延検出を指定します。 このフラグは、 ptpengine 属性を次のように設定します。 ptpengine:delay_mechanism=P2P
+
+-r 番号 | --delay-interval 番号 | 遅延要求メッセージ (ログ 2) の間隔を指定します。 このフラグは、 ptpengine 属性を次のように設定します。 ptpengine:log_delayreq_interval
+-R ディレクトリー | --lock-directory ディレクトリー | ロック・ファイルを保管するディレクトリーを指定します。 このフラグは、 global 属性を次のように設定します。 global:lock_directory
+-S ファイル | --statistics-file ファイル | 統計ファイルのパスを指定します。 このフラグは、 global 属性を次のように設定します。 global:statistics_file
+-s | --slaveonly | スレーブのみモードをオンにします。 このフラグは、 ptpengine 属性を次のように設定します。 ptpengine:preset=slaveonly
+-u | --unicast | ユニキャスト・モード (ユニキャスト・ネゴシエーションなし) を指定し、すべてのメッセージを IP に送信します。 このフラグは、 ptpengine 属性を次のように設定します。 ptpengine:ip_mode=unicast + ptpengine:unicast_address
+-v | --version | バージョン・ストリングと出口を出力します。
+-V | --verbose | フォアグラウンドで実行するコマンドと、すべてのメッセージを標準出力に記録するコマンドを指定します。 このフラグは、 global 属性を次のように設定します。 global:verbose_foreground=Y 注: ptpd デーモンが SRC から開始された場合、このオプションは無視されます。
+-y | --hybrid | ハイブリッド・モード (マルチキャストとユニキャストの操作の混合) を指定します。 同期と告知にマルチキャストを使用し、遅延要求と応答にユニキャストを使用します。 このフラグは、 ptpengine 属性を次のように設定します。 ptpengine:ip_mode=hybrid
+
+例
+SRC で
+ptpd
+デーモンを開始するには、次のコマンドを入力します。
+startsrc -s ptpd
+SRC で
+ptpd
+デーモンを停止するには、次のコマンドを入力します。
+stopsrc -s ptpd
+SRC で
+ptpd
+デーモンをリフレッシュするには、次のコマンドを入力します。
+refresh -s ptpd
+ptpd
+デーモンは構成ファイルを再ロードし (デーモンによって使用される場合)、ログ・ファイルを再オープンします。
+/etc/ptpd2.conf
+パス内の構成ファイルが正しく構成されているかどうかを確認するには、次のコマンドを入力します。
+ptpd -k
+単一の設定の意味を表示するには、次のコマンドを入力します。
+ptpd -e ptpengine:interface
+この出力は、
+ptpengine:interface
+設定の意味を説明します。</pre>

@@ -1,0 +1,239 @@
+<!doctype html><meta charset="utf-8"><pre class="official-markdown">目的
+デバイスを構成し、構成ルール・オブジェクト・クラスに指定したプログラムの実行によって、オプションとしてデバイス・ソフトウェアをインストールします。
+
+説明
+cfgmgr
+コマンドはデバイスを構成し、オプションとしてデバイス・ソフトウェアをシステムにインストールします。 構成可能デバイスは、デバイス構成データベースの
+一部になっている構成ルール・オブジェクト・クラスによる制御を
+受けます。 各構成ルールが、次の項目をそれぞれ
+指定します。
+実行する実行可能プログラムの絶対パス名
+プログラムを実行する時点 (他のルールとの関連で)
+プログラムを実行するフェーズ
+システム・ブート時に、
+cfgmgr
+コマンドによって、システムを使用するために必要な
+すべてのデバイスを構成します。 システム・ブートは、次の 2 つのステップから成る
+プロセスです。
+このステップはフェーズ 1 と呼ばれ、カーネルがシステム内に取り込まれ、ブート・ファイルシステムが初期化
+された時点で開始します。 このフェーズの最中に、
+cfgmgr
+コマンドが呼び出され、
+-f
+フラグの使用によってこれをフェーズ 1 として指定します。
+cfgmgr
+コマンドが
+フェーズ 1 構成ルールのすべてを実行し、その結果、基本デバイスが
+構成されることになります。
+フェーズ 2 の実行が開始し、
+cfgmgr
+コマンドが、
+-s
+フラグを
+指定して呼び出されます。
+cfgmgr
+コマンドは、構成ルールの次の 3 つのフェーズを認識します。
+フェーズ 1
+フェーズ 2 (通常ブートの第 2 ブート・フェーズ)
+フェーズ 3 (保守ブートの第 2 ブート・フェーズ)
+cfgmgr
+コマンドは、呼び出し時に指定されたフェーズに
+関するルール (例えば、
+-f
+フラグに関するフェーズ 1 のルール) のすべてを
+実行します。 ただし、
+-l
+フラグを使用した場合、
+cfgmgr
+コマンドは、名前付きデバイスとその子のみを構成します。
+cfgmgr
+コマンドが、フェーズ・オプションを指定しないで (例えば、
+-f
+、
+-s
+、または
+-p
+フラグを指定しないで) 呼び出された場合は、フェーズ 2 ルールを実行します。 フェーズ 3 ルールは、
+-p
+フラグを指定してのみ実行できます。
+各フェーズの構成ルールは、以下で指定された値に基づいて順序付けされます。
+seq
+設定します。 この
+フィールドは、このフェーズに関する他のルールとの関係で、このルールを実行する優先順位を指定する整数です。 指定された数値が大きいほど、
+seq
+フィールドには、優先順位が低くなります。 例えば、以下のように指定された値が 1 であるとします。
+seq
+
+フィールドは、値が 10 のルールの前に実行されます。 例外が 1 つあります。
+seq
+フィールド値 0 は、「気にしない」条件を暗黙指定し、最後に実行されます。 したがって、
+seq
+フィールド値 1 が最高の優先順位で, 最初に実行されます。
+デバイスの構成時に、対応するデバイス・ソフトウェアがインストールされていないデバイスが検出されると、
+cfgmgr
+コマンドは警告メッセージを出力します。このメッセージには、インストールの必要なデバイス・パッケージ名の候補 (複数ある場合はそのリスト) が表示されます。 デバイス・パッケージの特定の名前が判別されると、その名前が
+唯一のパッケージ名として、警告メッセージの下の行に表示
+されます。 特定のパッケージ名を判別できないときは、インストール可能なパッケージの名前をコロンで区切ったリストが 1 行に表示されます。 対応するデバイス・ソフトウェアのないデバイスが複数検出された場合は、パッケージ名の候補またはそのリストが、それぞれのデバイスごとに表示されます。
+デバイス・ソフトウェアのないデバイスが検出されると、システムは、次の警告メッセージを表示します。
+cfgmgr: 0514-621 WARNING: The following device packages are
+required for device support but are not currently
+installed.
+devices.pci.22100020
+devices.pci.14101800
+devices.pci.scsi:devices.pci.00100300:devices.pci.NCR.53C825
+この例では、ソフトウェアが欠落しているデバイスが 2 つ
+検出され、
+cfgmgr
+コマンドによって、インストールする必要のある
+デバイス・パッケージの名前が表示されます。 やはりソフトウェアが欠落している 3 番目のデバイスが
+検出されましたが、この場合は、
+cfgmr
+コマンドによって、可能性のある
+デバイス・パッケージ名が幾つか表示されます。
+1 つのデバイスに対して可能性のあるパッケージ名が複数表示されている場合
+でも、インストール・メディア上のデバイス・パッケージに実際に対応するのは、これらの
+名前のうちの 1 つのみです。 インストールする必要があるのは、このパッケージです。 ただし、場合によって
+は、これらの名前のうちの複数がインストール・メディア上の実際のデバイス・パッケージに対応することも
+
+あります。 この場合は、デバイス・パッケージが
+インストール・メディア上にあるリスト内の最初のパッケージ名が、インストールする必要のある
+パッケージです。
+-i
+フラグを指定して
+cfgmgr
+コマンドを使用すると、正しいパッケージがインストールされます。
+cfgmgr
+コマンドは、
+-i
+フラグを指定して起動すると、新たに検出されたデバイスごとにデバイス・ソフトウェアを自動的にインストールしようとします。
+-i
+フラグの
+Device
+変数は、インストール・メディアの場所を指定します。 インストール・メディアは、ハードウェア・デバイス (テープやディスケット・ドライブなど)、インストール・イメージが入っているディレクトリー、インストール・イメージ・ファイル自体のいずれかです。
+“
+注意:
+構成データベースを保護するために、
+cfgmgr
+コマンドは割り込みができないようになっています。 このコマンドを完了前に
+停止すると、データベースが破壊される恐れがあります。
+”
+
+構文
+CFGR [ 「-f」 | -s | P- 位相 ] [ I 装置 ] [ -ウー Drc 名 | - 名前 ] [ -v (V) ] CFGR [ 「-f」 | -s | P- 位相 ] [ I 装置 ] [[ - 名前 | -ウー Drc 名 ] 「-c」 接続 ] [ -v (V) ]
+
+オプション
+フラグ
+項目 | 説明
+-c 接続 | 特定のターゲット・デバイスを構成するために必要な接続情報を指定します。 特定のデバイスの接続情報については、 FC デバイスおよび FCoE デバイスのターゲット構成 の説明を参照してください。
+-u ドリル名 | スロットの子に加えて構成する Peripheral Component Interconnect (PCI) または仮想スロットの Drc name 変数を指定します。 lsslot コマンドを使用して、デバイスの Drc name 変数を取得できます。
+-f | cfgmgr コマンドがフェーズ 1 構成ルールを実行すると 指定します。 このフラグは、実行時 (システムの始動後) には無効です。
+-i デバイス | インストール・メディアの場所を指定します。
+-l 名前 | その子と共に構成する名前付きデバイスを 指定します。
+-p フェーズ | cfgmgr コマンドが指定されたフェーズを実行すると 指定します。
+-s | cfgmgr コマンドがフェーズ 2 構成ルールを実行すると 指定します。
+-v | 詳細出力を指定します。 cfgmgr コマンドは、実行中の動作についての情報を標準出力に書き込みます。
+
+例
+これらの例は、次に示す情報を持つ構成ルールに基づいています。
+phase seq rule
+1 10 /usr/lib/methods/defsys
+1 12 /usr/lib/methods/deflvm
+2 10 /usr/lib/methods/defsys
+2 12 /usr/lib/methods/deflvm
+2 13 /etc/methods/startusb
+2 17 /etc/methods/cfgvlan -2
+2 18 /usr/lib/methods/cfgrcnet
+2 19 /usr/lib/methods/ptynode
+2 20 /etc/methods/vconnode
+2 20 /usr/lib/methods/startlft
+2 22 /etc/methods/startrcm
+2 25 /usr/lib/methods/starttty
+2 27 /etc/methods/startsgio
+2 0 /usr/lib/methods/defaio
+2 0 /usr/lib/methods/def_posix_aio
+2 0 /usr/lib/perf/cfg_perfstat load
+2 0 /usr/lib/perf/load_blockset_ext
+3 10 /usr/lib/methods/defsys
+3 12 /usr/lib/methods/deflvm
+3 13 /etc/methods/startusb
+3 15 /usr/lib/methods/starttty
+3 19 /usr/lib/methods/ptynode
+3 20 /usr/lib/methods/startlft
+3 20 /etc/methods/vconnode
+3 22 /etc/methods/startrcm
+3 27 /etc/methods/startsgio
+cfgmgr
+コマンドは、
+-f
+フラグを指定して起動すると、phase=1 の構成ルールをすべて取得したあと、そのルールを次の順に実行します。
+/usr/lib/methods/defsys
+/usr/lib/methods/deflvm
+注:
+-f
+フラグは実行時には使用できません。
+cfgmgr
+コマンドは、
+-s
+フラグを指定して実行すると、phase=2 の構成ルールをすべて取得し、そのルールを次の順に実行します。
+/usr/lib/methods/defsys
+/usr/lib/methods/deflvm
+
+/etc/methods/cfgvlan -2
+/usr/lib/methods/cfgrcnet
+/usr/lib/methods/ptynode
+/etc/methods/vconnode
+/usr/lib/methods/startlft
+/etc/methods/startrcm
+/usr/lib/methods/starttty
+/etc/methods/startsgio
+/usr/lib/methods/defaio
+/usr/lib/methods/def_posix_aio
+/usr/lib/perf/cfg_perfstat load
+/usr/lib/perf/load_blockset_ext
+cfgmgr
+コマンドは、
+-p 3
+フラグを指定して実行すると、phase=3
+の構成ルールをすべて取得し、そのルールを次の順に実行します。
+/usr/lib/methods/defsys
+/usr/lib/methods/deflvm
+/etc/methods/startusb
+/usr/lib/methods/starttty
+/usr/lib/methods/ptynode
+/usr/lib/methods/startlft
+/etc/methods/vconnode
+/etc/methods/startrcm
+/etc/methods/startsgio
+cfgmgr
+コマンドは、フラグを指定しないで実行すると、-s
+フラグを指定してこのコマンドを使用したときと同じように機能します。 従って、フェーズ 2 ルールは次の順序で実行されます。
+/usr/lib/methods/defsys
+/usr/lib/methods/deflvm
+/etc/methods/cfgvlan -2
+/usr/lib/methods/cfgrcnet
+/usr/lib/methods/ptynode
+/etc/methods/vconnode
+/usr/lib/methods/startlft
+/etc/methods/startrcm
+/usr/lib/methods/starttty
+/etc/methods/startsgio
+/usr/lib/methods/defaio
+/usr/lib/methods/def_posix_aio
+/usr/lib/perf/cfg_perfstat load
+/usr/lib/perf/load_blockset_ext
+検出されたデバイスを
+scsi0
+アダプターに接続された状態で構成する場合は、次のように
+
+入力します。
+cfgmgr -l scsi0
+-c
+フラグで指定された接続に接続されている
+fscsi0
+アダプターの子デバイスを構成するには、次のように入力します。
+cfgmgr -l fscsi0 -c &quot;ww_name=0x5001738000330191,lun_id=0x1000000000000&quot;
+/usr/sys/inst.images
+ディレクトリーに入っている
+ソフトウェアによる構成時に、デバイス・ソフトウェアを自動的にインストールする
+場合は、次のように入力します。
+cfgmgr -i /usr/sys/inst.images</pre>

@@ -1,0 +1,56 @@
+<!doctype html><meta charset="utf-8"><pre class="official-markdown">目的
+CPU DR 操作が失敗する原因になる恐れのある構成を検出します。
+
+説明
+このコマンドの目的は、CPU DR 操作が失敗する原因になる恐れのある構成を検出することです。 このコマンドには、複数のステップがあります。
+入力の構文解析および妥当性検査。
+単一のアクティブ CPU が CPU 内で受け渡されたものに一致する rset がないか、すべての WLM クラス
+制御ブロック rset をチェックします。 クラス制御ブロック rset は ccb [cid]-&gt; cl_rset にあり、それらのすべてを繰り返すためには、CID の値を増分し、可能な値ごとにクラスの妥当性を検査する必要があります。 そのような rset があるクラスの数のカウントが
+印刷されます。 詳細オプションが指定されている場合は、クラスの名前も
+印刷されます。
+単一のアクティブ CPU が CPU 内で受け渡されたものに一致する rset がないか、すべてのカーネル・
+レジストリー rset をチェックします。 そのような rset への接続があるプロセスの数のカウントが
+印刷されます。 詳細オプションが指定されている場合は、プロセス ID も
+印刷されます。
+番号が最も大きいバインド ID を確保するための
+bindprocessor
+接続のカウントは
+印刷されます。 詳細オプションが指定されている場合は、プロセス ID も
+印刷されます。
+
+構文
+cconvstat [ -v ] -i ID
+
+オプション
+フラグ
+項目 | 説明
+-i | 論理 CPU ID の索引
+-v | 詳細オプション。
+
+例
+# cpupstat -i 2
+3 WLM classes have single CPU rsets with CPU ID 2.
+0 processes have single CPU rset attachments with CPU ID 2.
+0 processes are bound to bind ID 2.
+# cpupstat -v -i 2
+3 WLM classes have single CPU rsets with CPU ID 2.
+c1
+c1.Default
+c1.Shared
+0 processes have single CPU rset attachments with CPU ID 2.
+0 processes are bound to bind ID 2.
+# cpupstat -i 2
+0 WLM classes have single CPU rsets with CPU ID 2.
+2 processes have single CPU rset attachments with CPU ID 2.
+0 processes are bound to bind ID 2.
+# cpupstat -v -i 2
+0 WLM classes have single CPU rsets with CPU ID 2.
+2 processes have single CPU rset attachments with CPU ID 2.
+16600
+26444
+0 processes are bound to bind ID 2.
+バインド済みプロセスの場合は、最後のリスト、出力は、rset 接続の場合と
+同じで、そこでは、
+-v
+オプションが指定されている場合は、PID が
+印刷されます。</pre>

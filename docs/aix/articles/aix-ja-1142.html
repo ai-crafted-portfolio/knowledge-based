@@ -1,0 +1,72 @@
+<!doctype html><meta charset="utf-8"><pre class="official-markdown">目的
+非同期デバイス・ストリームを PPP (Point-to-Point プロトコル) サブシステムに接続します。 デーモン・プロセスまたは通常プロセスとして起動できます。
+
+説明
+pppattachd
+デーモンは、非同期ストリームを PPP サブシステムに結合するためのメカニズムを提供します。 発信接続を特定の tty ポートに配置すると、
+pppattachd
+はデーモンになります。 stdin (標準入力) および stdout (標準出力) を PPP コミュニケーションに対する tty デバイスとして使用すると、
+pppattachd
+はデーモンになりません。 (これは tty デバイスのログイン時に
+$HOME/.profile
+から実行されます。)
+PAP または CHAP 認証は、
+authenticate
+および
+peer
+オプションで活動化することができます。
+smit
+コマンドを使用して、
+/etc/ppp/pap-secrets
+または
+/etc/ppp/chap-secrets
+ファイルに入力を作成してください。
+pppattachd
+デーモンは、これらのファイルでパスワードを使用し、接続を認証します。 これは、
+/etc/ppp/pap-secrets
+ファイルのみで PAP 認証を検索し、
+/etc/ppp/chap-secrets
+ファイルで CHAP 認証を検索します。
+マルチリンク・オプションは、PPP リンクを、
+2 つの PPP ピア間で複数のアタッチメントを持つものとして識別するために使用します。 PPP パケットは 1 つのピアでフラグメント化され、複数のアタッチメントに送信され、マルチリンクもサポートしなければならないリモート・ピアに再接続されます。 最大受信再構造単位 (MRRU) および端点ディスクリプターは、PPP リンク構成メニューの SMIT を通して設定されます。 MRRU はフラグメント化の前の最大データ・サイズです。 端点判別プログラムは、一意的にローカル・システムを識別します。
+エラーおよびメッセージは
+syslog
+機能を使用してログに記録されます。
+
+構文
+特定の tty ポートを接続として使用する (デーモンとして実行する) には pppattachd /dev/tty ポート番号 { クライアント | サーバー | デマンド } { ip | ipv6 | ip ipv6 } [ マルチリンク ] [ connect &quot; コネクタプログラム &quot; ] [ 非アクティブ 秒数 ] [ 認証 pap | chap ] [ ピア pap | chap ] [ ユーザー 名 ] [ リモート HostName ] [ nodaemon ] 標準入力および標準出力を tty デバイスとして使用する (プロセスとして実行する) には pppattachd { client | server | demand } { ip | ipv6 | ip ipv6 } [ multilink ] [ inactive Seconds ] [ authenticate pap | chap ] [ ピア pap | chap ] [ user Name ] [ remote HostName ] [ nodaemon ]
+
+例
+システム A をサーバー・システム B のクライアントとして機能させたいとします。システム A から次のように入力します。
+/usr/sbin/pppattachd /dev/tty0 client ip connect &quot;sysbconnector&quot;
+ここで
+sysbconnector
+コネクター・プログラムです。
+システム B では、ログインしたユーザーは
+$HOME/.profile
+から以下を呼び出しました。
+exec /usr/sbin/pppattachd server ip 2&gt;/dev/null
+サーバー・システム B がクライアント・システム A に接続するようにします。システム B から次のように入力します。
+/usr/sbin/pppattachd /dev/tty0 server ipv6 connect &quot;sysaconnector&quot;
+ここで
+sysaconnector
+コネクター・プログラムです。
+システム A では、ログインしたユーザーは
+$HOME/.profile
+から以下を呼び出しました。
+exec /usr/sbin/pppattachd client ipv6 2&gt;/dev/null
+システム A が PAP 認証を使用してサーバー・システム B に対するクライアントとして機能するようにします。 システム B は認証ホストとして作動し、システム A は認証されるピアです。 システム A から以下のように入力します。
+/usr/sbin/pppattachd /dev/tty0 client ip ipv6 peer pap user username \
+connect &quot;sysbconnector&quot;
+ここで
+sysbconnector
+コネクター・プログラムです。
+システム A では、
+/etc/ppp/pap-secrets
+ファイルには username * ppppassword が入っています。 システム B では、ログインしたユーザーは
+$HOME/.profile
+から以下を呼び出しました。
+exec /usr/sbin/pppattachd server ip ipv6 authenticate pap 2&gt;/dev/null
+システム B では、
+/etc/ppp/pap-secrets
+ファイルには username * ppppassword が入っています。</pre>

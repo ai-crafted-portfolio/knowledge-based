@@ -1,0 +1,79 @@
+<!doctype html><meta charset="utf-8"><pre class="official-markdown">目的
+1 つ以上のリンク済み応答を含む条件のモニターを開始します。
+
+説明
+startcondresp
+コマンドは、リンクされた応答を持つ条件のモニターを開始します。 条件と応答の間のリンクを、
+条件/応答関連付け
+と呼びます。 クラスター環境では、条件と応答は、同一のノードに定義する必要があります。 モニターが開始されると、その条件が発生したときに応答が実行されます。 応答が何も指定されない場合は、その条件にリンクされたすべての応答に関してモニターが開始されます。 この場合は、その条件が発生すると、リンクされている応答がすべて実行されます。 複数の応答が指定されている場合は、それらの応答についてのみ、モニターが開始されます。
+1 つ以上の応答が指定され、それらの応答が条件にリンクされていない場合、
+startcondresp
+コマンドは指定された応答を条件にリンクし、モニターを開始します。
+mkcondresp
+コマンドは、モニターを開始せずに応答を条件にリンクするために使用します。
+システム・ソフトウェアを正しく動作させるために特定の条件/応答関連付けが必要な場合は、
+このリンクをロックすることができます。 ロックされた条件/応答の関連付けは、
+startcondresp
+コマンドでは開始できません。
+startcondresp
+コマンドで指定した条件/応答の関連付けがロックされている場合、その関連付けは開始されません。代わりに、この条件/応答の関連付けがロックされていることを通知するエラーが生成されます。 条件/応答の関連付けをアンロックするには、
+-U
+フラグを使用できます。 ただし、
+条件/応答関連付けはシステム・ソフトウェアを正しく動作させるために不可欠であるため、通常はロックされています。
+したがって、このリンクをアンロックする前には注意を払う必要があります。 条件/応答の関連付けを開始、停止、または除去できないようにロックするには、
+-L
+フラグを使用してこのコマンドを再発行します。
+
+構文
+条件のモニターを開始するには、次のように入力します。 startcondresp [ -h ][ -TV 条件 : ノード名 ] [レスポンス ] [レスポンス ...]] ] 条件/応答関連付けをアンロックまたはロックするには、次のようにします。 startcondresp { -U | -L }[ -h ][ -TV 条件 : ノード名 ] レスポンス
+
+オプション
+フラグ
+-h
+コマンドの使用ステートメント (使用法) を標準出力に書き込みます。
+-T
+コマンドのトレース・メッセージを標準エラーに書き込みます。 これは、ソフトウェア保守部門専用の機能です。
+-V
+コマンドの詳細メッセージを標準出力に書き込みます。
+-U
+条件/応答関連付けを開始、停止、
+または除去できるようにこのリンクをアンロックします。 通常、条件/応答関連付けがロックされている理由は、
+このリンクがシステム・ソフトウェアを正しく動作させるために不可欠であることです。 このため、このリンクをアンロックする場合は、十分な注意が必要です。
+-U
+フラグを使用して条件/応答の関連付けをアンロックする場合、このコマンドで他の操作を実行することはできません。
+-L
+条件/応答関連付けが開始、停止、
+または除去できないようにこのリンクをロックします。
+-L
+フラグを使用して条件/応答の関連付けをロックする場合、このコマンドで他の操作を実行することはできません。
+
+例
+以下の例は、スタンドアロン・システムに適用されます。
+応答が条件にリンクされているかどうかに関係なく、応答 &quot;Broadcast event
+on-shift&quot; を使用した条件 &quot;FileSystem space used &quot; のモニターを開始する場合
+は、次のコマンドを実行します。
+startcondresp &quot;FileSystem space used&quot; &quot;Broadcast event on-shift&quot;
+リンクされている応答すべてを使用した条件 &quot;FileSystem space used&quot; のモニター
+を開始する場合は、次のコマンドを実行します。
+startcondresp &quot;FileSystem space used&quot;
+応答が条件にリンクされているかどうかに関係なく、応答 &quot;Broadcast event
+on-shift&quot; と &quot;E-mail root anytime&quot; を使用した条件 &quot;FileSystem space used&quot; の
+モニターを開始する場合は、次のコマンドを実行します。
+startcondresp &quot;FileSystem space used&quot; &quot;Broadcast event on-shift&quot; &quot;E-mail root anytime&quot;
+以下の例は管理ドメインに適用されます。
+応答が条件にリンクされているかどうかに関係なく、応答 &quot;Broadcast event
+on-shift&quot; を使用した条件 &quot;FileSystem space used &quot; のモニターを管理
+サーバー上で開始する場合は、管理サーバー上で次のコマンドを実行します。
+startcondresp &quot;FileSystem space used&quot; &quot;Broadcast event on-shift&quot;
+レスポンス「Broadcast event on-shift」を使用して、管理ノード「
+nodeB
+」の条件&quot;FileSystemspace used」の監視を開始するには、レスポンスが条件とリンクしているかどうかにかかわらず、管理サーバーで次のコマンドを実行します：
+startcondresp &quot;FileSystem space used&quot;:nodeB &quot;Broadcast event on-shift&quot;
+この例は、ピア・ドメインに適用されます。
+レスポンス「Broadcast event on-shift」(ドメイン内の&#x27;
+nodeA
+にもある)を使用して、ドメイン内の&#x27;
+nodeA
+
+で条件&quot;FileSystemspace used」の監視を開始するには、レスポンスが条件とリンクしているかどうかにかかわらず、ドメイン内の任意のノードでこのコマンドを実行する：
+startcondresp &quot;FileSystem space used&quot;:nodeA &quot;Broadcast event on-shift&quot;</pre>

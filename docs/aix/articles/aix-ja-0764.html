@@ -1,0 +1,28 @@
+<!doctype html><meta charset="utf-8"><pre class="official-markdown">目的
+システムで現在使用できるディスプレイをリストします。
+
+説明
+lsdisp
+コマンドはシステム上で現在使用可能なディスプレイをリストし、
+ディスプレイの論理名、
+ディスプレイ・アダプターの物理スロット番号、グラフィックス・ディスプレイが接続されているバスのタイプ、
+各ディスプレイのディスプレイ名およびそのディスプレイの説明をリストします。 また、
+このコマンドはデフォルト・ディスプレイもリストします。
+
+構文
+lsdisp [ -l ]
+
+オプション
+フラグ
+項目 | 説明
+-l | フォーマットから、 すべてのヘッダー情報とデフォルト・ディスプレイを除去するように指定します。
+
+例
+使用可能なすべてのディスプレイをリストするには、次のように入力します。
+lsdisp
+コマンドの出力は、次のように使用可能なディスプレイを 3 つリストします。
+DEV_NAME SLOT BUS ADPT_NAME DESCRIPTION
+ppr0 00-01 mca POWER_G4 Midrange Graphics Adapter
+gda0 00-03 mca colordga Color Graphics Display Adapter
+ppr1 00-04 mca POWER_Gt3 Midrange Entry Graphics Adapter
+Default display = gda0</pre>

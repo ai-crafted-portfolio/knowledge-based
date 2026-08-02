@@ -1,0 +1,216 @@
+<!doctype html><meta charset="utf-8"><pre class="official-markdown">目的
+基本 BNU 構成情報を入力します。
+
+説明
+uucpadm
+コマンドを使用すると、
+/etc/uucp
+ディレクトリー内の
+Devices
+、
+Systems
+、
+Permissions
+、
+Poll
+、
+Dialcodes
+のファイル内の基本 BNU 構成情報を対話式で入力したり修正したりすることができます。
+uucpadm
+コマンドを繰り返し使用して、同じファイルを調整することもできます。
+uucpadm
+コマンドをコマンド・ラインで入力する場合には、コマンドは変更できるファイルのリストを表示します。 修正するファイルを選択すると、コマンドはファイル内のフィールド名のリストを縦並びに表示します。 ユーザーは、個々のフィールドに適切なエントリーを入力できます。 Enter キーを押すと、カーソルはリスト内の次のフィールドへ移動します。
+コマンドは、ファイルのコピーを使用して変更を記録します。 元のファイルは、適切なメニュー上で Ctrl+U キー・シーケンスか Ctrl+X キー・シーケ
+ンスを押すまでは変更されません。 Ctrl+D キー・シーケンスを使えば、変更を保管せずにいつでも
+メイン
+uucpadm
+メニューに戻ることができます。
+ヘルプ・ルーチンを使えば、それぞれのデータ・フィールド用の説明が表示されます。 メニュー・フィールドのヘルプ・ルーチンにアクセスするには、該当のメニュー・フィールドで ? (疑問符) を入力します。
+~
+(ティルド) をフィールドに入力することによって、
+ASCII エディターが始動され、そのフィールドの適切なファイルを編集することができます。
+uucpadm
+コマンドは、
+EDITOR
+環境変数で指定されたエディターを呼び出します。
+EDITOR
+変数が定義されていない場合には、
+このコマンドは
+vi
+エディターを呼び出します。
+最初に入力するメニュー項目が既存のレコードと一致する場合には、
+uucpadm
+コマンドはそのレコードを更新するために検索します。 また、このコマンドによっていくつのレコードがその最初のエントリーに入っているかが分かります。 最初のメニュー項目の入力が既存のどのレコードとも一致しない場合、
+uucpadm
+コマンドは次の語を表示します。
+ADD
+画面の上部に表示されます。
+uucpadm
+コマンドは、入力時にデータを検査します。 ファイル間に不整合が見つかると、コマンドは警告メッセージを表示します。
+uucpadm
+コマンドが最初のメニュー項目に対してユーザーが入力したことを認識すると、
+
+その他のフィールドにはデフォルト値を入れます。 例えば、
+TCP
+として
+Type
+このコマンドは、
+「Devices」
+ファイル・メニューの残りの各フィールドに-(ハイフン) を入力します。 また、その他のファイルとの整合性やシステムで実行されている処理を検査します。 例えば、次のように入力すると、
+TCP
+として
+Type
+「デバイス」
+ファイル・メニューで、
+uucpadm
+コマンドは
+uucpd
+デーモンが実行されているかどうかを検査します。 デーモンが実行中でない場合には、コマンドは
+Type
+フィールドの後に以下のような注を表示します。
+Type: TCP
+&lt;Note: Make certain uucpd is enabled.&gt;
+Line1: -
+注:
+uucpadm
+コマンドは、
+/etc/uucp/
+Dialers
+ファイルを編集しません。 このファイルの編集には ASCII エディターを使用します。
+モード | ファイル
+rw | /etc/uucp/Devices
+rw | /etc/uucp/Dialcodes
+rw | /etc/uucp/Permissions
+rw | /etc/uucp/Poll
+rw | /etc/uucp/Systems
+
+構文
+uucpadm
+
+例
+uucpadm
+コマンドを開始するには、次のように入力します。
+/usr/sbin/uucp/uucpadm
+変更することのできるファイルをリストするメニューが表示されます。
+/etc/uucp/Devices
+ファイルにエントリーを作成するには、
+Add/Change Uucp Devices
+オプションが
+uucpadm
+メニューに表示されます。 以下は、以下を定義する
+uucpadm
+画面の例です。
+direct 9600 baud
+システムへの接続
+merlin
+上
+tty3
+デバイス:
+Type: merlin
+line1: tty3
+line2: -
+class: 9600
+dialers: direct
+/etc/uucp/Systems
+ファイルにエントリーを作成するには、
+Add/Change Uucp Systems
+オプションが
+uucpadm
+メニューに表示されます。 以下は、以下を定義する
+uucpadm
+画面の例です。
+nostromo.aus.ibm.com
+システムに接続されている
+ACU
+装置
+class 2400
+:
+Name: nostromo.aus.ibm.com
+Time: Any
+Type: ACU
+Class: 2400
+Phone: 997-7942
+Login: nuucp
+Password: gotcha
+/etc/uucp/Permissions
+ファイルを変更するには、
+Add/Change Uucp Permissions File
+オプションが
+uucpadm
+メニューに表示されます。
+以下は、
+Permissions
+ファイルに LOGNAME エントリーを定義する
+uucpadm
+画面の例です。
+L/M: LOGNAME=uucpz
+Request: yes
+Sendfiles: yes
+Read: /
+Write: NOWRITE=/etc
+Callback:
+Commands:
+Validate: merlin:nostromo
+リモート・マシンが
+merlin
+または
+nostromo
+ログイン ID は、以下のようにする必要があります。
+uucpz
+(VALIDATE オプション)。 この ID を使っているリモート・ホストは、
+ファイルの送信を要求することができ、
+ローカル・ホストはその要求に応じてファイル送信することができます。 この ID を持つユーザーは、他のグループに対して認可されているすべてのファイルについて読み取りができ、
+また、
+/etc
+
+ディレクトリー内のファイルを除いて、
+他のグループに対して認可されているすべてのファイルに書き込みができます。
+以下は、
+Permissions
+ファイルの MACHINE 項目を定義する
+uucpadm
+画面の例です。
+L/M: MACHINE=merlin
+Request: yes
+Sendfiles:
+Read: NOREAD=/etc
+Write: NOWRITE=/etc
+Callback:
+Commands: ALL
+Validate:
+マシン ID:
+merlin
+. ファイル転送の要求を行うことができます。 ユーザーは、
+/etc
+ディレクトリー内のファイルを除くすべてのファイルについて、
+読み取りと書き込みが行えます。 すべてのコマンドの実行が許可されています。
+/etc/uucp/Poll
+ファイルにエントリーを作成するには、次のように選択します。
+Add/Change Uucp Poll File
+オプションが
+uucpadm
+メニューに表示されます。
+Poll
+ファイルへの入力を定義する
+uucpadm
+画面のサンプルを以下に示します。
+System: merlin
+Hours: 0 7 13 19
+このエントリーは、BNU に対して、
+merlin.aus.ibm.com
+2400 時間 (真夜中)、700 時間 (7 a.m)、 1300 時間 (1 p.m.)、 1900 時間 (7 p.m.)
+/etc/uucp/Dialcodes
+ファイルにエントリーを作成するには、次のように選択します。
+Add/Change Uucp Dialcodes
+オプションが
+uucpadm
+メニューに表示されます。
+Dialcodes
+ファイルへの入力を定義する
+uucpadm
+画面のサンプルを以下に示します。
+Abr: LA
+Dialcode: 1-213-
+このエントリーは、
+LA
+ロサンゼルス市外局番の省略形です。</pre>

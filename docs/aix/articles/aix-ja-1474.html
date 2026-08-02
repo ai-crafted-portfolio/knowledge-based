@@ -1,0 +1,27 @@
+<!doctype html><meta charset="utf-8"><pre class="official-markdown">目的
+スペル・リストを作成します。
+
+説明
+spellin
+コマンドは、
+spell
+コマンドが使用するスペル・リストを作成します。
+spellin
+コマンドのパラメーターには、ファイル名または数字が使用できます。
+spellin
+コマンドは、標準入力されたワードと、既存のスペル・リスト・ファイルを組み合わせて、新しいスペル・リストを標準出力に書き出します。 リスト・ファイルを指定しないと、新しいリストが作成されます。
+Number
+を指定すると、
+spellin
+コマンドは指定された数のハッシュ・コードを標準入力から読み取り、圧縮されたスペル・リストを書き出します。
+
+構文
+spellin [ リスト | 数値 ]
+
+例
+単語を追加するには
+hookey
+指定されたスペル・リストに
+myhlist
+次のように入力します。
+echo hookey | spellin /usr/share/dict/hlista &gt; myhlist</pre>

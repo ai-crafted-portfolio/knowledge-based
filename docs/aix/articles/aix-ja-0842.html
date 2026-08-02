@@ -1,0 +1,44 @@
+<!doctype html><meta charset="utf-8"><pre class="official-markdown">目的
+lvm pbuf チューナブル・パラメーターを管理します。
+
+説明
+lvmo
+コマンドは、pbuf チューニング・パラメーターを設定または表示します。 等号は、特定のチューナブル・パラメーターを、指定値に設定するために使用できます。 等号を使用しない場合は、
+チューナブルの値が表示されます。
+重要:
+lvmo
+コマンドを誤用すると、パフォーマンスが低下したり、オペレーティング・システムの障害が発生したりする可能性があります。
+lvmo -a
+コマンドは、pbuf およびブロック入出力の統計情報を生成します。 pbuf およびブロック入出力レポートには、次のラベルがついています。
+ラベル | 説明
+vgname | -v オプションで指定されたボリューム・グループ名。
+pv_pbuf_count | ボリューム・グループに物理ボリュームが追加されたときに追加される pbuf の数。
+total_vg_pbufs | ボリューム・グループに使用可能な pbuf の現在の合計数。
+max_vg_pbuf_count | ボリューム・グループに割り当てることができる pbuf の最大数。
+pervg_blocked_io_count | ボリューム・グループのフリー pbuf が不足しているためにブロックされた入出力の数。
+pv_min_pbuf | 任意のボリューム・グループに物理ボリュームが追加されたときに追加される pbuf の最小数。
+global_blocked_io_count | すべてのボリューム・グループについて、 フリー pbuf が不足しているためにブロックされた入出力の数。
+aio_cache_pbuf_count | ボリューム・グループの aio_cache 論理ボリュームに使用可能な pbufs の現在の総数。
+
+構文
+lvmo -v 名称 -o チューナブル [ = 新しい値 ] lvmo -a [ -v vgname ] lvmo -L [ チューナブル ]
+
+オプション
+フラグ
+項目 | 説明
+-a | すべてのチューナブル・パラメーターの値を表示します ( tunable = value のペアで 1 行に 1 つずつ)。
+-o チューナブル [= 新しい値 ] | 値を表示するか、 Tunable を NewValue に設定します。
+
+-L [ チューナブル ] | 1 つまたはすべてのチューナブル・パラメーターの特性を、次のフォーマットで 1 行に 1 つずつリストします。 NAME CUR DEF BOOT MIN MAX UNIT TYPE DEPENDENCIES ------------------------------------------------------------------------- global_blocked_io_count 0 0 n/a 0 0 S pervg_blocked_io_count ------------------------------------------------------------------------- max_vg_pbufs 16384 n/a n/a 16384 none S max_vg_pbuf_count pv_min_pbuf pv_pbuf_count total_vg_pbufs ------------------------------------------------------------------------- max_vg_pbuf_count 0 0 n/a 0 none M max_vg_pbufs pv_min_pbuf pv_pbuf_count total_vg_pbufs ------------------------------------------------------------------------- pervg_blocked_io_count 0 0 n/a 0 0 S global_blocked_io_count ------------------------------------------------------------------------- pv_min_pbuf 512 512 n/a 0 none D max_vg_pbufs max_vg_pbuf_count pv_pbuf_count total_vg_pbufs ------------------------------------------------------------------------- pv_pbuf_count 512 512 n/a 1 16384 D max_vg_pbufs max_vg_pbuf_count pv_min_pbuf total_vg_pbufs --------------------------------------
+
+----------------------------------- total_vg_pbufs 512 n/a n/a 0 0 S max_vg_pbufs max_vg_pbuf_count pv_min_pbuf pv_pbuf_count ------------------------------------------------------------------------- ... where: n/a means parameter not supported by the current platform or kernel Parameter types: S = Static: cannot be changed D = Dynamic: can be freely changed B = Bosboot: can only be changed using bosboot and reboot R = Reboot: can only be changed during reboot C = Connect: changes are only effective for future socket connections M = Mount: changes are only effective for future mountings I = Incremental: can only be incremented d = deprecated: deprecated and cannot be changed Value conventions: K = Kilo: 2^10 G = Giga: 2^30 P = Peta: 2^50 M = Mega: 2^20 T = Tera: 2^40 E = Exa: 2^60
+
+例
+pv_pbuf_count
+の値を表示するには、次のように入力します。
+lvmo -v rootvg -o pv_pbuf_count
+pv_pbuf_count
+の値を 2048 に設定するには、次のように入力します。
+lvmo -v rootvg -o pv_pbuf_count=2048
+pbuf およびブロックされた入出力に関する統計情報を生成するには、次のように入力します。
+lvmo -a</pre>

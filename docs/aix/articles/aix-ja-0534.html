@@ -1,0 +1,136 @@
+<!doctype html><meta charset="utf-8"><pre class="official-markdown">目的
+システム構成変数値を標準出力に書き出します。
+
+説明
+getconf
+コマンドは、
+SystemwideConfiguration
+パラメーターを指定して呼び出され、
+SystemwideConfiguration
+パラメーターで指定された変数の値を標準出力に書き込みます。
+PathConfiguration
+および
+Pathname
+パラメーターを指定して呼び出された
+getconf
+コマンドは、
+PathName
+パラメーターによって指定されたパスの
+PathConfiguration
+パラメーターによって指定された変数の値を標準出力に書き込みます。
+-a
+フラグを指定して
+getconf
+コマンドを起動すると、
+すべてのシステム構成変数が標準出力に書き込まれます。
+DeviceVariable
+および
+DeviceName
+パラメーターを指定して呼び出された
+getconf
+コマンドは、
+DeviceName
+パラメーターで指定されたデバイス・パスのディスク・デバイス名またはロケーションの値を標準出力に書き込みます。
+指定した変数がシステム上で定義され、その値が
+confstr
+サブルーチンから使用可能であると記述されている場合、指定変数の値は次の構文で書き込まれます。
+&quot;%s\n&quot;, &lt;value&gt;
+それ以外の場合で、指定変数がシステム上で定義されていると、その値は次の構文で書き込まれます。
+&quot;%d\n&quot;, &lt;value&gt;
+指定した変数が有効であっても、システム上に定義されていなければ、標準出力に次のように書き出されます。
+&quot;undefined\n&quot;
+変数名が無効であるか、またはエラーが発生すると、診断メッセージが標準エラーに書き出されます。
+
+構文
+getconf [ -v 指定 ] [ SystemwideConfiguration | PathConfiguration PathName ][ DeviceVariable DeviceName ] ゲットコンフ -a
+
+オプション
+フラグ
+項目 | 説明
+-v 仕様 | 構成変数を判別する特定の仕様とバージョンを指定します。 このフラグを指定しないと、戻される値は、インプリメント・デフォルトの XBS5 準拠コンパイル環境に対応します。
+-a | すべてのシステム構成変数の値を標準出力に書き込みます。
+
+例
+ARG_MAX
+変数の値を表示するには、次のコマンドを入力します。
+getconf ARG_MAX
+/usr
+ディレクトリーの
+NAME_MAX
+変数の値を表示するには、次のコマンドを入力します。
+getconf NAME_MAX /usr
+次のシェル・コマンドのシーケンスは、未指定の戻り値をどのように処理するかを示しています。
+if value=$(getconf PATH_MAX /usr)
+then
+if [ &quot;$value&quot; = &quot;undefined&quot; ]
+then
+echo
+The value of PATH_MAX in /usr is undefined.
+else
+echo
+The value of PATH_MAX in /usr is $value.
+fi
+else
+echo Error in the getconf command.
+fi
+コマンドを次のように入力したとします。
+getconf _XBS5_ILP32_OFF32
+書き込みを行わない
+-1\n
+または
+undefined\n
+を標準出力に出力し、次に次の形式のコマンドを入力します。
+getconf -v XBS5_ILP32_OFF32 ...
+に対応する構成変数の値を決定します。
+XBS5_ILP32_OFF32
+c89
+、拡張記述で指定されたコンパイル環境。
+コマンドを次のように入力したとします。
+getconf _XBS5_ILP32_OFFBIG
+書き込みを行わない
+-1\n
+または
+undefined\n
+を標準出力に出力し、次に次の形式のコマンドを入力します。
+getconf -v XBS5_ILP32_OFFBIG ...
+に対応する構成変数の値を決定します。
+XBS5_ILP32_OFFBIG
+c89
+、拡張記述で指定されたコンパイル環境。
+コマンドを次のように入力したとします。
+getconf _XBS5_LP64_OFF64
+書き込みを行わない
+-1\n
+または
+undefined\n
+「 を標準出力に書き出すと、| 形式のコマンドは次のようになります。
+getconf -v XBS5_LP64_OFF64 ...
+このコマンドは、拡張記述である c89 に指定した XBS5_LP64_OFF64 コンパイル環境に対応する構成変数の値を判別します。
+コマンドを次のように入力したとします。
+getconf _XBS5_LPBIG_OFFBIG
+書き込みを行わない
+-1\n
+または
+undefined\n
+
+を標準出力に出力し、次に次の形式のコマンドを入力します。
+getconf -v _XBS5_LPBIG_OFFBIG
+このコマンドは、拡張記述である c89 に指定した XBS5_LPBIG_OFFBIG コンパイル環境に対応する構成変数の値を判別します。
+root ユーザーとして、ディスク
+hdisk0
+のディスク・サイズを判別するには、次のコマンドを入力します。
+getconf DISK_SIZE /dev/hdisk0
+実メモリー・サイズを判別するには、次のコマンドを入力します。
+getconf REAL_MEMORY
+マシン・ハードウェアが 32 ビットであるか 64 ビットであるかを判別するには、次のコマンドを入力します。
+getconf HARDWARE_BITMODE
+カーネルが 32 ビットであるか 64 ビットであるかを判別するには、次のコマンドを入力します。
+getconf KERNEL_BITMODE
+ディスク
+hdisk0
+のデバイス名またはロケーションを判別するには、次のコマンドを入力します。
+getconf DISK_DEVNAME hdisk0
+root ユーザーとして、ディスク
+usbms0
+のブロック・サイズを判別するには、次のコマンドを入力します。
+getconf BLOCK_SIZE /dev/usbms0</pre>

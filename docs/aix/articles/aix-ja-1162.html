@@ -1,0 +1,195 @@
+<!doctype html><meta charset="utf-8"><pre class="official-markdown">目的
+プロセスのアドレス・スペース・マップを印刷します。
+
+説明
+/proc
+ファイルシステムは、プロセスを制御するメカニズムを提供します。 また、プロセスとスレッドの現行状態に関する情報にもアクセスできますが、これはバイナリー形式です。 proctools コマンドは、いくつかの使用できる情報に基づいて
+ascii
+レポートを提供します。
+ほとんどのコマンドは、プロセス ID のリストまたは
+/proc/
+ProcessID
+文字列を入力とします。 したがって、シェル拡張
+/proc/*
+を使用することにより、システム内のすべてのプロセスを指定できます。
+proctools コマンドは、指定されたプロセスの
+/proc
+から情報を収集し、ユーザーに表示します。 proctools コマンドは
+procrun
+および
+procstop
+と同様に、
+/proc
+インターフェースを使用してプロセスを開始し、停止します。
+コマンドが
+/proc
+から収集した情報は、
+プロセスの現行状態のスナップショットであり、
+したがって停止したプロセス以外は、刻々と変化します。
+procmap
+コマンドは、プロセスのアドレス・スペース・マップを印刷します。 これは、プロセス内のそれぞれのマップされたセグメントの、
+開始アドレスとサイズを表示します。 必要な情報はすべて、
+/proc/
+ProcessID
+/map
+ファイルから収集されます。
+
+構文
+procmap [ -F ] [ -S ] { -X [ -f ] [ -n ] [ -u ] [ -q ]}] ProcessID ...
+
+オプション
+フラグ
+項目 | 説明
+-F | 別のプロセスが制御を持っていたとしても、強制的に procmap コマンドがターゲット・プロセスの制御を得るようにします。
+-S | ターゲット・プロセスの共有メモリー情報を表示します。 注: -S (S) オプションは廃止されました。 -X オプションを使用して同様の機能を実行できます。
+-X | 各アドレス範囲に関する拡張情報を表示し、ターゲット・プロセスのすべてのマップ・オブジェクトを含めます。
+-n | ターゲット・プロセスのマップされたセグメントの未ソートのアドレス範囲を表示します。
+-u | 最も適切な単位で値を表示します。 レポートで使用される単位はメトリックごとに指定されます。
+-q | ヘッダー情報を抑止します。
+-f | ターゲット・プロセスの装置番号と inode 番号の代わりに、ファイル名を表示します。 マップ・ファイルの「 MAPPED OBJECT 」列には、次のいずれかの値が表示されます。 dev:remote リモート・ファイルの場合。 dev:remote グローバル・ホスト・ストレージを使用して WPAR 内から。 &lt;full pathname&gt; 直接ストレージを使用して WPAR 内から。 dev:&lt;major#&gt; 、 &lt;minor#&gt; 、 ino:&lt;inode#&gt; 直接ストレージを使用して WPAR の外部に。 非 WPAR ローカル・ファイルの場合、ファイル名は解決されるか、またはストリング dev&lt;major#&gt; 、 &lt;minor#&gt; 、 ino:&lt;inode#&gt; が、ファイルの正しいメジャー番号、マイナー番号、および inode 番号とともに表示されます。
+ProcessID | プロセス ID を指定します。
+以下は、-X フラグを持つ列の内容の簡単な説明です。
+項目 | 説明
+Start-ADD | メモリー領域の開始アドレス。
+End-ADD | メモリー領域の終了アドレス。
+SIZE | メモリー領域のサイズ。
+MODE | メモリー領域の読み取り、書き込み、および実行の権限。
+PSIZ | メモリー領域のページ・サイズ。 以下の値が表示されます。
+s | 4K ページ・サイズ
+m | 64K ページ・サイズ
+L | 16M ページ・サイズ
+H | 16GB ページ・サイズ
+TYPE | メモリー領域のタイプ。 以下の値が表示されます。
+HEAP | ヒープ領域
+KER/LDR | その他のカーネル/ローダー・セグメント
+KERTXT | カーネル・テキスト
+
+MAINDATA | プロセスのメイン・データ/BSS
+MAINTEXT | プロセスのメイン実行可能ファイル
+MFILE | マップ・ファイル
+PLIBDATA | 専用ライブラリー・データ
+PLIBTEXT | 専用ライブラリー・テキスト
+PMMAP | 専用メモリー・マップ
+PMMFILE | 専用メモリー・マップ・ファイル
+PMMPSXRT | 専用 POSIX リアルタイム共有メモリー・マップ
+REALMEM | マップされた実メモリー
+SHM | 共有メモリー
+SHMEXT | 拡張共有メモリー
+SHMFILE | 共有メモリー・ファイル
+SLIBDATA | 共有ライブラリー・データ
+SLIBTEXT | 共有ライブラリー・テキスト
+SMMAP | 共有メモリー・マップ
+SMMFILE | 共有メモリー・マップ・ファイル
+SMMPSXRT | 共有 POSIX リアルタイム共有メモリー
+STACK | スタック領域
+VSID | メモリー領域の仮想セグメント ID
+MAPPED OBJECT | マップ・オブジェクト名
+
+例
+プロセス 12644 のアドレス・スペースを表示するには、次のように入力します。
+procmap 12644
+このコマンドの出力は以下のような情報です。
+12644 : -ksh
+10000000 232K read/exec ksh
+20000ef8 54K read/write ksh
+d008b100 80K read/exec /usr/lib/libiconv.a[shr4.0]
+f03e4c70 41K read/write /usr/lib/libiconv.a[shr4.o]
+d0080100 40K read/exec /usr/lib/libi18n.a[shr.o]
+f03f0b78 4K read/write /usr/lib/libi18n.a[shr.o]
+d007a000 11K read/exec /usr/lib/nls/loc/en_US
+d007d130 8K read/write /usr/lib/nls/loc/en_US
+d00790f8 2K read/exec /usr/lib/libcrypt.a[shr.o]
+f03e3508 0K read/write /usr/lib/libcrypt.a[shr.o]
+d02156c0 2282K read/exec /usr/lib/libc.a[shr.o]
+f03474e0 621K read/write /usr/lib/libc.a[shr.o]
+Total 3380K
+PID 1573580 を持つプロセスのアドレス範囲を表示するには、次のように入力します。
+# procmap -X 1573580
+1573580 : ./self_mod_32
+Start-ADD End-ADD SIZE MODE PSIZ TYPE VSID MAPPED OBJECT
+0 10000000 262144K r-- m KERTXT 20002
+10000000 10001d33 7K rwx sm MAINTEXT 1730DF3 self_mod_32
+200001d0 200007fc 1K rw- sm MAINDATA 4F0CCF self_mod_32
+200007fc 20011000 66K rw- sm HEAP 4F0CCF
+20011000 20011685 1K rwx sm PLIBTEXT 4F0CCF ./libself_priv.a[dl_prv32.o]
+
+20011685 2001234c 3K rw- sm HEAP 4F0CCF
+2001234c 200125c4 0K rw- sm PLIBDATA 4F0CCF ./libself_priv.a[dl_prv32.o]
+200125c4 20013000 2K rw- sm HEAP 4F0CCF
+20013000 2ff23000 261184K rw- sm STACK 4F0CCF
+30000000 30001000 4K rw- sm SMMFILE 8C0C0C dev:10,7 ino:35
+30001000 30002000 4K r-- sm SMMFILE 8C0C0C dev:10,7 ino:36
+30002000 30003000 4K rw- sm PMMFILE 8C0C0C dev:10,7 ino:35
+30003000 30004000 4K r-- sm PMMFILE 8C0C0C dev:10,7 ino:36
+30004000 30005000 4K rw- sm SMMPSXRT 8C0C0C POSIX RT SHM 1
+30005000 30006000 4K r-- sm SMMPSXRT 8C0C0C POSIX RT SHM 1
+30006000 30007000 4K rw- sm PMMPSXRT 8C0C0C POSIX RT SHM 2
+30007000 30008000 4K r-- sm PMMPSXRT 8C0C0C POSIX RT SHM 2
+30008000 30009000 4K rw- sm SMMAP 8C0C0C
+30009000 3000a000 4K r-- sm SMMAP 8C0C0C
+3000a000 3000b000 4K rw- sm PMMAP 8C0C0C
+3000b000 3000c000 4K r-- sm PMMAP 8C0C0C
+40000000 40000000 0K rw- s SHMFILE 250CA5 dev:10,7 ino:35
+50000000 50000000 0K r-- s SHMFILE 1960D16 dev:10,7 ino:36
+60000000 60001000 4K rw- sm SHM D0C8D shmid:16
+70000000 70001000 4K r-- sm SHM 11F0D9F shmid:17
+
+d0100100 d052343c 4236K rwx m SLIBTEXT 3010B81 /usr/lib/libc.a[shr.o]
+d0564100 d0564abe 2K rwx m SLIBTEXT 3010B81 /usr/lib/libcrypt.a[shr.o]
+d0652100 d0653654 5K rwx m SLIBTEXT 3010B81 ./libself.a[support32.o]
+d0654380 d0654a02 1K rwx m SLIBTEXT 3010B81 ./libself.a[shr32.o]
+d0655a80 d0656105 1K rwx m SLIBTEXT 3010B81 ./libself.a[dl_shr32.o]
+f05935cc f0593844 0K rw- sm PLIBDATA 17F0DFF ./libself.a[shr32.o]
+f06a5b6f f06a60c0 1K rw- sm PLIBDATA 17F0DFF ./libself.a[support32.o]
+f07b4ccc f07b4f44 0K rw- sm PLIBDATA 17F0DFF ./libself.a[dl_shr32.o]
+f07dfbb0 f08b7388 861K rw- sm PLIBDATA 17F0DFF /usr/lib/libc.a[shr.o]
+f08b86a8 f08b87c8 0K rw- sm PLIBDATA 17F0DFF /usr/lib/libcrypt.a[shr.o]
+Total 528579K
+PID 2031848 を持つプロセスのマップ・ファイルに対するファイル名アソシエーションを持つアドレス範囲を表示するには、次のように入力します。
+# procmap -Xf 2031848
+2031848 : ./self_mod_64
+Start-ADD End-ADD SIZE MODE PSIZ TYPE VSID MAPPED OBJECT
+0 10000000 262144K r-- m KERTXT 20002
+100000000 100002058 8K rwx sm MAINTEXT 3C0CBC self_mod_64
+1100002d0 1100009e0 1K rw- sm MAINDATA 240CA4 self_mod_64
+1100009e0 110010a00 64K rw- sm HEAP 240CA4
+
+800000000000e80 8000000000012eb 1K rwx sm PLIBTEXT 5A0CDA ./libself_priv.a[dl_prv64.o]
+8001000a0000180 8001000a00001c0 0K rw- sm PLIBDATA 16A0DEA ./libself_priv.a[dl_prv64.o]
+800200140000000 80020014003d000 244K r-- sm KER/LDR 2A20E22
+8fffffff0000000 900000000000000 262144K r-- s KER/LDR 530CD3
+900000000000e00 900000000440541 4349K rwx m SLIBTEXT 28C0E0C /usr/lib/libc.a[shr_64.o]
+900000000466400 900000000466f43 2K rwx m SLIBTEXT 28C0E0C /usr/lib/libcrypt.a[shr_64.o]
+900000000467980 900000000468e98 5K rwx m SLIBTEXT 28C0E0C ./libself.a[support64.o]
+900000000469100 900000000469568 1K rwx m SLIBTEXT 28C0E0C ./libself.a[shr64.o]
+90000000046a800 90000000046ac6b 1K rwx m SLIBTEXT 28C0E0C ./libself.a[dl_shr64.o]
+9001000a0000580 9001000a010cb88 1073K rw- sm PLIBDATA 12A0DAA /usr/lib/libc.a[shr_64.o]
+9001000a010da28 9001000a010dbb8 0K rw- sm PLIBDATA 12A0DAA /usr/lib/libcrypt.a[shr_64.o]
+9001000a0137380 9001000a01378b8 1K rw- sm PLIBDATA 12A0DAA ./libself.a[support64.o]
+9001000a0248400 9001000a0248440 0K rw- sm PLIBDATA 12A0DAA ./libself.a[shr64.o]
+
+9001000a045ab00 9001000a045ab40 0K rw- sm PLIBDATA 12A0DAA ./libself.a[dl_shr64.o]
+900200140000000 900200150000000 262144K r-- s KER/LDR B70037
+9ffffffd0000000 9ffffffe0000000 262144K r-- sm KER/LDR 50005
+9ffffffe0000000 9fffffff0000000 262144K r-- sm KER/LDR E000E
+9fffffff0000000 9fffffff000fa8e 62K rwx s SLIBTEXT 1180198 /usr/ccs/bin/usla64
+9fffffff000fa8e 9fffffff000fa8e 0K rw- s PLIBDATA 1180198 /usr/ccs/bin/usla64
+a00000000000000 a00000000001000 4K rw- sm SMMFILE 420CC2 /tmp/mmfile1
+a00000000001000 a00000000002000 4K r-- sm SMMFILE 420CC2 /tmp/mmfile2
+a00000000002000 a00000000003000 4K rw- sm PMMFILE 420CC2 /tmp/mmfile1
+a00000000003000 a00000000004000 4K r-- sm PMMFILE 420CC2 /tmp/mmfile2
+a00000000004000 a00000000005000 4K rw- sm SMMPSXRT 420CC2 POSIX RT SHM 1
+a00000000005000 a00000000006000 4K r-- sm SMMPSXRT 420CC2 POSIX RT SHM 1
+a00000000006000 a00000000007000 4K rw- sm PMMPSXRT 420CC2 POSIX RT SHM 2
+a00000000007000 a00000000008000 4K r-- sm PMMPSXRT 420CC2 POSIX RT SHM 2
+a00000000008000 a00000000009000 4K rw- sm SMMAP 420CC2
+
+a00000000009000 a0000000000a000 4K r-- sm SMMAP 420CC2
+a0000000000a000 a0000000000b000 4K rw- sm PMMAP 420CC2
+a0000000000b000 a0000000000c000 4K r-- sm PMMAP 420CC2
+a00010000000000 a00010000000000 0K rw- s SHMFILE 250CA5 /tmp/mmfile1
+a00010010000000 a00010010000000 0K r-- s SHMFILE 1960D16 /tmp/mmfile2
+a00020000000000 a00020000001000 4K rw- sm SHM 5B0CDB shmid:18
+a00030000000000 a00030000001000 4K r-- sm SHM 1980D18 shmid:19
+fffffff00000000 1000000000000000 4194304K rw- sm STACK 10D0D8D
+Total 5510897K</pre>

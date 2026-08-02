@@ -1,0 +1,237 @@
+<!doctype html><meta charset="utf-8"><pre class="official-markdown">目的
+クラスター構成情報をリストします。
+
+説明
+lscluster
+コマンドは、クラスターおよびクラスター構成に関連した属性を表示します。
+
+構文
+クラスター { I | - [ -k (K) ] | -d 年 | 「-c」 [ N クラスター名 ] } | { -m (M) [ ノード名 ] | -s | I インターフェース名 | - インターフェース名 | -d 年 ディスク名 }
+
+オプション
+フラグ
+項目 | 説明
+-c | クラスター構成をリストします。
+-d | クラスター・ストレージ・インターフェースをリストします。
+-g | ノードごとに報告された、現在アクティブになっているネットワーク・ゲートウェイ・インターフェースをリストします。
+-i | 各 Cluster Aware AIX® (CAA) ノードで現在構成されているネットワーク・デバイス・ドライバー (NDD) および疑似 NDD インターフェースをリストします。 CAA が、ハートビート・パケットを交換するためにインターフェースをすべては使用しない可能性があります。 注: ストレージ・フレームワーク通信 ( sfwcom ) インターフェースは、このインターフェースが構成済みで使用可能な場合にのみ、 UP として表示されます。 そうでない場合は、表示されません。
+-k | ノードごとに割り当てられているネットワーク・ゲートウェイ・インターフェースをリストします。 これらのインターフェースはダウンしている場合も、構成されていない場合もあります。 このフラグは、 -g フラグと一緒にのみ指定できます。
+-m | クラスター・ノード構成情報をリストします。 この情報には、連絡先のリストが含まれます。 連絡先 は、クラスターがハートビート・パケットを交換するために使用するクラスター構成インターフェースです。 連絡先に長時間にわたって CAA トラフィックがない場合、その連絡先は連絡先のリストから削除されます。
+-n | すべてのインターフェース、ストレージ、またはクラスター構成についてクラスター名を照会できるようにします ( -i 、 -d 、または -c フラグを指定した場合のみ適用可能)。
+-s | ローカル・ノード上のクラスター・ネットワーク統計情報をリストします。
+
+例
+すべてのノードのクラスター構成をリストするには、次のように入力します。
+lscluster -m
+以下に出力例を示します。
+# lscluster -m
+Calling node query for all nodes...
+Node query number of nodes examined: 2
+Node name: nodeA.ibm.com
+Cluster shorthand id for node: 1
+uuid for node: 84088524-b124-11e3-8210-32c8e74b1e02
+State of node: UP NODE_LOCAL
+Smoothed rtt to node: 0
+Mean Deviation in network rtt to node: 0
+Number of clusters node is a member in: 1
+CLUSTER NAME TYPE SHID UUID
+Sample local 84ee37f4-b124-11e3-8210-32c8e74b1e02
+Number of points_of_contact for node: 0
+Point-of-contact interface &amp; contact state
+n/a
+------------------------------
+Node name: nodeB.ibm.com
+Cluster shorthand id for node: 2
+uuid for node: 8492a5a6-b124-11e3-8210-32c8e74b1e02
+State of node: UP
+Smoothed rtt to node: 70
+Mean Deviation in network rtt to node: 82
+Number of clusters node is a member in: 1
+CLUSTER NAME TYPE SHID UUID
+Sample local 84ee37f4-b124-11e3-8210-32c8e74b1e02
+Number of points_of_contact for node: 2
+Point-of-contact interface &amp; contact state
+dpcom UP RESTRICTED
+en0 UP
+ローカル・ノードのクラスター構成をリストするには、次のように入力します。
+lscluster -s
+以下に出力例を示します。
+# lscluster -s
+
+Cluster Network Statistics:
+pkts seen: 33861217 passed: 32052241
+IP pkts: 5778096 UDP pkts: 1934943
+gossip pkts sent: 1463320 gossip pkts recv: 688759
+cluster address pkts: 0 CP pkts: 1808962
+bad transmits: 5 bad posts: 4
+Bad transmit (overflow - disk ): 0
+Bad transmit (overflow - tcpsock): 0
+Bad transmit (host unreachable): 0
+Bad transmit (net unreachable): 0
+Bad transmit (network down): 0
+Bad transmit (no connection): 0
+short pkts: 0 multicast pkts: 1808880
+cluster wide errors: 0 bad pkts: 0
+dup pkts: 0 dropped pkts: 14
+pkt fragments: 1 fragments queued: 0
+fragments freed: 0
+pkts pulled: 0 no memory: 0
+rxmit requests recv: 10 requests found: 3
+requests missed: 7 ooo pkts: 0
+requests reset sent: 7 reset recv: 0
+remote tcpsock send: 0 tcpsock recv: 0
+rxmit requests sent: 0
+alive pkts sent: 0 alive pkts recv: 0
+ahafs pkts sent: 2 ahafs pkts recv: 0
+nodedown pkts sent: 0 nodedown pkts recv: 1
+socket pkts sent: 62 socket pkts recv: 54
+cwide pkts sent: 275321 cwide pkts recv: 275318
+socket pkts no space: 0 pkts recv notforhere: 0
+Pseudo socket pkts sent: 0 Pseudo socket pkts recv: 0
+
+Pseudo socket pkts dropped: 0
+arp pkts sent: 1 arp pkts recv: 2
+stale pkts recv: 0 other cluster pkts: 4
+storage pkts sent: 1 storage pkts recv: 1
+disk pkts sent: 174 disk pkts recv: 0
+unicast pkts sent: 275364 unicast pkts recv: 82
+out-of-range pkts recv: 0
+IPv6 pkts sent: 0 IPv6 pkts recv: 122
+IPv6 frags sent: 0 IPv6 frags recv: 0
+Unhandled large pkts: 0
+mrxmit overflow : 0 urxmit overflow: 0
+ローカル・ノードのインターフェース情報をリストするには、次のように入力します。
+lscluster -i
+以下に出力例を示します。
+# lscluster -i
+Network/Storage Interface Query
+Cluster Name: Sample
+Cluster uuid: 84ee37f4-b124-11e3-8210-32c8e74b1e02
+Number of nodes reporting = 2
+Number of nodes expected = 2
+Node nodeA.ibm.com
+Node uuid = 84088524-b124-11e3-8210-32c8e74b1e02
+Number of interfaces discovered = 2
+Interface number 1 en0
+ifnet type = 6 ndd type = 7
+Mac address length = 6
+Mac address = 32:C8:E7:4B:1E:02
+Smoothed rrt across interface = 0
+Mean Deviation in network rrt across interface = 0
+Probe interval for interface = 100 ms
+ifnet flags for interface = 0x1E080863
+ndd flags for interface = 0x0021081B
+Interface state UP
+
+Number of regular addresses configured on interface = 1
+IPv4 ADDRESS: 9.3.199.216 broadcast 9.3.199.255 netmask 255.255.254.0
+Number of cluster multicast addresses configured on interface = 1
+IPv4 MULTICAST ADDRESS: 228.3.199.216 broadcast 0.0.0.0 netmask 0.0.0.0
+Interface number 2 dpcom
+ifnet type = 0 ndd type = 305
+Mac address length = 0
+Mac address = 00:00:00:00:00:00
+Smoothed rrt across interface = 750
+Mean Deviation in network rrt across interface = 1500
+Probe interval for interface = 22500 ms
+ifnet flags for interface = 0x00000000
+ndd flags for interface = 0x00000009
+Interface state UP RESTRICTED AIX_CONTROLLED
+Pseudo Interface
+Interface State DOWN
+Node nodeB.ibm.com
+Node uuid = 8492a5a6-b124-11e3-8210-32c8e74b1e02
+Number of interfaces discovered = 2
+Interface number 1 en0
+ifnet type = 6 ndd type = 7
+Mac address length = 6
+Mac address = 32:C8:EF:AD:7C:02
+Smoothed rrt across interface = 0
+Mean Deviation in network rrt across interface = 0
+Probe interval for interface = 990 ms
+ifnet flags for interface = 0x1E084863
+ndd flags for interface = 0x0021081B
+Interface state UP
+
+Number of regular addresses configured on interface = 1
+IPv4 ADDRESS: 9.3.199.128 broadcast 9.3.199.255 netmask 255.255.254.0
+Number of cluster multicast addresses configured on interface = 1
+IPv4 MULTICAST ADDRESS: 228.3.199.216 broadcast 0.0.0.0 netmask 0.0.0.0
+Interface number 2 dpcom
+ifnet type = 0 ndd type = 305
+Mac address length = 0
+Mac address = 00:00:00:00:00:00
+Smoothed rrt across interface = 750
+Mean Deviation in network rrt across interface = 1500
+Probe interval for interface = 22500 ms
+ifnet flags for interface = 0x00000000
+ndd flags for interface = 0x00000009
+Interface state UP RESTRICTED AIX_CONTROLLED
+Pseudo Interface
+Interface State DOWN
+クラスターのストレージ・インターフェース情報をリストするには、次のように入力します。
+lscluster -d
+以下に出力例を示します。
+# lscluster -d
+Storage Interface Query
+Cluster Name: Sample
+Cluster uuid: 84ee37f4-b124-11e3-8210-32c8e74b1e02
+Number of nodes reporting = 2
+Number of nodes expected = 2
+Node nodeA.ibm.com
+Node uuid = 84088524-b124-11e3-8210-32c8e74b1e02
+Number of disk discovered = 1
+hdisk4
+state : UP
+uDid :
+uUid : 76c94719-7335-ded6-10e2-77d61ff7998c
+type : REPDISK
+
+Node nodeB.ibm.com
+Node uuid = 8492a5a6-b124-11e3-8210-32c8e74b1e02
+Number of disk discovered = 1
+hdisk0
+state : UP
+uDid : 382300c4f4f700004c0000000140799c6e39.3105VDASD03AIXvscsi
+uUid : 76c94719-7335-ded6-10e2-77d61ff7998c
+type : REPDISK
+クラスター構成をリストするには、次のように入力します。
+lscluster -c
+以下に出力例を示します。
+# lscluster -c
+Cluster Name: Sample
+Cluste UUID: 8e1d89da-b39d-11e3-91e7-d24dc2d9d309
+Number of nodes in cluster = 2
+Cluster ID for node nodeA.ibm.com: 1
+Primary IP address for node r5r3m25.aus.stglabs.ibm.com: 9.3.207.132
+Cluster ID for node nodeB.ibm.com: 2
+Primary IP address for node r5r3m26.aus.stglabs.ibm.com: 9.3.207.218
+Number of disks in cluster = 1
+Disk = hdisk6 UUID = 57208624-fda4-d404-a7c0-8e425e2941a4 cluster_major = 0 cluster_minor = 1
+Multicast for site LOCAL: IPv4 228.3.207.132 IPv6 ff05::e403:cf84
+Communication Mode: multicast
+Local node maximum capabilities: HNAME_CHG, UNICAST, IPV6, SITE
+Effective cluster-wide capabilities: HNAME_CHG, UNICAST, IPV6, SI
+ノードごとに割り当てられているネットワーク・ゲートウェイ・インターフェースをリストするには、次のコマンドを実行してください。
+lscluster -g -k
+以下に出力例を示します。
+# lscluster -g -k
+
+Configured Network Gateway Interfaces
+Cluster Name: Sample
+Cluster UUID: 6b535f42-b3d3-11e9-8004-00145e742bf8
+Number of nodes found = 2
+Node node1.ibm.com
+Node SHID = 1
+Node UUID = 6b2d5f36-b3d3-11e9-8004-00145e742bf8
+Number of network gateways Configured = 1
+IPv4 ADDRESS: 9.3.xxx.xxx
+Node node2.ibm.com
+Node SHID = 2
+Node UUID = 3f5c5970-b789-11e9-800a-00145e742bf8
+Number of network gateways Configured = 2
+IPv4 ADDRESS: 9.3.xxx.xxx
+IPv4 ADDRESS: 12.12.12.12
+IP アドレス 12.12.12.12 はアクティブではありませんが、この出力においては、
+-k
+フラグの指定のために表示されています。</pre>

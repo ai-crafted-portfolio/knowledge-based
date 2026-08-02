@@ -1,0 +1,164 @@
+<!doctype html><meta charset="utf-8"><pre class="official-markdown">目的
+1 つの条件と 1 つ以上の応答との間のリンクを削除します。
+
+説明
+rmcondresp
+コマンドは、条件と 1 つ以上の応答との間のリンクを削除します。
+条件と応答の間のリンクは、
+条件/応答の関連付け
+と呼ばれます。
+条件が発生しても、応答はもう実行されません。 コマンド・パラメーターが応答のみで構成されることを指定するには、
+-r
+フラグを使用します。 これは、このような応答の条件への全リンクを削除します。 条件が 1 つだけ指定されている場合は、
+条件に対するすべての応答へのリンクが除去されます。
+システム・ソフトウェアが正しく動作するために特定の
+条件/応答の関連付け
+が必要な場合には、それをロックすることができます。 ロックされた
+条件/応答関連付け
+は、
+rmcondresp
+コマンドでは除去できません。
+rmcondresp
+コマンドで指定した
+条件/応答の関連付け
+がロックされている場合、その関連付けは削除されません。代わりに、この
+条件/応答の関連付け
+がロックされていることを通知するエラーが生成されます。
+条件/応答の関連付け
+をアンロックするには、
+-U
+フラグを使用できます。 しかし、
+条件/応答の関連付け
+はシステム・ソフトウェアの正常な動作のために必須であり、通常はロックされているので、これをアンロックする際は十分な注意が必要です。
+
+構文
+条件と 1 つまたは複数の応答との間のリンクを削除する場合: rmcondresp [ -q ][ -h ][ -TV 条件 : ノード名 ] [レスポンス ...]] ]を指定する 1 つまたは複数の応答への、すべてのリンクを削除する場合: rmcondresp [ -q ] -r [ -h ] [ -TV ] response1 [ response2 ...] [ : node_name ] 条件/応答の関連付け をロックまたはアンロックする場合: rmcondresp { -U | -L }[ -h ][ -TV 条件 : ノード名 ] レスポンス
+
+オプション
+フラグ
+-q
+condition
+または
+response
+が
+存在しない場合、エラーを戻しません。
+-r
+コマンド・パラメーターすべてが応答であることを示します。 条件は指定されていません。 このコマンドは、指定された応答にリンクされているすべての条件から、
+条件/応答の関連付け
+を除去します。
+-h
+コマンドの使用ステートメント (使用法) を標準出力に書き込みます。
+-T
+コマンドのトレース・メッセージを標準エラーに書き込みます。 これは、ソフトウェア保守部門専用の機能です。
+-V
+コマンドの詳細メッセージを標準出力に書き込みます。
+-U
+条件/応答の関連付け
+をアンロックして、その始動、停止、除去ができるようにします。
+条件/応答の関連付け
+のロックはシステム・ソフトウェアが正しく動作するために必須であり、当然のことです。 このため、このリンクをアンロックする場合は、十分な注意が必要です。
+-U
+フラグを使用して
+条件/応答の関連付け
+をアンロックする場合、このコマンドで他の操作を実行することはできません。
+-L
+条件/応答の関連付け
+をロックし、その始動、停止、除去ができないようにします。
+-L
+フラグを使用して
+条件/応答関連付け
+をロックすると、このコマンドでは他の操作を実行できません。
+
+例
+以下の例は、スタンドアロン・システムに適用されます。
+条件
+“
+FileSystem space used
+”
+と応答
+“
+Broadcast event on-shift
+”
+の間のリンクを削除するには、次のコマンドを実行します。
+rmcondresp &quot;FileSystem space used&quot; &quot;Broadcast event on-shift&quot;
+条件
+“
+FileSystem space used
+”
+とそのすべての応答の間のリンクを削除するには、次のコマンドを実行します。
+rmcondresp &quot;FileSystem space used&quot;
+条件
+“
+FileSystem space used
+”
+と、応答
+“
+Broadcast event on-shift
+”
+および
+“
+E-mail root anytime
+”
+との間のリンクを削除するには、次のコマンドを実行します。
+rmcondresp &quot;FileSystem space used&quot; &quot;Broadcast event on-shift&quot; &quot;E-mail root anytime&quot;
+応答
+“
+Broadcast event on-shift
+”
+とそれを使用するすべての条件との間のリンクを削除するには、次のコマンドを実行します。
+rmcondresp -r &quot;Broadcast event on-shift&quot;
+以下の例は管理ドメインに適用されます。
+管理サーバー上の条件
+“
+FileSystem space used
+”
+と応答
+“
+Broadcast event on-shift
+”
+の間のリンクを削除するには、管理サーバー上で次のコマンドを実行します。
+rmcondresp &quot;FileSystem space used&quot; &quot;Broadcast event on-shift&quot;
+管理対象ノード
+nodeB
+上の条件
+“
+FileSystem space used
+”
+と応答
+“
+Broadcast event on-shift
+”
+および
+“
+E-mail root anytime
+”
+の間のリンクを削除するには、管理サーバーで次のコマンドを実行します。
+rmcondresp &quot;FileSystem space used&quot;:nodeB \
+&quot;Broadcast event on-shift&quot; &quot;E-mail root anytime&quot;
+以下の例はピア・ドメインに適用されます。
+条件
+“
+FileSystem space used
+”
+on
+nodeA
+(ドメイン内) と応答
+“
+
+Broadcast event on-shift
+”
+および
+“
+E-mail root anytime
+”
+の間のリンクを削除するには、ドメイン内の任意のノードで次のコマンドを実行します。
+rmcondresp &quot;FileSystem space used&quot;:nodeA \
+&quot;Broadcast event on-shift&quot; &quot;E-mail root anytime&quot;
+ドメイン内の
+nodeA
+のすべての条件と応答
+“
+Broadcast event on-shift
+”
+の間のリンクを削除するには、ドメイン内の任意のノードで次のコマンドを実行します。
+rmcondresp -r &quot;Broadcast event on-shift&quot;:nodeA</pre>

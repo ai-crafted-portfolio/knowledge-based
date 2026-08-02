@@ -1,0 +1,24 @@
+<!doctype html><meta charset="utf-8"><pre class="official-markdown">目的
+var/adm/acct/sum
+および
+var/adm/acct/nite
+サブディレクトリーからファイルを削除します。
+
+説明
+remove
+コマンドは、
+/var/adm/acct/sum(x)/wtmp*
+、
+/var/adm/acct/sum(x)/pacct*
+、および
+/var/adm/acct/nite(x)/lock*
+ファイルをすべて削除します。
+remove
+コマンドは、
+cron
+デーモンを使用してスケジューリングしておかなければなりません。 また、
+remove
+コマンドは毎晩ではなく、各アカウンティング期間の終わりに実行する必要があります。
+
+構文
+/usr/sbin/acct/remove</pre>

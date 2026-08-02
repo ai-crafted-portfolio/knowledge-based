@@ -1,0 +1,1008 @@
+<!doctype html><meta charset="utf-8"><pre class="official-markdown">目的
+ネットワーク・インストール管理 (NIM) オブジェクトの操作を行います。
+
+説明
+nim
+コマンドは、NIM オブジェクトで操作を行います。 実行される操作のタイプは、
+ObjectName
+パラメータで指定されるオブジェクトのタイプに依存する。 実行できる操作には、環境の初期化やリソースの管理があります。 サポートされている操作のリストを表示するには、
+lsnim
+コマンドを使用します。
+
+構文
+nim { -o Operation} [ -F ] [ -t Type ] [ -a Attribute=Value... ] {ObjectName}
+
+オプション
+フラグ
+表 1. フラグ
+項目 | 説明
+-a 属性 = 価値 . . . | 指定された属性に指定された値を割り当てます。 特定の操作に有効な属性のリストを取得するには、&#x27; lsnim -q Operation -t Type コマンドを使用する。
+-F | いくつかの安全検査をオーバーライドします。
+
+-o Operation | NIM オブジェクトで行う操作を指定します。 以下は可能な操作である： activate 管理されたシステム を起動する。 allocate リソースを割り当てて使用できるようにします。 alt_disk_install 代替ディスク・インストールを実行します。 alt_disk_mig rootvgのコピーを空きディスク（またはディスク）に作成し、同時に AIX の新しいバージョンまたはリリース・レベルにアップグレードする。 bos_inst BOS インストールを実行します。 change オブジェクトの属性を変更します。 check NIM オブジェクトの状況を検査します。 chwpar 管理対象のワークロード区画の特性を変更します。 create 管理対象システムのインスタンスを作成します。 cust ソフトウェアのカスタマイズを実行します。 deactivate 管理対象のシステムを停止します。 deallocate リソースの割り当てを解除します。 define オブジェクトを定義します。 destroy 管理対象システムのインスタンスを除去します。 diag この操作により、システムは診断イメージをブートできるようになる。 dkls_init システムのディスクレス環境を初期化します。 dtls_init システムのデータレス環境を初期化します。 fix_query APAR またはキーワードの固定情報をリストします。 linux_inst スタンドアロン・クライアントに Linux® オペレーティング・システムをインストールします。 lppchk インストールされたファイルセットを NIM システムおよび SPOT で検査します。 lppmgr lpp_source 内の不要なソフトウェア・イメージを除去します。 lslpp オブジェクトのライセンス・プログラム情報をリストします。 lswpar この操作は、管理ワークロードのパーティションの特徴を示している。 maint ソフトウェアの保守を行います。 maint_boot システムが保守モードでブートできるようにします。 reboot NIM クライアント・システムをリブートします。
+表2. フラグ（続き）
+項目 | 説明
+
+-o Operation (続き) | remove オブジェクトを除去します。 reset オブジェクトの NIM 状態をリセットします。 restvg restvg 操作を実行します。 この restvg 操作は、NIMマスターからコマンド nim -o restvg を使用して呼び出された場合、パスフレーズまたはPlatformキーストア（ PKS ）による暗号化認証方式を無視します。 select この操作は、グループに対して実行される操作にグループメンバーを含めたり、除外したりする。 showlog NIM クライアントのインストール、ブートまたはカスタマイズのログ、あるいは SPOT のインストール・ログを NIM マスターから表示します。 showres NIM リソースの内容を表示します。 sync NIM データベースを代替マスターと同期化します。 sync_roots 特定の共用プロダクト・オブジェクト・ツリー (SPOT) 用にディスクレス・クライアントとデータレス・クライアントのルート・ディレクトリーを同期化します。 syncwpar これは、管理対象のワークロード区画ソフトウェアを管理元システムと同期化します。 takeover この操作により、「 alternate_master 」として設定されたマシンがNIM環境を制御できるようになる。 unconfig NIM マスター・ファイルセットを構成解除します。 update ソフトウェアを lpp_source に追加するか、 またはソフトウェアを lpp_source から除去します。 updateios vios または ivm タイプである、仮想入出力サーバー (VIOS) 管理サーバー上でソフトウェアのカスタマイズおよび保守を実行します。 特定のタイプに有効な操作のリストを得るには、「 lsnim -POt Type コマンドを使う。
+表3. フラグ（続き）
+項目 | 説明
+
+-t type | 定義操作のために NIM オブジェクト型を指定します。 以下は可能なNIMオブジェクト・タイプである： resource タイプ adapter_def 2 次アダプター定義ファイルを含むディレクトリー。 boot ブート・イメージがクライアントに割り振り済みであることを示すのに使用される、内部的に管理された NIM リソース。 bosinst_data ベースシステムのインストール時に使用するファイルを設定する。 devexports デバイスはワークロードパーティションのファイルをエクスポートします。 dump クライアント・ダンプ・ファイルの親ディレクトリー。 exclude_files mksysb イメージから除外されるファイルを含みます。 fb_script マシンの最初のリブート時に実行される実行可能スクリプト。 fix_bundle cust 操作または fix_query 操作の固定 (キーワード) 入力ファイル。 home クライアント &#x27; /home ディレクトリの親ディレクトリ。 image_data ベースシステムのインストール時に使用するファイルを設定する。 installp_bundle Installp バンドル・ファイル。 ios_mksysb vios または「 ivm タイプのVIOS管理サーバーから取得したバックアップイメージを表す。 linux_source Linux インストール・メディアを表します。 log ネットワーク・インストール中にログ・データを収集します。 lpp_source オプションのプロダクト・イメージのソース・デバイス。 mksysb mksysb イメージ。 nas_filer network-attached storage (NAS) デバイス。 nim_script NIM が NIM 操作の一部としてスクリプトを実行する必要があることを示すのに使用される、内部的に管理された NIM リソース paging クライアントのページング・ファイルの親ディレクトリー。 root クライアント&#x27; / （ルート）ディレクトリの親ディレクトリ。 resolv_conf ネーム・サーバー構成ファイル。 savevg savevg イメージ。 savewpar ワークロード区画のバックアップ・イメージ。 script クライアントで実行する実行可能ファイル。 secattrs ワークロード区画用のセキュリティー属性ファイル。 shared_home クライアントが共有する /home
+
+ディレクトリ。 shared_root クライアントが共有する / (root) ディレクトリ spot 共用プロダクト・オブジェクト・ツリー (SPOT) - /usr ファイルシステムに相当。 tmp クライアント &#x27; /tmp ディレクトリの親ディレクトリ。 vg_data ボリューム・グループの復元時に使用される構成ファイル。 wpar_spec ワークロード区画作成用の仕様ファイル。
+
+項目 | 説明
+-t Type (続き) | machine タイプ alternate_master 1 次 NIM マスターが正常に機能しなくなった場合にバックアップとして確保されるシステム。 diskless すべてのファイルシステムとリソースはリモートである。 dataless ローカルページング、ダンプ、リモート&#x27; / 、&#x27; /usr 、その他リモートまたはローカル。 stand-alone ローカルのファイルシステムおよびリソース。 master NIM 環境をコントロールするシステム。 wpar 管理システムがホストするワークロードパーティション。 management タイプ bcmm ブレード管理モジュール・ハードウェア。 cec 集中電子コンプレックス・ハードウェア。 hmc ハードウェア管理コンソール・システム。 ivm 統合仮想管理システム。 vios 仮想入出力サーバー。 network タイプ tok トークンリング・ネットワーク。 ent イーサネット・ネットワーク。 fddi FDDI ネットワーク。 atm ATM ネットワーク。 generic その他のInternet Protocolネットワーク hfi ホスト・ファブリック・インターフェース (HFI) ネットワーク。 group タイプ mac_group マシンのグループ。 res_group リソースのグループ。 customer タイプ customer マシンとリソースを組み合わせたグループ。
+
+例
+次に示す例は、操作ごとにまとめてあります。
+activate
+マネージド「
+wpar1
+ワークロード・パーティションを起動するには、以下のコマンドを入力する：
+nim -o activate wpar1
+マネージド「
+wpar1
+ワークロード・パーティションを、さらに「
+startwpar
+コマンド・フラグで冗長出力付きで起動するには、以下のコマンドを入力する：
+nim -o activate -a cmd_flags=&quot;-v&quot; wpar1
+allocate
+名前「
+syzygy
+、SPOT属性値「
+spot1
+」のディスクレス・ワークステーションにリソースを割り当てるには、以下のコマンドを入力する：
+nim -o allocate -a spot=spot1 syzygy
+krakatoa
+というシステムで基本システムのインストールを実行するには、まず次のように入力して、リソースを割り当てる必要があります。
+nim -o allocate -a spot=myspot -a lpp_source=images krakatoa
+次のコマンドを入力し、「
+bos_inst
+オペレーションを実行することで、インストールをサポートするNIM環境を初期化できる：
+nim -o bos_inst krakatoa
+ソフトウェア製品「
+adt
+」をスタンドアロン・システム「
+stand1
+」にインストー ルするには、インストール可能なオプション「
+adt
+」を「
+lpp_source
+「
+images
+」に指定し、 以下のコマンドを入力する：
+nim -o allocate -a lpp_source=images stand1
+nim -o cust -a filesets=&quot;adt&quot; stand1
+スタンドアロン・システム「
+stand1
+」に、インストール可能なオプション「
+adt
+」のイ メージが「
+lpp_source
+、「
+images
+、およびインストール可能なオプションの名前を含む 「
+installp_bundle
+、「
+bundle1
+」に含まれるように、ソフトウェア製品をインストールするには、 以下のコマンドを入力する：
+nim -o allocate -a lpp_source=images \
+-a installp_bundle=bundle1 stand1
+nim -o cust stand1
+BOSのインストール後、名前解決サービスを持つマシンを自動的に構成するには、 以下のサンプル・ファイルのような内容の「
+
+/exports/resolv.conf
+ファイルを作成する：
+nameserver 129.35.143.253
+nameserver 9.3.199.2
+domain austin.ibm.com
+/exports/resolv.conf
+ファイルを作成したら、以下のコマンドを入力する：
+nim -o define -t resolv_conf -a location=/exports/resolv.conf \
+-a server=master rconf1
+bos_inst
+オペレーションを発行する前に、以下のコマンドを入力して、このリソースを他の必須およびオプションのリソースとともに割り当てる：
+nim -o allocate -a spot=spot1 -a lpp_source=images1 \
+-a bosinst_data=bid1 -a resolv_conf=rconf1 client1
+NIMリソース・グループ「
+res_grp1
+」からマシン「
+mac1
+」に、スタンドアロン・マシンに適用される全リソースを割り当てるには、以下のコマンドを入力する：
+nim -o allocate -a group=res_grp1 mac1
+名前の付いたスタンドアロンマシンを名前の
+standalone1
+付いた顧客に割り当てるには、
+customer1
+次のコマンドを入力します:
+nim -o allocate -a standalone=standalone1 customer1
+名前の付いた
+lpp_source
+を名
+lpp_source1
+前の付いた に割り当てるには、次の
+customer1
+コマンドを入力します:
+nim -o allocate -a lpp_source=lpp_source1 customer1
+alt_disk_install
+hdisk4と hdisk5上のクライアント「
+roundrock
+」に「
+mksysb
+リソース「
+all_devices_mysysb
+を、「
+image_data
+リソース「
+image_data_shrink
+」を使って、デバッグをオンにしてインストールするには、 以下のコマンドを入力する：
+nim -o alt_disk_install -a source=mksysb\
+-a image_data=image_data_shrink\
+-a debug=yes\
+-a disk=&#x27;hdisk4 hdisk5&#x27; roundrock
+クライアント「
+austin
+上の「
+
+rootvg
+」をhdisk22にクローンするが、phase11とphase2のみを実行する（「
+/alt_inst
+ファイルシステムをマウントしたままにする）には、以下のコマンドを入力する：
+nim -o alt_disk_install -a source=rootvg\
+-a disk=&#x27;hdisk2&#x27;\
+-a phase=12 austin
+bos_inst
+リソース「
+spot1
+、「
+images1
+、「
+bosinst_data1
+、「
+rconf1
+」を使用してマシン「
+blowfish
+」をインストー ルするには、まず、次のように入力してリソースを割り当てる：
+nim -o allocate -a spot=spot1 -a lpp_source=images1 \
+-a bosinst_data=bosinst_data1 -a resolv_conf=rconf1 blowfish
+それから、次のように入力して、BOS インストールを実行します。
+nim -o bos_inst blowfish
+マシン「
+blowfish
+インストールしながら、リソース「
+spot1
+、「
+images1
+、「
+bosinst_data1
+、「
+rconf1
+」を「
+bos_inst
+操作開始時に自動的に割り当てるには、以下のコマンドを入力する：
+nim -o bos_inst -a spot=spot1 -a lpp_source=images1 \
+-a bosinst_data=bosinst_data1 -a resolv_conf=rconf1 blowfish
+マシン「
+mac1
+インストール時にデフォルトのリソースを使用するには、以下のコマンドを入力する：
+nim -o bos_inst mac1
+マシン「
+deadfish
+」に「
+spot1
+」と「
+lpp_source1
+インストールし、「
+adapter_def
+リソース「
+adapter_def1
+」を使用してセカンダリアダプタを構成するには、次のコマンドを入力する：
+nim -o bos_inst -a spot=spot1 -a lpp_source=lpp_source1 \
+-a adapter_def=adapter_def1 deadfish
+マシン・ブローフィッシュをインストールし、ソフトウェア・ライセンス契約を受け入れるには、以下のコマンドを入力します：
+nim -o bos_inst -a spot=spot1 -a lpp_source=images1 \
+
+-a accept_licenses=yes -a resolv_conf=rconf1 blowfish
+change
+BLDG905
+ネットワーク上のマシンは、
+gateway905
+ゲートウェイを使用して
+OZ
+ネットワークに到達します。
+OZ
+ネットワーク上のマシンは、
+gatewayOZ
+ゲートウェイを使用して
+BLDG905
+ネットワークに到達します。
+BLDG905
+」と「
+OZ
+名前の2つのネットワーク間にルートを追加するには、以下のコマンドを入力する：
+nim -o change -a routing1=&quot;OZ gateway905 gatewayOZ&quot; BLDG905
+ホスト名
+sailfish2.austin.ibm.com
+で識別される
+アダプターを、トークンリング・ネットワークに付加します。 NIMマスタでこのアダプタのセカンダリ・インターフェースを定義し、NIMに、接続されているイーサネット・ネットワークを表すNIMネットワークを検索し、見つからない場合はサブネットマスク「
+255.255.255.128
+持つNIMネットワークを定義するように指示するには、次のコマンドを入力する：
+nim -o change -a if2=&quot;find_net sailfish2.austin.ibm.com 0&quot; \
+-a net_definition=&quot;tok 255.255.255.128&quot; -a ring_speed2=16 master
+注:
+ネットワークのデフォルト名が生成されますが、新規ネットワークのルーティング情報は指定されません。
+デフォルトゲートウェイ「
+gw1
+」と「
+gw2
+使用するネットワーク「
+net1
+」と「
+net2
+」のデフォルトルートを定義するには、以下のコマンドを入力する：
+nim -o change -a routing1=&quot;default gw1&quot; net1
+nim -o change -a routing1=&quot;default gw2&quot; net2
+リソースグループ&#x27;
+res_grp1
+で定義されるリソースを、これらのリソースが適用される操作の間、常にデフォルトで割り当てられるリソースのセットとして指定するには、以下のコマンドを入力する：
+nim -o change -a default_res=res_grp1 master
+check
+myspot
+名前のSPOTの使い勝手をNIMにチェックさせるには、以下のコマンドを入力する：
+nim -o check myspot
+images
+という
+
+lpp_source
+のステータスをチェックするには、以下のコマンドを入力する：
+nim -o check images
+chwpar
+リソースセット「
+rs/cpus23
+」を「
+wpar1
+ワークロードパーティションのリソース制御属性に追加するには、以下のコマンドを入力する：
+nim -o chwpar -a cmd_flags=&quot;-R rset=rs/cpu23&quot; wpar1
+create
+ホスト名と仕様ファイル・リソース「
+basic_wpar
+」を持つ「
+wpar1
+ワークロード・パー ティションを作成するには、以下のコマンドを入力する：
+nim -o create -a wpar_spec=basic_wpar wpar1
+wpar-specification
+ファイル・リソース
+wpar1_spec
+で
+wpar1
+ワークロード・パーティションを作成するには、以下のコマンドを入力します：
+nim -o create -a wpar_spec=wpar1_spec wpar1
+savewpar
+バックアップイメージリソース「
+wpar1_backup
+」から「
+wpar1
+ワークロードパーティションを作成するには、以下のコマンドを入力します：
+nim -o create -a savewpar=wpar_backup wpar1
+cust
+spot1
+名前の場所にソフトウェア製品をインストールし、「
+adt
+名前のインストール可能なオプションのイメージが「
+lpp_source
+」に存在し、「
+images
+名前の場所に存在するようにするには、以下のコマンドを入力する：
+nim -o cust -a lpp_source=images -a filesets=adt spot1
+インストール可能なオプション「
+adt
+」のイメージが「
+lpp_source
+、「
+images
+、 「
+installp_bundle
+、「
+bundle1
+」にインストール可能なオプションの名前が含まれるように、 ソフトウェア製品をスポット「
+spot1
+」にインストールするには、以下のコマンドを 入力する：
+nim -o cust -a lpp_source=images -a installp_bundle=bundle1 spot1
+スポット「
+spot1
+」にソフトウェア製品をインストールし、インストール可能なオプショ ン「
+adt
+
+」のイメージが、そのスポットがあるマシンのローカル・テープ・ドライブに あるテープに存在するようにするには、以下のコマンドを入力する：
+nim -o cust -a lpp_source=/dev/rmt0 -a filesets=adt spot1
+スポット「
+spot1
+」にソフトウェア製品をインストールし、インストール可能なオプショ ン「
+adt
+」のイメージが、そのスポットがあるマシンのローカル・テープ・ドライブに あるテープに存在するようにするには、以下のコマンドを入力する：
+nim -o cust -a lpp_source=/dev/rmt0 -a filesets=adt spot1
+テープ「
+/dev/rmt0
+」に存在するAPAR「
+IX12345
+」に関連するすべてのファイルセット更新を 「
+spot1
+」と、現在「
+spot1
+」が割り当てられているディスクレスまたはデータレスのク ライアントにインストールするには、次のコマンドを入力する：
+nim -F -o cust -afixes=IX12345 -a lpp_source=/dev/rmt0 spot1
+クライアント
+Standalone1
+にインストールされているすべてのソフトウェアを、
+updt_images
+という名前の
+lpp_source
+にある最新のアップデートで更新するには、以下のコマンドを入力する：
+nim -o allocate -a lpp_source=updt_images Standalone1
+nim -o cust -afixes=update_all Standalone1
+マシン
+catfish
+を
+installp_bundle
+の
+bundle1
+の内容とともにインストールするには、まず次のように入力して、リソースを割り当てます。
+nim -o allocate -a installp_bundle=bundle1 \
+-a lpp_source=images1 catfish
+次に、「
+cust
+オペレーションを実行する：
+nim -o cust catfish
+クライアント
+Standalone1
+にインストールされているすべてのソフトウェアを、
+updt_images
+という名前の
+lpp_source
+にある最新のアップデートで更新するには、以下のコマンドを入力します：
+nim -o cust -a lpp_source=updt_images -a fixes=update_all \
+Standalone1
+マシン「
+
+catfish
+」に「
+installp_bundle
+「
+bundle1
+内容をインストールし、「
+cust
+操作の実行時にこのリソースと「
+lpp_source
+images1
+」を割り当てるには、次のコマンドを入力する：
+nim -o cust -a installp_bundle=bundle1 -a lpp_source=images1 \
+catfish
+クライアント・マシン「
+deadfish
+」にセカンダリ・アダプタを設定するには、「
+adaper_def
+リソー ス「
+adapter_def1
+」にあるセカンダリ・アダプタ設定ファイルを使用して、以下のコマンドを 入力する：
+nim -o cust -a adapter_def=adapter_def1 deadfish
+deactivate
+マネージド「
+wpar1
+ワークロード・パーティションを停止するには、以下のコマンドを入力する：
+nim -o deactivate wpar1
+管理対象「
+wpar1
+ワークロード・パーティションを強制的に停止するには、以下のコマンドを入力する：
+nim -Fo deactivate wpar1
+管理対象の「
+wpar1
+ワークロードパーティションを、さらに「
+stopwpar
+コマンドフラグで85秒後に停止させるには、以下のコマンドを入力する：
+nim -o deactivate -a cmd_flags=&quot;-t 85&quot; wpar1
+deallocate
+スタンドアロン・マシン「
+client1
+」から「
+images
+名前の「
+lpp_source
+」を 解放するには、以下のコマンドを入力する：
+nim -o deallocate -a lpp_source=images client1
+名前が
+idevp9-lp10
+の顧客から、
+customer1
+名前が のスタンドアロンマシンを解放するには、次のコマンドを入力します:
+nim -o deallocate -a standalone=idevp9-lp10 customer1
+define
+インストール可能なイメージを含むディレクトリで、サーバー&#x27;
+altoid
+上にあり、パス名が&#x27;
+/usr/sys/inst.images
+であるリソースを定義し、そのリソースに&#x27;
+images
+名前を付けるには、次のコマンドを入力します：
+nim -o define -t lpp_source -a server=altoid \
+
+-a location=/usr/sys/inst.images images
+NIMマスターの「
+/export/exec
+ディレクトリに「
+myspot
+」という新しいSPOTリソースを、「
+lpp_source
+名前のイメージを使って作成するには、次のコマンドを入力する：
+nim -o define -t spot -a server=master -a location=/export/exec \
+-a source=images myspot
+サブネット・マスクが「
+255.255.240.0
+、アドレスが「
+129.35.129.0
+」の「
+BLDG905
+」というネットワーク・オブジェ クトを定義するには、以下のコマンドを入力する：
+nim -o define -t tok -a snm=255.255.240.0 \
+-a net_addr=129.35.129.0 BLDG905
+マスターの「
+/resources/mksysb.image
+」にある既存の「
+mksysb
+イメージから「
+mksysb
+リソース 「
+mksysb1
+定義するには、以下のコマンドを入力します：
+nim -o define -t mksysb -a server=master \
+-a location=/resources/mksysb.image mksysb1
+サブネットマスクが「
+255.255.240
+」でアドレスが「
+129.35.101.0
+」のATMnetという名前のNIMネットワークを、「
+generic
+ネットワークタイプを使って定義するには、次のコマンドを入力する：
+nim -o define -t generic -a snm=255.255.240.0 \
+-a net.addr=129.35.101.0 ATMnet
+diskls1
+、
+diskls2
+、
+diskls3
+という名前のNIMディスクレス・マシンをメンバーとする
+DisklsMacs1
+というマシン・グループを定義するには、以下のコマンドを入力する：
+nim -o define -t mac_group -a add_member=diskls1 \
+-a add_member=diskls2 -a add_member=diskls3 DisklsMacs1
+リソース「
+spot1
+、「
+root1
+、「
+dump1
+、「
+paging1
+、「
+home1
+、「
+tmp1
+」を持つ「
+DisklsRes1
+
+名前のリソースグループを定義するには、以下のコマンドを入力する：
+nim -o define -t res_group -a spot=spot1 -a root=root1 \
+-a dump=dump1 -a paging=paging1 -a home=home1 -a tmp=tmp1 \
+DisklsRes1
+mksysb
+リソース&#x27;
+mksysb2
+を定義し、クライアント&#x27;
+client1
+の&#x27;
+mksysb
+イメージを作成するために必要なスペースを表示するには、マスター上の&#x27;
+/resources/mksysb.image
+にイメージが配置されているリソース定義中に、次のコマンドを入力します：
+注:
+このアクションで表示されるのは、
+mksysb
+操作に必要なスペースだけです。
+そうでなければ、リソース作成は行われません。
+nim -o define -t mksysb -a server=master \
+-a location=/resources/mksysb.image -a source=client1 \
+-a mk_image=yes -a size_preview=yes mksysb2
+mksysb
+リソース&#x27;
+mksysb2
+を定義し、クライアント&#x27;
+client1
+&#x27;の&#x27;
+mksysb
+イメージを作成するには、マスターの&#x27;
+/resources/mksysb.image
+にあるイメージのリソース定義中に、以下のコマンドを入力します：
+nim -o define -t mksysb -a server=master \
+-a location=/resources/mksysb.image -a source=client1 \
+-a mk_image=yes mksysb2
+mksysb
+リソース「
+mksysb2
+」を定義し、クライアント「
+client1
+」の「
+mksysb
+イ メージを作成するには、イメージの作成に使用されるmksysbフラグが「
+-em
+であり、 イメージがマスター上の「
+/resources/mksysb.image
+」にあるリソース定義中に、以下のコマンドを 入力します：
+nim -o define -t mksysb -a server=master \
+-a location=/resources/mksysb.image -a source=client1 \
+-a mk_image=yes -a mksysb_flags=em mksysb2
+マスターの「
+
+/resources/mksysb.image
+」にある「
+exclude_file1
+」という名前の「
+exclude_files
+リソースを定義するには、以下のコマンドを入力する：
+nim -o define -t exclude_files -a server=master \
+-a location=/resources/exclude_file1 exclude_file1
+redfish
+、ホスト名&#x27;
+redfish_t.lab.austin.ibm.com
+と呼ばれるマシンは、リング速度16メガビットのトークンリングネットワークに接続されたプライマリインターフェイスを持っている。
+redfish
+NIM環境のスタンドアロン・マシンとして定義し、マシンのプライマリ・インターフェイスが接続されているネットワーク名を検索するようにNIMに指示するには、次のコマンドを入力する：
+nim -o define -t stand-alone -a if1=&quot;find_net \
+redfish_t.lab.austin.ibm.com 0&quot; -a ring_speed1=16 redfish
+bluefish
+、ホスト名は
+bluefish_e.lab.austin.ibm.com
+、プライマリインターフェイスは
+cable_type
+、
+bnc
+のイーサネットネットワークに接続されている。
+bluefish
+NIM環境のディスクレスマシンとして定義し、マシンのプライマリインタフェースが接続されているネットワーク名を検索し、見つからない場合は、ホスト名「
+lab_gate
+」のゲートウェイを使用して、名前「
+ent_net
+、サブネットマスク「
+255.255.255.128
+、デフォルトルートのNIMネットワークを定義するようにNIMに指示するには、次のコマンドを入力する：
+nim -o define -t diskless -a if1=&quot;find_net \
+bluefish_e.lab.austin.ibm.com 0&quot; -a net_definition=&quot;ent \
+255.255.255.128 lab_gate 0 ent_net&quot; -a cable_type=bnc bluefish
+注:
+マスターのデフォルト経路が存在する場合は
+net_definition
+属性のマスター・ゲートウェイの位置で 0 を指定し、
+存在しない場合は、マスター・ゲートウェイを指定します。
+/export/nim/adapters
+ディレクトリを&#x27;
+
+adapter_def
+リソース&#x27;
+adapter_def1
+として定義するには、マスター上で以下のコマンドを入力する：
+nim -o define -t adapter_def -a server=master \
+-a location=/export/nim/adapters adapter_def1
+2 次アダプター構成ファイルを含んだ
+adapter_def
+リソースを転送するには、
+nimadapters
+コマンドを実行します。
+savevg
+リソース&#x27;
+savevg2
+を定義し、クライアント&#x27;
+client1
+&#x27;の&#x27;
+savevg
+イメージを作成するために必要なスペースを表示するには、マスターの&#x27;
+/export/nim/savevg
+にイメージがあり、バックアップする&#x27;
+volume_group
+&#x27;が&#x27;
+myvg
+であるリソース定義中に、次のコマンドを入力します：
+nim -o define -t savevg -a server=master \
+-a location=/export/nim/savevg/savevg2 -a source=client1 \
+-a mk_image=yes -a size_preview=yes -a volume_group=myvg savevg2
+注:
+このアクションは、操作に必要なスペースを示します。
+savevg
+またはリソース作成は行われません。
+savevg
+リソース&#x27;
+savevg2
+を定義し、クライアント&#x27;
+client1
+&#x27;の&#x27;
+savevg
+イメージを作成するには、マスターの&#x27;
+/export/nim/savevg
+にイメージがあり、バックアップする&#x27;
+volume_group
+&#x27;が&#x27;
+myvg
+であるリソース定義中に、次のコマンドを入力します：
+nim -o define -t savevg -a server=master \
+-a location=/export/nim/savevg -a source=client1 \
+-a mk_image=yes -a volume_group=myvg savevg2
+savevg
+リソース&#x27;
+savevg2
+を定義し、クライアント&#x27;
+client1
+&#x27;の&#x27;
+savevg
+イメージを作成するには、イメージの作成に使用される&#x27;
+savevg
+フラグが&#x27;
+-em
+であり、イメージがマスター上の&#x27;
+/export/nim/savevg
+にあるリソース定義中に、以下のコマンドを入力します：
+
+nim -o define -t savevg -a server=master \
+-a location=/export/nim/savevg -a source=client1 \
+-a mk_image=yes -a volume_group=myvg -a savevg_flags=em savevg2
+vg_data
+リソース「
+my_vg_data
+」を定義するには、マスター上の「
+/export/nim
+場所に、以下のコマンドを入力する：
+nim -o define -t vg_data -a server=master -a location=/export/nim/my_vg_data my_vg_data
+管理システムのホスト名とワークロードパーティション名の両方をwpar1として、「
+yogi
+管理スタンドアロンマシンが管理する「
+wpar1
+ワークロードパーティションを定義するには、以下のコマンドを入力する：
+nim -o define -t wpar -a mgmt_profile1=&quot;yogi wpar1&quot; -a if1=&quot;find_net wpar1 0&quot; wpar1
+wpar1backup
+名前の「
+savewpar
+リソースを定義し、「
+sterling
+サーバー上の「
+yogi
+ワークロードパーティションの「
+savewpar
+イメージを作成するには、以下のコマンドを入力する：
+nim -o define -t savewpar \
+-a server=sterling -a location=/resources/wpar1.image \
+-a source=wpar1 -a mk_image=yes wpar1backup
+wpar1backup
+名前の「
+savewpar
+リソースを定義し、「
+sterling
+サーバー上の「
+yogi
+ワークロードパーティションの「
+savewpar
+イメージを作成し、「
+exclude_files
+リソースの「
+wparexclude
+」のファイルパターンを除外し、ファイルを除外するフラグを「
+savewpar
+リソースに渡し、「
+image.data
+ファイルを作成するには、以下のコマンドを入力する：
+nim -o define -t savewpar \
+-a server=sterling -a location=/resources/wpar1.image -a source=wpar1 \
+
+-a exclude_files=wparexclude -a cmd_flags=&quot;-ei&quot; mk_image=yes wpar1backup
+ios_mksysb1
+などの&#x27;
+ios_mksysb
+リソースを定義し、&#x27;
+vios
+クライアントの&#x27;
+ios_mksysb
+イメージを&#x27;
+vios1
+として作成するには、マスターの&#x27;
+/export/nim/ios_mksysb
+にイメージを配置するリソース定義中に、以下のコマンドを入力します：
+nim -o define -t ios_mksysb -a server=master \
+-a location=/export/nim/ios_mksysb -a source=vios1 \
+-a mk_image=yes ios_mksysb1
+顧客オブジェクトを定義するには、次のコマンドを入力します：
+nim -o define -t customer -a server=master customer1
+destroy
+管理されている「
+wpar1
+ワークロード・パーティションを管理システムから削除するには、以下のコマンドを入力する：
+nim -o destroy wpar1
+マネージド「
+wpar1
+ワークロード・パーティションを強制的に削除するには、以下のコマンドを入力する：
+nim -Fo destroy wpar1
+dkls_init
+リソース「
+spot1
+、「
+root1
+、「
+dump1
+、「
+paging1
+」を使用して、「
+syzygy
+名前のディスクレス・ワークステーション用の環境を初期化するには、次のように入力してリソースを割り当てる必要がある：
+nim -o allocate -a spot=spot1 -a root=root1 -a dump=dump1 \
+-a paging=paging1 syzygy
+それから、次のように入力して、クライアント・マシンのリソースを初期化します。
+nim -o dkls_init syzygy
+syzygy
+名前のディスクレス・ワークステーションの環境を初期化するには、以下のコマンドを入力する：
+nim -o dkls_init syzygy
+diskls2
+名前のメンバーをマシン・グループ「
+DisklsMacs1
+」の操作から除外し、「
+DisklsRes1
+リソース・グループで定義されたディスクレス・リソースを割り当てながら、残りのメンバーを 初期化するには、次の2つのコマンドを入力します：
+
+nim -o select -a exclude=diskls2 DisklsMacs1
+nim -o dkls_init -a group=DisklsRes1 DisklsMacs1
+マシン・グループ「
+dtgrp1
+」で定義されるディスクレス・マシンのグループを初期化し、「
+dkls_init
+操作の実行時に、リソース・グループ「
+dk_resgrp1
+」で定義される必要リソースとオプション・リソースを割り当てるには、以下のコマンドを入力する：
+nim -o dkls_init -a group=dtgrp1 dk_resgrp1
+dtls_init
+リソース「
+spot1
+、「
+root1
+、「
+dump1
+」を使用して、「
+syzygy
+名前のデータなしワークステーションの環境を初期化するには、まず次のようにタイプしてリソースを割り当てる：
+nim -o allocate -a spot=spot1 -a root=root1 -a dump=dump1 syzygy
+次に、以下のコマンドを入力して、クライアント・マシンのリソースを初期化する：
+nim -o dtls_init syzygy
+syzygy
+名前のデータなしワークステーションの環境を初期化するには、以下のコマンドを入力する：
+nim -o dtls_init syzygy
+dataless1
+という名前のメンバーをマシン・グループ&#x27;
+DatalsMacs1
+&#x27;の操作から除外し、&#x27;
+DatalsRes1
+という リソース・グループで定義されたデータなしリソースを割り当てながら、残りのメンバーを 初期化するには、次の2つのコマンドを入力する：
+nim -o select -a exclude=datals2 DatalsMacs1
+nim -o dtls_init -a group=DatalsMacs1 DatalsRes1
+マシン・グループ「
+DatalsMacs1
+」で定義されたデータなしマシンのグループを初期化し、 リソース・グループ「
+DatalsRes1
+」で定義された必要なリソースとオプションのリソースを 「
+dtls_init
+操作の実行時に割り当てるには、以下のコマンドを入力する：
+nim -o dtls_init -a group=DatalsMacs1 DatalsRes1
+fix_query
+クライアント「
+Standalone1
+
+」にインストールされている修正プログラムに関する情報を、20個のAPAR番号について一覧表示するには、図のように、1行に1個のAPAR番号を含むファイル「
+/tmp/apar.list
+作成します：
+IX123435
+IX54321
+IX99999
+...
+/tmp/apar.list
+ファイルを作成したら、以下のコマンドを入力する：
+nim -o define -t fix_bundle -alocation=/tmp/apar.list \
+-aserver=master fix_bun
+nim -o allocate -a fix_bundle=fix_bun Standalone1
+nim -o fix_query Standalone1
+lppchk
+SPOT「
+spot1
+」のファイルセットのバージョンと必要な整合性をチェックするには、次のコマンドを入力する：
+nim -o lppchk spot1
+スタンドアロンマシン「
+macgrp1
+」のグループ内のNIMターゲット上の名前「
+bos
+」で始まるすべてのパッケージのファイル「
+checksums
+」を検証し、詳細なエラー情報を表示し、矛盾が見つかったときに実際のファイルのチェックサムと一致するようにソフトウェアデータベースを更新するには、次のコマンドを入力する：
+nim -o lppchk -a lppchk_flags=&#x27;-c -m3 -u&#x27; \
+-a filesets=&#x27;bos*&#x27; macgrp1
+lppchk
+操作はデフォルトではグループ・メンバーのバックグラウンドで実行されるので、
+lppchk
+操作の出力を表示するには、次のように入力します。
+nim -o showlog -a log_type=lppchk macgrp1
+lppmgr
+lpp_source1
+」から削除しなければならない重複したベース・レベル・ファイルセットの名前を、スペースの使用情報とともに一覧表示するには、次のコマンドを入力する：
+nim -o lppmgr -a lppmgr_flags=&quot;-lsb&quot; lpp_source1
+lpp_source1
+」から重複するベース・ファイルセットとアップデート・ファイルセット、および古いアップデートを削除するには、次のコマンドを入力します：
+nim -o lppmgr -a lppmgr_flags=&quot;-rbux&quot; lpp_source1
+lpp_source1
+
+」からSIMAGES以外のファイルセット（bosのインストールに必要でないファイルセット）をすべて削除するには、次のコマンドを入力する：
+nim -o lppmgr -a lppmgr_flags=&quot;-rX&quot; lpp_source1
+lpp_source1
+」から「
+C
+以外のすべての言語サポートを削除するには、以下のコマンドを入力する：
+nim -o lppmgr -a lppmgr_flags=&quot;-r -k C&quot; lpp_source1
+lswpar
+管理対象「
+wpar1
+ワークロード・パーティションの特性を一覧表示するには、以下のコマンドを入力する：
+nim -o lswpar wpar1
+管理対象「
+wpar1
+ワークロード・パーティションのネットワーク特性を一覧表示するには、以下のコマンドを入力する：
+nim -o lswpar -a cmd_flags=&quot;-N&quot; wpar1
+global1
+スタンドアロン・システムが管理するワークロード・パーティションの一般的な特性を一覧表示するには、以下のコマンドを入力する：
+nim -o lswpar -a cmd_flags=&quot;-G&quot; global1
+maint
+スポット「
+spot1
+」で中断されたソフトウェアのインストールをクリーンアップするには、以下のコマンドを入力する：
+nim -o maint -a installp_flags=&quot;-C&quot; spot1
+マスタから、スタンドアロン・マシン「
+stand1
+」で中断されたソフトウェア・インストールをクリーンアップするために、以下のコマンドを入力する：
+nim -o maint -a installp_flags=&quot;-C&quot; stand1
+maint_boot
+NIMスタンドアロンクライアント「
+stand1
+」がメンテナンスモードでブートできるようにするには、以下のコマンドを入力する：
+nim -o maint_boot stand1
+このコマンドはメンテナンスブート操作を設定するが、「
+stand1
+」からローカルでネットワークブートを開始する必要がある。
+remove
+dump_files
+名前のリソースを削除するには、以下のコマンドを入力する：
+nim -o remove dump_files
+showlog
+グループ&#x27;
+DisklsMacs1
+で定義されたマシンのブートログを表示するには、以下のコマンドを入力する：
+nim -o showlog -a log_type=boot DisklsMacs1
+showres
+script1
+という名前の
+
+configure
+スクリプトの内容を表示するには、以下のコマンドを入力する：
+nim -o showres script1
+bosinst.data
+リソース「
+bosinst_data1
+」の内容を表示するには、以下のコマンドを入力する：
+nim -o showres bosinst_data1
+lpp_source &#x27;
+lpp_source1
+内のすべてのファイルセットをリストするには、以下のコマンドを入力する：
+nim -o showres lpp_source1
+lpp_source &#x27;
+lpp_source1
+にあるすべてのファイルセットを、マシン&#x27;
+machine1
+&#x27;にインス トールされているものとの相対関係で一覧表示するには、以下のコマンドを入力する：
+nim -o showres -a reference=machine1 lpp_source1
+lpp_source &#x27;
+lpp_source1
+上のソフトウェアによって修正されたすべての問題をリストアップするには、次のようにします：
+nim -o showres -a instfix_flags=&quot;T&quot; lpp_source1
+adapter_def
+リソース「
+adapter_def1
+」のセカンダリアダプタ構成ファイルの内容を、クライアント「
+deadfish
+に表示するには、以下のコマンドを入力する：
+nim -o showres -a client=deadfish adapter_def1
+adapter_def1
+という名前の
+adapter_def
+リソースにあるすべてのセカンダリ・アダプタ・コンフィギュレーション・ ファイルの内容を表示するには、以下のコマンドを入力します：
+nim -o showres adapter_def1
+savevg
+リソース「
+savevg1
+」の内容を表示するには、以下のコマンドを入力する：
+nim -o showres savevg1
+syncwpar
+管理されている「
+wpar1
+ワークロードパーティションのソフトウェアを管理システムと同期させるには、以下のコマンドを入力する：
+nim -o syncwpar wpar1
+global1
+スタンドアロン・システムが管理するすべてのワークロード・パーティションのソフトウェアを同期するには、以下のコマンドを入力する：
+nim -o syncwpar -a cmd_flags=&quot;-A&quot; global1
+update
+/dev/cd0
+」のすべてのファイルセットを「
+lpp_source1
+
+」に追加するには、以下のコマンドを入力する：
+nim -o update -a packages=all -a source=/dev/cd0 lpp_source1
+bos.games
+「
+7.1.0.0
+「
+bos.terminfo
+ファイルセットを「
+lpp_source1
+」に追加するには、 以下のコマンドを入力する：
+nim -o update -a packages=&quot;bos.games 7.1.0.0 bos.terminfo&quot; \
+-a source=/dev/cd0 lpp_source1
+lpp_source1
+から
+bos.games
+を削除するには、以下のコマンドを入力する：
+nim -o update -a rm_images=yes -a packages=&quot;bos.games&quot; lpp_source1
+AIX
+インストールCDから「
+lpp_source1
+SIMAGESを復元するには、次のコマンドを入力します：
+nim -o update -a recover=yes -a source=/dev/cd0 lpp_source1
+updatios
+修正プログラムをインストールしたり、NIMオブジェクト名が「
+vioserver1
+」のVIOSを最新のメンテナンスレベルに更新するには、次のコマンドを入力します：
+nim -o updateios -a lpp_source=lpp_source1 -a preview=no vioserver1
+更新は「
+lpp_source
+」と「
+lpp_source1
+ファイルに保存される。
+注：
+「
+updateios
+操作は、インストール中にプレビューを実行する。 NIMから&#x27;
+updateios
+操作を実行すると、プレビューフラグが&#x27;
+no
+に設定されていない限り、プレビューが実行される。 インストール中、&#x27;
+updateios
+操作を&#x27;
+updatios_flags=-install
+で使用する場合、プレビューを実行する必要がある。 プレビューを使用すると、VIOS 更新に進む前に、プレビュー・インストールが正確に実行されているかどうかを検査できます。
+vioserver1
+NIMオブジェクト名を持つVIOSの修正を拒否するには、以下のコマンドを入力する：
+nim -o updateios -a updateios_flags=-reject vioserver1
+vioserver1
+
+NIMオブジェクト名を持つVIOSに対して、部分的にインストールされたアップデートをクリーンアップするには、以下のコマンドを入力する：
+nim -o updateios -a updateios_flags=-cleanup vioserver1
+vioserver1
+NIMオブジェクト名を持つVIOSの更新をコミットするには、以下のコマンドを入力する：
+nim -o updateios -a updateios_flags=-commit vioserver1
+vioserver1
+NIMオブジェクト名を持つVIOSに対して「
+update1
+ような特定の更新を削除するには、次のコマンドを入力する：
+nim -o updateios -a updateios_flags=-remove-a filesets=&quot;update1&quot; vioserver1
+vioserver1
+NIMオブジェクト名を持つVIOSのアップデートを、「
+installp_bundle bundle1
+（「
+bundle1
+は削除するアップデートを含む）を使用して削除するには、次のコマンドを入力する：
+nim -o updateios -a updateios_flags=remove -a installp_bundle=bundle1 vioserver1</pre>

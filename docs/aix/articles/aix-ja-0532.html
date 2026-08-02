@@ -1,0 +1,95 @@
+<!doctype html><meta charset="utf-8"><pre class="official-markdown">目的
+lconv
+ライブラリーで使用するコード・セット変換テーブルを生成します。
+
+説明
+genxlt
+コマンドでは、標準入力からソース・コード・セット変換テーブル・ファイルが読み取られて、コンパイル済みバージョンが
+OutputFile
+パラメーターで指定したファイルに書き込まれます。
+OutputFile
+パラメーターに値を指定しないと、標準出力が使用されます。 ソース・コード・セット変換テーブル・ファイルには、
+genxlt
+コマンドによって作動する、コンパイル済みバージョンを生成するための指示が入っています。
+コード・セット変換テーブル・ソース・ファイルのフォーマットは次のとおりです。
+先頭の非空白文字が # (ポンド記号) である行は、コメント行として扱われます。
+ヌル行、および空白文字のみで構成される行は、コメント行として扱われます。
+非コメント行は、以下の形式でなければなりません。
+%token &lt;blank&gt; # &lt;tab&gt; and &lt;space&gt;
+%token &lt;hex&gt; # &lt;zero&gt;, &lt;one&gt;, &lt;two&gt;, &lt;three&gt;, &lt;four&gt;,
+# &lt;five&gt;, &lt;six&gt;, &lt;seven&gt;, &lt;eight&gt;, &lt;nine&gt;,
+# &lt;a&gt;, &lt;b&gt;, &lt;c&gt;, &lt;d&gt;, &lt;e&gt;, &lt;f&gt;,
+# &lt;A&gt;, &lt;B&gt;, &lt;C&gt;, &lt;D&gt;, &lt;E&gt;, &lt;F&gt;,
+%token &lt;any&gt; # any character but &#x27;\n&#x27;
+line : offset blank value blank comment &#x27;\n&#x27;
+| &#x27;SUB&#x27; blank value blank comment &#x27;\n&#x27;
+;
+blank : &lt;blank&gt;
+| blank &lt;blank&gt;
+;
+offset : &#x27;0x&#x27; &lt;hex&gt;
+| offset &lt;hex&gt;
+;
+value : offset
+| &#x27;invalid&#x27;
+| &#x27;substitution&#x27;
+;
+comment : &#x27;#&#x27; &lt;any&gt;
+| comment &lt;any&gt;
+;
+オフセットが以下のような行
+&#x27;SUB&#x27;
+デフォルトの置換文字を指定するために使用されます。
+表が以下のように設定されているとします。
+&#x27;substitution&#x27;
+このテーブルを使用する
+iconv
+コンバーターは、
+SUB
+このオフセットの値。
+値が以下のように設定されているとします。
+&#x27;invalid&#x27;
+このテーブルを使用する
+iconv
+コンバーターは、そのオフセットについてエラーを戻します。
+
+オフセットがソース・コード・セット変換テーブル・ファイル内で何度も検出されると、変換テーブルのコンパイルで最後のエントリーが使用されます。
+オフセットと値は、0x00 から 0xff の範囲内に限定されます。
+次に、コード・セット変換テーブルから一部抜粋したものを紹介します。
+SUB 0x1a substitute character
+0x80 0xc7 C cedilla
+0x81 0xfc u diaeresis
+0x82 0xe9 e acute
+0x83 0xe2 a circumflex
+0x84 0xe4 a diaeresis
+0x85 0x40 a grave
+0x9F substitution
+0xff invalid
+正常に実行された場合、
+genxlt
+コマンドは値 0 で終了します。 出力ファイルを開くことができない場合、
+genxlt
+コマンドは失敗し、値 1 で終了します。 入力ストリームで構文エラーが検出されると、
+genxlt
+コマンドは即時に値 2 で終了し、構文エラーが発生した行番号を標準エラーに書き込みます。
+genxlt
+コマンドによって作成されるファイルの名前は、
+iconv
+サブシステムがそのファイルを変換ファイルとして認識できるように、次の命名規則に準じたものでなければなりません。
+fromcode: &quot;IBM-850&quot;
+tocode: &quot;ISO8859-1&quot;
+conversion table file: &quot;IBM-850_ISO8859-1&quot;
+変換テーブル・ファイル名は、次のものを連結することによって形成されます。
+tocode
+ファイル名を
+fromcode
+ファイル名。2 つの間に下線が付きます。
+
+構文
+genxlt [ OutputFile ]
+
+例
+英語以外の言語によるユーザー定義のコード・セット変換テーブルを生成するには、次のように入力します。
+cp /usr/lib/nls/loc/iconvTable/ISO8859-1_IBM-850_src $HOME
+vi $HOME/ISO8859-1_IBM-850_src
+genxlt &lt; $HOME/ISO8859-1_IBM-850_src &gt; cs1_cs2</pre>

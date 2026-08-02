@@ -1,0 +1,20 @@
+<!doctype html><meta charset="utf-8"><pre class="official-markdown">目的
+Trusted Platform Module (TPM) 上の保証鍵ペアを作成します。
+
+説明
+tpm_createek
+コマンドは、TPM 上の保証鍵ペアを作成します (
+TPM_CreateEndorsementKeyPair
+API により)。 保証鍵ペアは、通常は製造時にインストールされるので、必要になることはあまりありません。 ただし、
+tpm_getpubek
+などのコマンドが TPM 層からのエラー・コードを返す場合には、このコマンドを実行する必要が生じることがあります。
+
+構文
+TPM_createek [ -h ] [ - [ なし | エラー | 情報 | デバッグ ] ] [ -v (V) ]
+
+オプション
+フラグ
+項目 | 説明
+-h (または -- help ) | コマンド使用方法の情報を表示します。
+-l (または --log ) [ none | error | info | debug ] | ロギング・レベルを指定のとおり none、error、info、または debug に設定します。
+-v (または -- version ) | コマンドのバージョン情報を表示します。</pre>

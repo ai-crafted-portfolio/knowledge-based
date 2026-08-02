@@ -1,0 +1,108 @@
+<!doctype html><meta charset="utf-8"><pre class="official-markdown">目的
+複数のノードおよびハードウェア・デバイスでコマンドを並行して実行します。
+
+説明
+dcp
+コマンドは、リモート側のターゲット・ノード、ハードウェア・デバイス、あるいは両方との間で並行してファイルをコピーします。 ターゲットは、複数のコンテキストから選択できます。 コンテキストは、ノードおよびデバイスの定義を含むターゲット・データベース (NIM など) です。
+dcp
+コマンドは、指定されたノードまたはデバイスごとにリモート・コピー・コマンドを発行します。 ファイルは、ターゲットからプルされると、コピーされた
+source_file
+名にリモート・ノード名またはリモート・デバイス名が付加されて
+target_path
+に配置されます。
+/usr/bin/rcp
+コマンドは、構文およびセキュリティーのモデルです。
+dcp
+コマンドは、DSM 分散シェル・ユーティリティーです。
+dsh
+の構成および環境設定は、
+dcp
+の動作に影響を与えます。 詳しくは、
+dsh
+コマンドを参照してください。
+
+構文
+dcp [ -h ][ -V ][ -q ][ -a ][ --all-nodes コンテキストリスト］ [ -A ][ --all-devices コンテキストリスト］ [ -n ノードリスト］ [ -N ノードグループ ] [ -d デバイスリスト］ [ -D デバイスグループ ] [ -C コンテキスト ] [ -f ファンアウト ] [ -l ユーザーID］ [ -o ノード_オプション ] [ -O デバイス_オプション ] [ -p ][ -P ][ -Q ][ -r ノード_リモートコピー] [ デバイス_リモートコピー] [ デバイス_リモートコピー --device-rcp デバイス_リモートコピー ] [ -R ][ -t タイムアウト -X 環境リスト］ [ -T ][ -v ] source_file ... target_path
+
+例
+/tmp/etc/hosts
+ファイルをローカル・ホストから
+node3
+、
+node4
+、
+node5
+上の
+/etc
+ディレクトリー、および NIM コンテキスト内の
+device16
+上のユーザー
+gregb
+にコピーするには、次のコマンドを入力します。
+dcp -n node3-node5 -d NIM:gregb@device16 /tmp/etc/hosts /etc:
+/etc/hosts
+ファイルをクラスター内のすべての管理対象ノードからローカル・ホストの
+/tmp/hosts.dir
+ディレクトリーにコピーするには、次のコマンドを入力します。
+dcp -aP /etc/hosts /tmp/hosts.dir
+ターゲットの名前を指定するサフィックスが各ファイル名に付加されます。
+/tmp/hosts.dir
+ディレクトリーの内容は次のようになります。
+表3. /tmp/hosts.dir ディレクトリの内容
+項目 | 項目 | 項目
+hosts._node1 | hosts._node4 | hosts._node7
+hosts._node2 | hosts._node5 | hosts._node8
+hosts._node3 | hosts._node6 |
+NIM コンテキスト内の
+NodeGroup1
+および
+dsh
+コンテキスト内の
+DeviceGroup4
+にあるすべてのターゲットから
+/var/log/testlogdir
+ディレクトリーをコピーし、
+12
+のファンアウトを使用して、各ディレクトリーを
+/var/log._target
+としてローカル・ホストに保存するには、次のコマンドを入力します。
+dcp -C DSH -N NIM:NodeGroup1 -D DeviceGroup 4 -f 12 \ -RP /var/log/testlogdir /var/log
+rsync
+コマンドを使用して
+/localnode/smallfile
+および
+/tmp/bigfile
+を
+node1
+上の
+/tmp
+にコピーするには、以下のコマンドを入力します。
+RSYNC_RSH=/usr/bin/ssh; dcp -r /usr/bin/rsync -o &quot;-z&quot; \ -n node1 /localnode/smallfile /tmp/bigfile /tmp
+このコマンドは、&#x27;
+rsync
+環境変数&#x27;
+RSYNC_RSH
+と&#x27;
+rsync
+の&#x27;
+-z
+フラグとともに使用する。
+/etc/hosts
+
+ファイルをローカル・ホストからクラスター内のすべてのノードにコピーして、すべての
+dcp
+環境変数を無視するには、次のコマンドを入力します。
+dcp -X -a /etc/hosts /etc/hosts
+/etc/hosts
+ファイルを「
+node1
+」と「
+node2
+」からローカルホストの「
+/tmp/hosts.dir
+ディレクトリーにコピーし、「
+DCP_NODE_OPTS
+以外のすべての「
+dcp
+環境変数を無視するには、以下のコマンドを入力する：
+dcp -n node1,node2 -P -X ’DCP_NODE_OPTS’ /etc/hosts /tmp/hosts.dir</pre>

@@ -1,0 +1,38 @@
+<!doctype html><meta charset="utf-8"><pre class="official-markdown">目的
+システムの管理ホスト名を変更します。
+
+説明
+chC2admin
+コマンドは、
+/etc/filesystems
+に定義されている
+NFS マウント・ポイントおよびホスト名エントリーと同様に、C2 システム管理ホストの名前も保守します。
+管理ホスト名を変更すると、
+/etc/filesystems
+にリストされた
+NFS ファイルシステムが更新され、
+/etc/security/admin_host
+の内容が置き換えられます。
+このコマンドの実行時に、所定の
+hostname
+を定義してください。
+hostname
+を解決できない場合は、警告が出されます。 ホスト名の IP アドレスを指定する際には、
+-a
+オプションを使用します。
+-a
+オプションを指定すると、
+hostname
+および
+address
+が
+/etc/hosts
+ファイルに追加されます。
+
+構文
+chC2admin [ -a 値 アドレス ] ホスト名
+
+オプション
+フラグ
+項目 | 説明
+-a アドレス |</pre>

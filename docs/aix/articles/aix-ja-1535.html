@@ -1,0 +1,46 @@
+<!doctype html><meta charset="utf-8"><pre class="official-markdown">目的
+インストール済みソフトウェアの非共有部分と共有部分を同期化します。
+
+構文
+/usr/sbin/syncroot [ [ -a ] [ -i ] | [ -F ] [ -r ] ] [ -p ] [ -v ] [ -X ]
+
+オプション
+フラグ
+項目 | 説明
+-a | 追加のインストールのみを行います。 installp ファイルセットのレベル・ダウン (すなわち、アンインストール、リジェクト、強制上書き) は、行わないでください。 -r フラグと一緒の場合は無効です。
+-i | installp ファイルセットを更新するのみです。 -r フラグと一緒の場合は無効です。
+-F | RPM ファイルを強制コピーします。 -i フラグと一緒の場合は無効です。
+-r | RPM ファイルを更新するのみです。 -i フラグと一緒の場合は無効です。
+-p | 操作をプレビューします。 実際に同期を実行しないでください。
+-v | 冗長モードを指定します。
+-X | 必要かつ可能ならば、ファイルシステムを拡張します。
+注:
+バージョン 7 グローバル・システムでバージョン 6 ワークロード区画にログインし、
+syncroot
+コマンドを実行すると、以下のエラーで操作が失敗します。
+syncroot: Processing root part installation status.
+Your global system is at a higher version than the WPAR.
+Please log out of the WPAR and execute the migwpar command.
+syncroot: Returns Status = FAILURE
+共有ワークロード区画 (WPAR) では、ソース・システムのインストール履歴がターゲット・システムのインストール履歴と異なっている場合、
+restwpar
+コマンドおよび
+syncroot
+コマンドがいくつかのファイルセットにおいて失敗する可能性があります。
+restwpar
+操作の終了時に、
+syncroot
+コマンドの以下の例のような失敗メッセージが表示される場合があります。
+syncroot: Error synchronizing installp software
+syncroot: Returns Status = FAILURE
+共有 WPAR を、ソース論理区画 (LPAR) のインストール履歴と同様のインストール履歴を持つ LPAR に復元またはマイグレーションする必要があります。
+
+例
+ルート部分のすべての
+installp
+ファイルセットを更新するには、次のように入力します。
+# syncroot -i
+すべての
+RPM
+ファイルの更新を実行し、スペースを自動的に拡張するには (必要かつ可能ならば)、次のように入力します。
+# syncroot -r -X</pre>

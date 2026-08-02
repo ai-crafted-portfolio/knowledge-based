@@ -1,0 +1,55 @@
+<!doctype html><meta charset="utf-8"><pre class="official-markdown">目的
+タイムゾーン情報を表示します。
+
+説明
+zdump
+コマンドは、コマンド・ラインで指定したゾーン名ごとに、タイムゾーン情報を出力します。
+
+構文
+zdump [--version] [--help] [-v] [-V] [-c [loyear,]hiyear] [-t [lotime,]hitime] [ -i ] zonename ...
+
+オプション
+フラグ
+表 1. フラグ
+項目 | 説明
+-c [年 , ]年 | 指定された年の詳細出力を報告します。 カットオフ時間は、うるう秒を無視する年 0 および世界時 (UT) と一緒に先発グレゴリオ暦を使用して計算されます。 小さい方の年の属性 ( loyear ) は排他的であり、大きい方の年の属性 ( hiyear ) は包括的です。 例えば、1970 という loyear 値は、1970 年 1 月 1 日の 00:00:00 協定世界時に発生した遷移を除外しますが、1970 という hiyear 値はその遷移を含みます。 デフォルトのカットオフ時間は -500,2500 です。
+--help | 短い使用方法メッセージを表示して終了します。
+-i | すべての遷移の一覧を提供し、時間間隔の説明を表示します。 コマンドライン上の各タイムゾーンについて、この -i フラグはタイムゾーンのインターバル形式の説明を表示します。 詳細については、 区間形式の セクションを参照してください。
+-t [ロタイム , ]ヒットタイム | yyyy-mm-dd hh:mm:ss 協定世界時 (UTC) の構文の lotime 属性および hitime 属性で指定された特定の時刻の詳細出力を報告します。 例えば、1970-01-01 00:00:00 です。 カットオフ時間には、 zonename パラメーターに応じてうるう秒が含まれます。 -c フラグと同様に、小さい方の時間制限は排他的であり、大きい方の時間制限は包括的です。
+-v | コマンド・ラインで指定された各ゾーン名について、 zdump コマンドは、次の項目を出力します。 考えられる最小の時間値。 考えられる最小の時間値の 1 日後の時間。 検出された不連続時間の 1 秒前と、正確なその時間の両方。 考えられる最大の時間値。 考えられる最大の時間値の 1 日前の時間。 各行の後に、 isdst= D があります。 D は、指定された時間が夏時間調整、標準時間、または不明な時間タイプのいずれであるかに応じて、正の値、ゼロ値、または負の値です。 各行の後には、 gmtoff= N もあり、ここで、指定されたローカル時間は、東半球で N 秒です。
+-V | -v フラグが極限時間値からの相対値である時間を表示しないことを除き、このフラグの出力に似た出力を表示します。 このフラグは、異なる時間表現で比較しやすい出力を生成する。
+--version | zdump コマンドのバージョン情報を表示します。
+
+例
+シンガポールのタイムゾーン情報をレポートするには、次のコマンドを入力します。
+zdump -v Singapore
+2035年の年明け近くに停止するトルコのタイムゾーン情報を表示するには、次のコマンドを入力する：
+zdump -v -c 2035 Turkey
+2015 年から 2017 年までのニューヨークのタイムゾーン情報を報告するには、次のコマンドを入力します。
+zdump -v -c 2015,2017 America/New_York
+出力は以下のサンプルのようになる：
+America/New_York Fri Dec 13 20:45:52 1901 UT = Fri Dec 13 15:45:52 1901 EST isdst=0 gmtoff=-18000
+America/New_York Sat Dec 14 20:45:52 1901 UT = Sat Dec 14 15:45:52 1901 EST isdst=0 gmtoff=-18000
+America/New_York Sun Mar 8 06:59:59 2015 UT = Sun Mar 8 01:59:59 2015 EST isdst=0 gmtoff=-18000
+America/New_York Sun Mar 8 07:00:00 2015 UT = Sun Mar 8 03:00:00 2015 EDT isdst=1 gmtoff=-14400
+America/New_York Sun Nov 1 05:59:59 2015 UT = Sun Nov 1 01:59:59 2015 EDT isdst=1 gmtoff=-14400
+America/New_York Sun Nov 1 06:00:00 2015 UT = Sun Nov 1 01:00:00 2015 EST isdst=0 gmtoff=-18000
+America/New_York Sun Mar 13 06:59:59 2016 UT = Sun Mar 13 01:59:59 2016 EST isdst=0 gmtoff=-18000
+America/New_York Sun Mar 13 07:00:00 2016 UT = Sun Mar 13 03:00:00 2016 EDT isdst=1 gmtoff=-14400
+
+America/New_York Sun Nov 6 05:59:59 2016 UT = Sun Nov 6 01:59:59 2016 EDT isdst=1 gmtoff=-14400
+America/New_York Sun Nov 6 06:00:00 2016 UT = Sun Nov 6 01:00:00 2016 EST isdst=0 gmtoff=-18000
+America/New_York Mon Jan 18 03:14:07 2038 UT = Sun Jan 17 22:14:07 2038 EST isdst=0 gmtoff=-18000
+America/New_York Tue Jan 19 03:14:07 2038 UT = Mon Jan 18 22:14:07 2038 EST isdst=0 gmtoff=-18000
+下位時間値および上位時間時なしで 2015 年から 2017 年までのニューヨークのタイムゾーン情報を報告するには、次のコマンドを入力します。
+zdump -V -c 2015,2017 America/New_York
+出力は以下のサンプルのようになる：
+America/New_York Sun Mar 8 06:59:59 2015 UT = Sun Mar 8 01:59:59 2015 EST isdst=0 gmtoff=-18000
+America/New_York Sun Mar 8 07:00:00 2015 UT = Sun Mar 8 03:00:00 2015 EDT isdst=1 gmtoff=-14400
+America/New_York Sun Nov 1 05:59:59 2015 UT = Sun Nov 1 01:59:59 2015 EDT isdst=1 gmtoff=-14400
+America/New_York Sun Nov 1 06:00:00 2015 UT = Sun Nov 1 01:00:00 2015 EST isdst=0 gmtoff=-18000
+America/New_York Sun Mar 13 06:59:59 2016 UT = Sun Mar 13 01:59:59 2016 EST isdst=0 gmtoff=-18000
+America/New_York Sun Mar 13 07:00:00 2016 UT = Sun Mar 13 03:00:00 2016 EDT isdst=1 gmtoff=-14400
+
+America/New_York Sun Nov 6 05:59:59 2016 UT = Sun Nov 6 01:59:59 2016 EDT isdst=1 gmtoff=-14400
+America/New_York Sun Nov 6 06:00:00 2016 UT = Sun Nov 6 01:00:00 2016 EST isdst=0 gmtoff=-18000</pre>

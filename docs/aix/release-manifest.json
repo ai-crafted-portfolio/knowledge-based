@@ -1,0 +1,15 @@
+{
+  "release_id": "aix73-official-source-20260802-r1",
+  "product": "AIX 7.3",
+  "published_at": "2026-08-02",
+  "article_count": 1818,
+  "source_gap_count": 9,
+  "source_items_path": "C:\\oskb\\.codex-work\\aix_official_full_rebuild_20260728\\aix_official_full_rebuild_items_2026-07-28.json",
+  "assets": {
+    "index.html": "18464fb3aea53efd9b2a804cf54fa6d357fc2d174ccb961c32ab07fe03e8da53",
+    "assets/data.js": "05c90c447b54be4e189608ad7da0a5bc66aaf501c6ce0dd6f934bc11c7bae9ef",
+    "assets/app.js": "79216f5e3f75c0ae0bfa1e80a3d7a96cce1bcfc6071fb8780fdec6f55dd70c20",
+    "assets/site.css": "2dec03fdbb59364411cabbcc9c5e58229179a527dd70d07c1ad1d007eb2b7b39",
+    "source-gaps.json": "0f44243b160d3bdc8f675457bdbe9e5b4cca8a295d83c34df397957a1794790f"
+  }
+}

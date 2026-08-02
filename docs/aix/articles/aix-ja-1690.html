@@ -1,0 +1,91 @@
+<!doctype html><meta charset="utf-8"><pre class="official-markdown">目的
+BNU スプール・ディレクトリーとログ・ファイルをクリーンアップします。
+
+説明
+/usr/sbin/uucp/uudemon.cleanu
+コマンドは、
+基本ネットワーク・ユーティリティー (BNU) のスプール・ディレクトリーおよびログ・ファイルの内容をクリーンアップするシェル・スクリプトです。 このコマンドは、指定した日数以上経過した、スプール・ディレクトリー内のファイルを削除し、
+空になったスプール・ディレクトリーを除去します。
+uudemon.cleanu
+コマンドは、4 日以上経過したログ情報を除去して保存用ログ・ファイルを更新します。 このコマンドは、個々のコンピューターのログ・ファイルを
+var/spool/uucp/.Log
+ディレクトリーから除去し、それらを組み合わせ、古いログ情報が入っている
+var/spool/uucp/.Old
+ディレクトリーに入れます。
+クリーンアップ操作を実行した後、
+uudemon.cleanu
+コマンドは、
+その日のうちに収集された状況情報の要約を
+uucp
+ログイン ID に通知します。
+uucico
+デーモンと
+uuxqt
+デーモンは、
+ローカル・システム上で実行されるトランザクションの量に応じて、毎日、毎週、
+あるいはそれよりも長い間隔で
+uudemon.cleanu
+コマンドを実行するように
+cron
+デーモンに指示します。
+このコマンドを自動的に実行させるには、
+/var/spool/cron/crontabs/uucp
+ファイル内の
+uudemon.cleanu
+コマンド・ラインの先頭にあるコメント文字 (#) を除去します。
+注:
+uudemon.cleanu
+コマンドは通常はコマンド行に入力されませんが、代わりに
+cron
+デーモンによって実行されます。
+
+構文
+uudemon.cleanu
+
+例
+uudemon.cleanu
+プロシージャーを自動的に実行させるときには、
+/var/spool/cron/crontabs/uucp
+ファイルを編集し、
+uudemon.cleanu
+コマンド・ラインのコメントを削除します。 変更:
+# 45 23 * * * /usr/bin/sh -c
+&quot;/usr/sbin/uucp/uudemon.cleanu &gt; /dev/null&quot;
+to:--&gt;
+45 23 * * * /usr/bin/sh -c &quot;/usr/sbin/uucp/uudemon.cleanu &gt; /dev/null&quot;
+この
+45
+表記は分を表します。
+23
+表記は 24 時間クロックに基づいて時間を表し、3 つのアスタリスク (
+* * *
+) それぞれ、月の日、年の月、および曜日を表すプレースホルダーです。 したがってこの行は、23 時の 45 分後、つまり午後 11 時 45 分に
+uudemon.cleanu
+シェル・プロシージャーを実行するように
+cron
+デーモンに指示することになります。
+注:
+これらの実行間隔はデフォルトです。 これらを変更すれば、
+cron
+デーモンが
+uudemon.cleanu
+コマンドを実行する時刻を、ユーザーのサイトの必要に応じて変更することができます。
+システムは、特定の 1 つのログ・ファイルに対して指定された量のストレージ・スペースを BNU プログラムに割り当てます。ブロック数は、デフォルトの
+ulimit
+値によって決定されます。
+ulimit
+値の設定がローカル・システムの要件に対して小さ過ぎて、
+uudemon.cleanu
+コマンドが正しく実行されない場合には、
+uudemon.cleanu
+コマンド・ライン (前掲) を
+/var/spool/cron/crontabs/uucp
+ファイルから削除し、次のエントリーを
+root
+crontabs ファイル
+/var/spool/cron/crontabs/root
+に追加してください。
+45 23 * * * ulimit 5000; /usr/bin/su uucp
+-c &quot;/usr/sbin/uucp/uudemon.cleanu &gt; /dev/null&quot;
+root
+crontabs ファイルにこのテキストを入力するときには、1 行に収めてください。</pre>

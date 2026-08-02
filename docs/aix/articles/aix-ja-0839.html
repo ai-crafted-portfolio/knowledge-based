@@ -1,0 +1,204 @@
+<!doctype html><meta charset="utf-8"><pre class="official-markdown">目的
+ワークロード・マネージャー (WLM) の構成をリストします。
+
+説明
+lswlmconf
+コマンドは、デフォルト時に、すべての WLM 構成をリストします。
+フラグを指定することにより、次のことが行えます。
+現在の構成またはセット名を確認する。
+既存の通常 WLM 構成をすべてリストする。
+既存の WLM 構成セットをすべてリストする。
+現在 (または週のある期間)、セットのどの構成を適用できるかを確認する。
+構成のタイプを確認する。
+
+構文
+lswlmconf [ -r | -s | -c | -d Config ] [ -l ] [ -t TimeSpec ]
+
+オプション
+フラグ
+項目 | 説明
+-c | 現在の構成またはセットに制限して構成を表示します。
+-d 構成 | Config 構成またはセットに制限して構成を表示します。
+-l | 構成セットの日付の表示方法を変更します (通常の構成には無効)。 セットは、 confset/config の形式で、現在適用できる通常の構成と共に表示されます。
+-r | 通常の構成に制限して構成を表示します。
+-s | 構成セットのみに制限して構成を表示します。
+-t TimeSpec | 現在時刻の代わりに TimeSpec を使用して、セットの適用可能な通常の構成 を表示します。 TimeSpec は、曜日 (日曜日の 0 から土曜日の 6 まで) と 24 時間形式の時刻をコンマで区切り、 confsetcntrl コマンドで説明した時間範囲と同様の形式で指定します。 例えば、月曜日の 12:00 に適用する構成を確認するには、 -t 1,12:00 と指定します。 注: -t フラグは、 -l フラグと一緒の場合にのみ有効です。
+
+例
+次に、
+lswlmconf
+コマンド、
+confsetcntrl
+コマンド、
+wlmcheck
+コマンド、および
+wlmcntrl
+コマンドを使用
+して WLM 構成を表示、変更、および使用する方法を示します。
+WLM 構成を検索するには、次のように入力します。
+lswlmconf
+このコマンドの出力は、次のようになります。
+standard
+template
+fvtrules
+fvtlimits
+fvtregul
+fvtdfct
+fvtsynt
+fvtthreads
+現在の WLM 構成を表示するには、次のように入力します。
+lswlmconf -c
+出力は次のようになります。
+fvtlimits
+構成セットを表示するには、次のように、
+lswlmconf
+に
+-s
+フラグ指定します。
+lswlmconf -s
+この例の構成には構成セットが含まれていないので、このコマンドを入力すると、一致する構成が見つからなかったことを示すメッセージが生成されます。
+デフォルト構成として「
+standard
+」を使用して構成セットを作成するには、次のように入力します。
+confsetcntrl -C confset1 standard
+次に、
+lswlmconf
+コマンドを使用して、新規構成セットを表示するには、
+次のように入力します。
+lswlmconf -s
+これで、このコマンドは、以下の出力を生成します。
+confset1
+時間範囲を指定して、平日 (月曜日から金曜日) に「
+confset1
+」に「
+fvtlimits
+」構成を使用するには、
+次のように入力します。
+confsetcntrl -d confset1 -a fvtlimits 1-5
+この構成を午前中のみ使用したいとします。 時間範囲は変更できません。 代わりに、時間範囲を除去して、新しい時間範囲を作成する必要があります。
+まず、次のようにして、古い時間範囲を除去します (confsetcntrl は、
+locale
+day
+または
+locale
+abday
+コマンドによってレポートされた曜日名を受け入れます)。
+confsetcntrl -d confset1 -r fvtlimits monday-friday
+それから、次のように、新しい時間範囲を作成します。
+confsetcntrl -d confset1 -a fvtlimits 1-5,8:00-12:00
+日曜日に「
+fvtregul
+」構成を使用するために別の時間範囲を追加するには、次のように入力します。
+
+confsetcntrl -d confset1 -a fvtregul 0
+構成セット「
+confset1
+」を表示するには、次のように入力します。
+confsetcntrl -d confset1
+この例で、このコマンドは、次の出力を生成します。
+fvtlimits:
+time = &quot;1-5,8:00-12:00&quot;
+fvtregul:
+time = &quot;0&quot;
+standard:
+time = &quot;-&quot;
+デフォルト構成として「
+template
+」を使用して「
+confset2
+」という構成セットを作成するには、
+次のように入力します。
+confsetcntrl -C confset2 template
+毎晩「
+fvtsynt
+」という構成を使用するように「
+confset2
+」を変更するには、次のように入力します。
+confsetcntrl -d confset2 -a fvtsynt 18:00-10:00
+通常の構成のリストを表示するには、次のように入力します。
+lswlmconf -r
+この例で、このコマンドは次の出力を作成します (この例で、通常の構成のリストは
+変わっていないことを示しています)。
+standard
+template
+fvtrules
+fvtlimits
+fvtregul
+fvtdfct
+fvtsynt
+fvtthreads
+しかし、お分かりのように、この例で構成セットのリストは、
+次のコマンドの出力によって示されるように変更されています。
+lswlmconf -s
+この例で、このコマンドは、次の出力を作成します。
+confset1
+confset2
+date
+コマンドが、構成セット
+confset2
+を使用して現在時刻を
+Tue
+Jul 16 18:55:10 EET 2002
+として報告したときに、どの構成が現在アクティブであるかを表示するには、次のように入力します。
+lswlmconf -d confset2 -l
+この例で、このコマンドは、次の出力を生成します。
+confset2/fvtsynt
+別の時刻にどの構成がアクティブとなるかを表示することもできます。 日曜日の午前 9:00 にアクティブな構成を表示するには、次のように入力します。
+lswlmconf -l -t 0,9:00
+この例で、このコマンドは、次の出力を作成します。
+standard
+template
+fvtrules
+fvtlimits
+fvtregul
+fvtdfct
+fvtsynt
+fvtthreads
+confset1/fvtregul
+
+confset2/fvtsynt
+構成セットのみについてこの情報を表示するには、次のように入力します。
+lswlmconf -s -l -t 0,9:00
+この例で、このコマンドは、次の出力を作成します。
+confset1/fvtregul
+confset2/fvtsynt
+構成セット「
+confset2
+」を除去するには、次のように入力します。
+confsetcntrl -D confset2
+この例で、
+lswlmconf -s
+は、次の出力を生成します。
+confset1
+構成セット「
+confset1
+」を検査するには、
+wlmcheck
+コマンドを次のように
+使用します。
+wlmcheck -d confset1
+この例で、このコマンドは、次の出力を作成します。
+WLM is not running.
+Checking classes and rules for &#x27;confset1&#x27; configuration...
+fvtlimits/System
+fvtlimits/Default
+fvtlimits/Shared
+fvtlimits/login
+fvtregul/System
+fvtregul/Default
+fvtregul/Shared
+standard/System
+standard/Default
+standard/Shared
+この例で使用した構成セット「
+confset1
+」の使用を開始するには、次のように入力します。
+wlmcntrl -a -d confset1
+コマンド
+lswlmconf -c
+は、次の出力を生成します。
+confset1
+アクティブな通常の構成を表示するコマンド
+lswlmconf -cl
+は、次の出力を生成します。
+confset1/standard</pre>

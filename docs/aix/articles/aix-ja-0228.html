@@ -1,0 +1,111 @@
+<!doctype html><meta charset="utf-8"><pre class="official-markdown">目的
+ユーザー属性を変更します。
+
+説明
+重要:
+ご使用のシステムに Network Information Service (NIS) データベースがインストールされている場合は、
+chuser
+コマンドを使用しないでください。
+chuser
+コマンドは、
+Name
+パラメーターによって識別されるユーザーの属性を変更します。 ユーザー名は既に存在していなければなりません。 属性を変更するには、属性名と新しい値に
+Attribute
+=
+Value
+パラメーターを付けて指定してください。 以下のファイルには、このコマンドによって設定されたローカル・ユーザー属性が入っています。
+/etc/passwd
+/etc/security/environ
+/etc/security/limits
+/etc/security/user
+/etc/security/user.roles
+/etc/security/audit/config
+/etc/group
+/etc/security/group
+代替の ID および認証 (I &amp; A) メカニズムを持つユーザーの属性を変更するには、
+-R
+フラグを使用して、ユーザーが定義されている I &amp; A ロード・モジュールを指定できます。
+-R
+フラグが指定されていない場合、
+chuser
+コマンドは
+ユーザーをローカル・ユーザーとして扱います。 ロード・モジュールは、
+/usr/lib/security/methods.cfg
+ファイルで定義されます。
+chuser
+コマンドで正しくない属性または属性値を 1 つ指定すると、コマンドは属性を変更しません。
+System Management Interface Tool (SMIT)
+smit chuser
+高速パスを使用して、ユーザー特性を変更することができます。
+アカウントの ID を変更するとシステム・セキュリティーが脅かされる可能性があるため、変更しないようにしてください。 ただし、
+chuser
+コマンドを使用して ID を変更した場合、ID 衝突検査は、
+/etc/security/login.cfg
+ファイルの usw スタンザの
+dist_uniqid
+属性によっても制御されます。 ID 衝突制御の動作は、
+mkuser
+コマンドで説明されている内容と同じです。
+ユーザーの変更に関する制限
+ユーザー情報の保全性を保証するために、
+chuser
+コマンドの使用にはある程度の制限が適用されます。 root ユーザーまたは UserAdmin 権限を持っているユーザーのみが、
+chuser
+
+コマンドを使用して、以下のタスクを実行することができます。
+admin
+属性を
+true
+に設定して、
+ユーザーを管理ユーザーにする。
+管理ユーザーの属性があれば変更します。
+1 ユーザーを管理グループに追加する。
+管理グループとは、
+admin
+属性が
+true
+に設定されているグループです。
+security
+グループのメンバー
+は、非管理ユーザーの属性を変更し、ユーザーを非管理グループに
+追加できます。
+chuser
+コマンドが扱うのは、ローカル・ユーザー・データだけです。 これは、NIS および DCE のようなレジストリー・サーバーのデータを変更する場合には使用できません。
+
+構文
+チャウザー [ -R ロード・モジュール ] 属性 = 値 ... Name
+
+オプション
+フラグ
+項目 | 説明
+-R ロード・モジュール | ユーザーの属性の変更に使用するロード可能 I&amp;A モジュールを指定します。
+
+例
+ユーザーを有効にするには
+smith
+リモート側でこのシステムにアクセスするには、次のように入力
+chuser rlogin=true smith
+有効期限を変更するには、
+davis
+ユーザー・アカウントを 8 a.mに。 1995 年 5 月 1 日、次のように入力します。
+chuser expires=0501080095 davis
+追加
+davis
+グループに
+finance
+および
+accounting
+、タイプ:
+chuser groups=finance,accounting davis
+ユーザーを変更するには
+davis
+LDAP ロード・モジュールを使用して作成されたユーザーがリモート・アクセスを許可されないようにするには、次のように入力します。
+chuser -R LDAP rlogin=false davis
+ユーザーのドメインを変更するには
+davis
+、タイプ:
+chuser domains=INTRANET,APPLICATION davis
+ユーザーの役割を設定解除するには
+davis
+、タイプ:
+chuser roles=&quot; &quot; davis</pre>

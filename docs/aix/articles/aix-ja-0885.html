@@ -1,0 +1,77 @@
+<!doctype html><meta charset="utf-8"><pre class="official-markdown">目的
+Common Information Model (CIM) クラスおよび Common Manageability Programming Interface (CMPI) プロバイダーを RMC に登録します。
+
+説明
+mkcimreg
+コマンドは、Common Information Model (CIM) クラスおよび Common Manageability Programming Interface (CMPI) プロバイダーを Resource Monitoring and Control (RMC) サブシステムに登録します。 このコマンドを使用して、1 つ以上のクラス定義ファイルまたはプロバイダー登録ファイルを指定することができます。 検索パスにディレクトリーを追加するには、
+-I
+フラグを使用します。
+mkcimreg
+からの出力には、CIM リソース・マネージャーが CIM クラスを処理するために必要とするファイルの名前が含まれています。
+クラスの登録
+-f
+フラグを使用してクラスをアップグレードする場合 (つまり、クラス定義が何らかの形で変更された場合)、アップグレードされたクラスのサブクラスであるすべてのクラスを再登録して、新しいクラスに導入された変更がそのサブクラスに伝搬されるようにする必要があります。 変更は親から子へと伝搬されるため、この作業は「降順」に実行してください。 階層は次のとおりです。
+------------------
+Hardware_Component
+------------------
+↑
+|
+------------------
+Hardware_Adapter
+------------------
+↑
+|
+------------------
+Hardware_Ethernet
+------------------
+例えば、
+mkcimreg -f
+を使用して
+Hardware_Component
+をアップグレードする場合、
+Hardware_Adapter
+と
+Hardware_Ethernet
+の両方をこの順序で後で登録する必要があります。
+
+構文
+クラスを登録するには、次のように入力します。 mkcimreg [ -I インクルードディレクトリ］ [ -f ][ -h 定義ファイル ... プロバイダーを登録するには、次のように入力します。 mkcimreg [ -I インクルードディレクトリ］ [ -p プロバイダーディレクトリ］ [ -h ] registration_file ... CIM スキーマをコンパイルするには、次のように入力します。 mkcimreg [ -I include_directory ... ] -b schema_path [ -h ]
+
+オプション
+フラグ
+--Iは
+include_directory
+...
+検索する 1 つ以上の追加のディレクトリーを指定します。
+-f
+既存のクラス登録データを、クラス定義ファイル内で提供されている定義で上書きします。
+--p
+プロバイダー・ディレクトリ
+プロバイダー・ライブラリーへのパスを指定します。
+--b
+schema_path
+CIM スキーマ・ファイルをコンパイルします。
+-h
+コマンドの使用ステートメント (使用法) を標準出力に書き込みます。
+
+例
+クラス定義ファイルが
+$CIMDEFS
+ディレクトリーにある場合に
+Linux_ComputerSystem
+CIM クラスを登録するには、次のように入力します。
+mkcimreg $CIMDEFS/Linux_ComputerSystem.mof
+このクラスの CMPI プロバイダーも登録する必要があります。
+登録ファイルが
+$CIMDEFS
+ディレクトリーにあり、プロバイダー・ライブラリーが
+$CMPIHOME
+ディレクトリーにある場合に CMPI プロバイダーを登録するには、次のように入力します。
+mkcimreg -p $CMPIHOME $CIMDEFS/Linux_ComputerSystemRegistration.mof
+CIM スキーマのバージョン 2.12 をコンパイルするには、次のように入力します。
+mkcimreg -I $SCHEMA_DIR -b CIM_Schema2.12.mof
+スキーマ MOF ファイルの検索パスを示す
+$SCHEMA_DIR
+は必須ではありませんが、コマンドの実行元の現行作業ディレクトリーに MOF ファイルがない場合は、
+mkcimreg
+が必要な MOF ファイルを見つけるのに役立ちます。</pre>

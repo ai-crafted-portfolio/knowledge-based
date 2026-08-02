@@ -1,0 +1,22 @@
+<!doctype html><meta charset="utf-8"><pre class="official-markdown">目的
+UDF ファイルシステム上でファイルシステムの検査を実行します。
+
+説明
+udfcheck
+コマンドは、指定したデバイス上の UDF ボリューム
+を検査および修復します。
+
+構文
+udfcheck -d device [ -t tempfile ]
+
+オプション
+フラグ
+項目 | 説明
+-d デバイス | udfcheck が検査および修復する UDF ボリュームがある デバイスを指定します。
+-t 一時ファイル | ファイルシステムの検査に必要な情報を udfcheck コマ ンドが保管するファイルを指定します。
+
+例
+/dev/cd1
+デバイス上の UDF ファイルシステムの内容を検査
+するには、次のように入力します。
+udfcheck -d /dev/cd1</pre>

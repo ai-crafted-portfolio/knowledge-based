@@ -1,0 +1,82 @@
+<!doctype html><meta charset="utf-8"><pre class="official-markdown">目的
+1 つ以上の InfiniBand ネットワーク・デバイスに関する操作情報を表示します。
+
+説明
+このコマンドは、指定されたホスト・チャネル・アダプター・デバイス (HCAD) に関連する InfiniBand の操作情報を表示します。 HCAD デバイス名が入力されないと、使用可能なすべての HCAD の状況が表示されます。 検索結果の幅を狭くするには、フラグを選択してください。 ユーザーは、ノード、ポート、インターフェース、およびデバッグ情報を含む特定カテゴリーの情報を表示することができます。 また、ユーザーはすべての情報カテゴリーを選択して表示することもできます。
+
+構文
+ibstat [ -d , -h , -i , -n , -p , -v ] [ DeviceName ]
+
+オプション
+フラグ
+項目 | 説明
+-d | 現行のデバッグ設定を表示します。
+-h | ibstat コマンドの使用法を表示します。
+-i | ネットワーク・インターフェース情報を表示します。
+-n | IB ノード情報のみを表示します。
+-p | IB ポート情報のみを表示します。
+-v | すべての IB デバイス情報を表示します。
+下記のフィールドにはすべての有効コールの情報が表示されます。
+デバイス名
+使用可能な HCAD (例えば、
+iba0
+) の名前が表示されます。
+ポート状態
+各 HCAD ポートの現在の状態を表示します。
+下に移動
+ポートは使用不可です。
+初期化済み
+ポートは使用可能化されてトレーニング・シーケンスを発行しています。
+準備完了
+ポートの準備が完了し、活動状態になるための構成を試行中です。
+アクティブ
+ポートは通常の操作状態です。
+不明
+ポートは無効、または不明の状態です。
+
+例
+ノード情報およびポート情報を要求するには、以下を入力します。
+ibstat -n -p
+次のような情報が表示されます。
+===============================================================================
+INFINIBAND DEVICE INFORMATION (iba0)
+===============================================================================
+-------------------------------------------------------------------------------
+IB NODE INFORMATION (iba0)
+-------------------------------------------------------------------------------
+Number of Ports: 2
+Globally Unique ID (GUID): 00.02.55.00.00.00.46.00
+Maximum Number of Queue Pairs: 1023
+Maximum Outstanding Work Requests: 32768
+Maximum Scatter Gather per WQE: 252
+Maximum Number of Completion Queues: 1023
+Maximum Multicast Groups: 256
+Maximum Memory Regions: 3836
+Maximum Memory Windows: 3836
+-------------------------------------------------------------------------------
+IB PORT 1 INFORMATION (iba0)
+-------------------------------------------------------------------------------
+Global ID Prefix: fe.80.00.00.00.00.00.00
+Local ID (LID): 0012
+Port State: Active
+Maximum Transmission Unit Capacity: 2048
+
+Current Number of Partition Keys: 1
+Partition Key List:
+P_Key[0]: ffff
+Current Number of GUID&#x27;s: 1
+Globally Unique ID List:
+GUID[0]: 00.02.55.00.00.00.46.12
+-------------------------------------------------------------------------------
+IB PORT 2 INFORMATION (iba0)
+-------------------------------------------------------------------------------
+Global ID Prefix: fe.80.00.00.00.00.00.00
+Local ID (LID): 0011
+Port State: Active
+Maximum Transmission Unit Capacity: 2048
+Current Number of Partition Keys: 1
+Partition Key List:
+P_Key[0]: ffff
+Current Number of GUID&#x27;s: 1
+Globally Unique ID List:
+GUID[0]: 00.02.55.00.00.00.46.52</pre>

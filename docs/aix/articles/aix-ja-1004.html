@@ -1,0 +1,126 @@
+<!doctype html><meta charset="utf-8"><pre class="official-markdown">目的
+ネットワーク・キャッシング (netcd) デーモンを起動します。
+
+説明
+netcd
+デーモンは、リゾルバーから取得した応答をキャッシングして、ローカル、DNS、NIS、およびユーザー・ロード可能モジュール・サービスが照会に応答する時間を短縮します。
+リゾルバー (例えば、DNS) およびマップ (例えば、ホスト) 用に構成されている
+netcd
+デーモンが実行されると、まずキャッシュされた応答を使用して解決が試みられます。 それが失敗した場合は、リゾルバーが呼び出され、応答が
+netcd
+デーモンによりキャッシュされます。
+ローカル、NIS、およびユーザー・ロード可能モジュールの解決用にサポートされているマップのタイプは、ホスト、サービス、ネットワーク、プロトコル、およびネットグループです。 DNS の場合、使用できるマップのタイプはホストだけです。
+さらに、Yellow Page の特定の場合のために、以下のマップが追加されています。
+passwd.byname
+passwd.byuid
+group.byname
+group.bygid
+netid.byname
+passwd.adjunct.byname
+構成ファイルを使用して、構成が必要なリゾルバーおよびマップを指定できます。 このファイルを使用して、他の
+netcd
+パラメーターも指定できます。 デフォルトでは、
+/etc/netcd.conf
+ファイルが構成ファイルとして使用されます。
+netcd
+デーモンの
+-c
+引数を使用すると、この構成ファイルのパスを変更できます。
+/etc/netcd.conf
+ファイルが存在しない場合、
+netcd
+デーモンはデフォルト・パラメーターを使用します。
+/usr/samples/tcpip
+ファイルにこのファイルのサンプルがあります。 このファイルを構成ファイルとして使用しないでください。構成ファイルとして使用すると、このファイルを含むパッケージが新規にインストールされたときに上書きされます。
+-d
+引数を使用して、デバッグのレベルを指定できます。 このデバッグ・レベルは、
+syslogd
+デーモンで使用されるデバッグ・レベルに類似しています。 ログ・メッセージは
+/var/tmp/netcd.log
+ファイルに書き込まれます。 netcd 構成ファイルを使用して、デフォルトをオーバーライドできます。
+syslogd
+デーモンの場合と同様に、netcd ログ・ファイルの回転を指定できます。
+netcd パラメーター
+
+netcd キャッシュにエントリーが挿入されると、存続時間 (TTL) が関連付けられます。 この TTL は、netcd 構成ファイルを使用して構成できます (キャッシュ宣言)。 DNS の場合、この TTL は、DNS からの応答を含む TTL です。
+古くなったエントリーをキャッシュから消去するには、ローカル・キャッシュのクリーニングとその他のキャッシュのクリーニングの 2 つのタスクを定期的に実行する必要があります。 これらのタスクの頻度は、netcd 構成ファイルで
+local_scan_frequency
+および
+net_scan_frequency
+パラメーターを使用して設定できます。
+キャッシュはハッシュ・テーブルです。 ハッシュ・テーブルのサイズは、netcd 構成ファイルと
+netcdctrl
+コマンドを使用して制御できます。
+netcd
+デーモンは、アプリケーション間の通信にソケット (
+/dev/netcd
+) を使用します。 netcd 構成ファイルを使用すると、メッセージ・キューのサイズを構成できます。
+netcd によるシステム・リソース・コントローラーのサポート
+netcd
+デーモンは、システム・リソース・コントローラー (SRC) グループの一部です。
+netcd
+デーモンを管理するために使用できる SRC コマンドは次のとおりです。
+netcd
+を開始するには
+startsrc
+コマンドを、
+netcd
+デーモンを停止するには
+stopsrc
+コマンドを使用できます。
+lssrc
+コマンドは、プロセス ID (PID) および
+netcd
+デーモンの状況を含む簡略状況出力を提供します。
+lssrc -l
+コマンドは、PID、
+netcd
+デーモンの状況、
+netcd
+デーモンの開始時に使用される構成ファイル、および構成済みキャッシュを含む詳細状況出力を提供します。
+注:
+refresh
+コマンドを
+netcd
+デーモンで使用することはできません。
+
+構文
+netcd [ -l ファイル ] [ -c ファイル ] [ -d レベル ] [ -h ]
+
+オプション
+フラグ
+項目 | 説明
+-c ファイル | 構成ファイルを指定します。 デフォルト・ファイル名は /etc/netcd.conf です。
+-d level | ロギング・レベルを指定します。 level 値は 0 から 7 までの整数でなければなりません。
+-h | ヘルプ情報を表示します。
+-l ファイル | netcdctrl コマンドで作成された指定のバイナリー・ファイルからキャッシュをロードします。 ローカル・ファイル (例えば、 /etc/hosts 、 /etc/services ) は、構成ファイルに応じてロードされます。
+
+例
+SRC を使用して
+netcd
+デーモンを起動するには、次のように入力します。
+startsrc -s netcd
+SRC を使用して
+netcd
+デーモンの状況を表示するには、次のように入力します。
+lssrc -s netcd
+このコマンドは、次の出力を生成します。
+Subsystem Group PID Status
+netcd netcd 299064 active
+SRC を使用して
+netcd
+デーモンの状況を詳細形式で表示するには、次のように入力します。
+lssrc -l -s netcd
+このコマンドは、次の出力を生成します。
+Subsystem Group PID Status
+netcd netcd 299064 active
+Configuration File /etc/netcd.conf
+Configured Cache local services
+Configured Cache local protocols
+Configured Cache local hosts
+Configured Cache local networks
+Configured Cache local netgroup
+SRC を使用しないで
+netcd
+デーモンを起動するには、次のように入力します。
+netcd</pre>

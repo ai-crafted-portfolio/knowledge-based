@@ -1,0 +1,50 @@
+<!doctype html><meta charset="utf-8"><pre class="official-markdown">目的
+Kerberos サーバーを構成します。
+
+説明
+mkkrb5srv
+コマンドは、Kerberos サーバーを構成します。 このコマンドは、
+kadm5.acl
+ファイル、
+kdc.conf
+ファイル、および Kerberos データベースを作成します。 さらに、データベースに管理者を追加し、
+/etc/inittab
+ファイルを Kerberos デーモンで更新します。 このコマンドは、変数が設定されると、初期構成を行います。 変数は、次のファイルを編集することによって変更できます。
+項目 | 説明
+/etc/krb5/krb5.conf: | レルム名、Kerberos admin サーバー、およびドメイン名は、コマンド・ラインで指定されたとおりに設定されます。 さらに、 default_keytab_name 、 kdc 、 および kadmin ログ・ファイルへのパスが更新されます。
+/var/krb5/krb5kdc/kdc.conf | このコマンドでは、次のものが設定されます: kdc_ports の値。 データベース名 admin_keytab 、 acl_file 、 dict_file 、および key_stash_file へのパス名。 kadmin_port 、 max_life 、 max_renewable_life 、 master_key_type 、 および supported_enctypes の値。
+/var/krb5/krb5kdc/kadm5.acl | 管理者、root、およびホストのプリンシパル用の acl をセットアップします。
+DCE が構成されていない場合は、このコマンドにより、
+/etc/krb5.conf
+から
+/etc/krb5/krb5.conf
+へのパスが作成されます。
+項目 | 説明
+標準出力 | -h フラグが使用されているとき、情報メッセージから成り立っています。
+標準エラー | コマンドが正常に完了できないとき、エラー・メッセージから成り立っています。
+
+構文
+mkkrb5srv -h | [ -r Realm -d Domain -a AdminName ] [ -l ldapserver | ldapserver:port ] [-u ldap_DN ] [ -p ldap_DN_pw ] [ -f {keyring | keyring:entry_dn} ] [ -k keyring_pw ] [ -b bind_type ] [-m masterkey_location ] [ -U]
+
+オプション
+フラグ
+項目 | 説明
+-a AdminName | 管理者の Kerberos プリンシパル名を指定します。
+-b バインドタイプ | LDAP バインド・タイプを指定します。 次の値がサポートされます。 simple cram-md5 external これらのバインド・タイプは、大文字、小文字のいずれでも指定できます。
+-d ドメイン | Kerberos レルムのドメイン名を指定します。
+-f { keyring | keyring:entry_dn } | SSL 通信を使用している場合に、LDAP キー・リング・データベース・ファイル名を指定します。
+-h | コマンドが有効なコマンド構文のみを表示することを指定します。
+-k キーリングパスワード | LDAP キー・リング・データベース・ファイルのパスワードを指定します。 指定されていない場合、 SSL は、適切なパスワード・スタッシュ・ファイルに暗号化されているパスワードを使用します。
+-l ldapserver | ldapserver:port | サーバーの場合は、ネットワーク認証サービス・プリンシパルおよびポリシー情報を保管するのに 使用する LDAP ディレクトリーを指定します。 クライアントの場合は、管理サーバーおよび LDAP を使用する KDC ディスカバリーに 使用する LDAP ディレクトリー・サーバーを指定します。 -l フラグを使用する場合は、KDC およびサーバー・フラグの指定はオプションです。 -l オプションを使用しない場合は、KDC およびサーバー・フラグを 指定する必要があります。 オプションとして、ポート番号を指定することができます。 クライアントおよびサーバーの場合、オプションとして、ポート番号を指定することができます。 ポート番号を指定しないと、クライアントは、デフォルトの LDAP サーバー・ポート 389 または SSL 接続の場合は 636 に接続します。 注: クライアント構成のみが更新されます。
+-m マスターキー・ロケーション | データの保管に LDAP を使用している場合に、ローカル・ファイルシステムにマスター・キーを保管する ために、絶対パスによるファイル名を指定します。 注: このフラグは、LDAP ディレクトリーでのみ使用されます。
+-p ldap_DN_pw | ldap_DN_pw に使用されているエントリーのパスワードを指定します。
+-r Realm | Kerberos サーバーが構成されるレルムを指定します。
+
+-u ldap_DN | ldap_DN として使用される LDAP エントリーを指定します。 注: 外部バインドでは、 -u フラグと -p フラグは必須ではなく、値は証明書を形成します。
+-U | セットアップを直前の構成コマンドから元に戻します。
+
+例
+コマンド構文を表示するには、次のように入力します。
+mkkrb5srv -h
+sundial を Kerberos サーバーとして構成するには、次のように入力します。
+mkkrb5srv -r UD3A.AUSTIN.IBM.COM -d austin.ibm.com</pre>

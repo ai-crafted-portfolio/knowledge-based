@@ -1,0 +1,318 @@
+<!doctype html><meta charset="utf-8"><pre class="official-markdown">目的
+リソースまたはリソース・クラスの属性および値を表示します。
+
+説明
+lsrsrc
+コマンドは、リソースまたはリソース・クラスの永続属性と動的属性、およびそれらの値を表示します。
+selection_string
+に複数のノード名を指定する代わりに、
+-N
+node_file
+フラグを使用して、ノード名がファイル内にあることを示すことができます。 標準入力からノード名を読み取るには、
+-N
+&quot;-&quot;
+を使用します。
+1 つ以上の属性名が指定された場合、指定されたそれぞれの属性名が有効であれば、これらの名前とその値が指定された順序で表示されます。 属性名が指定されない場合、
+-A p
+|
+d
+|
+b
+フラグは、永続属性または動的属性、あるいはその両方 (およびその値) を表示するかどうかを制御します。
+public
+として定義されている属性のみが表示されます。 このデフォルトをオーバーライドするには、
+-p
+フラグを使用します。
+最良のパフォーマンスを得るには、
+-A
+p
+フラグを指定するか、永続属性のみをパラメーターとして指定します。
+指定したリソース・クラスのリソースに関連付けられたリソース・ハンドルのみを表示するには、
+-r
+フラグを指定します。
+リソース・クラスの属性と値のリストを表示するには、
+-c
+フラグを指定します。
+デフォルトでは、リソース属性と値は
+長形式で表示されます。 リソースを表形式または区切り文字形式の出力で表示するには、
+-t
+、
+-d
+、または
+-D
+フラグを使用します。
+システムにクラスター・システム・マネージメント (CSM) がインストールされている場合は、CSM 定義のノード・グループをノード名の値として使用して、複数のノードを参照できます。 CSM ノード・グループの処理および CSM
+nodegrp
+コマンドの使用については、「
+CSM: 管理ガイド
+」および「
+CSM: コマンドおよびテクニカル・リファレンス
+」を参照してください。
+lsrsrc
+コマンドは、
+ct_none
+(例えば、
+Quantum
+) として定義されたデータ・タイプを持つ属性をリストしません。 RMC は、
+Quantum
+として定義されている属性の属性値を返しません。 属性定義をリストするには、
+lsrsrcdef
+コマンドを使用します。
+
+構文
+リソース の属性と値を表示するには、次のようにします。 lsrsrc [ -s &quot;selection_string&quot; ] [ -a | -N { node_file | &quot;-&quot; }] [ -A p | d | b ] [ -p property ] [ -l | -i | -t | -d | -D delimiter ] [ -x ] [ -h ] [ -TV ] [ resource_class ] [ attr ...] lsrsrc -r [ -s &quot;selection_string&quot; ] [ -a | -N { node_file | &quot;-&quot; }] [ -l | -i | -t | -d | -D delimiter ] [ -x ] [ -h ] [ -TV ] [ リソース・クラス ] リソース・クラス の属性と値を表示するには、次のようにします。 lsrsrc -c [ -A p | d | b ] [ -p property ] [ -l | -i | -t | -d | -D delimiter ] [ -x ] [ -a ] [ -h ] [ -TV ] resource_class [ attr ...] lsrsrc -C domain_name ... [ -A p | d | b ] [ -p property ] [ -l | -i | -t | -d | -D delimiter ] [ -x ] [ -h ] [ -TV ] resource_class [ attr ...] すべてのリソース・クラスのリストを表示するには、以下のようにします。 lsrsrc
+
+オプション
+フラグ
+-a
+このコマンドをクラスター内のすべてのノードに適用することを指定します。 クラスター有効範囲は、
+CT_MANAGEMENT_SCOPE 環境変数によって決定されます。 この環境変数が設定されていない場合、
+コマンドにとって有効な有効範囲になるまで、
+最初に管理ドメイン有効範囲 (存在する場合) を選択し、
+次にピア・ドメイン有効範囲 (存在する場合) を選択し、
+次にローカル有効範囲を選択します。 コマンドは、最初に見つかった有効な有効範囲に対して、1 回実行されます。 例えば、管理ドメインとピア・ドメインの両方が存在する場合、CT_MANAGEMENT_SCOPE が設定されていない
+lsrsrc
+-a
+は管理ドメインをリストします。 この場合、ピア・ドメインをリストするには、CT_MANAGEMENT_SCOPE を 2 に設定します。
+-Ap &#x27;
+|
+d &#x27;
+|
+b
+属性タイプを指定します。 デフォルトでは、永続属性のみが表示されます。 このフラグは、コマンド・ラインで属性名を
+指定しない場合にのみ使用できます。
+p
+永続属性のみを表示します。
+d
+動的属性のみを表示します。
+b
+永続属性と動的属性の両方を表示します。
+最良のパフォーマンスを得るには、
+-A p
+フラグを指定します。
+-c
+リソース・クラスの属性を表示します。 このフラグは、
+-r
+フラグをオーバーライドします。
+--C
+ドメイン名...
+管理サーバーで定義されている 1 つ以上の
+RSCT
+ピア・ドメイン上のグローバル化されたリソース・クラスのクラス属性を表示します。 グローバル・クラスは、ドメインに関する情報が入っているリソース・クラスのピア・ドメインおよび管理ドメインで使用されます。 管理サーバーに定義されているすべてのピア・ドメイン上のグローバル化されたリソース・クラスのクラス属性を表示するには、
+-C
+の代わりに
+-a
+フラグを指定して
+-c
+フラグを使用します。 このコマンドは、属性
+ActivePeerDomain
+の形式でピア・ドメインの名前を返します。 これは実際の属性ではなく、どのピア・ドメインが表示されるかを示すためのものとして表示されます。
+-d
+区切り文字により書式設定された出力を指定します。 デフォルトの区切り文字はコロン (:) です。 デフォルトの区切り文字を変更する場合は、
+-D
+フラグを使用します。
+--D
+デリミタ
+
+指定した区切り文字により書式設定された出力を指定します。 このフラグを使用して、デフォルトのコロン (:) 以外のものを指定します。 例えば、表示されるデータにコロンが含まれている場合です。 このフラグを使用して、1 つ以上の文字からなる区切り文字を指定します。
+-i
+resource_data_input_file
+のテンプレートを生成します。このテンプレートは、適切な編集を行った後、
+mkrsrc
+コマンドへの入力として使用できます。 出力は長い (スタンザ) フォーマットで表示されます。 リソースの定義に使用できるすべての必須およびオプションの属性が表示されます。 属性のデータ・タイプは、
+attr=value
+ペアとなった値として表示されます。 このフラグを使用する場合は、
+lsrsrc
+コマンドの出力をファイルに送ることをお勧めします。 このフラグは、
+-s
+および
+-A
+d
+フラグをオーバーライドします。
+-l
+長形式の出力を指定します。 各属性は、それぞれ別の行に表示されます。 これは、デフォルトの表示形式です。
+lsrsrc
+コマンドが
+-l
+フラグを指定して発行されたが、リソース・クラス名が指定されていない場合、コマンドが定義済みリソース・クラス名のリストを返すときに
+-l
+フラグは無視されます。
+--N{
+node_file
+| &quot;-&quot; }
+ファイルまたは標準入力からノード名を読み取ることを指定します。 ノード名がファイルにあることを示すには、
+-N
+node_file
+を使用します。
+node_file
+ファイルでは、1 行につき 1 つのノード名を指定します。
+1 桁目に番号記号 (#) を付けると、その行がコメントであることを示すことができます。
+ノード名の左のブランク文字はすべて無視されます。
+ノード名の右のブランク文字はすべて無視されます。
+標準入力からノード名を読み取るには、
+-N
+&quot;-&quot; を使用します。
+CT_MANAGEMENT_SCOPE
+環境変数は、クラスターの有効範囲を決定します。
+CT_MANAGEMENT_SCOPE
+が設定されていない場合は、まず管理ドメイン有効範囲が選択され (管理ドメインが存在する場合)、
+次にピア・ドメイン有効範囲が選択され (ピア・ドメインが存在する場合)、その後でローカル有効範囲が選択されます。
+
+このような選択は、コマンドに対して有効範囲が有効になるまで行われます。 コマンドは、最初に見つかった有効範囲に対して、1 回実行されます。 例えば、管理ドメインとピア・ドメインの両方が存在し、かつ
+CT_MANAGEMENT_SCOPE
+が設定されていない場合、
+このコマンドは管理ドメインに適用されます。 このコマンドをピア・ドメインに適用したい場合は、
+CT_MANAGEMENT_SCOPE
+を 2 に設定してください。
+--p
+プロパティ
+指定された
+property
+を持つ属性を表示します。 デフォルトでは、共用属性のみが表示されます。 プロパティーに関係なくすべての属性を表示するには、
+-p
+0
+フラグを使用します。 コマンド行に属性が指定されていない場合は、このフラグを
+-A
+フラグと一緒に使用します。
+永続属性:
+0x0001
+read_only
+0x0002
+reqd_for_define
+(必須)
+0x0004
+inval_for_define
+(無効)
+0x0008
+option_for_define
+(オプション)
+0x0010
+selectable
+0x0020
+public
+動的属性:
+0x0020
+public
+属性に 10 進値または 16 進値を指定することができます。 1 つ以上のプロパティーを持つすべての属性の属性とその値を表示するには、対象のプロパティーを一緒に「OR」してから、
+-p
+フラグで「OR」演算された値を指定します。 例えば、
+reqd_for_define
+または
+option_for_define
+のいずれかであるすべての永続属性の属性とその値を表示するには、次のように入力します。
+lsrsrc -p 0x0a
+-r
+指定された選択文字列に一致するリソース、または選択文字列が指定されない場合にはすべてのリソースのリソース・ハンドルを表示します。
+--s
+&quot;selection_string&quot;
+選択文字列を指定します。 選択文字列はすべて、
+二重または単一の引用符で囲まなければなりません。 選択文字列の中に二重引用符が含まれている場合は、選択文字列全体を単一の引用符で囲んでください。 次に例を示します。
+-s &#x27;Name == &quot;testing&quot;&#x27;
+-s &#x27;Name ?= &quot;test&quot;&#x27;
+選択文字列中には、永続属性のみがリストされます。 選択文字列の指定方法については、「
+RSCT
+: Administration Guide
+」を参照してください。
+-t
+
+表形式を指定します。 属性ごとにそれぞれ別個の列に表示され、1 行に 1 個のリソースが表示されます。
+-x
+ヘッダー印刷を抑制します。
+-h
+コマンドの使用ステートメント (使用法) を標準出力に書き込みます。
+-T
+コマンドのトレース・メッセージを標準エラーに書き込みます。 ソフトウェア・サービスの編成の使用の場合のみです。
+-V
+コマンドの詳細メッセージを標準出力に書き込みます。
+
+例
+すべてのリソース・クラスの名前をリストするには、次のように入力します。
+lsrsrc
+出力は次のようになります。
+class_name
+&quot;IBM.Association&quot;
+&quot;IBM.Condition&quot;
+&#x27;IBM.EventResponse&quot;
+&quot;IBM.Host&quot;
+&quot;IBM.Ethernet&quot;
+&quot;IBM.TokenRing&quot;
+...
+リソース IBM®の永続属性をリストします。4 つのプロセッサーを持つホストは、次のように入力します。
+lsrsrc -s &quot;NumProcessors == 4&quot; -A p -p 0 IBM.Host
+出力は次のようになります。
+Resource Persistent Attributes for: IBM.Host
+resource 1:
+Name = &quot;c175n05.ppd.pok.ibm.com&quot;
+ResourceHandle = &quot;0x4008 0x0001 0x00000000 0x0069684c 0x0d7f55d5 0x0c32fde3&quot;
+Variety = 1
+NodeList = {1}
+NumProcessors = 4
+RealMemSize = 1073696768
+リソース IBM.Host で、次のように入力します。
+lsrsrc -s &#x27;Name == &quot;c175n05.ppd.pok.ibm.com&quot;&#x27; -A d IBM.Host
+出力は次のようになります。
+Resource Dynamic Attributes for: IBM.Host
+resource 1:
+ProcRunQueue = 1.03347987093142
+ProcSwapQueue = 1.00548852941929
+TotalPgSpSize = 65536
+TotalPgSpFree = 65131
+PctTotalPgSpUsed = 0.61798095703125
+PctTotalPgSpFree = 99.3820190429688
+PctTotalTimeIdle = 0
+PctTotalTimeWait = 51.5244382399734
+PctTotalTimeUser = 12.8246006482343
+PctTotalTimeKernel = 35.6509611117922
+PctRealMemFree = 66
+PctRealMemPinned = 4
+RealMemFramesFree = 173361
+VMPgInRate = 0
+VMPgOutRate = 0
+
+VMPgFaultRate = 0
+...
+すべてのオンライン・ノード上の IBM.Processor リソースの Name、Variety、および ProcessorType 属性をリストするには、次のように入力します。
+lsrsrc IBM.Processor Name Variety ProcessorType
+出力は次のようになります。
+Resource Persistent Attributes for: IBM.Processor
+resource 1:
+Name = &quot;proc3&quot;
+Variety = 1
+ProcessorType = &quot;PowerPC_604&quot;
+resource 2:
+Name = &quot;proc2&quot;
+Variety = 1
+ProcessorType = &quot;PowerPC_604&quot;
+resource 3:
+Name = &quot;proc1&quot;
+Variety = 1
+ProcessorType = &quot;PowerPC_604&quot;
+resource 4:
+Name = &quot;proc0&quot;
+Variety = 1
+ProcessorType = &quot;PowerPC_604&quot;
+リソース・クラス IBM.Condition、次のように入力します。
+lsrsrc -c -A b -p 0 IBM.Condition
+出力は次のようになります。
+Resource Class Persistent and Dynamic Attributes for: IBM.Condition
+resource 1:
+ResourceType = 0
+Variety = 0
+/tmp/common/node_file
+ファイルを使用して、少なくとも 4 つのプロセッサーを持つクラスター内のノードをリストするには、以下のようにします。
+# common node file
+#
+node1.ibm.com main node
+node2.ibm.com main node
+node4.ibm.com backup node
+node6.ibm.com backup node
+#
+次のように入力します。
+lsrsrc -s &quot;NumProcessors &gt;= 4&quot; -N /tmp/common/node_file -t IBM.Host \
+Name NumProcessors
+出力は次のようになります。
+Resource Persistent Attributes for IBM.Host
+Name NumProcessors
+&quot;node1.ibm.com&quot; 4
+
+&quot;node2.ibm.com&quot; 4</pre>

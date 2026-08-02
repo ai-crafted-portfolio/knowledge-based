@@ -1,0 +1,348 @@
+<!doctype html><meta charset="utf-8"><pre class="official-markdown">目的
+デバイス上で単一パス予約と永続予約の照会および破棄を行います。
+
+説明
+devrsrv
+コマンドは、デバイス上で単一パス予約と永続予約の照会および破棄を行います。 このコマンドは、永続予約イン (
+prin
+) と永続予約アウト (
+prout
+) のサービス・アクションを実行します。
+query
+サブコマンドは、デバイスの現在の予約状況を照会して表示します。
+release
+サブコマンドは、単一パス予約を使用してデバイス上の予約を解除します。
+prin
+サブコマンドは、すべての登録済みの予約キー、
+予約キー・ホルダー、および能力情報を表示します。
+prout
+サブコマンドは、デバイスへの特定の入出力パスを排他使用または共有使用するために
+、そのデバイスを予約するサービス・アクションを要求します。
+prout
+サブコマンドは、以下のサービス・アクションをサポートします。
+項目 | 説明
+RELEASE | デバイスに指定された永続予約を解除します。
+クリア | すべての予約キーとすべての永続予約をクリアします。
+PREEMPT | 永続予約を優先使用するか、または登録を除去します。あるいはその両方を行います。
+PREEMPT AND ABORT | 永続予約を優先使用するか、または登録を除去します。あるいはその両方を行います。さらに、優先使用された、デバイスのすべての入出力パスに対して、すべてのタスクを停止します。
+REGISTER AND IGNORE KEY | 古いキー値の代わりに新しいキー値を登録します。
+
+構文
+devrsrv -c クエリ [ -e ]｜ リリース ｜ prin -s サ ｜ ( prout -s リリース -r キー -k キー -t プリタイプ ) -l デバイス名 devrsrv -f -l デバイス名 devrsrv -d
+
+オプション
+フラグ
+項目 | 説明
+-c | 以下のサブコマンドを指定します。 照会 デバイス上の予約状況を照会して表示します。 リリース SCSI-2 を使用して単一パス予約を持つデバイスを解放します。 prin 永続予約イン・サービス・アクションを指定します。 prout 永続予約アウト・サービス・アクションを指定します。
+-d | devrsrv コマンドを使用して照会または操作されるすべてのディスクについて、ディスク名およびその他の識別情報をリストします。
+-e | ディスクを排他モード (単一モードと診断モードの両方が含まれます) で開かないようにします。 このフラグは、 PR_exclusive と PR_shared の予約タイプにのみ適用できます。 オブジェクト・データ・マネージャー (ODM) 予約ポリシーが single_path の場合、このフラグは無視されます。 注: 場合によっては、このフラグを使用すると、 devrsrv コマンドは、ディスクの予約状況、またはディスクがローカル・ホスト上で既にオープンしているかどうかを判別しないことがあります。
+-f | 他の入出力パスまたはホストが保有する予約を破棄します。 単一パス予約の場合、 devrsrv コマンドは SC_FORCED_OPEN アクションを 発行して予約を破棄します。 永続予約の場合、 devrsrv コマンドは prout サブコマンドを CLEAR サービス・アクションと一緒に発行して、永続予約と登録をクリアします。
+-k | サービス・アクションの予約キーを指定します。 REGISTER、PREEMPT、および PREEMPT_ABORT の各サービス・アクションには、 -k フラグが必須です。
+-l | デバイス名を指定します。
+-r | 予約キーを指定します。 REGISTER、PREEMPT、PREEMPT AND ABORT、 および RELEASE の各サービス・アクションには、 -r フラグが必須です。
+-s | 永続予約のサービス・アクションを指定します。 prin サブコマンドの有効なサービス・アクションは、次のとおりです。 0 READ KEYS 1 READ RESERVATION 2 REPORT CAPABILITIES prout サブコマンドの有効なサービス・アクションは、次のとおりです。 2 RELEASE 3 クリア 4 PREEMPT 5 PREEMPT AND ABORT 6 REGISTER AND IGNORE EXISTING KEY
+
+-t | 永続予約のタイプを指定します。 永続予約のタイプは、次のとおりです。 1 排他的書き込み 2 排他的アクセス 3 排他的書き込み登録者のみ 4 排他的アクセス登録者のみ 5 すべての排他的書き込み登録者 6 すべての排他的アクセス登録者
+
+例
+以下に、各種のシナリオに関する例を示します。
+Query
+operation
+hdisk0
+デバイスがどのホストにも予約されていないときに、その予約状況を照会するには、
+次のコマンドを入力します。
+# devrsrv -c query -l hdisk0
+Device Reservation State Information
+==================================================
+Device Name : hdisk0
+Device Open On Current Host? : NO
+ODM Reservation Policy : SINGLE PATH RESERVE
+Device Reservation State : NO RESERVE
+この出力は、このデバイスが現在のホスト上でオープンされていないことと、「ODM Reservation Policy (オブジェクト・データ・マネージャー (ODM) 予約ポリシー)」が SINGLE PATH RESERVE であることを示しています。 それは、予約ポリシーがこのデバイスに対して ODM の中に設定されていることを示します。 「Device Reservation State (デバイス予約状態)」は、デバイス上に存在する予約を示します。 SCSI コマンドのシーケンスを実行して、
+デバイス予約状態を検出することができます。
+あるホストが
+hdisk1
+デバイスを予約している場合、その予約状況を照会するには、次のコマンドを入力します。
+# devrsrv -c query -l hdisk1
+あるホストが単一パス予約を使用して、このデバイスを予約しています。
+Device Reservation State Information
+==================================================
+Device Name : hdisk1
+Device Open On Current Host? : NO
+ODM Reservation Policy : SINGLE PATH RESERVE
+Device Reservation State : SINGLE PATH RESERVE
+hdisk2
+デバイスが同じホスト上で予約されているときに、その予約状況を照会するには、
+次のコマンドを入力します。
+# devrsrv -c query -l hdisk2
+
+Device Reservation State Information
+==================================================
+Device Name : hdisk2
+Device Open On Current Host? : YES
+ODM Reservation Policy : SINGLE PATH RESERVE
+Device Reservation State : SINGLE PATH RESERVE
+Path Id of Reserved Path : 0
+ODM 予約ポリシーが PR SHARED の場合で、かつ、どのホストも
+hdisk2
+デバイスを予約していない場合、そのデバイスの予約状況を照会するには、次のコマンドを入力します。
+# devrsrv -c query -l hdisk0
+Device Reservation State Information
+==================================================
+Device Name : hdisk0
+Device Open : NO
+ODM Reservation Policy : PR SHARED
+ODM PR Key Value : 7777
+Device Reservation State : NO RESERVE
+Registered PR Keys :
+555
+777
+PR Capabilities Byte[2] : 0xd SIP_C ATP_C PTPL_C
+PR Capabilities Byte[3] : 0x0
+PR Types Supported : NOT VALID
+この照会出力のいくつかのフィールドの説明は、次のとおりです。
+Registered PR Keys:
+登録されたキーを表示します。このキーは、このデバイスを共有する全入出力パスから
+prout
+サブコマンドを REGISTER サービス・アクションと一緒に
+実行して登録されたものです。
+PR Capabilities Bytes:
+prin
+サブコマンドの REPORT CAPABILITIES サービス・アクションによって
+戻されたバイト 2 および 3 の内容を示します。 例 4 の出力を解釈するには、SPC 規格を参照してください。
+PR Types Supported:
+
+デバイスがサポートしている永続予約タイプを表示します。このデバイスは、REPORT CAPABILITIES 出力の永続予約タイプ・マスク・フィールドで報告されたものです。
+あるデバイス上で永続予約が保持されている場合、照会出力では、そのデバイスの予約に関する
+追加情報が次のように表示されます。
+PR Reservation Type:
+『フラグ』セクションに記載されている
+永続予約タイプ (PR Type) の値のいずれかを表示します。
+PR Holder key Value:
+現在の予約ホルダーの PR キー値を表示します。 PR Type が 5 または 6 の場合、永続予約キー値は 0 です。
+Persistent
+reserve in (prin) operation
+すべての登録済みの予約キーを読み取るには、次のコマンドを入力します。
+# devrsrv -c prin -s 0 -l hdisk0
+Registered PR Keys :
+555
+777
+現在の予約キー・ホルダーおよびタイプを読み取るには、次のコマンドを入力します。
+# devrsrv -c prin -s 1 -l hdisk0
+PR Generation Value : 2
+PR Type : PR_EA_RO (EXCLUSIVE ACCESS, REGISTRANTS ONLY)
+PR Holder Key Value : 777
+REPORT CAPABILITIES サービス・アクションを送信して、サポートされている PR 能力情報を戻すには、
+次のコマンドを入力します。
+# devrsrv -c prin -s 2 -l hdisk0
+PR Capabilities Byte[2] : 0xd SIP_C ATP_C PTPL_C
+PR Capabilities Byte[3] : 0x0
+PR Types Supported : NOT VALID
+Persistent reserve out (prout)
+operation
+RELEASE service action
+キー 1777 と PR 予約タイプ 4 で登録され、予約された IT-nexus から、永続予約を解除するには、
+次のコマンドを入力します。
+# devrsrv -c prout -s 2 -r 1777 -t 4 -l hdisk0
+Device Reservation State Information
+
+==================================================
+Device Name : hdisk0
+Device Open On Current Host? : YES
+ODM Reservation Policy : PR SHARED
+ODM PR Key Value : 7777
+Device Reservation State : PR SHARED
+Reservation will be cleared on the device. Do you want to continue y/n:y
+ここで照会を実行すると、結果は以下のように表示されます。
+Device
+Reservation State
+NO RESERVE として。
+# devrsrv -c query -l hdisk0
+Device Reservation State Information
+==================================================
+Device Name : hdisk0
+Device Open : NO
+ODM Reservation Policy : PR SHARED
+ODM PR Key Value : 7777
+Device Reservation State : NO RESERVE
+Registered PR Keys :
+555
+1777
+PR Capabilities Byte[2] : 0xd SIP_C ATP_C PTPL_C
+PR Capabilities Byte[3] : 0x0
+PR Types Supported : NOT VALID
+CLEAR
+service action
+キー 555 で登録された入出力パスを使用して、CLEAR サービス・アクションを使用するデバイス・サーバーから
+永続予約を解除し、すべての登録を除去するには、次のコマンドを入力します。
+# devrsrv -c prout -s 3 -r 555 -l hdisk0
+Device Reservation State Information
+==================================================
+Device Name : hdisk0
+Device Open On Current Host? : YES
+ODM Reservation Policy : PR SHARED
+ODM PR Key Value : 5555
+
+Device Reservation State : PR SHARED
+Reservation will be cleared on the device. Do you want to continue y/n:y
+この時点で照会を実行すると、デバイスから永続予約は解除されていて、
+登録は除去されています。
+# devrsrv -c query -l hdisk0
+Device Reservation State Information
+==================================================
+Device Name : hdisk0
+Device Open : NO
+ODM Reservation Policy : PR SHARED
+ODM PR Key Value : 5555
+Device Reservation State : NO RESERVE
+Registered PR Keys : No Keys Registered
+PR Capabilities Byte[2] : 0xd SIP_C ATP_C PTPL_C
+PR Capabilities Byte[3] : 0x0
+PR Types Supported : NOT VALID
+PREEMPT
+and PREEMPT_ABORT service actions
+予約ホルダー 444 で保持されている永続予約において、登録済みのキー 777 を持つ別の IT-nexus を優先するには、
+次のコマンドを入力します。
+# devrsrv -c prout -s 4 -r 777 -k 444 -t 2 -l hdisk0
+# devrsrv -c prout -s 4 -r 777 -k 444 -t 2 -l
+hdisk0
+コマンドを実行する前に、次のような照会出力が表示されます。
+# devrsrv -c query -l hdisk0
+Device Reservation State Information
+==================================================
+Device Name : hdisk0
+Device Open : NO
+ODM Reservation Policy : PR SHARED
+ODM PR Key Value : 7777
+Device Reservation State : PR EXCLUSIVE
+PR Generation Value : 5
+
+PR Type : PR_WE (WRITE EXCLUSIVE)
+PR Holder Key Value : 444
+Registered PR Keys :
+777
+444
+PR Capabilities Byte[2] : 0xd SIP_C ATP_C PTPL_C
+PR Capabilities Byte[3] : 0x0
+PR Types Supported : NOT VALID
+# devrsrv -c prout -s 4 -r 777 -k 444 -t 2 -l hdisk0
+コマンドを実行すると、照会出力に、キー 777 を持つ IT-nexus によって予約が優先使用され、キー 444 が登録抹消されていることが示されます。
+# devrsrv -c query -l hdisk0
+Device Reservation State Information
+==================================================
+Device Name : hdisk0
+Device Open : NO
+ODM Reservation Policy : PR SHARED
+ODM PR Key Value : 7777
+Device Reservation State : PR EXCLUSIVE
+PR Generation Value : 6
+PR Type : PR_EA (EXCLUSIVE ACCESS)
+PR Holder Key Value : 777
+Registered PR Keys :
+777
+PR Capabilities Byte[2] : 0xd SIP_C ATP_C PTPL_C
+PR Capabilities Byte[3] : 0x0
+PR Types Supported : NOT VALID
+RELEASE operation for SINGLE PATH
+RESERVE policy
+hdisk0
+デバイス上の予約を解除するには、
+次のコマンドを入力します。
+シナリオ 1: 現在のホストは、その予約の所有者です。
+# devrsrv -c query -l hdisk0
+Device Reservation State Information
+==================================================
+Device Name : hdisk0
+Device Open On Current Host? : YES
+
+ODM Reservation Policy : SINGLE PATH RESERVE
+Device Reservation State : SINGLE PATH RESERVE
+Path Id of Reserved Path : 0
+# devrsrv -c release -l hdisk0
+Device Reservation State Information
+==================================================
+Device Name : hdisk0
+Device Open On Current Host? : YES
+ODM Reservation Policy : SINGLE PATH RESERVE
+Device Reservation State : SINGLE PATH RESERVE
+Device is currently Open on this host by a process.Do you want to continue y/n:y
+Command Successful
+Reservation cleared on the device. Query operation may not work properly.
+Close the application that holds the reservation and retry.
+シナリオ 2: 現在のホストは、その予約の所有者ではありません。
+# devrsrv -c query -l hdisk0
+Device Reservation State Information
+==================================================
+Device Name : hdisk0
+Device Open On Current Host? : NO
+ODM Reservation Policy : SINGLE PATH RESERVE
+Device Reservation State : SINGLE PATH RESERVE
+Because the current host does not own the reservation on the device,
+try the force option if you want to break the reservation.
+# devrsrv -f -l hdisk0
+
+このデバイスは、単一パス予約を使用して、すでに別のホストによって予約されています。
+Device Reservation State Information
+==================================================
+Device Name : hdisk0
+Device Open On Current Host? : NO
+ODM Reservation Policy : SINGLE PATH RESERVE
+Device Reservation State : SINGLE PATH RESERVE
+Reservation will be cleared on the device. Do you want to continue y/n:y
+release コマンドが正常に実行されると、下記の照会オプションでは、
+「Device Reservation State (デバイス予約状態)」が NO RESERVE であると表示されることになります。
+# devrsrv -c query -l hdisk0
+Device Reservation State Information
+==================================================
+Device Name : hdisk0
+Device Open On Current Host? : NO
+ODM Reservation Policy : SINGLE PATH RESERVE
+Device Reservation State : NO RESERVE
+Forced mode
+hdisk0
+デバイスは、別の入出力パスから、キー 777 で予約されています。 この予約を別のクライアントから解除するには、
+次のコマンドを入力します。
+# devrsrv -f -l hdisk0
+Device Reservation State Information
+==================================================
+Device Name : hdisk16
+Device Open On Current Host? : NO
+ODM Reservation Policy : PR SHARED
+ODM PR Key Value : 5555
+Device Reservation State : PR SHARED
+
+Reservation will be cleared on the device. Do you want to continue y/n:y
+Command Successful
+# devrsrv
+-f -l hdisk0
+コマンドを実行する前に、照会によって以下の出力が表示されます。
+# devrsrv -c query -l hdisk0
+Device Reservation State Information
+==================================================
+Device Name : hdisk0
+Device Open : NO
+ODM Reservation Policy : PR SHARED
+ODM PR Key Value : 5555
+Device Reservation State : PR EXCLUSIVE
+PR Generation Value : 1
+PR Type : PR_WE (WRITE EXCLUSIVE)
+PR Holder Key Value : 777
+Registered PR Keys :
+777
+PR Capabilities Byte[2] : 0xd SIP_C ATP_C PTPL_C
+PR Capabilities Byte[3] : 0x0
+PR Types Supported : NOT VALID
+# devrsrv -f -l hdisk0
+コマンドを実行した後、下記のコマンド実行結果で表示されるのは、デバイスが予約されていないことです。
+# devrsrv -c query -l hdisk0
+Device Reservation State Information
+==================================================
+Device Name : hdisk16
+Device Open On Current Host? : NO
+ODM Reservation Policy : PR SHARED
+ODM PR Key Value : 5555
+Device Reservation State : NO RESERVE
+Registered PR Keys : No Keys Registered
+PR Capabilities Byte[2] : 0x0
+PR Capabilities Byte[3] : 0x0
+PR Types Supported : NOT VALID</pre>

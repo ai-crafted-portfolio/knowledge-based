@@ -1,0 +1,234 @@
+<!doctype html><meta charset="utf-8"><pre class="official-markdown">目的
+Portable Streams Environment
+(PSE) をロードし、構成します。
+
+説明
+strload
+コマンドにより、システム管理者は、ドライバーとモジュールのロードとアンロード、ならびに PSE とそれに従属するもののロード状況の照会を実行することができます。
+デフォルトでは、
+strload
+コマンドは
+/etc/pse.conf
+ファイルに従って PSE をロードします。
+-f
+フラグにより、管理者は代替構成ファイルを使用できます。
+-d
+フラグおよび
+-m
+フラグを使用して、構成ファイルには存在しないドライバー (新しくドライバーが開発されている場合など) やモジュールを指定します。
+-q
+フラグは、参照されたドライバーおよびモジュールのシステム・ロード状況 (カーネルの存在) を報告します。
+構成ファイル
+構成ファイルは、フラットな ASCII 形式の、行指向型データベースです。 コメントは # (ポンド記号) で始まり、その行の最後まで続きます。 ブランク行は無視されます。 各レコードの形式は以下のとおりです。
+attributes filename [argument [node [minor ...] ] ]
+フィールドはスペース、タブ、またはその両方で区切られます。 - (ハイフン) はフィールド名として指定することができ、デフォルト値が使用されることを示します。 フィールドは以下のように定義されます。
+項目 | 説明
+attributes | ロードする拡張を記述します。 以下の値を使用できます。 d ドライバーを指定します。 m モジュールを指定します。 s 標準 (クローンではない) デバイスとしてのノードを作成します。 + 拡張が 1 回または複数回、構成できるように指定します。 この値は、拡張ファイル名を含むすべての行について指定しなければなりません。
+項目 | 説明
+filename | 拡張を含むオブジェクト・ファイルを指定します。 ロード、アンロードまたは照会するドライバーまたはモジュールのファイル名の中に &quot;/&quot; (スラッシュ) を含んでコマンドが発行される場合、 strload コマンドはファイル名フィールドの値を明示的に使用します。 ファイル名エントリーの中に &quot;/&quot; がない 場合、 strload コマンドは最初に 現行ディレクトリー内のドライバーまたはモジュールのコピーを探します。 現行ディレクトリー内にドライバーまたはモジュールがない場合、 strload は /usr/lib/drivers/pse ディレクトリー内の ドライバーまたはモジュールを探します。
+“
+注:
+strload
+
+コマンドは、ルート・ディレクトリー (/) から発行することをお勧めします。 ロード、アンロード、および照会の
+strload
+コマンドは、常に同じディレクトリーから発行する必要があります。
+”
+カーネル・エクステンション・ローダーでは、ロード、アンロード、および照会で使用されるパス名を必ず同一にする必要があります。 これは、
+strload
+によるファイル名の決定方法とともに、問題を引き起こすことがあります。
+strload
+コマンドで使用されるパス名内のすべてのバイトは、
+カーネル・エクステンション・ローダーで使用されるパス名内の、位置が対応するすべてのバイトと完全に一致しなければなりません。
+なぜなら、カーネルは一致するものを探すときに、ファイル名に対して
+strcmp()
+関数を実行するからです。
+strload
+コマンドが別のディレクトリーから発行されて
+モジュールまたはドライバーをアンロードすると、
+以下のいずれかのイベントが生じます。
+strload
+コマンドが新しい現行ディレクトリーでドライバーまたはモジュールのコピーを検出しない場合は、以下のようにします。
+strload
+は、
+/usr/lib/drivers/pse
+ディレクトリーにあるドライバーまたはモジュールのアンロードを試みます。 しかし、
+このパス名は、ローダーがそのドライバーまたはモジュールとしてログに記録したパス名と
+同じでない場合があります。 パス名が同じでない場合、
+strload
+コマンドは失敗します。
+strload
+コマンドが新しい現行ディレクトリー内でモジュールまたはドライバーの別のコピーを検出した場合、パス名は同じになり、ローダーはロードされたドライバーまたはモジュールを正しくアンロードします。 したがって、
+strload
+コマンドは成功しますが、結果はユーザーが意図したとおりになるとは限りません。
+次に例を示します。
+以下のシナリオ (推奨ではありません) を使用すると、別名が「A」である「spx」がアンロードされます。 これは、望んだ結果ではないかもしれません。
+mkdir /tmp/foo /tmp/bar
+cp /usr/lib/drivers/pse/spx /tmp/foo/A
+cp /bin/ls /tmp/bar/A
+cd /tmp/foo
+strload -d A # The loader knows the path and filename as
+# &quot;A&quot; because &quot;A&quot; is found in the current
+
+# directory
+cd /tmp/bar
+strload -q -d A # Reports &quot;yes&quot; because there is &quot;A&quot; in the
+# current directory. Note that the file &quot;A&quot;
+# in /tmp/bar is NOT the same file &quot;A&quot; in
+# /tmp/foo, but the loader does not care
+# because it identifies the file by
+# pathname.
+strload -u -d A # Unloads spx (also known as &quot;A&quot;)!
+以下はエラーのシナリオです。
+mkdir /tmp/foo2 /tmp/bar2
+cp /usr/lib/drivers/pse/spx /tmp/foo2/A
+cd /tmp/foo2
+strload -d A # The loader knows the path and filename as
+# &quot;A&quot;because &quot;A&quot; is found in the current
+# directory.
+cd /tmp/bar2
+strload -q -d A # Answers &quot;no&quot;. There is no filename
+# in /tmp/bar2 that matches &quot;A&quot;, so strload
+# prepends pathname &quot;/usr/lib/drivers/pse&quot; to
+# &quot;A&quot;. &quot;/usr/lib/drivers/pse/A&quot; is not found,
+# so strload answers &quot;no&quot;.
+strload -u -d A # Fails - &quot;A&quot; does not exist.
+以下はエラーのシナリオです。
+cd /usr/lib/drivers/pse
+strload -d spx # The loader knows the path and filename as
+# &quot;spx&quot; because &quot;spx&quot; is found in the
+# current directory.
+cd /
+strload -q -d spx # Answers &quot;no&quot;. There is no filename in /
+# that matches &quot;spx&quot;, so strload prepends
+# the pathname &quot;/usr/lib/drivers/pse&quot; to
+
+# &quot;spx&quot;. &quot;/usr/lib/drivers/pse/spx&quot; is found
+# since it exists, so strload gives
+# &quot;/usr/lib/drivers/pse/spx&quot; to the loader.
+# The strcmp() fails since
+# &quot;/usr/lib/drivers/pse/spx&quot; and &quot;spx&quot; do
+# not match exactly.
+strload -u -d spx # Fails - &quot;spx&quot; does not exist.
+項目 | 説明
+argument | strload コマンドに対しては意味がありません。 このフィールドはオプションです。 構成ルーチンが呼び出されたときに拡張に渡されます。 その解釈はその拡張に固有です。 デフォルトの引数は、以下の値です。 filename 設定します。
+node | 生成するノードの名前を指定します。 このフィールドはオプションです。 ドライバーにのみ適用され、ドライバーがロードされた際、生成ノード名として使用されます。 デフォルトでは、作成されるノードは /dev/ です。 filename .
+minor | このドライバー用に作成する、追加の非クローン・ノードを指定します。 このフィールドはオプションです。 ノード名はマイナー番号をクローン化されたドライバー・ノード名に追加することによって生成されます。 5 つ以上のマイナー番号は指定できず (0 から 4 まで)、マイナー番号ごとに 1 つずつノードが生成されます。
+-d
+フラグおよび
+-m
+フラグを指定すると、構成ファイルは、以下のようにコマンド・ラインに明示的に指定されていない限り無視されます。
+strload -f /tmp/my.conf -d newdriver
+“
+注:
+-d
+および
+-m
+フラグは、構成ファイルをオーバーライドしません。 つまり、ドライバー
+dgb
+が構成ファイルを使用してロードされると、
+-d
+フラグはそれを再ロードしようとしますが失敗します。 構成ファイルは、
+-d
+フラグおよび
+-m
+フラグの前に処理されます。
+”
+-d
+および
+-m
+フラグの
+List
+変数は、ファイル名のコンマ区切りリストです。各ファイル名には、単一の PSE ドライバーまたはモジュールが含まれています。 構成プロセスは、以下の形式のうちの 1 つの行を構成ファイル内で見つけたかのように処理を続行します。
+d filename
+m filename
+
+構文
+ストロード [ -ウー | -Q (Q) ] [ 「-f」 ファイル ] [ -d 年 リスト ] [ -m (M) リスト ]
+
+オプション
+フラグ
+項目 | 説明
+-d リスト | ロードまたはアンロードする PSE デバイス・ドライバーをリストします。 List 変数には、ドライバーのオブジェクト名をコンマで区切って指定します。
+-f ファイル | File 変数によって示されるファイルに含まれる構成情報に従って PSE を構成します。 デフォルトの構成ファイルは /etc/pse.conf です。
+-m リスト | ロードまたはアンロードする PSE モジュールをリストします。 List 変数には、モジュールのオブジェクト名をコンマで区切って指定します。
+-q | 拡張のロード状況を報告します。
+-u | 拡張をアンロードします。
+
+例
+次のコマンドを入力すると、PSE がロードされます (まだロードされていない場合)。
+dgb
+および
+ssb
+/usr/lib/drivers/pse/
+ディレクトリーからのドライバー、および
+aoot
+現行ディレクトリーからのモジュール。ただし、構成ファイルは使用しません。
+root# strload -d dgb,ssb -m ./aoot
+以下をアンロードするには、
+aoot
+module のみ、次のように入力します。
+root# strload -u -m ./aoot
+以下のコマンドを入力すると、
+spx
+ドライバーが存在する:
+root# strload -q -d
+spx
+存在しない場合は、以下のように出力されます。
+spx
+: no
+構成ファイルの例を以下に示します。
+#example configuration file
+d dgb #line 1
+d mux - - 0 #line 2
+ds foo #line 3
+d+ xtiso tcp /dev/xti/tcp #line 4
+d+ xtiso udp /dev/xti/udp #line 5
+m aoot #line 6
+1 行目には、
+dgb
+複製されたデバイスとしてのドライバー拡張
+/dev/dgb
+. に渡される引数
+dgb
+構成ルーチン
+dgb
+.
+2 行目には、
+mux
+複製されたデバイスとしてのドライバー拡張
+/dev/mux
+また、標準デバイス名も作成します。
+/dev/mux0
+マイナー番号は 0 (ゼロ) です。 (0 から 4 までのマイナー番号を使用して、5 つを超えるデバイス名を作成することはできません。)
+3 行目には、
+foo
+標準デバイス (複製されていない) としてのドライバー拡張
+/dev/foo
+. マイナー番号は 0 です。
+4 行目と 5 行目には、
+xtiso
+ドライバー拡張を 2 回構成します。1 回は以下のようになります。
+tcp
+そして一度は
+udp
+. 作成される複製ノードは次の通りです。
+/dev/xti/tcp
+および
+/dev/xti/udp
+. 以下の構成ルーチン
+xtiso
+2 回呼び出されます。1 回は引数を使用します。
+tcp
+、および、以下のものを 1 回
+udp
+.
+行 6 は、
+aoot
+モジュール拡張。 ノードは作成されず、構成ルーチンに値が渡されます。
+aoot
+.
+ストリーム
+dlpi
+ドライバーをロードするには、次のように入力します。
+strload -f /etc/dlpi.conf</pre>

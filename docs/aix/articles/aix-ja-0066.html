@@ -1,0 +1,76 @@
+<!doctype html><meta charset="utf-8"><pre class="official-markdown">目的
+役割ベースのアクセス制御 (RBAC) の特権コマンドを制御された方法で実行します。
+
+説明
+authexec
+コマンドは、RBAC 特権コマンドを実行します。
+authexec
+が発行されると、ユーザーはRBAC特権コマンド・データベースの
+RBACcommandNameという
+RBACコマンドの
+authroles
+属性で定義されているロールに対して認証される。
+authexec
+コマンドは、
+/usr/sbin/
+にあります。
+authexec
+を呼び出すユーザーは、ターゲット・コマンド、
+RBACcommandName
+を呼び出すのに十分な権限を持っている必要があります。 認証済みユーザーは、呼び出し側ユーザーと同じであってはなりません。 認証を正常に渡すには、認証を行うユーザーが有効な非ブランク・パスワードも持っている必要があります。 どのロールについても、ユーザーを複数回認証することはできません。 RBAC 特権コマンドに対して、最大 16 のロールを構成することができます。
+特権コマンド・データベース内の
+authexec
+属性を持つ特権コマンドは、シェルから直接実行することも、プログラム内で exec サブルーチンを使用して実行することもできません。 このようなコマンドは、必ず
+authexec
+コマンドを使用して呼び出す必要があります。
+コマンド
+RBACcommandName
+が root 使用可能 RBAC システム内の root によって呼び出された場合は、このメカニズムは実施されません。
+
+構文
+authexec RBACcommandName
+
+例
+コマンド
+usr/sbin/shutdown
+が
+authroles
+属性を使用しての認証済み実行に対応している場合、シャットダウン・コマンドを許可されているユーザーは、以下を実行できます。
+authexec /usr/sbin/shutdown
+以下の例は、
+authrole
+属性を使用して認証済み実行が可能になっている
+usr/sbin/shutdown
+コマンドを示しています。
+/usr/sbin/shutdown:
+accessauths=aix.system.boot.shutdown
+innateprivs=PV_AZ_ROOT,PV_DAC_O,PV_DAC_R,PV_DAC_W,
+PV_DAC_X,PV_PROC_PRIV,PV_PROC_SIG
+secflags=FSF_EPS
+authroles=isso,so,sa
+shutdown
+コマンドを実行する前に、
+authroles
+属性にリストされている 3 つのロールのいずれかを持つ 3 つの別個のユーザーを認証する必要があります。 この例では、
+authroles
+属性で
+isso
+、
+so
+、および
+sa
+ロールを指定します。 このコマンドには、
+shutdown
+コマンドを呼び出すためのアクセス許可
+aix.system.boot.shutdown
+が必要です。 この許可は一般に
+so
+ロールと関連付けられています。
+shutdown
+コマンドを呼び出すユーザー以外で、ロール
+so
+を持つユーザーは、
+isso
+および
+sa
+ロールを持つユーザーとは別に、このコマンドを正常に実行するための認証を受ける必要があります。</pre>

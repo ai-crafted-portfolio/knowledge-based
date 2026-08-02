@@ -1,0 +1,61 @@
+<!doctype html><meta charset="utf-8"><pre class="official-markdown">目的
+コマンド (BSD バージョンの
+install
+コマンド) をインストールします。
+
+説明
+installbsd
+コマンドは、
+BinaryFile
+パラメータで指定されたファイルを
+Destination
+パラメータで指定されたファイルまたはディレクトリに移動してインストールします
+。
+-c
+フラグを使用すると、
+BinaryFile
+はコピーされますが、移動はしません。 指定した
+Destination
+パラメーターがディレクトリーの場合は、
+BinaryFile
+はそのディレクトリーに移動します。 指定した
+Destination
+パラメーターが既にファイルとして存在する場合は、
+installbsd
+コマンドは
+BinaryFile
+を移動する前にファイルを除去します。
+installbsd
+コマンドは、ファイルをそれ自体に移動することはありません。
+/
+dev
+/
+null
+というファイルをインストールすると、空のファイルが作成されます。
+
+構文
+/usr/bin/installbsd [ -c ] [ -g Group ] [ -m Mode ] [ -o Owner ] [ -s ] BinaryFileDestination
+
+オプション
+フラグ
+項目 | 説明
+-c | BinaryFile パラメーターで指定したファイルを、 Destination パラメーターで指定したファイルまたはディレクトリーにコピーします。
+-g グループ | Destination パラメーターで指定したファイルのグループを指定します。 デフォルト・グループは staff です。
+-m モード | Destination パラメーターで指定したファイルのモードを指定します。 デフォルト・モードは 755 です。 モードは、8 進数または記号値で指定できます。
+- 所有者 | Destination パラメーターで指定したファイルのオーナーを指定します。 デフォルトのオーナーは root ユーザーです。
+-s | BinaryFile パラメーターで指定したファイルを、インストール後に削除します。
+
+例
+fixit
+という新しいコマンドをインストールするには、次のように入力します。
+installbsd
+-c
+o
+mike fixit /usr/bin
+このコマンド・シーケンスは、プログラムをコピーして新規コマンドをインストールします。
+fixit
+へ
+/usr/bin/fixit
+、ユーザーによる
+mike
+所有者として</pre>

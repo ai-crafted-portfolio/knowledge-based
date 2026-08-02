@@ -1,0 +1,165 @@
+<!doctype html><meta charset="utf-8"><pre class="official-markdown">目的
+最小特権 (LP) Resource Initial ACL のアクセス制御を表示します。
+
+説明
+lslpriacl
+コマンドは、最小特権 (LP) Resource Initial ACL に関連付けられているアクセス制御リスト (ACL) を表示します。 ACL 項目に含まれているアクセス権限が表示されます。 Resource Initial ACL は、LP リソースが作成されるときに Resource ACL にコピーされる Initial ACL として使用されます。 デフォルトでは、このコマンドは情報をテーブル形式 (
+-t
+) で表示します。
+このコマンドは、以下の ACL 情報を表示します。
+フィールド | 説明
+ID | ユーザーのネットワーク ID。 ネットワーク ID の説明については、 lpacl 情報 を参照してください。
+Permissions | Identity に許可されている許可。 有効な値は以下のとおりです。 a 管理者アクセス権 r 読み取り許可 ( e 、 l 、 q 、および v 許可で構成) w 書き込み許可 ( c 、 d 、 o 、および s 許可で構成) x 実行アクセス権 c リフレッシュ・アクセス権 d 定義および 定義解除 アクセス権 e イベント・アクセス権 l 列挙アクセス権 o オンライン、オフライン、およびリセット・アクセス権 q 照会アクセス権 s 設定アクセス権 v 検証アクセス権 0 アクセス権なし
+NodeName | IBM.LPCommands リソース・クラスのロケーション (管理ドメイン有効範囲またはピア・ドメイン有効範囲の場合)。
+PeerDomain | IBM.LPCommands リソース・クラスが定義されている RSCT ピア・ドメインの名前。 このフィールドは、 -p フラグが指定されている場合に表示されます。
+このコマンドはどのノードでも実行できます。 ドメイン内のすべてのノードでこのコマンドを実行する場合は、
+-a
+フラグを使用します。 ドメイン内のノードのサブセットでこのコマンドを実行する場合は、
+-n
+フラグを使用します。 それ以外の場合、このコマンドはローカル・ノードで実行されます。
+
+構文
+Resource Initial ACL のアクセス制御を表示するには: ローカル・ノードの場合: lslpriacl [ -l | -i | -t | -d | -D 区切り文字 ] [ -p ] [ -E ] [ -x ] [ -h ] [ -TV ] ドメイン内のすべてのノードで以下のように入力します。 lslpriacl -a [ -l | -i | -t | -d | -D 区切り文字 ] [ -p ] [ -E ] [ -x ] [ -h ] [ -TV ] ドメイン内の一部のノードで以下のように入力します。 lslpriacl { -n host1 [ , host2 , ...] } [ -l | -i | -t | -d | -D 区切り文字 ] [ -p ] [ -E ] [ -x ] [ -h ] [ -TV ]
+
+オプション
+フラグ
+-a
+ドメイン内のすべてのノードの Resource Initial ACL を表示します。
+CT_MANAGEMENT_SCOPE
+環境変数の設定によって、クラスターの有効範囲が決まります。
+CT_MANAGEMENT_SCOPE
+が設定されていない場合、LP リソース・マネージャーは次の順序で有効範囲設定を使用します。
+管理ドメイン (あれば)
+ピア・ドメイン (あれば)
+Local 有効範囲
+lslpriacl
+コマンドは、LP リソース・マネージャーが最初に検出した有効な有効範囲に対して 1 回実行されます。 例えば、管理ドメインとピア・ドメインが存在し、
+CT_MANAGEMENT_SCOPE
+環境変数が設定されていないとします。 この場合、
+lslpriacl
+–a
+は管理ドメインで実行されます。 ピア・ドメインで
+lslpriacl
+–a
+を実行するには、
+CT_MANAGEMENT_SCOPE
+を
+2
+に設定する必要があります。
+-i
+適切な編集後に、
+chlpriacl
+コマンドへのファイル入力として使用できる形式でテンプレートを生成します。
+-l
+情報を別々の行に表示します (長形式)。
+-t
+情報を別々の列に表示します (テーブル形式)。 これはデフォルトです。
+-d
+区切り文字を使用して情報を表示します。 デフォルトの区切り文字は
+パイプ記号 (
+|
+)
+です。 デフォルトの区切り文字を変更する場合は、
+-D
+フラグを使用します。
+-D
+デリミタ
+指定した区切り文字を使用して情報を表示します。 例えば、表示する情報に
+パイプ・シンボル
+が含まれている場合、このフラグを使用して、デフォルトの
+パイプ・シンボル (
+|
+)
+以外の区切り文字を指定します。 このフラグを使用すると、1 文字以上の区切り文字を指定できま
+す。
+-n
+ホスト1
+[
+,
+host2
+,
+…]
+Resource Initial ACL の表示元の、ドメイン内のノードを指定します。 デフォルトでは、Resource Initial ACL はローカル・ノードに表示されます。 このフラグが有効なのは、管理ドメインまたはピア・ドメインでのみです。
+CT_MANAGEMENT_SCOPE
+
+が設定されていない場合、最初に管理ドメイン有効範囲が選択され (存在する場合)、次にピア・ドメイン有効範囲が選択され (存在する場合)、次にローカル有効範囲が選択され (コマンドに対して有効範囲が有効になるまで) ます。 コマンドは、最初に見つかった有効な有効範囲に対して 1 回実行されます。
+-p
+IBM.LPCommands
+リソース・クラスが定義されている RSCT ピア・ドメインの名前を表示します。
+-E
+読み取り許可を
+r
+ではなく
+elqv
+として表示し、書き込み許可を
+w
+ではなく
+cdos
+として表示します。
+-x
+ヘッダーを除外します (ヘッダーの印刷を抑止します)。
+-h
+コマンドの使用方法の文を標準出力に書き込みます。
+-T
+標準エラーにコマンドのトレース・メッセージを書き込みます。
+-V
+コマンドの詳細メッセージを標準出力に書き出します。
+
+例
+nodeA
+上の Resource Initial ACL を表形式でリストするには、
+nodeA
+で次のコマンドを実行します。
+lslpriacl
+次の出力が表示されます。
+Resource Initial ACLs for LPRM
+Identity Permissions NodeName
+joe@LOCALHOST rx nodeA
+bill@0x374bdcbe384ed38a rwx nodeA
+jane@0x374bdcbe384ed38a rwax nodeA
+nodeA
+上の Resource Initial ACL を長形式でリストするには、
+nodeA
+で次のコマンドを実行します。
+lslpriacl -l
+次の出力が表示されます。
+Resource Initial ACLs for LPRM
+NodeName c175n06.ppd.pok.ibm.com
+Identity = joe@LOCALHOST
+Permissions = rx
+Identity = bill@0x374bdcbe384ed38a
+Permission = rwx
+Identity = jane@0x374bdcbe384ed38a
+Permissions = rwax
+nodeA
+上の Resource Initial ACL を区切り文字で区切られている形式でリストするには、
+nodeA
+で次のコマンドを実行します。
+lslpriacl -d
+次の出力が表示されます。
+Resource Initial ACLs for LPRM
+Identity|Permissions|NodeName
+joe@LOCALHOST|rx|nodeA
+bill@0x374bdcbe384ed38a|rwx|nodeA
+jane@0x374bdcbe384ed38a|rwax|nodeA
+アクティブ・ドメイン内の Resource Initial ACL をリストするには、このコマンドを次のように実行します。
+lslpriacl -a
+次の出力が表示されます。
+Resource Initial ACLs for LPRM
+Identity Permissions NodeName
+joe@LOCALHOST rx nodeA.pok.ibm.com
+bill@0x374bdcbe384ed38a rwx nodeA.pok.ibm.com
+jane@0x374bdcbe384ed38a rwax nodeA.pok.ibm.com
+
+joe@LOCALHOST rx nodeB.pok.ibm.com
+jane@0x374bdcbe384ed38a rwax nodeB.pok.ibm.com
+アクティブ・ドメイン内の Resource Initial ACL をリストし、ピア・ドメイン名をリストするには、このコマンドを次のように実行します。
+lslpriacl -ap
+次の出力が表示されます。
+Resource Initial ACLs for LPRM
+Identity Permissions NodeName PeerDomain
+joe@LOCALHOST rx nodeA.pok.ibm.com PD1
+bill@0x374bdcbe384ed38a rwx nodeA.pok.ibm.com PD1
+jane@0x374bdcbe384ed38a rwax nodeA.pok.ibm.com PD1
+joe@LOCALHOST rx nodeB.pok.ibm.com PD1
+jane@0x374bdcbe384ed38a rwax nodeB.pok.ibm.com PD1</pre>

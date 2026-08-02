@@ -1,0 +1,42 @@
+<!doctype html><meta charset="utf-8"><pre class="official-markdown">目的
+/etc/smbcred
+ファイルに保管されている、指定されたサーバーとユーザー名の資格情報エントリーをリストします。
+
+説明
+フラグなしで
+lssmbcred
+コマンドを実行すると、
+lssmbcred
+コマンドは、
+/etc/smbcred
+ファイルにあるユーザー名のパスワードを持つすべての資格情報エントリーをリストします。
+-s
+フラグまたは
+-u
+フラグを指定すると、
+lssmbcred
+コマンドは、指定されたサーバー名または指定されたユーザー名に一致する資格情報を表示します。
+
+構文
+lssmbcred [-s server_name] [-u user_name]
+
+オプション
+フラグ
+-s
+サーバー名
+一致する資格情報エントリーが
+/etc/smbcred
+ファイルに見つかった場合に資格情報を表示するリモート・ホスト (Server Message Block (SMB) サーバー) を指定します。
+-u
+ユーザー名
+一致する資格情報エントリーが
+/etc/smbcred
+ファイルに見つかった場合に資格情報を表示するユーザー名を指定します。
+
+例
+xxx.in.ibm.com
+サーバー上のすべての資格情報エントリーをリストするには、次のコマンドを入力します。
+lssmbcred -s xxx.in.ibm.com
+次の例に示すような出力が表示されます。
+server: xxx.in.ibm.com user: user1
+server: xxx.in.ibm.com user: user2</pre>

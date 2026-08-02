@@ -1,0 +1,66 @@
+<!doctype html><meta charset="utf-8"><pre class="official-markdown">目的
+X-Window システム・サーバーが使う色のデータベースを作成します。
+
+説明
+rgb
+コマンドは、標準入力から行を読み取り、
+データベースに挿入して、カラー名と特定の赤、緑、青 (RGB) の値を関連付けます。
+rgb
+コマンドは、
+DatabaseName
+.dir と
+DatabaseName
+.pag という 2 つの出力ファイルを生成します。 データベース・ファイル名を指定しなければ、
+デフォルト名
+rgb.dir
+と
+rgb.pag
+が使われます。
+各カラー・エントリーのフォーマットは以下のとおりです。
+Red Green Blue Colorname
+ここで、
+Red
+、
+Green
+、および
+Blue
+エレメントは、0 から 255 の範囲の整数値です。 実際の色は、要素の結合方法によって決定されます。 各エレメントは、輝度なし (0) から全輝度 (255) の範囲で指定できます。
+Colorname
+パラメーターには、
+記述的または空想的な名前を指定できます。 例えば、以下のようになります。
+250 250 250
+名前が付けられる
+white
+または
+snow
+. 複数のエントリーが同じエレメント番号またはエレメント名を共用することができます。
+
+構文
+rgb [ DatabaseName ][ &lt;InputfileName ]
+
+例
+以下の例は、入力ファイルの一部を示しています。
+248 248 255 ghost white
+245 245 245 white smoke
+255 250 240 floral white
+253 245 230 old lace
+250 240 230 linen
+255 218 185 peach puff
+255 248 220 cornsilk
+255 250 205 lemon chiffon
+245 255 250 mint cream
+240 255 255 azure
+以下の例では、出力ファイル
+Newcolor.dir
+および
+Newcolor.pag
+を生成します。
+rgb Newcolor &lt; rgb.txt
+Newcolor
+は
+DatabaseName
+であり、
+rgb.txt
+は
+InputFileName
+です。</pre>

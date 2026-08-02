@@ -1,0 +1,165 @@
+<!doctype html><meta charset="utf-8"><pre class="official-markdown">目的
+システム構成情報を表示します。
+
+説明
+フラグを指定せずに
+prtconf
+コマンドを実行すると、
+システム・モデル、マシン・シリアル番号、プロセッサー・タイプ、プロセッサーの数、
+プロセッサー・クロック速度、cpu タイプ、合計メモリー・サイズ、ネットワーク情報、
+ファイルシステム情報、ページング・スペース情報、およびデバイス情報が表示されます。
+
+構文
+Prtconf [ 「-c」 ] [ -k (K) ] [ -L (L) ] [ -m (M) ] [ -s ] [ -v (V) ]
+
+オプション
+フラグ
+項目 | 説明
+-c | cpu タイプ (例: 32 ビットまたは 64 ビット) を表示します。
+-k | 使用中のカーネル (例: 32 ビットまたは 64 ビット) を表示します。
+-L | LPAR 区画番号および、これが LPAR 区画の場合は区画名を表示し、そうでない場合は &quot;-1 NULL&quot; を戻します。
+-m | システム・メモリーを表示します。
+-s | プロセッサーのクロック速度をメガヘルツで表示します。
+-v | デバイスのカスタマイズされた VPD オブジェクト・クラスに見つかった VPD を表示します。
+
+例
+システム構成情報を表示するには、次のように入力します。
+prtconf
+システムは、以下のようなメッセージを表示します。
+System Model: IBM,7025-F50
+Machine Serial Number: 1025778
+Processor Type: PowerPC_604
+Number Of Processors: 2
+Processor Clock Speed: 332 MHz
+CPU Type: 32-bit
+Kernel Type: 32-bit
+LPAR Info: -1 NULL
+Memory Size: 512 MB
+Good Memory Size: 512 MB
+Firmware Version: IBM,L02113
+Console Login: enable
+Auto Restart: false
+Full Core: false
+Network Information
+Host Name: vd01.austin.ibm.com
+IP Address: 9.3.207.112
+Sub Netmask: 255.255.255.128
+Gateway: 9.3.207.1
+Name Server: 9.3.199.2
+Domain Name: austin.ibm.com
+Paging Space Information
+Total Paging Space: 512MB
+Percent Used: 1%
+Volume Groups Information
+==============================================================================
+rootvg:
+PV_NAME PV STATE TOTAL PPs FREE PPs FREE DISTRIBUTION
+hdisk0 active 537 394 107..43..29..107..108
+==============================================================================
+INSTALLED RESOURCE LIST
+The following resources are installed on the machine.
++/- = Added or deleted from Resource List.
+* = Diagnostic support not available.
+
+Model Architecture: chrp
+Model Implementation: Multiple Processor, PCI bus
++ sys0 00-00 System Object
++ sysplanar0 00-00 System Planar
++ mem0 00-00 Memory
+etc.
+プロセッサーのクロック速度を表示するには、次のように入力します。
+prtconf -s
+システムは、以下のようなメッセージを表示します。
+Processor Clock Speed: 332 MHz
+カスタマイズされたデータベース内のすべての物理デバイスの VPD を表示するには、
+次のように入力します。
+prtconf -v
+システムは、以下のようなメッセージを表示します。
+INSTALLED RESOURCE LIST WITH VPD
+The following resources are installed on your machine.
+Model Architecture: chrp
+Model Implementation: Uni-Processor, PCI bus
+sys0 P1-C1 System Object
+sysplanar0 System Planar
+mem0 Memory
+L2cache0 L2 Cache
+proc0 P1-C1 Processor
+Device Specific.(YL)........P1-C1
+pci0 P1 PCI Bus
+Device Specific.(YL)........P1
+isa0 P1 ISA Bus
+Device Specific.(YL)........P1
+fda0 P1/D1 Standard I/O Diskette Adapter
+Device Specific.(YL)........P1/D1
+fd0 P1-D1 Diskette Drive
+siokma0 P1/K1 Keyboard/Mouse Adapter
+Device Specific.(YL)........P1/K1
+sioka0 P1-K1 Keyboard Adapter
+kbd0 P1-K1-Lkbd PS/2 keyboard
+sioma0 P1-O1 Mouse Adapter
+mouse0 P1-O1-Lmouse3 button mouse
+siota0 P1/Q1 Tablet Adapter
+Device Specific.(YL)........P1/Q1
+
+paud0 P1/Q2 Ultimedia Integrated Audio
+Device Specific.(YL)........P1/Q2
+ppa0 P1/R1 CHRP IEEE1284 (ECP) Parallel Port Adapter
+Device Specific.(YL)........P1/R1
+sa0 P1/S1 Standard I/O Serial Port
+Device Specific.(YL)........P1/S1
+tty0 P1/S1-L0 Asynchronous Terminal
+sa1 P1/S2 Standard I/O Serial Port
+Device Specific.(YL)........P1/S2
+ent0 P1/E1 IBM 10/100 Mbps Ethernet PCI Adapter (23100020)
+Network Address.............0004AC2A0419
+Displayable Message.........PCI Ethernet Adapter (23100020)
+Device Specific.(YL)........P1/E1
+scsi0 P1/Z1 Wide/Fast-20 SCSI I/O Controller
+Device Specific.(YL)........P1/Z1
+cd0 P1/Z1-A3 SCSI Multimedia CD-ROM Drive (650 MB)
+Manufacturer................IBM
+Machine Type and Model......CDRM00203
+ROS Level and ID............1_00
+Device Specific.(Z0)........058002028F000018
+Part Number.................97H7608
+EC Level....................F15213
+FRU Number..................97H7610
+hdisk0 P1/Z1-A5 16 Bit SCSI Disk Drive (4500 MB)
+Manufacturer................IBM
+Machine Type and Model......DDRS-34560W
+FRU Number..................83H7105
+
+ROS Level and ID............53393847
+Serial Number...............RDHW5008
+EC Level....................F21433
+Part Number.................03L5256
+Device Specific.(Z0)........000002029F00003A
+Device Specific.(Z1)........00K0159S98G
+Device Specific.(Z2)........0933
+Device Specific.(Z3)........0299
+Device Specific.(Z4)........0001
+Device Specific.(Z5)........22
+Device Specific.(Z6)........F21390
+bl0 P1.1-I2/G1 GXT255P Graphics Adapter
+GXT255P 2D Graphics Adapter:
+EC Level....................E76756
+FRU Number..................93H6267
+Manufacture ID..............IBM053
+Part Number.................93H6266
+Serial Number...............88074164
+Version.....................RS6K
+Displayable Message.........GXT255P
+ROM Level.(alterable).......02
+Product Specific.(DD).......00
+Product Specific.(DG).......00
+Device Specific.(YL)........P1.1-I2/G1
+pci1 P1.1 PCI Bus
+Device Specific.(YL)........P1.1
+使用中のカーネル・タイプを表示するには、次のように入力します。
+prtconf -k
+システムは、カーネル・タイプの情報を次のように表示します。
+Kernel Type: 32-bit
+メモリーを表示するには、次のように入力します。
+prtconf -m
+システムはメモリーを次のように表示します。
+Memory Size: 512 MB</pre>

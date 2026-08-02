@@ -1,0 +1,55 @@
+<!doctype html><meta charset="utf-8"><pre class="official-markdown">目的
+First Failure Data Capture (FFDC) ユーティリティーに関して、基本問題判別を実行します。
+
+説明
+fccheck
+は、First Failure Data Capture (FFDC) ユーティリティー
+に関して、基本問題判別を実行します。 コマンドは、ローカル・ノード上で以下の状態および
+情報を検査します。
+現行の処理環境で、FFDC エラー・スタックの使用が使用不可になっているかどうかを
+検査する。
+FFDC がローカル・ノードを識別する際に現在使用する IP アドレスを
+入手する。
+/var/adm/ffdc/stacks
+が使用可能かどうかを検査する。
+また、使用可能の場合は、このディレクトリーが存在するファイルシステムで、
+どれだけのスペースが使用可能であるかを検査する。 FFDC エラー・スタックを作成する
+スペース量が不十分でないかどうかを検査します。
+/var/adm/ffdc/dumps
+が使用可能かどうかを検査する。
+また、使用可能の場合は、このディレクトリーが存在するファイルシステムで、
+どれだけのスペースが使用可能であるかを検査する。
+「抑制」オプションを指定しない限り、上記のテストの結果は標準出力に表示されます。
+fccheck
+は、テストの実行中に検出した最も重大な状態を
+示す終了状況値を設定します。
+
+構文
+/opt/rsct/bin/fccheck [ -q ] | [ -h ]
+
+オプション
+フラグ
+-h
+標準出力にヘルプおよび使用方法に関する情報を表示します。 その他の処理は
+実行されません。
+-q
+「抑制」モードを指定します。 コマンドは各テストの結果を標準出力に表示しません。 テストの結果を判別するために、コマンドの終了状況を使用する必要があります。 複数の状態が検出された場合は、
+fccheck
+が検出した最も重大な状態
+が終了状況に反映されます。
+
+例
+ローカル・ノードでの FFDC ユーティリティーの問題を検査するには、次のようにします。
+fccheck
+fccheck Status: All tests completed
+ローカル・ノードが FFDC エラー・スタックの作成を使用不可にした場合、
+fccheck
+はこれを問題として示します。
+fccheck
+fccheck Status: Creation and use of FFDC Error Stacks has been expressly
+disabled in the current execution environment. Any processes created in
+the current execution environment cannot create their own FFDC Error Stacks
+or inherit use of existing FFDC Error Stacks.
+fccheck Status: All checks completed. Examine the previous status output for
+possible FFDC problem conditions and take the recommended actions listed in
+these messages.</pre>

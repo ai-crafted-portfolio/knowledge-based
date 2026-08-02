@@ -1,0 +1,24 @@
+<!doctype html><meta charset="utf-8"><pre class="official-markdown">目的
+システム始動時にアカウンティング機能をオンにします。
+
+説明
+startup
+コマンドは、
+/etc/rc
+コマンド・ファイルにより呼び出された場合に、システムの始動時にアカウンティング機能をオンにします。
+/etc/rc
+ファイルに追加するコマンドについては、
+startup
+の例を参照してください。
+
+構文
+/usr/sbin/acct/startup
+
+例
+システム始動時にアカウンティング機能をオンにするには、
+/etc/rc
+ファイルに以下のコマンドを追加します。
+/usr/bin/su - adm -c /usr/sbin/acct/startup
+これにより、
+startup
+シェル・プロシージャーは時刻を記録し、前日の記録を消去します。</pre>

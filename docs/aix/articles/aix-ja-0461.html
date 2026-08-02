@@ -1,0 +1,24 @@
+<!doctype html><meta charset="utf-8"><pre class="official-markdown">目的
+WebExplorer ワールド・ワイド・ウェブ・ブラウザーを開始します。
+
+説明
+explore
+コマンドは WebExplorer メインウィンドウを開き、ホームドキュメントのユニフォームリソースロケータ( URL )に接続します。
+
+構文
+explore [ -i ファイル名 ] [ -t 数値 ] [ -q ] [[ -url ] URL ]
+
+オプション
+フラグ
+項目 | 説明
+-i ファイル名 | 代替初期化ファイルを指定します。この場合、 FileName には、デフォルトの $HOME/.explore-preferences の代わりに使用するファイルの絶対パス名を指定します。 これにより、ユーザー設定の代替セットを使用して WebExplorer を開始できます。
+-t 数値 | イメージのロードに使用するスレッドの数を指定します。この場合、 Number はイメージ・ローダー・スレッドの数です。 各スレッドは、メインウィンドウの状況領域内に表示されます。 最高 8 個までのスレッドを指定できます。デフォルトは 4 です。
+-q | 抑止モードを指定します。 これにより、アプリケーションの開始時に WebExplorer タイトル・ウィンドウが抑止され、終了時に確認ウィンドウがバイパスされます。
+-url URL | WebExplorer, を起動するときに読み込む特定の文書を指定する。 URL は読み込む文書の URL です。 WebExplorer にホーム・ドキュメントが定義されている場合、この URL はそれを上書きする。 URL の前には -url フラグを付けなくてもかまいません。 URL を単独で指定すると、 WebExplorer はそれを受け入れる。
+
+例
+タイトル・ウィンドウを表示せずに、ブラウザーを始動して、
+直接 Dilbert Zone の URL に進むには、次のように入力します。
+explore -q http://www.unitedmedia.com/comics/dilbert/
+または
+explore -q -url http://www.unitedmedia.com/comics/dilbert/</pre>

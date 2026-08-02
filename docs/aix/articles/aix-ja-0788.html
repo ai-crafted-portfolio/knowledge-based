@@ -1,0 +1,52 @@
+<!doctype html><meta charset="utf-8"><pre class="official-markdown">目的
+ミラー・プール情報を表示します。
+
+説明
+lsmp
+コマンドは、ボリューム・グループのミラー・プール情報を表示します。
+注:
+ミラー・プール情報をリストするには、ボリューム・グループをオンに変更する必要があります。 ボリューム・グループがオフに変更されている場合は、情報をリストするために、
+-n
+フラグを使用してソース・ディスク名を指定する必要があります。
+
+構文
+LSMTP [ -L (L) ] [ -A ] [ N 記述的物理量 ] [ -m (M) ミラー・プール名 ] VgName
+
+オプション
+フラグ
+項目 | 説明
+-A | 非同期ミラーリングがある場合は、それに固有の情報を表示します。
+-L | ボリューム・グループ上のロックを取得する際に待機しないことを指定します。 注: ボリューム・グループが変更されている場合、 -L フラグを使用すると、信頼性のないデータが提供されます。
+-m ミラー・プール名 | mirrorpoolname パラメーターによって指定されるミラー・プールのみのミラー・プール情報を表示します。 このフラグを指定しないと、そのボリューム・グループに属するすべてのミラー・プールの情報が表示されます。
+-n 説明: 物理ボリューム | descriptorphysicalvolume 変数によって指定されるディスクリプター域からの情報にアクセスします。 -n フラグによってアクセスされる情報は論理ボリュームでは検査されていないため、この情報は現行情報でない可能性があります。 -n フラグを使用しない場合は、検査済み情報を保持する物理ボリュームのディスクリプター域がアクセスされるため、現行情報が表示されます。 -n フラグを使用する場合、ボリューム・グループはアクティブになっている必要はありません。
+
+例
+ボリューム・グループのすべてのミラー・プール情報を表示するには、次のコマンドを入力します。
+lsmp vg1
+次の出力が表示されます。
+VOLUME GROUP: vg1 Mirror Pool Super Strict: no
+MIRROR POOL: mp1 Mirroring Mode: SYNC
+MIRROR POOL: mp2 Mirroring Mode: SYNC
+ボリューム・グループのすべてのミラー・プール情報を表示し、出力に非同期ミラーリング情報を含めるには、次のコマンドを入力します。
+lsmp -A glvm_vg
+次の出力が表示されます。
+VOLUME GROUP: glvm_vg Mirror Pool Super Strict: yes
+MIRROR POOL: mp_bvr Mirroring Mode: ASYNC
+ASYNC MIRROR STATE: inactive ASYNC CACHE LV: mp_pok_lv
+ASYNC CACHE VALID: yes ASYNC CACHE EMPTY: yes
+ASYNC CACHE HWM: 60 ASYNC DATA DIVERGED: no
+MIRROR POOL: mp_pok Mirroring Mode: ASYNC
+ASYNC MIRROR STATE: active ASYNC CACHE LV: bvr_pok_lv
+ASYNC CACHE VALID: yes ASYNC CACHE EMPTY: no
+ASYNC CACHE HWM: 90 ASYNC DATA DIVERGED: no
+glvm_vg
+ボリューム・グループのミラー・プール
+mp_pok
+の情報を表示し、出力に非同期ミラーリング情報を含めるには、次のコマンドを入力します。
+lsmp -A –m mp_pok glvm_vg
+次の出力が表示されます。
+VOLUME GROUP: glvm_vg Mirror Pool Super Strict: yes
+MIRROR POOL: mp_pok Mirroring Mode: ASYNC
+ASYNC MIRROR STATE: active ASYNC CACHE LV: bvr_pok_lv
+ASYNC CACHE VALID: yes ASYNC CACHE EMPTY: no
+ASYNC CACHE HWM: 90 ASYNC DATA DIVERGED: no</pre>

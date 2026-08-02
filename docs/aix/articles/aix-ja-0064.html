@@ -1,0 +1,178 @@
+<!doctype html><meta charset="utf-8"><pre class="official-markdown">目的
+定義された基準に従って、分析のための監査レコードを選択します。
+
+説明
+auditselect
+コマンドは監査サブシステムの一部です。 このコマンドは、ビン・ファイルの処理用のバックエンド・コマンドとして
+/etc/security/audit/bincmds
+ファイル内に構成されていれば、
+auditbin
+デーモンによって呼び出されます。
+auditselect
+コマンドは、識別された基準に一致する監査レコードを選択して、それらのレコードを標準出力に書き出します。
+auditselect
+コマンドを使うと、監査証跡をフィルターに掛けて、分析用に特定のレコードを取得したり、長期保管用に特定のレコードを選択することができます。 コマンドは、
+Trail
+パラメーターで指定されたファイルまたは標準入力から、ストリーム入力またはビン入力を取り込みます。
+$bin
+文字列を
+Trail
+パラメーターの値として指定した場合、
+auditselect
+コマンドが呼び出されると
+auditbin
+デーモンが現行ビン・ファイルのパス名を置換します。 選択基準は、式として入力するか、または
+-f
+フラグで指定されたファイルから入力できます。 ビン・ファイルが圧縮されていれば、
+auditselect
+コマンドは処理の前にファイルをアンパックします。
+ストリーム・データの場合は、
+auditstream
+コマンドと
+auditselect
+コマンドの両方を
+/etc/security/audit/streamcmds
+ファイル内に構成するか、または両方のコマンドをコマンド・ラインから入力します。
+AIX_AUDITBUFSZ
+環境変数は、
+auditselect
+監査レコードのバッファー済み書き込み操作を可能にします。 バッファー済み書き込みオプションは、多数の監査レコードを生成するハイパフォーマンス・アプリケーションに役立ちます。
+AIX_AUDITBUFSZ
+環境変数は、8192 バイトから 67 MB の範囲の 10 進数値および 16 進数値を受け入れます。 許される値の範囲外にあるその他の正の値はいずれも、最も近い値に基づき、範囲の始めまたは範囲の終わりのどちらかに四捨五入されます。 この変数値が設定されていないか、あるいはこの変数に負の値または非数値が割り当てられている場合、
+AIX_AUDITBUFSZ
+変数は無視されます。
+
+構文
+auditselect { -e &quot; 式 &quot; | -f ファイル } [ -m ] [ Trail ]
+
+オプション
+フラグ
+項目 | 説明
+-e (E) &quot; 式 &quot; | 選択基準を定義します。 Expression パラメーターは、単一の項、または論理演算子で結合された複数の項から成っています。
+-f ファイル | 選択基準が入っている File を指定します。
+-m | record 拡張子を持った出力監査レコードを指定します。
+
+例
+構成
+ビンに収集されたデータ・レコードのうち、USER_SU または USER_Login 監査イベントに一致するレコードを選択するには、次のように入力して、
+auditselect
+コマンドを
+/etc/security/audit/bincmds
+ファイルに追加します。
+/usr/sbin/auditselect -e &quot;event== USER_SU || event== \
+USER_Login&quot; $bin &gt;&gt; /audit/trail.login
+監査が使用可能になっている間、ユーザー・セッションが開始されるたびに、レコードが現行ビン・ファイルから読み取られ、
+/audit/trail.login
+ファイルに書き込まれます。
+ストリームで収集されたデータ・レコードのうち、失敗したユーザー・ログインに一致するレコードを選択するには、次のように入力して、
+auditselect
+コマンドを
+/etc/security/audit/streamcmds
+ファイルの
+auditstream
+スタンザに追加します。
+/usr/sbin/auditstream -c authentication | \
+/usr/sbin/auditselect -e &quot;event == \
+USER_Login &amp;&amp; result == FAIL&quot; | \
+/usr/sbin/auditpr -t 2 -v &gt;&gt; /dev/lpr2
+ハードコピー監査証跡を生成するために、失敗した確認イベントのレコードが
+/dev/lpr2
+ライン・プリンターに書き込まれます。
+確認イベントまたはログイン・イベントの選択
+確認エラーに関係するすべてのイベントを監査証跡ファイルから検索するには、次のように入力します。
+/usr/sbin/auditselect -e &quot;result == FAIL_AUTH&quot;
+/audit/oldtrail | /usr/sbin/auditpr -t -helt -v
+確認が否認されたために失敗したイベントのレコードが表示されます。 ヘッダー・タイトルは一度だけ表示され、続いてイベント、ログイン ID、時刻の各フィールドと、監査証跡が表示されます。
+以下の場合に生成される監査レコードを選択します。
+smith
+1987 年 5 月の第 1 週の基本労働時間中にログインするには、次のように入力します。
+/usr/sbin/auditselect
+-f
+/aaa/bbb \
+/audit/trail1987 | /usr/sbin/auditpr
+この
+
+/aaa/bbb
+ファイルに次の行が含まれている必要があります。
+command == login &amp;&amp; login == smith &amp;&amp;
+time &gt;= 08:00:00 &amp;&amp; time &lt;= 17:00:00 &amp;&amp;
+date &gt;= 05/01/87 &amp;&amp; date &lt;= 05/05/87
+文字列の比較
+監査イベントの名前を以下のものと比較するには、
+USER_Login
+ストリング
+,
+次のいずれかを入力してください。
+&quot;event == USER_Login&quot;
+&quot;event != USER_Login&quot;
+passwd
+コマンドにより監査イベントが生成されたことを調べるには、次を使用します。
+&quot;command == passwd&quot;
+passwd
+コマンドにより監査イベントが生成されなかったことを調べるには、次を使用します。
+&quot;command != passwd&quot;
+監査状況を以下のものと比較します。
+OK
+結果ストリング
+,
+次のように入力します。
+&quot;result == OK&quot;
+監査イベントを生成したプロセスのログイン ID または実ユーザー ID を特定のユーザー ID (ユーザー ID) と比較する
+014
+またはユーザー名
+carol
+)、以下のいずれかを入力します。
+&quot;login == 014&quot;
+&quot;login != carol&quot;
+&quot;login == 014 || login != carol&quot;
+&quot;real == carol&quot;
+監査イベントを生成したプロセスの ID またはプロセスの親を、プロセス ID と比較します。
+2006
+以下のいずれかを入力します。
+&quot;pid == 2006&quot;
+&quot;pid != 2006&quot;
+&quot;ppid == 2006&quot;
+注:
+ログイン・ユーザー ID、実ユーザー ID、およびプロセス ID は、非等価演算子 (
+&lt; =
+、
+&gt; =
+、
+&lt;
+、
+&gt;
+) と比較できますが、通常はこれを行う必要はありません。
+監査イベントが生成された時刻を以下と比較する
+08:03:00
+時刻ストリングの場合は、以下のいずれかを入力します。
+&quot;time == 08:03:00&quot;
+&quot;time != 08:03:00&quot;
+&quot;time &lt; 08:03:00&quot;
+&quot;time &lt;= 08:03:00&quot;
+&quot;time &gt; 08:03:00&quot;
+&quot;time &gt;= 08:03:00&quot;
+指定された比較に適合する監査レコードが選択されます。
+08:03:00
+時刻ストリング。 時刻文字列は、現行ロケールで指定されたフォーマットに一致していなければなりません。
+
+監査イベントが生成された日付を以下のものと比較する
+05/05/89
+日付ストリングには、以下のいずれかを入力します。
+&quot;date == 05/03/89&quot;
+&quot;date != 05/03/89&quot;
+&quot;date &lt; 05/03/89&quot;
+&quot;date &lt;= 05/03/89&quot;
+&quot;date &gt; 05/03/89&quot;
+&quot;date &gt;= 05/03/89&quot;
+指定された比較に適合する監査レコードが選択されます。
+05/05/89
+日付ストリング。 日付文字列は、現行ロケールで指定されたフォーマットに一致していなければなりません。
+注:
+auditselect
+コマンドは、リカバリー・モードの
+-r
+フラグをサポートしていません。
+監査レコードのバッファー済み書き込みオプション
+BIN モードで開始されたサブシステムの監査用に 520000 バイトのバッファー・サイズで監査レコードに対してバッファー済み書き込みオプションを使用するには、次のコマンドを入力します。
+export AIX_AUDITBUFSZ=520000
+/usr/sbin/auditselect -e &quot;event== USER_SU || event==USER_Login&quot; $bin &gt;&gt; /audit/trail.login</pre>

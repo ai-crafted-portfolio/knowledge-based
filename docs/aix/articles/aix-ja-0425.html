@@ -1,0 +1,48 @@
+<!doctype html><meta charset="utf-8"><pre class="official-markdown">目的
+イベント応答リソース・マネージャー (ERRM) によって生成されたイベント情報のログを、
+指定されたログ・ファイルに記録します。
+
+説明
+elogevent
+は、イベント応答リソース・マネージャー (ERRM) によってイベント発生時に ERRM が生成する環境変数にポストされるイベント情報をキャプチャーします。 このスクリプトは、イベント応答リソースによって実行されるアクションとして使用できます。 また、その他のユーザー定義アクションを作成するためのテンプレートとしても使用できます。 このスクリプトは常に、メッセージを英語で戻します。
+ERRM 環境変数に関するイベント情報が戻されます。イベント情報には、以下も含まれます。
+Local Time
+このイベントまたはリアーム・イベントが監視される時刻。 ERRM が提供する実際の環境変数は ERRM_TIME です。 この値は表示前にローカライズされ、
+読み取り可能な形式に変換されます。
+このスクリプトは、
+alog
+コマンドを使用して、指定された
+log_file
+にイベント情報を書き込み、そこからイベント情報を読み取ります。
+
+構文
+エログイベント [ ] ログファイル -h ログファイル
+
+オプション
+フラグ
+-h
+スクリプトの使用方法の文を標準出力に書き込みます。
+
+例
+情報をログに記録するには、ログ・ファイルを
+/tmp/event.log
+として指定します。 ERRM が次のコマンドを実行します。
+/opt/rsct/bin/elogevent/tmp/event.log
+/tmp/event.log
+ファイルは、コマンドの実行時に存在している必要はありません。
+/tmp/event.log
+ファイルの内容を表示するには、次のコマンドを実行します。
+alog -f /tmp/event.log -o
+以下の出力例は、
+/var
+ファイル・システム (ファイル・システム・リソース) の警告イベントを示しています。
+=============================================================================
+Event reported at Mon Mar 27 16:38:03 2007
+Condition Name: /var space used
+Severity: Warning
+Event Type: Event
+Expression: PercentTotUsed&gt;90
+Resource Name: /var
+Resource Class Name: IBM.FileSystem
+Data Type: CT_UINT32
+Data Value: 91</pre>

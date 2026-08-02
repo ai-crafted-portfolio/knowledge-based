@@ -1,0 +1,176 @@
+<!doctype html><meta charset="utf-8"><pre class="official-markdown">目的
+指定されたプロセス ID またはユーザーを含むプロセス・ツリーを印刷します。
+
+説明
+/proc
+ファイルシステムは、プロセスを制御するメカニズムを提供します。 また、プロセスとスレッドの現行状態に関する情報にもアクセスできますが、これはバイナリー形式です。
+proctools
+コマンドは、いくつかの使用できる情報に基づいて ASCII レポートを提供します。
+ほとんどのコマンドは、プロセス ID のリストまたは
+/proc/
+ProcessID
+文字列を入力とします。 したがって、シェル拡張
+/proc/*
+を使用することにより、システム内のすべてのプロセスを指定できます。
+proctools コマンドは、指定されたプロセスの
+/proc
+から情報を収集し、ユーザーに表示します。
+proctools
+コマンドは
+procrun
+および
+procstop
+と同様に、
+/proc
+インターフェースを使用してプロセスを開始し、停止します。
+コマンドが
+/proc
+から収集した情報は、
+プロセスの現行状態のスナップショットであり、
+したがって停止したプロセス以外は、刻々と変化します。
+proctree
+コマンドは、指定されたプロセス ID またはユーザーを含むプロセス・ツリーを印刷します。 子プロセスは、その親プロセスの下に字下げされます。 すべて数字の引数はプロセス ID と見なされ、それ以外はユーザー・ログイン名と見なされます。 デフォルトのアクションは、プロセス 0 の子以外のすべてのプロセスをレポートします。
+パラメーターのない
+-@
+フラグを指定すると、すべての WPAR 名が表示されます。
+WparName
+パラメーターを指定した場合は、該当する WPAR 名だけが表示されます。
+スレッド ID と関連の pthread ID を表示するには、
+-t
+オプションを指定します。 カーネル・プロセスの場合、
+proctree
+コマンドはスレッド ID のみを表示します。
+注:
+プロセスに関する情報を取得できない場合、
+Proctree
+コマンドはプロセス ID のみを表示します。 プロセスに関するその他の情報は、ブランクとして表示されます。 例えば、
+proctree
+コマンドは、ゾンビ・プロセスのプロセス ID のみを表示します。
+
+構文
+proctree [ -a ] [{ ProcessID | ユーザー }] proctree [ -a ] [ -T ] [ -t ] [{ -p ProcessID | -u User }] [ -@ [ WparName ]]]
+
+オプション
+フラグ
+項目 | 説明
+-a | プロセス 0 の子を表示に含めます。 デフォルトはこれを除いて表示します。
+ProcessID | プロセス ID を指定します。
+-p ProcessID | プロセス ID を指定します。
+-T | プロセス・ツリーの定様式出力を表示します。
+-t | このプロセス用にスレッド ID と関連の pthread ID を表示します。
+User | ユーザー名を指定します。
+-u ユーザー | ユーザー名を指定します。
+-@ | すべての WPAR 名を表示します。 注: -@ フラグは、 ワークロード・パーティション 内で実行する場合はサポートされません。
+-@ WparName | WparName パラメーターで指定した WPAR のプロセスだけが表示されます。 注: -@ フラグは、 ワークロード・パーティション 内で実行する場合はサポートされません。
+
+例
+プロセス 12312 の祖先とすべての子を表示するには、次のコマンドを入力します。
+proctree 12312
+このコマンドの出力は以下のような情報です。
+4954 /usr/sbin/srcmstr
+7224 /usr/sbin/inetd
+5958 telnetd -a
+13212 -sh
+14718 ./proctree 13212
+プロセス 12312 の祖先と子を、プロセス 0 の子を含めて表示するには、次のコマンドを入力します。
+proctree -a 12312
+このコマンドの出力は以下のような情報です。
+1 /etc/init
+4954 /usr/sbin/srcmstr
+7224 /usr/sbin/inetd
+5958 telnetd -a
+13212 -sh
+14724 ./proctree -a 13212
+WPAR corral2 のプロセス・ツリーを表示するには、次のコマンドを入力します。
+proctree -@ corral2
+このコマンドの出力は以下のような情報です。
+corral2 401496 /etc/init
+corral2 319680 /usr/sbin/srcmstr
+corral2 102636 /usr/sbin/inetd
+corral2 249954 /opt/rsct/bin/rmcd -a IBM.LPCommands -r
+corral2 254132 /opt/rsct/bin/IBM.AuditRMd
+corral2 295098 /opt/rsct/bin/IBM.ServiceRMd
+corral2 303218 /usr/dt/bin/dtlogin
+corral2 307370 /usr/sbin/writesrv
+corral2 323836 /usr/sbin/qdaemon
+corral2 331970 /usr/sbin/muxatmd
+corral2 348210 /usr/sbin/syslogd
+corral2 352472 sendmail: accepting connections H nnections
+corral2 364564 /opt/rsct/bin/IBM.ERrmd
+corral2 405522 /usr/sbin/portmap
+corral2 282800 /usr/bin/xmwlm -L
+corral2 311454 /usr/sbin/cron
+corral2 376920 /usr/lib/errdemon
+
+プロセスの WPAR 名を表示するには、次のコマンドを入力します。
+proctree -@
+このコマンドの出力は以下のような情報です。
+Global 114788 /usr/dt/bin/dtlogin -daemon
+Global 86108 dtlogin &lt;:0&gt; -daemon
+Global 123022 dtgreet 8 :0
+Global 77944 /usr/lib/errdemon
+Global 94314 /usr/sbin/syncd 60
+Global 168084 /usr/sbin/srcmstr
+Global 110688 /opt/rsct/bin/IBM.ServiceRMd
+corral2 401496 /etc/init
+corral2 319680 /usr/sbin/srcmstr
+corral2 102636 /usr/sbin/inetd
+corral2 249954 /opt/rsct/bin/rmcd -a IBM.LPCommands -r
+corral2 254132 /opt/rsct/bin/IBM.AuditRMd
+corral2 331970 /usr/sbin/muxatmd
+corral2 348210 /usr/sbin/syslogd
+corral2 364564 /opt/rsct/bin/IBM.ERrmd
+corral2 405522 /usr/sbin/portmap
+corral2 282800 /usr/bin/xmwlm -L
+corral2 311454 /usr/sbin/cron
+corral2 376920 /usr/lib/errdemon
+Global 151626 /usr/ccs/bin/shlap64
+Global 274578 /usr/sbin/getty /dev/console
+...
+プロセス 102636 の祖先、すべての子、および WPAR 名を表示するには、次のコマンドを入力します。
+proctree -p 102636 -@
+このコマンドの出力は以下のような情報です。
+Global 168084 /usr/sbin/srcmstr
+corral2 401496 /etc/init
+corral2 319680 /usr/sbin/srcmstr
+corral2 102636 /usr/sbin/inetd
+プロセス 213246 のプロセス・ツリー定様式出力を表示するには、次のコマンドを入力します。
+proctree -T -p 213246
+
+このコマンドの出力は以下のような情報です。
+192652 \--/usr/sbin/srcmstr
+200830 \--/usr/sbin/inetd
+213246 \--telnetd -a
+229592 \---ksh
+344172 プロセス用にスレッド ID と関連の pthread ID を表示するには、以下のコマンドを入力します。
+proctree -t -p 344172
+このコマンドの出力は以下のような情報です。
+192652 /usr/sbin/srcmstr
+TID : 225535 (pTID : 1)
+200830 /usr/sbin/inetd
+TID : 360677 (pTID : 1)
+323642 telnetd -a
+TID : 770057 (pTID : 1)
+307428 -ksh
+TID : 1056861 (pTID : 1)
+344172 appthd
+TID : 1065119 (pTID : 1)
+TID : 1028171 (pTID : 258)
+TID : 1011789 (pTID : 2057)
+TID : 1024105 (pTID : 1800)
+プロセス 344172 のプロセス・ツリー定様式出力を、スレッド ID と関連の pthread ID と一緒に表示するには、次のコマンドを入力します。
+proctree -tT -p 344172
+このコマンドの出力は以下のような情報です。
+192652 \--/usr/sbin/srcmstr
+~~TID : 225535 (pTID : 1)
+200830 \--/usr/sbin/inetd
+~~TID : 360677 (pTID : 1)
+323642 \--telnetd -a
+~~TID : 770057 (pTID : 1)
+307428 \---ksh
+~~TID : 1056861 (pTID : 1)
+344172 \--appthd
+|~~TID : 1065119 (pTID : 1)
+|~~TID : 1028171 (pTID : 258)
+|~~TID : 1011789 (pTID : 2057)
+~~TID : 1024105 (pTID : 1800)</pre>

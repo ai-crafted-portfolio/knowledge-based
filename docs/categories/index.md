@@ -7,7 +7,7 @@
 
 | カテゴリ | 技術項目 | QA対応 | QA率 | QA不足 | 手順対応 | 手順率 | 手順不足 |
 |---|--:|--:|--:|--:|--:|--:|--:|
-| [AIX 7.3](../categories/c01/index.md) | 920 | 920 | 100.0% | 0 | 920 | 100.0% | 0 |
+| [AIX 7.3](../aix/index.html) | 920 | 920 | 100.0% | 0 | 920 | 100.0% | 0 |
 | [Anthropic Claude Support / Console Administration](../categories/c02/index.md) | 80 | 0 | 0.0% | 80 | 80 | 100.0% | 0 |
 | [Assembler / システム・プログラミング](../categories/c03/index.md) | 572 | 507 | 88.64% | 65 | 567 | 99.13% | 5 |
 | [CICS Transaction Server for z/OS 6.x](../categories/c04/index.md) | 250 | 150 | 60.0% | 100 | 250 | 100.0% | 0 |

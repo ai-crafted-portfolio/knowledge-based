@@ -1,0 +1,95 @@
+<!doctype html><meta charset="utf-8"><pre class="official-markdown">目的
+システム上の仮想プリンターをリストします。
+
+説明
+piolsvp
+コマンドは、システム上の仮想プリンターと接続タイプをリストします。
+piolsvp
+コマンドは、仮想プリンターへのキュー、またはキューとキュー・デバイスの組のいずれかを表示します。
+キューとキュー・デバイスの組のリスト順は、
+/etc/qconfig
+ファイルに使われる順序と同じです。
+
+構文
+piolsvp { -q| -v| -Q| -p| -A} [ -nAttachmentField ] piolsvp -P Queue [ : QueueDevice ] -nAttachmentField piolsvp -PQueue -d piolsvp -NAttachmentType -nAttachmentField
+
+オプション
+フラグ
+表 1. フラグ
+項目 | 説明
+-A | すべての接続タイプとその説明を表示します。 /usr/lib/lpd/pio/etc ディレクトリーにある .attach と .config ファイルにより、すべての接続タイプが定義されます。
+-d | 特定のキューに関連付けられているキュー・デバイスを表示します。
+-n AttachmentField | 接続のためのフィールド名を指定します。 一般に、フィールド名は SMIT セレクター名です。 AttachmentField 変数に使用できる値は、以下のとおりです。 submit_job add_queue add_printer remove_queue printer_conn change_queue change_filters -n や -A フラグが指定されると、接続ファイル内の指定された接続フィールドの値を持つ接続タイプのみが表示されます。 接続定義は、 AttachmentType .attach 命名規則に従って、ファイルに保持されます。 .attach ファイルは、 /usr/lib/lpd/pio/etc ディレクトリーに常駐します。 -n フラグを -q または -v フラグのいずれかと一緒に指定すると、定義された接続タイプに属するキューとキュー・デバイスの組だけが表示されます。 定義済みの接続タイプは、定義ファイル内でフィールド値が割り当てられています。 -n フラグを -P フラグとともに指定すると、SMIT セレクター名が表示されます。 -n と -P フラグの組み合わせを指定すると、キュー・デバイス名と接続タイプも表示されます。 -n フラグを -N フラグとともに指定すると、指定した接続フィールドと接続タイプに関する SMIT セレクター名が表示されます。
+-N | 接続タイプを指定します。 所定の接続フィールドに関連付けられている SMIT セレクター名が表示されます。
+-p | システム上にキューとキュー・デバイスのすべての組を表示して、それぞれの組ごとに説明します。 複数のキュー・デバイスを持つキューがあれば、最初のキュー・デバイスのキューの名前のみが表示されます。
+-P | 情報を表示するキューの名前またはキュー・デバイス名を指定します。 情報は、キュー・デバイス名、接続タイプ名、および SMIT セレクター値名で構成されます。
+
+-q | システム上のすべてのキューが表示されます。 -q フラグを指定すると、複数のデバイスを持つキューのキュー・デバイスの組も表示されます。
+-Q | システム上のすべてのキューが表示されます。 -Q フラグを指定しても、キュー・デバイスの組は表示されません。 -q フラグを指定して、キュー・デバイスの組をリストします。
+-v | 仮想プリンターを持つキューのキュー・デバイスのすべての組が表示されます。
+
+例
+システム上のすべての印刷キューを表示するには、次のように入力します。
+piolsvp -q
+このコマンドの出力は以下のようになります。
+e4019a 4019 (IBM ASCII)
+d3816 IBM 3816 Page Printer
+ena_asc 4029 (IBM ASCII)
+ena_gl 4029 (Plotter Emulation)
+ena_pcl 4029 (HP LaserJet II Emulation)
+ena_ps 4029 (PostScript)
+hplj2 Hewlett-Packard LaserJet II
+tstx 4216-31 (Proprinter XL Emulation)
+e4019ps 4019 (PostScript)
+4019lxxa 4029 (PostScript)
+4019lxxa:lxx 4029 (PostScript)
+40191xxa:rkmlxx 4019 (IBM ASCII)
+4019lxxa:rkmlxxl 4019 (IBM ASCII)
+システム内のすべての仮想プリンターを表示するには、次のように入力します。
+piolsvp -v
+このコマンドの出力は以下のようになります。
+#QUEUE DEVICE DESCRIPTION
+e4019a e4019 4019 (IBM ASCII)
+d3816 ena3816 IBM 3816 Page Printer
+ena_asc ena 4029 (IBM ASCII)
+ena_gl ena 4029 (Plotter Emulation)
+ena_pcl ena 4029 (HP LaserJet II Emulation)
+ena_ps ena 4029 (PostScript)
+hplj2 lxx Hewlett-Packard LaserJet II
+tstx lxx 4216-31 (Proprinter XL Emulation)
+e4019ps e4019 4019 (PostScript)
+4019lxxa lxx 4029 (PostScript)
+4019lxxa rkmlxx 4019 (IBM ASCII)
+40191xxa rkmlxx 4019 (IBM ASCII)
+システム上のすべてのキューをリストするには、次のように入力します。
+piolsvp -Q
+このコマンドの出力は以下のようになります。
+e4019a 4019 (IBM ASCII)
+d3816 IBM 3816 Page Printer
+
+ena_asc 4029 (IBM ASCII)
+ena_gl 4029 (Plotter Emulation)
+ena_pcl 4029 (HP LaserJet II Emulation)
+ena_ps 4019 (PostScript)
+hplj2 Hewlett-Packard LaserJet II
+tstx 4216-31 (Proprinter XL Emulation)
+e4019ps 4019 (PostScript)
+4019lxxa 4029 (PostScript)
+add_queue
+SMIT セレクターに指定された SMIT セレクター値を持つすべての接続タイプをリストするには、次のように入力します。
+piolsvp -A -nadd_queue
+このコマンドの出力は次のようになります。
+#ATTACHMENT TYPE DESCRIPTION
+local Local Attached
+remote Remote Attached
+ascii ASCII Terminal Attached
+other Generic Backend Attached
+4019lxxa
+キューの情報をリストするには、次のように入力します。
+piolsvp -P4019lxxa -n add_queue
+このコマンドの出力は次のようになります。
+lxx xsta sm_xsta_addq_sel
+リモート接続の SMIT セレクター値をリストするには、次のように入力します。
+piolsvp -Axst -nadd_queue
+このコマンドの出力は次のようになります。
+sm_xsta_addq_sel</pre>

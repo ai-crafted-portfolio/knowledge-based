@@ -1,0 +1,39 @@
+<!doctype html><meta charset="utf-8"><pre class="official-markdown">目的
+HIA と 5080 制御装置の間のアクティビティーを診断します。
+
+説明
+panel20
+コマンドを診断ツールとして使用して、ホスト・インターフェース・アダプター (HIA) が正しくインストールされ、5088 Graphics Channel Control Unit (GCCU) と通信しているかどうかを調べます。
+panel20
+コマンドは、以下の列を含む診断画面を表示します。
+Device Name
+,
+Channel Address
+,
+Link Address
+,
+Link Status
+,
+Poll Counter
+,
+SNRM Counter
+.
+HIA が正しくインストールされ、ホスト・オペレーティング・システムが 5088 上の 3270 装置をサポートするように正しく構成されている場合は、「Set Normal Response Mode (通常応答モードの設定)」の項目 (
+SNRM Counter
+) 列が増加します。 以下の項目があるとします。
+SNRM Counter
+増加していない場合は、HIA の問題判別手順を参照して、ホスト・オペレーティング・システムが正しく構成されていることを確認してください。
+
+構文
+panel20 [ HIA0 | HIA1 | HIA2 ]
+
+例
+panel20
+コマンドを開始するには、以下のように入力します。
+panel20
+デフォルトでは、
+panel20
+コマンドは HIA0 をモニターします。 HIA1 または HIA2 をモニターするには、以下のように入力します。
+panel20 HIA1
+または
+panel20 HIA2</pre>

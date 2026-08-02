@@ -1,0 +1,55 @@
+<!doctype html><meta charset="utf-8"><pre class="official-markdown">目的
+印刷キューを作成します。
+
+説明
+piomkpq
+コマンドは、印刷キューとプリンターを作成します。 このコマンドは、
+piomkapqd
+コマンドで作成された SMIT ダイアログによって使用されます。
+piomkpq
+コマンドは以下の機能を実行します。
+さまざまな接続タイプのプリンターを作成します。
+印刷キューを作成します。
+キュー・デバイスを作成します。
+仮想プリンターを作成します。
+疑似デバイスを作成します。
+
+構文
+新規プリンターを追加するには piomkpq -A AttachmentType -p PrinterType -Q QueueName -D DataStream -v DeviceType -s Subclass -r ParentAdapter -w PortNumber [ -a { interface | ptop | autoconfig | speed | parity | bpc | stops | xon | dtr | tbc=DescValue } ] ... 新しい印刷キューを作成するには piomkpq -A AttachmentType -p PrinterType { -D DataStream | -q QueueName } -s Subclass -r ParentAdapter -w PortNumber -v DeviceType [ -a { interface | ptop | autoconfig | speed | parity | bpc | stops | xon | dtr | tbc=DescValue } ] ... 既存のプリンターの印刷キューを作成するには piomkpq -A AttachmentType -p PrinterType -d DeviceName { -D DataStream | -q QueueName } 既存の印刷キューに既存のプリンターを追加するには、以下のようにします。 piomkpq -A AttachmentType -p PrinterType -d DeviceName -D DataStream -q QueueName
+
+オプション
+フラグ
+表 1. フラグ
+項目 | 説明
+-a | デバイスの属性を指定します。 これは、 Attribute = Value という形式になります。例: -a speed=9600. 有効な属性は以下のとおりです。 Interface ptop autoconfic speed parity bpc stops xon dtr tbc
+-A AttachmentType | プリンターをデータ・ソースに接続するために使用される接続のタイプを指定します。 AttachmentType 変数に共通の値は、以下のとおりです。 local ローカル接続タイプを指定します。 ascii ASCII 接続タイプを指定します。 file データを格納するファイルを指定します。
+-d DeviceName | lp0 または tty1 など、出力先となるデバイス、疑似デバイス、またはファイルの名前を指定します。
+-D DataStream | 作成する印刷キュー、または既存の印刷キューのデータ・ストリームを指定します。
+-p PrinterType | /usr/lib/lpd/pio/predef ディレクトリーで定義されているプリンター・タイプ (例えば、 ibm4019 ) を指定します。
+-q QueueName | 新しいキューの名前を指定します。 -q および -Q フラグは排他的です。
+-Q QueueName | 既存のキューの名前を指定します。 -q および -Q フラグは排他的です。
+-s サブクラス | プリンターが属するサブクラスのタイプを指定します。 Subclass 変数に使用できる値は、以下のとおりです。 parallel rs232 rs422
+-r ParentAdapter | プリンターの親アダプターを指定します。
+-w PortNumber | プリンター接続用のポート番号を指定します。
+-v DeviceType | ODM データベース内で定義されているようにデバイス・タイプを指定します。
+
+例
+lp0
+という名前の既存の
+IBM
+4019プリンタ用に、データストリームASCIIの&#x27;
+castor
+という名前のローカル印刷キューを作成するには、次のように入力する：
+piomkpq -A local -p ibm4019 -d lp0 -D asc -q castor
+既存のローカルプリンターを、データストリームPostScript,用の「
+pyrite
+」という名前の既存のローカル印刷キューに追加するには、次のように入力する：
+piomkpq -A local -p ibm4019 -d lp0 -Q pyrite -D ps
+新しいプリンター用に
+baker
+という名前のローカル印刷キューを作成するには、次のように入力します。
+piomkpq -A local -p ibm4019 -D asc -Q baker -s parallel -r ppa0
+-w p -v ibm4019 [-a ptop=120]
+clues
+ファイル印刷キューを作成するには、次のように入力します。
+piomkpq -A file -p ibm4019 -d clues -D asc -q baker</pre>

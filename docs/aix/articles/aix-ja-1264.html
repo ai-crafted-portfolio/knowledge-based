@@ -1,0 +1,50 @@
+<!doctype html><meta charset="utf-8"><pre class="official-markdown">目的
+ボリューム・グループ内の物理ボリュームを別の物理ボリュームで置き換えます。
+
+説明
+replacepv
+コマンドは、割り当て済み物理区画とそこに含まれるデータを、
+SourcePhysicalVolume
+から
+DestinationPhysicalVolume
+に置き換えます。 指定されたソース物理ボリュームは、
+DestinationPhysicalVolume
+と同じにはできません。
+注:
+DestinationPhysicalVolume
+は、ボリューム・グループに属してはなりません。
+DestinationPhysicalVolume
+サイズは、少なくとも
+SourcePhysicalVolume
+のサイズでなければなりません。
+replacepv
+コマンドは、期限切れの論理ボリュームに期限切れでない状態ミラーがない限り、
+SourcePhysicalVolume
+をその状態論理ボリュームに置き換えることはできません。
+replacepv
+コマンドは、スナップショット・ボリューム・グループまたは、
+スナップショット・ボリューム・グループを持つボリューム・グループには使用できません。
+アクティブなファームウェア支援ダンプ論理ボリュームを持つ物理ボリュームに対してこのコマンドを実行すると、ダンプ・デバイスが一時的に
+/dev/sysdumpnull
+に変更されます。 論理ボリュームのマイグレーションが正常に実行された後、このコマンドは
+sysdumpdev -P
+コマンドを呼び出して、ファームウェア支援ダンプ論理ボリュームを元の論理ボリュームに設定します。
+SourcePhysicalVolume に対応する VG は、PV タイプの制限が存在するかどうかを判別するために検査されます。 制限が存在する場合、DestinationPhysicalVolume は、その制限を確実に満たすように検査されます。 PV タイプの制限を満たさない場合は、このコマンドは失敗します。
+新しい物理区画の割り当ては、置き換えられる物理区画を含んでいる論理ボリューム用に定義されたポリシーに従います。
+
+構文
+replacepv [ -f ] { SourcePhysicalVolume ｜ SourcePhysicalVolumeID }。 DestinationPhysicalVolume replacepv [ -R ] dir_name [ ]。 DestinationPhysicalVolume ]
+
+オプション
+フラグ
+項目 | 説明
+-f | SourcePhysicalVolume を、指定された DestinationPhysicalVolume と置き換えるように強制します。ただし、 DestinationPhysicalVolume が、入出力装置構成データベースの別のボリューム・グループ、またはアクティブなボリューム・グループの一部である場合は除きます。
+-R ディレクトリー名 | &lt; ctrl-c&gt;、システム・クラッシュ、またはクォーラムの損失によって中断された場合に 置き換え をリカバリーします。 -R フラグを使用するときは、 replacepv の初期実行中に指定されたディレクトリー名を指定する必要があります。 このフラグによって、 DestinationPhysicalVolume を変更することもできる
+
+例
+物理区画を以下の場所から置き換えます。
+hdisk1
+へ
+hdisk6
+次のように入力します。
+replacepv hdisk1 hdisk6</pre>

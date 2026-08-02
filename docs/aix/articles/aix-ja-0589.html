@@ -1,0 +1,32 @@
+<!doctype html><meta charset="utf-8"><pre class="official-markdown">目的
+Network Terminal Accelerator (NTX) のアダプター構成を表示するかダウンロードします。
+
+説明
+hty_load
+コマンドは、アダプター構成を表示またはダウンロードします。 このコマンドをフラグを指定せずに実行すると、
+システムは
+/dev/rhp0
+デバイス・ファイルの現行アダプター構成を表示します。
+Device
+パラメーターを指定した場合は、
+hty_load
+コマンドにより構成ファイルが tty ドライバーにロードされます。 tty ドライバーは、このファイルを使用してホスト表示サービス (HPS) とアダプターの両方を設定します。
+通常、
+hty_load
+コマンドは
+/etc/rc.ntx
+ファイルから起動されます。
+
+構文
+hty_load [ -d Device ] [ -f ConfigFileName ]
+
+オプション
+フラグ
+表 1. フラグ
+項目 | 説明
+-d Device | アダプターのロウ・デバイスのファイル名を指定します。 デフォルトのデバイス名 /dev/rhp0 を指定変更するには、 このオプションを使用します。
+-f ConfigFileName | ドライバーの構成ファイル名を指定します。 デフォルトの構成ファイルは /etc/hty_config ファイルです。
+
+例
+システム構成をロードしてデフォルトのドライバー構成を使用するには、次のように入力します。
+hty_load -d /dev/rhp0</pre>

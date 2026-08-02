@@ -1,0 +1,44 @@
+<!doctype html><meta charset="utf-8"><pre class="official-markdown">目的
+QoS (Quality of Service) Service Category または Policy Rule を追加します。
+
+説明
+qosadd
+コマンドは、
+policyd.conf
+ファイル内の
+指定された Service Category または Policy Rule エントリーを追加し、
+変更結果を QoS Manager にインストールします。
+
+構文
+Service Category を追加するには、次のように入力します。 qosadd [ -s ServiceCategory ][ -t OutgoingTOS ][ -b MaxTokenBucket ][ -f FlowServiceType ][ -m MaxRate サービス Policy Rule を追加するには、次のように入力します。 qosadd [ -s ServiceCategory ][ -r ServicePolicyRules ][ -l PolicyRulePriority ][ -n ProtocolNumber ][ -A SrcAddrRange ][ -a DestAddrRange ][ -P SrcPortRange ][ -p DestPortRange ポリシー
+
+オプション
+フラグ
+サービス追加のフラグは、以下のとおりです。
+項目 | 説明
+-s | ServiceCategory 属性の名前 (必須)。
+-t | OutgoingTOS 属性。8 ビットの 2 進数で指定。
+-b | MaxTokenBucket 属性。Kb (K ビット) で指定。
+-f | FlowServiceType 属性 (ControlledLoad または Guaranteed)。
+-m | MaxRate 属性。Kbps (秒当たりの K ビット数) で指定。
+ポリシー追加のフラグは、以下のとおりです。
+項目 | 説明
+-s | ServiceCategory 属性の名前 (必須)。
+-r | ServicePolicyRules 属性の名前 (必須)。
+-l | PolicyRulePriority 属性 (正整数)。
+-n | ProtocolNumber 属性。 /etc/protocols ファイルに定義済み。
+-A | 属性は SrcAddrRange 属性は、ソースIPアドレスの範囲を a1 から a2 までとし、 a2 &gt;= a1 とする。
+-a | 属性は DestAddrRange 属性は、宛先IPアドレスの範囲を i1 から i2 までとし、 i2 &gt;= i1 とする。
+-P | 属性は SrcPortRange 属性は、ソース・ポートの範囲を a1 から a2 までとし、 a2 &gt;= a1 とする。
+-p | 属性は DestPortRange 属性は、デスティネーション・ポートの範囲を i1 から i2 までとし、 i2 &gt;= i1 とする。
+
+例
+sc01 サービスを追加するには、次のように入力します。
+qosadd -s sc01 -t 10000001 -b 81 -f ControlledLoad -m 41 service
+pr01 ポリシーを追加するには、次のように入力します。
+qosadd -s sc01 -r pr01 -l 2 -n 17 -A 9.3.25.1-9.3.25.10 -a 9.3.25.33-9.3.25.33
+-p 9001-9010 -P 9000-9000 policy
+sc02 サービスを追加するには、次のように入力します。
+qosadd -s sc02 -t 10000001 -b 81 service
+pr02 ポリシーを追加するには、次のように入力します。
+qosadd -s sc02 -r pr02 -l 2 -n 17 policy</pre>

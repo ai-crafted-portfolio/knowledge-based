@@ -1,0 +1,52 @@
+<!doctype html><meta charset="utf-8"><pre class="official-markdown">目的
+ストレージ・ファミリーに関する情報、および各ファミリーを管理するドライバー、またはストレージ・ファミリーを管理するドライバーを変更するドライバーに関する情報を表示します。
+
+説明
+manage_disk_drivers
+コマンドは、ストレージ・ファミリーとそれぞれのファミリーを管理またはサポートするドライバーのリストを表示します。 ストレージ・ファミリーはストレージ・モデルです。 そのファミリー内のすべてのディスクは、同じドライバーによって管理されている必要があります。
+サポートされているドライバーには、マルチパス入出力 (MPIO) と非 MPIO の 2 つのタイプがあります。 多くのユーザーは MPIO 版のドライバー (
+AIX_AAPCM
+) を選択します (これはデフォルトの行動です)。 ただし、サード・パーティーのマルチパス・ドライバーがインストールされることがあります。 この場合は、組み込みの AIX® MPIO 機能を無効にすることをお勧めします。 この操作を実行するには、ドライバー・オプションとして
+AIX_non_MPIO
+オプションを選択します。
+注:
+すべてのストレージ・ファミリーが
+AIX_non-MPIO
+ドライバーをサポートしているわけではありません。
+-d
+フラグでストレージ・デバイス名を指定すると、
+manage_disk_drivers
+コマンドは、サポートされている代替ドライバー (
+-o
+フラグで指定するドライバー) に、ドライバーの選択を変更します。
+manage_disk_drivers
+コマンドは、ドライバーの変更を反映したオブジェクト・データ・マネージャー (ODM) データベースを保存し、システムを再始動して変更を有効にするためのメッセージを表示します。
+
+構文
+manage_disk_drivers [ -l ] 管理ディスク・ドライバー [ -d 年 [ 装置 ] ] [ - [ ドライバー・オプション ] manage_disk_drivers [ -h ]
+
+オプション
+フラグ
+項目 | 説明
+-l | すべてのストレージ・デバイスとそれらがサポートするドライバーをリストします。
+-d | ドライバーを選択するときにストレージ・デバイス・ファミリーを指定します。 注: このフラグを使用するには、 -o フラグが必要です。
+-o | 選択されたストレージ・ファミリーに使用されるドライバーを指定します。 注: このフラグを使用するには、 -d フラグが必要です。
+
+例
+すべてのストレージ・ファミリーおよびそれらがサポートするドライバーをリストするには、次のコマンドを入力してください。
+manage_disk_drivers -l
+システムは、次の例のようなメッセージを表示します。
+Device Present Driver Driver Options
+2810XIV AIX_AAPCM AIX_AAPCM,AIX_non_MPIO
+XIVCTRL MPIO_XIVCTRL MPIO_XIVCTRL,nonMPIO_XIVCTRL
+2107DS8K NO_OVERRIDE NO_OVERRIDE,AIX_AAPCM,AIX_non_MPIO
+IBMFlash NO_OVERRIDE NO_OVERRIDE,AIX_AAPCM,AIX_non_MPIO
+IBMSVC NO_OVERRIDE NO_OVERRIDE,AIX_AAPCM,AIX_non_MPIO
+2810XIV デバイスを管理する
+AIX_non_MPIO
+オプションを使用するようにドライバーを変更するには、次のコマンドを入力します。
+manage_disk_drivers -d 2810XIV -o AIX_non_MPIO
+システムは、次の例のようなメッセージを表示します。
+# manage_disk_drivers -d 2810XIV -o AIX_non_MPIO
+********************** ATTENTION *************************
+For the change to take effect the system must be rebooted</pre>

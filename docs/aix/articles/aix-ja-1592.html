@@ -1,0 +1,45 @@
+<!doctype html><meta charset="utf-8"><pre class="official-markdown">目的
+Trusted Platform Module (TPM) が
+tpm_takeownership
+コマンドの実行を許可しているかどうかを検査します。
+
+説明
+tpm_ownable
+コマンドは、TPM の所有が可能かどうかに関する TPM フラグの状況を報告します。 これはデフォルトの動作であり、
+-s
+(または
+--status
+) オプションを使用してこの動作を指定することもできます。 この状況のレポートを要求すると、所有者パスワードの入力を求めるプロンプトが出されます。
+-a
+(または
+--allow
+) オプションは、
+tpm_takeownership
+操作を許可するようにシステム TPM を設定します (
+TPM_SetOwnerInstall
+API により)。 この操作を行うには、物理プレゼンスが必要です。
+-p
+(または
+--prevent
+) オプションを指定すると、TPM が
+tpm_takeownership
+コマンドを受け入れなくなります (
+TPM_SetOwnerInstall
+API により)。 この操作を行うには、物理プレゼンスが必要です。 これらの操作は永続的で、
+tpm_takeownership
+コマンドを実行するには TPM が使用可能になっている必要があります。
+
+構文
+tpm_ownable [ -a 値 ] [ -h ] [ - [ なし | エラー | 情報 | デバッグ ] ] [ P- ] [ -s ] [ -ウー ] [ -v (V) ] [ -z ]
+
+オプション
+フラグ
+項目 | 説明
+-a (または -- allow ) | tpm_takeownership コマンドの実行を許可します。
+-h (または -- help ) | コマンド使用方法の情報を表示します。
+-l (または --log ) [ none | error | info | debug ] | ロギング・レベルを指定のとおり none、error、info、または debug に設定します。
+-p (または -- prevent ) | tpm_takeownership コマンドを実行しないようにします。
+-s (または -- status ) | TPM の所有が可能かどうかに関するフラグの状況を報告します。
+-u (または -- unicode ) | TSS ポップアップ・ボックスを使用するアプリケーションに適合するように、パスワードに対して Trusted Computing Group Software Stack (TSS) UNICODE エンコードを使用します。
+-v (または -- version ) | コマンドのバージョン情報を表示します。
+-z (または --well-known ) | 現行の所有者パスワードがすべてゼロ (20 バイトのゼロ) からなる秘密である場合に、パスワードを新しいものに変更します。 変更する必要があるパスワード (所有者またはストレージ・ルート・キー、あるいは両方) を指定する必要があります。</pre>

@@ -1,0 +1,145 @@
+<!doctype html><meta charset="utf-8"><pre class="official-markdown">目的
+nimclient
+コマンドは、NIMクライアントからネットワーク・インストレーション・マネージメント（NIM）操作を実行できるようにする。
+
+説明
+nimclient
+コマンドは、NIM クライアントのワークステーションで NIM リソースを取り出すために使用します。 このコマンドを使用すると、NIM マスター・サーバーでワークステーションをインストールおよびカスタマイズする機能を使用可能にしたり使用不可にしたりできます。
+nimclient
+コマンドは、利用可能なNIMリソースのリストを生成したり、すでにクライアントに割り当てられているNIMリソースを表示したりするのに使用できる。
+nimclient
+コマンドに「
+-o
+フラグを付けると、限定されたNIM操作を実行できる。
+
+構文
+NIMマスターのプッシュ権限を有効または無効にするには nimclient { -p } | { -P } NIMマスタープッシュ操作で暗号化認証を有効または無効にするには nimclient { -c } | { -C } NIM環境に関する情報を掲載するには nimclient -l LsnimParameters NIMマスターの日時を設定するには nimclient -d NIMオペレーションを実行するには nimclient -o Operation [ -a Attribute=Value ] ...
+
+オプション
+フラグ
+表 1. フラグ
+項目 | 説明
+-a 属性 = 価値 | NIM 操作に情報を渡します。 マスターから 特定の操作に有効な属性のリストを取得するには、&#x27; lsnim -q Operation -t Type コマンドを使用する。 クライアントから 特定の操作に有効な属性のリストを取得するには、&#x27; nimclient -l -q Operation -t Type コマンドを使用する。
+-c | NIM マスター・プッシュ操作の際に SSL 認証を使用可能にします。 注： OpenSSL証明書は、NIMマスター上で「 nimconfig -c コマンドを使用して設定する必要がある。 SSL 証明書は、 nimclient -c が実行されるときに、NIM マスターからコピーされます。
+-C | SSL 認証を使用不可にし、NIM マスター・プッシュ操作の際に標準の nimsh セキュリティーを使用します。
+-d | クライアントの日時をマスターの日時に設定します。
+-e | デュアル・スタック・モードをサポートするように NIM クライアント環境を構成します。これは、単一のインターフェース定義による IPv4 および IPv6 プロトコルの実装を意味します。 注： デュアルスタック環境を設定する前に、「 autoconf6 コマンドを実行し、「 ndpd-host デーモンを起動する。
+-l Lsnimパラメータ | 指定した &#x27; lsnim パラメータを使用して、マスター上で &#x27; lsnim コマンドを実行する。 このオプションで使用するすべてのパラメータは、「 lsnim コマンドの構文規則に従わなければならない。 一部の「 lsnim 構文では、NIMオブジェクト名を使用する必要がある。 ご使用のマシンの NIM 名は、 /etc/niminfo ファイルで調べてください。 注記: から 7.3AIX®、テクノロジーレベル3において、NIMオブジェクトタイプ向けに新しい customer オブジェクトタイプが導入されます。 NIM customer オブジェクトタイプの導入に伴い、` nimclient -l command`は現在の customer オブジェクトグループに属するリソースのみを表示します。 NIMオブジェクトタイプの詳細については、コマンド nim ページのフラグ -t を参照してください。
+
+-o Operation | 指定された操作を行います。 以下は可能な操作である： allocate リソースを割り当てて使用できるようにします。 bos_inst BOS インストールを実行します。 change オブジェクトの属性を変更します。 check NIM オブジェクトの状況を検査します。 cust ソフトウェアのカスタマイズを実行します。 deallocate リソースの割り当てを解除します。 diag この操作により、マシンは診断イメージをブートできるようになる。 maint_boot この操作により、マシンをメンテナンスモードで起動できるようになる。 reset オブジェクトの NIM 状態をリセットします。 showres NIM リソースの内容を表示します。
+-p | -p フラグは、NIMマスターがコマンドをプッシュできるようにする。
+-P | コマンドをプッシュするためのNIMマスターの権限を削除する。 注: マスターは、 -F フラグを使用してこの制限を変更できます。
+注：
+この
+nimclient -l -POt
+standalone
+コマンドの出力には、NIMマスターがスタンドアロンのNIMオブジェクトに対して実行できる操作が表示されます。 クライアントは、この
+nimclient -l -POt
+standalone
+コマンドで指定されたすべての操作を実行できません。 クライアントは、この
+nimclient -o &lt;Operation&gt;
+コマンドを使用して、有効な操作の限定されたセットを実行できます。 コマンド
+nimclient --?
+を使用すると、有効な操作の一覧を確認できます。
+
+例
+pluto
+このマシンの NIM 名が である場合、このマシンで利用可能なすべての NIM リソースを一覧表示するには、次のコマンドを入力してください：
+nimclient -l -L pluto
+pluto
+このマシンの NIM 名が である場合に、このマシンで利用可能なすべての共有製品オブジェクトツリー（SPOT）を一覧表示するには、次のコマンドを入力してください：
+nimclient -l -L -t spot pluto
+このマシンから実行される可能性のある操作を一覧表示するには、次のコマンドを入力してください：
+nimclient -l -p -s pull_ops
+NIMマスターがクライアント上でローカルにコマンドを実行できないようにするには、次のコマンドを入力してください：
+nimclient -P
+dept_bundle
+images
+myspot
+次のコマンドを入力して、という名前のスポットリソース、という名前のリソース
+lpp_source
+、およびという名前のinstallpバンドルファイルを割り当てます：
+nimclient -o allocate -a spot=myspot -a lpp_source=images \
+-a installp_bundle=dept_bundle
+必要なリソースが割り当てられた後、以下のコマンドを入力してベースシステムのインストールを実行します：
+nimclient -o bos_inst
+images
+adt
+スタンドアロンクライアントから、インストール可能オプションのイメージが lpp_source に含まれるソフトウェア製品を
+lpp_source
+割り当ててインストールするには、次のコマンドを入力します：
+nimclient -o allocate -a lpp_source=images
+そして次のコマンドを入力する：
+nimclient -o cust -a filesets=&quot;adt&quot;
+bundle3
+images
+adt
+スタンドアロンクライアントから、インストール可能オプションのイメージが lpp_source に、インストール可能オプションの名前が installp_bundle に含まれるように、ソフトウェア製品を
+lpp_source
+割り当ててインストールするには、次のコマンドを入力します：
+nimclient -o allocate -a lpp_source=images \
+-a installp_bundle=bundle3
+次のコマンドを入力します。
+
+nimclient -o cust
+updt_images
+IX12345
+lpp_source にある APAR に関連するすべてのファイルセットの更新プログラムをインストールするには、次のコマンドを入力してください：
+nimclient -o allocate -a lpp_source=updt_images
+nimclient -o cust -afixes=IX12345
+lpp_source1
+lpp_source
+IX12345
+スタンドアロンの NIM から、 にある APAR のライブアップデートを実行するには、次のコマンドを入力します
+nimclient -o allocate -a lpp_source=lpp_source1
+nimclient -o cust -a live_update=yes -a filesets=IX12345
+lpp_source
+updt_images
+以下のコマンドを入力して、クライアントにインストールされているすべてのソフトウェアを、からの最新の更新プログラムで更新してください：
+nimclient -o allocate -a lpp_source=updt_images
+nimclient -o cust -afixes=update_all
+spot1
+以下のコマンドを入力して、という名前の SPOT リソースを使用して、システムがメンテナンスモードで起動するように設定します：
+nimclient -o maint_boot -a spot=spot1
+このコマンドはメンテナンスブート操作を設定しますが、ネットワークブートはローカルで開始する必要があります。
+script1
+設定スクリプトの内容を表示するには、次のコマンドを入力してください：
+nimclient -o showres -a resource=script1
+bosinst_data1
+リソース
+bosinst.data
+の内容を表示するには、次のコマンドを入力してください：
+nimclient -o showres -a resource=bosinst_data1
+machine1
+NIMクライアントマシンから、そのマシンに現在インストールされているものに関連するすべてのファイルセット
+lpp_source1
+を一覧表示するには、
+lpp_source
+次のコマンドを入力してください：
+nimclient -o showres -a resource=lpp_source1
+reference
+属性は、
+nimclient
+
+コマンドによって自動的に提供されます。
+lpp_source1
+lpp_source
+以下のコマンドを入力して、ソフトウェアによって修正されたすべての問題を表示してください：
+nimclient -o showres -a instfix_flags=&quot;T&quot; -a resource=lpp_source1
+client_images
+lpp_source を使用して、NIM
+client_bundle
+installp_bundle にリストされているファイルセットをインストールし、インストール操作中にこれらのリソースを自動的に割り当てるには、次のコマンドを入力します
+nimclient -o cust -a installp_bundle=client_bundle \
+-a lpp_source=client_images
+client_grp
+以下のコマンドを入力して、という名前の NIM リソースグループから、該当するすべてのリソースを自動的に割り当てながら、ベースシステムのインストールを実行します：
+nimclient -o bos_inst -a group=client_grp
+マスター上でデフォルトのリソースグループとして定義された NIM グループから、適用可能なすべてのリソースを自動的に割り当てながら、ベースシステムのインストールを実行するには、次のコマンドを入力します
+nimclient -o bos_inst
+SSL の証明書をコピーし、 SSL 認証を有効にするには、次のコマンドを入力してください：
+nimclient -c
+注：
+このコマンドオプションを使用する前に、NIMクライアントにOpenSSLをインストールしておく必要がある。
+デュアルスタック環境を設定するには、次のコマンドを入力してください：
+nimclient -e en0</pre>

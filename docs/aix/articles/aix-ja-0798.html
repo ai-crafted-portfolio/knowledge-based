@@ -1,0 +1,44 @@
+<!doctype html><meta charset="utf-8"><pre class="official-markdown">目的
+システムで使用できる特権を表示します。
+
+説明
+lspriv
+コマンドは、システムで使用できる特権を表示します。
+ワークロード区画
+(
+WPAR
+) 内で実行する場合、
+lspriv
+コマンドは、その区画で使用可能な特権のみを表示します。
+-v
+フラグが指定されると、
+lspriv
+コマンドは特権記述も表示します。
+
+構文
+lspriv [ -v ]
+
+オプション
+フラグ
+項目 | 説明
+-v | 特権ごとの特権記述を表示することを指定します。
+
+例
+システムで使用できるすべての特権を表示するには、次のコマンドを使用します。
+lspriv
+システムは、次の例に示すような出力を表示します。
+PV_ROOT
+PV_AU_
+PV_AU_ADD
+PV_AU_ADMIN
+PV_AU_READ
+...
+システムで使用できるすべての特権およびそのテキスト記述を表示するには、次のコマンドを使用します。
+lspriv -v
+システムは、次の例に示すような出力を表示します。
+PV_ROOT Allows a process to pass any non-SU privilege check.
+PV_AU_ Equivalent to all Auditing privileges (PV_AU_*) combined.
+PV_AU_ADD Allows a process to record/add an audit record.
+PV_AU_ADMIN Allows a process to configure and query the audit system.
+PV_AU_READ Allows a process to read a file marked as an audit file.
+...</pre>

@@ -1,0 +1,228 @@
+<!doctype html><meta charset="utf-8"><pre class="official-markdown">目的
+ライブ・アップデート
+操作が失敗し、デフォルトのクリーンアップ試行が成功しなかった場合に、システムをクリーンアップします。
+
+説明
+最初の操作が失敗し、デフォルトのクリーンアップ操作が成功しない場合は、
+ライブ・アップデート
+操作を実行する前にシステムをクリーンアップする必要があります。
+clvupdate
+コマンドは、システムの状態を分析し、システムを元の状態に復元します。 デフォルト・クリーンアップ操作中に試行が失敗した場合は、何らかの条件がクリーンアップ操作をブロックしていることを示しています。
+clvupdate
+コマンドは、クリーンアップ操作をブロックしている条件を識別し、必要なアクションを促すプロンプトをユーザーに出します。 ユーザーがすべてのブロック条件を解決すると、
+clvupdate
+コマンドはクリーンアップ操作を完了します。
+clvupdate
+コマンドは、失敗した
+ライブ・アップデート
+操作中に生成される
+/var/adm/ras/liveupdate/liveupdate.cf
+ファイルの内容によって異なります。
+liveupdate.cf
+ファイルがないか、壊れていると、
+clvupdate
+コマンドは論理区画 (LPAR) の状態を復元できません。 最初の操作が失敗した後に別の
+ライブ・アップデート
+操作を試行した場合は、
+-f
+オプションを使用して前の
+liveupdate.cf
+ファイルを指定する必要があります。
+失敗した
+ライブ・アップデート
+操作が原因でシステム障害または使用不可のシステム状態が発生した場合は、テクニカル・サポートの指導の下で
+clvupdate
+コマンドを実行することをお勧めします。
+注:
+失敗した
+ライブ・アップデート
+操作のクリーンアップは、LPAR を管理する HMC または PowerVC サーバーでの追加操作に依存します。
+ライブ・アップデート
+操作の前に、管理サーバーとの有効な認証セッションを確認する必要があります。 HMC または PowerVC を使用して有効な認証セッションを作成する方法については、
+hmcauth
+および
+pvcauth
+コマンドを参照してください。
+
+構文
+clvupdate [ -e ] [ -o ] [ -u ] [ -a HMChostname -U HMCusername ] [ -f AltCfFile ] clvupdate [ -e ] [ -n ] [ -u ] [ -a HMChostname -U HMCusername ] [ -f AltCfFile ] clvupdate -d clvupdate 「-l」 clvupdate -r (-r) clvupdate -v
+
+オプション
+フラグ
+-d
+サロゲート・ブート・ディスクのみを削除します。
+-e
+ライブ・アップデート
+状態を無視する
+-l
+「ライブ・アップデート」
+ロックのみをアンロックします。
+-n
+LVUP_ERROR
+フェーズ・スクリプトを実行します。
+-o
+オリジナルのシャットダウン操作を強制実行します。
+-r
+ライブ・アップデート
+の状態と状況のみをリセットします。
+-u
+「ライブ・アップデート」
+状況を無視します。
+-a
+代替 HMC ホスト名を指定します。
+-U
+代替 HMC ユーザー名を指定します。
+-f
+代替
+liveupdate.cf
+ファイルを指定します。
+-v
+前の
+ライブ・アップデート
+操作からボリューム・グループを削除します。
+
+例
+ライブ・アップデート・プロセスが失敗し、ライブ・アップデート・ロックが行われている場合は、
+clvupdate
+操作を再実行する前に、
+-l
+オプションを指定した
+clvupdate
+コマンドを実行して、ロックを除去します。 以下の例は、ディスプレイ上で
+-l
+オプションを指定して
+clvupdate
+コマンドを使用する方法を示しています。
+clvupdate
+The Live Update lock is taken, indicating that a Live Update operation might be in progress.
+Use -l to forcefully remove the lock and proceed with cleanup anyway.
+clvupdate -l.
+clvupdate
+Cleanup action succeeded.
+注:
+ライブ・アップデート操作は、カーネルでの操作中にその状態を追跡します。 ライブ・アップデート操作は、厳密な同期を必要とする操作を調整するために、カーネル変数
+Live Update kernel state
+および
+Live Update kernel status
+を使用します。
+clvupdate
+コマンドは、クリーンアップ操作を進める前に、これらのカーネル変数を検査します。 これらのカーネル変数を検査することにより、
+clvupdate
+は、クリーンアップ操作が不要な状態を識別します。 これらの検査をバイパスするために、追加オプションの指定が必要になることがあります (ライブ・アップデート操作の失敗後に区画をリブートする場合など)。
+ライブ・アップデート・カーネル状態がクリーンであってもクリーンアップを必要とする場合があります。 ライブ・アップデートの試行が失敗した後に区画がリブートされた場合は、
+-e
+オプションを指定して
+clvupdate
+コマンドを実行する必要があります。
+clvupdate
+The Live Update kernel state is INIT, which normally indicates that the system is in a clean state.
+Use -e to proceed with cleanup anyway.
+clvupdate -e
+Cleanup action succeeded.
+ライブ・アップデート操作が予期せず異常終了した場合、ライブ・アップデート・カーネル状況が、
+clvupdate
+
+コマンドの実行を妨げる状態になることがあります。 この検査をバイパスするには、
+-u
+オプションを指定した
+clvupdate
+コマンドを使用します。
+clvupdate
+The Live Update kernel status indicates that some processes from live update might still be running.
+Please run cleanup tool later or, if this is not the case, use -u to proceed with cleanup anyway.
+clvupdate -u
+Cleanup action succeeded.
+管理者が手動クリーンアップ操作を実行したが、ライブ・アップデート・カーネル変数をリセットしなかった場合は、
+-r
+オプションを指定して
+clvupdate
+コマンドを実行し、ライブ・アップデート・カーネル変数をリセットして別のライブ・アップデート操作を実行できます。
+-r
+オプションを指定した
+clvupdate
+コマンドの例を以下に示します。
+clvupdate -r
+注:
+ライブ・アップデート操作は、
+liveupdate.cf
+ファイルを使用して、操作に関する重要な構成情報を記録します。
+clvupdate
+コマンドは
+liveupdate.cf
+ファイルを読み取り、区画を元の状態に復元するために必要な操作を識別します。
+liveupdate.cf
+ファイルは
+/var/adm/ras/liveupdate
+ディレクトリーにあります。 ライブ・アップデート操作が実行されるたびに、古い
+liveupdate.cf
+ファイルは、そのファイル名にタイム・スタンプを付加することによって名前変更されます。
+clvupdate
+コマンドは、
+-f
+オプションを指定せずに実行されると、デフォルトの
+liveupdate.cf
+ファイルを読み取ります。
+前の失敗したライブ・アップデート操作で行われた変更を元に戻すためにクリーンアップ・アクションを実行したい場合は、デフォルトではなく代替の
+liveupdate.cf
+ファイルを使用します。
+-f
+オプションを指定した
+clvupdate
+コマンドの例を以下に示します。
+clvupdate -f liveupdate.cf.yyyy-mm-dd_HH:MM:SS.xxx
+Cleanup action succeeded.
+
+ブラックアウト時間の後でライブ・アップデート操作中にエラーが発生する場合があります。 そのポイントを過ぎてエラーが発生すると、ワークロードはサロゲート区画に移動され、元の区画がアクティブ状態に移行します。 クリーンアップ操作を続行するには、
+-o
+オプションを指定して
+clvupdate
+コマンドを実行する必要があります。
+-o
+オプションを指定した
+clvupdate
+コマンドの例を以下に示します。
+clvupdate
+The clean up process has been aborted because the original partition is still active.
+Turn off partition manually or use &#x27;-o&#x27; option to force shutdown first.
+clvupdate -o
+Cleanup action succeeded.
+ライブ・アップデート操作には、操作の影響を受ける他のシステム・コンポーネントに通知するフレームワークがあります。 ライブ・アップデート通知機能により、他のシステム・コンポーネントは、さまざまなフェーズでライブ・アップデート操作と連携するスクリプトを実行することが可能になります。 いずれかのフェーズで、スクリプトを実行して、ライブ・アップデート操作の失敗時にシステム・コンポーネントに固有のクリーンアップ操作を実行することができます。
+clvupdate
+コマンドには、特定のシナリオで他のシステム・コンポーネントのスクリプトのみを実行するオプションが用意されています。 ディスプレイ上で
+-n
+オプションを指定した
+clvupdate
+コマンドの例を以下に示します。
+clvupdate -n
+Cleanup action succeeded.
+ライブ・アップデート中に使用された HMC が応答しない場合は、代替 HMC を使用することができます。 最初に HMC に対して認証を行う必要があります。 次の例は、ディスプレイでの認証プロセスを示しています。
+hmcauth -a hmc1 -u user1 -p password
+clvupdate -a hmc1 -U user1
+Cleanup action succeeded.
+注:
+PowerVC モードでライブ・アップデート操作が失敗すると、デバッグ目的でサロゲート・ブート・ディスクがインポートされます。 この場合、次のメッセージが表示されます。
+
+Surrogate boot disk(s) have been imported as hdiskx for debugging purposes.
+Use clvupdate -d to remove them when done.
+ディスクが不要になった場合は、
+-d
+オプションを指定して
+clvupdate
+コマンドを実行することで削除できます。
+サロゲート・ブート・ディスクを削除するには、次のコマンドを入力します。
+clvupdate -d
+Cleanup action succeeded.
+lvup_rootvg
+は、サロゲート区画が開始に使用するボリューム・グループの名前です。
+lvup_rootvg
+ボリューム・グループは、ライブ・アップデート操作後に区画がリブートされた後は不要になります。 PowerVC モードのライブ・アップデート操作後、
+lvup_rootvg
+ボリューム・グループは自動的に削除されません。
+clvupdate
+コマンドには、このボリューム・グループを削除するためのオプションが用意されています。 この操作を実行するには、PowerVC サーバー区画を認証する必要があります。
+これは、PowerVC 操作の実行が必要であるためです。 システムからは、次の例のような出力が表示されます。
+clvupdate -v
+1430-159 FAILED: No valid PowerVC session token. Run pvcauth.
+pvcauth -a pvchost -u pvcuser -u pvcpasswd
+clvupdate -v
+The temporary Live Update storage was successfully removed. Cleanup action succeeded.</pre>

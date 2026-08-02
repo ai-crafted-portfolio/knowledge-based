@@ -1,0 +1,161 @@
+<!doctype html><meta charset="utf-8"><pre class="official-markdown">目的
+プロトタイプ・ファイルを生成します。
+
+説明
+pkgproto
+コマンドは、指示されたパスをスキャンし、
+pkgmk
+コマンドへの入力として使用される可能性のあるプロトタイプ・ファイルを生成します。 このファイルを生成するには、
+このコマンドの標準出力をファイルに宛先変更する必要があります。 このファイルは
+pkgmk
+を呼び出すときに使用できます。
+コマンド・ラインで
+パス
+が指定されていないと、
+標準入力が
+パス
+のリストと考えられます。 コマンド・ラインにリストされた
+パス
+がディレクトリーの場合は、
+ディレクトリーの内容が検索されます。 ただし、入力が標準入力から読み込まれる場合は、
+パスに指定したディレクトリーは検索されません。
+プロトタイプ・ファイル属性
+mac
+、
+fixed
+、および
+inherited
+は、
+pkgproto
+には
+決められないので、手作業でファイルに追加する必要があります。
+デフォルトで、
+pkgproto
+は検出されたシンボリック・リンク (ftype=s)
+にシンボリック・リンク・エントリーを作成します。
+-i
+フラグを使用する場合、
+pkgproto
+はシンボリック・リンク (ftype=f)
+にファイル・エントリーを作成します。 プロトタイプ・ファイルを編集して、v (揮発 (volatile))、e (編集可能 (editable))、
+または x (排他的ディレクトリー (exclusive directory)) などのファイル・タイプを割り当てる必要があります。
+pkgproto
+は、リンクされたファイルを検出します。 複数ファイルが共にリンクされている場合は、
+検出された最初のパスがリンクの元と見なされます。
+このコマンドからの出力は標準出力に送信されます。
+pkgmk
+を呼び出すときにプロトタイプ・ファイルとしてその結果を使用したい場合は、
+標準出力をファイルに宛先変更する必要があります。
+pkgmk
+は、
+プロトタイプ・ファイルのデフォルトのファイル名として prototype を使用するので、
+pkgproto
+の出力の宛先をファイル名 prototype にすることをお勧めします。
+パッケージが必要とするインストール・スクリプトおよびファイル用に、
+このコマンドによって生成されるプロトタイプ・ファイルにエントリーを追加する必要があります。 最低でも、
+pkginfo
+ファイルへのエントリーが必要です。 パッケージ内で
+使用するファイル (
+copyright
+、
+compver
+、
+depend
+、
+setinfo
+、
+space
+
+、パッケージ用に定義するすべてのインストール・スクリプトまたは
+除去スクリプト、定義するすべてのクラス) のどれについても、エントリーが必要です。
+注:
+デフォルトで、
+pkgproto
+は検出されたシンボリック・リンク (ftype=s)
+にシンボリック・リンク・エントリーを作成します。
+-i
+オプションを使用すると、
+pkgproto
+はシンボリック・リンク用のファイル・エントリーを作成します (ftype=f)。 プロトタイプ・ファイルを編集して、v (揮発 (volatile))、e (編集可能 (editable))、
+または x (排他的ディレクトリー (exclusive directory)) などのファイル・タイプを割り当てる必要があります。
+pkgproto
+は、リンクされたファイルを検出します。 複数ファイルが共にリンクされている場合は、
+検出された最初のパスがリンクの元と見なされます。
+このコマンドからの出力は標準出力に送信されます。
+pkgmk
+を呼び出すときにプロトタイプ・ファイルとしてその結果を使用したい場合は、
+標準出力をファイルに宛先変更する必要があります。
+pkgmk
+は、
+プロトタイプ・ファイルのデフォルトのファイル名として prototype を使用するので、
+pkgproto
+の出力の宛先をファイル名
+prototype
+にすることをお勧めします。
+パッケージが必要とするインストール・スクリプトおよびファイル用に、
+このコマンドが生成する
+prototype
+ファイルにエントリーを追加する必要があることに
+注意してください。 少なくとも、
+pkginfo
+ファイルのエントリーが必要です。詳細は
+pkginfo
+を参照してください。 パッケージ内で使用するファイル (
+copyright
+、
+compver
+、
+depend
+、
+setinfo
+、
+space
+、パッケージ用に定義するすべてのインストール・スクリプトまたは
+除去スクリプト、定義するすべてのクラス、(例: postinstall)) のいずれについても、エントリーが必要です。
+
+構文
+pkgproto [ -i ] [ -c クラス ] [ Path1 [パス 2 ]...]...
+
+オプション
+フラグ
+項目 | 説明
+-i | シンボリック・リンクを無視し、ftype=f (ファイル) と ftype=s (シンボリック・リンク) としてパスを記録します。
+-c クラス | すべてのパスのクラスを Class にマップします。
+Path1 | オブジェクトが配置されるディレクトリーのパス。
+Path2 | Path1 への出力上の置き換えられるべきパス。
+
+例
+以下の例は、
+pkgproto
+の使用と、生成された出力の部分リストを示しています。
+$ pkgproto /usr/bin=bin /usr/usr/bin=usrbin /etc=etc
+f none bin/sed=/bin/sed 0775 bin bin
+f none bin/sh=/bin/sh 0755 bin daemon
+f none bin/sort=/bin/sort 0755 bin bin
+d none etc/master.d 0755 root daemon
+f none etc/master.d/kernel=/etc/master.d/kernel 0644 root daemon
+f none etc/rc=/etc/rc 0744 root daemon
+$ find / -type d -print | pkgproto
+d none / 755 root root
+d none /usr/bin 755 bin bin
+d none /usr 755 root root
+d none /usr/bin 775 bin bin
+d none /etc 755 root root
+d none /tmp 777 root root
+上記の例と同じですが、後で
+pkgmk
+で処理するためにファイルに取り込まれた出力が付きます。 必要な
+pkginfo
+ファイルに追加されるエントリー、
+例えば、ファイルの後に実行の可能性があるインストール後のスクリプトが正しいロケーションにコピーされます。
+$ find / -type d -print | pkgproto &gt;prototype
+$ (edit the file to add entries for pkginfo and postinstall)
+$ cat prototype
+i pkginfo
+i postinstall
+d none / 755 root root
+d none /usr/bin 755 bin bin
+d none /usr 755 root root
+d none /usr/bin 775 bin bin
+d none /etc 755 root root
+d none /tmp 777 root root</pre>

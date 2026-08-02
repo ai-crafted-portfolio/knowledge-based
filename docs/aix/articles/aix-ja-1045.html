@@ -1,0 +1,73 @@
+<!doctype html><meta charset="utf-8"><pre class="official-markdown">目的
+lslpp
+コマンドを NIMOL クライアント上で実行します。
+注:
+このコマンドは、 Hardware Management Console (HMC) から Virtual I/O Server (VIOS) または Integrated Virtualization Management (IVM) に対してのみ使用されます。
+
+説明
+nimol_lslpp
+コマンドは、
+指定されたリモート・アクセス方式 (デフォルトでは
+/usr/bin/rsh
+) を使用して、
+構成済みの NIMOL クライアント上で
+lslpp
+コマンドを実行します。
+nimol_config
+コマンドを使用して NIMOL サーバーを構成する場合、ユーザーはデフォルトのリモート・アクセス方式を、
+/usr/bin/rsh
+以外の例えば
+/usr/bin/ssh
+などに設定することができます。
+-n
+フラグなしに
+nimol_install
+コマンドを
+使用してインストールされたマシンの場合は、NIMOL クライアントとして認識されます。
+コマンドは、
+-L -c
+をデフォルト・フラグ
+として
+lslpp
+コマンドを実行します。
+lslpp
+コマンド・フラグは、
+-f
+フラグとともに指定することができます。
+
+構文
+nimol_lslpp -c クライアント名 [ -m remote_access_method ] [ -f lslpp_flags ] [ -D ]
+
+オプション
+フラグ
+項目 | 説明
+-c クライアント・ホスト名 | lslpp コマンドを実行する場所 となる、NIMOL クライアント・ホスト名を指定します。
+-D | コマンドをデバッグ・モードで実行します。
+-f lslpp_flags | lslpp コマンドに 渡す、 lslpp コマンド・フラグを指定します。
+-m リモート・アクセス・メソッド | lslpp コマンドを実行するために使用する、リモート・アクセス方式を指定します。 デフォルトは /usr/bin/rsh です。 もう 1 つのオプションは、 /usr/bin/ssh です。
+
+例
+lslpp
+コマンドをクライアント
+myclient
+で、
+デフォルト・フラグ
+-Lc
+を使用して実行するには、次のように入力します。
+nimol_lslpp -c myclient
+lslpp
+コマンドをクライアント
+myclient
+で、
+フラグ
+-i bos.rte
+を使用して実行するには、次のように入力します。
+nimol_lslpp -c myclient -f &quot;-i bos.rte&quot;
+lslpp
+コマンドをクライアント
+myclient
+で、
+リモート・アクセス方式として
+ssh
+を使用して実行するには、次のように入力します。
+nimol_lslpp -c myclient -m ssh</pre>

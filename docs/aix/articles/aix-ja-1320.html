@@ -1,0 +1,38 @@
+<!doctype html><meta charset="utf-8"><pre class="official-markdown">目的
+NFS のマウントを除去します。
+
+説明
+rmnfsmnt
+コマンドは、
+/etc/filesystems
+ファイルから該当するエントリーを除去して、
+指定されたファイルシステムのマウントを解除します。
+-N
+フラグを付けると、
+rmnfsmnt
+コマンドは
+/etc/filesystems
+ファイルを修正せずにファイルシステムのマウントを解除します。
+
+構文
+/usr/sbin/rmnfsmnt -f PathName [ -i | -b | -n ]
+
+オプション
+フラグ
+項目 | 説明
+-B | /etc/filesystems ファイル内のエントリーを除去して、ディレクトリーのマウントを解除します。 /etc/filesystems ファイルにエントリーが存在しなければ、 フラグはファイルに変更を加えません。 ファイルシステムが現在マウントされていなければ、 フラグはマウントを解除しようとしません。 このフラグはデフォルトです。
+-f PathName | NFS でマウントされたファイルシステムのパス名を指定します。
+-I | パス名で指定されたエントリーを /etc/filesystems ファイルから除去します。
+-N | /etc/filesystems ファイルを修正せずに、指定されたディレクトリーのマウントを解除します。
+
+例
+ファイル・システムをアンマウントするには、次のように入力します。
+rmnfsmnt -f /usr/man -N
+この例では、
+/usr/man
+ファイル・システムがアンマウントされました。
+ファイルのマウントを除去するには、次のように入力します。
+rmnfsmnt -f /usr/local/man -B
+この例では、以下のようにマウントされます。
+/usr/local/man
+ファイルが除去されます。</pre>

@@ -1,0 +1,327 @@
+<!doctype html><meta charset="utf-8"><pre class="official-markdown">目的
+描画するために
+troff
+コマンドの入力のプリプロセスをします。
+
+説明
+pic
+コマンドは、組版システムで簡単な図を描くための
+troff
+コマンド・プリプロセッサーです。 基本的なオブジェクトは、ボックス、円、楕円、直線、スプライン、矢印、弧、および
+Text
+変数で指定したテキストです。 最高レベルのオブジェクトが、ピクチャーです。
+項目 | 説明
+File | 描画するために pic コマンドが処理する troff コマンドからの出力を指定します。
+ピクチャー
+pic
+コマンド内の最上位のオブジェクトがピクチャーです。
+.PS
+OptionalWidth OptionalHeight
+ElementList
+.PE
+.PF
+マクロを
+.PE
+の代わりに使用した場合、表示後の位置が入力時の状態に復元されます。
+項目 | 説明
+OptionalWidth | ピクチャーがあれば、内部で使用される寸法に関係なく、その幅をインチ単位で指定します。 最大値は 8.5 です。
+OptionalHeight | 同じ比率にスケールされる高さの値をインチ単位で指定します。この値は、デフォルトとは異なります。 最大値は 14 です。
+ElementList | 以下のようなエレメントのリストを表示します。 形状 AttributeList for ステートメント Placename: エレメント IF ステートメント プレー名: 位置 COPY ステートメント 変数 = 式 Print Statement 方向 Plot Statement { List of Elements } X コマンド行 X [ List of Elements ] troff コマンド
+変数名は、小文字で始まり、ゼロか複数の文字または数字が続きます。 位置名は大文字で始まり、ゼロまたは複数の文字か数字が続きます。 位置名と変数名は、1 つのピクチャーから次のピクチャーへと、その値を保存します。
+リスト内のエレメントは、改行文字または; (セミコロン) で区切る必要があります。長いエレメントは、行を ¥ (バックスラッシュ) で終了することによって継続できます。 コメントは、# 文字で始め、改行文字で終了します。
+Primitives
+図形エレメント・オブジェクトは、以下のとおりです。
+box
+circle
+ellipse
+arc
+line
+arrow
+spline
+move
+Text-list
+arrow
+オブジェクトは、
+-&gt;
+属性が設定された
+line
+オブジェクトと同じです。
+属性
+AttributeList
+
+エレメントは、ゼロ個以上の属性のシーケンスです。各属性は、キーワードとそれに続く値で構成されます。
+表 1. 属性
+属性 | 属性
+h(eigh)t 式 | wid(th) 式
+rad(ius) 式 | diam(eter) 式
+up OptionalExpression | down OptionalExpression
+right OptionalExpression | left OptionalExpression
+from 位置 | to 位置
+at 位置 | with コーナー
+by 式、式 | then
+dotted OptionalExpression | dashed OptionalExpression
+chop OptionalExpression | -&gt; &lt;- &lt;-&gt;
+invis | same
+Text-list |
+欠落している属性と値は、デフォルトから入力されます。 すべての属性がすべての図形エレメントについて意味があるわけではありません。無関係な属性は処理されません。 現在、意味のある属性は以下のとおりです。
+項目 | 説明
+Primitives | Attributes
+box | h(eigh)t 、 wid(th) 、 at 、 same 、 dotted 、 dashed 、 invis 、 Text
+circle , ellipse | rad(ius) 、 diam(eter) 、 h(eigh)t 、 wid(th) 、 at 、 same 、 invis 、 Text
+arc | up 、 down 、 left 、 right 、 h(eigh)t 、 wid(th) 、 from 、 to 、 at 、 rad(ius) 、 invis 、 ccw 、 cw 、 &lt;- 、 -&gt; 、 &lt;-&gt; 、 テキスト
+line , arrow | up 、 down 、 left 、 right 、 h(eigh)t 、 wid(th) 、 from 、 to 、 by 、 then 、 at 、 same 、 dotted 、 dashed 、 invis 、 &lt;- 、 -&gt; 、 &lt;-&gt; 、 Text
+spline | up 、 down 、 left 、 right 、 h(eigh)t 、 wid(th) 、 from 、 to 、 by 、 then 、 at 、 same 、 invis 、 &lt;- 、 -&gt; 、 &lt;-&gt; 、 テキスト
+
+move | up 、 down 、 left 、 right 、 to 、 by 、 same 、 Text
+Text-list | at 、 Text-item
+at
+属性は、指定位置に図形の中心を置くことを意味します。 行、スプライン、および弧の場合、
+h(eigh)t
+および
+wid(th)
+属性が矢印の先頭のサイズを示します。
+Text-item
+変数は、通常、何らかの図形エレメントの属性です。デフォルトでは、その変数はオブジェクトの図形の中心に置かれます。 スタンドアロン・テキストのみでも受け入れられます。
+Text-list
+の図形エレメントは、テキスト・エントリーのリストです。テキスト・エントリーは、以下のようにオプションとして位置決め要求が続く引用符で囲まれた文字列です。
+&quot;...&quot;
+center
+&quot;...&quot;
+ljust
+&quot;...&quot;
+rjust
+&quot;...&quot;
+above
+&quot;...&quot;
+below
+一部の図形エレメントに複数のテキスト・エントリーがあると、修飾されている場合を除いて、垂直に中央揃えされます。 位置決め要求は各エントリーに独自に適用されます。
+テキスト・エントリーには、サイズおよびフォントの変更やローカルの動作などを管理する
+troff
+コマンドが含まれています。 終了する前に、入力状態が復元されるように、これらのコマンドのバランスが取れていることを確認してください。
+項目 | 説明
+Positions/Places | 1 つの位置は最終的には X,Y の座標対ですが、以下のような方法で指定することもできます。 配置 ( 位置 ) 式、式 ( Position ) [ +/- ( Expression, Expression )] ( 位置 ) [ +/- 式、式 ] ( Place1, Place2 ) ( Place1.X, Place2.Y ) 式 &lt; 位置、位置 &gt; 式 [ of the way ] between 位置 and 位置 地名 [ コーナー ] コーナー・プレースメント名 Here コーナー of N 番目 「形状」 N 番目の形状 [ コーナー ] 注: A コーナー 変数は、以下のように、8 つのコンパス・ポイントのうちの 1 つ、またはプリミティブの中心、開始、または終了を指定します。 .n .e .w .s .ne .se .nw .sw .t .b .r .l c .start .end
+ピクチャーの各オブジェクトは、序数を持ちます。
+Nth
+は、以下のように参照します。
+N 番目
+最後 (
+N 番目
+
+L)
+pic
+コマンドは、
+1
+th
+や
+3
+th
+などのような名前を受け入れられるほど柔軟なものです。
+1
+st
+や
+3
+st
+も同様に使用されます。
+変数
+組み込み変数およびそのデフォルト値は、以下のとおりです。
+表 2. 組み込み変数
+項目 | 説明
+boxwid | 0.75
+boxht | 0.5
+circlerad | 0.25
+arcrad | 0.25
+ellipsewid | 0.75
+ellipseht | 0.5
+linewid | 0.5
+lineht | 0.5
+movewid | 0.5
+moveht | 0.5
+arrowwid | 0.05
+arrowht | 0.1
+textwid | 0
+textht | 0
+dashwid | 0.5
+scale | 1
+これらのデフォルト値は、いつでも変更できます。また、新しい値は、もう一度変更されるまで、ピクチャー間でそのまま有効です。
+変数
+textht
+および
+textwid
+は任意の値を設定して、位置決めを管理できます。 生成されたピクチャーの幅と高さは、
+.PS
+マクロ行か個別に設定できます。 [(左大括弧) 区切り文字および] (右大括弧) 区切り文字内で変更された変数は、ブロックの終了時に前の値に戻ります。 寸法は、出力中に
+scale
+で除算されます。
+注:
+pic
+コマンドには、
+.ps
+(サイズ) 行に 8 インチより大きいサイズが指定されている場合でも、生成されて
+troff
+コマンドに送信されるピクチャー・サイズに 8 インチ x 8 インチの制限があります。
+式
+以下の
+pic
+コマンドの式は、浮動小数点で評価されます。 寸法を表す数字はすべて、インチ単位になります。
+式
++
+式
+-
+式
+/
+式
+*
+式
+%
+式
+(モジュラス)
+-
+式
+(
+式
+)
+variable
+number
+配置
+.x
+配置
+.y
+配置
+.ht
+配置
+.wid
+配置
+.rad
+sin
+(
+Expression
+)
+cos
+(
+Expression
+)
+atan2
+(
+Expression, Expression
+)
+log
+(
+Expression
+)
+sqrt
+(
+Expression
+)
+int
+(
+Expression
+)
+max
+(
+Expression, Expression
+)
+min
+(
+Expression, Expression
+)
+rand
+(
+Expression
+)
+論理演算子
+pic
+コマンドは、論理計算用に以下の演算子を提供します。
+表 3. 論理演算子
+
+項目 | 説明
+! | 否定
+&gt; | より大きい
+&lt; | より小さい
+&gt;/= | より大きいか等しい
+&lt;/= | よりも小さいか等しい
+&amp;&amp; | および
+| | それとも
+== | 等しい
+!= | 等しくない
+定義
+以下の
+define
+ステートメントは、文法の一部ではありません。
+define
+名前
+X
+置換テキスト
+X
+「置換テキスト」
+変数内の
+$1
+や
+$2
+などの値の出現箇所は、
+Name
+変数が呼び出されると、以下のように対応するオプションで置き換えられます。
+名前
+(
+Option1, Option2
+, ...)
+存在しないオプションは、ヌル・ストリングに置き換えられます。
+Replacement text
+変数には、改行文字が使えます。
+ステートメントのコピーおよびコピー
+copy
+ステートメントには、以下のように直後に続くファイルまたは値からのデータが含まれています。
+copy File
+copy thru Macro
+copy File thru Macro
+copy File thru Macro until String
+Macro
+パラメーター値は、定義されたマクロの名前、または本体の一部ではない文字で囲まれたマクロの本体のいずれかにすることができます。 ファイル名を指定しないと、
+copy
+ステートメントは、次の
+.PE
+マクロ行までの入力をコピーします。
+ループおよび if 文の
+for
+ステートメントと
+if
+ステートメントは、以下のようにループと意思決定を規定します。
+Variable=Expression to Expression by Expression do X anything X
+if Expression then X anything X else X anything X
+by
+と
+else
+節は、オプションです。
+if
+ステートメントの
+Expression
+変数では、通常の関係演算子または
+String1
+==
+(または
+!=
+)
+String2
+ストリング・テストを使用できます。
+各種情報
+sh
+コマンドは以下のようにコマンド・ラインを実行します。
+sh X Commandline X
+式の値を以下のようにプロットできます。
+plot Expression OptionalFormat Attributes
+Expression
+変数値が評価され、ストリングに変換されます (指定されている場合は、フォーマット指定を使用します)。
+
+画像に関しては、塗りつぶしモードまたは塗りつぶしなしモードの状態が保持されます。
+入力番号は
+E
+(指数) 表記で表すことができます。
+
+構文
+pic [ -T 名前 ] [ - | ファイル ...]
+
+オプション
+フラグ
+表 4. フラグ
+項目 | 説明
+-T Name | 指定のプリンターへの出力を準備します。 Name には、以下の値を使用できます。 ibm3812 3812 ページ・プリンター。 ibm3816 3816 Pageprinter hplj Hewlett-Packard LaserJet II ibm5587G 5587-G01 漢字プリンター・マルチバイト言語サポート psc PostScript プリンター。 X100 AIXwindows ディスプレイ。 X100K マルチバイト文字サポート用の AIXwindows ディスプレイ。 デフォルトは ibm3816 です。 注: troff コマンドの -T Name フラグを使用する代わりに、 TYPESETTER 環境変数を上記のいずれかの値に設定することができます。
+- | 標準入力に逆変換します。</pre>

@@ -1,0 +1,35 @@
+<!doctype html><meta charset="utf-8"><pre class="official-markdown">目的
+iSCSI ターゲット・データを除去します。
+
+説明
+rmiscsi
+コマンドは、 iSCSI ターゲット・データを ODMに除去します。 ODM には 2 つのカテゴリーのデータが保管されています。 1つ目は、静的に設定された「iSCSIターゲットに対するもので、「
+AIX
+」がターゲットを発見するためには、関連する「iSCSIターゲットの情報（ターゲット名、IPアドレス、ポート番号など）がすべて指定されている必要がある。 iSCSI ターゲット・データの 2 つ目のカテゴリーは iSCSI ターゲット・デバイスのためのもので、
+それは自動的に構成可能ですがホストの認証 (パスワードなど) が必要です。 これらの 2 つのカテゴリーの iSCSI ターゲット・データは、
+-g
+フラグで指定された
+static
+グループと
+auto
+グループにそれぞれ関連付けられます。
+
+構文
+rmiscsi -l AdapterName [ -g グループ ] [[ -t TargetName ][ -n PortNumber ][ -i IPアドレス］
+
+オプション
+フラグ
+項目 | 説明
+-g グループ | この iSCSI ターゲットが関連付けられるグループを指定します。 有効なグループは、 static と auto の 2 つです。 static グループは、このホストから自動的にディスカバーできない iSCSI ターゲット用です。それらに関連するすべての iSCSI ターゲット情報 (ターゲット名、IP アドレス、ポート番号など) を指定する必要があります。 auto グループは、自動的にディスカバーされるが、パスワードなどの認証情報を必要とする iSCSI ターゲット用です。
+-i IP アドレス | iSCSI ターゲットの IP アドレスを指定します。
+-l AdapterName | この iSCSI ターゲットに接続される iSCSI TCP/IP Offload Engine (TOE) アダプターのアダプター名を指定します。 これはまた iSCSI ソフトウェア・ソリューション・デバイス用の iSCSI プロトコル・デバイスを指定することもできます。
+-n PortNumber | iSCSI ターゲットがアクセスされる対象のポート番号を指定します。 デフォルトのポート番号は 3260 です。
+-t TargetName | iSCSI ターゲット名 (例えば、 iqn.sn9216.iscsi-hw1 ) を指定します。
+
+例
+1 つの静的構成された iSCSI ターゲットを除去するには、次のように入力します。
+rmiscsi -l ics0 -g static -t iqn.sn1234.iscsi_hw1 -i 10.2.1.4 -n 3260
+iSCSI TOE アダプター
+ics0
+のすべての iSCSI ターゲットを除去するには、次のように入力します。
+rmiscsi -l ics0</pre>

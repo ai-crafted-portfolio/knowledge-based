@@ -1,0 +1,42 @@
+<!doctype html><meta charset="utf-8"><pre class="official-markdown">目的
+timed
+デーモンに関する情報を戻します。
+
+説明
+timedc
+コマンドは
+timed
+デーモンの操作を制御します。
+timedc
+コマンドは以下を実行します。
+ネットワーク上のさまざまなマシンのクロックの差を測定します。
+マスター・タイム・サーバーのロケーションを検索します。
+timed
+デーモンが受信したメッセージのトレースを使用可能または使用不可にします。
+デバッグ。
+変数を何も指定しなければ、
+timedc
+コマンドは対話モードを想定し、標準入力からのサブコマンドを求めるプロンプトを表示します。 変数を指定すると、
+timedc
+コマンドは最初の変数をサブコマンドとして解釈し、残りの変数をサブコマンドに対するパラメーターとして解釈します。
+timedc
+コマンドがファイルからサブコマンドを読み取ることができるように、標準入力をリダイレクトすることができます。
+
+構文
+timedc [ サブコマンド [ パラメーター ...]]
+
+例
+ローカル・ホスト間の時差を表示するには、以下のようにします。
+sahara
+およびリモート・ホスト
+sandy
+次のように入力します。
+timedc clockdiff sandy
+出力は以下のようになります。
+time on sandy.austin.century.com is 37904247 ms ahead of time on
+sahara.austin.century.com
+timed
+デーモンのクライアント・ロケーションを表示するには、以下のように入力します。
+timedc msite
+出力は以下のようになります。
+client timed daemon runs on bupu.austin.century.com</pre>

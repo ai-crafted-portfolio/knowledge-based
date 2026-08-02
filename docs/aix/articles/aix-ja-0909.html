@@ -1,0 +1,40 @@
+<!doctype html><meta charset="utf-8"><pre class="official-markdown">目的
+/etc/rc.nfs
+ファイル内の
+keyserv
+デーモンに関するエントリーのコメントを外し、
+startsrc
+コマンドを使用してこのデーモンを起動します。
+
+説明
+mkkeyserv
+コマンドは、
+keyserv
+デーモンに使用する
+/etc/rc.nfs
+ファイル内のエントリーからコメント文字を除去します。
+mkkeyserv
+コマンドは
+startsrc
+コマンドを使用してデーモンを始動します。
+このコマンドは、System Management Interface Tool (SMIT)
+smit mkkeyserv
+高速パスを使用して実行することができます。
+
+構文
+/usr/sbin/mkkeyserv [ -I (I) | -B | -N (N) ]
+
+オプション
+フラグ
+項目 | 説明
+-I | 次回のシステム再始動時に keyserv デーモンを始動するために /etc/rc.nfs ファイル内のエントリーからコメント文字を除去します。
+-B | keyserv デーモンを始動するために /etc/rc.nfs ファイル内のエントリーからコメント文字を除去し、 keyserv デーモンを始動するために startsrc コマンドを使用します。 このフラグはデフォルトです。
+-N | keyserv デーモンを始動するために startsrc コマンドを使用します。 このフラグは /etc/rc.nfs ファイルを変更しません。
+
+例
+次のシステムを再始動時に
+keyserv
+デーモンを呼び出すように
+/etc/rc.nfs
+ファイルを変更するには、次のように入力します。
+mkkeyserv -I</pre>

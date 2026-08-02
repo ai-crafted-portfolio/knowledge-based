@@ -1,0 +1,128 @@
+<!doctype html><meta charset="utf-8"><pre class="official-markdown">目的
+仮想プリンターの属性値を表示します。
+
+説明
+lsvirprt
+コマンドは、
+PrintQueueName
+変数と
+QueueDeviceName
+変数に割り当てられた仮想プリンターの属性値を表示します。
+lsvirprt
+コマンドと共にフラグを指定しなければ、このコマンドは対話式になります。 印刷キュー名のリストが表示され、印刷キュー名を選択するようにプロンプトが表示されます。 有効な印刷キュー名を選択すると、属性名の入力を求めるプロンプトが表示されます。 属性名に
+* (アスタリスク) を入力すると、すべての属性が表示されます。
+“
+注:
+qprt
+コマンド・ライン・フラグのデフォルト値の属性名は、フラグ文字を入力することによって指定できます。 例えば、
+-w
+フラグ (ページ幅) のデフォルトの値を表示するには、
+w
+属性名を入力します。 他の属性名はすべて 2 文字の長さでなければなりません。
+”
+このコマンドは、System Management Interface Tool (SMIT)
+smit lsvirprt
+高速パスを使用して実行することができます。
+
+構文
+LSRPRT [ -q (Q) QueueName -d 年 DeviceName { [ 「-f」 フォーマット ] [ N ] [ -a 値 属性名 | -s セクション名 ] ... | I | -D } ]
+
+オプション
+フラグ
+項目 | 説明
+-a AttributeName | 情報を表示する属性の名前を指定します。 このフラグは、 -s フラグと共に使用できません。 -a フラグを複数回指定すると、複数の属性をリストできます。 AttributeName の値は、1 文字の名前 (例えば j )、単純な 2 文字の名前 (例えば ci )、または複数の属性を指定する正規表現 (例えば ^i.* ) のいずれかです。
+-d QueueDeviceName | 仮想プリンターが割り当てられるキュー・デバイスの名前を指定します。 このフラグはオプションですが、 -q フラグが指定されている場合にのみ指定できます。
+-D | 特定のキューでサポートされるデータ・ストリームと、キューのデバイス名の変数の値を表示します。 -D フラグを指定すると、最初にデフォルトのデータ・ストリームが表示され、次にサポートされる他のデータ・ストリームがアルファベット順に表示されます。
+-f フォーマット | 属性情報の表示フォーマットを指定します。 属性情報には、属性値、制限フィールド、および属性の記述が含まれます。 Format の値は、 printf フォーマットで指定されます。 -f Format オプションでは、次のような位置引数の事前定義済みセットもサポートされます。 注: [*. *] は、以下のフォーマット値の必須要素ではありません。 %1 $ [ *.* ] s メッセージ・カタログ名 %2 $ [ *.* ] 日 メッセージ番号 %3 $ [ *.* ] 属性名 %4 $[ *.* ] 制限フィールド %5 $ [ *.* ] 属性値 %6 $ [ *.* ] 属性の記述 %7$c 属性名の 2 番目の文字
+-i | コマンドを対話モードに設定します。 -i フラグと共に -q および -d フラグを指定しなければなりません。 値が QueueName および DeviceName 変数に割り当てられていると、キューとデバイス名の入力を求めるプロンプトは表示されず、属性名を対話式で入力することができます。
+-n | 指定された属性のうち、ヌル以外の値を持つ属性だけを表示します。
+
+-s SectionName | 指定されたキューとキュー・デバイスの仮想プリンター属性データベース内のセクション名を指定します。 SectionName の値は 2 つの下線で始まり、セクションを識別する 3 文字が入ります。 例えば、すべてのフラグ属性が入っているセクションの名前は __FLG です。 -s フラグを -a フラグと共に使用できません。 このオプションを繰り返して、複数の属性をリストできます。 SectionName 変数の値には、正規表現を使用します。
+-q PrintQueueName | 仮想プリンターが割り当てられている印刷キューの名前を指定します。 このフラグはオプションですが、 -d フラグが指定されている場合にのみ指定できます。
+
+例
+属性値を表示するには、以下のようにします。
+w
+(デフォルトのページ幅) および
+si
+(「要介入」メッセージを受け取るユーザー) に割り当てられている仮想印刷装置の属性
+mypro
+上のキュー・デバイス
+proq
+印刷キュー、以下を入力します。
+lsvirprt -dmypro -qproq -a w -a si
+このコマンドの出力は次のようになります。
+Name Description Value
+_w COLUMNS per page 136
+si USERS to get intervention messages
+例 1 と同じ属性を表示するが、フラグ値の入力を求めるプロンプトが出されるようにするには、次のように入力します。
+lsvirpt
+このコマンドの出力は次のようになります。
+1 e4039c @piobe ibm4039 (PCL Emulation)
+2 e4039s @piobe ibm4039 (PostScript)
+3 fjzhp4s jzfile hplj-4 (PostScript)
+4 hpc14 hp@pc15 hplj-4 (PCL)
+...
+ヘッダー・パイプラインおよびトレーラー・パイプラインのセクション内の属性をリストするには、以下のようにします。
+que
+キューと
+dev
+以下のように入力します。
+lsvirpt -qque -ddev -s__HTP
+このコマンドの出力は次のようになります。
+Name Description Value
+sh Pipeline for Header Page %Ide/pioburst %F[H]
+%Idb/H.ascii |
+%Ide/pioformat
+-@%Idd/%Imm
+-!%Idf/piof5202 -L! -J!
+%IsH
+st Pipeline for Trailer Page %Ide/pioburst %F[H]
+%Idb/T.ascii |
+%Ide/pioformat
+-@%Idd/%Imm
+-!%Idf/piof5202-L!
+-t%o%G_1%r%{14}%-%d
+%IsT
+サポートされるすべてのデータ・ストリームをリストするには、
+que
+キューと
+dev
+以下のように入力します。
+lsvirpt -qque -ddev -D
+このコマンドの出力は次のようになります。
+a ASCII
+p pass-through
+s PostScript
+プリンター属性データベース内のすべての属性の名前と説明をリストするには、以下のようにします。
+que
+キューと
+
+dev
+特定の形式の装置の場合は、次のように入力します。
+lsvirpt -qque -ddev -a&#x27;.*&#x27; -f&#x27; %3$5.5s: %6$s\\n&#x27;
+このコマンドの出力は次のようになります。
+__FLG: Values That May Be Overridden With Flags
+_A: stderr returned?
+_E: Double spacing flag
+_F: (not used) Font file name
+_H: Name to Replace Host Name of Burst Page
+...
+プリンター属性データベースのすべてのセクションをリストするには、以下のようにします。
+que
+キューと
+dev
+特定の形式の装置の場合は、次のように入力します。
+lsvirpt -qque -ddev -a&#x27;__.*&#x27; -f&#x27;%3$s: %6$s\\n&#x27;
+このコマンドの出力は次のようになります。
+__FLG: Values That May Be Overridden With Flags On the Command
+Line
+__SYS: Other Values Of Interest To the Streams Administrator
+__IDS: Pipelines For Input Data Streams (2 char,1st=&quot;i&quot;,2nd=data
+stream name)
+__PFL: Flags Prohibited For Input Data Streams (2 char,1st=&quot;I&quot;,
+2nd=data stream name)
+__FIL: Command Strings For Filter Flags (2 char, 1st=&quot;f&quot;,
+2nd=flag)
+__DIR: Directories
+...</pre>

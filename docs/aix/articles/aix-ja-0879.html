@@ -1,0 +1,125 @@
+<!doctype html><meta charset="utf-8"><pre class="official-markdown">目的
+メッセージ・ソース・ファイルをプリプロセスします。
+
+説明
+mkcatdefs
+コマンドは、
+gencat
+コマンドへの入力として、メッセージ・ソース・ファイルをプリプロセスします。
+SourceFile
+メッセージ・ファイルには、記号 ID が入っています。
+mkcatdefs
+コマンドが作成する
+SymbolName_
+msg.h
+ファイルには、
+記号 ID と、
+mkcatdefs
+コマンドによって割り当てられたセット番号と
+メッセージ ID 番号との関連を示すステートメントが入っています。
+mkcatdefs
+コマンドは、2 つの出力を作成します。 1 つは、
+SymbolName
+_msg.h
+と呼ばれるヘッダー・ファイルです。 この
+SymbolName
+_msg.h
+ファイルを、ご使用のアプリケーション・プログラムに組み込むことによって、
+mkcatdefs
+コマンドで割り当てられたセット番号とメッセージ番号にシンボル名を関連付けなければなりません。
+mkcatdefs
+コマンドは、記号 ID の代わりの番号とともに、
+メッセージ・ソース・データを標準出力に送ります。 この出力は、
+gencat
+コマンドの入力として最適です。 次のようにして、
+mkcatdefs
+コマンドの出力を
+gencat
+コマンドの入力として使用することができます。
+新しいメッセージ・ソースをファイルに書き込むには、
+&gt;
+(リダイレクト記号) を指定して
+mkcatdefs
+コマンドを使用します。 このファイルを
+gencat
+コマンドへの入力として使用します。
+mkcatdefs
+コマンド出力ファイルを
+gencat
+コマンドに直接パイプ接続します。
+mkcatdefs
+コマンドではなく、
+runcat
+コマンドを使用してください。
+runcat
+コマンドは自動的に、
+mkcatdefs
+コマンドを使用してメッセージ・ソース・ファイルを送信し、
+次に、そのファイルを
+gencat
+コマンドにパイピングします。
+mkcatdefs
+コマンドの実行後、アプリケーション内でシンボル名を使用して、メッセージを参照することができます。
+
+構文
+mkcatdefs SymbolName SourceFile ...[ -h ]
+
+オプション
+フラグ
+項目 | 説明
+-h | SymbolName _msg.h ファイルの生成を制御します。 このフラグは、 mkcatdefs コマンドの最後の引数でなければなりません。
+
+例
+以下を処理します。
+symb.msg
+出力をメッセージ・ソース・ファイルにリダイレクトすることができます。
+symb.src
+ファイル、入力:
+mkcatdefs symb symb.msg &gt; symb.src
+生成された
+symb_msg.h
+ファイルは以下のようになります。
+#ifdef _H_SYMB_MSG
+#define _H_SYMB_MSG
+#include &lt;limits.h&gt;
+#include &lt;nl_types.h&gt;
+#define MF_SYMB &quot;symb.cat&quot;
+/* The following was generated from symb.src. */
+/* definitions for set MSFAC */
+#define SYM_FORM 1
+#define SYM_LEN 2
+#define MSG_H 6
+#endif
+mkcatdefs
+コマンドは、以下のものも作成します。
+symb.src
+記号 ID に番号が割り当てられた
+gencat
+コマンドのメッセージ・カタログ・ソース・ファイル:
+$quote &quot; Use double quotation marks to delimit message text
+$delset 1
+$set 1
+1 &quot;Symbolic identifiers can only contain alphanumeric \
+characters or the _ (underscore character)\n&quot;
+2 &quot;Symbolic identifiers cannot be more than 65 \
+characters long\n&quot;
+5 &quot;You can mix symbolic identifiers and numbers\n&quot;
+$quote
+6 remember to include the &quot;msg_h&quot; file in your program
+ソース・ファイルには特定の番号が入っているので、割り当てられたメッセージ番号は連続していません。
+mkcatdefs
+プログラムは常に直前の番号に 1 を加えた番号を記号 ID に割り当てます。
+“
+注:
+mkcatdefs
+コマンドは、
+出力メッセージ・ソース・ファイル中の
+$set
+コマンドの前に
+$delset
+コマンドを挿入します。 これは、
+gencat
+コマンドへのパイピング時に、
+
+既存のカタログ内でメッセージを 1 つずつ追加、削除、および置換できないことを意味します。 セットの中のすべてのメッセージを入力しなければなりません。
+”</pre>

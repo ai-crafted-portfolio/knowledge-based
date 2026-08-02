@@ -1,0 +1,47 @@
+<!doctype html><meta charset="utf-8"><pre class="official-markdown">目的
+キャッシュ・ファイルシステムのロギングを制御します。
+
+説明
+cachefslog
+コマンドは、CacheFS 統計がログに記録される場所を表示します。 このコマンドはオプションで、CacheFS 統計がログに記録される場所を設定するか、
+あるいは
+Cachefs_Mount_Point
+で指定されたキャッシュのロギングを停止します。
+Cachefs_Mount_Point
+引数は、
+キャッシュ・ファイルシステムのマウント・ポイントです。
+Cachefs_Mount_Point
+と同じキャッシュの下にキャッシュされている、
+すべてのファイルシステムがログに記録されます。
+
+構文
+キャッシュフロッグ [ -f ログファイル | -h ] Cachefs_Mount_Point
+
+オプション
+フラグ
+項目 | 説明
+-f LogFile | 使用するログ・ファイルを指定します。 注: このフラグを使用するには、root 権限が必要です。
+-h | ロギングを停止します。 注: このフラグを使用するには、root 権限が必要です。
+
+例
+ディレクトリー
+/home/sam
+がログに記録されているかどうか確認するには、
+次のように入力します。
+cachefslog /home/sam
+システムは、次のように表示します。
+not logged: /home/sam
+/home/sam
+の
+logfile
+を
+/var/tmp/samlog
+に変更するには、次のように入力します。
+cachefslog -f /var/tmp/samlog /home/sam
+システムは、次のように表示します。
+/var/tmp/samlog: /home/sam
+/home/sam ディレクトリー
+のロギングを停止するには、次のように入力します。
+cachefslog -h /home/sam
+システムは、次のように表示します。
+not logged: /home/sam</pre>

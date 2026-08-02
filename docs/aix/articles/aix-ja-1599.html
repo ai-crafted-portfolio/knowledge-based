@@ -1,0 +1,77 @@
+<!doctype html><meta charset="utf-8"><pre class="official-markdown">目的
+terminfo
+データベース内の端末依存情報を照会します。
+
+説明
+tput
+コマンドは、
+terminfo
+データベースを使用して、
+端末依存情報をシェルが使用できるようにします。 属性
+CapabilityName
+のタイプが
+string
+の場合、
+tput
+コマンドはストリングを出力します。 また属性がタイプ
+integer
+ならば、出力文字は整数です。 属性がタイプ
+Boolean
+ならば、
+tput
+コマンドは終了値 (TRUE であれば 0、FALSE であれば 1) を設定し、他の出力は生成しません。
+XTERM 記述制約
+AIXバージョン 4
+のDEC.TIファイルの xterm 端末の記述では、SGR 属性を使用して下線モードを提供しています。 SMUL および RMUL 属性は、現在、
+AIX バージョン 4
+の XTERM 端末記述に定義されていません。 より汎用的な SGR という機能を使用します。
+tput sgr x y
+ここで、
+x
+は 1 または 0 で、それぞれスタンドアウト・モードをオンまたはオフにします。
+y
+は 1 または 0 で、それぞれ下線モードをオンまたはオフにします。 SGR 機能の詳細に関しては、
+terminfo
+ファイル・フォーマットを参照してください。
+tput sgr 0 1 turn off standout; turn on underline
+tput sgr 0 0 turn off standout; turn off underline
+tput sgr 1 1 turn on standout; turn on underline
+tput sgr 1 0 turn on standout; turn off underline
+
+構文
+端末情報を出力する場合 tput [ -T タイプ ] [ CapabilityName {clear, init, longname, reset} [ パラメーター ... :NONE. stdin を使用して複数の機能を処理する場合 tput [ -S ]
+
+オプション
+フラグ
+tput
+サブルーチンの引数として、機能名の他に以下の文字列がサポートされます。
+項目 | 説明
+clear | 画面消去シーケンスを表示します (これは機能名でもあります)。
+init | インプリメンテーションに従属する方法でユーザーの端末を初期化するシーケンスを表示します。
+リセット | インプリメンテーションに従属する方法でユーザーの端末をリセットするシーケンスを表示します。
+longname | 詳細名と指定端末 (または、何も指定しなければ現在の端末) を表示します。
+-S | stdin を使用します。 これにより、tput は複数の機能を処理できるようになります。 -S オプションを使用すると、コマンド・ラインには機能を入力できません。 ^D を入力すると、トークンが終了します。
+-T タイプ | 端末のタイプを指示します。 -T が指定されない場合は、 TERM 環境変数がこの端末に使用されます。
+
+例
+現行端末の画面を消去するには、次のように入力します。
+tput clear
+現行端末の桁数を表示するには、次のように入力します。
+tput cols
+aixterm 端末の列数を表示するには、次のように入力します。
+tput
+-T
+aixterm cols
+シェル変数
+bold
+を開始標準モード・シーケンスに設定し、シェル変数
+offbold
+を終了標準モード・シーケンスに設定するには、次のように入力します。
+bold=`tput smso`
+offbold=&#x27;tput rmso&#x27;
+この 2 つのコマンドを入力すると、以下のプロンプトが表示されることがあります。
+echo &quot;${bold}Name: ${offbold} \c&quot;
+現行端末がハードコピー端末であるかどうかを示す終了値を設定するには、次のように入力します。
+tput hc
+現在の端末を初期設定するには、次のように入力します。
+tput init</pre>

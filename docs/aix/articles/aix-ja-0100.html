@@ -1,0 +1,29 @@
+<!doctype html><meta charset="utf-8"><pre class="official-markdown">目的
+BOOTP 構成ファイルを DHCP 構成ファイルに変換するか、
+または DHCP 構成ファイルから特定のホストに関する BOOTP 構成情報を除去します。
+
+説明
+bootptodhcp
+コマンドには 2 つの機能があります。 1 つは、BOOTP 構成ファイルを DHCP 構成ファイルに変換する機能です。 引数を指定しないデフォルトのコマンドは、
+/etc/bootptab
+ファイルを変換します。 ファイル名を変更するには、
+-b
+フラグまたは
+-d
+フラグを使用して別のファイル名を指定します。
+bootptodhcp
+コマンドのもう 1 つの機能は、DHCP 構成ファイルから BOOTP クライアントの情報を除去する機能です。
+-r
+フラグは、ファイルから除去するクライアントを指定します。
+-d
+フラグを使用しない場合。
+
+構文
+BOOTP 構成ファイルを DHCP 構成ファイルに変換する場合 /usr/sbin/bootptodhcp [ -d DHCPFile ] [ -b BOOTPFile ] DHCP 構成ファイルから BOOTP 構成情報を除去する場合 /usr/sbin/bootptodhcp [ -d DHCPFile ] -r HostName ]
+
+オプション
+フラグ
+項目 | 説明
+-b BOOTPファイル | BOOTP 構成ファイルを指定します。 デフォルトは /etc/bootptab です。
+-d DHCPファイル | DHCP 構成ファイルを指定します。
+-r HostName | DHCP 構成ファイルから削除する BOOTP セクションのホスト名を指定します。</pre>

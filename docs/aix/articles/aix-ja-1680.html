@@ -1,0 +1,34 @@
+<!doctype html><meta charset="utf-8"><pre class="official-markdown">目的
+/etc/utmp
+ファイルのモニターと保守を行います。
+
+説明
+utmpd
+デーモンは、
+/etc/utmp
+ファイルをモニターして、定期的にユーザー・プロセスの妥当性を検査します。 ユーザー・プロセスが終了後、
+/etc/utmp
+ファイル内で
+まだクリーンアップされていない場合に、エントリーのプロセス ID とプロセス・テーブルを
+比較してそのプロセスを削除します。
+Interval パラメーターは、
+/etc/utmp
+ファイルをスキ
+ャンする間隔を秒数で指定します。 デフォルト間隔は 300 秒です。
+使用法
+/etc/inittab
+から
+utmpd
+を始動
+するには、ファイルに次のエントリーを追加します。
+utmpd:2:respawn:/usr/sbin/utmpd
+システム起動時に
+init
+が
+utmpd
+デーモン
+を始動します。 リブートせずに変更内容を即時に有効にするには、次のように入力します。
+telinit q
+
+構文
+/usr/sbin/utmpd [ 間隔 ]</pre>

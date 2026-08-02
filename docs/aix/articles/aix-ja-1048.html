@@ -1,0 +1,142 @@
+<!doctype html><meta charset="utf-8"><pre class="official-markdown">目的
+ユーザー、グループ、ネーム・レゾリューション、および rpc データを rfc 2307 準拠形式にエクスポートします。
+
+説明
+nistoldif
+コマンドは、
+passwd
+、
+group
+、
+hosts
+、
+services
+、
+protocols
+、
+rpc
+、
+networks
+、
+netgroup
+、および
+automount
+からのデータを、rfc2307 に準拠した形式に変換します。 これは最初に NIS からデータを読み取ることを試み、
+NIS マップが見つからない場合は、フラット・ファイルにフォールバックします。
+コマンド・ラインにサーバー情報 (
+-a
+、
+-h
+、および
+-p
+フラグ) が与えられている場合は、
+データはサーバーに直接書き込まれます。 データが、サーバー上の既存のエントリーと矛盾する (エントリーが既に存在する
+ため、または
+uid
+または
+gid
+が既に存在するため) 場合は、
+警告が印刷されます。 サーバー情報が与えられていない場合、
+データは LDIF 内の
+stdout
+に書き込まれます。 いずれの場合も、
+nistoldif
+は接尾部用のエントリーは追加しません。
+したがって、そのエントリーが存在しない場合、サーバーにデータを追加する試みは失敗します。 このエントリーはサーバーのセットアップ中に、
+通常
+mksecldap
+コマンドにより、追加されます。
+変換は正確ではありません。 rfc2307 定義の制限により、
+いくつかの属性は大/小文字を区別しないで定義されます。例えば、TCP、Tcp、
+および tcp はすべて LDAP サーバーにとっては同じプロトコル名です。 2^31-1 より大きい Uid および gid は、
+ストレージに相当する負の 2 の補数に変換されます。
+nistoldif
+コマンド
+は
+/etc/security/ldap/sectoldif.cfg
+ファイルを読み、passwd、group、hosts、services、
+protocols、rpc、networks および netgroup データがエクスポート
+される先のサブツリーにどのような名前を付けるかを決定します。 ファイルで指定された名前は、
+-d
+フラグで指定された基本 DN の下のサブツリーの作成に使用されます。 詳しくは、
+/etc/security/ldap/sectoldif.cfg
+ファイルの資料を参照してください。
+
+構文
+ニストルディフ -d 年 接尾部 [ -a 値 BindDN -h ホスト P- パスワード [ N ポート ] ] [ 「-f」 ディレクトリー ] [ -y (Y) ドメイン ] [ -S (S) スキーマ ] [ -k (K) KeyPath -w (W) SSLPassword (SLPassword) ] [ -s 地図 ] [ -m (M) LDAP マップ名 ]
+
+オプション
+フラグ
+項目 | 説明
+-a | LDAP サーバーへの接続に使用される管理バインド DN を指定します。 このフラグを使用する場合は -h と -p も使用 する必要があり、データは LDAP サーバーに直接書き込まれます。
+-d | データをその下に追加すべき接尾部を指定します。
+-f | フラット・ファイルを探すディレクトリー、または自動マウント・マップ・ファイルの名前を指定します。 このフラグを使用しない場合、 nistoldif は /etc 内のファイルを探します。 このフラグは、自動マウント・マップに必要です。
+-h | LDAP サーバーを実行するホスト名を指定します。 このフラグを使用する場合は、 -a と -p も 使用する必要があり、データは LDAP サーバーに直接書き込まれます。 このフラグは、自動マウント・データの場合は無視されます。
+-k | SSL キー・パスを指定します。 このフラグを使用する場合は -w も使用する必要があります。
+-m | LDAP サーバーの自動マウント・マップを指定します。
+-n | LDAP サーバーに接続するポートを指定します。 このフラグを使用する場合は、 -a 、 -h 、および -p も 使用する必要があり、使用しないと、デフォルトの LDAP ポートが使用されます。
+-p | LDAP サーバーへの接続に使用するパスワードを指定します。 このフラグを使用する場合は、 -a と -h も 使用する必要があり、データは LDAP サーバーに直接書き込まれます。
+-s | サーバーに書き込まれるマップのセットを指定します。 このフラグの後には、マイグレーションすべきマップを表す文字のリストを 続ける必要があります。 このフラグを使用しない場合は、すべてのマップがマイグレーションされます。 文字は、automount は a 、netgroup は e 、group は g 、 host は h 、network は n 、 protocol は p 、rpc は r 、service は s および passwd は u です。
+-S | ユーザーおよびグループに使用する LDAP スキーマを指定します。 これには、 RFC2307 または RFC2307AIX; のいずれかがあります。 RFC2307AIX では、 AIX スキーマの拡張機能がサポートされています。 このフラグを使用しない場合は、RFC2307 がデフォルトです。
+
+-w | SSL パスワードを指定します。 このフラグを使用する場合は -k も使用する必要があります。
+-y | マップを読み取る NIS ドメインを指定します。 このフラグを指定しないと、デフォルトのドメインが使用されます。
+
+例
+NIS マップを、ドメイン
+austin.ibm.com
+(
+/tmp/etc
+内のフラット・ファイルにフォールバック) から LDIF の
+接尾部
+cn=aixdata
+の下にエクスポートするには、
+次のように入力します。
+nistoldif -d cn=aixdata -y austin.ibm.com -f /tmp/etc &gt; ldif.out
+ホストおよびサービス・マップを、デフォルト・ドメイン (
+/etc
+内の
+フラット・ファイルにフォールバック) から LDAP サーバー
+ldap.austin.ibm.com
+に、
+管理者バインド DN
+cn=root
+、パスワード
+secret
+を使用し、
+接尾部
+cn=aixdata
+の下にエクスポートするには、次のように入力します。
+nistoldif -d cn=aixdata -h ldap.austin.ibm.com -a cn=root -p secret -s hs
+/etc/auto_master
+自動マウント・マップ・ファイルを LDIF に変換するには、次のように入力します。
+nistoldif -s a -f /etc/auto_master &gt; ldif.out
+自動マウント・データを除去するには、LDIF ファイルを手動で作成する必要があります。 例えば、ユーザー
+user1
+が誤って
+dc=austin,dc=ibm,dc=com
+接尾部の
+auto_home
+自動マウント・マップに追加され、削除する必要があるとします。 この場合、次のような LDIF を作成します。
+# cat /tmp/del_user1.ldif
+dn: automountKey=user1,automountMapName=auto_home,dc=austin,dc=ibm,dc=com
+changetype: delete
+その後に、次のコマンドを実行します。
+ldapmodify -f /tmp/del_user1.ldif
+自動マウント・データを編集するには、LDIF ファイルを手動で作成する必要があります。 例えば、
+dc=austin,dc=ibm,dc=com
+サフィックスの
+auto_home
+自動マウント・マップでユーザー
+user2
+に誤ったマウント・ポイントが指定されたため、
+/home/user2
+の正しい場所に変更する必要があるとします。 この場合、次のような LDIF を作成します。
+# cat /tmp/ch_user2.ldif
+
+dn: automountKey=user2,automountMapName=auto_home,dc=austin,dc=ibm,dc=com
+changetype: modify
+replace: automountInformation
+automountInformation: /home/user2
+その後に、次のコマンドを実行します。
+ldapmodify -f /tmp/ch_user2.ldif</pre>

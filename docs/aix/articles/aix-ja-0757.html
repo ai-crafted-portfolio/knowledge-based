@@ -1,0 +1,153 @@
+<!doctype html><meta charset="utf-8"><pre class="official-markdown">目的
+ある条件と、その条件/応答のすべての関連付けについての情報をリストします。
+
+説明
+lscondresp
+コマンドは、条件とそのリンクされた応答に関する情報をリストします。 条件と応答の間のリンクを、
+条件/応答関連付け
+と呼びます。 情報には、どの条件にリンクされた応答であるか、および条件とリンクされた応答に対してモニターがアクティブになっているかどうかが含まれます。 次の情報がリストされます。
+フィールド | 説明
+条件 | 応答にリンクした条件の名前。
+Response | 条件にリンクした応答の名前。
+State | 条件に対する応答の状況。 状況は指定された応答がアクティブであるかどうかを示します。
+ノード | 条件と応答の場所。
+Locked | リソースがロックされるかアンロックされるかを示します。
+特定の条件と応答をリストするには、Condition と Response の両方を指定します。 1 つの条件に対するすべての応答をリストするには、Condition のみを指定します。 応答がリンクされているすべての条件をリストするには、応答と
+-r
+フラグを指定します。 すべての条件とそれらにリンクした
+応答をリストするには、Condition パラメーターも Response パラメーターも指定しないでください。
+ノード名を指定すると、そのノードに定義されている条件/応答関連付けだけが表示されます。 コロン (
+:
+) の後にノード名を指定して、ノード上のすべての条件/応答アソシエーションをリストします。 このノード名は、CT_MANAGEMENT_SCOPE 環境変数によって決められている管理有効範囲内のノードです。 この管理有効範囲は、条件/応答関連付けをリストする元となるノード・リ
+ストを決定します。 Local 有効範囲の場合には、ローカル・ノードにおける条件/応答関連付けのみを
+リストします。 管理ドメイン有効範囲とピア・ドメイン有効範囲の場合、そのドメイン内のすべて
+のノードにおける条件/応答関連付けがリストされます。
+-a
+フラグも
+-n
+フラグも指定されていない場合は、応答に対して選択されたすべての条件がリストされます。 表形式がデフォルトです。
+
+構文
+条件と 1 つ以上の応答との間のリンクをリストする場合: lscondresp [ -a | -n ] [ -l | -t | -d | -D 区切り文字 ] [ -q ] [ -U ] [ -x ] [ -z ] [ -h ] [ -TV ] [ 条件 [ : node_name ] [ response1 [ response2 ...]] 1 つ以上の応答へのすべてのリンクをリストする場合: lscondresp [ -a | -n ] [ -l | -t | -d | -D 区切り文字 ] [ -q ] [ -x ] [ -z ] -r [ -U ] [ -h ] [ -TV ] response1 [ : node_name ] [ response2 ...]
+
+オプション
+フラグ
+-a
+条件に対してアクティブな応答のみをリストします。
+-n
+条件に対してアクティブでない応答のみをリストします。
+-l
+条件情報と応答情報を別々の行に表示します (長形式)。
+-t
+条件情報と応答情報を別々の列に表示します (テーブル形式)。
+-d
+区切り文字により書式設定された出力を指定します。 デフォルトの区切り文字はコロン (
+:
+) です。 デフォルトの区切り文字を変更する場合は、
+-D
+フラグを使用します。
+--D
+デリミタ
+delimiter
+を使用する区切り文字フォーマットの出力を指定します。 このフラグを使用して、デフォルトのコロン (
+:
+) 以外のものを指定します。 例えば、表示されるデータにコロンが含まれている場合、このフラグを使用して、1 つ以上の文字の別の区切り文字を指定します。
+-q
+condition
+または
+response
+が存在しない場合には、エラーを返しません。
+-U
+リソースがロックされるかどうかを指定します。
+-x
+ヘッダー印刷を抑制します。
+-z
+このコマンドをクラスター内のすべてのノードに適用することを指定します。 クラスター有効範囲は、
+CT_MANAGEMENT_SCOPE 環境変数によって決定されます。 この環境変数が設定されていない場合、
+コマンドにとって有効な有効範囲になるまで、
+最初に管理ドメイン有効範囲 (存在する場合) を選択し、
+次にピア・ドメイン有効範囲 (存在する場合) を選択し、
+次にローカル有効範囲を選択します。 コマンドは、最初に見つかった有効な有効範囲に対して、1 回実行されます。 例えば、管理ドメインとピア・ドメインの両方が存在する場合、CT_MANAGEMENT_SCOPE が設定されていない
+lscondresp
+-z
+は管理ドメインをリストします。 この場合、ピア・ドメインをリストするには、CT_MANAGEMENT_SCOPE を 2 に設定します。
+-r
+指定された応答に関するすべての条件/応答関連の情報をリストします。 指定されたすべてのコマンド・パラメーターが条件ではなく、応答であることを示すには、このフラグを使用します。
+-h
+コマンドの使用ステートメント (使用法) を標準出力に書き込みます。
+-T
+コマンドのトレース・メッセージを標準エラーに書き込みます。 これは、ソフトウェア保守部門専用の機能です。
+-V
+コマンドの詳細メッセージを標準出力に書き込みます。
+
+例
+どのリソースがロックされているのかを確認するには、次のコマンドを実行します。
+lscondresp -U
+出力は次のようになります。
+Condition Response Node State Locked
+&quot;/tmp space used&quot; &quot;E-mail root off-shift&quot; &quot;nodeA&quot; &quot;Not active&quot; &quot;Yes&quot;
+&quot;Page space in rate&quot; &quot;E-mail root anytime&quot; &quot;nodeA&quot; &quot;Not active&quot; &quot;No&quot;
+以下の例は、スタンドアロン・システムに適用されます。
+すべての条件とそれらにリンクした応答をリストするには、次のコマンドを実行します。
+lscondresp
+出力は次のようになります。
+Condition Response Node State
+&quot;FileSystem space used&quot; &quot;Broadcast event on-shift&quot; &quot;nodeA&quot; &quot;Active&quot;
+&quot;FileSystem space used &quot;E-mail root anytime&quot; &quot;nodeA&quot; &quot;Not Active&quot;
+&quot;Page in Rate&quot; &quot;Log event anytime&quot; &quot;nodeA&quot; &quot;Active&quot;
+条件「FileSystem space used」についての情報をリストするには、次のコマンド
+を実行します。
+lscondresp &quot;FileSystem space used&quot;
+出力は次のようになります。
+Condition Response Node State
+&quot;FileSystem space used&quot; &quot;Broadcast event on-shift&quot; &quot;nodeA&quot; &quot;Active&quot;
+&quot;FileSystem space used &quot;E-mail root anytime&quot; &quot;nodeA&quot; &quot;Not Active&quot;
+アクティブな応答に対する条件「FileSystem space used」についての情報をリストするには、
+次のコマンドを実行します。
+lscondresp -a &quot;FileSystem space used&quot;
+出力は次のようになります。
+Condition Response Node State
+&quot;FileSystem space used&quot; &quot;Broadcast event on-shift&quot; &quot;nodeA&quot; &quot;Active&quot;
+
+条件「FileSystem space used」およびリンクした応答「Broadcast event on-shift」についての情報を
+リストするには、次のコマンドを実行します。
+lscondresp &quot;FileSystem space used&quot; &quot;Broadcast event on-shift&quot;
+出力は次のようになります。
+Condition Response Node State
+&quot;FileSystem space used&quot; &quot;Broadcast event on-shift&quot; &quot;nodeA&quot; &quot;Active&quot;
+名前にストリング
+space
+が含まれているすべての条件と、それらの条件にリンクされている応答をリストするには、次のコマンドを実行します。
+lscondresp space
+出力は次のようになります。
+Condition Response Node State
+&quot;FileSystem space used&quot; &quot;Broadcast event on-shift&quot; &quot;nodeA&quot; &quot;Active&quot;
+&quot;FileSystem space used &quot;E-mail root anytime&quot; &quot;nodeA&quot; &quot;Not Active&quot;
+以下の例は管理ドメインに適用されます。
+次の例では、条件「FileSystem space used」が管理サーバーに定義されています。 条件「FileSystem space used」についての情報をリストするには、管理サーバーで次のコマンド
+を実行します。
+lscondresp &quot;FileSystem space used&quot;
+出力は次のようになります。
+Condition Response Node State
+&quot;FileSystem space used&quot; &quot;Broadcast event on-shift&quot; &quot;nodeB&quot; &quot;Active&quot;
+&quot;FileSystem space used&quot; &quot;E-mail root anytime&quot; &quot;nodeB&quot; &quot;Not Active&quot;
+この例では、&quot;FileSystemspace used」という条件が管理ノード「
+nodeC
+」に定義されている。 条件「FileSystem space used」についての情報をリストするには、管理サーバーで次のコマンド
+を実行します。
+lscondresp &quot;FileSystem space used&quot;:nodeC
+出力は次のようになります。
+Condition Response Node State
+
+&quot;FileSystem space used&quot; &quot;Broadcast event on-shift&quot; &quot;nodeC&quot; &quot;Active&quot;
+&quot;FileSystem space used&quot; &quot;E-mail root anytime&quot; &quot;nodeC&quot; &quot;Not Active&quot;
+次の例は、ピア・ドメインに適用されます。
+次の例では、条件「FileSystem space used」がドメインに定義されています。 条件「FileSystem space used」についての情報をリストするには、ドメイン内のいずれかのノードで
+次のコマンドを実行します。
+lscondresp &quot;FileSystem space used&quot;
+出力は次のようになります。
+Condition Response Node State
+&quot;FileSystem space used&quot; &quot;Broadcast event on-shift&quot; &quot;nodeD&quot; &quot;Active&quot;
+&quot;FileSystem space used&quot; &quot;E-mail root anytime&quot; &quot;nodeD&quot; &quot;Not Active&quot;
+&quot;FileSystem space used&quot; &quot;Broadcast event on-shift&quot; &quot;nodeE&quot; &quot;Active&quot;
+&quot;FileSystem space used&quot; &quot;E-mail root anytime&quot; &quot;nodeE&quot; &quot;Not Active&quot;</pre>

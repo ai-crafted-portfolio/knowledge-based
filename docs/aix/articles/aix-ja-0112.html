@@ -1,0 +1,32 @@
+<!doctype html><meta charset="utf-8"><pre class="official-markdown">目的
+キャッシュ・ファイルシステムのワークスペース・サイズを表示します。
+
+説明
+cachefswssize
+コマンドは、次のコマンドで決定されたワークスペースのサイズを表示する。
+LogFile
+. これには、キャッシュ配下にマウントされた各ファイルシステムに必要なキャッシュ容量と、その合計が含まれる。
+
+構文
+cachefswssize LogFile LogFile
+
+例
+ファイル
+/var/tmp/samlog
+内のログに記録されているキャッシュ・ファイルシステムのワークスペース・サイズを表示するには、
+次のように入力します。
+cachefswssize /var/tmp/samlog
+システムは、以下のように表示します。
+/home/sam
+end size: 10688k
+high water size: 10704k
+/foo
+end size: 128k
+high water size: 128k
+/usr/dist
+end size: 1472k
+high water size: 1472k
+total for cache
+initial size: 110960k
+end size: 12288k
+high water size: 12304k</pre>

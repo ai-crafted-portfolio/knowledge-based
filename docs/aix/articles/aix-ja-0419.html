@@ -1,0 +1,53 @@
+<!doctype html><meta charset="utf-8"><pre class="official-markdown">目的
+システムで暗号化ファイルシステム (EFS) 機能を活動化します。
+
+説明
+efsenable
+コマンドは、システムで EFS 機能を活動化します。 このコマンドは、EFS 管理の鍵ストア、ユーザーの鍵ストア、およびセキュリティー・グループの鍵ストアを作成します。 鍵ストアとは、EFS セキュリティー情報を含む鍵リポジトリーです。 EFS 管理の鍵ストアへのアクセス・キーは、新規作成のアクティブなユーザーの鍵ストアとセキュリティー・グループの鍵ストアに保管されます。
+efsenable
+コマンドは、
+/var/efs
+ディレクトリーを作成します。
+/etc/security/user
+ファイルと
+/etc/security/group
+ファイルは、新しい EFS 属性で更新されます。 また、
+efsenable
+コマンドは
+Config_Rules
+ODM データベースを更新します。
+注:
+このコマンドを正常に実行するには、暗号ライブラリー (CLiC) パッケージ
+clic.rte
+がシステムにインストールされている必要があります。 この EFS コマンドでは、Role Based Access Control (RBAC) がシステムで使用可能になっている必要があります。これはデフォルトの設定です。
+注:
+efsenable
+6.1 TL3 以降の AIX® リリースの場合、Crypto Library (CLiC) ファイルセット
+clic.rte.lib
+は、少なくとも 4.6 にする必要があります。
+
+構文
+efsenable -a [ -v ] [ -k &lt;algo&gt; ] [ -f &lt;暗号&gt; ] [ -m &lt;モード[ -f &lt;cipher&gt; ] [ -m &lt;mode&gt; ] [ -u &lt;yes|no&gt; ] [ -e &lt;algo&gt; ] [-d Basedn ] とする 機能性 -Q (Q)
+
+オプション
+フラグ
+項目 | 説明
+-a | システムで EFS 機能を活動化します。
+-d ベースン | LDAP サーバーに基本識別名 (DN) ou=UsrKeystore、ou=GrpKeystore、ou=EfsCookies、および ou=AdmKeystore を設定して、鍵ストアのローカル・ディレクトリー構造とともに鍵ストア・エントリーを容易に作成します。 このフラグと一緒に引数として渡される Basedn は、鍵ストアの基本識別名の Basedn として使用されます。
+-v | 詳細モード。
+-k アルゴ | キーのデフォルト・アルゴリズム。 algo フラグは、次のいずれかの値になります。 RSA_1024 (デフォルト) RSA_2048 RSA_4096
+「-f」 暗号 | ファイルのデフォルト暗号。 cipher フラグは、次のいずれかの値になります。 AES_128_CBC (デフォルト) AES_192_CBC AES_256_CBC AES_128_ECB AES_192_ECB AES_256_ECB
+-m モード | 鍵ストアのデフォルト・モード。 mode フラグは、次のいずれかの値になります。 admin (デフォルト) guard
+-ウー [はい | いいえ] | ユーザーがモードを変更できるかどうかを指定します。 デフォルト値は「yes」です。
+-e (E) アルゴ | EFS 管理キーのアルゴリズム。 指定できる アルゴ 値は、 -k (K) フラグの値と同じです。
+-q | 使用可能なアルゴリズムのリストを表示します。
+
+例
+使用可能なアルゴリズムを表示するには、次のように入力します。
+efsenable -q
+デフォルト・パラメーターを指定して EFS を活動化するには、次のように入力します。
+efsenable –a
+キーに対してデフォルト以外のアルゴリズム、およびファイルに対して暗号を指定して EFS を活動化するには、次のように入力します。
+efsenable –a –k RSA_4096 –f AES_256_CBC –e RSA_4096
+LDAP サーバーにローカル・ディレクトリー構造とともに作成された基本 DN を使用して EFS を活動化するには、次のコマンドを入力します。
+efsenable –a –d cn=aixdata</pre>

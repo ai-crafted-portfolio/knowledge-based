@@ -1,0 +1,422 @@
+<!doctype html><meta charset="utf-8"><pre class="official-markdown">目的
+マルチパス入出力 (MPIO) ストレージ・デバイスに関する情報を表示します。
+
+説明
+lsmpio
+コマンドは、 AIX® MPIO ストレージ・デバイスに関する情報を表示します。 このコマンドは、
+lsmpio
+コマンド・サポートが有効になっているパス制御モジュール (PCM) によって制御される AIX MPIO ストレージ・デバイスに対してのみ使用できます。 一部の AIX® MPIO ストレージ・デバイスは、
+lsmpio
+コマンド照会をサポートしていません。 ただし、すべての AIX MPIO ストレージ・デバイスは
+Path operational status
+照会をサポートします。
+lsmpio
+コマンドは、以下のタイプの情報を表示します。
+Path operational status
+Additional NVMe extended
+status
+Path statistics
+Device inquiry data
+Parent adapter
+information
+Path operational status
+lsmpio
+コマンドをフラグなしで、または
+-l
+フラグを指定して実行すると、パス操作状況を表示できます。
+# lsmpio
+name path_id status path_status parent connection
+===============================================================================
+hdisk1234 0 Enabled Opt,Rsv fscsi0 500a098186a7d4ca,0008000000000000
+hdisk1234 1 Enabled Non fscsi0 500a098196a7d4ca,0008000000000000
+hdisk1234 2 Enabled Opt,Sel fscsi1 500a098186a7d4ca,0008000000000000
+hdisk1234 3 Enabled Non fscsi1 500a098196a7d4ca,0008000000000000
+出力は、次に示すような
+lspath
+コマンドの実行によって表示される出力に似ています。
+lspath -F &quot;path_id status parent connection&quot;
+status
+列の有効な値は、
+Enabled
+、
+Disabled
+、
+Failed
+、または
+Missing
+です。 拡張
+path_status
+
+フィールドには、より詳細なパス状況を示す、3 文字の状況の省略語が 1 つ以上含まれている場合があります。
+注:
+すべての拡張
+path_status
+フィールドがすべての MPIO ストレージ・デバイスに適用できるわけではありません。 一部の
+path_status
+値は、ストレージ域ネットワーク (SNA) ファブリックが SAN 輻輳に関する通知をサポートしている場合にのみ表示されます。
+path_status
+フィールドに指定できる値は、以下のとおりです。
+Opt
+MPIO ディスク・パスが最適化パスであることを示します。 この値は、複数のコントローラーがあるデバイスの優先コントローラーに接続されている MPIO ディスク・パスを示します。 PCM は、可能な場合は常に、入出力操作に優先 MPIO ディスク・パスの 1 つを選択します。
+Non
+MPIO ディスク・パスが最適化されていないパスであることを示します。 優先 MPIO ディスク・パスを持つデバイスでは、このパスは優先パスと見なされません。 PCM は、すべての優先パスが失敗しない限り、このパスを入出力操作用に選択することを避けます。
+Chg
+ストレージ・ターゲット上で MPIO ディスクのアクセス特性が変更されていることを示します。 この状態は、パスが新しい状態に移行するまで一時的なものです。
+Los
+MPIO ディスク・パスがデータへのアクセスを永続的に失い、ホストで使用できなくなったことを示します。 ストレージ・ターゲットに問題がないかどうかを評価または診断する必要があります。
+Sby
+MPIO ディスク・パスがスタンバイ・パスであることを示します。 MPIO ディスク・パスが
+Sby
+状態の場合、そのディスク・パスを入出力操作に使用することはできません。 ストレージ・デバイスでのデバイス依存操作により、MPIO ディスク・パスの状態を
+Opt
+または
+Non
+のいずれかの状態に変更できます。その後、MPIO ディスク・パスを入出力操作に使用できます。
+NAv
+MPIO ディスク・パスが使用不可であることを示します。 MPIO ディスク・パスが
+NAv
+状態の場合、そのディスク・パスを入出力操作に使用することはできません。 ストレージ・デバイスでのデバイス依存操作により、MPIO ディスク・パスの状態を
+Opt
+または
+Non
+のいずれかの状態に変更できます。その後、MPIO ディスク・パスを入出力操作に使用できます。
+Trn
+
+MPIO ディスク・パスが 2 つの有効な状態間で切り替え中であることを示します。 MPIO ディスク・パスが
+Trn
+状態の場合、そのディスク・パスを入出力操作に使用することはできません。 ディスク・パスの状態が
+Trn
+状態から別の状態に自動的に変更されます。 MPIO ディスク・パスは、長期間
+Trn
+状態にすることはできません。 ただし、 AIX オペレーティング・システムは、パス状況の変更を即時に検出しない場合があります。
+Act
+アクティブ・コントローラーとパッシブ・コントローラーがあるデバイスで、MPIO ディスク・パスがアクティブ・パスであることを示します。 PCM は、このようなデバイスでは、入出力操作用にアクティブ MPIO ディスク・パスを選択します。
+Pas
+アクティブ・コントローラーとパッシブ・コントローラーがあるデバイスで、MPIO ディスク・パスがパッシブ・パスであることを示します。 PCM は、パッシブ・パスの選択を避けます。
+Sel
+lsmpio
+コマンドの実行時に、MPIO ディスク・パスが入出力操作用に選択されていることを示します。
+Rsv
+MPIO ディスク・パスで予期しない予約競合が発生したことを示します。 この値は、同じディスクにアクセスする複数のホストでの使用法エラーまたは構成エラーを示している可能性があります。
+Fai
+MPIO ディスク・パスで障害が発生したことを示します。 パスのパス状況値が
+Enabled
+であっても、拡張パス状況値が
+Fai
+である可能性があります。 このシナリオは、この MPIO ディスク・パスで送信された操作は失敗しているが、 AIX MPIO がパスに
+Failed
+のマークを付けなかったことを示しています。 AIX MPIO は、すべての MPIO ディスク・パスでエラーが発生している場合でも、デバイスへの 1 つのパスを
+Enabled
+状態のままにすることがあります。
+Deg
+MPIO ディスク・パスが機能低下状態にあることを示します。 このシナリオは、MPIO ディスク・パスが入出力操作に使用されていたことを示しています。 それらの操作でエラーが発生したため、PCM がパスの使用を一時的に回避しています。 他のエラーが、MPIO ディスク・パスの障害の原因になっている可能性があります。
+EEH
+
+これは、MPIO ディスク・パスで使用されているファイバー・チャネル・アダプターで拡張エラー処理 (EEH) イベントが発生していることを示しています。 入出力操作に MPIO ディスク・パスを使用しているファイバー・チャネル・アダプターで EEH エラーが発生すると、EEH イベントによって PCM は一時的に MPIO ディスク・パスを回避します。 状況として
+EEH
+を持つ MPIO ディスク・パスは、EEH イベント発生中に MPIO ディスクパスで入出力操作がブロックされるため機能低下とみなされます。 パス選択アルゴリズムでは、
+EEH
+パス状況よりも
+Deg
+パス状況が優先され、
+RSV
+などの使用不可パス状況よりも
+EEH
+パス状況が優先されます。 ファイバー・チャネル・アダプターがオンラインに戻り、入出力操作を再開すると、パス状況が
+EEH
+から
+Deg
+に変わり、MPIO ディスク・パスで入出力操作が再開されます。
+Clo
+MPIO ディスク・パスがクローズされていたことを示します。 デバイスに接続されているすべての MPIO ディスク・パスがクローズされている場合、そのデバイスはクローズされていると見なされます。 一部の MPIO ディスク・パスのみがクローズしている場合は、前回デバイスがオープンされたときに、それらのパスでエラーが発生した可能性があります。 AIX MPIO は、デバイス・パスが開くまで、クローズされたパスを定期的にリカバリーしようとします。
+PFa
+リモート・ポートに障害があることを示します。 PCM が、MPIO ディスク・パスによって使用されているリモート・ポートが SAN ファブリックの一部ではなくなったことを示すイベントを受け取ると、PCM はパスに障害のあるパスのマークを付けます。 リモート・ポートが SAN ファブリックに再結合すると、PCM は
+PFa
+状態をクリアします。
+PCn
+MPIO ディスク・パスで使用されているリモート・ポートに対するネットワーク・トラフィック輻輳を SAN ファブリックが報告したことを示します。 ネットワーク・トラフィック輻輳のない他の MPIO ディスク・パスが MPIO デバイスで使用可能な場合、PCM はこの MPIO ディスク・パスを使用しません。 SAN ファブリックが最近のネットワーク・トラフィック輻輳イベントを報告していない場合、PCM は自動的に
+PCn
+状態をクリアします。
+PDg
+
+リモート・ポートの機能低下を示します。 リモート・ポートへの MPIO ディスク・パスがアクティブのままであっても、機能低下したポートでは多数のエラーが発生している可能性があります。 このような機能低下したポートはデータを処理できません。 PCM はこのようなディスク・パスを避けます。 ポートの劣化状況をクリアするには、まずポートが属するスイッチ上の劣化ポートを無効にしてから、そのポートを有効にする必要があります。 パス上で
+PDg
+状態が繰り返し発生する場合は、SAN ハードウェアの問題を識別するためにパスで使用されているポートとファイバーを調べてください。
+LCn
+AIX アダプターとの間で大量のデータが送受信されているため、 AIX アダプターに関連付けられているリンクが輻輳していることを示します。 リンク輻輳のない他の MPIO ディスク・パスが使用可能な場合、PCM はこのような MPIO ディスク・パスは避けます。 SAN ファブリックが最近のリンク輻輳イベントを報告していない場合、PCM は自動的に
+LCn
+状態をクリアします。
+Deferred
+現在開いているディスクへの新しく追加されたパスを示します。 内部制限のため、MPIO ディスク・パスをオープンして即時に使用することができません。 ただし、ディスク・パスは、ディスクの再オープン時にオープンして使用することができます。
+Additional NVMe extended status
+MPIO ディスク・パスの状況が
+Failed
+の場合、以下の拡張状況は、パスが失敗した理由に関する追加の詳細と見なすことができます。
+表 1. NVMe 拡張状況
+状況 | 説明
+Offline | ディスク・パスが手動でオフラインに設定されていることを示します。 テクニカル・サポートからの指示がない限り、手動でパスをオフラインに設定してはなりません。
+FCloginErr , LinkDwnErr , CassErr , CiocErr , EndpntMiss | さまざまな NVMe over Fibre Channel エラー状態を示します。 最も可能性の高い状態は、ターゲット・コントローラーに対する Create Association サービスが失敗したことを意味する CassErr です。 通常、 CassErr 条件は、ホスト (NQN) がターゲット装置に適切にマップされていないことを意味します。
+
+CtlrRstErr , CtlrRdyErr , AdminCmdErr , ConnectErr , AuthErr , FabCmdErr , HbaErr , CrqErr | 技術サポート担当員に役立つさまざまな NVMe エラー状態を示します。
+FCDDErr , HostDDErr | 内部リソース制限の超過などのドライバー・エラーを示します。
+Path statistics
+-S
+フラグにオプションの
+-d
+フラグを指定すると、
+lsmpio
+コマンドは通常または詳細なパス統計情報を表示します。 オプションの
+-l
+フラグは、1 つの MPIO ストレージ・デバイスのみの統計を含むように表示を制限します。 統計には、入出力操作のために MPIO ディスク・パスが選択された回数、MPIO ディスク・パスで発生したエラーの数、および MPIO ディスク・パスで障害が発生した回数が含まれます。 詳細統計情報では、障害回数は障害タイプ別の回数に分類されています。
+Device inquiry data
+lsmpio
+コマンドの
+-q
+フラグを使用すると、 AIX MPIO は、接続されているデバイスに関する情報を取得して表示するために Small Computer System Interface (SCSI) コマンドを使用してデバイスを照会します。 照会される各デバイスは SCSI コマンドを使用してオープンおよび照会されるため、多数のデバイスに対してこの操作を実行すると時間がかかることがあります。
+Parent adapter information
+-a
+フラグにオプションの
+-r
+フラグを指定すると、
+lsmpio
+コマンドは、 AIX MPIO ストレージ・デバイスによって使用されるファイバー・チャネル・アダプターに関する情報を表示します。 この情報には、ファイバー・チャネル・アダプターの worldwide name や MPIO ディスク・パスの現在の状態など、ローカル・アダプター ID に関する詳細が (取得可能な場合は) 含まれます。
+-r
+フラグは、ファイバー・チャネル・アダプターによってアクセスされるリモート・ポートに関する情報を追加します。
+-z
+フラグを使用して、すべての統計情報をゼロにリセットすることができます。
+
+構文
+lsmpio [ -l デバイス名］ [ -o ] lsmpio -S [ -l デバイス名］ [ -d ] lsmpio -z [ -l デバイス名 ] lsmpio -q [ -l デバイス名 ] lsmpio -a [ -r ] [ -e ] [ -z ] [ -f ] lsmpio -h
+
+オプション
+フラグ
+項目 | 説明
+-a | これは、親ファイバー・チャネル・アダプター情報をリストします。
+-d | 詳細な統計を表示します。 このフラグは、 -S フラグと一緒の場合にのみ有効です。
+-e | このフラグを -a フラグと併用すると、ローカル・アダプター・ポートのエラー件数が表示されます。 このフラグを -a フラグおよび -r フラグと併用すると、ローカル・アダプター・ポートとリモート・ポートのエラー件数が表示されます。 これらのエラー件数は、ローカル・アダプターとリモート・ストレージ・ポートの間の物理接続の問題を示しています。 エラー件数は、異なる時間範囲についての最近のエラーを示しています。
+-f | -f フラグを &#x27; -a フラグと共に使用すると、ローカル・アダプタ・ポートのファ ブリック・パフォーマンス影響通知（ fpin ）エラー・カウントが表示される。 -f フラグを &#x27; -a および &#x27; -r フラグとともに使用すると、ローカル・アダプタ・ ポートとリモート・ストレージ・ポートの両方について &#x27; fpin エラー・カウントが表示される。 これらの&#x27; fpin エラーカウントは、ローカルアダプタポートまたはリモートストレージポートが混雑していることを示す。 出力に表示されるさまざまな事前定義された時間範囲（たとえば、直近10分、直近60分、直近24時間）では、「 fpin エラーカウントは最近のエラーを示す。
+-h | コマンドの使用法の情報を表示します。
+-l ディスク名 | デバイスを指定します。 このフラグが含まれる場合、コマンドは単一のデバイス上で作動します。 このフラグを省略すると、コマンドはすべての AIX MPIO デバイス上で作動します。 このフラグは、要約パス状況の場合に単独で使用することも、 -q 、 -S 、または -z フラグと一緒に使用することもできます。
+
+-o | AIX ディスク・ドライバーが、指定されたマルチパス入出力 (MPIO) ディスクに関連付けられている MPIO すべてにアクセスしようと試みることを示します。 この試みには、MPIO ディスクが最後にクローズされたときに「障害」とマークされた MPIO パスへのアクセスが含まれます。 このフラグによって、MPIO パスに関する最新のステータスが返されます。 重要: 失敗した MPIO ディスク・パスにアクセスしようとすると、 lsmpio コマンドの応答時間が遅くなる可能性があります。 この応答時間は、いくつかの要因 (影響を受ける MPIO ディスクの数や、 lsmpio コマンドの有効範囲など) に応じて、数秒から数分遅れます。
+-q | デバイス情報を照会します。 このコマンドは、標準の SCSI コマンドを使用して、デバイスの情報を照会します。 返される正確な情報は、デバイス・タイプによって異なります。
+-r | リモート・ポートの情報を表示します。 このフラグは、アダプターによってアクセスされるリモート・ポートに関する情報を表示するために、 -a フラグと一緒に使用されます。 返される情報は、アダプターで使用されているネットワーク・プロトコルによって異なる場合があります。
+-S | 1 つまたはすべてのデバイスの統計を表示します。 このフラグは、パスの使用およびパスのエラーに関する基本的なカウンターを表示します。 このフラグと一緒に -d フラグを使用すると、より詳細な統計情報が表示されます。
+-z | すべての統計をリセットします。 このフラグを使用すると、PCM がすべての統計カウンターをリセットしてゼロに戻します。 注: -z フラグを -a フラグと一緒に使用して、アダプター・エラー件数および fpin エラー件数をリセットすることができます。
+
+例
+hdisk1234
+デバイスに関する要約情報を表示するには、次のコマンドを入力します。
+lsmpio -l hdisk1234
+以下のいずれかの出力のような出力がシステムから表示されます。
+name path_id status path_status parent connection
+===============================================================================
+hdisk1234 0 Enabled Opt,Rsv fscsi0 500a098186a7d4ca,0008000000000000
+hdisk1234 1 Enabled Non fscsi0 500a098196a7d4ca,0008000000000000
+hdisk1234 2 Enabled Opt,Sel,EEH fscsi1 500a098186a7d4ca,0008000000000000
+hdisk1234 3 Enabled Non fscsi1 500a098196a7d4ca,0008000000000000
+この例では、パス 0 は最適化されていますが、パスを使用不可にする予約済み (
+Rsv
+) としてマークされています。 この場合、使用不可の
+Rsv
+状態より
+EEH
+状態が優先されるため、入出力操作にはパス 2 が選択されます。 さらに、パス 0 は
+Rsv
+状態のためにすでに回避されているため、
+Deg
+状態にはならないと考えられます。 パス 2 によって使用されるアダプターが
+EEH
+エラーのためにリブートしているため、入出力要求が満たされない可能性があります。
+name path_id status path_status parent connection
+===============================================================================
+hdisk1234 0 Enabled Opt,Rsv fscsi0 500a098186a7d4ca,0008000000000000
+hdisk1234 1 Enabled Non fscsi0 500a098196a7d4ca,0008000000000000
+hdisk1234 2 Enabled Opt,EEH fscsi1 500a098186a7d4ca,0008000000000000
+
+hdisk1234 3 Enabled Non fscsi1 500a098196a7d4ca,0008000000000000
+hdisk1234 4 Enabled Opt,Sel,Deg fscsi2 500a098186b7d4ca,0008000000000000
+hdisk1234 5 Enabled Non fscsi2 500a098196b7d4ca,0008000000000000
+この例では、
+Deg
+状態のパス 4 が
+EEH
+状態のパス 2 より優先されます。
+iostat -m hdisk1234
+を実行すると、
+iostat
+コマンド出力に、すべての入出力操作がパス 4 で実行されたことが示されます。
+name path_id status path_status parent connection
+===============================================================================
+hdisk1234 0 Enabled Opt,Rsv fscsi0 500a098186a7d4ca,0008000000000000
+hdisk1234 1 Enabled Non fscsi0 500a098196a7d4ca,0008000000000000
+hdisk1234 2 Enabled Opt,Sel fscsi1 500a098186a7d4ca,0008000000000000
+hdisk1234 3 Enabled Non fscsi1 500a098196a7d4ca,0008000000000000
+hdisk1234 4 Enabled Opt,Sel fscsi2 500a098186b7d4ca,0008000000000000
+hdisk1234 5 Enabled Non fscsi2 500a098196b7d4ca,0008000000000000
+この出力例では、いずれのパスも
+Deg
+状態でも
+EEH
+状態でもありません。 この場合、パス 2 またはパス 4 は、最短キューまたはラウンドロビン・アルゴリズムに基づいて選択されます。
+name path_id status path_status parent connection
+===============================================================================
+
+hdisk1234 0 Enabled Opt,Rsv fscsi0 500a098186a7d4ca,0008000000000000
+hdisk1234 1 Enabled Non fscsi0 500a098196a7d4ca,0008000000000000
+hdisk1234 2 Enabled Opt,Sel fscsi1 500a098186a7d4ca,0008000000000000
+hdisk1234 3 Enabled Non fscsi1 500a098196a7d4ca,0008000000000000
+hdisk1234 4 Enabled Opt fscsi2 500a098186b7d4ca,0008000000000000
+hdisk1234 5 Enabled Non fscsi2 500a098196b7d4ca,0008000000000000
+この例では、パス 2 が選択されています。 デバイスでは
+fail_over
+アルゴリズムが使用されています。 パス 2 で障害が発生すると、入出力要求はパス 4 にフェイルオーバーします。
+hdisk10
+デバイスに関する詳細デバイス統計を表示するには、次のコマンドを入力します。
+lsmpio -Sdl hdisk10
+システムは以下のような出力を表示します。
+Disk: hdisk10
+Path statistics since Tue May 21 17:38:43 CDT 2013
+Path 0: (fscsi0:500a098186a7d4ca,8000000000000)
+Path Selections: 0
+Adapter Errors: 0
+Software: 0
+Hardware: 0
+Transport Dead: 0
+Transport Busy: 0
+Transport Fault: 0
+No Device Response: 0
+Target Port ID Changed: 0
+Enhanced Errror Handling (EEH): 0
+Command Timeouts: 0
+Reservation Conflicts: 0
+SCSI Queue Full: 0
+SCSI Busy: 0
+SCSI ACA Active: 0
+SCSI Task Aborted: 0
+SCSI Aborted Command: 0
+SCSI Check Condition: 0
+Medium Error: 0
+Hardware Error: 0
+
+Not Ready: 0
+Other: 0
+Last Error: N/A
+Last Error Time: N/A
+Path Failure Count: 0
+Due to Adapter Error: 0
+Due to I/O Error: 0
+Due to Health Check: 0
+Due to SCSI Sense: 0
+Due to Qualifier Bit: 0
+Due to Opening Error: 0
+Due to PG SN Mismatch: 0
+Last Path Failure: N/A
+Last Path Failure Time: N/A
+注:
+いくつかの SCSI エラー件数が報告されても、問題を示すものでも、入出力操作が失敗したことを示すものでもありません。 通常の処理中に、一時的なリカバリー可能エラーが頻繁に報告されることがあります。 これらのエラーが原因で、入出力操作が再試行される可能性があります。
+MPIO アダプター情報をリモート・ポート情報と併せて表示するには、次のコマンドを入力します。
+lsmpio -ar
+システムは以下のような出力を表示します。
+Adapter Driver: fscsi0 - AIX PCM
+Adapter WWPN: 10000000c94c7bd6
+Link State: Up
+Paths Paths Paths Paths
+Remote Ports Enabled Disabled Failed Missing ID
+500a098186a7d4ca 31 0 0 0 0x20a00
+500a098196a7d4ca 31 0 0 0 0x20b00
+500507630a18016b 19 0 0 0 0x31200
+500507630a18416b 19 0 0 0 0x31300
+500507630a18816b 19 0 0 0 0x31400
+500507630a18c16b 19 0 0 0 0x31500
+Adapter Driver: fscsi1 - AIX PCM
+Adapter WWPN: 10000000c94c7bd7
+Link State: Up
+Paths Paths Paths Paths
+Remote Ports Enabled Disabled Failed Missing ID
+500a098186a7d4ca 31 0 0 0 0x20a00
+500a098196a7d4ca 31 0 0 0 0x20b00
+
+500507630a18016b 19 0 0 0 0x31200
+500507630a18416b 19 0 0 0 0x31300
+500507630a18816b 19 0 0 0 0x31400
+500507630a18c16b 19 0 0 0 0x31500
+5001738000330150 1 0 0 0 0x10100
+5001738000330162 1 0 0 0 0x10200
+MPIO ストレージ・デバイスを照会し、それに関する情報を表示するには、次のコマンドを入力します。
+lsmpio -ql hdisk48
+システムは以下のような出力を表示します。
+Device: hdisk48
+Vendor Id: IBM
+Product Id: 2107900
+Revision: .160
+Capacity: 10G
+Volume Serial: 600507630AFFC16B0000000000001505 (Page 83 NAA)
+注:
+表示される出力は、標準照会データおよびデバイス識別重要プロダクト・データ (VPD) から得られます。 装置が Peer-to-Peer Remote Copy (PPRC) ペアを表す場合 (
+san_rep_device
+属性の値は
+yes
+)、PPRC ペアの各論理装置番号 (LUN) のボリューム通し番号と、PPRC ペアの 2 つの LUN によって共有されるベンダー固有の ID が表示されます。以下の出力を参照してください。
+Device: hdisk33
+Vendor Id: IBM
+Product Id: 2107900
+Revision: .160
+Capacity: 10G
+Volume Serial: 600507630AFFC16B0000000000000113 (Page 83 NAA)
+Volume Serial: 600507630AFFC16B000000000000031F (Page 83 NAA)
+Vendor LUN Id: 3735544C37373130313133005022AD6A
+ローカル・ポートおよびリモート・ポートのエラー件数を表示するには、次のコマンドを入力します。
+lsmpio -are
+出力は、以下の例のようになります。
+Adapter Driver: fscsi3 -&gt; AIX PCM
+Adapter WWPN: 21000024ff6aee7d
+Link State: Up
+Connectivity Errors:
+
+Last 10 Minutes: 74
+Last 60 Minutes: 222
+Last 24 Hours: 12345
+Connectivity Errors
+Last 10 Last 60 Last 24
+Remote Ports Minutes Minutes Hours
+5001738000330171 0 0 0
+5001738000330173 0 0 0
+500a098286a7d4ca 2 9 45
+500a098196a7d4ca 72 213 12300
+ローカルおよびリモート・ポートの
+fpin
+エラー件数を表示するには、次のコマンドを入力します。
+lsmpio -arf
+出力は、以下の例のようになります。
+# lsmpio -arf
+Adapter Driver: fscsi1 -&gt; AIX PCM
+Adapter WWPN: 100000109b1708ae
+FPIN STATE: CLEAR
+FPIN Errors
+Last 10 Minutes: 0
+Last 60 Minutes: 0
+Last 24 Hours: 0
+Total Adapter Errs: 1
+FPIN Errors
+Last 10 Last 60 Last 24 Total Peer FPIN STATE
+Minutes Minutes Hours Errs
+5005076802164af3 0 0 0 4 CLEAR
+5005076802364af4 0 0 0 0 CLEAR
+5005076802464af4 0 0 0 0 CLEAR
+5005076802264af3 1 1 1 2 PCn
+Adapter Driver: fscsi0 -&gt; AIX PCM
+Adapter WWPN: 100000109b1708ad
+FPIN STATE: LCn,LI
+FPIN Errors
+Last 10 Minutes: 1
+Last 60 Minutes: 1
+Last 24 Hours: 1
+Total Adapter Errs: 2
+FPIN Errors
+Last 10 Last 60 Last 24 Total Peer FPIN STATE
+Minutes Minutes Hours Errs
+5005076802164af3 0 0 0 4 LI
+5005076802364af4 0 0 0 0 CLEAR
+5005076802464af4 0 0 0 0 CLEAR
+5005076802264af3 1 1 1 2 PCn</pre>

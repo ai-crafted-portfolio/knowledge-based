@@ -1,0 +1,219 @@
+<!doctype html><meta charset="utf-8"><pre class="official-markdown">目的
+新規リソースを定義します。
+
+説明
+mkrsrc
+コマンドは、
+resource_class
+パラメーターによって指定されたクラスの新規リソース・インスタンスを RMC サブシステムが定義することを要求します。
+-f
+フラグを使用して、少なくとも 1 つの永続属性名とその値をパラメーターとして指定するか、リソース定義ファイルによって指定する必要があります。
+mkrsrc
+を実行する前に、
+lsrsrcdef
+コマンドを実行して、
+reqd_for_define
+(必須) または
+option_for_define
+(オプション) として指定されている属性を判別する必要があります。
+mkrsrc
+コマンドを使用して定義できるのは、
+reqd_for_define
+または
+option_for_define
+として指定された属性のみです。
+lsrsrcdef
+コマンドは、各属性のデータ・タイプも識別します。 各属性ごとに指定された値は、
+このデータ・タイプと一致していなければなりません。
+コマンド行または
+resource_data_input_file
+で指定されたすべての属性名が永続属性として定義され、
+reqd_for_define
+または
+option_for_define
+として指定されていることを確認するには、
+-v
+フラグを使用します。
+-v
+フラグを指定して
+mkrsrc
+コマンドを実行すると、リソースは定義されません。 代わりに、リソース属性は単に永続であることが検証され、
+reqd_for_define
+または
+option_for_define
+として指定されます。
+mkrsrc
+-v
+を実行して、コマンド行または
+resource_data_input_file
+で指定されたすべての属性が有効であることを確認したら、
+-v
+フラグを指定せずに
+mkrsrc
+コマンドを発行して、新規リソースを定義できます。
+RSCT
+ピア・ドメインまたは
+RSCT
+管理ドメインの管理サーバーで実行していて、リソース・クラス管理タイプが細分化されている場合は、2 つの方法のいずれかで複数のノードに同じリソースを作成できます。 最初の方法は、
+-N
+node_file
+フラグを使用して、リソースの作成先のノード名がファイルに入っていることを示す方法です。 標準入力からノード名を読み取るには、
+-N &quot;-&quot;
+を使用します。 2 番目の方法は、
+NodeNameList
+リソース属性に複数のノード名を指定する方法です。
+NodeNameList
+
+属性は、クラスターが存在するときにリソースが作成される場所を定義します。
+NodeNameList
+属性が使用されない場合、リソースはローカル・ノード上に作成されます。 リソース・クラス管理タイプが細分化されているかどうか検出するには、
+lsrsrcdef -c
+resource_class
+|
+grep properties
+と入力します。
+
+構文
+新規リソースを定義する際に使用するデータとして、 コマンド・ラインで入力する場合: mkrsrc [ -a | -N { node_file | &quot;-&quot; }] [ -v ] [ -h ] [ -TV ] resource_class attr = value ... 入力ファイルでは次のように事前定義されています。 mkrsrc -f resource_data_input_file [ -v ] [ -a | -N { node_file | &quot;-&quot; }] [ -h ] [ -TV ] resource_class コマンド引数の名前とデータ・タイプを表示するには、次のように入力します。 mkrsrc-l [ -h ] resource_class リソース・クラスに対する mkrsrc コマンドの例を確認するには、以下のようにします。 mkrsrc -e [ -h ][ -TV リソースクラス
+
+オプション
+フラグ
+-e
+以下に対する
+mkrsrc
+コマンド行入力の例を表示します。
+必須属性のみ
+必須およびオプションの属性
+--f
+resource_data_input_file
+リソース属性情報が含まれるファイルの名前を指定します。
+-l
+コマンド引数とデータ・タイプをリストします。 一部のリソース・マネージャーは、定義要求に渡された追加の引数を受け入れます。 定義済みのコマンド引数およびコマンド引数値のデータ・タイプをリストするには、このフラグを指定してください。
+--N{
+node_file
+| &quot;-&quot; }
+ファイルまたは標準入力からノード名を読み取ることを指定します。 ノード名がファイルにあることを示すには、
+-N
+node_file
+を使用します。
+node_file
+ファイルでは、1 行につき 1 つのノード名を指定します。
+1 桁目に番号記号 (#) を付けると、その行がコメントであることを示すことができます。
+ノード名の左のブランク文字はすべて無視されます。
+ノード名の右のブランク文字はすべて無視されます。
+標準入力からノード名を読み取るには、
+-N &quot;-&quot;
+を使用します。
+CT_MANAGEMENT_SCOPE
+環境変数は、クラスターの有効範囲を決定します。 定義することになるリソースのリソース・クラス管理タイプが細分化され、
+CT_MANAGEMENT_SCOPE
+が設定されていない場合は、コマンドにとって有効な有効範囲になるまで、まず管理ドメイン有効範囲が選択され (管理ドメインが存在する場合)、次にピア・ドメイン有効範囲が選択され (ピア・ドメインが存在する場合)、その後でローカル有効範囲が選択されます。 コマンドは、最初に見つかった有効範囲に対して、1 回実行されます。 例えば、管理ドメインとピア・ドメインの両方が存在し、かつ
+CT_MANAGEMENT_SCOPE
+が設定されていない場合、
+このコマンドは管理ドメインに適用されます。 このコマンドをピア・ドメインに適用したい場合は、
+CT_MANAGEMENT_SCOPE
+を 2 に設定してください。
+-v
+コマンド行または入力ファイルで指定されたすべての属性名が永続属性として定義されており、
+reqd_for_define
+または
+option_for_define
+として指定されていることを確認します。 このフラグを使用すると、
+mkrsrc
+コマンドはリソースを定義
+しません
+。
+-h
+コマンドの使用ステートメント (使用法) を標準出力に書き込みます。
+-T
+
+コマンドのトレース・メッセージを標準エラーに書き込みます。 これは、ソフトウェア保守部門専用の機能です。
+-V
+コマンドの詳細メッセージを標準出力に書き込みます。
+
+例
+IBM.Host
+クラスに新規リソースを作成するには、このクラスのリソースを定義するときにどの永続属性が必要であるかが既に分かっていることを前提として、次のように入力します。
+mkrsrc IBM.Host Name=c175n05
+最初に、これらのリソースの定義に役立つテンプレートを生成して、
+IBM.Processor
+クラスに新規リソースを作成するには、次のように入力します。
+lsrsrcdef -i IBM.Processor &gt; /tmp/IBM.Processor.rdef
+次に、ファイル
+/tmp/IBM.Processor.rdef
+を編集して、すべての属性の値を入力するか、適切な値をタイプに置換するか、デフォルト値をブランクのままにします。
+最後に、次のように入力します。
+mkrsrc -f /tmp/IBM.Processor.rdef IBM.Processor
+ファイル
+/tmp/IBM.Host.rdef
+に定義されている情報を使用して、2 つの新しい
+IBM.Host
+リソースを作成するには、次のように入力します。
+mkrsrc -f /tmp/IBM.Host.rdef IBM.Host
+ここで、ファイル
+/tmp/IBM.Host.rdef
+は以下のようになります。
+PersistentResourceAttributes::
+resource 1:
+Name = c175n04
+resource 2:
+Name = c175n05
+この例では、
+IBM.Foo
+クラスに新規リソースを作成します。 このクラスでは、
+Name
+および
+NodeList
+は必須属性です。
+Binary
+、
+SD
+、
+StringArray
+、および
+SDArray
+の各属性はオプションです。 この例では、より難しいデータ・タイプをコマンド・ラインから入力する方法を示します。 オプション属性 (「
+Binary
+」、「
+SD
+」、「
+StringArray
+」、および「
+SDArray
+」) のデータ・タイプは自明です。 次のように入力します。
+mkrsrc IBM.Foo Name=c175n05 \
+NodeList={1} \
+Binary=&quot;0xaabbccddeeff00&quot; \
+SD=&#x27;[testing123,1,{2,4,6}]&#x27; \
+StringArray=&#x27;{&quot;testing 1 2 3&quot;,testing123,&quot;testing 1 2 3&quot;}&#x27; \
+
+SDArray=&#x27;{[&quot;testing 1 2 3&quot;,1,{1,3,5}],[testing,2,{2,4,6}]}&#x27;
+IBM®用のリソースを作成します。ピア・ドメイン内の複数のノードのクラスの例: 次のコマンドを実行します。
+mkrsrc -N /u/joe/common_node_file IBM.Example Name=Example_bar1 \
+Binary=&quot;0xaabbccddeeff00&quot;
+ここで、
+/u/joe/common_node_file
+の内容は以下のとおりです。
+# common node file
+#
+node1.ibm.com main node
+node2.ibm.com main node
+node4.ibm.com backup node
+node6.ibm.com backup node
+#
+IBM.Example クラスの例: 管理サーバーで以下のコマンドを実行します。
+mkrsrc IBM.Example Name=Example_bar1 Binary=&quot;0xaabbccddeeff00&quot; \
+NodeNameList=&#x27;{&quot;mgnode1.ibm.com&quot;,&quot;mgnode2.ibm.com&quot;}&#x27;
+ここで、
+/u/joe/common_node_file
+の内容は以下のとおりです。
+# common node file
+#
+node1.ibm.com main node
+node2.ibm.com main node
+node4.ibm.com backup node
+node6.ibm.com backup node
+#
+注:
+rmccli
+一般情報ファイルで説明したように、特定のデータ・タイプ (構造化データ、構造化データの配列、および二重引用符で囲まれたストリングを含む配列) の属性値は、単一引用符で囲む必要があります。</pre>

@@ -1,0 +1,179 @@
+<!doctype html><meta charset="utf-8"><pre class="official-markdown">目的
+XDMCP をサポートする X Display の集合を管理します。
+
+説明
+xdm
+(X Display Manager) コマンドは、ローカル・ホストまたはリモート・サーバー上にある X Display の集合を管理します。
+xdm
+コマンドの設計は、X 端末の必要性および X コンソーシアム規格 XDMCP (
+X Display Manager 制御プロトコル
+) に準拠しています。
+xdm
+コマンドが提供するサービスは、文字端末における
+init
+、
+getty
+、および
+login
+コマンドが提供するサービスと似ています。つまり、xdm コマンドは、ログイン名とパスワードの入力を求め、ユーザーを認証し、セッションを実行するというサービスを提供します。
+セッション
+は、特定のプロセスの存続期間によって定義されます。
+つまり、従来の文字ベースの端末の世界では、ユーザーのログイン・シェルのことです。 しかし、
+xdm
+の世界では、任意のセッション・マネージャーを指します。 なぜなら、ウィンドウ操作環境では、ユーザーのログイン・シェル・プロセスは、接続に端末のようなインターフェースを持つ必要がないからです。 実際のセッション・マネージャーが使用できない場合は、通常、ウィンドウ・マネージャーや端末エミュレーターが
+セッション・マネージャー
+として使用されます。
+つまり、このプロセスの終了がユーザーのセッションの終了を意味します。
+セッションが終了すると、
+xdm
+は X サーバーをリセットし、(必要であれば) プロセス全体を再始動します。
+xdm
+コマンドは、XDMCP 経由で
+Indirect
+照会を受信すると、
+chooser
+プロセスを実行して、ディスプレイの代わりに XDMCP の
+BroadcastQuery
+を (指定されたホストには XDMCP Query) を実行し、XDMCP ディスプレイ管理機能を提供できるホストのメニューを表示します。 この機能は、ホスト・メニューを提供しない X 端末に役立ちます。
+xdm
+コマンドはユーザーが最初に目にするインターフェースを提供するため、使いやすく、特定のサイトの必要に応じて簡単にカスタマイズできるように設計されています。
+一般的な使用方法
+xdm
+コマンドは、さまざまな環境で操作できるように設計されています。
+最初に、
+xdm
+構成ファイルをセットアップします。 次に、関連するすべてのファイルを入れるディレクトリー (通常は、
+/usr/lib/X11/xdm
+) を作成します。 下記は、構成ファイルの例です。
+xdm-config
+という名前を付けることにします。
+
+DisplayManager.servers: /usr/lib/X11/xdm/Xservers
+DisplayManager.errorLogFile: /usr/lib/X11/xdm/xdm-errors
+DisplayManager*resources: /usr/lib/X11/xdm/Xresources
+DisplayManager*startup: /usr/lib/X11/xdm/Xstartup
+DisplayManager*session: /usr/lib/X11/xdm/Xsession
+DisplayManager.pidFile: /usr/lib/X11/xdm/xdm-pid
+DisplayManager._0.authorize: true
+DisplayManager*authorize: false
+このファイルには、他のファイルへの参照が含まれます。 いくつかのリソースは、コンポーネントを区切る * (アスタリスク) で指定されています。 これらのリソースは、各ディスプレイに対して固有に作成することができ、* (アスタリスク) の部分にディスプレイの名前が入ります。しかし通常はあまり役には立ちません。 詳細については、次のページの
+資料
+セクションを参照してください。
+最初のファイル
+/usr/lib/X11/xdm/Xservers
+には、
+XDMCP
+を使用しないで管理するディスプレイのリストが入っています。 ほとんどのワークステーションは 1 つのディスプレイ (番号 0 (ゼロ) が割り当てられている) しか持っていないため、このファイルは下記のような内容になります。
+:0 Local local /usr/bin/X11/X -force
+これにより、
+/usr/bin/X11/X
+が継続して当該ディスプレイ上で動作し、連続したセッションのサイクルを管理します。
+/usr/lib/X11/xdm/xdm-errors
+ファイルには、
+xdm
+のエラー・メッセージ、
+および
+Xsetup
+、
+Xstartup
+、
+Xsession
+、
+Xreset
+のいずれかのスクリプトが標準エラーに書き込んだ出力が入っています。
+xdm
+コマンドの始動に何らかの問題が発生した場合は、
+/usr/lib/X11/xdm/xdm-errors
+ファイルを検査して、
+xdm
+コマンドに原因があるかどうか確認します。
+構成ファイルの次の項目
+/usr/lib/X11/xdm/Xresources
+は、
+xrdb
+
+コマンドによって、リソース・データベースとしてディスプレイにロードされます。 認証ウィジェットは始動する前にこのデータベースを読み取るため、構成ファイルには通常、認証ウィジェット用のパラメーターが入っています。
+
+構文
+エックスディーエム [ -コンフィグ ConfigurationFile ] [ -デバッグ DebugLevel ] [ -ノダエモン ] [ -エラー ErrorLogFile ] [ -リソース ResourceFile ] [ -サーバー ServerEntry ] [ -udpPort PortNumber ] [ -セッション SessionProgram ] [ -エックスアーム ResourceSpecification ]
+
+オプション
+フラグ
+オプションで指定する値はすべて (
+-config
+で指定するものは除く)、構成ファイルの中でリソースとしても指定できます。
+項目 | 説明
+-コンフィグ ConfigurationFile | xdm コマンドの動作を制御するリソースを指定する構成ファイルに名前を付けます。 デフォルトは、 /usr/lib/X11/xdm/xdm-config ファイルです。
+-デバッグ DebugLevel | DisplayManager.debugLevel リソースに対する数値を指定します。 ゼロ以外の値を指定すると、 xdm はデバッグ・ステートメントを端末に出力し、 DisplayManager.daemonMode リソースを使用不可にし、強制的に xdm を同期実行するようにします。 これらのエラー・メッセージはわかりにくいこともあります。 このような場合、 xdm コマンドの X11R4 ソース・コードを検査して、エラーの意味を調べてください。
+-nodaemon (デーモンなし) | DisplayManager.daemonMode リソースに対する値として False (偽) を指定します。 これによって、デーモンの通常の動作を抑制します。この動作により xdm コマンドは最初の始動時にすべてのファイル・ディスクリプターをクローズし、制御端末との関連付けを無効にし、自分の実行をバックグラウンドに移します。
+-エラー ErrorLogFile | DisplayManager.errorLogFile リソースに対する値を指定します。 このファイルには、 xdm のエラーと、セッションの進行中に実行されたさまざまなスクリプトとプログラムが標準エラーに書き込んだ出力が入っています。
+-リソース ResourceFile | DisplayManager*resources リソースに対する値を指定します。 このファイルは、 xrdb コマンドによってロードされ、認証ウィジェットの構成パラメーターを指定します。
+-サーバー ServerEntry | DisplayManager.servers リソースに対する値を指定します。 このリソースの説明については、 サーバー仕様 のセクションを参照してください。
+
+-udpPort PortNumber | DisplayManager.requestPort リソースに対する値を指定します。 これにより、 xdm コマンドが XDMCP 要求をモニターするポート番号が設定されます。 XDMCP は、登録されている定義済 UDP ポート 177 を使用します。 デバッグするとき以外、このリソースは変更しないでください。
+-セッション SessionProgram | DisplayManager*session リソースに対する値を指定します。 このリソースによって指定されるプログラムは、ユーザーのログイン後にセッションとして実行されます。
+-エックスアーム ResourceSpecification | ほとんどの X ツールキット・アプリケーションと同様、任意のリソースを指定できます。
+
+例
+以下に示すサンプルの
+xstartup
+スクリプトは、ファイル
+/etc/nologin
+が存在している間はログインできないようにします。 ここでは何らかのメッセージを表示する用意がなく (ファイルを表示するコア X クライアントがない)、
+説明のないままログインが失敗する可能性があるため、この例のセットアップはお勧めしません。 つまり、これは完全な例ではなく、単に使用可能な機能をデモンストレーションするためのものです。
+#!/bin/sh
+#
+# Xstartup
+#
+# This program is run as root after the user is verified
+#
+if [ \-f /etc/nologin ]; then
+exit 1
+fi
+exit 0
+この
+XSession (X)
+スクリプトは、前の
+X リソース
+ファイルの変換で指定された特殊な
+フェイルセーフ
+モードを認識して、通常セッションからのエスケープを提供します。
+#!/bin/sh
+exec &gt; $HOME/.xsession-errors 2&gt;&amp;1
+case $# in
+1)
+case $1 in failsafe)
+exec aixterm -geometry 80x24-0-0
+;;
+esac
+startup=$HOME/.xsession
+resources=$HOME/.Xresources
+if [ -f /usr/bin/X11/startx ]; then
+exec /usr/bin/X11/startx -t -wait
+elif [ -f $startup]; then
+exec $startup
+else
+if [ -f $resources ]; then
+xrdb -load $resources
+fi
+mwm &amp;
+exec aixterm -geometry 80x24+10+10 -ls
+fi
+XDM
+をシステム始動から起動させるには、root として次のように入力します。
+/usr/lib/X11/xdm/xdmconf
+リブート時に
+XDM
+を無効にするには、root として以下を入力します。
+/usr/lib/X11/xdm/xdmconf -d
+XDM
+
+を使用してディスプレイを管理する場合、認証手順により、許可されているクライアントのみがディスプレイに接続できるようになります。 X11 R4 および X11 R5 ライブラリーを使用して構築されたクライアントでは、このプロトコルが認識されます。 X11 R3 以前のライブラリーを使用して構築されたクライアントでは、この認証プロトコルがサポートされないため、
+xhost
+許可を取得しなければ X サーバーには接続できません。 下記のように入力して、ローカル・クライアントへ接続することができます。
+xhost =localhost
+または
+xhost =machine
+この場合、
+machine
+はローカル・クライアントのホスト名です。</pre>

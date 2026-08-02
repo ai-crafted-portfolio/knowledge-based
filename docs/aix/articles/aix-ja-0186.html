@@ -1,0 +1,69 @@
+<!doctype html><meta charset="utf-8"><pre class="official-markdown">目的
+chmaster
+コマンドは
+ypinit
+コマンドを実行し、
+NIS
+デーモンを再始動してコントローラサーバを変更します。
+
+説明
+chmaster
+コマンドは、
+ypinit
+コマンドを呼び出して、システムのドメイン名が現在設定されていることを前提として、現行ドメインの
+NIS
+マップを更新します。
+ypinit
+コマンドが正常終了したあと、
+chmaster
+コマンドは
+/etc/rc.nfs
+ファイル内の
+ypserv
+コマンド、
+yppasswdd
+コマンド、
+ypupdated
+コマンド、
+ypbind
+コマンドのエントリーをコメントにするか、コメント文字を削除します。
+このコマンドは、System Management Interface Tool (SMIT)
+smit chmaster
+高速パスを使用しても実行できます。
+
+構文
+/usr/etc/yp/chmaster [ -s HostName [ , HostName ... ] ] [ -O (O) | - ] [ -E (E) | -e (E) ] [ -P | P- ] [ -U (U) | -ウー ] [ -C | 「-c」 ] [ -I (I) | -B | -N (N) ]
+
+オプション
+フラグ
+項目 | 説明
+-B | 適切なデーモンを始動するために /etc/rc.nfs ファイルを更新し、 ypinit コマンドを呼び出し、デーモンを始動します。
+-C | ypserv デーモンと共に ypbind デーモンを始動します。 このフラグはデフォルトです。
+-c | ypbind デーモンの始動を抑制します。
+-E | エラーの発生時に、 ypinit コマンドおよび chmaster コマンドを終了します。 このフラグはデフォルトです。
+-e | エラーの発生時に、 ypinit コマンドおよび chmaster コマンドを抑制します。
+-I | 次のシステム再起動時に適切なデーモンを始動するために /etc/rc.nfs ファイルを変更するよう chmaster コマンドに指示します。 このコマンドを呼び出すと、 ypinit コマンドが実行されます。
+-N | ypinit コマンドを呼び出し、適切なデーモンを始動します。 /etc/rc.nfs ファイルは変更されません。
+-O | このドメイン用の既存のマップを上書きします。
+-o | NIS マップの上書きを防止します。 このフラグはデフォルトです。
+-P | ypserv デーモンと共に yppasswdd デーモンを始動します。
+-p | yppasswdd デーモンの始動を抑制します。 このフラグはデフォルトです。
+-s HostName [ , HostName ] | これは、当該コントローラー・サーバーのワーカーのワーカー・ホスト名を指定します。 chmaster コマンドは、このリストに現行ホストを自動的に追加します。
+-U | ypserv デーモンと共に ypupdated デーモンを始動します。
+-u | ypupdated デーモンの始動を抑制します。 このフラグはデフォルトです。
+
+例
+ypinit
+コマンドを呼び出して、現行ドメインの
+NIS
+マップを再作成するには、次のように入力します。
+chmaster -s chopin -O -p -u -B
+この例では、
+chmaster
+コマンドは既存のマップを上書きし、
+yppasswdd
+および
+ypupdated
+デーモンは開始されません。 ホスト名
+chopin
+ワーカー・サーバーとして指定されます。</pre>

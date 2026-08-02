@@ -1,0 +1,100 @@
+<!doctype html><meta charset="utf-8"><pre class="official-markdown">目的
+標準入力から作成される固定サイズのログ・ファイルを作成し、保持します。
+
+説明
+alog
+コマンドは、標準入力を読み取り、標準出力に書き出し、固定サイズ・ファイルに出力をコピーします。 このファイルは循環ログとして扱われます。 ファイルがいっぱいになると、最も古い既存のエントリーが新しいエントリーで上書きされます。
+alog
+コマンドは、コマンド・ラインに指定されたログ・ファイル、または alog 構成データベース内に定義されているログを処理します。 alog 構成データベース内に定義されているログは、
+LogType
+により識別されます。 定義済みの各
+LogType
+の
+File
+、
+Size
+、および
+Verbosity
+属性は、
+LogType
+を使用して、alog 構成データベースに保管されます。
+odmadd
+コマンドを使用して、新しい
+LogType
+を alog 構成データベースに追加することができます。
+alog
+コマンドを使用して、alog 構成データベースで定義されている
+LogType
+の属性を変更することができます。
+
+構文
+ログ・ファイルの内容を表示するには alog { -f LogFile | -t LogType } -o 指定されたログ・ファイルにデータを記録するには alog { [-f logfile] [-t LogType] } [ [ -q ] [ -s Size ] ] 指定したログ・タイプの詳細値を表示するには alog -t LogType -V 指定されたログ・タイプの属性を変更するには alog -C -t LogType { [ -f ] [ -s Size ] [ -w Verbosity ] } 指定したログ・タイプの現在の属性を表示するには alog -L [ -t LogType ] アナログ・コマンドの使用状況を表示するには alog -H
+
+オプション
+フラグ
+項目 | 説明
+-c | 指定した LogType の属性を変更します。 -C フラグを -f 、 -s 、および -w フラグと一緒に使用して、指定した LogType の File 、 Size 、および Verbosity の各属性を変更します。 -t LogType フラグは必須です。 注: -C フラグを -s Size と一緒に使用すると、 ODM のサイズ値のみが変更され、実際のログ・ファイルのサイズは変更されません。 -C フラグを使うと、 alog コマンドは、標準出力またはログ・ファイルに標準入力をコピーしません。 コンソール・ログ・タイプの属性を変更するために -C フラグを使用する場合は、 コンソール・ログ・ファイルもまた変更され、新規の値を使用するためにコンソール・デバイス・ドライバーが更新されます。 これは alog -C の通常のオペレーションからの逸脱であり、特別の形式設定をコンソール・ログ・ファイル内で適応させるために行われます。 “ 注: alog の属性を変更するには、root ユーザー権限を持っていなければなりません。 ”
+-f LogFile | ログ・ファイルの名前を指定します。 指定されたログ・ファイルが存在しない場合は、新たに作成されます。 alog コマンドは、ログ・ファイルへの書き込みができないときは、 /dev/null に書き込みます。 -f LogFile フラグを -C フラグおよび -t フラグと一緒に使用して、alog 構成データベースで定義されている LogType の File 属性を変更します。
+-H | alog コマンドの使用方法を表示します。
+-L (L) | alog 構成データベース内に現在定義されているログ・タイプを出力します。 -L フラグを -t LogType フラグと共に使用すると、指定した LogType の属性が出力されます。 File 、 Size 、および Verbosity 属性の現在の値が、次のようにコロンで区切って表示されます。 &lt;File&gt;:&lt;Size&gt;:&lt;Verbosity&gt; -L フラグを使うと、 alog コマンドは、標準出力または File に標準入力をコピーしません。
+-o | ログ・ファイルの内容をリストします。 ログ・ファイルの内容を先頭から順番に標準出力に書き出します。
+-q | 標準入力をログ・ファイルにコピーしますが、標準出力には書き出しません。
+
+-s サイズ | ログ・ファイルのサイズ限度をバイト単位で指定します。 ログ・ファイル用のスペースは、そのログ・ファイルが作成された時に予約されます。 新規ログ・ファイルの作成時に Size 属性を指定しなかった場合は、最小サイズの 4096 バイトが使用されます。 ログ・ファイルが既に存在している場合は、そのサイズが変更されます。 指定したサイズは、4096 バイトの整数倍に丸められます。 ログ・ファイルの最大サイズは 2 GB です。 指定されたサイズが 2 GB より大きい場合は、2 GB と見なされます。 ログ・ファイルのサイズを小さくした場合、エントリーが新しいサイズ限度内に収まらないと、最も古いエントリーが削除されます。 ログ・ファイルのサイズを変更するには、そのログ・ファイルに対する書き込み許可を持っていなければなりません。 -s Size フラグを -C フラグおよび -t フラグと一緒に使用して、alog 構成データベースで定義されている LogType の Size 属性を変更します。 ODM 内のサイズの値のみが変更されます。 実際のログ・ファイルのサイズは変更されません。 新しい Size 属性値は、次回のログ・ファイル作成時に使用されます。
+-t LogType | alog 構成データベース内に定義されているログを識別します。 alog コマンドは、alog 構成データベースからログのファイル名とサイズを取り出します。 LogFile が存在しない場合は、新たに作成されます。 alog コマンドが、指定された LogType の情報を、alog 構成データベースから入手できない場合、または alog コマンドが LogFile に書き込むことができない場合は、 /dev/null に書き込みます。 -f フラグを使用して LogType および LogFile を指定すると、 LogFile が使用され、 LogType は無視されます。
+V 値 | alog 構成データベース内で定義されている LogType の Verbosity 属性の現行値を標準出力に書き込みます。 LogType を指定しなかった場合、または指定した LogType が定義されていない場合は、標準出力になにも書き出されません。 -t LogType および -V フラグを指定した alog コマンドを使用して出力される値は、その出力を alog コマンドにパイピングして、パイプに書き込むデータの冗長性を制御するコマンドで使用できます。
+
+-w (W) 冗長性 | -C フラグおよび -t フラグとともに使用される場合に、alog 構成データベースで定義されている LogType の Verbosity 属性を変更します。 Verbosity 属性には 0 から 9 までの値を指定できます。 この値が 0 の場合、 alog コマンドによって LogFile に情報はコピーされません。 標準出力には、すべての情報が書き出されます。 値が 0 以外である場合は、 alog コマンドの標準入力に入力されたすべての情報が、 LogFile と標準出力にコピーされます。
+
+例
+現在の日時をログ・ファイルに記録するには、以下のようにします。
+sample.log
+次のように入力します。
+date | alog -f /tmp/sample.log
+以下の内容をリストします。
+/tmp/sample.log
+ログ・ファイル、以下を入力します
+alog -f /tmp/sample.log -o
+ログ・ファイルのサイズを変更するには、以下のようにします。
+/tmp/sample.log
+8192 バイトに、次のように入力します。
+echo &quot;resizing log file&quot; | alog -f /tmp/sample.log -s 8192
+新規ログ・タイプを追加するには
+sample
+をアナログ構成データベースに作成します。
+alog.add
+以下の形式でファイルを作成します。
+SWservAt:
+attribute=&quot;alog_type&quot;
+deflt=&quot;sample&quot;
+value=&quot;sample&quot;
+SWservAt:
+attribute=&quot;sample_logname&quot;
+deflt=&quot;/tmp/sample.log&quot;
+value=&quot;/tmp/sample.log&quot;
+SWservAt:
+attribute=&quot;sample_logsize&quot;
+deflt=&quot;4096&quot;
+value=&quot;4096&quot;
+SWservAt:
+attribute=&quot;sample_logverb&quot;
+deflt=&quot;1&quot;
+value=&quot;1&quot;
+作成後
+alog.add
+ファイル、入力:
+odmadd alog.add
+これにより、
+alog.add
+ファイルを
+SWservAt
+database.
+ログ・タイプのログ・ファイルの名前を変更するには、以下の手順を実行します。
+sample
+から
+/var/sample.log
+アナログ構成データベースで、次のように入力します。
+alog -C -t sample -f /var/sample.log
+ブート・ログのサイズを 8192 バイトに変更し、ODM 内の新規サイズに反映させるには、次のように入力します。
+alog -C -t boot -s 8192
+echo &quot;Changed log size&quot; | alog -t boot -s 8192</pre>

@@ -1,0 +1,80 @@
+<!doctype html><meta charset="utf-8"><pre class="official-markdown">目的
+プロセスで定義されたシグナル・アクションをリストします。
+
+説明
+/proc
+ファイルシステムは、プロセスを制御するメカニズムを提供します。 また、プロセスとスレッドの現行状態に関する情報にもアクセスできますが、これはバイナリー形式です。 proctools コマンドは、いくつかの使用できる情報に基づいて ASCII レポートを提供します。
+ほとんどのコマンドは、プロセス ID のリストまたは
+/proc/
+ProcessID
+文字列を入力とします。 したがって、シェル拡張
+/proc/*
+を使用することにより、システム内のすべてのプロセスを指定できます。
+proctools コマンドは、指定されたプロセスの
+/proc
+から情報を収集し、ユーザーに表示します。 proctools コマンドは procrun および procstop と同様に、
+/proc
+インターフェースを使用してプロセスを開始し、停止します。
+コマンドが
+/proc
+から収集した情報は、
+プロセスの現行状態のスナップショットであり、
+したがって停止したプロセス以外は、刻々と変化します。
+procsig
+コマンドは、プロセスで定義されたシグナル・アクションをリストします。
+
+構文
+プロシグ ProcessID ...
+
+オプション
+フラグ
+項目 | 説明
+ProcessID | プロセス ID を指定します。
+
+例
+プロセス 11928 に定義されたすべてのシグナル・アクションをリストするには、次のように入力します。
+procsig 11928
+このコマンドの出力は以下のような情報です。
+HUP caught
+INT caught
+QUIT caught
+ILL caught
+TRAP caught
+ABRT caught
+EMT caught
+FPE caught
+KILL default RESTART
+BUS caught
+SEGV default
+SYS caught
+PIPE caught
+ALRM caught
+TERM ignored
+URG default
+STOP default
+TSTP ignored
+CONT default
+CHLD default
+TTIN ignored
+TTOU ignored
+IO default
+XCPU default
+XFSZ ignored
+MSG default
+WINCH default
+PWR default
+USR1 caught
+USR2 caught
+PROF default
+DANGER default
+VTALRM default
+MIGRATE default
+PRE default
+VIRT default
+ALRM1 default
+WAITING default
+CPUFAIL default
+KAP default
+RETRACT default
+SOUND default
+SAK default</pre>
