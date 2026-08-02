@@ -1,0 +1,1519 @@
+
+<!doctype html>
+<html lang="ja" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="技術項目・確認問題・検証手順をカテゴリ別に検索できるナレッジベース">
+      
+      
+        <meta name="author" content="Knowledge Base">
+      
+      
+        <link rel="canonical" href="https://ai-crafted-portfolio.github.io/knowledge-based/categories/c11/">
+      
+      
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.7">
+    
+    
+      
+        <title>IBM IIDR 11.4 - z/OS 技術ナレッジベース</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.ec1eaa64.min.css">
+      
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Segoe+UI:300,300i,400,400i,700,700i%7CCascadia+Code:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Segoe UI";--md-code-font:"Cascadia Code"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../stylesheets/ms-style.css">
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="blue">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#ibm-iidr-114" class="md-skip">
+          コンテンツにスキップ
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow md-header--lifted" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="ヘッダー">
+    <a href="../.." title="z/OS 技術ナレッジベース" class="md-header__button md-logo" aria-label="z/OS 技術ナレッジベース" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            z/OS 技術ナレッジベース
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              IBM IIDR 11.4
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="blue"  aria-label="ダークモードに切り替え"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="ダークモードに切り替え" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m17.75 4.09-2.53 1.94.91 3.06-2.63-1.81-2.63 1.81.91-3.06-2.53-1.94L12.44 4l1.06-3 1.06 3zm3.5 6.91-1.64 1.25.59 1.98-1.7-1.17-1.7 1.17.59-1.98L15.75 11l2.06-.05L18.5 9l.69 1.95zm-2.28 4.95c.83-.08 1.72 1.1 1.19 1.85-.32.45-.66.87-1.08 1.27C15.17 23 8.84 23 4.94 19.07c-3.91-3.9-3.91-10.24 0-14.14.4-.4.82-.76 1.27-1.08.75-.53 1.93.36 1.85 1.19-.27 2.86.69 5.83 2.89 8.02a9.96 9.96 0 0 0 8.02 2.89m-1.64 2.02a12.08 12.08 0 0 1-7.8-3.47c-2.17-2.19-3.33-5-3.49-7.82-2.81 3.14-2.7 7.96.31 10.98 3.02 3.01 7.84 3.12 10.98.31"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="slate" data-md-color-primary="indigo" data-md-color-accent="blue"  aria-label="ライトモードに切り替え"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="ライトモードに切り替え" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 7a5 5 0 0 1 5 5 5 5 0 0 1-5 5 5 5 0 0 1-5-5 5 5 0 0 1 5-5m0 2a3 3 0 0 0-3 3 3 3 0 0 0 3 3 3 3 0 0 0 3-3 3 3 0 0 0-3-3m0-7 2.39 3.42C13.65 5.15 12.84 5 12 5s-1.65.15-2.39.42zM3.34 7l4.16-.35A7.2 7.2 0 0 0 5.94 8.5c-.44.74-.69 1.5-.83 2.29zm.02 10 1.76-3.77a7.131 7.131 0 0 0 2.38 4.14zM20.65 7l-1.77 3.79a7.02 7.02 0 0 0-2.38-4.15zm-.01 10-4.14.36c.59-.51 1.12-1.14 1.54-1.86.42-.73.69-1.5.83-2.29zM12 22l-2.41-3.44c.74.27 1.55.44 2.41.44.82 0 1.63-.17 2.37-.44z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="検索" placeholder="検索" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="検索">
+        
+          <a href="javascript:void(0)" class="md-search__icon md-icon" title="共有" aria-label="共有" data-clipboard data-clipboard-text="" data-md-component="search-share" tabindex="-1">
+            
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M18 16.08c-.76 0-1.44.3-1.96.77L8.91 12.7c.05-.23.09-.46.09-.7s-.04-.47-.09-.7l7.05-4.11c.54.5 1.25.81 2.04.81a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3c0 .24.04.47.09.7L8.04 9.81C7.5 9.31 6.79 9 6 9a3 3 0 0 0-3 3 3 3 0 0 0 3 3c.79 0 1.5-.31 2.04-.81l7.12 4.15c-.05.21-.08.43-.08.66 0 1.61 1.31 2.91 2.92 2.91s2.92-1.3 2.92-2.91A2.92 2.92 0 0 0 18 16.08"/></svg>
+          </a>
+        
+        <button type="reset" class="md-search__icon md-icon" title="クリア" aria-label="クリア" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            検索を初期化
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+  </nav>
+  
+    
+      
+<nav class="md-tabs" aria-label="タブ" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../.." class="md-tabs__link">
+        
+  
+  
+    
+  
+  ホーム
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../" class="md-tabs__link">
+          
+  
+  
+    
+  
+  カテゴリ
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../articles/" class="md-tabs__link">
+          
+  
+  
+    
+  
+  記事
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../about/" class="md-tabs__link">
+          
+  
+  
+    
+  
+  ガイド
+
+        </a>
+      </li>
+    
+  
+
+      
+    </ul>
+  </div>
+</nav>
+    
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="ナビゲーション" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="z/OS 技術ナレッジベース" class="md-nav__button md-logo" aria-label="z/OS 技術ナレッジベース" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    z/OS 技術ナレッジベース
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    ホーム
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    カテゴリ
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    カテゴリ
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../articles/" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    記事
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    記事
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    ガイド
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    ガイド
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../about/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    このサイトについて
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../faq/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    FAQ
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../search/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    検索
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+  
+
+<nav class="md-nav md-nav--secondary" aria-label="このページの目次">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      このページの目次
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        収録項目
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="収録項目">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#ddl" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        DDL変更対応
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        エラー処理
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        サブスクリプション管理
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        データストア接続
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_5" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ブックマーク
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_6" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ブックマーク管理
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_7" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        マッピング管理
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_8" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ミラーリング
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_9" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        リフレッシュ制御
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_10" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ログ依存・サポート
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_11" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        性能統計
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_12" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        複製状態監視
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+                
+
+
+
+  
+
+
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<h1 id="ibm-iidr-114">IBM IIDR 11.4<a class="headerlink" href="#ibm-iidr-114" title="Permanent link">&para;</a></h1>
+<div class="kb-cov">
+<p><strong>技術項目 560 件</strong>  ／  QA対応 560（100.0%・不足 0）  ／  手順対応 560（100.0%・不足 0）</p>
+</div>
+<p>このカテゴリでは技術項目 560 件を掲載し、確認問題 560 問・検証手順 560 件を項目ごとに紐づけています。対応率は技術項目に明示的に対応付けられた件数で算出しています（増補継続中）。</p>
+<blockquote>
+<p>最終更新: 2026-07-16</p>
+</blockquote>
+<h2 id="_1">収録項目<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h2>
+<h3 id="ddl">DDL変更対応<a class="headerlink" href="#ddl" title="Permanent link">&para;</a></h3>
+<ul>
+<li><a href="part-01/#c11-i0001">DDL後の表定義更新 Head of Log 0011</a></li>
+<li><a href="part-01/#c11-i0002">DDL後の表定義更新 Head of Log 0026</a></li>
+<li><a href="part-01/#c11-i0003">DDL後の表定義更新 Head of Log 0041</a></li>
+<li><a href="part-01/#c11-i0004">DDL後の表定義更新 Head of Log 0056</a></li>
+<li><a href="part-01/#c11-i0005">DDL後の表定義更新 Head of Log 0071</a></li>
+<li><a href="part-01/#c11-i0006">DDL後の表定義更新 Head of Log 0086</a></li>
+<li><a href="part-01/#c11-i0007">DDL後の表定義更新 Head of Log 0101</a></li>
+<li><a href="part-01/#c11-i0008">DDL後の表定義更新 Head of Log 0116</a></li>
+<li><a href="part-01/#c11-i0009">DDL後の表定義更新 Head of Log 0131</a></li>
+<li><a href="part-01/#c11-i0010">DDL後の表定義更新 Head of Log 0146</a></li>
+<li><a href="part-01/#c11-i0011">DDL後の表定義更新 Head of Log 0161</a></li>
+<li><a href="part-01/#c11-i0012">DDL後の表定義更新 Head of Log 0176</a></li>
+<li><a href="part-01/#c11-i0013">DDL後の表定義更新 Head of Log 0191</a></li>
+<li><a href="part-01/#c11-i0014">DDL後の表定義更新 Head of Log 0206</a></li>
+<li><a href="part-01/#c11-i0015">DDL後の表定義更新 Head of Log 0221</a></li>
+<li><a href="part-01/#c11-i0016">DDL後の表定義更新 Head of Log 0236</a></li>
+<li><a href="part-01/#c11-i0017">DDL後の表定義更新 Head of Log 0251</a></li>
+<li><a href="part-01/#c11-i0018">DDL後の表定義更新 Head of Log 0266</a></li>
+<li><a href="part-01/#c11-i0019">DDL後の表定義更新 Head of Log 0281</a></li>
+<li><a href="part-01/#c11-i0020">DDL後の表定義更新 Head of Log 0296</a></li>
+<li><a href="part-01/#c11-i0021">DDL後の表定義更新 Head of Log 0311</a></li>
+<li><a href="part-01/#c11-i0022">DDL後の表定義更新 Head of Log 0326</a></li>
+<li><a href="part-01/#c11-i0023">DDL後の表定義更新 Head of Log 0341</a></li>
+<li><a href="part-01/#c11-i0024">DDL後の表定義更新 Head of Log 0356</a></li>
+<li><a href="part-01/#c11-i0025">DDL後の表定義更新 Refresh Table 0008</a></li>
+<li><a href="part-01/#c11-i0026">DDL後の表定義更新 Refresh Table 0023</a></li>
+<li><a href="part-01/#c11-i0027">DDL後の表定義更新 Refresh Table 0038</a></li>
+<li><a href="part-01/#c11-i0028">DDL後の表定義更新 Refresh Table 0053</a></li>
+<li><a href="part-01/#c11-i0029">DDL後の表定義更新 Refresh Table 0068</a></li>
+<li><a href="part-01/#c11-i0030">DDL後の表定義更新 Refresh Table 0083</a></li>
+<li><a href="part-01/#c11-i0031">DDL後の表定義更新 Refresh Table 0098</a></li>
+<li><a href="part-01/#c11-i0032">DDL後の表定義更新 Refresh Table 0113</a></li>
+<li><a href="part-01/#c11-i0033">DDL後の表定義更新 Refresh Table 0128</a></li>
+<li><a href="part-01/#c11-i0034">DDL後の表定義更新 Refresh Table 0143</a></li>
+<li><a href="part-01/#c11-i0035">DDL後の表定義更新 Refresh Table 0158</a></li>
+<li><a href="part-01/#c11-i0036">DDL後の表定義更新 Refresh Table 0173</a></li>
+<li><a href="part-01/#c11-i0037">DDL後の表定義更新 Refresh Table 0188</a></li>
+<li><a href="part-01/#c11-i0038">DDL後の表定義更新 Refresh Table 0203</a></li>
+<li><a href="part-01/#c11-i0039">DDL後の表定義更新 Refresh Table 0218</a></li>
+<li><a href="part-01/#c11-i0040">DDL後の表定義更新 Refresh Table 0233</a></li>
+<li><a href="part-01/#c11-i0041">DDL後の表定義更新 Refresh Table 0248</a></li>
+<li><a href="part-01/#c11-i0042">DDL後の表定義更新 Refresh Table 0263</a></li>
+<li><a href="part-01/#c11-i0043">DDL後の表定義更新 Refresh Table 0278</a></li>
+<li><a href="part-01/#c11-i0044">DDL後の表定義更新 Refresh Table 0293</a></li>
+<li><a href="part-01/#c11-i0045">DDL後の表定義更新 Refresh Table 0308</a></li>
+<li><a href="part-01/#c11-i0046">DDL後の表定義更新 Refresh Table 0323</a></li>
+<li><a href="part-01/#c11-i0047">DDL後の表定義更新 Refresh Table 0338</a></li>
+<li><a href="part-01/#c11-i0048">DDL後の表定義更新 Refresh Table 0353</a></li>
+<li><a href="part-01/#c11-i0049">DDL後の表定義更新 Source Table 0005</a></li>
+<li><a href="part-01/#c11-i0050">DDL後の表定義更新 Source Table 0020</a></li>
+<li><a href="part-01/#c11-i0051">DDL後の表定義更新 Source Table 0035</a></li>
+<li><a href="part-01/#c11-i0052">DDL後の表定義更新 Source Table 0050</a></li>
+<li><a href="part-01/#c11-i0053">DDL後の表定義更新 Source Table 0065</a></li>
+<li><a href="part-01/#c11-i0054">DDL後の表定義更新 Source Table 0080</a></li>
+<li><a href="part-01/#c11-i0055">DDL後の表定義更新 Source Table 0095</a></li>
+<li><a href="part-01/#c11-i0056">DDL後の表定義更新 Source Table 0110</a></li>
+<li><a href="part-01/#c11-i0057">DDL後の表定義更新 Source Table 0125</a></li>
+<li><a href="part-01/#c11-i0058">DDL後の表定義更新 Source Table 0140</a></li>
+<li><a href="part-01/#c11-i0059">DDL後の表定義更新 Source Table 0155</a></li>
+<li><a href="part-01/#c11-i0060">DDL後の表定義更新 Source Table 0170</a></li>
+<li><a href="part-01/#c11-i0061">DDL後の表定義更新 Source Table 0185</a></li>
+<li><a href="part-01/#c11-i0062">DDL後の表定義更新 Source Table 0200</a></li>
+<li><a href="part-01/#c11-i0063">DDL後の表定義更新 Source Table 0215</a></li>
+<li><a href="part-01/#c11-i0064">DDL後の表定義更新 Source Table 0230</a></li>
+<li><a href="part-01/#c11-i0065">DDL後の表定義更新 Source Table 0245</a></li>
+<li><a href="part-01/#c11-i0066">DDL後の表定義更新 Source Table 0260</a></li>
+<li><a href="part-01/#c11-i0067">DDL後の表定義更新 Source Table 0275</a></li>
+<li><a href="part-01/#c11-i0068">DDL後の表定義更新 Source Table 0290</a></li>
+<li><a href="part-01/#c11-i0069">DDL後の表定義更新 Source Table 0305</a></li>
+<li><a href="part-01/#c11-i0070">DDL後の表定義更新 Source Table 0320</a></li>
+<li><a href="part-01/#c11-i0071">DDL後の表定義更新 Source Table 0335</a></li>
+<li><a href="part-01/#c11-i0072">DDL後の表定義更新 Source Table 0350</a></li>
+<li><a href="part-01/#c11-i0073">DDL後の表定義更新 Subscription 0002</a></li>
+<li><a href="part-01/#c11-i0074">DDL後の表定義更新 Subscription 0017</a></li>
+<li><a href="part-01/#c11-i0075">DDL後の表定義更新 Subscription 0032</a></li>
+<li><a href="part-01/#c11-i0076">DDL後の表定義更新 Subscription 0047</a></li>
+<li><a href="part-01/#c11-i0077">DDL後の表定義更新 Subscription 0062</a></li>
+<li><a href="part-01/#c11-i0078">DDL後の表定義更新 Subscription 0077</a></li>
+<li><a href="part-01/#c11-i0079">DDL後の表定義更新 Subscription 0092</a></li>
+<li><a href="part-01/#c11-i0080">DDL後の表定義更新 Subscription 0107</a></li>
+<li><a href="part-01/#c11-i0081">DDL後の表定義更新 Subscription 0122</a></li>
+<li><a href="part-01/#c11-i0082">DDL後の表定義更新 Subscription 0137</a></li>
+<li><a href="part-01/#c11-i0083">DDL後の表定義更新 Subscription 0152</a></li>
+<li><a href="part-01/#c11-i0084">DDL後の表定義更新 Subscription 0167</a></li>
+<li><a href="part-01/#c11-i0085">DDL後の表定義更新 Subscription 0182</a></li>
+<li><a href="part-01/#c11-i0086">DDL後の表定義更新 Subscription 0197</a></li>
+<li><a href="part-01/#c11-i0087">DDL後の表定義更新 Subscription 0212</a></li>
+<li><a href="part-01/#c11-i0088">DDL後の表定義更新 Subscription 0227</a></li>
+<li><a href="part-01/#c11-i0089">DDL後の表定義更新 Subscription 0242</a></li>
+<li><a href="part-01/#c11-i0090">DDL後の表定義更新 Subscription 0257</a></li>
+<li><a href="part-01/#c11-i0091">DDL後の表定義更新 Subscription 0272</a></li>
+<li><a href="part-01/#c11-i0092">DDL後の表定義更新 Subscription 0287</a></li>
+<li><a href="part-01/#c11-i0093">DDL後の表定義更新 Subscription 0302</a></li>
+<li><a href="part-01/#c11-i0094">DDL後の表定義更新 Subscription 0317</a></li>
+<li><a href="part-01/#c11-i0095">DDL後の表定義更新 Subscription 0332</a></li>
+<li><a href="part-01/#c11-i0096">DDL後の表定義更新 Subscription 0347</a></li>
+<li><a href="part-01/#c11-i0097">DDL後の表定義更新 Table Definition 0014</a></li>
+<li><a href="part-01/#c11-i0098">DDL後の表定義更新 Table Definition 0029</a></li>
+<li><a href="part-01/#c11-i0099">DDL後の表定義更新 Table Definition 0044</a></li>
+<li><a href="part-01/#c11-i0100">DDL後の表定義更新 Table Definition 0059</a></li>
+<li><a href="part-01/#c11-i0101">DDL後の表定義更新 Table Definition 0074</a></li>
+<li><a href="part-01/#c11-i0102">DDL後の表定義更新 Table Definition 0089</a></li>
+<li><a href="part-01/#c11-i0103">DDL後の表定義更新 Table Definition 0104</a></li>
+<li><a href="part-01/#c11-i0104">DDL後の表定義更新 Table Definition 0119</a></li>
+<li><a href="part-01/#c11-i0105">DDL後の表定義更新 Table Definition 0134</a></li>
+<li><a href="part-01/#c11-i0106">DDL後の表定義更新 Table Definition 0149</a></li>
+<li><a href="part-01/#c11-i0107">DDL後の表定義更新 Table Definition 0164</a></li>
+<li><a href="part-01/#c11-i0108">DDL後の表定義更新 Table Definition 0179</a></li>
+<li><a href="part-01/#c11-i0109">DDL後の表定義更新 Table Definition 0194</a></li>
+<li><a href="part-01/#c11-i0110">DDL後の表定義更新 Table Definition 0209</a></li>
+<li><a href="part-01/#c11-i0111">DDL後の表定義更新 Table Definition 0224</a></li>
+<li><a href="part-01/#c11-i0112">DDL後の表定義更新 Table Definition 0239</a></li>
+<li><a href="part-01/#c11-i0113">DDL後の表定義更新 Table Definition 0254</a></li>
+<li><a href="part-01/#c11-i0114">DDL後の表定義更新 Table Definition 0269</a></li>
+<li><a href="part-01/#c11-i0115">DDL後の表定義更新 Table Definition 0284</a></li>
+<li><a href="part-01/#c11-i0116">DDL後の表定義更新 Table Definition 0299</a></li>
+<li><a href="part-01/#c11-i0117">DDL後の表定義更新 Table Definition 0314</a></li>
+<li><a href="part-01/#c11-i0118">DDL後の表定義更新 Table Definition 0329</a></li>
+<li><a href="part-01/#c11-i0119">DDL後の表定義更新 Table Definition 0344</a></li>
+<li><a href="part-01/#c11-i0120">DDL後の表定義更新 Table Definition 0359</a></li>
+</ul>
+<h3 id="_2">エラー処理<a class="headerlink" href="#_2" title="Permanent link">&para;</a></h3>
+<ul>
+<li><a href="part-01/#c11-i0121">CHCCLP 初期同期判定 時刻合わせ</a></li>
+<li><a href="part-01/#c11-i0122">CHCCLP 開始位置指定 レビュー結果</a></li>
+<li><a href="part-01/#c11-i0123">capture service マッピング検査 接続認証</a></li>
+<li><a href="part-01/#c11-i0124">capture service 統計採取 接続状態</a></li>
+<li><a href="part-01/#c11-i0125">refresh ログ位置照合 ノード割当</a></li>
+<li><a href="part-01/#c11-i0126">refresh 失敗時切り分け 詳細表示</a></li>
+<li><a href="part-01/#c11-i0127">replication mapping 状態確認 文字変換</a></li>
+<li><a href="part-01/#c11-i0128">replication mapping 遅延監視 受信操作</a></li>
+<li><a href="part-01/#c11-i0129">subscription 初期同期判定 統合管理</a></li>
+<li><a href="part-01/#c11-i0130">subscription 開始位置指定 遅延表示</a></li>
+<li><a href="part-01/#c11-i0131">エラー処理 CDC Event Log ログとの照合 ERR07</a></li>
+<li><a href="part-01/#c11-i0132">エラー処理 CDC Event Log 代替経路の確認 ERR10</a></li>
+<li><a href="part-01/#c11-i0133">エラー処理 CDC Event Log 依存関係の確認 ERR13</a></li>
+<li><a href="part-01/#c11-i0134">エラー処理 CDC Event Log 停止前の確認 ERR14</a></li>
+<li><a href="part-01/#c11-i0135">エラー処理 CDC Event Log 再始動後の確認 ERR15</a></li>
+<li><a href="part-01/#c11-i0136">エラー処理 CDC Event Log 変更前の確認 ERR02</a></li>
+<li><a href="part-01/#c11-i0137">エラー処理 CDC Event Log 変更後の確認 ERR03</a></li>
+<li><a href="part-01/#c11-i0138">エラー処理 CDC Event Log 引継ぎ記録 ERR09</a></li>
+<li><a href="part-01/#c11-i0139">エラー処理 CDC Event Log 復旧後の確認 ERR06</a></li>
+<li><a href="part-01/#c11-i0140">エラー処理 CDC Event Log 復旧準備 ERR05</a></li>
+<li><a href="part-01/#c11-i0141">エラー処理 CDC Event Log 性能影響の確認 ERR11</a></li>
+<li><a href="part-01/#c11-i0142">エラー処理 CDC Event Log 構成監査 ERR08</a></li>
+<li><a href="part-01/#c11-i0143">エラー処理 CDC Event Log 権限境界の確認 ERR12</a></li>
+<li><a href="part-01/#c11-i0144">エラー処理 CDC Event Log 通常状態の確認 ERR01</a></li>
+<li><a href="part-01/#c11-i0145">エラー処理 CDC Event Log 障害切り分け ERR04</a></li>
+</ul>
+<h3 id="_3">サブスクリプション管理<a class="headerlink" href="#_3" title="Permanent link">&para;</a></h3>
+<ul>
+<li><a href="part-01/#c11-i0146">CHCCLP 状態確認 復旧手掛かり</a></li>
+<li><a href="part-01/#c11-i0147">CHCCLP 遅延監視 ドメイン値</a></li>
+<li><a href="part-01/#c11-i0148">capture service ログ位置照合 キーマップ</a></li>
+<li><a href="part-01/#c11-i0149">capture service 失敗時切り分け 翻訳表</a></li>
+<li><a href="part-01/#c11-i0150">refresh 初期同期判定 自動処理</a></li>
+<li><a href="part-01/#c11-i0151">refresh 開始位置指定 同期範囲</a></li>
+<li><a href="part-01/#c11-i0152">replication mapping マッピング検査 再同期判断</a></li>
+<li><a href="part-01/#c11-i0153">replication mapping 統計採取 収集装置</a></li>
+<li><a href="part-01/#c11-i0154">subscription 状態確認 開始時刻</a></li>
+<li><a href="part-01/#c11-i0155">subscription 遅延監視 容量表示</a></li>
+<li><a href="part-01/#c11-i0156">サブスクリプション管理 CDC Subscription ログとの照合 SUB07</a></li>
+<li><a href="part-01/#c11-i0157">サブスクリプション管理 CDC Subscription 代替経路の確認 SUB10</a></li>
+<li><a href="part-01/#c11-i0158">サブスクリプション管理 CDC Subscription 依存関係の確認 SUB13</a></li>
+<li><a href="part-01/#c11-i0159">サブスクリプション管理 CDC Subscription 停止前の確認 SUB14</a></li>
+<li><a href="part-01/#c11-i0160">サブスクリプション管理 CDC Subscription 再始動後の確認 SUB15</a></li>
+<li><a href="part-01/#c11-i0161">サブスクリプション管理 CDC Subscription 変更前の確認 SUB02</a></li>
+<li><a href="part-01/#c11-i0162">サブスクリプション管理 CDC Subscription 変更後の確認 SUB03</a></li>
+<li><a href="part-01/#c11-i0163">サブスクリプション管理 CDC Subscription 引継ぎ記録 SUB09</a></li>
+<li><a href="part-01/#c11-i0164">サブスクリプション管理 CDC Subscription 復旧後の確認 SUB06</a></li>
+<li><a href="part-01/#c11-i0165">サブスクリプション管理 CDC Subscription 復旧準備 SUB05</a></li>
+<li><a href="part-01/#c11-i0166">サブスクリプション管理 CDC Subscription 性能影響の確認 SUB11</a></li>
+<li><a href="part-02/#c11-i0167">サブスクリプション管理 CDC Subscription 構成監査 SUB08</a></li>
+<li><a href="part-02/#c11-i0168">サブスクリプション管理 CDC Subscription 権限境界の確認 SUB12</a></li>
+<li><a href="part-02/#c11-i0169">サブスクリプション管理 CDC Subscription 通常状態の確認 SUB01</a></li>
+<li><a href="part-02/#c11-i0170">サブスクリプション管理 CDC Subscription 障害切り分け SUB04</a></li>
+</ul>
+<h3 id="_4">データストア接続<a class="headerlink" href="#_4" title="Permanent link">&para;</a></h3>
+<ul>
+<li><a href="part-02/#c11-i0171">CHC0368I 初期同期判定 管理クラス</a></li>
+<li><a href="part-02/#c11-i0172">CHC0368I 開始位置指定 監査証跡</a></li>
+<li><a href="part-02/#c11-i0173">apply task マッピング検査 保存場所</a></li>
+<li><a href="part-02/#c11-i0174">apply task 統計採取 マクロ実行</a></li>
+<li><a href="part-02/#c11-i0175">bookmark 状態確認 集約装置</a></li>
+<li><a href="part-02/#c11-i0176">bookmark 遅延監視 適用位置</a></li>
+<li><a href="part-02/#c11-i0177">datastore 初期同期判定 期限切れ</a></li>
+<li><a href="part-02/#c11-i0178">datastore 開始位置指定 停止時刻</a></li>
+<li><a href="part-02/#c11-i0179">performance statistics ログ位置照合 集約結果</a></li>
+<li><a href="part-02/#c11-i0180">performance statistics 失敗時切り分け 一覧画面</a></li>
+<li><a href="part-02/#c11-i0181">データストア接続 CDC Datastore ログとの照合 STORE07</a></li>
+<li><a href="part-02/#c11-i0182">データストア接続 CDC Datastore 代替経路の確認 STORE10</a></li>
+<li><a href="part-02/#c11-i0183">データストア接続 CDC Datastore 依存関係の確認 STORE13</a></li>
+<li><a href="part-02/#c11-i0184">データストア接続 CDC Datastore 停止前の確認 STORE14</a></li>
+<li><a href="part-02/#c11-i0185">データストア接続 CDC Datastore 再始動後の確認 STORE15</a></li>
+<li><a href="part-02/#c11-i0186">データストア接続 CDC Datastore 変更前の確認 STORE02</a></li>
+<li><a href="part-02/#c11-i0187">データストア接続 CDC Datastore 変更後の確認 STORE03</a></li>
+<li><a href="part-02/#c11-i0188">データストア接続 CDC Datastore 引継ぎ記録 STORE09</a></li>
+<li><a href="part-02/#c11-i0189">データストア接続 CDC Datastore 復旧後の確認 STORE06</a></li>
+<li><a href="part-02/#c11-i0190">データストア接続 CDC Datastore 復旧準備 STORE05</a></li>
+<li><a href="part-02/#c11-i0191">データストア接続 CDC Datastore 性能影響の確認 STORE11</a></li>
+<li><a href="part-02/#c11-i0192">データストア接続 CDC Datastore 構成監査 STORE08</a></li>
+<li><a href="part-02/#c11-i0193">データストア接続 CDC Datastore 権限境界の確認 STORE12</a></li>
+<li><a href="part-02/#c11-i0194">データストア接続 CDC Datastore 通常状態の確認 STORE01</a></li>
+<li><a href="part-02/#c11-i0195">データストア接続 CDC Datastore 障害切り分け STORE04</a></li>
+</ul>
+<h3 id="_5">ブックマーク<a class="headerlink" href="#_5" title="Permanent link">&para;</a></h3>
+<ul>
+<li><a href="part-02/#c11-i0196">複製位置管理 Bookmark 0009</a></li>
+<li><a href="part-02/#c11-i0197">複製位置管理 Bookmark 0024</a></li>
+<li><a href="part-02/#c11-i0198">複製位置管理 Bookmark 0039</a></li>
+<li><a href="part-02/#c11-i0199">複製位置管理 Bookmark 0054</a></li>
+<li><a href="part-02/#c11-i0200">複製位置管理 Bookmark 0069</a></li>
+<li><a href="part-02/#c11-i0201">複製位置管理 Bookmark 0084</a></li>
+<li><a href="part-02/#c11-i0202">複製位置管理 Bookmark 0099</a></li>
+<li><a href="part-02/#c11-i0203">複製位置管理 Bookmark 0114</a></li>
+<li><a href="part-02/#c11-i0204">複製位置管理 Bookmark 0129</a></li>
+<li><a href="part-02/#c11-i0205">複製位置管理 Bookmark 0144</a></li>
+<li><a href="part-02/#c11-i0206">複製位置管理 Bookmark 0159</a></li>
+<li><a href="part-02/#c11-i0207">複製位置管理 Bookmark 0174</a></li>
+<li><a href="part-02/#c11-i0208">複製位置管理 Bookmark 0189</a></li>
+<li><a href="part-02/#c11-i0209">複製位置管理 Bookmark 0204</a></li>
+<li><a href="part-02/#c11-i0210">複製位置管理 Bookmark 0219</a></li>
+<li><a href="part-02/#c11-i0211">複製位置管理 Bookmark 0234</a></li>
+<li><a href="part-02/#c11-i0212">複製位置管理 Bookmark 0249</a></li>
+<li><a href="part-02/#c11-i0213">複製位置管理 Bookmark 0264</a></li>
+<li><a href="part-02/#c11-i0214">複製位置管理 Bookmark 0279</a></li>
+<li><a href="part-02/#c11-i0215">複製位置管理 Bookmark 0294</a></li>
+<li><a href="part-02/#c11-i0216">複製位置管理 Bookmark 0309</a></li>
+<li><a href="part-02/#c11-i0217">複製位置管理 Bookmark 0324</a></li>
+<li><a href="part-02/#c11-i0218">複製位置管理 Bookmark 0339</a></li>
+<li><a href="part-02/#c11-i0219">複製位置管理 Bookmark 0354</a></li>
+<li><a href="part-02/#c11-i0220">複製位置管理 Hex Position 0006</a></li>
+<li><a href="part-02/#c11-i0221">複製位置管理 Hex Position 0021</a></li>
+<li><a href="part-02/#c11-i0222">複製位置管理 Hex Position 0036</a></li>
+<li><a href="part-02/#c11-i0223">複製位置管理 Hex Position 0051</a></li>
+<li><a href="part-02/#c11-i0224">複製位置管理 Hex Position 0066</a></li>
+<li><a href="part-02/#c11-i0225">複製位置管理 Hex Position 0081</a></li>
+<li><a href="part-02/#c11-i0226">複製位置管理 Hex Position 0096</a></li>
+<li><a href="part-02/#c11-i0227">複製位置管理 Hex Position 0111</a></li>
+<li><a href="part-02/#c11-i0228">複製位置管理 Hex Position 0126</a></li>
+<li><a href="part-02/#c11-i0229">複製位置管理 Hex Position 0141</a></li>
+<li><a href="part-02/#c11-i0230">複製位置管理 Hex Position 0156</a></li>
+<li><a href="part-02/#c11-i0231">複製位置管理 Hex Position 0171</a></li>
+<li><a href="part-02/#c11-i0232">複製位置管理 Hex Position 0186</a></li>
+<li><a href="part-02/#c11-i0233">複製位置管理 Hex Position 0201</a></li>
+<li><a href="part-02/#c11-i0234">複製位置管理 Hex Position 0216</a></li>
+<li><a href="part-02/#c11-i0235">複製位置管理 Hex Position 0231</a></li>
+<li><a href="part-02/#c11-i0236">複製位置管理 Hex Position 0246</a></li>
+<li><a href="part-02/#c11-i0237">複製位置管理 Hex Position 0261</a></li>
+<li><a href="part-02/#c11-i0238">複製位置管理 Hex Position 0276</a></li>
+<li><a href="part-02/#c11-i0239">複製位置管理 Hex Position 0291</a></li>
+<li><a href="part-02/#c11-i0240">複製位置管理 Hex Position 0306</a></li>
+<li><a href="part-02/#c11-i0241">複製位置管理 Hex Position 0321</a></li>
+<li><a href="part-02/#c11-i0242">複製位置管理 Hex Position 0336</a></li>
+<li><a href="part-02/#c11-i0243">複製位置管理 Hex Position 0351</a></li>
+<li><a href="part-02/#c11-i0244">複製位置管理 Instance 0003</a></li>
+<li><a href="part-02/#c11-i0245">複製位置管理 Instance 0018</a></li>
+<li><a href="part-02/#c11-i0246">複製位置管理 Instance 0033</a></li>
+<li><a href="part-02/#c11-i0247">複製位置管理 Instance 0048</a></li>
+<li><a href="part-02/#c11-i0248">複製位置管理 Instance 0063</a></li>
+<li><a href="part-02/#c11-i0249">複製位置管理 Instance 0078</a></li>
+<li><a href="part-02/#c11-i0250">複製位置管理 Instance 0093</a></li>
+<li><a href="part-02/#c11-i0251">複製位置管理 Instance 0108</a></li>
+<li><a href="part-02/#c11-i0252">複製位置管理 Instance 0123</a></li>
+<li><a href="part-02/#c11-i0253">複製位置管理 Instance 0138</a></li>
+<li><a href="part-02/#c11-i0254">複製位置管理 Instance 0153</a></li>
+<li><a href="part-02/#c11-i0255">複製位置管理 Instance 0168</a></li>
+<li><a href="part-02/#c11-i0256">複製位置管理 Instance 0183</a></li>
+<li><a href="part-02/#c11-i0257">複製位置管理 Instance 0198</a></li>
+<li><a href="part-02/#c11-i0258">複製位置管理 Instance 0213</a></li>
+<li><a href="part-02/#c11-i0259">複製位置管理 Instance 0228</a></li>
+<li><a href="part-02/#c11-i0260">複製位置管理 Instance 0243</a></li>
+<li><a href="part-02/#c11-i0261">複製位置管理 Instance 0258</a></li>
+<li><a href="part-02/#c11-i0262">複製位置管理 Instance 0273</a></li>
+<li><a href="part-02/#c11-i0263">複製位置管理 Instance 0288</a></li>
+<li><a href="part-02/#c11-i0264">複製位置管理 Instance 0303</a></li>
+<li><a href="part-02/#c11-i0265">複製位置管理 Instance 0318</a></li>
+<li><a href="part-02/#c11-i0266">複製位置管理 Instance 0333</a></li>
+<li><a href="part-02/#c11-i0267">複製位置管理 Instance 0348</a></li>
+<li><a href="part-02/#c11-i0268">複製位置管理 Locale 0012</a></li>
+<li><a href="part-02/#c11-i0269">複製位置管理 Locale 0027</a></li>
+<li><a href="part-02/#c11-i0270">複製位置管理 Locale 0042</a></li>
+<li><a href="part-02/#c11-i0271">複製位置管理 Locale 0057</a></li>
+<li><a href="part-02/#c11-i0272">複製位置管理 Locale 0072</a></li>
+<li><a href="part-02/#c11-i0273">複製位置管理 Locale 0087</a></li>
+<li><a href="part-02/#c11-i0274">複製位置管理 Locale 0102</a></li>
+<li><a href="part-02/#c11-i0275">複製位置管理 Locale 0117</a></li>
+<li><a href="part-02/#c11-i0276">複製位置管理 Locale 0132</a></li>
+<li><a href="part-02/#c11-i0277">複製位置管理 Locale 0147</a></li>
+<li><a href="part-02/#c11-i0278">複製位置管理 Locale 0162</a></li>
+<li><a href="part-02/#c11-i0279">複製位置管理 Locale 0177</a></li>
+<li><a href="part-02/#c11-i0280">複製位置管理 Locale 0192</a></li>
+<li><a href="part-02/#c11-i0281">複製位置管理 Locale 0207</a></li>
+<li><a href="part-02/#c11-i0282">複製位置管理 Locale 0222</a></li>
+<li><a href="part-02/#c11-i0283">複製位置管理 Locale 0237</a></li>
+<li><a href="part-02/#c11-i0284">複製位置管理 Locale 0252</a></li>
+<li><a href="part-02/#c11-i0285">複製位置管理 Locale 0267</a></li>
+<li><a href="part-02/#c11-i0286">複製位置管理 Locale 0282</a></li>
+<li><a href="part-02/#c11-i0287">複製位置管理 Locale 0297</a></li>
+<li><a href="part-02/#c11-i0288">複製位置管理 Locale 0312</a></li>
+<li><a href="part-02/#c11-i0289">複製位置管理 Locale 0327</a></li>
+<li><a href="part-02/#c11-i0290">複製位置管理 Locale 0342</a></li>
+<li><a href="part-02/#c11-i0291">複製位置管理 Locale 0357</a></li>
+<li><a href="part-02/#c11-i0292">複製位置管理 Subscription 0015</a></li>
+<li><a href="part-02/#c11-i0293">複製位置管理 Subscription 0030</a></li>
+<li><a href="part-02/#c11-i0294">複製位置管理 Subscription 0045</a></li>
+<li><a href="part-02/#c11-i0295">複製位置管理 Subscription 0060</a></li>
+<li><a href="part-02/#c11-i0296">複製位置管理 Subscription 0075</a></li>
+<li><a href="part-02/#c11-i0297">複製位置管理 Subscription 0090</a></li>
+<li><a href="part-02/#c11-i0298">複製位置管理 Subscription 0105</a></li>
+<li><a href="part-02/#c11-i0299">複製位置管理 Subscription 0120</a></li>
+<li><a href="part-02/#c11-i0300">複製位置管理 Subscription 0135</a></li>
+<li><a href="part-02/#c11-i0301">複製位置管理 Subscription 0150</a></li>
+<li><a href="part-02/#c11-i0302">複製位置管理 Subscription 0165</a></li>
+<li><a href="part-02/#c11-i0303">複製位置管理 Subscription 0180</a></li>
+<li><a href="part-02/#c11-i0304">複製位置管理 Subscription 0195</a></li>
+<li><a href="part-02/#c11-i0305">複製位置管理 Subscription 0210</a></li>
+<li><a href="part-02/#c11-i0306">複製位置管理 Subscription 0225</a></li>
+<li><a href="part-02/#c11-i0307">複製位置管理 Subscription 0240</a></li>
+<li><a href="part-02/#c11-i0308">複製位置管理 Subscription 0255</a></li>
+<li><a href="part-02/#c11-i0309">複製位置管理 Subscription 0270</a></li>
+<li><a href="part-02/#c11-i0310">複製位置管理 Subscription 0285</a></li>
+<li><a href="part-02/#c11-i0311">複製位置管理 Subscription 0300</a></li>
+<li><a href="part-02/#c11-i0312">複製位置管理 Subscription 0315</a></li>
+<li><a href="part-02/#c11-i0313">複製位置管理 Subscription 0330</a></li>
+<li><a href="part-02/#c11-i0314">複製位置管理 Subscription 0345</a></li>
+<li><a href="part-02/#c11-i0315">複製位置管理 Subscription 0360</a></li>
+</ul>
+<h3 id="_6">ブックマーク管理<a class="headerlink" href="#_6" title="Permanent link">&para;</a></h3>
+<ul>
+<li><a href="part-02/#c11-i0316">CHC0368I ログ位置照合 キュー状態</a></li>
+<li><a href="part-02/#c11-i0317">CHC0368I 失敗時切り分け アーカイブ</a></li>
+<li><a href="part-02/#c11-i0318">apply task 状態確認 構成配布</a></li>
+<li><a href="part-02/#c11-i0319">apply task 遅延監視 更新配布</a></li>
+<li><a href="part-02/#c11-i0320">bookmark 初期同期判定 送信操作</a></li>
+<li><a href="part-02/#c11-i0321">bookmark 開始位置指定 証明書検査</a></li>
+<li><a href="part-02/#c11-i0322">datastore ログ位置照合 初期同期</a></li>
+<li><a href="part-02/#c11-i0323">datastore 失敗時切り分け 分散定義</a></li>
+<li><a href="part-02/#c11-i0324">performance statistics マッピング検査 プール宛先</a></li>
+<li><a href="part-02/#c11-i0325">performance statistics 統計採取 差分確認</a></li>
+</ul>
+<h3 id="_7">マッピング管理<a class="headerlink" href="#_7" title="Permanent link">&para;</a></h3>
+<ul>
+<li><a href="part-02/#c11-i0326">CHCCLP マッピング検査 変換規則</a></li>
+<li><a href="part-02/#c11-i0327">CHCCLP 統計採取 詳細タブ</a></li>
+<li><a href="part-02/#c11-i0328">capture service 初期同期判定 取得間隔</a></li>
+<li><a href="part-02/#c11-i0329">capture service 開始位置指定 検査エンジン</a></li>
+<li><a href="part-02/#c11-i0330">refresh 状態確認 外部連携</a></li>
+<li><a href="part-02/#c11-i0331">refresh 遅延監視 入力欄</a></li>
+<li><a href="part-02/#c11-i0332">replication mapping ログ位置照合 接続先</a></li>
+<li><a href="part-02/#c11-i0333">replication mapping 失敗時切り分け 復元前提</a></li>
+<li><a href="part-03/#c11-i0334">subscription マッピング検査 保持期間</a></li>
+<li><a href="part-03/#c11-i0335">subscription 統計採取 重大度</a></li>
+<li><a href="part-03/#c11-i0336">マッピング管理 Table Mapping ログとの照合 MAP07</a></li>
+<li><a href="part-03/#c11-i0337">マッピング管理 Table Mapping 代替経路の確認 MAP10</a></li>
+<li><a href="part-03/#c11-i0338">マッピング管理 Table Mapping 依存関係の確認 MAP13</a></li>
+<li><a href="part-03/#c11-i0339">マッピング管理 Table Mapping 停止前の確認 MAP14</a></li>
+<li><a href="part-03/#c11-i0340">マッピング管理 Table Mapping 再始動後の確認 MAP15</a></li>
+<li><a href="part-03/#c11-i0341">マッピング管理 Table Mapping 変更前の確認 MAP02</a></li>
+<li><a href="part-03/#c11-i0342">マッピング管理 Table Mapping 変更後の確認 MAP03</a></li>
+<li><a href="part-03/#c11-i0343">マッピング管理 Table Mapping 引継ぎ記録 MAP09</a></li>
+<li><a href="part-03/#c11-i0344">マッピング管理 Table Mapping 復旧後の確認 MAP06</a></li>
+<li><a href="part-03/#c11-i0345">マッピング管理 Table Mapping 復旧準備 MAP05</a></li>
+<li><a href="part-03/#c11-i0346">マッピング管理 Table Mapping 性能影響の確認 MAP11</a></li>
+<li><a href="part-03/#c11-i0347">マッピング管理 Table Mapping 構成監査 MAP08</a></li>
+<li><a href="part-03/#c11-i0348">マッピング管理 Table Mapping 権限境界の確認 MAP12</a></li>
+<li><a href="part-03/#c11-i0349">マッピング管理 Table Mapping 通常状態の確認 MAP01</a></li>
+<li><a href="part-03/#c11-i0350">マッピング管理 Table Mapping 障害切り分け MAP04</a></li>
+</ul>
+<h3 id="_8">ミラーリング<a class="headerlink" href="#_8" title="Permanent link">&para;</a></h3>
+<ul>
+<li><a href="part-03/#c11-i0351">CDCミラーリング Event Severity 0004</a></li>
+<li><a href="part-03/#c11-i0352">CDCミラーリング Event Severity 0019</a></li>
+<li><a href="part-03/#c11-i0353">CDCミラーリング Event Severity 0034</a></li>
+<li><a href="part-03/#c11-i0354">CDCミラーリング Event Severity 0049</a></li>
+<li><a href="part-03/#c11-i0355">CDCミラーリング Event Severity 0064</a></li>
+<li><a href="part-03/#c11-i0356">CDCミラーリング Event Severity 0079</a></li>
+<li><a href="part-03/#c11-i0357">CDCミラーリング Event Severity 0094</a></li>
+<li><a href="part-03/#c11-i0358">CDCミラーリング Event Severity 0109</a></li>
+<li><a href="part-03/#c11-i0359">CDCミラーリング Event Severity 0124</a></li>
+<li><a href="part-03/#c11-i0360">CDCミラーリング Event Severity 0139</a></li>
+<li><a href="part-03/#c11-i0361">CDCミラーリング Event Severity 0154</a></li>
+<li><a href="part-03/#c11-i0362">CDCミラーリング Event Severity 0169</a></li>
+<li><a href="part-03/#c11-i0363">CDCミラーリング Event Severity 0184</a></li>
+<li><a href="part-03/#c11-i0364">CDCミラーリング Event Severity 0199</a></li>
+<li><a href="part-03/#c11-i0365">CDCミラーリング Event Severity 0214</a></li>
+<li><a href="part-03/#c11-i0366">CDCミラーリング Event Severity 0229</a></li>
+<li><a href="part-03/#c11-i0367">CDCミラーリング Event Severity 0244</a></li>
+<li><a href="part-03/#c11-i0368">CDCミラーリング Event Severity 0259</a></li>
+<li><a href="part-03/#c11-i0369">CDCミラーリング Event Severity 0274</a></li>
+<li><a href="part-03/#c11-i0370">CDCミラーリング Event Severity 0289</a></li>
+<li><a href="part-03/#c11-i0371">CDCミラーリング Event Severity 0304</a></li>
+<li><a href="part-03/#c11-i0372">CDCミラーリング Event Severity 0319</a></li>
+<li><a href="part-03/#c11-i0373">CDCミラーリング Event Severity 0334</a></li>
+<li><a href="part-03/#c11-i0374">CDCミラーリング Event Severity 0349</a></li>
+<li><a href="part-03/#c11-i0375">CDCミラーリング Latency 0007</a></li>
+<li><a href="part-03/#c11-i0376">CDCミラーリング Latency 0022</a></li>
+<li><a href="part-03/#c11-i0377">CDCミラーリング Latency 0037</a></li>
+<li><a href="part-03/#c11-i0378">CDCミラーリング Latency 0052</a></li>
+<li><a href="part-03/#c11-i0379">CDCミラーリング Latency 0067</a></li>
+<li><a href="part-03/#c11-i0380">CDCミラーリング Latency 0082</a></li>
+<li><a href="part-03/#c11-i0381">CDCミラーリング Latency 0097</a></li>
+<li><a href="part-03/#c11-i0382">CDCミラーリング Latency 0112</a></li>
+<li><a href="part-03/#c11-i0383">CDCミラーリング Latency 0127</a></li>
+<li><a href="part-03/#c11-i0384">CDCミラーリング Latency 0142</a></li>
+<li><a href="part-03/#c11-i0385">CDCミラーリング Latency 0157</a></li>
+<li><a href="part-03/#c11-i0386">CDCミラーリング Latency 0172</a></li>
+<li><a href="part-03/#c11-i0387">CDCミラーリング Latency 0187</a></li>
+<li><a href="part-03/#c11-i0388">CDCミラーリング Latency 0202</a></li>
+<li><a href="part-03/#c11-i0389">CDCミラーリング Latency 0217</a></li>
+<li><a href="part-03/#c11-i0390">CDCミラーリング Latency 0232</a></li>
+<li><a href="part-03/#c11-i0391">CDCミラーリング Latency 0247</a></li>
+<li><a href="part-03/#c11-i0392">CDCミラーリング Latency 0262</a></li>
+<li><a href="part-03/#c11-i0393">CDCミラーリング Latency 0277</a></li>
+<li><a href="part-03/#c11-i0394">CDCミラーリング Latency 0292</a></li>
+<li><a href="part-03/#c11-i0395">CDCミラーリング Latency 0307</a></li>
+<li><a href="part-03/#c11-i0396">CDCミラーリング Latency 0322</a></li>
+<li><a href="part-03/#c11-i0397">CDCミラーリング Latency 0337</a></li>
+<li><a href="part-03/#c11-i0398">CDCミラーリング Latency 0352</a></li>
+<li><a href="part-03/#c11-i0399">CDCミラーリング Replication Method 0013</a></li>
+<li><a href="part-03/#c11-i0400">CDCミラーリング Replication Method 0028</a></li>
+<li><a href="part-03/#c11-i0401">CDCミラーリング Replication Method 0043</a></li>
+<li><a href="part-03/#c11-i0402">CDCミラーリング Replication Method 0058</a></li>
+<li><a href="part-03/#c11-i0403">CDCミラーリング Replication Method 0073</a></li>
+<li><a href="part-03/#c11-i0404">CDCミラーリング Replication Method 0088</a></li>
+<li><a href="part-03/#c11-i0405">CDCミラーリング Replication Method 0103</a></li>
+<li><a href="part-03/#c11-i0406">CDCミラーリング Replication Method 0118</a></li>
+<li><a href="part-03/#c11-i0407">CDCミラーリング Replication Method 0133</a></li>
+<li><a href="part-03/#c11-i0408">CDCミラーリング Replication Method 0148</a></li>
+<li><a href="part-03/#c11-i0409">CDCミラーリング Replication Method 0163</a></li>
+<li><a href="part-03/#c11-i0410">CDCミラーリング Replication Method 0178</a></li>
+<li><a href="part-03/#c11-i0411">CDCミラーリング Replication Method 0193</a></li>
+<li><a href="part-03/#c11-i0412">CDCミラーリング Replication Method 0208</a></li>
+<li><a href="part-03/#c11-i0413">CDCミラーリング Replication Method 0223</a></li>
+<li><a href="part-03/#c11-i0414">CDCミラーリング Replication Method 0238</a></li>
+<li><a href="part-03/#c11-i0415">CDCミラーリング Replication Method 0253</a></li>
+<li><a href="part-03/#c11-i0416">CDCミラーリング Replication Method 0268</a></li>
+<li><a href="part-03/#c11-i0417">CDCミラーリング Replication Method 0283</a></li>
+<li><a href="part-03/#c11-i0418">CDCミラーリング Replication Method 0298</a></li>
+<li><a href="part-03/#c11-i0419">CDCミラーリング Replication Method 0313</a></li>
+<li><a href="part-03/#c11-i0420">CDCミラーリング Replication Method 0328</a></li>
+<li><a href="part-03/#c11-i0421">CDCミラーリング Replication Method 0343</a></li>
+<li><a href="part-03/#c11-i0422">CDCミラーリング Replication Method 0358</a></li>
+<li><a href="part-03/#c11-i0423">CDCミラーリング Subscription 0001</a></li>
+<li><a href="part-03/#c11-i0424">CDCミラーリング Subscription 0016</a></li>
+<li><a href="part-03/#c11-i0425">CDCミラーリング Subscription 0031</a></li>
+<li><a href="part-03/#c11-i0426">CDCミラーリング Subscription 0046</a></li>
+<li><a href="part-03/#c11-i0427">CDCミラーリング Subscription 0061</a></li>
+<li><a href="part-03/#c11-i0428">CDCミラーリング Subscription 0076</a></li>
+<li><a href="part-03/#c11-i0429">CDCミラーリング Subscription 0091</a></li>
+<li><a href="part-03/#c11-i0430">CDCミラーリング Subscription 0106</a></li>
+<li><a href="part-03/#c11-i0431">CDCミラーリング Subscription 0121</a></li>
+<li><a href="part-03/#c11-i0432">CDCミラーリング Subscription 0136</a></li>
+<li><a href="part-03/#c11-i0433">CDCミラーリング Subscription 0151</a></li>
+<li><a href="part-03/#c11-i0434">CDCミラーリング Subscription 0166</a></li>
+<li><a href="part-03/#c11-i0435">CDCミラーリング Subscription 0181</a></li>
+<li><a href="part-03/#c11-i0436">CDCミラーリング Subscription 0196</a></li>
+<li><a href="part-03/#c11-i0437">CDCミラーリング Subscription 0211</a></li>
+<li><a href="part-03/#c11-i0438">CDCミラーリング Subscription 0226</a></li>
+<li><a href="part-03/#c11-i0439">CDCミラーリング Subscription 0241</a></li>
+<li><a href="part-03/#c11-i0440">CDCミラーリング Subscription 0256</a></li>
+<li><a href="part-03/#c11-i0441">CDCミラーリング Subscription 0271</a></li>
+<li><a href="part-03/#c11-i0442">CDCミラーリング Subscription 0286</a></li>
+<li><a href="part-03/#c11-i0443">CDCミラーリング Subscription 0301</a></li>
+<li><a href="part-03/#c11-i0444">CDCミラーリング Subscription 0316</a></li>
+<li><a href="part-03/#c11-i0445">CDCミラーリング Subscription 0331</a></li>
+<li><a href="part-03/#c11-i0446">CDCミラーリング Subscription 0346</a></li>
+<li><a href="part-03/#c11-i0447">CDCミラーリング Table Status 0010</a></li>
+<li><a href="part-03/#c11-i0448">CDCミラーリング Table Status 0025</a></li>
+<li><a href="part-03/#c11-i0449">CDCミラーリング Table Status 0040</a></li>
+<li><a href="part-03/#c11-i0450">CDCミラーリング Table Status 0055</a></li>
+<li><a href="part-03/#c11-i0451">CDCミラーリング Table Status 0070</a></li>
+<li><a href="part-03/#c11-i0452">CDCミラーリング Table Status 0085</a></li>
+<li><a href="part-03/#c11-i0453">CDCミラーリング Table Status 0100</a></li>
+<li><a href="part-03/#c11-i0454">CDCミラーリング Table Status 0115</a></li>
+<li><a href="part-03/#c11-i0455">CDCミラーリング Table Status 0130</a></li>
+<li><a href="part-03/#c11-i0456">CDCミラーリング Table Status 0145</a></li>
+<li><a href="part-03/#c11-i0457">CDCミラーリング Table Status 0160</a></li>
+<li><a href="part-03/#c11-i0458">CDCミラーリング Table Status 0175</a></li>
+<li><a href="part-03/#c11-i0459">CDCミラーリング Table Status 0190</a></li>
+<li><a href="part-03/#c11-i0460">CDCミラーリング Table Status 0205</a></li>
+<li><a href="part-03/#c11-i0461">CDCミラーリング Table Status 0220</a></li>
+<li><a href="part-03/#c11-i0462">CDCミラーリング Table Status 0235</a></li>
+<li><a href="part-03/#c11-i0463">CDCミラーリング Table Status 0250</a></li>
+<li><a href="part-03/#c11-i0464">CDCミラーリング Table Status 0265</a></li>
+<li><a href="part-03/#c11-i0465">CDCミラーリング Table Status 0280</a></li>
+<li><a href="part-03/#c11-i0466">CDCミラーリング Table Status 0295</a></li>
+<li><a href="part-03/#c11-i0467">CDCミラーリング Table Status 0310</a></li>
+<li><a href="part-03/#c11-i0468">CDCミラーリング Table Status 0325</a></li>
+<li><a href="part-03/#c11-i0469">CDCミラーリング Table Status 0340</a></li>
+<li><a href="part-03/#c11-i0470">CDCミラーリング Table Status 0355</a></li>
+</ul>
+<h3 id="_9">リフレッシュ制御<a class="headerlink" href="#_9" title="Permanent link">&para;</a></h3>
+<ul>
+<li><a href="part-03/#c11-i0471">CHCCLP ログ位置照合 ホスト検査</a></li>
+<li><a href="part-03/#c11-i0472">CHCCLP 失敗時切り分け 履歴行</a></li>
+<li><a href="part-03/#c11-i0473">capture service 状態確認 スケジュール</a></li>
+<li><a href="part-03/#c11-i0474">capture service 遅延監視 警告行</a></li>
+<li><a href="part-03/#c11-i0475">refresh マッピング検査 管理レポート</a></li>
+<li><a href="part-03/#c11-i0476">refresh 統計採取 サインオフ</a></li>
+<li><a href="part-03/#c11-i0477">replication mapping 初期同期判定 承認履歴</a></li>
+<li><a href="part-03/#c11-i0478">replication mapping 開始位置指定 ルール読替</a></li>
+<li><a href="part-03/#c11-i0479">subscription ログ位置照合 プロファイル</a></li>
+<li><a href="part-03/#c11-i0480">subscription 失敗時切り分け 保護設定</a></li>
+<li><a href="part-03/#c11-i0481">リフレッシュ制御 CDC Refresh ログとの照合 REF07</a></li>
+<li><a href="part-03/#c11-i0482">リフレッシュ制御 CDC Refresh 代替経路の確認 REF10</a></li>
+<li><a href="part-03/#c11-i0483">リフレッシュ制御 CDC Refresh 依存関係の確認 REF13</a></li>
+<li><a href="part-03/#c11-i0484">リフレッシュ制御 CDC Refresh 停止前の確認 REF14</a></li>
+<li><a href="part-03/#c11-i0485">リフレッシュ制御 CDC Refresh 再始動後の確認 REF15</a></li>
+<li><a href="part-03/#c11-i0486">リフレッシュ制御 CDC Refresh 変更前の確認 REF02</a></li>
+<li><a href="part-03/#c11-i0487">リフレッシュ制御 CDC Refresh 変更後の確認 REF03</a></li>
+<li><a href="part-03/#c11-i0488">リフレッシュ制御 CDC Refresh 引継ぎ記録 REF09</a></li>
+<li><a href="part-03/#c11-i0489">リフレッシュ制御 CDC Refresh 復旧後の確認 REF06</a></li>
+<li><a href="part-03/#c11-i0490">リフレッシュ制御 CDC Refresh 復旧準備 REF05</a></li>
+<li><a href="part-03/#c11-i0491">リフレッシュ制御 CDC Refresh 性能影響の確認 REF11</a></li>
+<li><a href="part-03/#c11-i0492">リフレッシュ制御 CDC Refresh 構成監査 REF08</a></li>
+<li><a href="part-03/#c11-i0493">リフレッシュ制御 CDC Refresh 権限境界の確認 REF12</a></li>
+<li><a href="part-03/#c11-i0494">リフレッシュ制御 CDC Refresh 通常状態の確認 REF01</a></li>
+<li><a href="part-03/#c11-i0495">リフレッシュ制御 CDC Refresh 障害切り分け REF04</a></li>
+</ul>
+<h3 id="_10">ログ依存・サポート<a class="headerlink" href="#_10" title="Permanent link">&para;</a></h3>
+<ul>
+<li><a href="part-03/#c11-i0496">ログ依存・サポート Log Dependency ログとの照合 LOG07</a></li>
+<li><a href="part-03/#c11-i0497">ログ依存・サポート Log Dependency 代替経路の確認 LOG10</a></li>
+<li><a href="part-04/#c11-i0498">ログ依存・サポート Log Dependency 依存関係の確認 LOG13</a></li>
+<li><a href="part-04/#c11-i0499">ログ依存・サポート Log Dependency 停止前の確認 LOG14</a></li>
+<li><a href="part-04/#c11-i0500">ログ依存・サポート Log Dependency 再始動後の確認 LOG15</a></li>
+<li><a href="part-04/#c11-i0501">ログ依存・サポート Log Dependency 変更前の確認 LOG02</a></li>
+<li><a href="part-04/#c11-i0502">ログ依存・サポート Log Dependency 変更後の確認 LOG03</a></li>
+<li><a href="part-04/#c11-i0503">ログ依存・サポート Log Dependency 引継ぎ記録 LOG09</a></li>
+<li><a href="part-04/#c11-i0504">ログ依存・サポート Log Dependency 復旧後の確認 LOG06</a></li>
+<li><a href="part-04/#c11-i0505">ログ依存・サポート Log Dependency 復旧準備 LOG05</a></li>
+<li><a href="part-04/#c11-i0506">ログ依存・サポート Log Dependency 性能影響の確認 LOG11</a></li>
+<li><a href="part-04/#c11-i0507">ログ依存・サポート Log Dependency 構成監査 LOG08</a></li>
+<li><a href="part-04/#c11-i0508">ログ依存・サポート Log Dependency 権限境界の確認 LOG12</a></li>
+<li><a href="part-04/#c11-i0509">ログ依存・サポート Log Dependency 通常状態の確認 LOG01</a></li>
+<li><a href="part-04/#c11-i0510">ログ依存・サポート Log Dependency 障害切り分け LOG04</a></li>
+</ul>
+<h3 id="_11">性能統計<a class="headerlink" href="#_11" title="Permanent link">&para;</a></h3>
+<ul>
+<li><a href="part-04/#c11-i0511">CHC0368I マッピング検査 セッション上限</a></li>
+<li><a href="part-04/#c11-i0512">CHC0368I 統計採取 統計値</a></li>
+<li><a href="part-04/#c11-i0513">apply task 初期同期判定 応答行</a></li>
+<li><a href="part-04/#c11-i0514">apply task 開始位置指定 活動ログ</a></li>
+<li><a href="part-04/#c11-i0515">bookmark ログ位置照合 伝搬経路</a></li>
+<li><a href="part-04/#c11-i0516">bookmark 失敗時切り分け 実行結果</a></li>
+<li><a href="part-04/#c11-i0517">datastore マッピング検査 オンライン表示</a></li>
+<li><a href="part-04/#c11-i0518">datastore 統計採取 転送条件</a></li>
+<li><a href="part-04/#c11-i0519">performance statistics 状態確認 承認待ち</a></li>
+<li><a href="part-04/#c11-i0520">performance statistics 遅延監視 診断採取</a></li>
+<li><a href="part-04/#c11-i0521">性能統計 CDC Communications Activity ログとの照合 STAT07</a></li>
+<li><a href="part-04/#c11-i0522">性能統計 CDC Communications Activity 代替経路の確認 STAT10</a></li>
+<li><a href="part-04/#c11-i0523">性能統計 CDC Communications Activity 依存関係の確認 STAT13</a></li>
+<li><a href="part-04/#c11-i0524">性能統計 CDC Communications Activity 停止前の確認 STAT14</a></li>
+<li><a href="part-04/#c11-i0525">性能統計 CDC Communications Activity 再始動後の確認 STAT15</a></li>
+<li><a href="part-04/#c11-i0526">性能統計 CDC Communications Activity 変更前の確認 STAT02</a></li>
+<li><a href="part-04/#c11-i0527">性能統計 CDC Communications Activity 変更後の確認 STAT03</a></li>
+<li><a href="part-04/#c11-i0528">性能統計 CDC Communications Activity 引継ぎ記録 STAT09</a></li>
+<li><a href="part-04/#c11-i0529">性能統計 CDC Communications Activity 復旧後の確認 STAT06</a></li>
+<li><a href="part-04/#c11-i0530">性能統計 CDC Communications Activity 復旧準備 STAT05</a></li>
+<li><a href="part-04/#c11-i0531">性能統計 CDC Communications Activity 性能影響の確認 STAT11</a></li>
+<li><a href="part-04/#c11-i0532">性能統計 CDC Communications Activity 構成監査 STAT08</a></li>
+<li><a href="part-04/#c11-i0533">性能統計 CDC Communications Activity 権限境界の確認 STAT12</a></li>
+<li><a href="part-04/#c11-i0534">性能統計 CDC Communications Activity 通常状態の確認 STAT01</a></li>
+<li><a href="part-04/#c11-i0535">性能統計 CDC Communications Activity 障害切り分け STAT04</a></li>
+</ul>
+<h3 id="_12">複製状態監視<a class="headerlink" href="#_12" title="Permanent link">&para;</a></h3>
+<ul>
+<li><a href="part-04/#c11-i0536">CHC0368I 状態確認 高速伝搬</a></li>
+<li><a href="part-04/#c11-i0537">CHC0368I 遅延監視 識別列</a></li>
+<li><a href="part-04/#c11-i0538">apply task ログ位置照合 データソース</a></li>
+<li><a href="part-04/#c11-i0539">apply task 失敗時切り分け 例外記録</a></li>
+<li><a href="part-04/#c11-i0540">bookmark マッピング検査 対象表</a></li>
+<li><a href="part-04/#c11-i0541">bookmark 統計採取 回収対象</a></li>
+<li><a href="part-04/#c11-i0542">datastore 状態確認 イベント識別</a></li>
+<li><a href="part-04/#c11-i0543">datastore 遅延監視 宛先定義</a></li>
+<li><a href="part-04/#c11-i0544">performance statistics 初期同期判定 出力見出し</a></li>
+<li><a href="part-04/#c11-i0545">performance statistics 開始位置指定 画面タグ</a></li>
+<li><a href="part-04/#c11-i0546">複製状態監視 Mirror Status ログとの照合 MIR07</a></li>
+<li><a href="part-04/#c11-i0547">複製状態監視 Mirror Status 代替経路の確認 MIR10</a></li>
+<li><a href="part-04/#c11-i0548">複製状態監視 Mirror Status 依存関係の確認 MIR13</a></li>
+<li><a href="part-04/#c11-i0549">複製状態監視 Mirror Status 停止前の確認 MIR14</a></li>
+<li><a href="part-04/#c11-i0550">複製状態監視 Mirror Status 再始動後の確認 MIR15</a></li>
+<li><a href="part-04/#c11-i0551">複製状態監視 Mirror Status 変更前の確認 MIR02</a></li>
+<li><a href="part-04/#c11-i0552">複製状態監視 Mirror Status 変更後の確認 MIR03</a></li>
+<li><a href="part-04/#c11-i0553">複製状態監視 Mirror Status 引継ぎ記録 MIR09</a></li>
+<li><a href="part-04/#c11-i0554">複製状態監視 Mirror Status 復旧後の確認 MIR06</a></li>
+<li><a href="part-04/#c11-i0555">複製状態監視 Mirror Status 復旧準備 MIR05</a></li>
+<li><a href="part-04/#c11-i0556">複製状態監視 Mirror Status 性能影響の確認 MIR11</a></li>
+<li><a href="part-04/#c11-i0557">複製状態監視 Mirror Status 構成監査 MIR08</a></li>
+<li><a href="part-04/#c11-i0558">複製状態監視 Mirror Status 権限境界の確認 MIR12</a></li>
+<li><a href="part-04/#c11-i0559">複製状態監視 Mirror Status 通常状態の確認 MIR01</a></li>
+<li><a href="part-04/#c11-i0560">複製状態監視 Mirror Status 障害切り分け MIR04</a></li>
+</ul>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+  <script>var tabs=__md_get("__tabs");if(Array.isArray(tabs))e:for(var set of document.querySelectorAll(".tabbed-set")){var labels=set.querySelector(".tabbed-labels");for(var tab of tabs)for(var label of labels.getElementsByTagName("label"))if(label.innerText.trim()===tab){var input=document.getElementById(label.htmlFor);input.checked=!0;continue e}}</script>
+
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  ページトップへ戻る
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+    
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["navigation.tabs", "navigation.tabs.sticky", "navigation.sections", "navigation.indexes", "navigation.path", "navigation.top", "navigation.footer", "toc.follow", "search.suggest", "search.highlight", "search.share", "content.tabs.link", "content.code.copy"], "search": "../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "\u30b3\u30d4\u30fc\u3057\u307e\u3057\u305f", "clipboard.copy": "\u30af\u30ea\u30c3\u30d7\u30dc\u30fc\u30c9\u3078\u30b3\u30d4\u30fc", "search.result.more.one": "\u3053\u306e\u30da\u30fc\u30b8\u5185\u306b\u3082\u30461\u4ef6\u898b\u3064\u304b\u308a\u307e\u3057\u305f", "search.result.more.other": "\u3053\u306e\u30da\u30fc\u30b8\u5185\u306b\u3042\u3068#\u4ef6\u898b\u3064\u304b\u308a\u307e\u3057\u305f", "search.result.none": "\u4f55\u3082\u898b\u3064\u304b\u308a\u307e\u305b\u3093\u3067\u3057\u305f", "search.result.one": "1\u4ef6\u898b\u3064\u304b\u308a\u307e\u3057\u305f", "search.result.other": "#\u4ef6\u898b\u3064\u304b\u308a\u307e\u3057\u305f", "search.result.placeholder": "\u691c\u7d22\u30ad\u30fc\u30ef\u30fc\u30c9\u3092\u5165\u529b\u3057\u3066\u304f\u3060\u3055\u3044", "search.result.term.missing": "\u691c\u7d22\u306b\u542b\u307e\u308c\u306a\u3044", "select.version": "\u30d0\u30fc\u30b8\u30e7\u30f3\u5207\u308a\u66ff\u3048"}, "version": null}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.d7400e89.min.js"></script>
+      
+    
+  </body>
+</html>

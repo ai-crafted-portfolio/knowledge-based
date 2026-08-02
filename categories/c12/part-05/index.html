@@ -1,0 +1,4062 @@
+
+<!doctype html>
+<html lang="ja" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="技術項目・確認問題・検証手順をカテゴリ別に検索できるナレッジベース">
+      
+      
+        <meta name="author" content="Knowledge Base">
+      
+      
+        <link rel="canonical" href="https://ai-crafted-portfolio.github.io/knowledge-based/categories/c12/part-05/">
+      
+      
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.7">
+    
+    
+      
+        <title>IBM MQ メッセージング — 詳細 (5/5) - z/OS 技術ナレッジベース</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../../assets/stylesheets/main.ec1eaa64.min.css">
+      
+        
+        <link rel="stylesheet" href="../../../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Segoe+UI:300,300i,400,400i,700,700i%7CCascadia+Code:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Segoe UI";--md-code-font:"Cascadia Code"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../../stylesheets/ms-style.css">
+    
+    <script>__md_scope=new URL("../../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="blue">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#ibm-mq-55" class="md-skip">
+          コンテンツにスキップ
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow md-header--lifted" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="ヘッダー">
+    <a href="../../.." title="z/OS 技術ナレッジベース" class="md-header__button md-logo" aria-label="z/OS 技術ナレッジベース" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            z/OS 技術ナレッジベース
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              IBM MQ メッセージング — 詳細 (5/5)
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="blue"  aria-label="ダークモードに切り替え"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="ダークモードに切り替え" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m17.75 4.09-2.53 1.94.91 3.06-2.63-1.81-2.63 1.81.91-3.06-2.53-1.94L12.44 4l1.06-3 1.06 3zm3.5 6.91-1.64 1.25.59 1.98-1.7-1.17-1.7 1.17.59-1.98L15.75 11l2.06-.05L18.5 9l.69 1.95zm-2.28 4.95c.83-.08 1.72 1.1 1.19 1.85-.32.45-.66.87-1.08 1.27C15.17 23 8.84 23 4.94 19.07c-3.91-3.9-3.91-10.24 0-14.14.4-.4.82-.76 1.27-1.08.75-.53 1.93.36 1.85 1.19-.27 2.86.69 5.83 2.89 8.02a9.96 9.96 0 0 0 8.02 2.89m-1.64 2.02a12.08 12.08 0 0 1-7.8-3.47c-2.17-2.19-3.33-5-3.49-7.82-2.81 3.14-2.7 7.96.31 10.98 3.02 3.01 7.84 3.12 10.98.31"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="slate" data-md-color-primary="indigo" data-md-color-accent="blue"  aria-label="ライトモードに切り替え"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="ライトモードに切り替え" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 7a5 5 0 0 1 5 5 5 5 0 0 1-5 5 5 5 0 0 1-5-5 5 5 0 0 1 5-5m0 2a3 3 0 0 0-3 3 3 3 0 0 0 3 3 3 3 0 0 0 3-3 3 3 0 0 0-3-3m0-7 2.39 3.42C13.65 5.15 12.84 5 12 5s-1.65.15-2.39.42zM3.34 7l4.16-.35A7.2 7.2 0 0 0 5.94 8.5c-.44.74-.69 1.5-.83 2.29zm.02 10 1.76-3.77a7.131 7.131 0 0 0 2.38 4.14zM20.65 7l-1.77 3.79a7.02 7.02 0 0 0-2.38-4.15zm-.01 10-4.14.36c.59-.51 1.12-1.14 1.54-1.86.42-.73.69-1.5.83-2.29zM12 22l-2.41-3.44c.74.27 1.55.44 2.41.44.82 0 1.63-.17 2.37-.44z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="検索" placeholder="検索" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="検索">
+        
+          <a href="javascript:void(0)" class="md-search__icon md-icon" title="共有" aria-label="共有" data-clipboard data-clipboard-text="" data-md-component="search-share" tabindex="-1">
+            
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M18 16.08c-.76 0-1.44.3-1.96.77L8.91 12.7c.05-.23.09-.46.09-.7s-.04-.47-.09-.7l7.05-4.11c.54.5 1.25.81 2.04.81a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3c0 .24.04.47.09.7L8.04 9.81C7.5 9.31 6.79 9 6 9a3 3 0 0 0-3 3 3 3 0 0 0 3 3c.79 0 1.5-.31 2.04-.81l7.12 4.15c-.05.21-.08.43-.08.66 0 1.61 1.31 2.91 2.92 2.91s2.92-1.3 2.92-2.91A2.92 2.92 0 0 0 18 16.08"/></svg>
+          </a>
+        
+        <button type="reset" class="md-search__icon md-icon" title="クリア" aria-label="クリア" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            検索を初期化
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+  </nav>
+  
+    
+      
+<nav class="md-tabs" aria-label="タブ" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../.." class="md-tabs__link">
+        
+  
+  
+    
+  
+  ホーム
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../" class="md-tabs__link">
+          
+  
+  
+    
+  
+  カテゴリ
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../../articles/" class="md-tabs__link">
+          
+  
+  
+    
+  
+  記事
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../../about/" class="md-tabs__link">
+          
+  
+  
+    
+  
+  ガイド
+
+        </a>
+      </li>
+    
+  
+
+      
+    </ul>
+  </div>
+</nav>
+    
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="ナビゲーション" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../../.." title="z/OS 技術ナレッジベース" class="md-nav__button md-logo" aria-label="z/OS 技術ナレッジベース" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    z/OS 技術ナレッジベース
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    ホーム
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    カテゴリ
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    カテゴリ
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../../articles/" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    記事
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    記事
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    ガイド
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    ガイド
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../about/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    このサイトについて
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../faq/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    FAQ
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../search/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    検索
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+  
+
+<nav class="md-nav md-nav--secondary" aria-label="このページの目次">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      このページの目次
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        その他
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="その他">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#c12-other" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        その他（特定項目に紐づかないQA・手順）
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+                
+
+
+
+  
+
+
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<h1 id="ibm-mq-55">IBM MQ メッセージング — 詳細 (5/5)<a class="headerlink" href="#ibm-mq-55" title="Permanent link">&para;</a></h1>
+<p><a href="../">← IBM MQ メッセージング の概要へ戻る</a></p>
+<h2 id="_1">その他<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h2>
+<h3 id="c12-other">その他（特定項目に紐づかないQA・手順）<a class="headerlink" href="#c12-other" title="Permanent link">&para;</a></h3>
+<p>このカテゴリで項目名が個別の技術項目に一致しなかったQA・手順です。</p>
+<p>??? question "確認問題（122問）"
+    <strong>問題.</strong> トピック定義を設計レビューで確認します。技術項目 DEFINE TOPIC の設定値と管理コマンド応答を照合し、トピック文字列と発行属性/購読属性属性を記録します。新規経路を本番へ入れる前に、定義値と実行時状態の見方を合わせます。どのMQ項目を中心に確認しますか。</p>
+<pre class="highlight"><code>- A. DEFINE TOPIC ✅
+- B. DEFINE QLOCAL
+- C. SUB attribute
+- D. DURABLE subscription
+
+正解: **A** ／ 難易度: 中級
+
+**解説:** 正答トピック定義証跡はAです。障害面のトピック定義読取は、トピック名とトピック文字列を対応させることを目的に扱う説明単位がトピック定義状態です。背景トピック定義読取として、キューマネージャーの定義値、実行時状態、応答メッセージを結ぶ証跡単位はトピック定義状態です。監査面のトピック定義定義を読む管理コマンド応答は、トピック文字列と発行属性/購読属性属性を出典の属性説明と照合する点がトピック定義根拠です。A: トピック定義が正答です。トピック定義証跡の応答で確認できる対象はトピック定義証跡です。B: トピック定義読取で見るローカルキュー定義は役割が異なり、除外理由を説明する対象はトピック定義読取です。C: トピック定義状態で見る購読許可は役割が異なり、除外理由を説明する対象はトピック定義状態です。D: トピック定義定義で見る永続購読は役割が異なり、除外理由を説明する対象はトピック定義定義です。初出語トピック定義とは、IBM MQ 9.3で扱う定義、属性、または管理操作のことで、用語定義はトピック定義監査です。
+
+**出典:** mq93.refadmin / mq93.administer / mq93.secure / mq93.reference / mq93.configure
+
+---
+
+**問題.** トピック文字列を設計レビューで確認します。技術項目 TOPICSTR の設定値と管理コマンド応答を照合し、トピック文字列値を記録します。新規経路を本番へ入れる前に、定義値と実行時状態の見方を合わせます。どのMQ項目を中心に確認しますか。
+
+- A. DISPLAY TPSTATUS
+- B. TOPICSTR ✅
+- C. SSLCIPH
+- D. CHLAUTH SSLPEERMAP
+
+正解: **B** ／ 難易度: 初級
+
+**解説:** 正答トピック文字列読取はBです。監査面のトピック文字列状態は、アプリケーションが発行または購読する階層名を確認することを目的に扱う説明単位がトピック文字列定義です。背景トピック文字列状態として、キューマネージャーの定義値、実行時状態、応答メッセージを結ぶ証跡単位はトピック文字列定義です。引継ぎ面のトピック文字列根拠を読む管理コマンド応答は、トピック文字列値を出典の属性説明と照合する点がトピック文字列応答です。A: トピック文字列読取で見るトピック状態は役割が異なり、除外理由を説明する対象はトピック文字列読取です。B: トピック文字列が正答です。トピック文字列状態の応答で確認できる対象はトピック文字列状態です。C: トピック文字列定義で見る暗号仕様は役割が異なり、除外理由を説明する対象はトピック文字列定義です。D: トピック文字列根拠で見る証明書マップは役割が異なり、除外理由を説明する対象はトピック文字列根拠です。初出語トピック文字列とは、IBM MQ 9.3で扱う定義、属性、または管理操作のことで、用語定義はトピック文字列引継ぎです。
+
+**出典:** mq93.refadmin / mq93.administer / mq93.secure / mq93.reference / mq93.configure
+
+---
+
+**問題.** 発行許可を設計レビューで確認します。技術項目 PUB attribute の設定値と管理コマンド応答を照合し、発行属性属性を記録します。新規経路を本番へ入れる前に、定義値と実行時状態の見方を合わせます。どのMQ項目を中心に確認しますか。
+
+- A. STOP CHANNEL
+- B. DISPLAY QSTATUS
+- C. PUB attribute ✅
+- D. SUB attribute
+
+正解: **C** ／ 難易度: 中級
+
+**解説:** 正答発行許可状態はCです。引継ぎ面の発行許可定義は、トピックへの発行を許可または抑止することを目的に扱う説明単位が発行許可根拠です。背景発行許可定義として、キューマネージャーの定義値、実行時状態、応答メッセージを結ぶ証跡単位は発行許可根拠です。応答面の発行許可応答を読む管理コマンド応答は、発行属性属性を出典の属性説明と照合する点が発行許可保守です。A: 発行許可状態で見るチャネル停止は役割が異なり、除外理由を説明する対象は発行許可状態です。B: 発行許可定義で見るキュー状態表示は役割が異なり、除外理由を説明する対象は発行許可定義です。C: 発行許可が正答です。発行許可根拠の応答で確認できる対象は発行許可根拠です。D: 発行許可応答で見る購読許可は役割が異なり、除外理由を説明する対象は発行許可応答です。初出語発行許可とは、IBM MQ 9.3で扱う定義、属性、または管理操作のことで、用語定義は発行許可棚卸です。
+
+**出典:** mq93.refadmin / mq93.administer / mq93.secure / mq93.reference / mq93.configure
+
+---
+
+**問題.** 購読許可を設計レビューで確認します。技術項目 SUB attribute の設定値と管理コマンド応答を照合し、購読属性属性を記録します。新規経路を本番へ入れる前に、定義値と実行時状態の見方を合わせます。どのMQ項目を中心に確認しますか。
+
+- A. PUB attribute
+- B. PSPROP
+- C. REFRESH SECURITY TYPE(SSL)
+- D. SUB attribute ✅
+
+正解: **D** ／ 難易度: 中級
+
+**解説:** 正答購読許可定義はDです。応答面の購読許可根拠は、トピックからの購読を許可または抑止することを目的に扱う説明単位が購読許可応答です。背景購読許可根拠として、キューマネージャーの定義値、実行時状態、応答メッセージを結ぶ証跡単位は購読許可応答です。定義面の購読許可保守を読む管理コマンド応答は、購読属性属性を出典の属性説明と照合する点が購読許可監査です。A: 購読許可定義で見る発行許可は役割が異なり、除外理由を説明する対象は購読許可定義です。B: 購読許可根拠で見る発行購読プロパティは役割が異なり、除外理由を説明する対象は購読許可根拠です。C: 購読許可応答で見る暗号通信設定再読込は役割が異なり、除外理由を説明する対象は購読許可応答です。D: 購読許可が正答です。購読許可保守の応答で確認できる対象は購読許可保守です。初出語購読許可とは、IBM MQ 9.3で扱う定義、属性、または管理操作のことで、用語定義は購読許可復旧です。
+
+**出典:** mq93.refadmin / mq93.administer / mq93.secure / mq93.reference / mq93.configure
+
+---
+
+**問題.** トピック表示を設計レビューで確認します。技術項目 DISPLAY TOPIC の設定値と管理コマンド応答を照合し、トピック属性の応答を記録します。新規経路を本番へ入れる前に、定義値と実行時状態の見方を合わせます。どのMQ項目を中心に確認しますか。
+
+- A. DISPLAY TOPIC ✅
+- B. REFRESH SECURITY TYPE(SSL)
+- C. DEFINE CHANNEL RCVR
+- D. DISCINT
+
+正解: **A** ／ 難易度: 初級
+
+**解説:** 正答トピック表示根拠はAです。定義面のトピック表示応答は、定義済みトピックの属性を管理コマンドで読むことを目的に扱う説明単位がトピック表示保守です。背景トピック表示応答として、キューマネージャーの定義値、実行時状態、応答メッセージを結ぶ証跡単位はトピック表示保守です。状態面のトピック表示監査を読む管理コマンド応答は、トピック属性の応答を出典の属性説明と照合する点がトピック表示引継ぎです。A: トピック表示が正答です。トピック表示根拠の応答で確認できる対象はトピック表示根拠です。B: トピック表示応答で見る暗号通信設定再読込は役割が異なり、除外理由を説明する対象はトピック表示応答です。C: トピック表示保守で見る受信チャネル定義は役割が異なり、除外理由を説明する対象はトピック表示保守です。D: トピック表示監査で見る切断間隔は役割が異なり、除外理由を説明する対象はトピック表示監査です。初出語トピック表示とは、IBM MQ 9.3で扱う定義、属性、または管理操作のことで、用語定義はトピック表示照合です。
+
+**出典:** mq93.refadmin / mq93.administer / mq93.secure / mq93.reference / mq93.configure
+
+---
+
+**問題.** トピック状態を設計レビューで確認します。技術項目 DISPLAY TPSTATUS の設定値と管理コマンド応答を照合し、トピック状態応答を記録します。新規経路を本番へ入れる前に、定義値と実行時状態の見方を合わせます。どのMQ項目を中心に確認しますか。
+
+- A. MAXDEPTH
+- B. DISPLAY TPSTATUS ✅
+- C. SUB attribute
+- D. SSLCIPH
+
+正解: **B** ／ 難易度: 上級
+
+**解説:** 正答トピック状態応答はBです。状態面のトピック状態保守は、トピックの実行時状態を定義値と分けて確認することを目的に扱う説明単位がトピック状態監査です。背景トピック状態保守として、キューマネージャーの定義値、実行時状態、応答メッセージを結ぶ証跡単位はトピック状態監査です。証跡面のトピック状態引継ぎを読む管理コマンド応答は、トピック状態応答を出典の属性説明と照合する点がトピック状態棚卸です。A: トピック状態応答で見る最大キュー深度は役割が異なり、除外理由を説明する対象はトピック状態応答です。B: トピック状態が正答です。トピック状態保守の応答で確認できる対象はトピック状態保守です。C: トピック状態監査で見る購読許可は役割が異なり、除外理由を説明する対象はトピック状態監査です。D: トピック状態引継ぎで見る暗号仕様は役割が異なり、除外理由を説明する対象はトピック状態引継ぎです。初出語トピック状態とは、IBM MQ 9.3で扱う定義、属性、または管理操作のことで、用語定義はトピック状態観点です。
+
+**出典:** mq93.refadmin / mq93.administer / mq93.secure / mq93.reference / mq93.configure
+
+---
+
+**問題.** サブスクリプション定義を設計レビューで確認します。技術項目 DEFINE SUB の設定値と管理コマンド応答を照合し、購読属性名と配信先を記録します。新規経路を本番へ入れる前に、定義値と実行時状態の見方を合わせます。どのMQ項目を中心に確認しますか。
+
+- A. SUB attribute
+- B. DURABLE subscription
+- C. DEFINE SUB ✅
+- D. DISPLAY CHSTATUS SSLCIPH
+
+正解: **C** ／ 難易度: 中級
+
+**解説:** 正答サブスクリプション定義保守はCです。証跡面のサブスクリプション定義監査は、購読先と配信先キューを固定して登録することを目的に扱う説明単位がサブスクリプション定義引継ぎです。背景サブスクリプション定義監査として、キューマネージャーの定義値、実行時状態、応答メッセージを結ぶ証跡単位はサブスクリプション定義引継ぎです。復旧面のサブスクリプション定義棚卸を読む管理コマンド応答は、購読属性名と配信先を出典の属性説明と照合する点がサブスクリプション定義復旧です。A: サブスクリプション定義保守で見る購読許可は役割が異なり、除外理由を説明する対象はサブスクリプション定義保守です。B: サブスクリプション定義監査で見る永続購読は役割が異なり、除外理由を説明する対象はサブスクリプション定義監査です。C: サブスクリプション定義が正答です。サブスクリプション定義引継ぎの応答で確認できる対象はサブスクリプション定義引継ぎです。D: サブスクリプション定義棚卸で見るチャネル暗号通信状態は役割が異なり、除外理由を説明する対象はサブスクリプション定義棚卸です。初出語サブスクリプション定義とは、IBM MQ 9.3で扱う定義、属性、または管理操作のことで、用語定義はサブスクリプション定義証跡です。
+
+**出典:** mq93.refadmin / mq93.administer / mq93.secure / mq93.reference / mq93.configure
+
+---
+
+**問題.** 購読定義表示を設計レビューで確認します。技術項目 DISPLAY SUB の設定値と管理コマンド応答を照合し、表示 購読属性応答を記録します。新規経路を本番へ入れる前に、定義値と実行時状態の見方を合わせます。どのMQ項目を中心に確認しますか。
+
+- A. CHLAUTH SSLPEERMAP
+- B. STOP CHANNEL
+- C. DEFINE QLOCAL
+- D. DISPLAY SUB ✅
+
+正解: **D** ／ 難易度: 中級
+
+**解説:** 正答購読定義表示監査はDです。復旧面の購読定義表示引継ぎは、購読定義のトピック文字列と配信先を確認することを目的に扱う説明単位が購読定義表示棚卸です。背景購読定義表示引継ぎとして、キューマネージャーの定義値、実行時状態、応答メッセージを結ぶ証跡単位は購読定義表示棚卸です。保守面の購読定義表示復旧を読む管理コマンド応答は、表示 購読属性応答を出典の属性説明と照合する点が購読定義表示照合です。A: 購読定義表示監査で見る証明書マップは役割が異なり、除外理由を説明する対象は購読定義表示監査です。B: 購読定義表示引継ぎで見るチャネル停止は役割が異なり、除外理由を説明する対象は購読定義表示引継ぎです。C: 購読定義表示棚卸で見るローカルキュー定義は役割が異なり、除外理由を説明する対象は購読定義表示棚卸です。D: 購読定義表示が正答です。購読定義表示復旧の応答で確認できる対象は購読定義表示復旧です。初出語購読定義表示とは、IBM MQ 9.3で扱う定義、属性、または管理操作のことで、用語定義は購読定義表示読取です。
+
+**出典:** mq93.refadmin / mq93.administer / mq93.secure / mq93.reference / mq93.configure
+
+---
+
+**問題.** 発行購読プロパティを設計レビューで確認します。技術項目 PSPROP の設定値と管理コマンド応答を照合し、発行購読プロパティ属性を記録します。新規経路を本番へ入れる前に、定義値と実行時状態の見方を合わせます。どのMQ項目を中心に確認しますか。
+
+- A. PSPROP ✅
+- B. DISPLAY CHSTATUS
+- C. DEFINE QLOCAL
+- D. SUB attribute
+
+正解: **A** ／ 難易度: 上級
+
+**解説:** 正答発行購読プロパティ引継ぎはAです。保守面の発行購読プロパティ棚卸は、発行購読プロパティをメッセージへ付加する方式を確認することを目的に扱う説明単位が発行購読プロパティ復旧です。背景発行購読プロパティ棚卸として、キューマネージャーの定義値、実行時状態、応答メッセージを結ぶ証跡単位は発行購読プロパティ復旧です。照合面の発行購読プロパティ照合を読む管理コマンド応答は、発行購読プロパティ属性を出典の属性説明と照合する点が発行購読プロパティ観点です。A: 発行購読プロパティが正答です。発行購読プロパティ引継ぎの応答で確認できる対象は発行購読プロパティ引継ぎです。B: 発行購読プロパティ棚卸で見るチャネル状態表示は役割が異なり、除外理由を説明する対象は発行購読プロパティ棚卸です。C: 発行購読プロパティ復旧で見るローカルキュー定義は役割が異なり、除外理由を説明する対象は発行購読プロパティ復旧です。D: 発行購読プロパティ照合で見る購読許可は役割が異なり、除外理由を説明する対象は発行購読プロパティ照合です。初出語発行購読プロパティとは、IBM MQ 9.3で扱う定義、属性、または管理操作のことで、用語定義は発行購読プロパティ状態です。
+
+**出典:** mq93.refadmin / mq93.administer / mq93.secure / mq93.reference / mq93.configure
+
+---
+
+**問題.** 永続購読を設計レビューで確認します。技術項目 DURABLE subscription の設定値と管理コマンド応答を照合し、永続属性属性を記録します。新規経路を本番へ入れる前に、定義値と実行時状態の見方を合わせます。どのMQ項目を中心に確認しますか。
+
+- A. DEFINE CHANNEL SDR
+- B. DURABLE subscription ✅
+- C. XMITQ
+- D. DEFPSIST
+
+正解: **B** ／ 難易度: 上級
+
+**解説:** 正答永続購読棚卸はBです。照合面の永続購読復旧は、アプリケーション停止中も購読状態を保持することを目的に扱う説明単位が永続購読照合です。背景永続購読復旧として、キューマネージャーの定義値、実行時状態、応答メッセージを結ぶ証跡単位は永続購読照合です。運用面の永続購読観点を読む管理コマンド応答は、永続属性属性を出典の属性説明と照合する点が永続購読証跡です。A: 永続購読棚卸で見る送信チャネル定義は役割が異なり、除外理由を説明する対象は永続購読棚卸です。B: 永続購読が正答です。永続購読復旧の応答で確認できる対象は永続購読復旧です。C: 永続購読照合で見る伝送キューは役割が異なり、除外理由を説明する対象は永続購読照合です。D: 永続購読観点で見る既定永続性は役割が異なり、除外理由を説明する対象は永続購読観点です。初出語永続購読とは、IBM MQ 9.3で扱う定義、属性、または管理操作のことで、用語定義は永続購読定義です。
+
+**出典:** mq93.refadmin / mq93.administer / mq93.secure / mq93.reference / mq93.configure
+
+---
+
+**問題.** 暗号仕様を設計レビューで確認します。技術項目 SSLCIPH の設定値と管理コマンド応答を照合し、暗号仕様値を記録します。新規経路を本番へ入れる前に、定義値と実行時状態の見方を合わせます。どのMQ項目を中心に確認しますか。
+
+- A. CHLAUTH SSLPEERMAP
+- B. STOP CHANNEL
+- C. SSLCIPH ✅
+- D. DEFINE QLOCAL
+
+正解: **C** ／ 難易度: 中級
+
+**解説:** 正答暗号仕様復旧はCです。運用面の暗号仕様照合は、チャネルで使う暗号仕様を確認することを目的に扱う説明単位が暗号仕様観点です。背景暗号仕様照合として、キューマネージャーの定義値、実行時状態、応答メッセージを結ぶ証跡単位は暗号仕様観点です。接続面の暗号仕様証跡を読む管理コマンド応答は、暗号仕様値を出典の属性説明と照合する点が暗号仕様読取です。A: 暗号仕様復旧で見る証明書マップは役割が異なり、除外理由を説明する対象は暗号仕様復旧です。B: 暗号仕様照合で見るチャネル停止は役割が異なり、除外理由を説明する対象は暗号仕様照合です。C: 暗号仕様が正答です。暗号仕様観点の応答で確認できる対象は暗号仕様観点です。D: 暗号仕様証跡で見るローカルキュー定義は役割が異なり、除外理由を説明する対象は暗号仕様証跡です。初出語暗号仕様とは、IBM MQ 9.3で扱う定義、属性、または管理操作のことで、用語定義は暗号仕様根拠です。
+
+**出典:** mq93.refadmin / mq93.administer / mq93.secure / mq93.reference / mq93.configure
+
+---
+
+**問題.** クライアント証明書要求を設計レビューで確認します。技術項目 SSLCAUTH の設定値と管理コマンド応答を照合し、証明書要求値を記録します。新規経路を本番へ入れる前に、定義値と実行時状態の見方を合わせます。どのMQ項目を中心に確認しますか。
+
+- A. MAXDEPTH
+- B. SUB attribute
+- C. DURABLE subscription
+- D. SSLCAUTH ✅
+
+正解: **D** ／ 難易度: 中級
+
+**解説:** 正答クライアント証明書要求照合はDです。接続面のクライアント証明書要求観点は、クライアント証明書の要求有無を確認することを目的に扱う説明単位がクライアント証明書要求証跡です。背景クライアント証明書要求観点として、キューマネージャーの定義値、実行時状態、応答メッセージを結ぶ証跡単位はクライアント証明書要求証跡です。配信面のクライアント証明書要求読取を読む管理コマンド応答は、証明書要求値を出典の属性説明と照合する点がクライアント証明書要求状態です。A: クライアント証明書要求照合で見る最大キュー深度は役割が異なり、除外理由を説明する対象はクライアント証明書要求照合です。B: クライアント証明書要求観点で見る購読許可は役割が異なり、除外理由を説明する対象はクライアント証明書要求観点です。C: クライアント証明書要求証跡で見る永続購読は役割が異なり、除外理由を説明する対象はクライアント証明書要求証跡です。D: クライアント証明書要求が正答です。クライアント証明書要求読取の応答で確認できる対象はクライアント証明書要求読取です。初出語クライアント証明書要求とは、IBM MQ 9.3で扱う定義、属性、または管理操作のことで、用語定義はクライアント証明書要求応答です。
+
+**出典:** mq93.refadmin / mq93.administer / mq93.secure / mq93.reference / mq93.configure
+
+---
+
+**問題.** 証明書ラベルを設計レビューで確認します。技術項目 CERTLABL の設定値と管理コマンド応答を照合し、証明書ラベル値を記録します。新規経路を本番へ入れる前に、定義値と実行時状態の見方を合わせます。どのMQ項目を中心に確認しますか。
+
+- A. CERTLABL ✅
+- B. DURABLE subscription
+- C. DISPLAY CHSTATUS SSLCIPH
+- D. STOP CHANNEL
+
+正解: **A** ／ 難易度: 中級
+
+**解説:** 正答証明書ラベル観点はAです。配信面の証明書ラベル証跡は、キューマネージャーが提示する証明書のラベルを確認することを目的に扱う説明単位が証明書ラベル読取です。背景証明書ラベル証跡として、キューマネージャーの定義値、実行時状態、応答メッセージを結ぶ証跡単位は証明書ラベル読取です。暗号面の証明書ラベル状態を読む管理コマンド応答は、証明書ラベル値を出典の属性説明と照合する点が証明書ラベル定義です。A: 証明書ラベルが正答です。証明書ラベル観点の応答で確認できる対象は証明書ラベル観点です。B: 証明書ラベル証跡で見る永続購読は役割が異なり、除外理由を説明する対象は証明書ラベル証跡です。C: 証明書ラベル読取で見るチャネル暗号通信状態は役割が異なり、除外理由を説明する対象は証明書ラベル読取です。D: 証明書ラベル状態で見るチャネル停止は役割が異なり、除外理由を説明する対象は証明書ラベル状態です。初出語証明書ラベルとは、IBM MQ 9.3で扱う定義、属性、または管理操作のことで、用語定義は証明書ラベル保守です。
+
+**出典:** mq93.refadmin / mq93.administer / mq93.secure / mq93.reference / mq93.configure
+
+---
+
+**問題.** 鍵リポジトリを設計レビューで確認します。技術項目 SSLKEYR の設定値と管理コマンド応答を照合し、鍵リポジトリ値を記録します。新規経路を本番へ入れる前に、定義値と実行時状態の見方を合わせます。どのMQ項目を中心に確認しますか。
+
+- A. START CHANNEL
+- B. SSLKEYR ✅
+- C. DISCINT
+- D. TOPICSTR
+
+正解: **B** ／ 難易度: 中級
+
+**解説:** 正答鍵リポジトリ証跡はBです。暗号面の鍵リポジトリ読取は、証明書を格納する鍵リポジトリの場所を確認することを目的に扱う説明単位が鍵リポジトリ状態です。背景鍵リポジトリ読取として、キューマネージャーの定義値、実行時状態、応答メッセージを結ぶ証跡単位は鍵リポジトリ状態です。記録面の鍵リポジトリ定義を読む管理コマンド応答は、鍵リポジトリ値を出典の属性説明と照合する点が鍵リポジトリ根拠です。A: 鍵リポジトリ証跡で見るチャネル開始は役割が異なり、除外理由を説明する対象は鍵リポジトリ証跡です。B: 鍵リポジトリが正答です。鍵リポジトリ読取の応答で確認できる対象は鍵リポジトリ読取です。C: 鍵リポジトリ状態で見る切断間隔は役割が異なり、除外理由を説明する対象は鍵リポジトリ状態です。D: 鍵リポジトリ定義で見るトピック文字列は役割が異なり、除外理由を説明する対象は鍵リポジトリ定義です。初出語鍵リポジトリとは、IBM MQ 9.3で扱う定義、属性、または管理操作のことで、用語定義は鍵リポジトリ監査です。
+
+**出典:** mq93.refadmin / mq93.administer / mq93.secure / mq93.reference / mq93.configure
+
+---
+
+**問題.** 暗号通信設定再読込を設計レビューで確認します。技術項目 REFRESH SECURITY TYPE(SSL) の設定値と管理コマンド応答を照合し、暗号設定再読込応答を記録します。新規経路を本番へ入れる前に、定義値と実行時状態の見方を合わせます。どのMQ項目を中心に確認しますか。
+
+- A. STOP CHANNEL
+- B. DISPLAY QSTATUS
+- C. REFRESH SECURITY TYPE(SSL) ✅
+- D. PUB attribute
+
+正解: **C** ／ 難易度: 上級
+
+**解説:** 正答暗号通信設定再読込読取はCです。記録面の暗号通信設定再読込状態は、証明書や鍵リポジトリ変更を反映することを目的に扱う説明単位が暗号通信設定再読込定義です。背景暗号通信設定再読込状態として、キューマネージャーの定義値、実行時状態、応答メッセージを結ぶ証跡単位は暗号通信設定再読込定義です。設計面の暗号通信設定再読込根拠を読む管理コマンド応答は、暗号設定再読込応答を出典の属性説明と照合する点が暗号通信設定再読込応答です。A: 暗号通信設定再読込読取で見るチャネル停止は役割が異なり、除外理由を説明する対象は暗号通信設定再読込読取です。B: 暗号通信設定再読込状態で見るキュー状態表示は役割が異なり、除外理由を説明する対象は暗号通信設定再読込状態です。C: 暗号通信設定再読込が正答です。暗号通信設定再読込定義の応答で確認できる対象は暗号通信設定再読込定義です。D: 暗号通信設定再読込根拠で見る発行許可は役割が異なり、除外理由を説明する対象は暗号通信設定再読込根拠です。初出語暗号通信設定再読込とは、IBM MQ 9.3で扱う定義、属性、または管理操作のことで、用語定義は暗号通信設定再読込引継ぎです。
+
+**出典:** mq93.refadmin / mq93.administer / mq93.secure / mq93.reference / mq93.configure
+
+---
+
+**問題.** チャネル暗号通信状態を設計レビューで確認します。技術項目 DISPLAY CHSTATUS SSLCIPH の設定値と管理コマンド応答を照合し、チャネル状態の暗号仕様を記録します。新規経路を本番へ入れる前に、定義値と実行時状態の見方を合わせます。どのMQ項目を中心に確認しますか。
+
+- A. DEFINE TOPIC
+- B. DISPLAY TPSTATUS
+- C. SSLCAUTH
+- D. DISPLAY CHSTATUS SSLCIPH ✅
+
+正解: **D** ／ 難易度: 上級
+
+**解説:** 正答チャネル暗号通信状態状態はDです。設計面のチャネル暗号通信状態定義は、実行中チャネルが使用中の暗号仕様を確認することを目的に扱う説明単位がチャネル暗号通信状態根拠です。背景チャネル暗号通信状態定義として、キューマネージャーの定義値、実行時状態、応答メッセージを結ぶ証跡単位はチャネル暗号通信状態根拠です。変更面のチャネル暗号通信状態応答を読む管理コマンド応答は、チャネル状態の暗号仕様を出典の属性説明と照合する点がチャネル暗号通信状態保守です。A: チャネル暗号通信状態状態で見るトピック定義は役割が異なり、除外理由を説明する対象はチャネル暗号通信状態状態です。B: チャネル暗号通信状態定義で見るトピック状態は役割が異なり、除外理由を説明する対象はチャネル暗号通信状態定義です。C: チャネル暗号通信状態根拠で見るクライアント証明書要求は役割が異なり、除外理由を説明する対象はチャネル暗号通信状態根拠です。D: チャネル暗号通信状態が正答です。チャネル暗号通信状態応答の応答で確認できる対象はチャネル暗号通信状態応答です。初出語チャネル暗号通信状態とは、IBM MQ 9.3で扱う定義、属性、または管理操作のことで、用語定義はチャネル暗号通信状態棚卸です。
+
+**出典:** mq93.refadmin / mq93.administer / mq93.secure / mq93.reference / mq93.configure
+
+---
+
+**問題.** 証明書マップを設計レビューで確認します。技術項目 CHLAUTH SSLPEERMAP の設定値と管理コマンド応答を照合し、チャネル認証 種別(証明書マップ)を記録します。新規経路を本番へ入れる前に、定義値と実行時状態の見方を合わせます。どのMQ項目を中心に確認しますか。
+
+- A. CHLAUTH SSLPEERMAP ✅
+- B. DISPLAY TPSTATUS
+- C. SSLCIPH
+- D. SSLPEER
+
+正解: **A** ／ 難易度: 上級
+
+**解説:** 正答証明書マップ定義はAです。変更面の証明書マップ根拠は、相手証明書の識別名と接続許可の対応を確認することを目的に扱う説明単位が証明書マップ応答です。背景証明書マップ根拠として、キューマネージャーの定義値、実行時状態、応答メッセージを結ぶ証跡単位は証明書マップ応答です。障害面の証明書マップ保守を読む管理コマンド応答は、チャネル認証 種別(証明書マップ)を出典の属性説明と照合する点が証明書マップ監査です。A: 証明書マップが正答です。証明書マップ定義の応答で確認できる対象は証明書マップ定義です。B: 証明書マップ根拠で見るトピック状態は役割が異なり、除外理由を説明する対象は証明書マップ根拠です。C: 証明書マップ応答で見る暗号仕様は役割が異なり、除外理由を説明する対象は証明書マップ応答です。D: 証明書マップ保守で見る相手証明書名は役割が異なり、除外理由を説明する対象は証明書マップ保守です。初出語証明書マップとは、IBM MQ 9.3で扱う定義、属性、または管理操作のことで、用語定義は証明書マップ復旧です。
+
+**出典:** mq93.refadmin / mq93.administer / mq93.secure / mq93.reference / mq93.configure
+
+---
+
+**問題.** 相手証明書名を設計レビューで確認します。技術項目 SSLPEER の設定値と管理コマンド応答を照合し、相手証明書名値を記録します。新規経路を本番へ入れる前に、定義値と実行時状態の見方を合わせます。どのMQ項目を中心に確認しますか。
+
+- A. DISPLAY TPSTATUS
+- B. SSLPEER ✅
+- C. SSLCIPH
+- D. CHLAUTH SSLPEERMAP
+
+正解: **B** ／ 難易度: 上級
+
+**解説:** 正答相手証明書名根拠はBです。障害面の相手証明書名応答は、相手証明書の識別名条件を確認することを目的に扱う説明単位が相手証明書名保守です。背景相手証明書名応答として、キューマネージャーの定義値、実行時状態、応答メッセージを結ぶ証跡単位は相手証明書名保守です。監査面の相手証明書名監査を読む管理コマンド応答は、相手証明書名値を出典の属性説明と照合する点が相手証明書名引継ぎです。A: 相手証明書名根拠で見るトピック状態は役割が異なり、除外理由を説明する対象は相手証明書名根拠です。B: 相手証明書名が正答です。相手証明書名応答の応答で確認できる対象は相手証明書名応答です。C: 相手証明書名保守で見る暗号仕様は役割が異なり、除外理由を説明する対象は相手証明書名保守です。D: 相手証明書名監査で見る証明書マップは役割が異なり、除外理由を説明する対象は相手証明書名監査です。初出語相手証明書名とは、IBM MQ 9.3で扱う定義、属性、または管理操作のことで、用語定義は相手証明書名照合です。
+
+**出典:** mq93.refadmin / mq93.administer / mq93.secure / mq93.reference / mq93.configure
+
+---
+
+**問題.** 送信チャネル定義を設計レビューで確認します。技術項目 DEFINE CHANNEL SDR の設定値と管理コマンド応答を照合し、チャネル種別と伝送キューを記録します。新規経路を本番へ入れる前に、定義値と実行時状態の見方を合わせます。どのMQ項目を中心に確認しますか。
+
+- A. MAXDEPTH
+- B. SUB attribute
+- C. DEFINE CHANNEL SDR ✅
+- D. DURABLE subscription
+
+正解: **C** ／ 難易度: 中級
+
+**解説:** 正答送信チャネル定義応答はCです。監査面の送信チャネル定義保守は、送信チャネルの接続先と伝送キューを定義することを目的に扱う説明単位が送信チャネル定義監査です。背景送信チャネル定義保守として、キューマネージャーの定義値、実行時状態、応答メッセージを結ぶ証跡単位は送信チャネル定義監査です。引継ぎ面の送信チャネル定義引継ぎを読む管理コマンド応答は、チャネル種別と伝送キューを出典の属性説明と照合する点が送信チャネル定義棚卸です。A: 送信チャネル定義応答で見る最大キュー深度は役割が異なり、除外理由を説明する対象は送信チャネル定義応答です。B: 送信チャネル定義保守で見る購読許可は役割が異なり、除外理由を説明する対象は送信チャネル定義保守です。C: 送信チャネル定義が正答です。送信チャネル定義監査の応答で確認できる対象は送信チャネル定義監査です。D: 送信チャネル定義引継ぎで見る永続購読は役割が異なり、除外理由を説明する対象は送信チャネル定義引継ぎです。初出語送信チャネル定義とは、IBM MQ 9.3で扱う定義、属性、または管理操作のことで、用語定義は送信チャネル定義観点です。
+
+**出典:** mq93.refadmin / mq93.administer / mq93.secure / mq93.reference / mq93.configure
+
+---
+
+**問題.** 受信チャネル定義を設計レビューで確認します。技術項目 DEFINE CHANNEL RCVR の設定値と管理コマンド応答を照合し、チャネル種別(受信)を記録します。新規経路を本番へ入れる前に、定義値と実行時状態の見方を合わせます。どのMQ項目を中心に確認しますか。
+
+- A. SSLCIPH
+- B. DISPLAY CHSTATUS SSLCIPH
+- C. DISPLAY CHSTATUS
+- D. DEFINE CHANNEL RCVR ✅
+
+正解: **D** ／ 難易度: 中級
+
+**解説:** 正答受信チャネル定義保守はDです。引継ぎ面の受信チャネル定義監査は、相手キューマネージャーからの接続受け口を定義することを目的に扱う説明単位が受信チャネル定義引継ぎです。背景受信チャネル定義監査として、キューマネージャーの定義値、実行時状態、応答メッセージを結ぶ証跡単位は受信チャネル定義引継ぎです。応答面の受信チャネル定義棚卸を読む管理コマンド応答は、チャネル種別(受信)を出典の属性説明と照合する点が受信チャネル定義復旧です。A: 受信チャネル定義保守で見る暗号仕様は役割が異なり、除外理由を説明する対象は受信チャネル定義保守です。B: 受信チャネル定義監査で見るチャネル暗号通信状態は役割が異なり、除外理由を説明する対象は受信チャネル定義監査です。C: 受信チャネル定義引継ぎで見るチャネル状態表示は役割が異なり、除外理由を説明する対象は受信チャネル定義引継ぎです。D: 受信チャネル定義が正答です。受信チャネル定義棚卸の応答で確認できる対象は受信チャネル定義棚卸です。初出語受信チャネル定義とは、IBM MQ 9.3で扱う定義、属性、または管理操作のことで、用語定義は受信チャネル定義証跡です。
+
+**出典:** mq93.refadmin / mq93.administer / mq93.secure / mq93.reference / mq93.configure
+
+---
+
+**問題.** チャネル開始を設計レビューで確認します。技術項目 START CHANNEL の設定値と管理コマンド応答を照合し、開始 チャネル応答を記録します。新規経路を本番へ入れる前に、定義値と実行時状態の見方を合わせます。どのMQ項目を中心に確認しますか。
+
+- A. START CHANNEL ✅
+- B. DISPLAY CHSTATUS SSLCIPH
+- C. STOP CHANNEL
+- D. DEFINE QLOCAL
+
+正解: **A** ／ 難易度: 初級
+
+**解説:** 正答チャネル開始監査はAです。応答面のチャネル開始引継ぎは、定義済みチャネルを開始して送受信を進めることを目的に扱う説明単位がチャネル開始棚卸です。背景チャネル開始引継ぎとして、キューマネージャーの定義値、実行時状態、応答メッセージを結ぶ証跡単位はチャネル開始棚卸です。定義面のチャネル開始復旧を読む管理コマンド応答は、開始 チャネル応答を出典の属性説明と照合する点がチャネル開始照合です。A: チャネル開始が正答です。チャネル開始監査の応答で確認できる対象はチャネル開始監査です。B: チャネル開始引継ぎで見るチャネル暗号通信状態は役割が異なり、除外理由を説明する対象はチャネル開始引継ぎです。C: チャネル開始棚卸で見るチャネル停止は役割が異なり、除外理由を説明する対象はチャネル開始棚卸です。D: チャネル開始復旧で見るローカルキュー定義は役割が異なり、除外理由を説明する対象はチャネル開始復旧です。初出語チャネル開始とは、IBM MQ 9.3で扱う定義、属性、または管理操作のことで、用語定義はチャネル開始読取です。
+
+**出典:** mq93.refadmin / mq93.administer / mq93.secure / mq93.reference / mq93.configure
+
+---
+
+**問題.** チャネル停止を設計レビューで確認します。技術項目 STOP CHANNEL の設定値と管理コマンド応答を照合し、停止 チャネル応答を記録します。新規経路を本番へ入れる前に、定義値と実行時状態の見方を合わせます。どのMQ項目を中心に確認しますか。
+
+- A. DISPLAY QSTATUS
+- B. STOP CHANNEL ✅
+- C. TOPICSTR
+- D. DISPLAY SUB
+
+正解: **B** ／ 難易度: 初級
+
+**解説:** 正答チャネル停止引継ぎはBです。定義面のチャネル停止棚卸は、変更や障害切り分けのためチャネルを停止することを目的に扱う説明単位がチャネル停止復旧です。背景チャネル停止棚卸として、キューマネージャーの定義値、実行時状態、応答メッセージを結ぶ証跡単位はチャネル停止復旧です。状態面のチャネル停止照合を読む管理コマンド応答は、停止 チャネル応答を出典の属性説明と照合する点がチャネル停止観点です。A: チャネル停止引継ぎで見るキュー状態表示は役割が異なり、除外理由を説明する対象はチャネル停止引継ぎです。B: チャネル停止が正答です。チャネル停止棚卸の応答で確認できる対象はチャネル停止棚卸です。C: チャネル停止復旧で見るトピック文字列は役割が異なり、除外理由を説明する対象はチャネル停止復旧です。D: チャネル停止照合で見る購読定義表示は役割が異なり、除外理由を説明する対象はチャネル停止照合です。初出語チャネル停止とは、IBM MQ 9.3で扱う定義、属性、または管理操作のことで、用語定義はチャネル停止状態です。
+
+**出典:** mq93.refadmin / mq93.administer / mq93.secure / mq93.reference / mq93.configure
+
+---
+
+**問題.** 切断間隔を設計レビューで確認します。技術項目 DISCINT の設定値と管理コマンド応答を照合し、切断間隔属性を記録します。新規経路を本番へ入れる前に、定義値と実行時状態の見方を合わせます。どのMQ項目を中心に確認しますか。
+
+- A. DEFINE SUB
+- B. DISCINT ✅
+- C. SSLCAUTH
+- D. SSLPEER
+
+正解: **B** ／ 難易度: 中級
+
+**解説:** 正答切断間隔観点はBです。保守面の切断間隔証跡は、アイドル時にチャネルを切断するまでの時間を確認することを目的に扱う説明単位が切断間隔読取です。背景切断間隔証跡として、キューマネージャーの定義値、実行時状態、応答メッセージを結ぶ証跡単位は切断間隔読取です。照合面の切断間隔状態を読む管理コマンド応答は、切断間隔属性を出典の属性説明と照合する点が切断間隔定義です。A: 切断間隔観点で見るサブスクリプション定義は役割が異なり、除外理由を説明する対象は切断間隔観点です。B: 切断間隔が正答です。切断間隔証跡の応答で確認できる対象は切断間隔証跡です。C: 切断間隔読取で見るクライアント証明書要求は役割が異なり、除外理由を説明する対象は切断間隔読取です。D: 切断間隔状態で見る相手証明書名は役割が異なり、除外理由を説明する対象は切断間隔状態です。初出語切断間隔とは、IBM MQ 9.3で扱う定義、属性、または管理操作のことで、用語定義は切断間隔保守です。
+
+**出典:** mq93.refadmin / mq93.administer / mq93.secure / mq93.reference / mq93.configure
+
+---
+
+**問題.** トピック定義を変更審査で確認します。技術項目 DEFINE TOPIC の設定値と管理コマンド応答を照合し、トピック文字列と発行属性/購読属性属性を記録します。暗号化や配信条件の変更前に、影響を受ける属性と証跡を整理します。どの選択肢が最も適切ですか。
+
+- A. DEFINE CHANNEL RCVR
+- B. DEFPSIST
+- C. DEFINE TOPIC ✅
+- D. CERTLABL
+
+正解: **C** ／ 難易度: 中級
+
+**解説:** 正答トピック定義根拠はCです。暗号面のトピック定義応答は、トピック名とトピック文字列を対応させることを目的に扱う説明単位がトピック定義保守です。背景トピック定義応答として、キューマネージャーの定義値、実行時状態、応答メッセージを結ぶ証跡単位はトピック定義保守です。記録面のトピック定義監査を読む管理コマンド応答は、トピック文字列と発行属性/購読属性属性を出典の属性説明と照合する点がトピック定義引継ぎです。A: トピック定義根拠で見る受信チャネル定義は役割が異なり、除外理由を説明する対象はトピック定義根拠です。B: トピック定義応答で見る既定永続性は役割が異なり、除外理由を説明する対象はトピック定義応答です。C: トピック定義が正答です。トピック定義保守の応答で確認できる対象はトピック定義保守です。D: トピック定義監査で見る証明書ラベルは役割が異なり、除外理由を説明する対象はトピック定義監査です。初出語トピック定義とは、IBM MQ 9.3で扱う定義、属性、または管理操作のことで、用語定義はトピック定義照合です。
+
+**出典:** mq93.refadmin / mq93.administer / mq93.secure / mq93.reference / mq93.configure
+
+---
+
+**問題.** トピック文字列を変更審査で確認します。技術項目 TOPICSTR の設定値と管理コマンド応答を照合し、トピック文字列値を記録します。暗号化や配信条件の変更前に、影響を受ける属性と証跡を整理します。どの選択肢が最も適切ですか。
+
+- A. DISPLAY QSTATUS
+- B. DISPLAY SUB
+- C. DEFINE CHANNEL RCVR
+- D. TOPICSTR ✅
+
+正解: **D** ／ 難易度: 初級
+
+**解説:** 正答トピック文字列応答はDです。記録面のトピック文字列保守は、アプリケーションが発行または購読する階層名を確認することを目的に扱う説明単位がトピック文字列監査です。背景トピック文字列保守として、キューマネージャーの定義値、実行時状態、応答メッセージを結ぶ証跡単位はトピック文字列監査です。設計面のトピック文字列引継ぎを読む管理コマンド応答は、トピック文字列値を出典の属性説明と照合する点がトピック文字列棚卸です。A: トピック文字列応答で見るキュー状態表示は役割が異なり、除外理由を説明する対象はトピック文字列応答です。B: トピック文字列保守で見る購読定義表示は役割が異なり、除外理由を説明する対象はトピック文字列保守です。C: トピック文字列監査で見る受信チャネル定義は役割が異なり、除外理由を説明する対象はトピック文字列監査です。D: トピック文字列が正答です。トピック文字列引継ぎの応答で確認できる対象はトピック文字列引継ぎです。初出語トピック文字列とは、IBM MQ 9.3で扱う定義、属性、または管理操作のことで、用語定義はトピック文字列観点です。
+
+**出典:** mq93.refadmin / mq93.administer / mq93.secure / mq93.reference / mq93.configure
+
+---
+
+**問題.** 発行許可を変更審査で確認します。技術項目 PUB attribute の設定値と管理コマンド応答を照合し、発行属性属性を記録します。暗号化や配信条件の変更前に、影響を受ける属性と証跡を整理します。どの選択肢が最も適切ですか。
+
+- A. PUB attribute ✅
+- B. SSLKEYR
+- C. XMITQ
+- D. DEFINE SUB
+
+正解: **A** ／ 難易度: 中級
+
+**解説:** 正答発行許可保守はAです。設計面の発行許可監査は、トピックへの発行を許可または抑止することを目的に扱う説明単位が発行許可引継ぎです。背景発行許可監査として、キューマネージャーの定義値、実行時状態、応答メッセージを結ぶ証跡単位は発行許可引継ぎです。変更面の発行許可棚卸を読む管理コマンド応答は、発行属性属性を出典の属性説明と照合する点が発行許可復旧です。A: 発行許可が正答です。発行許可保守の応答で確認できる対象は発行許可保守です。B: 発行許可監査で見る鍵リポジトリは役割が異なり、除外理由を説明する対象は発行許可監査です。C: 発行許可引継ぎで見る伝送キューは役割が異なり、除外理由を説明する対象は発行許可引継ぎです。D: 発行許可棚卸で見るサブスクリプション定義は役割が異なり、除外理由を説明する対象は発行許可棚卸です。初出語発行許可とは、IBM MQ 9.3で扱う定義、属性、または管理操作のことで、用語定義は発行許可証跡です。
+
+**出典:** mq93.refadmin / mq93.administer / mq93.secure / mq93.reference / mq93.configure
+
+---
+
+**問題.** 購読許可を変更審査で確認します。技術項目 SUB attribute の設定値と管理コマンド応答を照合し、購読属性属性を記録します。暗号化や配信条件の変更前に、影響を受ける属性と証跡を整理します。どの選択肢が最も適切ですか。
+
+- A. CONNAME
+- B. SUB attribute ✅
+- C. DISPLAY TPSTATUS
+- D. SSLPEER
+
+正解: **B** ／ 難易度: 中級
+
+**解説:** 正答購読許可監査はBです。変更面の購読許可引継ぎは、トピックからの購読を許可または抑止することを目的に扱う説明単位が購読許可棚卸です。背景購読許可引継ぎとして、キューマネージャーの定義値、実行時状態、応答メッセージを結ぶ証跡単位は購読許可棚卸です。障害面の購読許可復旧を読む管理コマンド応答は、購読属性属性を出典の属性説明と照合する点が購読許可照合です。A: 購読許可監査で見る接続名は役割が異なり、除外理由を説明する対象は購読許可監査です。B: 購読許可が正答です。購読許可引継ぎの応答で確認できる対象は購読許可引継ぎです。C: 購読許可棚卸で見るトピック状態は役割が異なり、除外理由を説明する対象は購読許可棚卸です。D: 購読許可復旧で見る相手証明書名は役割が異なり、除外理由を説明する対象は購読許可復旧です。初出語購読許可とは、IBM MQ 9.3で扱う定義、属性、または管理操作のことで、用語定義は購読許可読取です。
+
+**出典:** mq93.refadmin / mq93.administer / mq93.secure / mq93.reference / mq93.configure
+
+---
+
+**問題.** トピック表示を変更審査で確認します。技術項目 DISPLAY TOPIC の設定値と管理コマンド応答を照合し、トピック属性の応答を記録します。暗号化や配信条件の変更前に、影響を受ける属性と証跡を整理します。どの選択肢が最も適切ですか。
+
+- A. DEFINE SUB
+- B. CHLAUTH SSLPEERMAP
+- C. DISPLAY TOPIC ✅
+- D. MAXDEPTH
+
+正解: **C** ／ 難易度: 初級
+
+**解説:** 正答トピック表示引継ぎはCです。障害面のトピック表示棚卸は、定義済みトピックの属性を管理コマンドで読むことを目的に扱う説明単位がトピック表示復旧です。背景トピック表示棚卸として、キューマネージャーの定義値、実行時状態、応答メッセージを結ぶ証跡単位はトピック表示復旧です。監査面のトピック表示照合を読む管理コマンド応答は、トピック属性の応答を出典の属性説明と照合する点がトピック表示観点です。A: トピック表示引継ぎで見るサブスクリプション定義は役割が異なり、除外理由を説明する対象はトピック表示引継ぎです。B: トピック表示棚卸で見る証明書マップは役割が異なり、除外理由を説明する対象はトピック表示棚卸です。C: トピック表示が正答です。トピック表示復旧の応答で確認できる対象はトピック表示復旧です。D: トピック表示照合で見る最大キュー深度は役割が異なり、除外理由を説明する対象はトピック表示照合です。初出語トピック表示とは、IBM MQ 9.3で扱う定義、属性、または管理操作のことで、用語定義はトピック表示状態です。
+
+**出典:** mq93.refadmin / mq93.administer / mq93.secure / mq93.reference / mq93.configure
+
+---
+
+**問題.** トピック状態を変更審査で確認します。技術項目 DISPLAY TPSTATUS の設定値と管理コマンド応答を照合し、トピック状態応答を記録します。暗号化や配信条件の変更前に、影響を受ける属性と証跡を整理します。どの選択肢が最も適切ですか。
+
+- A. START CHANNEL
+- B. DEFINE TOPIC
+- C. SSLKEYR
+- D. DISPLAY TPSTATUS ✅
+
+正解: **D** ／ 難易度: 上級
+
+**解説:** 正答トピック状態棚卸はDです。監査面のトピック状態復旧は、トピックの実行時状態を定義値と分けて確認することを目的に扱う説明単位がトピック状態照合です。背景トピック状態復旧として、キューマネージャーの定義値、実行時状態、応答メッセージを結ぶ証跡単位はトピック状態照合です。引継ぎ面のトピック状態観点を読む管理コマンド応答は、トピック状態応答を出典の属性説明と照合する点がトピック状態証跡です。A: トピック状態棚卸で見るチャネル開始は役割が異なり、除外理由を説明する対象はトピック状態棚卸です。B: トピック状態復旧で見るトピック定義は役割が異なり、除外理由を説明する対象はトピック状態復旧です。C: トピック状態照合で見る鍵リポジトリは役割が異なり、除外理由を説明する対象はトピック状態照合です。D: トピック状態が正答です。トピック状態観点の応答で確認できる対象はトピック状態観点です。初出語トピック状態とは、IBM MQ 9.3で扱う定義、属性、または管理操作のことで、用語定義はトピック状態定義です。
+
+**出典:** mq93.refadmin / mq93.administer / mq93.secure / mq93.reference / mq93.configure
+
+---
+
+**問題.** サブスクリプション定義を変更審査で確認します。技術項目 DEFINE SUB の設定値と管理コマンド応答を照合し、購読属性名と配信先を記録します。暗号化や配信条件の変更前に、影響を受ける属性と証跡を整理します。どの選択肢が最も適切ですか。
+
+- A. DEFINE SUB ✅
+- B. DISCINT
+- C. DISPLAY TPSTATUS
+- D. DEFINE CHANNEL SDR
+
+正解: **A** ／ 難易度: 中級
+
+**解説:** 正答サブスクリプション定義復旧はAです。引継ぎ面のサブスクリプション定義照合は、購読先と配信先キューを固定して登録することを目的に扱う説明単位がサブスクリプション定義観点です。背景サブスクリプション定義照合として、キューマネージャーの定義値、実行時状態、応答メッセージを結ぶ証跡単位はサブスクリプション定義観点です。応答面のサブスクリプション定義証跡を読む管理コマンド応答は、購読属性名と配信先を出典の属性説明と照合する点がサブスクリプション定義読取です。A: サブスクリプション定義が正答です。サブスクリプション定義復旧の応答で確認できる対象はサブスクリプション定義復旧です。B: サブスクリプション定義照合で見る切断間隔は役割が異なり、除外理由を説明する対象はサブスクリプション定義照合です。C: サブスクリプション定義観点で見るトピック状態は役割が異なり、除外理由を説明する対象はサブスクリプション定義観点です。D: サブスクリプション定義証跡で見る送信チャネル定義は役割が異なり、除外理由を説明する対象はサブスクリプション定義証跡です。初出語サブスクリプション定義とは、IBM MQ 9.3で扱う定義、属性、または管理操作のことで、用語定義はサブスクリプション定義根拠です。
+
+**出典:** mq93.refadmin / mq93.administer / mq93.secure / mq93.reference / mq93.configure
+
+---
+
+**問題.** 購読定義表示を変更審査で確認します。技術項目 DISPLAY SUB の設定値と管理コマンド応答を照合し、表示 購読属性応答を記録します。暗号化や配信条件の変更前に、影響を受ける属性と証跡を整理します。どの選択肢が最も適切ですか。
+
+- A. PSPROP
+- B. DISPLAY SUB ✅
+- C. DEFINE CHANNEL SDR
+- D. DEFINE TOPIC
+
+正解: **B** ／ 難易度: 中級
+
+**解説:** 正答購読定義表示照合はBです。応答面の購読定義表示観点は、購読定義のトピック文字列と配信先を確認することを目的に扱う説明単位が購読定義表示証跡です。背景購読定義表示観点として、キューマネージャーの定義値、実行時状態、応答メッセージを結ぶ証跡単位は購読定義表示証跡です。定義面の購読定義表示読取を読む管理コマンド応答は、表示 購読属性応答を出典の属性説明と照合する点が購読定義表示状態です。A: 購読定義表示照合で見る発行購読プロパティは役割が異なり、除外理由を説明する対象は購読定義表示照合です。B: 購読定義表示が正答です。購読定義表示観点の応答で確認できる対象は購読定義表示観点です。C: 購読定義表示証跡で見る送信チャネル定義は役割が異なり、除外理由を説明する対象は購読定義表示証跡です。D: 購読定義表示読取で見るトピック定義は役割が異なり、除外理由を説明する対象は購読定義表示読取です。初出語購読定義表示とは、IBM MQ 9.3で扱う定義、属性、または管理操作のことで、用語定義は購読定義表示応答です。
+
+**出典:** mq93.refadmin / mq93.administer / mq93.secure / mq93.reference / mq93.configure
+
+---
+
+**問題.** 発行購読プロパティを変更審査で確認します。技術項目 PSPROP の設定値と管理コマンド応答を照合し、発行購読プロパティ属性を記録します。暗号化や配信条件の変更前に、影響を受ける属性と証跡を整理します。どの選択肢が最も適切ですか。
+
+- A. REFRESH SECURITY TYPE(SSL)
+- B. CONNAME
+- C. PSPROP ✅
+- D. DEFINE SUB
+
+正解: **C** ／ 難易度: 上級
+
+**解説:** 正答発行購読プロパティ観点はCです。定義面の発行購読プロパティ証跡は、発行購読プロパティをメッセージへ付加する方式を確認することを目的に扱う説明単位が発行購読プロパティ読取です。背景発行購読プロパティ証跡として、キューマネージャーの定義値、実行時状態、応答メッセージを結ぶ証跡単位は発行購読プロパティ読取です。状態面の発行購読プロパティ状態を読む管理コマンド応答は、発行購読プロパティ属性を出典の属性説明と照合する点が発行購読プロパティ定義です。A: 発行購読プロパティ観点で見る暗号通信設定再読込は役割が異なり、除外理由を説明する対象は発行購読プロパティ観点です。B: 発行購読プロパティ証跡で見る接続名は役割が異なり、除外理由を説明する対象は発行購読プロパティ証跡です。C: 発行購読プロパティが正答です。発行購読プロパティ読取の応答で確認できる対象は発行購読プロパティ読取です。D: 発行購読プロパティ状態で見るサブスクリプション定義は役割が異なり、除外理由を説明する対象は発行購読プロパティ状態です。初出語発行購読プロパティとは、IBM MQ 9.3で扱う定義、属性、または管理操作のことで、用語定義は発行購読プロパティ保守です。
+
+**出典:** mq93.refadmin / mq93.administer / mq93.secure / mq93.reference / mq93.configure
+
+---
+
+**問題.** 永続購読を変更審査で確認します。技術項目 DURABLE subscription の設定値と管理コマンド応答を照合し、永続属性属性を記録します。暗号化や配信条件の変更前に、影響を受ける属性と証跡を整理します。どの選択肢が最も適切ですか。
+
+- A. SSLCIPH
+- B. START CHANNEL
+- C. PUB attribute
+- D. DURABLE subscription ✅
+
+正解: **D** ／ 難易度: 上級
+
+**解説:** 正答永続購読証跡はDです。状態面の永続購読読取は、アプリケーション停止中も購読状態を保持することを目的に扱う説明単位が永続購読状態です。背景永続購読読取として、キューマネージャーの定義値、実行時状態、応答メッセージを結ぶ証跡単位は永続購読状態です。証跡面の永続購読定義を読む管理コマンド応答は、永続属性属性を出典の属性説明と照合する点が永続購読根拠です。A: 永続購読証跡で見る暗号仕様は役割が異なり、除外理由を説明する対象は永続購読証跡です。B: 永続購読読取で見るチャネル開始は役割が異なり、除外理由を説明する対象は永続購読読取です。C: 永続購読状態で見る発行許可は役割が異なり、除外理由を説明する対象は永続購読状態です。D: 永続購読が正答です。永続購読定義の応答で確認できる対象は永続購読定義です。初出語永続購読とは、IBM MQ 9.3で扱う定義、属性、または管理操作のことで、用語定義は永続購読監査です。
+
+**出典:** mq93.refadmin / mq93.administer / mq93.secure / mq93.reference / mq93.configure
+
+---
+
+**問題.** 暗号仕様を変更審査で確認します。技術項目 SSLCIPH の設定値と管理コマンド応答を照合し、暗号仕様値を記録します。暗号化や配信条件の変更前に、影響を受ける属性と証跡を整理します。どの選択肢が最も適切ですか。
+
+- A. SSLCIPH ✅
+- B. DISPLAY SUB
+- C. DEFINE CHANNEL SDR
+- D. DEFINE TOPIC
+
+正解: **A** ／ 難易度: 中級
+
+**解説:** 正答暗号仕様読取はAです。証跡面の暗号仕様状態は、チャネルで使う暗号仕様を確認することを目的に扱う説明単位が暗号仕様定義です。背景暗号仕様状態として、キューマネージャーの定義値、実行時状態、応答メッセージを結ぶ証跡単位は暗号仕様定義です。復旧面の暗号仕様根拠を読む管理コマンド応答は、暗号仕様値を出典の属性説明と照合する点が暗号仕様応答です。A: 暗号仕様が正答です。暗号仕様読取の応答で確認できる対象は暗号仕様読取です。B: 暗号仕様状態で見る購読定義表示は役割が異なり、除外理由を説明する対象は暗号仕様状態です。C: 暗号仕様定義で見る送信チャネル定義は役割が異なり、除外理由を説明する対象は暗号仕様定義です。D: 暗号仕様根拠で見るトピック定義は役割が異なり、除外理由を説明する対象は暗号仕様根拠です。初出語暗号仕様とは、IBM MQ 9.3で扱う定義、属性、または管理操作のことで、用語定義は暗号仕様引継ぎです。
+
+**出典:** mq93.refadmin / mq93.administer / mq93.secure / mq93.reference / mq93.configure
+
+---
+
+**問題.** クライアント証明書要求を変更審査で確認します。技術項目 SSLCAUTH の設定値と管理コマンド応答を照合し、証明書要求値を記録します。暗号化や配信条件の変更前に、影響を受ける属性と証跡を整理します。どの選択肢が最も適切ですか。
+
+- A. START CHANNEL
+- B. SSLCAUTH ✅
+- C. DEFINE TOPIC
+- D. SSLKEYR
+
+正解: **B** ／ 難易度: 中級
+
+**解説:** 正答クライアント証明書要求状態はBです。復旧面のクライアント証明書要求定義は、クライアント証明書の要求有無を確認することを目的に扱う説明単位がクライアント証明書要求根拠です。背景クライアント証明書要求定義として、キューマネージャーの定義値、実行時状態、応答メッセージを結ぶ証跡単位はクライアント証明書要求根拠です。保守面のクライアント証明書要求応答を読む管理コマンド応答は、証明書要求値を出典の属性説明と照合する点がクライアント証明書要求保守です。A: クライアント証明書要求状態で見るチャネル開始は役割が異なり、除外理由を説明する対象はクライアント証明書要求状態です。B: クライアント証明書要求が正答です。クライアント証明書要求定義の応答で確認できる対象はクライアント証明書要求定義です。C: クライアント証明書要求根拠で見るトピック定義は役割が異なり、除外理由を説明する対象はクライアント証明書要求根拠です。D: クライアント証明書要求応答で見る鍵リポジトリは役割が異なり、除外理由を説明する対象はクライアント証明書要求応答です。初出語クライアント証明書要求とは、IBM MQ 9.3で扱う定義、属性、または管理操作のことで、用語定義はクライアント証明書要求棚卸です。
+
+**出典:** mq93.refadmin / mq93.administer / mq93.secure / mq93.reference / mq93.configure
+
+---
+
+**問題.** 証明書ラベルを変更審査で確認します。技術項目 CERTLABL の設定値と管理コマンド応答を照合し、証明書ラベル値を記録します。暗号化や配信条件の変更前に、影響を受ける属性と証跡を整理します。どの選択肢が最も適切ですか。
+
+- A. TOPICSTR
+- B. SSLCAUTH
+- C. CERTLABL ✅
+- D. CONNAME
+
+正解: **C** ／ 難易度: 中級
+
+**解説:** 正答証明書ラベル定義はCです。保守面の証明書ラベル根拠は、キューマネージャーが提示する証明書のラベルを確認することを目的に扱う説明単位が証明書ラベル応答です。背景証明書ラベル根拠として、キューマネージャーの定義値、実行時状態、応答メッセージを結ぶ証跡単位は証明書ラベル応答です。照合面の証明書ラベル保守を読む管理コマンド応答は、証明書ラベル値を出典の属性説明と照合する点が証明書ラベル監査です。A: 証明書ラベル定義で見るトピック文字列は役割が異なり、除外理由を説明する対象は証明書ラベル定義です。B: 証明書ラベル根拠で見るクライアント証明書要求は役割が異なり、除外理由を説明する対象は証明書ラベル根拠です。C: 証明書ラベルが正答です。証明書ラベル応答の応答で確認できる対象は証明書ラベル応答です。D: 証明書ラベル保守で見る接続名は役割が異なり、除外理由を説明する対象は証明書ラベル保守です。初出語証明書ラベルとは、IBM MQ 9.3で扱う定義、属性、または管理操作のことで、用語定義は証明書ラベル復旧です。
+
+**出典:** mq93.refadmin / mq93.administer / mq93.secure / mq93.reference / mq93.configure
+
+---
+
+**問題.** 鍵リポジトリを変更審査で確認します。技術項目 SSLKEYR の設定値と管理コマンド応答を照合し、鍵リポジトリ値を記録します。暗号化や配信条件の変更前に、影響を受ける属性と証跡を整理します。どの選択肢が最も適切ですか。
+
+- A. SSLCAUTH
+- B. DISPLAY CHSTATUS
+- C. DISPLAY TOPIC
+- D. SSLKEYR ✅
+
+正解: **D** ／ 難易度: 中級
+
+**解説:** 正答鍵リポジトリ根拠はDです。照合面の鍵リポジトリ応答は、証明書を格納する鍵リポジトリの場所を確認することを目的に扱う説明単位が鍵リポジトリ保守です。背景鍵リポジトリ応答として、キューマネージャーの定義値、実行時状態、応答メッセージを結ぶ証跡単位は鍵リポジトリ保守です。運用面の鍵リポジトリ監査を読む管理コマンド応答は、鍵リポジトリ値を出典の属性説明と照合する点が鍵リポジトリ引継ぎです。A: 鍵リポジトリ根拠で見るクライアント証明書要求は役割が異なり、除外理由を説明する対象は鍵リポジトリ根拠です。B: 鍵リポジトリ応答で見るチャネル状態表示は役割が異なり、除外理由を説明する対象は鍵リポジトリ応答です。C: 鍵リポジトリ保守で見るトピック表示は役割が異なり、除外理由を説明する対象は鍵リポジトリ保守です。D: 鍵リポジトリが正答です。鍵リポジトリ監査の応答で確認できる対象は鍵リポジトリ監査です。初出語鍵リポジトリとは、IBM MQ 9.3で扱う定義、属性、または管理操作のことで、用語定義は鍵リポジトリ照合です。
+
+**出典:** mq93.refadmin / mq93.administer / mq93.secure / mq93.reference / mq93.configure
+
+---
+
+**問題.** 暗号通信設定再読込を変更審査で確認します。技術項目 REFRESH SECURITY TYPE(SSL) の設定値と管理コマンド応答を照合し、暗号設定再読込応答を記録します。暗号化や配信条件の変更前に、影響を受ける属性と証跡を整理します。どの選択肢が最も適切ですか。
+
+- A. REFRESH SECURITY TYPE(SSL) ✅
+- B. CERTLABL
+- C. XMITQ
+- D. DISPLAY TPSTATUS
+
+正解: **A** ／ 難易度: 上級
+
+**解説:** 正答暗号通信設定再読込応答はAです。運用面の暗号通信設定再読込保守は、証明書や鍵リポジトリ変更を反映することを目的に扱う説明単位が暗号通信設定再読込監査です。背景暗号通信設定再読込保守として、キューマネージャーの定義値、実行時状態、応答メッセージを結ぶ証跡単位は暗号通信設定再読込監査です。接続面の暗号通信設定再読込引継ぎを読む管理コマンド応答は、暗号設定再読込応答を出典の属性説明と照合する点が暗号通信設定再読込棚卸です。A: 暗号通信設定再読込が正答です。暗号通信設定再読込応答の応答で確認できる対象は暗号通信設定再読込応答です。B: 暗号通信設定再読込保守で見る証明書ラベルは役割が異なり、除外理由を説明する対象は暗号通信設定再読込保守です。C: 暗号通信設定再読込監査で見る伝送キューは役割が異なり、除外理由を説明する対象は暗号通信設定再読込監査です。D: 暗号通信設定再読込引継ぎで見るトピック状態は役割が異なり、除外理由を説明する対象は暗号通信設定再読込引継ぎです。初出語暗号通信設定再読込とは、IBM MQ 9.3で扱う定義、属性、または管理操作のことで、用語定義は暗号通信設定再読込観点です。
+
+**出典:** mq93.refadmin / mq93.administer / mq93.secure / mq93.reference / mq93.configure
+
+---
+
+**問題.** チャネル暗号通信状態を変更審査で確認します。技術項目 DISPLAY CHSTATUS SSLCIPH の設定値と管理コマンド応答を照合し、チャネル状態の暗号仕様を記録します。暗号化や配信条件の変更前に、影響を受ける属性と証跡を整理します。どの選択肢が最も適切ですか。
+
+- A. DISPLAY CHSTATUS
+- B. DISPLAY CHSTATUS SSLCIPH ✅
+- C. PUB attribute
+- D. REFRESH SECURITY TYPE(SSL)
+
+正解: **B** ／ 難易度: 上級
+
+**解説:** 正答チャネル暗号通信状態保守はBです。接続面のチャネル暗号通信状態監査は、実行中チャネルが使用中の暗号仕様を確認することを目的に扱う説明単位がチャネル暗号通信状態引継ぎです。背景チャネル暗号通信状態監査として、キューマネージャーの定義値、実行時状態、応答メッセージを結ぶ証跡単位はチャネル暗号通信状態引継ぎです。配信面のチャネル暗号通信状態棚卸を読む管理コマンド応答は、チャネル状態の暗号仕様を出典の属性説明と照合する点がチャネル暗号通信状態復旧です。A: チャネル暗号通信状態保守で見るチャネル状態表示は役割が異なり、除外理由を説明する対象はチャネル暗号通信状態保守です。B: チャネル暗号通信状態が正答です。チャネル暗号通信状態監査の応答で確認できる対象はチャネル暗号通信状態監査です。C: チャネル暗号通信状態引継ぎで見る発行許可は役割が異なり、除外理由を説明する対象はチャネル暗号通信状態引継ぎです。D: チャネル暗号通信状態棚卸で見る暗号通信設定再読込は役割が異なり、除外理由を説明する対象はチャネル暗号通信状態棚卸です。初出語チャネル暗号通信状態とは、IBM MQ 9.3で扱う定義、属性、または管理操作のことで、用語定義はチャネル暗号通信状態証跡です。
+
+**出典:** mq93.refadmin / mq93.administer / mq93.secure / mq93.reference / mq93.configure
+
+---
+
+**問題.** 証明書マップを変更審査で確認します。技術項目 CHLAUTH SSLPEERMAP の設定値と管理コマンド応答を照合し、チャネル認証 種別(証明書マップ)を記録します。暗号化や配信条件の変更前に、影響を受ける属性と証跡を整理します。どの選択肢が最も適切ですか。
+
+- A. DEFINE QLOCAL
+- B. DISPLAY SUB
+- C. CHLAUTH SSLPEERMAP ✅
+- D. START CHANNEL
+
+正解: **C** ／ 難易度: 上級
+
+**解説:** 正答証明書マップ監査はCです。配信面の証明書マップ引継ぎは、相手証明書の識別名と接続許可の対応を確認することを目的に扱う説明単位が証明書マップ棚卸です。背景証明書マップ引継ぎとして、キューマネージャーの定義値、実行時状態、応答メッセージを結ぶ証跡単位は証明書マップ棚卸です。暗号面の証明書マップ復旧を読む管理コマンド応答は、チャネル認証 種別(証明書マップ)を出典の属性説明と照合する点が証明書マップ照合です。A: 証明書マップ監査で見るローカルキュー定義は役割が異なり、除外理由を説明する対象は証明書マップ監査です。B: 証明書マップ引継ぎで見る購読定義表示は役割が異なり、除外理由を説明する対象は証明書マップ引継ぎです。C: 証明書マップが正答です。証明書マップ棚卸の応答で確認できる対象は証明書マップ棚卸です。D: 証明書マップ復旧で見るチャネル開始は役割が異なり、除外理由を説明する対象は証明書マップ復旧です。初出語証明書マップとは、IBM MQ 9.3で扱う定義、属性、または管理操作のことで、用語定義は証明書マップ読取です。
+
+**出典:** mq93.refadmin / mq93.administer / mq93.secure / mq93.reference / mq93.configure
+
+---
+
+**問題.** 相手証明書名を変更審査で確認します。技術項目 SSLPEER の設定値と管理コマンド応答を照合し、相手証明書名値を記録します。暗号化や配信条件の変更前に、影響を受ける属性と証跡を整理します。どの選択肢が最も適切ですか。
+
+- A. DEFINE QLOCAL
+- B. DISPLAY SUB
+- C. START CHANNEL
+- D. SSLPEER ✅
+
+正解: **D** ／ 難易度: 上級
+
+**解説:** 正答相手証明書名引継ぎはDです。暗号面の相手証明書名棚卸は、相手証明書の識別名条件を確認することを目的に扱う説明単位が相手証明書名復旧です。背景相手証明書名棚卸として、キューマネージャーの定義値、実行時状態、応答メッセージを結ぶ証跡単位は相手証明書名復旧です。記録面の相手証明書名照合を読む管理コマンド応答は、相手証明書名値を出典の属性説明と照合する点が相手証明書名観点です。A: 相手証明書名引継ぎで見るローカルキュー定義は役割が異なり、除外理由を説明する対象は相手証明書名引継ぎです。B: 相手証明書名棚卸で見る購読定義表示は役割が異なり、除外理由を説明する対象は相手証明書名棚卸です。C: 相手証明書名復旧で見るチャネル開始は役割が異なり、除外理由を説明する対象は相手証明書名復旧です。D: 相手証明書名が正答です。相手証明書名照合の応答で確認できる対象は相手証明書名照合です。初出語相手証明書名とは、IBM MQ 9.3で扱う定義、属性、または管理操作のことで、用語定義は相手証明書名状態です。
+
+**出典:** mq93.refadmin / mq93.administer / mq93.secure / mq93.reference / mq93.configure
+
+---
+
+**問題.** 送信チャネル定義を変更審査で確認します。技術項目 DEFINE CHANNEL SDR の設定値と管理コマンド応答を照合し、チャネル種別と伝送キューを記録します。暗号化や配信条件の変更前に、影響を受ける属性と証跡を整理します。どの選択肢が最も適切ですか。
+
+- A. DEFINE CHANNEL SDR ✅
+- B. START CHANNEL
+- C. DEFINE TOPIC
+- D. CERTLABL
+
+正解: **A** ／ 難易度: 中級
+
+**解説:** 正答送信チャネル定義棚卸はAです。記録面の送信チャネル定義復旧は、送信チャネルの接続先と伝送キューを定義することを目的に扱う説明単位が送信チャネル定義照合です。背景送信チャネル定義復旧として、キューマネージャーの定義値、実行時状態、応答メッセージを結ぶ証跡単位は送信チャネル定義照合です。設計面の送信チャネル定義観点を読む管理コマンド応答は、チャネル種別と伝送キューを出典の属性説明と照合する点が送信チャネル定義証跡です。A: 送信チャネル定義が正答です。送信チャネル定義棚卸の応答で確認できる対象は送信チャネル定義棚卸です。B: 送信チャネル定義復旧で見るチャネル開始は役割が異なり、除外理由を説明する対象は送信チャネル定義復旧です。C: 送信チャネル定義照合で見るトピック定義は役割が異なり、除外理由を説明する対象は送信チャネル定義照合です。D: 送信チャネル定義観点で見る証明書ラベルは役割が異なり、除外理由を説明する対象は送信チャネル定義観点です。初出語送信チャネル定義とは、IBM MQ 9.3で扱う定義、属性、または管理操作のことで、用語定義は送信チャネル定義定義です。
+
+**出典:** mq93.refadmin / mq93.administer / mq93.secure / mq93.reference / mq93.configure
+
+---
+
+**問題.** 受信チャネル定義を変更審査で確認します。技術項目 DEFINE CHANNEL RCVR の設定値と管理コマンド応答を照合し、チャネル種別(受信)を記録します。暗号化や配信条件の変更前に、影響を受ける属性と証跡を整理します。どの選択肢が最も適切ですか。
+
+- A. PUB attribute
+- B. DEFINE CHANNEL RCVR ✅
+- C. CERTLABL
+- D. DISCINT
+
+正解: **B** ／ 難易度: 中級
+
+**解説:** 正答受信チャネル定義復旧はBです。設計面の受信チャネル定義照合は、相手キューマネージャーからの接続受け口を定義することを目的に扱う説明単位が受信チャネル定義観点です。背景受信チャネル定義照合として、キューマネージャーの定義値、実行時状態、応答メッセージを結ぶ証跡単位は受信チャネル定義観点です。変更面の受信チャネル定義証跡を読む管理コマンド応答は、チャネル種別(受信)を出典の属性説明と照合する点が受信チャネル定義読取です。A: 受信チャネル定義復旧で見る発行許可は役割が異なり、除外理由を説明する対象は受信チャネル定義復旧です。B: 受信チャネル定義が正答です。受信チャネル定義照合の応答で確認できる対象は受信チャネル定義照合です。C: 受信チャネル定義観点で見る証明書ラベルは役割が異なり、除外理由を説明する対象は受信チャネル定義観点です。D: 受信チャネル定義証跡で見る切断間隔は役割が異なり、除外理由を説明する対象は受信チャネル定義証跡です。初出語受信チャネル定義とは、IBM MQ 9.3で扱う定義、属性、または管理操作のことで、用語定義は受信チャネル定義根拠です。
+
+**出典:** mq93.refadmin / mq93.administer / mq93.secure / mq93.reference / mq93.configure
+
+---
+
+**問題.** チャネル開始を変更審査で確認します。技術項目 START CHANNEL の設定値と管理コマンド応答を照合し、開始 チャネル応答を記録します。暗号化や配信条件の変更前に、影響を受ける属性と証跡を整理します。どの選択肢が最も適切ですか。
+
+- A. DISPLAY SUB
+- B. SSLPEER
+- C. START CHANNEL ✅
+- D. DEFINE TOPIC
+
+正解: **C** ／ 難易度: 初級
+
+**解説:** 正答チャネル開始照合はCです。変更面のチャネル開始観点は、定義済みチャネルを開始して送受信を進めることを目的に扱う説明単位がチャネル開始証跡です。背景チャネル開始観点として、キューマネージャーの定義値、実行時状態、応答メッセージを結ぶ証跡単位はチャネル開始証跡です。障害面のチャネル開始読取を読む管理コマンド応答は、開始 チャネル応答を出典の属性説明と照合する点がチャネル開始状態です。A: チャネル開始照合で見る購読定義表示は役割が異なり、除外理由を説明する対象はチャネル開始照合です。B: チャネル開始観点で見る相手証明書名は役割が異なり、除外理由を説明する対象はチャネル開始観点です。C: チャネル開始が正答です。チャネル開始証跡の応答で確認できる対象はチャネル開始証跡です。D: チャネル開始読取で見るトピック定義は役割が異なり、除外理由を説明する対象はチャネル開始読取です。初出語チャネル開始とは、IBM MQ 9.3で扱う定義、属性、または管理操作のことで、用語定義はチャネル開始応答です。
+
+**出典:** mq93.refadmin / mq93.administer / mq93.secure / mq93.reference / mq93.configure
+
+---
+
+**問題.** チャネル停止を変更審査で確認します。技術項目 STOP CHANNEL の設定値と管理コマンド応答を照合し、停止 チャネル応答を記録します。暗号化や配信条件の変更前に、影響を受ける属性と証跡を整理します。どの選択肢が最も適切ですか。
+
+- A. SSLPEER
+- B. MAXDEPTH
+- C. SSLCIPH
+- D. STOP CHANNEL ✅
+
+正解: **D** ／ 難易度: 初級
+
+**解説:** 正答チャネル停止観点はDです。障害面のチャネル停止証跡は、変更や障害切り分けのためチャネルを停止することを目的に扱う説明単位がチャネル停止読取です。背景チャネル停止証跡として、キューマネージャーの定義値、実行時状態、応答メッセージを結ぶ証跡単位はチャネル停止読取です。監査面のチャネル停止状態を読む管理コマンド応答は、停止 チャネル応答を出典の属性説明と照合する点がチャネル停止定義です。A: チャネル停止観点で見る相手証明書名は役割が異なり、除外理由を説明する対象はチャネル停止観点です。B: チャネル停止証跡で見る最大キュー深度は役割が異なり、除外理由を説明する対象はチャネル停止証跡です。C: チャネル停止読取で見る暗号仕様は役割が異なり、除外理由を説明する対象はチャネル停止読取です。D: チャネル停止が正答です。チャネル停止状態の応答で確認できる対象はチャネル停止状態です。初出語チャネル停止とは、IBM MQ 9.3で扱う定義、属性、または管理操作のことで、用語定義はチャネル停止保守です。
+
+**出典:** mq93.refadmin / mq93.administer / mq93.secure / mq93.reference / mq93.configure
+
+---
+
+**問題.** 切断間隔を変更審査で確認します。技術項目 DISCINT の設定値と管理コマンド応答を照合し、切断間隔属性を記録します。暗号化や配信条件の変更前に、影響を受ける属性と証跡を整理します。どの選択肢が最も適切ですか。
+
+- A. MAXDEPTH
+- B. PSPROP
+- C. START CHANNEL
+- D. DISCINT ✅
+
+正解: **D** ／ 難易度: 中級
+
+**解説:** 正答切断間隔定義はDです。定義面の切断間隔根拠は、アイドル時にチャネルを切断するまでの時間を確認することを目的に扱う説明単位が切断間隔応答です。背景切断間隔根拠として、キューマネージャーの定義値、実行時状態、応答メッセージを結ぶ証跡単位は切断間隔応答です。状態面の切断間隔保守を読む管理コマンド応答は、切断間隔属性を出典の属性説明と照合する点が切断間隔監査です。A: 切断間隔定義で見る最大キュー深度は役割が異なり、除外理由を説明する対象は切断間隔定義です。B: 切断間隔根拠で見る発行購読プロパティは役割が異なり、除外理由を説明する対象は切断間隔根拠です。C: 切断間隔応答で見るチャネル開始は役割が異なり、除外理由を説明する対象は切断間隔応答です。D: 切断間隔が正答です。切断間隔保守の応答で確認できる対象は切断間隔保守です。初出語切断間隔とは、IBM MQ 9.3で扱う定義、属性、または管理操作のことで、用語定義は切断間隔復旧です。
+
+**出典:** mq93.refadmin / mq93.administer / mq93.secure / mq93.reference / mq93.configure
+
+---
+
+**問題.** トピック定義を障害切り分けで確認します。技術項目 DEFINE TOPIC の設定値と管理コマンド応答を照合し、トピック文字列と発行属性/購読属性属性を記録します。メッセージ滞留や接続失敗の原因を、MQSC応答とメッセージIDから絞ります。優先して確認する項目はどれですか。
+
+- A. DEFINE TOPIC ✅
+- B. SSLCAUTH
+- C. DISPLAY QSTATUS
+- D. DISPLAY CHSTATUS SSLCIPH
+
+正解: **A** ／ 難易度: 中級
+
+**解説:** 正答トピック定義引継ぎはAです。照合面のトピック定義棚卸は、トピック名とトピック文字列を対応させることを目的に扱う説明単位がトピック定義復旧です。背景トピック定義棚卸として、キューマネージャーの定義値、実行時状態、応答メッセージを結ぶ証跡単位はトピック定義復旧です。運用面のトピック定義照合を読む管理コマンド応答は、トピック文字列と発行属性/購読属性属性を出典の属性説明と照合する点がトピック定義観点です。A: トピック定義が正答です。トピック定義引継ぎの応答で確認できる対象はトピック定義引継ぎです。B: トピック定義棚卸で見るクライアント証明書要求は役割が異なり、除外理由を説明する対象はトピック定義棚卸です。C: トピック定義復旧で見るキュー状態表示は役割が異なり、除外理由を説明する対象はトピック定義復旧です。D: トピック定義照合で見るチャネル暗号通信状態は役割が異なり、除外理由を説明する対象はトピック定義照合です。初出語トピック定義とは、IBM MQ 9.3で扱う定義、属性、または管理操作のことで、用語定義はトピック定義状態です。
+
+**出典:** mq93.refadmin / mq93.administer / mq93.secure / mq93.reference / mq93.configure
+
+---
+
+**問題.** トピック文字列を障害切り分けで確認します。技術項目 TOPICSTR の設定値と管理コマンド応答を照合し、トピック文字列値を記録します。メッセージ滞留や接続失敗の原因を、MQSC応答とメッセージIDから絞ります。優先して確認する項目はどれですか。
+
+- A. DEFINE CHANNEL SDR
+- B. TOPICSTR ✅
+- C. DISPLAY TOPIC
+- D. DISPLAY CHSTATUS
+
+正解: **B** ／ 難易度: 初級
+
+**解説:** 正答トピック文字列棚卸はBです。運用面のトピック文字列復旧は、アプリケーションが発行または購読する階層名を確認することを目的に扱う説明単位がトピック文字列照合です。背景トピック文字列復旧として、キューマネージャーの定義値、実行時状態、応答メッセージを結ぶ証跡単位はトピック文字列照合です。接続面のトピック文字列観点を読む管理コマンド応答は、トピック文字列値を出典の属性説明と照合する点がトピック文字列証跡です。A: トピック文字列棚卸で見る送信チャネル定義は役割が異なり、除外理由を説明する対象はトピック文字列棚卸です。B: トピック文字列が正答です。トピック文字列復旧の応答で確認できる対象はトピック文字列復旧です。C: トピック文字列照合で見るトピック表示は役割が異なり、除外理由を説明する対象はトピック文字列照合です。D: トピック文字列観点で見るチャネル状態表示は役割が異なり、除外理由を説明する対象はトピック文字列観点です。初出語トピック文字列とは、IBM MQ 9.3で扱う定義、属性、または管理操作のことで、用語定義はトピック文字列定義です。
+
+**出典:** mq93.refadmin / mq93.administer / mq93.secure / mq93.reference / mq93.configure
+
+---
+
+**問題.** 発行許可を障害切り分けで確認します。技術項目 PUB attribute の設定値と管理コマンド応答を照合し、発行属性属性を記録します。メッセージ滞留や接続失敗の原因を、MQSC応答とメッセージIDから絞ります。優先して確認する項目はどれですか。
+
+- A. DISPLAY TPSTATUS
+- B. START CHANNEL
+- C. PUB attribute ✅
+- D. DURABLE subscription
+
+正解: **C** ／ 難易度: 中級
+
+**解説:** 正答発行許可復旧はCです。接続面の発行許可照合は、トピックへの発行を許可または抑止することを目的に扱う説明単位が発行許可観点です。背景発行許可照合として、キューマネージャーの定義値、実行時状態、応答メッセージを結ぶ証跡単位は発行許可観点です。配信面の発行許可証跡を読む管理コマンド応答は、発行属性属性を出典の属性説明と照合する点が発行許可読取です。A: 発行許可復旧で見るトピック状態は役割が異なり、除外理由を説明する対象は発行許可復旧です。B: 発行許可照合で見るチャネル開始は役割が異なり、除外理由を説明する対象は発行許可照合です。C: 発行許可が正答です。発行許可観点の応答で確認できる対象は発行許可観点です。D: 発行許可証跡で見る永続購読は役割が異なり、除外理由を説明する対象は発行許可証跡です。初出語発行許可とは、IBM MQ 9.3で扱う定義、属性、または管理操作のことで、用語定義は発行許可根拠です。
+
+**出典:** mq93.refadmin / mq93.administer / mq93.secure / mq93.reference / mq93.configure
+
+---
+
+**問題.** 購読許可を障害切り分けで確認します。技術項目 SUB attribute の設定値と管理コマンド応答を照合し、購読属性属性を記録します。メッセージ滞留や接続失敗の原因を、MQSC応答とメッセージIDから絞ります。優先して確認する項目はどれですか。
+
+- A. CHLAUTH SSLPEERMAP
+- B. TOPICSTR
+- C. START CHANNEL
+- D. SUB attribute ✅
+
+正解: **D** ／ 難易度: 中級
+
+**解説:** 正答購読許可照合はDです。配信面の購読許可観点は、トピックからの購読を許可または抑止することを目的に扱う説明単位が購読許可証跡です。背景購読許可観点として、キューマネージャーの定義値、実行時状態、応答メッセージを結ぶ証跡単位は購読許可証跡です。暗号面の購読許可読取を読む管理コマンド応答は、購読属性属性を出典の属性説明と照合する点が購読許可状態です。A: 購読許可照合で見る証明書マップは役割が異なり、除外理由を説明する対象は購読許可照合です。B: 購読許可観点で見るトピック文字列は役割が異なり、除外理由を説明する対象は購読許可観点です。C: 購読許可証跡で見るチャネル開始は役割が異なり、除外理由を説明する対象は購読許可証跡です。D: 購読許可が正答です。購読許可読取の応答で確認できる対象は購読許可読取です。初出語購読許可とは、IBM MQ 9.3で扱う定義、属性、または管理操作のことで、用語定義は購読許可応答です。
+
+**出典:** mq93.refadmin / mq93.administer / mq93.secure / mq93.reference / mq93.configure
+
+---
+
+**問題.** トピック表示を障害切り分けで確認します。技術項目 DISPLAY TOPIC の設定値と管理コマンド応答を照合し、トピック属性の応答を記録します。メッセージ滞留や接続失敗の原因を、MQSC応答とメッセージIDから絞ります。優先して確認する項目はどれですか。
+
+- A. DISPLAY TOPIC ✅
+- B. DEFINE QLOCAL
+- C. SSLKEYR
+- D. TOPICSTR
+
+正解: **A** ／ 難易度: 初級
+
+**解説:** 正答トピック表示観点はAです。暗号面のトピック表示証跡は、定義済みトピックの属性を管理コマンドで読むことを目的に扱う説明単位がトピック表示読取です。背景トピック表示証跡として、キューマネージャーの定義値、実行時状態、応答メッセージを結ぶ証跡単位はトピック表示読取です。記録面のトピック表示状態を読む管理コマンド応答は、トピック属性の応答を出典の属性説明と照合する点がトピック表示定義です。A: トピック表示が正答です。トピック表示観点の応答で確認できる対象はトピック表示観点です。B: トピック表示証跡で見るローカルキュー定義は役割が異なり、除外理由を説明する対象はトピック表示証跡です。C: トピック表示読取で見る鍵リポジトリは役割が異なり、除外理由を説明する対象はトピック表示読取です。D: トピック表示状態で見るトピック文字列は役割が異なり、除外理由を説明する対象はトピック表示状態です。初出語トピック表示とは、IBM MQ 9.3で扱う定義、属性、または管理操作のことで、用語定義はトピック表示保守です。
+
+**出典:** mq93.refadmin / mq93.administer / mq93.secure / mq93.reference / mq93.configure
+
+---
+
+**問題.** トピック状態を障害切り分けで確認します。技術項目 DISPLAY TPSTATUS の設定値と管理コマンド応答を照合し、トピック状態応答を記録します。メッセージ滞留や接続失敗の原因を、MQSC応答とメッセージIDから絞ります。優先して確認する項目はどれですか。
+
+- A. CERTLABL
+- B. DISPLAY TPSTATUS ✅
+- C. DEFINE QLOCAL
+- D. CHLAUTH SSLPEERMAP
+
+正解: **B** ／ 難易度: 上級
+
+**解説:** 正答トピック状態証跡はBです。記録面のトピック状態読取は、トピックの実行時状態を定義値と分けて確認することを目的に扱う説明単位がトピック状態状態です。背景トピック状態読取として、キューマネージャーの定義値、実行時状態、応答メッセージを結ぶ証跡単位はトピック状態状態です。設計面のトピック状態定義を読む管理コマンド応答は、トピック状態応答を出典の属性説明と照合する点がトピック状態根拠です。A: トピック状態証跡で見る証明書ラベルは役割が異なり、除外理由を説明する対象はトピック状態証跡です。B: トピック状態が正答です。トピック状態読取の応答で確認できる対象はトピック状態読取です。C: トピック状態状態で見るローカルキュー定義は役割が異なり、除外理由を説明する対象はトピック状態状態です。D: トピック状態定義で見る証明書マップは役割が異なり、除外理由を説明する対象はトピック状態定義です。初出語トピック状態とは、IBM MQ 9.3で扱う定義、属性、または管理操作のことで、用語定義はトピック状態監査です。
+
+**出典:** mq93.refadmin / mq93.administer / mq93.secure / mq93.reference / mq93.configure
+
+---
+
+**問題.** サブスクリプション定義を障害切り分けで確認します。技術項目 DEFINE SUB の設定値と管理コマンド応答を照合し、購読属性名と配信先を記録します。メッセージ滞留や接続失敗の原因を、MQSC応答とメッセージIDから絞ります。優先して確認する項目はどれですか。
+
+- A. SSLPEER
+- B. PUB attribute
+- C. DEFINE SUB ✅
+- D. STOP CHANNEL
+
+正解: **C** ／ 難易度: 中級
+
+**解説:** 正答サブスクリプション定義読取はCです。設計面のサブスクリプション定義状態は、購読先と配信先キューを固定して登録することを目的に扱う説明単位がサブスクリプション定義定義です。背景サブスクリプション定義状態として、キューマネージャーの定義値、実行時状態、応答メッセージを結ぶ証跡単位はサブスクリプション定義定義です。変更面のサブスクリプション定義根拠を読む管理コマンド応答は、購読属性名と配信先を出典の属性説明と照合する点がサブスクリプション定義応答です。A: サブスクリプション定義読取で見る相手証明書名は役割が異なり、除外理由を説明する対象はサブスクリプション定義読取です。B: サブスクリプション定義状態で見る発行許可は役割が異なり、除外理由を説明する対象はサブスクリプション定義状態です。C: サブスクリプション定義が正答です。サブスクリプション定義定義の応答で確認できる対象はサブスクリプション定義定義です。D: サブスクリプション定義根拠で見るチャネル停止は役割が異なり、除外理由を説明する対象はサブスクリプション定義根拠です。初出語サブスクリプション定義とは、IBM MQ 9.3で扱う定義、属性、または管理操作のことで、用語定義はサブスクリプション定義引継ぎです。
+
+**出典:** mq93.refadmin / mq93.administer / mq93.secure / mq93.reference / mq93.configure
+
+---
+
+**問題.** 購読定義表示を障害切り分けで確認します。技術項目 DISPLAY SUB の設定値と管理コマンド応答を照合し、表示 購読属性応答を記録します。メッセージ滞留や接続失敗の原因を、MQSC応答とメッセージIDから絞ります。優先して確認する項目はどれですか。
+
+- A. DEFPSIST
+- B. DISPLAY CHSTATUS SSLCIPH
+- C. SUB attribute
+- D. DISPLAY SUB ✅
+
+正解: **D** ／ 難易度: 中級
+
+**解説:** 正答購読定義表示状態はDです。変更面の購読定義表示定義は、購読定義のトピック文字列と配信先を確認することを目的に扱う説明単位が購読定義表示根拠です。背景購読定義表示定義として、キューマネージャーの定義値、実行時状態、応答メッセージを結ぶ証跡単位は購読定義表示根拠です。障害面の購読定義表示応答を読む管理コマンド応答は、表示 購読属性応答を出典の属性説明と照合する点が購読定義表示保守です。A: 購読定義表示状態で見る既定永続性は役割が異なり、除外理由を説明する対象は購読定義表示状態です。B: 購読定義表示定義で見るチャネル暗号通信状態は役割が異なり、除外理由を説明する対象は購読定義表示定義です。C: 購読定義表示根拠で見る購読許可は役割が異なり、除外理由を説明する対象は購読定義表示根拠です。D: 購読定義表示が正答です。購読定義表示応答の応答で確認できる対象は購読定義表示応答です。初出語購読定義表示とは、IBM MQ 9.3で扱う定義、属性、または管理操作のことで、用語定義は購読定義表示棚卸です。
+
+**出典:** mq93.refadmin / mq93.administer / mq93.secure / mq93.reference / mq93.configure
+
+---
+
+**問題.** 発行購読プロパティを障害切り分けで確認します。技術項目 PSPROP の設定値と管理コマンド応答を照合し、発行購読プロパティ属性を記録します。メッセージ滞留や接続失敗の原因を、MQSC応答とメッセージIDから絞ります。優先して確認する項目はどれですか。
+
+- A. PSPROP ✅
+- B. DISPLAY TPSTATUS
+- C. STOP CHANNEL
+- D. SSLCIPH
+
+正解: **A** ／ 難易度: 上級
+
+**解説:** 正答発行購読プロパティ定義はAです。障害面の発行購読プロパティ根拠は、発行購読プロパティをメッセージへ付加する方式を確認することを目的に扱う説明単位が発行購読プロパティ応答です。背景発行購読プロパティ根拠として、キューマネージャーの定義値、実行時状態、応答メッセージを結ぶ証跡単位は発行購読プロパティ応答です。監査面の発行購読プロパティ保守を読む管理コマンド応答は、発行購読プロパティ属性を出典の属性説明と照合する点が発行購読プロパティ監査です。A: 発行購読プロパティが正答です。発行購読プロパティ定義の応答で確認できる対象は発行購読プロパティ定義です。B: 発行購読プロパティ根拠で見るトピック状態は役割が異なり、除外理由を説明する対象は発行購読プロパティ根拠です。C: 発行購読プロパティ応答で見るチャネル停止は役割が異なり、除外理由を説明する対象は発行購読プロパティ応答です。D: 発行購読プロパティ保守で見る暗号仕様は役割が異なり、除外理由を説明する対象は発行購読プロパティ保守です。初出語発行購読プロパティとは、IBM MQ 9.3で扱う定義、属性、または管理操作のことで、用語定義は発行購読プロパティ復旧です。
+
+**出典:** mq93.refadmin / mq93.administer / mq93.secure / mq93.reference / mq93.configure
+
+---
+
+**問題.** 永続購読を障害切り分けで確認します。技術項目 DURABLE subscription の設定値と管理コマンド応答を照合し、永続属性属性を記録します。メッセージ滞留や接続失敗の原因を、MQSC応答とメッセージIDから絞ります。優先して確認する項目はどれですか。
+
+- A. TOPICSTR
+- B. DURABLE subscription ✅
+- C. SSLPEER
+- D. DISPLAY TPSTATUS
+
+正解: **B** ／ 難易度: 上級
+
+**解説:** 正答永続購読根拠はBです。監査面の永続購読応答は、アプリケーション停止中も購読状態を保持することを目的に扱う説明単位が永続購読保守です。背景永続購読応答として、キューマネージャーの定義値、実行時状態、応答メッセージを結ぶ証跡単位は永続購読保守です。引継ぎ面の永続購読監査を読む管理コマンド応答は、永続属性属性を出典の属性説明と照合する点が永続購読引継ぎです。A: 永続購読根拠で見るトピック文字列は役割が異なり、除外理由を説明する対象は永続購読根拠です。B: 永続購読が正答です。永続購読応答の応答で確認できる対象は永続購読応答です。C: 永続購読保守で見る相手証明書名は役割が異なり、除外理由を説明する対象は永続購読保守です。D: 永続購読監査で見るトピック状態は役割が異なり、除外理由を説明する対象は永続購読監査です。初出語永続購読とは、IBM MQ 9.3で扱う定義、属性、または管理操作のことで、用語定義は永続購読照合です。
+
+**出典:** mq93.refadmin / mq93.administer / mq93.secure / mq93.reference / mq93.configure
+
+---
+
+**問題.** 暗号仕様を障害切り分けで確認します。技術項目 SSLCIPH の設定値と管理コマンド応答を照合し、暗号仕様値を記録します。メッセージ滞留や接続失敗の原因を、MQSC応答とメッセージIDから絞ります。優先して確認する項目はどれですか。
+
+- A. DEFPSIST
+- B. DISPLAY CHSTATUS SSLCIPH
+- C. SSLCIPH ✅
+- D. SUB attribute
+
+正解: **C** ／ 難易度: 中級
+
+**解説:** 正答暗号仕様応答はCです。引継ぎ面の暗号仕様保守は、チャネルで使う暗号仕様を確認することを目的に扱う説明単位が暗号仕様監査です。背景暗号仕様保守として、キューマネージャーの定義値、実行時状態、応答メッセージを結ぶ証跡単位は暗号仕様監査です。応答面の暗号仕様引継ぎを読む管理コマンド応答は、暗号仕様値を出典の属性説明と照合する点が暗号仕様棚卸です。A: 暗号仕様応答で見る既定永続性は役割が異なり、除外理由を説明する対象は暗号仕様応答です。B: 暗号仕様保守で見るチャネル暗号通信状態は役割が異なり、除外理由を説明する対象は暗号仕様保守です。C: 暗号仕様が正答です。暗号仕様監査の応答で確認できる対象は暗号仕様監査です。D: 暗号仕様引継ぎで見る購読許可は役割が異なり、除外理由を説明する対象は暗号仕様引継ぎです。初出語暗号仕様とは、IBM MQ 9.3で扱う定義、属性、または管理操作のことで、用語定義は暗号仕様観点です。
+
+**出典:** mq93.refadmin / mq93.administer / mq93.secure / mq93.reference / mq93.configure
+
+---
+
+**問題.** クライアント証明書要求を障害切り分けで確認します。技術項目 SSLCAUTH の設定値と管理コマンド応答を照合し、証明書要求値を記録します。メッセージ滞留や接続失敗の原因を、MQSC応答とメッセージIDから絞ります。優先して確認する項目はどれですか。
+
+- A. CERTLABL
+- B. DEFINE QLOCAL
+- C. CHLAUTH SSLPEERMAP
+- D. SSLCAUTH ✅
+
+正解: **D** ／ 難易度: 中級
+
+**解説:** 正答クライアント証明書要求保守はDです。応答面のクライアント証明書要求監査は、クライアント証明書の要求有無を確認することを目的に扱う説明単位がクライアント証明書要求引継ぎです。背景クライアント証明書要求監査として、キューマネージャーの定義値、実行時状態、応答メッセージを結ぶ証跡単位はクライアント証明書要求引継ぎです。定義面のクライアント証明書要求棚卸を読む管理コマンド応答は、証明書要求値を出典の属性説明と照合する点がクライアント証明書要求復旧です。A: クライアント証明書要求保守で見る証明書ラベルは役割が異なり、除外理由を説明する対象はクライアント証明書要求保守です。B: クライアント証明書要求監査で見るローカルキュー定義は役割が異なり、除外理由を説明する対象はクライアント証明書要求監査です。C: クライアント証明書要求引継ぎで見る証明書マップは役割が異なり、除外理由を説明する対象はクライアント証明書要求引継ぎです。D: クライアント証明書要求が正答です。クライアント証明書要求棚卸の応答で確認できる対象はクライアント証明書要求棚卸です。初出語クライアント証明書要求とは、IBM MQ 9.3で扱う定義、属性、または管理操作のことで、用語定義はクライアント証明書要求証跡です。
+
+**出典:** mq93.refadmin / mq93.administer / mq93.secure / mq93.reference / mq93.configure
+
+---
+
+**問題.** 証明書ラベルを障害切り分けで確認します。技術項目 CERTLABL の設定値と管理コマンド応答を照合し、証明書ラベル値を記録します。メッセージ滞留や接続失敗の原因を、MQSC応答とメッセージIDから絞ります。優先して確認する項目はどれですか。
+
+- A. CERTLABL ✅
+- B. XMITQ
+- C. PSPROP
+- D. DEFINE QLOCAL
+
+正解: **A** ／ 難易度: 中級
+
+**解説:** 正答証明書ラベル監査はAです。定義面の証明書ラベル引継ぎは、キューマネージャーが提示する証明書のラベルを確認することを目的に扱う説明単位が証明書ラベル棚卸です。背景証明書ラベル引継ぎとして、キューマネージャーの定義値、実行時状態、応答メッセージを結ぶ証跡単位は証明書ラベル棚卸です。状態面の証明書ラベル復旧を読む管理コマンド応答は、証明書ラベル値を出典の属性説明と照合する点が証明書ラベル照合です。A: 証明書ラベルが正答です。証明書ラベル監査の応答で確認できる対象は証明書ラベル監査です。B: 証明書ラベル引継ぎで見る伝送キューは役割が異なり、除外理由を説明する対象は証明書ラベル引継ぎです。C: 証明書ラベル棚卸で見る発行購読プロパティは役割が異なり、除外理由を説明する対象は証明書ラベル棚卸です。D: 証明書ラベル復旧で見るローカルキュー定義は役割が異なり、除外理由を説明する対象は証明書ラベル復旧です。初出語証明書ラベルとは、IBM MQ 9.3で扱う定義、属性、または管理操作のことで、用語定義は証明書ラベル読取です。
+
+**出典:** mq93.refadmin / mq93.administer / mq93.secure / mq93.reference / mq93.configure
+
+---
+
+**問題.** 鍵リポジトリを障害切り分けで確認します。技術項目 SSLKEYR の設定値と管理コマンド応答を照合し、鍵リポジトリ値を記録します。メッセージ滞留や接続失敗の原因を、MQSC応答とメッセージIDから絞ります。優先して確認する項目はどれですか。
+
+- A. SUB attribute
+- B. SSLKEYR ✅
+- C. DEFINE CHANNEL RCVR
+- D. DISPLAY SUB
+
+正解: **B** ／ 難易度: 中級
+
+**解説:** 正答鍵リポジトリ引継ぎはBです。状態面の鍵リポジトリ棚卸は、証明書を格納する鍵リポジトリの場所を確認することを目的に扱う説明単位が鍵リポジトリ復旧です。背景鍵リポジトリ棚卸として、キューマネージャーの定義値、実行時状態、応答メッセージを結ぶ証跡単位は鍵リポジトリ復旧です。証跡面の鍵リポジトリ照合を読む管理コマンド応答は、鍵リポジトリ値を出典の属性説明と照合する点が鍵リポジトリ観点です。A: 鍵リポジトリ引継ぎで見る購読許可は役割が異なり、除外理由を説明する対象は鍵リポジトリ引継ぎです。B: 鍵リポジトリが正答です。鍵リポジトリ棚卸の応答で確認できる対象は鍵リポジトリ棚卸です。C: 鍵リポジトリ復旧で見る受信チャネル定義は役割が異なり、除外理由を説明する対象は鍵リポジトリ復旧です。D: 鍵リポジトリ照合で見る購読定義表示は役割が異なり、除外理由を説明する対象は鍵リポジトリ照合です。初出語鍵リポジトリとは、IBM MQ 9.3で扱う定義、属性、または管理操作のことで、用語定義は鍵リポジトリ状態です。
+
+**出典:** mq93.refadmin / mq93.administer / mq93.secure / mq93.reference / mq93.configure
+
+---
+
+**問題.** 暗号通信設定再読込を障害切り分けで確認します。技術項目 REFRESH SECURITY TYPE(SSL) の設定値と管理コマンド応答を照合し、暗号設定再読込応答を記録します。メッセージ滞留や接続失敗の原因を、MQSC応答とメッセージIDから絞ります。優先して確認する項目はどれですか。
+
+- A. DISPLAY TOPIC
+- B. START CHANNEL
+- C. REFRESH SECURITY TYPE(SSL) ✅
+- D. PSPROP
+
+正解: **C** ／ 難易度: 上級
+
+**解説:** 正答暗号通信設定再読込棚卸はCです。証跡面の暗号通信設定再読込復旧は、証明書や鍵リポジトリ変更を反映することを目的に扱う説明単位が暗号通信設定再読込照合です。背景暗号通信設定再読込復旧として、キューマネージャーの定義値、実行時状態、応答メッセージを結ぶ証跡単位は暗号通信設定再読込照合です。復旧面の暗号通信設定再読込観点を読む管理コマンド応答は、暗号設定再読込応答を出典の属性説明と照合する点が暗号通信設定再読込証跡です。A: 暗号通信設定再読込棚卸で見るトピック表示は役割が異なり、除外理由を説明する対象は暗号通信設定再読込棚卸です。B: 暗号通信設定再読込復旧で見るチャネル開始は役割が異なり、除外理由を説明する対象は暗号通信設定再読込復旧です。C: 暗号通信設定再読込が正答です。暗号通信設定再読込照合の応答で確認できる対象は暗号通信設定再読込照合です。D: 暗号通信設定再読込観点で見る発行購読プロパティは役割が異なり、除外理由を説明する対象は暗号通信設定再読込観点です。初出語暗号通信設定再読込とは、IBM MQ 9.3で扱う定義、属性、または管理操作のことで、用語定義は暗号通信設定再読込定義です。
+
+**出典:** mq93.refadmin / mq93.administer / mq93.secure / mq93.reference / mq93.configure
+
+---
+
+**問題.** チャネル暗号通信状態を障害切り分けで確認します。技術項目 DISPLAY CHSTATUS SSLCIPH の設定値と管理コマンド応答を照合し、チャネル状態の暗号仕様を記録します。メッセージ滞留や接続失敗の原因を、MQSC応答とメッセージIDから絞ります。優先して確認する項目はどれですか。
+
+- A. SSLKEYR
+- B. DEFPSIST
+- C. DEFINE CHANNEL SDR
+- D. DISPLAY CHSTATUS SSLCIPH ✅
+
+正解: **D** ／ 難易度: 上級
+
+**解説:** 正答チャネル暗号通信状態復旧はDです。復旧面のチャネル暗号通信状態照合は、実行中チャネルが使用中の暗号仕様を確認することを目的に扱う説明単位がチャネル暗号通信状態観点です。背景チャネル暗号通信状態照合として、キューマネージャーの定義値、実行時状態、応答メッセージを結ぶ証跡単位はチャネル暗号通信状態観点です。保守面のチャネル暗号通信状態証跡を読む管理コマンド応答は、チャネル状態の暗号仕様を出典の属性説明と照合する点がチャネル暗号通信状態読取です。A: チャネル暗号通信状態復旧で見る鍵リポジトリは役割が異なり、除外理由を説明する対象はチャネル暗号通信状態復旧です。B: チャネル暗号通信状態照合で見る既定永続性は役割が異なり、除外理由を説明する対象はチャネル暗号通信状態照合です。C: チャネル暗号通信状態観点で見る送信チャネル定義は役割が異なり、除外理由を説明する対象はチャネル暗号通信状態観点です。D: チャネル暗号通信状態が正答です。チャネル暗号通信状態証跡の応答で確認できる対象はチャネル暗号通信状態証跡です。初出語チャネル暗号通信状態とは、IBM MQ 9.3で扱う定義、属性、または管理操作のことで、用語定義はチャネル暗号通信状態根拠です。
+
+**出典:** mq93.refadmin / mq93.administer / mq93.secure / mq93.reference / mq93.configure
+
+---
+
+**問題.** 証明書マップを障害切り分けで確認します。技術項目 CHLAUTH SSLPEERMAP の設定値と管理コマンド応答を照合し、チャネル認証 種別(証明書マップ)を記録します。メッセージ滞留や接続失敗の原因を、MQSC応答とメッセージIDから絞ります。優先して確認する項目はどれですか。
+
+- A. CHLAUTH SSLPEERMAP ✅
+- B. DEFINE CHANNEL RCVR
+- C. DISPLAY TOPIC
+- D. XMITQ
+
+正解: **A** ／ 難易度: 上級
+
+**解説:** 正答証明書マップ照合はAです。保守面の証明書マップ観点は、相手証明書の識別名と接続許可の対応を確認することを目的に扱う説明単位が証明書マップ証跡です。背景証明書マップ観点として、キューマネージャーの定義値、実行時状態、応答メッセージを結ぶ証跡単位は証明書マップ証跡です。照合面の証明書マップ読取を読む管理コマンド応答は、チャネル認証 種別(証明書マップ)を出典の属性説明と照合する点が証明書マップ状態です。A: 証明書マップが正答です。証明書マップ照合の応答で確認できる対象は証明書マップ照合です。B: 証明書マップ観点で見る受信チャネル定義は役割が異なり、除外理由を説明する対象は証明書マップ観点です。C: 証明書マップ証跡で見るトピック表示は役割が異なり、除外理由を説明する対象は証明書マップ証跡です。D: 証明書マップ読取で見る伝送キューは役割が異なり、除外理由を説明する対象は証明書マップ読取です。初出語証明書マップとは、IBM MQ 9.3で扱う定義、属性、または管理操作のことで、用語定義は証明書マップ応答です。
+
+**出典:** mq93.refadmin / mq93.administer / mq93.secure / mq93.reference / mq93.configure
+
+---
+
+**問題.** 相手証明書名を障害切り分けで確認します。技術項目 SSLPEER の設定値と管理コマンド応答を照合し、相手証明書名値を記録します。メッセージ滞留や接続失敗の原因を、MQSC応答とメッセージIDから絞ります。優先して確認する項目はどれですか。
+
+- A. DEFINE CHANNEL RCVR
+- B. SSLPEER ✅
+- C. DISPLAY TOPIC
+- D. XMITQ
+
+正解: **B** ／ 難易度: 上級
+
+**解説:** 正答相手証明書名観点はBです。照合面の相手証明書名証跡は、相手証明書の識別名条件を確認することを目的に扱う説明単位が相手証明書名読取です。背景相手証明書名証跡として、キューマネージャーの定義値、実行時状態、応答メッセージを結ぶ証跡単位は相手証明書名読取です。運用面の相手証明書名状態を読む管理コマンド応答は、相手証明書名値を出典の属性説明と照合する点が相手証明書名定義です。A: 相手証明書名観点で見る受信チャネル定義は役割が異なり、除外理由を説明する対象は相手証明書名観点です。B: 相手証明書名が正答です。相手証明書名証跡の応答で確認できる対象は相手証明書名証跡です。C: 相手証明書名読取で見るトピック表示は役割が異なり、除外理由を説明する対象は相手証明書名読取です。D: 相手証明書名状態で見る伝送キューは役割が異なり、除外理由を説明する対象は相手証明書名状態です。初出語相手証明書名とは、IBM MQ 9.3で扱う定義、属性、または管理操作のことで、用語定義は相手証明書名保守です。
+
+**出典:** mq93.refadmin / mq93.administer / mq93.secure / mq93.reference / mq93.configure
+
+---
+
+**問題.** 送信チャネル定義を障害切り分けで確認します。技術項目 DEFINE CHANNEL SDR の設定値と管理コマンド応答を照合し、チャネル種別と伝送キューを記録します。メッセージ滞留や接続失敗の原因を、MQSC応答とメッセージIDから絞ります。優先して確認する項目はどれですか。
+
+- A. SSLCAUTH
+- B. DEFINE QLOCAL
+- C. DEFINE CHANNEL SDR ✅
+- D. DISPLAY CHSTATUS SSLCIPH
+
+正解: **C** ／ 難易度: 中級
+
+**解説:** 正答送信チャネル定義証跡はCです。運用面の送信チャネル定義読取は、送信チャネルの接続先と伝送キューを定義することを目的に扱う説明単位が送信チャネル定義状態です。背景送信チャネル定義読取として、キューマネージャーの定義値、実行時状態、応答メッセージを結ぶ証跡単位は送信チャネル定義状態です。接続面の送信チャネル定義定義を読む管理コマンド応答は、チャネル種別と伝送キューを出典の属性説明と照合する点が送信チャネル定義根拠です。A: 送信チャネル定義証跡で見るクライアント証明書要求は役割が異なり、除外理由を説明する対象は送信チャネル定義証跡です。B: 送信チャネル定義読取で見るローカルキュー定義は役割が異なり、除外理由を説明する対象は送信チャネル定義読取です。C: 送信チャネル定義が正答です。送信チャネル定義状態の応答で確認できる対象は送信チャネル定義状態です。D: 送信チャネル定義定義で見るチャネル暗号通信状態は役割が異なり、除外理由を説明する対象は送信チャネル定義定義です。初出語送信チャネル定義とは、IBM MQ 9.3で扱う定義、属性、または管理操作のことで、用語定義は送信チャネル定義監査です。
+
+**出典:** mq93.refadmin / mq93.administer / mq93.secure / mq93.reference / mq93.configure
+
+---
+
+**問題.** 受信チャネル定義を障害切り分けで確認します。技術項目 DEFINE CHANNEL RCVR の設定値と管理コマンド応答を照合し、チャネル種別(受信)を記録します。メッセージ滞留や接続失敗の原因を、MQSC応答とメッセージIDから絞ります。優先して確認する項目はどれですか。
+
+- A. CONNAME
+- B. DURABLE subscription
+- C. MAXDEPTH
+- D. DEFINE CHANNEL RCVR ✅
+
+正解: **D** ／ 難易度: 中級
+
+**解説:** 正答受信チャネル定義読取はDです。接続面の受信チャネル定義状態は、相手キューマネージャーからの接続受け口を定義することを目的に扱う説明単位が受信チャネル定義定義です。背景受信チャネル定義状態として、キューマネージャーの定義値、実行時状態、応答メッセージを結ぶ証跡単位は受信チャネル定義定義です。配信面の受信チャネル定義根拠を読む管理コマンド応答は、チャネル種別(受信)を出典の属性説明と照合する点が受信チャネル定義応答です。A: 受信チャネル定義読取で見る接続名は役割が異なり、除外理由を説明する対象は受信チャネル定義読取です。B: 受信チャネル定義状態で見る永続購読は役割が異なり、除外理由を説明する対象は受信チャネル定義状態です。C: 受信チャネル定義定義で見る最大キュー深度は役割が異なり、除外理由を説明する対象は受信チャネル定義定義です。D: 受信チャネル定義が正答です。受信チャネル定義根拠の応答で確認できる対象は受信チャネル定義根拠です。初出語受信チャネル定義とは、IBM MQ 9.3で扱う定義、属性、または管理操作のことで、用語定義は受信チャネル定義引継ぎです。
+
+**出典:** mq93.refadmin / mq93.administer / mq93.secure / mq93.reference / mq93.configure
+
+---
+
+**問題.** チャネル開始を障害切り分けで確認します。技術項目 START CHANNEL の設定値と管理コマンド応答を照合し、開始 チャネル応答を記録します。メッセージ滞留や接続失敗の原因を、MQSC応答とメッセージIDから絞ります。優先して確認する項目はどれですか。
+
+- A. START CHANNEL ✅
+- B. DEFPSIST
+- C. REFRESH SECURITY TYPE(SSL)
+- D. SUB attribute
+
+正解: **A** ／ 難易度: 初級
+
+**解説:** 正答チャネル開始状態はAです。配信面のチャネル開始定義は、定義済みチャネルを開始して送受信を進めることを目的に扱う説明単位がチャネル開始根拠です。背景チャネル開始定義として、キューマネージャーの定義値、実行時状態、応答メッセージを結ぶ証跡単位はチャネル開始根拠です。暗号面のチャネル開始応答を読む管理コマンド応答は、開始 チャネル応答を出典の属性説明と照合する点がチャネル開始保守です。A: チャネル開始が正答です。チャネル開始状態の応答で確認できる対象はチャネル開始状態です。B: チャネル開始定義で見る既定永続性は役割が異なり、除外理由を説明する対象はチャネル開始定義です。C: チャネル開始根拠で見る暗号通信設定再読込は役割が異なり、除外理由を説明する対象はチャネル開始根拠です。D: チャネル開始応答で見る購読許可は役割が異なり、除外理由を説明する対象はチャネル開始応答です。初出語チャネル開始とは、IBM MQ 9.3で扱う定義、属性、または管理操作のことで、用語定義はチャネル開始棚卸です。
+
+**出典:** mq93.refadmin / mq93.administer / mq93.secure / mq93.reference / mq93.configure
+
+---
+
+**問題.** チャネル停止を障害切り分けで確認します。技術項目 STOP CHANNEL の設定値と管理コマンド応答を照合し、停止 チャネル応答を記録します。メッセージ滞留や接続失敗の原因を、MQSC応答とメッセージIDから絞ります。優先して確認する項目はどれですか。
+
+- A. DURABLE subscription
+- B. STOP CHANNEL ✅
+- C. DISCINT
+- D. SSLKEYR
+
+正解: **B** ／ 難易度: 初級
+
+**解説:** 正答チャネル停止定義はBです。暗号面のチャネル停止根拠は、変更や障害切り分けのためチャネルを停止することを目的に扱う説明単位がチャネル停止応答です。背景チャネル停止根拠として、キューマネージャーの定義値、実行時状態、応答メッセージを結ぶ証跡単位はチャネル停止応答です。記録面のチャネル停止保守を読む管理コマンド応答は、停止 チャネル応答を出典の属性説明と照合する点がチャネル停止監査です。A: チャネル停止定義で見る永続購読は役割が異なり、除外理由を説明する対象はチャネル停止定義です。B: チャネル停止が正答です。チャネル停止根拠の応答で確認できる対象はチャネル停止根拠です。C: チャネル停止応答で見る切断間隔は役割が異なり、除外理由を説明する対象はチャネル停止応答です。D: チャネル停止保守で見る鍵リポジトリは役割が異なり、除外理由を説明する対象はチャネル停止保守です。初出語チャネル停止とは、IBM MQ 9.3で扱う定義、属性、または管理操作のことで、用語定義はチャネル停止復旧です。
+
+**出典:** mq93.refadmin / mq93.administer / mq93.secure / mq93.reference / mq93.configure
+
+---
+
+**問題.** 切断間隔を障害切り分けで確認します。技術項目 DISCINT の設定値と管理コマンド応答を照合し、切断間隔属性を記録します。メッセージ滞留や接続失敗の原因を、MQSC応答とメッセージIDから絞ります。優先して確認する項目はどれですか。
+
+- A. DEFINE CHANNEL RCVR
+- B. DISCINT ✅
+- C. DISPLAY TPSTATUS
+- D. XMITQ
+
+正解: **B** ／ 難易度: 中級
+
+**解説:** 正答切断間隔監査はBです。障害面の切断間隔引継ぎは、アイドル時にチャネルを切断するまでの時間を確認することを目的に扱う説明単位が切断間隔棚卸です。背景切断間隔引継ぎとして、キューマネージャーの定義値、実行時状態、応答メッセージを結ぶ証跡単位は切断間隔棚卸です。監査面の切断間隔復旧を読む管理コマンド応答は、切断間隔属性を出典の属性説明と照合する点が切断間隔照合です。A: 切断間隔監査で見る受信チャネル定義は役割が異なり、除外理由を説明する対象は切断間隔監査です。B: 切断間隔が正答です。切断間隔引継ぎの応答で確認できる対象は切断間隔引継ぎです。C: 切断間隔棚卸で見るトピック状態は役割が異なり、除外理由を説明する対象は切断間隔棚卸です。D: 切断間隔復旧で見る伝送キューは役割が異なり、除外理由を説明する対象は切断間隔復旧です。初出語切断間隔とは、IBM MQ 9.3で扱う定義、属性、または管理操作のことで、用語定義は切断間隔読取です。
+
+**出典:** mq93.refadmin / mq93.administer / mq93.secure / mq93.reference / mq93.configure
+
+---
+
+**問題.** トピック定義を監査証跡で確認します。技術項目 DEFINE TOPIC の設定値と管理コマンド応答を照合し、トピック文字列と発行属性/購読属性属性を記録します。操作後に、定義、状態、出力メッセージを同じ記録で説明します。証跡として残すべき項目はどれですか。
+
+- A. SUB attribute
+- B. XMITQ
+- C. DEFINE TOPIC ✅
+- D. DEFINE CHANNEL SDR
+
+正解: **C** ／ 難易度: 中級
+
+**解説:** 正答トピック定義観点はCです。状態面のトピック定義証跡は、トピック名とトピック文字列を対応させることを目的に扱う説明単位がトピック定義読取です。背景トピック定義証跡として、キューマネージャーの定義値、実行時状態、応答メッセージを結ぶ証跡単位はトピック定義読取です。証跡面のトピック定義状態を読む管理コマンド応答は、トピック文字列と発行属性/購読属性属性を出典の属性説明と照合する点がトピック定義定義です。A: トピック定義観点で見る購読許可は役割が異なり、除外理由を説明する対象はトピック定義観点です。B: トピック定義証跡で見る伝送キューは役割が異なり、除外理由を説明する対象はトピック定義証跡です。C: トピック定義が正答です。トピック定義読取の応答で確認できる対象はトピック定義読取です。D: トピック定義状態で見る送信チャネル定義は役割が異なり、除外理由を説明する対象はトピック定義状態です。初出語トピック定義とは、IBM MQ 9.3で扱う定義、属性、または管理操作のことで、用語定義はトピック定義保守です。
+
+**出典:** mq93.refadmin / mq93.administer / mq93.secure / mq93.reference / mq93.configure
+
+---
+
+**問題.** トピック文字列を監査証跡で確認します。技術項目 TOPICSTR の設定値と管理コマンド応答を照合し、トピック文字列値を記録します。操作後に、定義、状態、出力メッセージを同じ記録で説明します。証跡として残すべき項目はどれですか。
+
+- A. SSLCIPH
+- B. DEFINE TOPIC
+- C. DISCINT
+- D. TOPICSTR ✅
+
+正解: **D** ／ 難易度: 初級
+
+**解説:** 正答トピック文字列証跡はDです。証跡面のトピック文字列読取は、アプリケーションが発行または購読する階層名を確認することを目的に扱う説明単位がトピック文字列状態です。背景トピック文字列読取として、キューマネージャーの定義値、実行時状態、応答メッセージを結ぶ証跡単位はトピック文字列状態です。復旧面のトピック文字列定義を読む管理コマンド応答は、トピック文字列値を出典の属性説明と照合する点がトピック文字列根拠です。A: トピック文字列証跡で見る暗号仕様は役割が異なり、除外理由を説明する対象はトピック文字列証跡です。B: トピック文字列読取で見るトピック定義は役割が異なり、除外理由を説明する対象はトピック文字列読取です。C: トピック文字列状態で見る切断間隔は役割が異なり、除外理由を説明する対象はトピック文字列状態です。D: トピック文字列が正答です。トピック文字列定義の応答で確認できる対象はトピック文字列定義です。初出語トピック文字列とは、IBM MQ 9.3で扱う定義、属性、または管理操作のことで、用語定義はトピック文字列監査です。
+
+**出典:** mq93.refadmin / mq93.administer / mq93.secure / mq93.reference / mq93.configure
+
+---
+
+**問題.** 発行許可を監査証跡で確認します。技術項目 PUB attribute の設定値と管理コマンド応答を照合し、発行属性属性を記録します。操作後に、定義、状態、出力メッセージを同じ記録で説明します。証跡として残すべき項目はどれですか。
+
+- A. PUB attribute ✅
+- B. DISPLAY QSTATUS
+- C. SSLPEER
+- D. CERTLABL
+
+正解: **A** ／ 難易度: 中級
+
+**解説:** 正答発行許可読取はAです。復旧面の発行許可状態は、トピックへの発行を許可または抑止することを目的に扱う説明単位が発行許可定義です。背景発行許可状態として、キューマネージャーの定義値、実行時状態、応答メッセージを結ぶ証跡単位は発行許可定義です。保守面の発行許可根拠を読む管理コマンド応答は、発行属性属性を出典の属性説明と照合する点が発行許可応答です。A: 発行許可が正答です。発行許可読取の応答で確認できる対象は発行許可読取です。B: 発行許可状態で見るキュー状態表示は役割が異なり、除外理由を説明する対象は発行許可状態です。C: 発行許可定義で見る相手証明書名は役割が異なり、除外理由を説明する対象は発行許可定義です。D: 発行許可根拠で見る証明書ラベルは役割が異なり、除外理由を説明する対象は発行許可根拠です。初出語発行許可とは、IBM MQ 9.3で扱う定義、属性、または管理操作のことで、用語定義は発行許可引継ぎです。
+
+**出典:** mq93.refadmin / mq93.administer / mq93.secure / mq93.reference / mq93.configure
+
+---
+
+**問題.** 購読許可を監査証跡で確認します。技術項目 SUB attribute の設定値と管理コマンド応答を照合し、購読属性属性を記録します。操作後に、定義、状態、出力メッセージを同じ記録で説明します。証跡として残すべき項目はどれですか。
+
+- A. PSPROP
+- B. SUB attribute ✅
+- C. MAXDEPTH
+- D. XMITQ
+
+正解: **B** ／ 難易度: 中級
+
+**解説:** 正答購読許可状態はBです。保守面の購読許可定義は、トピックからの購読を許可または抑止することを目的に扱う説明単位が購読許可根拠です。背景購読許可定義として、キューマネージャーの定義値、実行時状態、応答メッセージを結ぶ証跡単位は購読許可根拠です。照合面の購読許可応答を読む管理コマンド応答は、購読属性属性を出典の属性説明と照合する点が購読許可保守です。A: 購読許可状態で見る発行購読プロパティは役割が異なり、除外理由を説明する対象は購読許可状態です。B: 購読許可が正答です。購読許可定義の応答で確認できる対象は購読許可定義です。C: 購読許可根拠で見る最大キュー深度は役割が異なり、除外理由を説明する対象は購読許可根拠です。D: 購読許可応答で見る伝送キューは役割が異なり、除外理由を説明する対象は購読許可応答です。初出語購読許可とは、IBM MQ 9.3で扱う定義、属性、または管理操作のことで、用語定義は購読許可棚卸です。
+
+**出典:** mq93.refadmin / mq93.administer / mq93.secure / mq93.reference / mq93.configure
+
+---
+
+**問題.** トピック表示を監査証跡で確認します。技術項目 DISPLAY TOPIC の設定値と管理コマンド応答を照合し、トピック属性の応答を記録します。操作後に、定義、状態、出力メッセージを同じ記録で説明します。証跡として残すべき項目はどれですか。
+
+- A. DEFINE CHANNEL RCVR
+- B. SSLCIPH
+- C. DISPLAY TOPIC ✅
+- D. DISPLAY TPSTATUS
+
+正解: **C** ／ 難易度: 初級
+
+**解説:** 正答トピック表示定義はCです。照合面のトピック表示根拠は、定義済みトピックの属性を管理コマンドで読むことを目的に扱う説明単位がトピック表示応答です。背景トピック表示根拠として、キューマネージャーの定義値、実行時状態、応答メッセージを結ぶ証跡単位はトピック表示応答です。運用面のトピック表示保守を読む管理コマンド応答は、トピック属性の応答を出典の属性説明と照合する点がトピック表示監査です。A: トピック表示定義で見る受信チャネル定義は役割が異なり、除外理由を説明する対象はトピック表示定義です。B: トピック表示根拠で見る暗号仕様は役割が異なり、除外理由を説明する対象はトピック表示根拠です。C: トピック表示が正答です。トピック表示応答の応答で確認できる対象はトピック表示応答です。D: トピック表示保守で見るトピック状態は役割が異なり、除外理由を説明する対象はトピック表示保守です。初出語トピック表示とは、IBM MQ 9.3で扱う定義、属性、または管理操作のことで、用語定義はトピック表示復旧です。
+
+**出典:** mq93.refadmin / mq93.administer / mq93.secure / mq93.reference / mq93.configure
+
+---
+
+**問題.** トピック状態を監査証跡で確認します。技術項目 DISPLAY TPSTATUS の設定値と管理コマンド応答を照合し、トピック状態応答を記録します。操作後に、定義、状態、出力メッセージを同じ記録で説明します。証跡として残すべき項目はどれですか。
+
+- A. SUB attribute
+- B. CONNAME
+- C. DEFINE CHANNEL RCVR
+- D. DISPLAY TPSTATUS ✅
+
+正解: **D** ／ 難易度: 上級
+
+**解説:** 正答トピック状態根拠はDです。運用面のトピック状態応答は、トピックの実行時状態を定義値と分けて確認することを目的に扱う説明単位がトピック状態保守です。背景トピック状態応答として、キューマネージャーの定義値、実行時状態、応答メッセージを結ぶ証跡単位はトピック状態保守です。接続面のトピック状態監査を読む管理コマンド応答は、トピック状態応答を出典の属性説明と照合する点がトピック状態引継ぎです。A: トピック状態根拠で見る購読許可は役割が異なり、除外理由を説明する対象はトピック状態根拠です。B: トピック状態応答で見る接続名は役割が異なり、除外理由を説明する対象はトピック状態応答です。C: トピック状態保守で見る受信チャネル定義は役割が異なり、除外理由を説明する対象はトピック状態保守です。D: トピック状態が正答です。トピック状態監査の応答で確認できる対象はトピック状態監査です。初出語トピック状態とは、IBM MQ 9.3で扱う定義、属性、または管理操作のことで、用語定義はトピック状態照合です。
+
+**出典:** mq93.refadmin / mq93.administer / mq93.secure / mq93.reference / mq93.configure
+
+---
+
+**問題.** サブスクリプション定義を監査証跡で確認します。技術項目 DEFINE SUB の設定値と管理コマンド応答を照合し、購読属性名と配信先を記録します。操作後に、定義、状態、出力メッセージを同じ記録で説明します。証跡として残すべき項目はどれですか。
+
+- A. DEFINE SUB ✅
+- B. DURABLE subscription
+- C. DEFPSIST
+- D. CONNAME
+
+正解: **A** ／ 難易度: 中級
+
+**解説:** 正答サブスクリプション定義応答はAです。接続面のサブスクリプション定義保守は、購読先と配信先キューを固定して登録することを目的に扱う説明単位がサブスクリプション定義監査です。背景サブスクリプション定義保守として、キューマネージャーの定義値、実行時状態、応答メッセージを結ぶ証跡単位はサブスクリプション定義監査です。配信面のサブスクリプション定義引継ぎを読む管理コマンド応答は、購読属性名と配信先を出典の属性説明と照合する点がサブスクリプション定義棚卸です。A: サブスクリプション定義が正答です。サブスクリプション定義応答の応答で確認できる対象はサブスクリプション定義応答です。B: サブスクリプション定義保守で見る永続購読は役割が異なり、除外理由を説明する対象はサブスクリプション定義保守です。C: サブスクリプション定義監査で見る既定永続性は役割が異なり、除外理由を説明する対象はサブスクリプション定義監査です。D: サブスクリプション定義引継ぎで見る接続名は役割が異なり、除外理由を説明する対象はサブスクリプション定義引継ぎです。初出語サブスクリプション定義とは、IBM MQ 9.3で扱う定義、属性、または管理操作のことで、用語定義はサブスクリプション定義観点です。
+
+**出典:** mq93.refadmin / mq93.administer / mq93.secure / mq93.reference / mq93.configure
+
+---
+
+**問題.** 購読定義表示を監査証跡で確認します。技術項目 DISPLAY SUB の設定値と管理コマンド応答を照合し、表示 購読属性応答を記録します。操作後に、定義、状態、出力メッセージを同じ記録で説明します。証跡として残すべき項目はどれですか。
+
+- A. STOP CHANNEL
+- B. DISPLAY SUB ✅
+- C. CERTLABL
+- D. DEFINE SUB
+
+正解: **B** ／ 難易度: 中級
+
+**解説:** 正答購読定義表示保守はBです。配信面の購読定義表示監査は、購読定義のトピック文字列と配信先を確認することを目的に扱う説明単位が購読定義表示引継ぎです。背景購読定義表示監査として、キューマネージャーの定義値、実行時状態、応答メッセージを結ぶ証跡単位は購読定義表示引継ぎです。暗号面の購読定義表示棚卸を読む管理コマンド応答は、表示 購読属性応答を出典の属性説明と照合する点が購読定義表示復旧です。A: 購読定義表示保守で見るチャネル停止は役割が異なり、除外理由を説明する対象は購読定義表示保守です。B: 購読定義表示が正答です。購読定義表示監査の応答で確認できる対象は購読定義表示監査です。C: 購読定義表示引継ぎで見る証明書ラベルは役割が異なり、除外理由を説明する対象は購読定義表示引継ぎです。D: 購読定義表示棚卸で見るサブスクリプション定義は役割が異なり、除外理由を説明する対象は購読定義表示棚卸です。初出語購読定義表示とは、IBM MQ 9.3で扱う定義、属性、または管理操作のことで、用語定義は購読定義表示証跡です。
+
+**出典:** mq93.refadmin / mq93.administer / mq93.secure / mq93.reference / mq93.configure
+
+---
+
+**問題.** 発行購読プロパティを監査証跡で確認します。技術項目 PSPROP の設定値と管理コマンド応答を照合し、発行購読プロパティ属性を記録します。操作後に、定義、状態、出力メッセージを同じ記録で説明します。証跡として残すべき項目はどれですか。
+
+- A. DEFINE QLOCAL
+- B. DEFINE CHANNEL SDR
+- C. PSPROP ✅
+- D. SSLKEYR
+
+正解: **C** ／ 難易度: 上級
+
+**解説:** 正答発行購読プロパティ監査はCです。暗号面の発行購読プロパティ引継ぎは、発行購読プロパティをメッセージへ付加する方式を確認することを目的に扱う説明単位が発行購読プロパティ棚卸です。背景発行購読プロパティ引継ぎとして、キューマネージャーの定義値、実行時状態、応答メッセージを結ぶ証跡単位は発行購読プロパティ棚卸です。記録面の発行購読プロパティ復旧を読む管理コマンド応答は、発行購読プロパティ属性を出典の属性説明と照合する点が発行購読プロパティ照合です。A: 発行購読プロパティ監査で見るローカルキュー定義は役割が異なり、除外理由を説明する対象は発行購読プロパティ監査です。B: 発行購読プロパティ引継ぎで見る送信チャネル定義は役割が異なり、除外理由を説明する対象は発行購読プロパティ引継ぎです。C: 発行購読プロパティが正答です。発行購読プロパティ棚卸の応答で確認できる対象は発行購読プロパティ棚卸です。D: 発行購読プロパティ復旧で見る鍵リポジトリは役割が異なり、除外理由を説明する対象は発行購読プロパティ復旧です。初出語発行購読プロパティとは、IBM MQ 9.3で扱う定義、属性、または管理操作のことで、用語定義は発行購読プロパティ読取です。
+
+**出典:** mq93.refadmin / mq93.administer / mq93.secure / mq93.reference / mq93.configure
+
+---
+
+**問題.** 永続購読を監査証跡で確認します。技術項目 DURABLE subscription の設定値と管理コマンド応答を照合し、永続属性属性を記録します。操作後に、定義、状態、出力メッセージを同じ記録で説明します。証跡として残すべき項目はどれですか。
+
+- A. XMITQ
+- B. REFRESH SECURITY TYPE(SSL)
+- C. PSPROP
+- D. DURABLE subscription ✅
+
+正解: **D** ／ 難易度: 上級
+
+**解説:** 正答永続購読引継ぎはDです。記録面の永続購読棚卸は、アプリケーション停止中も購読状態を保持することを目的に扱う説明単位が永続購読復旧です。背景永続購読棚卸として、キューマネージャーの定義値、実行時状態、応答メッセージを結ぶ証跡単位は永続購読復旧です。設計面の永続購読照合を読む管理コマンド応答は、永続属性属性を出典の属性説明と照合する点が永続購読観点です。A: 永続購読引継ぎで見る伝送キューは役割が異なり、除外理由を説明する対象は永続購読引継ぎです。B: 永続購読棚卸で見る暗号通信設定再読込は役割が異なり、除外理由を説明する対象は永続購読棚卸です。C: 永続購読復旧で見る発行購読プロパティは役割が異なり、除外理由を説明する対象は永続購読復旧です。D: 永続購読が正答です。永続購読照合の応答で確認できる対象は永続購読照合です。初出語永続購読とは、IBM MQ 9.3で扱う定義、属性、または管理操作のことで、用語定義は永続購読状態です。
+
+**出典:** mq93.refadmin / mq93.administer / mq93.secure / mq93.reference / mq93.configure
+
+---
+
+**問題.** 暗号仕様を監査証跡で確認します。技術項目 SSLCIPH の設定値と管理コマンド応答を照合し、暗号仕様値を記録します。操作後に、定義、状態、出力メッセージを同じ記録で説明します。証跡として残すべき項目はどれですか。
+
+- A. SSLCIPH ✅
+- B. STOP CHANNEL
+- C. CERTLABL
+- D. DEFINE SUB
+
+正解: **A** ／ 難易度: 中級
+
+**解説:** 正答暗号仕様棚卸はAです。設計面の暗号仕様復旧は、チャネルで使う暗号仕様を確認することを目的に扱う説明単位が暗号仕様照合です。背景暗号仕様復旧として、キューマネージャーの定義値、実行時状態、応答メッセージを結ぶ証跡単位は暗号仕様照合です。変更面の暗号仕様観点を読む管理コマンド応答は、暗号仕様値を出典の属性説明と照合する点が暗号仕様証跡です。A: 暗号仕様が正答です。暗号仕様棚卸の応答で確認できる対象は暗号仕様棚卸です。B: 暗号仕様復旧で見るチャネル停止は役割が異なり、除外理由を説明する対象は暗号仕様復旧です。C: 暗号仕様照合で見る証明書ラベルは役割が異なり、除外理由を説明する対象は暗号仕様照合です。D: 暗号仕様観点で見るサブスクリプション定義は役割が異なり、除外理由を説明する対象は暗号仕様観点です。初出語暗号仕様とは、IBM MQ 9.3で扱う定義、属性、または管理操作のことで、用語定義は暗号仕様定義です。
+
+**出典:** mq93.refadmin / mq93.administer / mq93.secure / mq93.reference / mq93.configure
+
+---
+
+**問題.** クライアント証明書要求を監査証跡で確認します。技術項目 SSLCAUTH の設定値と管理コマンド応答を照合し、証明書要求値を記録します。操作後に、定義、状態、出力メッセージを同じ記録で説明します。証跡として残すべき項目はどれですか。
+
+- A. SUB attribute
+- B. SSLCAUTH ✅
+- C. CONNAME
+- D. DEFINE CHANNEL RCVR
+
+正解: **B** ／ 難易度: 中級
+
+**解説:** 正答クライアント証明書要求復旧はBです。変更面のクライアント証明書要求照合は、クライアント証明書の要求有無を確認することを目的に扱う説明単位がクライアント証明書要求観点です。背景クライアント証明書要求照合として、キューマネージャーの定義値、実行時状態、応答メッセージを結ぶ証跡単位はクライアント証明書要求観点です。障害面のクライアント証明書要求証跡を読む管理コマンド応答は、証明書要求値を出典の属性説明と照合する点がクライアント証明書要求読取です。A: クライアント証明書要求復旧で見る購読許可は役割が異なり、除外理由を説明する対象はクライアント証明書要求復旧です。B: クライアント証明書要求が正答です。クライアント証明書要求照合の応答で確認できる対象はクライアント証明書要求照合です。C: クライアント証明書要求観点で見る接続名は役割が異なり、除外理由を説明する対象はクライアント証明書要求観点です。D: クライアント証明書要求証跡で見る受信チャネル定義は役割が異なり、除外理由を説明する対象はクライアント証明書要求証跡です。初出語クライアント証明書要求とは、IBM MQ 9.3で扱う定義、属性、または管理操作のことで、用語定義はクライアント証明書要求根拠です。
+
+**出典:** mq93.refadmin / mq93.administer / mq93.secure / mq93.reference / mq93.configure
+
+---
+
+**問題.** 証明書ラベルを監査証跡で確認します。技術項目 CERTLABL の設定値と管理コマンド応答を照合し、証明書ラベル値を記録します。操作後に、定義、状態、出力メッセージを同じ記録で説明します。証跡として残すべき項目はどれですか。
+
+- A. DISPLAY CHSTATUS SSLCIPH
+- B. DISPLAY TPSTATUS
+- C. CERTLABL ✅
+- D. DEFINE TOPIC
+
+正解: **C** ／ 難易度: 中級
+
+**解説:** 正答証明書ラベル照合はCです。障害面の証明書ラベル観点は、キューマネージャーが提示する証明書のラベルを確認することを目的に扱う説明単位が証明書ラベル証跡です。背景証明書ラベル観点として、キューマネージャーの定義値、実行時状態、応答メッセージを結ぶ証跡単位は証明書ラベル証跡です。監査面の証明書ラベル読取を読む管理コマンド応答は、証明書ラベル値を出典の属性説明と照合する点が証明書ラベル状態です。A: 証明書ラベル照合で見るチャネル暗号通信状態は役割が異なり、除外理由を説明する対象は証明書ラベル照合です。B: 証明書ラベル観点で見るトピック状態は役割が異なり、除外理由を説明する対象は証明書ラベル観点です。C: 証明書ラベルが正答です。証明書ラベル証跡の応答で確認できる対象は証明書ラベル証跡です。D: 証明書ラベル読取で見るトピック定義は役割が異なり、除外理由を説明する対象は証明書ラベル読取です。初出語証明書ラベルとは、IBM MQ 9.3で扱う定義、属性、または管理操作のことで、用語定義は証明書ラベル応答です。
+
+**出典:** mq93.refadmin / mq93.administer / mq93.secure / mq93.reference / mq93.configure
+
+---
+
+**問題.** 鍵リポジトリを監査証跡で確認します。技術項目 SSLKEYR の設定値と管理コマンド応答を照合し、鍵リポジトリ値を記録します。操作後に、定義、状態、出力メッセージを同じ記録で説明します。証跡として残すべき項目はどれですか。
+
+- A. DISCINT
+- B. CHLAUTH SSLPEERMAP
+- C. SSLCIPH
+- D. SSLKEYR ✅
+
+正解: **D** ／ 難易度: 中級
+
+**解説:** 正答鍵リポジトリ観点はDです。監査面の鍵リポジトリ証跡は、証明書を格納する鍵リポジトリの場所を確認することを目的に扱う説明単位が鍵リポジトリ読取です。背景鍵リポジトリ証跡として、キューマネージャーの定義値、実行時状態、応答メッセージを結ぶ証跡単位は鍵リポジトリ読取です。引継ぎ面の鍵リポジトリ状態を読む管理コマンド応答は、鍵リポジトリ値を出典の属性説明と照合する点が鍵リポジトリ定義です。A: 鍵リポジトリ観点で見る切断間隔は役割が異なり、除外理由を説明する対象は鍵リポジトリ観点です。B: 鍵リポジトリ証跡で見る証明書マップは役割が異なり、除外理由を説明する対象は鍵リポジトリ証跡です。C: 鍵リポジトリ読取で見る暗号仕様は役割が異なり、除外理由を説明する対象は鍵リポジトリ読取です。D: 鍵リポジトリが正答です。鍵リポジトリ状態の応答で確認できる対象は鍵リポジトリ状態です。初出語鍵リポジトリとは、IBM MQ 9.3で扱う定義、属性、または管理操作のことで、用語定義は鍵リポジトリ保守です。
+
+**出典:** mq93.refadmin / mq93.administer / mq93.secure / mq93.reference / mq93.configure
+
+---
+
+**問題.** 暗号通信設定再読込を監査証跡で確認します。技術項目 REFRESH SECURITY TYPE(SSL) の設定値と管理コマンド応答を照合し、暗号設定再読込応答を記録します。操作後に、定義、状態、出力メッセージを同じ記録で説明します。証跡として残すべき項目はどれですか。
+
+- A. REFRESH SECURITY TYPE(SSL) ✅
+- B. DISPLAY QSTATUS
+- C. SSLPEER
+- D. SSLCAUTH
+
+正解: **A** ／ 難易度: 上級
+
+**解説:** 正答暗号通信設定再読込証跡はAです。引継ぎ面の暗号通信設定再読込読取は、証明書や鍵リポジトリ変更を反映することを目的に扱う説明単位が暗号通信設定再読込状態です。背景暗号通信設定再読込読取として、キューマネージャーの定義値、実行時状態、応答メッセージを結ぶ証跡単位は暗号通信設定再読込状態です。応答面の暗号通信設定再読込定義を読む管理コマンド応答は、暗号設定再読込応答を出典の属性説明と照合する点が暗号通信設定再読込根拠です。A: 暗号通信設定再読込が正答です。暗号通信設定再読込証跡の応答で確認できる対象は暗号通信設定再読込証跡です。B: 暗号通信設定再読込読取で見るキュー状態表示は役割が異なり、除外理由を説明する対象は暗号通信設定再読込読取です。C: 暗号通信設定再読込状態で見る相手証明書名は役割が異なり、除外理由を説明する対象は暗号通信設定再読込状態です。D: 暗号通信設定再読込定義で見るクライアント証明書要求は役割が異なり、除外理由を説明する対象は暗号通信設定再読込定義です。初出語暗号通信設定再読込とは、IBM MQ 9.3で扱う定義、属性、または管理操作のことで、用語定義は暗号通信設定再読込監査です。
+
+**出典:** mq93.refadmin / mq93.administer / mq93.secure / mq93.reference / mq93.configure
+
+---
+
+**問題.** チャネル暗号通信状態を監査証跡で確認します。技術項目 DISPLAY CHSTATUS SSLCIPH の設定値と管理コマンド応答を照合し、チャネル状態の暗号仕様を記録します。操作後に、定義、状態、出力メッセージを同じ記録で説明します。証跡として残すべき項目はどれですか。
+
+- A. DISPLAY TPSTATUS
+- B. DISPLAY CHSTATUS SSLCIPH ✅
+- C. DISPLAY QSTATUS
+- D. STOP CHANNEL
+
+正解: **B** ／ 難易度: 上級
+
+**解説:** 正答チャネル暗号通信状態読取はBです。応答面のチャネル暗号通信状態状態は、実行中チャネルが使用中の暗号仕様を確認することを目的に扱う説明単位がチャネル暗号通信状態定義です。背景チャネル暗号通信状態状態として、キューマネージャーの定義値、実行時状態、応答メッセージを結ぶ証跡単位はチャネル暗号通信状態定義です。定義面のチャネル暗号通信状態根拠を読む管理コマンド応答は、チャネル状態の暗号仕様を出典の属性説明と照合する点がチャネル暗号通信状態応答です。A: チャネル暗号通信状態読取で見るトピック状態は役割が異なり、除外理由を説明する対象はチャネル暗号通信状態読取です。B: チャネル暗号通信状態が正答です。チャネル暗号通信状態状態の応答で確認できる対象はチャネル暗号通信状態状態です。C: チャネル暗号通信状態定義で見るキュー状態表示は役割が異なり、除外理由を説明する対象はチャネル暗号通信状態定義です。D: チャネル暗号通信状態根拠で見るチャネル停止は役割が異なり、除外理由を説明する対象はチャネル暗号通信状態根拠です。初出語チャネル暗号通信状態とは、IBM MQ 9.3で扱う定義、属性、または管理操作のことで、用語定義はチャネル暗号通信状態引継ぎです。
+
+**出典:** mq93.refadmin / mq93.administer / mq93.secure / mq93.reference / mq93.configure
+
+---
+
+**問題.** 証明書マップを監査証跡で確認します。技術項目 CHLAUTH SSLPEERMAP の設定値と管理コマンド応答を照合し、チャネル認証 種別(証明書マップ)を記録します。操作後に、定義、状態、出力メッセージを同じ記録で説明します。証跡として残すべき項目はどれですか。
+
+- A. SSLCIPH
+- B. TOPICSTR
+- C. CHLAUTH SSLPEERMAP ✅
+- D. DISPLAY QSTATUS
+
+正解: **C** ／ 難易度: 上級
+
+**解説:** 正答証明書マップ状態はCです。定義面の証明書マップ定義は、相手証明書の識別名と接続許可の対応を確認することを目的に扱う説明単位が証明書マップ根拠です。背景証明書マップ定義として、キューマネージャーの定義値、実行時状態、応答メッセージを結ぶ証跡単位は証明書マップ根拠です。状態面の証明書マップ応答を読む管理コマンド応答は、チャネル認証 種別(証明書マップ)を出典の属性説明と照合する点が証明書マップ保守です。A: 証明書マップ状態で見る暗号仕様は役割が異なり、除外理由を説明する対象は証明書マップ状態です。B: 証明書マップ定義で見るトピック文字列は役割が異なり、除外理由を説明する対象は証明書マップ定義です。C: 証明書マップが正答です。証明書マップ根拠の応答で確認できる対象は証明書マップ根拠です。D: 証明書マップ応答で見るキュー状態表示は役割が異なり、除外理由を説明する対象は証明書マップ応答です。初出語証明書マップとは、IBM MQ 9.3で扱う定義、属性、または管理操作のことで、用語定義は証明書マップ棚卸です。
+
+**出典:** mq93.refadmin / mq93.administer / mq93.secure / mq93.reference / mq93.configure
+
+---
+
+**問題.** 相手証明書名を監査証跡で確認します。技術項目 SSLPEER の設定値と管理コマンド応答を照合し、相手証明書名値を記録します。操作後に、定義、状態、出力メッセージを同じ記録で説明します。証跡として残すべき項目はどれですか。
+
+- A. SSLCIPH
+- B. TOPICSTR
+- C. DISPLAY QSTATUS
+- D. SSLPEER ✅
+
+正解: **D** ／ 難易度: 上級
+
+**解説:** 正答相手証明書名定義はDです。状態面の相手証明書名根拠は、相手証明書の識別名条件を確認することを目的に扱う説明単位が相手証明書名応答です。背景相手証明書名根拠として、キューマネージャーの定義値、実行時状態、応答メッセージを結ぶ証跡単位は相手証明書名応答です。証跡面の相手証明書名保守を読む管理コマンド応答は、相手証明書名値を出典の属性説明と照合する点が相手証明書名監査です。A: 相手証明書名定義で見る暗号仕様は役割が異なり、除外理由を説明する対象は相手証明書名定義です。B: 相手証明書名根拠で見るトピック文字列は役割が異なり、除外理由を説明する対象は相手証明書名根拠です。C: 相手証明書名応答で見るキュー状態表示は役割が異なり、除外理由を説明する対象は相手証明書名応答です。D: 相手証明書名が正答です。相手証明書名保守の応答で確認できる対象は相手証明書名保守です。初出語相手証明書名とは、IBM MQ 9.3で扱う定義、属性、または管理操作のことで、用語定義は相手証明書名復旧です。
+
+**出典:** mq93.refadmin / mq93.administer / mq93.secure / mq93.reference / mq93.configure
+
+---
+
+**問題.** 送信チャネル定義を監査証跡で確認します。技術項目 DEFINE CHANNEL SDR の設定値と管理コマンド応答を照合し、チャネル種別と伝送キューを記録します。操作後に、定義、状態、出力メッセージを同じ記録で説明します。証跡として残すべき項目はどれですか。
+
+- A. DEFINE CHANNEL SDR ✅
+- B. SUB attribute
+- C. CONNAME
+- D. DEFINE CHANNEL RCVR
+
+正解: **A** ／ 難易度: 中級
+
+**解説:** 正答送信チャネル定義根拠はAです。証跡面の送信チャネル定義応答は、送信チャネルの接続先と伝送キューを定義することを目的に扱う説明単位が送信チャネル定義保守です。背景送信チャネル定義応答として、キューマネージャーの定義値、実行時状態、応答メッセージを結ぶ証跡単位は送信チャネル定義保守です。復旧面の送信チャネル定義監査を読む管理コマンド応答は、チャネル種別と伝送キューを出典の属性説明と照合する点が送信チャネル定義引継ぎです。A: 送信チャネル定義が正答です。送信チャネル定義根拠の応答で確認できる対象は送信チャネル定義根拠です。B: 送信チャネル定義応答で見る購読許可は役割が異なり、除外理由を説明する対象は送信チャネル定義応答です。C: 送信チャネル定義保守で見る接続名は役割が異なり、除外理由を説明する対象は送信チャネル定義保守です。D: 送信チャネル定義監査で見る受信チャネル定義は役割が異なり、除外理由を説明する対象は送信チャネル定義監査です。初出語送信チャネル定義とは、IBM MQ 9.3で扱う定義、属性、または管理操作のことで、用語定義は送信チャネル定義照合です。
+
+**出典:** mq93.refadmin / mq93.administer / mq93.secure / mq93.reference / mq93.configure
+
+---
+
+**問題.** 受信チャネル定義を監査証跡で確認します。技術項目 DEFINE CHANNEL RCVR の設定値と管理コマンド応答を照合し、チャネル種別(受信)を記録します。操作後に、定義、状態、出力メッセージを同じ記録で説明します。証跡として残すべき項目はどれですか。
+
+- A. DISPLAY CHSTATUS SSLCIPH
+- B. DEFINE CHANNEL RCVR ✅
+- C. DEFINE SUB
+- D. TOPICSTR
+
+正解: **B** ／ 難易度: 中級
+
+**解説:** 正答受信チャネル定義応答はBです。復旧面の受信チャネル定義保守は、相手キューマネージャーからの接続受け口を定義することを目的に扱う説明単位が受信チャネル定義監査です。背景受信チャネル定義保守として、キューマネージャーの定義値、実行時状態、応答メッセージを結ぶ証跡単位は受信チャネル定義監査です。保守面の受信チャネル定義引継ぎを読む管理コマンド応答は、チャネル種別(受信)を出典の属性説明と照合する点が受信チャネル定義棚卸です。A: 受信チャネル定義応答で見るチャネル暗号通信状態は役割が異なり、除外理由を説明する対象は受信チャネル定義応答です。B: 受信チャネル定義が正答です。受信チャネル定義保守の応答で確認できる対象は受信チャネル定義保守です。C: 受信チャネル定義監査で見るサブスクリプション定義は役割が異なり、除外理由を説明する対象は受信チャネル定義監査です。D: 受信チャネル定義引継ぎで見るトピック文字列は役割が異なり、除外理由を説明する対象は受信チャネル定義引継ぎです。初出語受信チャネル定義とは、IBM MQ 9.3で扱う定義、属性、または管理操作のことで、用語定義は受信チャネル定義観点です。
+
+**出典:** mq93.refadmin / mq93.administer / mq93.secure / mq93.reference / mq93.configure
+
+---
+
+**問題.** チャネル開始を監査証跡で確認します。技術項目 START CHANNEL の設定値と管理コマンド応答を照合し、開始 チャネル応答を記録します。操作後に、定義、状態、出力メッセージを同じ記録で説明します。証跡として残すべき項目はどれですか。
+
+- A. STOP CHANNEL
+- B. SSLCAUTH
+- C. START CHANNEL ✅
+- D. DEFINE SUB
+
+正解: **C** ／ 難易度: 初級
+
+**解説:** 正答チャネル開始保守はCです。保守面のチャネル開始監査は、定義済みチャネルを開始して送受信を進めることを目的に扱う説明単位がチャネル開始引継ぎです。背景チャネル開始監査として、キューマネージャーの定義値、実行時状態、応答メッセージを結ぶ証跡単位はチャネル開始引継ぎです。照合面のチャネル開始棚卸を読む管理コマンド応答は、開始 チャネル応答を出典の属性説明と照合する点がチャネル開始復旧です。A: チャネル開始保守で見るチャネル停止は役割が異なり、除外理由を説明する対象はチャネル開始保守です。B: チャネル開始監査で見るクライアント証明書要求は役割が異なり、除外理由を説明する対象はチャネル開始監査です。C: チャネル開始が正答です。チャネル開始引継ぎの応答で確認できる対象はチャネル開始引継ぎです。D: チャネル開始棚卸で見るサブスクリプション定義は役割が異なり、除外理由を説明する対象はチャネル開始棚卸です。初出語チャネル開始とは、IBM MQ 9.3で扱う定義、属性、または管理操作のことで、用語定義はチャネル開始証跡です。
+
+**出典:** mq93.refadmin / mq93.administer / mq93.secure / mq93.reference / mq93.configure
+
+---
+
+**問題.** チャネル停止を監査証跡で確認します。技術項目 STOP CHANNEL の設定値と管理コマンド応答を照合し、停止 チャネル応答を記録します。操作後に、定義、状態、出力メッセージを同じ記録で説明します。証跡として残すべき項目はどれですか。
+
+- A. TOPICSTR
+- B. DISPLAY CHSTATUS
+- C. CHLAUTH SSLPEERMAP
+- D. STOP CHANNEL ✅
+
+正解: **D** ／ 難易度: 初級
+
+**解説:** 正答チャネル停止監査はDです。照合面のチャネル停止引継ぎは、変更や障害切り分けのためチャネルを停止することを目的に扱う説明単位がチャネル停止棚卸です。背景チャネル停止引継ぎとして、キューマネージャーの定義値、実行時状態、応答メッセージを結ぶ証跡単位はチャネル停止棚卸です。運用面のチャネル停止復旧を読む管理コマンド応答は、停止 チャネル応答を出典の属性説明と照合する点がチャネル停止照合です。A: チャネル停止監査で見るトピック文字列は役割が異なり、除外理由を説明する対象はチャネル停止監査です。B: チャネル停止引継ぎで見るチャネル状態表示は役割が異なり、除外理由を説明する対象はチャネル停止引継ぎです。C: チャネル停止棚卸で見る証明書マップは役割が異なり、除外理由を説明する対象はチャネル停止棚卸です。D: チャネル停止が正答です。チャネル停止復旧の応答で確認できる対象はチャネル停止復旧です。初出語チャネル停止とは、IBM MQ 9.3で扱う定義、属性、または管理操作のことで、用語定義はチャネル停止読取です。
+
+**出典:** mq93.refadmin / mq93.administer / mq93.secure / mq93.reference / mq93.configure
+
+---
+
+**問題.** 切断間隔を監査証跡で確認します。技術項目 DISCINT の設定値と管理コマンド応答を照合し、切断間隔属性を記録します。操作後に、定義、状態、出力メッセージを同じ記録で説明します。証跡として残すべき項目はどれですか。
+
+- A. SSLCAUTH
+- B. PUB attribute
+- C. DEFINE QLOCAL
+- D. DISCINT ✅
+
+正解: **D** ／ 難易度: 中級
+
+**解説:** 正答切断間隔照合はDです。暗号面の切断間隔観点は、アイドル時にチャネルを切断するまでの時間を確認することを目的に扱う説明単位が切断間隔証跡です。背景切断間隔観点として、キューマネージャーの定義値、実行時状態、応答メッセージを結ぶ証跡単位は切断間隔証跡です。記録面の切断間隔読取を読む管理コマンド応答は、切断間隔属性を出典の属性説明と照合する点が切断間隔状態です。A: 切断間隔照合で見るクライアント証明書要求は役割が異なり、除外理由を説明する対象は切断間隔照合です。B: 切断間隔観点で見る発行許可は役割が異なり、除外理由を説明する対象は切断間隔観点です。C: 切断間隔証跡で見るローカルキュー定義は役割が異なり、除外理由を説明する対象は切断間隔証跡です。D: 切断間隔が正答です。切断間隔読取の応答で確認できる対象は切断間隔読取です。初出語切断間隔とは、IBM MQ 9.3で扱う定義、属性、または管理操作のことで、用語定義は切断間隔応答です。
+
+**出典:** mq93.refadmin / mq93.administer / mq93.secure / mq93.reference / mq93.configure
+
+---
+
+**問題.** トピック定義を運用引継ぎで確認します。技術項目 DEFINE TOPIC の設定値と管理コマンド応答を照合し、トピック文字列と発行属性/購読属性属性を記録します。担当者が交代しても同じ確認順で読めるよう、属性名と出力欄を対応させます。この条件で適切な確認対象はどれですか。
+
+- A. DEFINE TOPIC ✅
+- B. CONNAME
+- C. START CHANNEL
+- D. STOP CHANNEL
+
+正解: **A** ／ 難易度: 中級
+
+**解説:** 正答トピック定義定義はAです。監査面のトピック定義根拠は、トピック名とトピック文字列を対応させることを目的に扱う説明単位がトピック定義応答です。背景トピック定義根拠として、キューマネージャーの定義値、実行時状態、応答メッセージを結ぶ証跡単位はトピック定義応答です。引継ぎ面のトピック定義保守を読む管理コマンド応答は、トピック文字列と発行属性/購読属性属性を出典の属性説明と照合する点がトピック定義監査です。A: トピック定義が正答です。トピック定義定義の応答で確認できる対象はトピック定義定義です。B: トピック定義根拠で見る接続名は役割が異なり、除外理由を説明する対象はトピック定義根拠です。C: トピック定義応答で見るチャネル開始は役割が異なり、除外理由を説明する対象はトピック定義応答です。D: トピック定義保守で見るチャネル停止は役割が異なり、除外理由を説明する対象はトピック定義保守です。初出語トピック定義とは、IBM MQ 9.3で扱う定義、属性、または管理操作のことで、用語定義はトピック定義復旧です。
+
+**出典:** mq93.refadmin / mq93.administer / mq93.secure / mq93.reference / mq93.configure
+
+---
+
+**問題.** トピック文字列を運用引継ぎで確認します。技術項目 TOPICSTR の設定値と管理コマンド応答を照合し、トピック文字列値を記録します。担当者が交代しても同じ確認順で読めるよう、属性名と出力欄を対応させます。この条件で適切な確認対象はどれですか。
+
+- A. PUB attribute
+- B. TOPICSTR ✅
+- C. DEFINE QLOCAL
+- D. MAXDEPTH
+
+正解: **B** ／ 難易度: 初級
+
+**解説:** 正答トピック文字列根拠はBです。引継ぎ面のトピック文字列応答は、アプリケーションが発行または購読する階層名を確認することを目的に扱う説明単位がトピック文字列保守です。背景トピック文字列応答として、キューマネージャーの定義値、実行時状態、応答メッセージを結ぶ証跡単位はトピック文字列保守です。応答面のトピック文字列監査を読む管理コマンド応答は、トピック文字列値を出典の属性説明と照合する点がトピック文字列引継ぎです。A: トピック文字列根拠で見る発行許可は役割が異なり、除外理由を説明する対象はトピック文字列根拠です。B: トピック文字列が正答です。トピック文字列応答の応答で確認できる対象はトピック文字列応答です。C: トピック文字列保守で見るローカルキュー定義は役割が異なり、除外理由を説明する対象はトピック文字列保守です。D: トピック文字列監査で見る最大キュー深度は役割が異なり、除外理由を説明する対象はトピック文字列監査です。初出語トピック文字列とは、IBM MQ 9.3で扱う定義、属性、または管理操作のことで、用語定義はトピック文字列照合です。
+
+**出典:** mq93.refadmin / mq93.administer / mq93.secure / mq93.reference / mq93.configure
+
+---
+
+**問題.** 発行許可を運用引継ぎで確認します。技術項目 PUB attribute の設定値と管理コマンド応答を照合し、発行属性属性を記録します。担当者が交代しても同じ確認順で読めるよう、属性名と出力欄を対応させます。この条件で適切な確認対象はどれですか。
+
+- A. DEFINE CHANNEL SDR
+- B. REFRESH SECURITY TYPE(SSL)
+- C. PUB attribute ✅
+- D. DISPLAY CHSTATUS SSLCIPH
+
+正解: **C** ／ 難易度: 中級
+
+**解説:** 正答発行許可応答はCです。応答面の発行許可保守は、トピックへの発行を許可または抑止することを目的に扱う説明単位が発行許可監査です。背景発行許可保守として、キューマネージャーの定義値、実行時状態、応答メッセージを結ぶ証跡単位は発行許可監査です。定義面の発行許可引継ぎを読む管理コマンド応答は、発行属性属性を出典の属性説明と照合する点が発行許可棚卸です。A: 発行許可応答で見る送信チャネル定義は役割が異なり、除外理由を説明する対象は発行許可応答です。B: 発行許可保守で見る暗号通信設定再読込は役割が異なり、除外理由を説明する対象は発行許可保守です。C: 発行許可が正答です。発行許可監査の応答で確認できる対象は発行許可監査です。D: 発行許可引継ぎで見るチャネル暗号通信状態は役割が異なり、除外理由を説明する対象は発行許可引継ぎです。初出語発行許可とは、IBM MQ 9.3で扱う定義、属性、または管理操作のことで、用語定義は発行許可観点です。
+
+**出典:** mq93.refadmin / mq93.administer / mq93.secure / mq93.reference / mq93.configure
+
+---
+
+**問題.** 購読許可を運用引継ぎで確認します。技術項目 SUB attribute の設定値と管理コマンド応答を照合し、購読属性属性を記録します。担当者が交代しても同じ確認順で読めるよう、属性名と出力欄を対応させます。この条件で適切な確認対象はどれですか。
+
+- A. DEFPSIST
+- B. DISCINT
+- C. DISPLAY QSTATUS
+- D. SUB attribute ✅
+
+正解: **D** ／ 難易度: 中級
+
+**解説:** 正答購読許可保守はDです。定義面の購読許可監査は、トピックからの購読を許可または抑止することを目的に扱う説明単位が購読許可引継ぎです。背景購読許可監査として、キューマネージャーの定義値、実行時状態、応答メッセージを結ぶ証跡単位は購読許可引継ぎです。状態面の購読許可棚卸を読む管理コマンド応答は、購読属性属性を出典の属性説明と照合する点が購読許可復旧です。A: 購読許可保守で見る既定永続性は役割が異なり、除外理由を説明する対象は購読許可保守です。B: 購読許可監査で見る切断間隔は役割が異なり、除外理由を説明する対象は購読許可監査です。C: 購読許可引継ぎで見るキュー状態表示は役割が異なり、除外理由を説明する対象は購読許可引継ぎです。D: 購読許可が正答です。購読許可棚卸の応答で確認できる対象は購読許可棚卸です。初出語購読許可とは、IBM MQ 9.3で扱う定義、属性、または管理操作のことで、用語定義は購読許可証跡です。
+
+**出典:** mq93.refadmin / mq93.administer / mq93.secure / mq93.reference / mq93.configure
+
+---
+
+**問題.** トピック表示を運用引継ぎで確認します。技術項目 DISPLAY TOPIC の設定値と管理コマンド応答を照合し、トピック属性の応答を記録します。担当者が交代しても同じ確認順で読めるよう、属性名と出力欄を対応させます。この条件で適切な確認対象はどれですか。
+
+- A. DISPLAY TOPIC ✅
+- B. SSLCAUTH
+- C. DISPLAY SUB
+- D. PSPROP
+
+正解: **A** ／ 難易度: 初級
+
+**解説:** 正答トピック表示監査はAです。状態面のトピック表示引継ぎは、定義済みトピックの属性を管理コマンドで読むことを目的に扱う説明単位がトピック表示棚卸です。背景トピック表示引継ぎとして、キューマネージャーの定義値、実行時状態、応答メッセージを結ぶ証跡単位はトピック表示棚卸です。証跡面のトピック表示復旧を読む管理コマンド応答は、トピック属性の応答を出典の属性説明と照合する点がトピック表示照合です。A: トピック表示が正答です。トピック表示監査の応答で確認できる対象はトピック表示監査です。B: トピック表示引継ぎで見るクライアント証明書要求は役割が異なり、除外理由を説明する対象はトピック表示引継ぎです。C: トピック表示棚卸で見る購読定義表示は役割が異なり、除外理由を説明する対象はトピック表示棚卸です。D: トピック表示復旧で見る発行購読プロパティは役割が異なり、除外理由を説明する対象はトピック表示復旧です。初出語トピック表示とは、IBM MQ 9.3で扱う定義、属性、または管理操作のことで、用語定義はトピック表示読取です。
+
+**出典:** mq93.refadmin / mq93.administer / mq93.secure / mq93.reference / mq93.configure
+
+---
+
+**問題.** トピック状態を運用引継ぎで確認します。技術項目 DISPLAY TPSTATUS の設定値と管理コマンド応答を照合し、トピック状態応答を記録します。担当者が交代しても同じ確認順で読めるよう、属性名と出力欄を対応させます。この条件で適切な確認対象はどれですか。
+
+- A. DISCINT
+- B. DISPLAY TPSTATUS ✅
+- C. STOP CHANNEL
+- D. DISPLAY CHSTATUS
+
+正解: **B** ／ 難易度: 上級
+
+**解説:** 正答トピック状態引継ぎはBです。証跡面のトピック状態棚卸は、トピックの実行時状態を定義値と分けて確認することを目的に扱う説明単位がトピック状態復旧です。背景トピック状態棚卸として、キューマネージャーの定義値、実行時状態、応答メッセージを結ぶ証跡単位はトピック状態復旧です。復旧面のトピック状態照合を読む管理コマンド応答は、トピック状態応答を出典の属性説明と照合する点がトピック状態観点です。A: トピック状態引継ぎで見る切断間隔は役割が異なり、除外理由を説明する対象はトピック状態引継ぎです。B: トピック状態が正答です。トピック状態棚卸の応答で確認できる対象はトピック状態棚卸です。C: トピック状態復旧で見るチャネル停止は役割が異なり、除外理由を説明する対象はトピック状態復旧です。D: トピック状態照合で見るチャネル状態表示は役割が異なり、除外理由を説明する対象はトピック状態照合です。初出語トピック状態とは、IBM MQ 9.3で扱う定義、属性、または管理操作のことで、用語定義はトピック状態状態です。
+
+**出典:** mq93.refadmin / mq93.administer / mq93.secure / mq93.reference / mq93.configure
+
+---
+
+**問題.** サブスクリプション定義を運用引継ぎで確認します。技術項目 DEFINE SUB の設定値と管理コマンド応答を照合し、購読属性名と配信先を記録します。担当者が交代しても同じ確認順で読めるよう、属性名と出力欄を対応させます。この条件で適切な確認対象はどれですか。
+
+- A. DEFINE TOPIC
+- B. DISPLAY QSTATUS
+- C. DEFINE SUB ✅
+- D. DEFINE QLOCAL
+
+正解: **C** ／ 難易度: 中級
+
+**解説:** 正答サブスクリプション定義棚卸はCです。復旧面のサブスクリプション定義復旧は、購読先と配信先キューを固定して登録することを目的に扱う説明単位がサブスクリプション定義照合です。背景サブスクリプション定義復旧として、キューマネージャーの定義値、実行時状態、応答メッセージを結ぶ証跡単位はサブスクリプション定義照合です。保守面のサブスクリプション定義観点を読む管理コマンド応答は、購読属性名と配信先を出典の属性説明と照合する点がサブスクリプション定義証跡です。A: サブスクリプション定義棚卸で見るトピック定義は役割が異なり、除外理由を説明する対象はサブスクリプション定義棚卸です。B: サブスクリプション定義復旧で見るキュー状態表示は役割が異なり、除外理由を説明する対象はサブスクリプション定義復旧です。C: サブスクリプション定義が正答です。サブスクリプション定義照合の応答で確認できる対象はサブスクリプション定義照合です。D: サブスクリプション定義観点で見るローカルキュー定義は役割が異なり、除外理由を説明する対象はサブスクリプション定義観点です。初出語サブスクリプション定義とは、IBM MQ 9.3で扱う定義、属性、または管理操作のことで、用語定義はサブスクリプション定義定義です。
+
+**出典:** mq93.refadmin / mq93.administer / mq93.secure / mq93.reference / mq93.configure
+
+---
+
+**問題.** 購読定義表示を運用引継ぎで確認します。技術項目 DISPLAY SUB の設定値と管理コマンド応答を照合し、表示 購読属性応答を記録します。担当者が交代しても同じ確認順で読めるよう、属性名と出力欄を対応させます。この条件で適切な確認対象はどれですか。
+
+- A. SSLKEYR
+- B. DURABLE subscription
+- C. SSLCIPH
+- D. DISPLAY SUB ✅
+
+正解: **D** ／ 難易度: 中級
+
+**解説:** 正答購読定義表示復旧はDです。保守面の購読定義表示照合は、購読定義のトピック文字列と配信先を確認することを目的に扱う説明単位が購読定義表示観点です。背景購読定義表示照合として、キューマネージャーの定義値、実行時状態、応答メッセージを結ぶ証跡単位は購読定義表示観点です。照合面の購読定義表示証跡を読む管理コマンド応答は、表示 購読属性応答を出典の属性説明と照合する点が購読定義表示読取です。A: 購読定義表示復旧で見る鍵リポジトリは役割が異なり、除外理由を説明する対象は購読定義表示復旧です。B: 購読定義表示照合で見る永続購読は役割が異なり、除外理由を説明する対象は購読定義表示照合です。C: 購読定義表示観点で見る暗号仕様は役割が異なり、除外理由を説明する対象は購読定義表示観点です。D: 購読定義表示が正答です。購読定義表示証跡の応答で確認できる対象は購読定義表示証跡です。初出語購読定義表示とは、IBM MQ 9.3で扱う定義、属性、または管理操作のことで、用語定義は購読定義表示根拠です。
+
+**出典:** mq93.refadmin / mq93.administer / mq93.secure / mq93.reference / mq93.configure
+
+---
+
+**問題.** 発行購読プロパティを運用引継ぎで確認します。技術項目 PSPROP の設定値と管理コマンド応答を照合し、発行購読プロパティ属性を記録します。担当者が交代しても同じ確認順で読めるよう、属性名と出力欄を対応させます。この条件で適切な確認対象はどれですか。
+
+- A. PSPROP ✅
+- B. DEFINE CHANNEL RCVR
+- C. DISPLAY CHSTATUS SSLCIPH
+- D. CHLAUTH SSLPEERMAP
+
+正解: **A** ／ 難易度: 上級
+
+**解説:** 正答発行購読プロパティ照合はAです。照合面の発行購読プロパティ観点は、発行購読プロパティをメッセージへ付加する方式を確認することを目的に扱う説明単位が発行購読プロパティ証跡です。背景発行購読プロパティ観点として、キューマネージャーの定義値、実行時状態、応答メッセージを結ぶ証跡単位は発行購読プロパティ証跡です。運用面の発行購読プロパティ読取を読む管理コマンド応答は、発行購読プロパティ属性を出典の属性説明と照合する点が発行購読プロパティ状態です。A: 発行購読プロパティが正答です。発行購読プロパティ照合の応答で確認できる対象は発行購読プロパティ照合です。B: 発行購読プロパティ観点で見る受信チャネル定義は役割が異なり、除外理由を説明する対象は発行購読プロパティ観点です。C: 発行購読プロパティ証跡で見るチャネル暗号通信状態は役割が異なり、除外理由を説明する対象は発行購読プロパティ証跡です。D: 発行購読プロパティ読取で見る証明書マップは役割が異なり、除外理由を説明する対象は発行購読プロパティ読取です。初出語発行購読プロパティとは、IBM MQ 9.3で扱う定義、属性、または管理操作のことで、用語定義は発行購読プロパティ応答です。
+
+**出典:** mq93.refadmin / mq93.administer / mq93.secure / mq93.reference / mq93.configure
+
+---
+
+**問題.** 永続購読を運用引継ぎで確認します。技術項目 DURABLE subscription の設定値と管理コマンド応答を照合し、永続属性属性を記録します。担当者が交代しても同じ確認順で読めるよう、属性名と出力欄を対応させます。この条件で適切な確認対象はどれですか。
+
+- A. DISPLAY CHSTATUS SSLCIPH
+- B. DURABLE subscription ✅
+- C. SSLCAUTH
+- D. CERTLABL
+
+正解: **B** ／ 難易度: 上級
+
+**解説:** 正答永続購読観点はBです。運用面の永続購読証跡は、アプリケーション停止中も購読状態を保持することを目的に扱う説明単位が永続購読読取です。背景永続購読証跡として、キューマネージャーの定義値、実行時状態、応答メッセージを結ぶ証跡単位は永続購読読取です。接続面の永続購読状態を読む管理コマンド応答は、永続属性属性を出典の属性説明と照合する点が永続購読定義です。A: 永続購読観点で見るチャネル暗号通信状態は役割が異なり、除外理由を説明する対象は永続購読観点です。B: 永続購読が正答です。永続購読証跡の応答で確認できる対象は永続購読証跡です。C: 永続購読読取で見るクライアント証明書要求は役割が異なり、除外理由を説明する対象は永続購読読取です。D: 永続購読状態で見る証明書ラベルは役割が異なり、除外理由を説明する対象は永続購読状態です。初出語永続購読とは、IBM MQ 9.3で扱う定義、属性、または管理操作のことで、用語定義は永続購読保守です。
+
+**出典:** mq93.refadmin / mq93.administer / mq93.secure / mq93.reference / mq93.configure
+
+---
+
+**問題.** 暗号仕様を運用引継ぎで確認します。技術項目 SSLCIPH の設定値と管理コマンド応答を照合し、暗号仕様値を記録します。担当者が交代しても同じ確認順で読めるよう、属性名と出力欄を対応させます。この条件で適切な確認対象はどれですか。
+
+- A. SSLKEYR
+- B. PSPROP
+- C. SSLCIPH ✅
+- D. DURABLE subscription
+
+正解: **C** ／ 難易度: 中級
+
+**解説:** 正答暗号仕様証跡はCです。接続面の暗号仕様読取は、チャネルで使う暗号仕様を確認することを目的に扱う説明単位が暗号仕様状態です。背景暗号仕様読取として、キューマネージャーの定義値、実行時状態、応答メッセージを結ぶ証跡単位は暗号仕様状態です。配信面の暗号仕様定義を読む管理コマンド応答は、暗号仕様値を出典の属性説明と照合する点が暗号仕様根拠です。A: 暗号仕様証跡で見る鍵リポジトリは役割が異なり、除外理由を説明する対象は暗号仕様証跡です。B: 暗号仕様読取で見る発行購読プロパティは役割が異なり、除外理由を説明する対象は暗号仕様読取です。C: 暗号仕様が正答です。暗号仕様状態の応答で確認できる対象は暗号仕様状態です。D: 暗号仕様定義で見る永続購読は役割が異なり、除外理由を説明する対象は暗号仕様定義です。初出語暗号仕様とは、IBM MQ 9.3で扱う定義、属性、または管理操作のことで、用語定義は暗号仕様監査です。
+
+**出典:** mq93.refadmin / mq93.administer / mq93.secure / mq93.reference / mq93.configure
+
+---
+
+**問題.** クライアント証明書要求を運用引継ぎで確認します。技術項目 SSLCAUTH の設定値と管理コマンド応答を照合し、証明書要求値を記録します。担当者が交代しても同じ確認順で読めるよう、属性名と出力欄を対応させます。この条件で適切な確認対象はどれですか。
+
+- A. DISCINT
+- B. STOP CHANNEL
+- C. DISPLAY CHSTATUS
+- D. SSLCAUTH ✅
+
+正解: **D** ／ 難易度: 中級
+
+**解説:** 正答クライアント証明書要求読取はDです。配信面のクライアント証明書要求状態は、クライアント証明書の要求有無を確認することを目的に扱う説明単位がクライアント証明書要求定義です。背景クライアント証明書要求状態として、キューマネージャーの定義値、実行時状態、応答メッセージを結ぶ証跡単位はクライアント証明書要求定義です。暗号面のクライアント証明書要求根拠を読む管理コマンド応答は、証明書要求値を出典の属性説明と照合する点がクライアント証明書要求応答です。A: クライアント証明書要求読取で見る切断間隔は役割が異なり、除外理由を説明する対象はクライアント証明書要求読取です。B: クライアント証明書要求状態で見るチャネル停止は役割が異なり、除外理由を説明する対象はクライアント証明書要求状態です。C: クライアント証明書要求定義で見るチャネル状態表示は役割が異なり、除外理由を説明する対象はクライアント証明書要求定義です。D: クライアント証明書要求が正答です。クライアント証明書要求根拠の応答で確認できる対象はクライアント証明書要求根拠です。初出語クライアント証明書要求とは、IBM MQ 9.3で扱う定義、属性、または管理操作のことで、用語定義はクライアント証明書要求引継ぎです。
+
+**出典:** mq93.refadmin / mq93.administer / mq93.secure / mq93.reference / mq93.configure
+
+---
+
+**問題.** 証明書ラベルを運用引継ぎで確認します。技術項目 CERTLABL の設定値と管理コマンド応答を照合し、証明書ラベル値を記録します。担当者が交代しても同じ確認順で読めるよう、属性名と出力欄を対応させます。この条件で適切な確認対象はどれですか。
+
+- A. CERTLABL ✅
+- B. DEFINE SUB
+- C. PUB attribute
+- D. SUB attribute
+
+正解: **A** ／ 難易度: 中級
+
+**解説:** 正答証明書ラベル状態はAです。暗号面の証明書ラベル定義は、キューマネージャーが提示する証明書のラベルを確認することを目的に扱う説明単位が証明書ラベル根拠です。背景証明書ラベル定義として、キューマネージャーの定義値、実行時状態、応答メッセージを結ぶ証跡単位は証明書ラベル根拠です。記録面の証明書ラベル応答を読む管理コマンド応答は、証明書ラベル値を出典の属性説明と照合する点が証明書ラベル保守です。A: 証明書ラベルが正答です。証明書ラベル状態の応答で確認できる対象は証明書ラベル状態です。B: 証明書ラベル定義で見るサブスクリプション定義は役割が異なり、除外理由を説明する対象は証明書ラベル定義です。C: 証明書ラベル根拠で見る発行許可は役割が異なり、除外理由を説明する対象は証明書ラベル根拠です。D: 証明書ラベル応答で見る購読許可は役割が異なり、除外理由を説明する対象は証明書ラベル応答です。初出語証明書ラベルとは、IBM MQ 9.3で扱う定義、属性、または管理操作のことで、用語定義は証明書ラベル棚卸です。
+
+**出典:** mq93.refadmin / mq93.administer / mq93.secure / mq93.reference / mq93.configure
+
+---
+
+**問題.** 鍵リポジトリを運用引継ぎで確認します。技術項目 SSLKEYR の設定値と管理コマンド応答を照合し、鍵リポジトリ値を記録します。担当者が交代しても同じ確認順で読めるよう、属性名と出力欄を対応させます。この条件で適切な確認対象はどれですか。
+
+- A. SSLPEER
+- B. SSLKEYR ✅
+- C. CERTLABL
+- D. REFRESH SECURITY TYPE(SSL)
+
+正解: **B** ／ 難易度: 中級
+
+**解説:** 正答鍵リポジトリ定義はBです。記録面の鍵リポジトリ根拠は、証明書を格納する鍵リポジトリの場所を確認することを目的に扱う説明単位が鍵リポジトリ応答です。背景鍵リポジトリ根拠として、キューマネージャーの定義値、実行時状態、応答メッセージを結ぶ証跡単位は鍵リポジトリ応答です。設計面の鍵リポジトリ保守を読む管理コマンド応答は、鍵リポジトリ値を出典の属性説明と照合する点が鍵リポジトリ監査です。A: 鍵リポジトリ定義で見る相手証明書名は役割が異なり、除外理由を説明する対象は鍵リポジトリ定義です。B: 鍵リポジトリが正答です。鍵リポジトリ根拠の応答で確認できる対象は鍵リポジトリ根拠です。C: 鍵リポジトリ応答で見る証明書ラベルは役割が異なり、除外理由を説明する対象は鍵リポジトリ応答です。D: 鍵リポジトリ保守で見る暗号通信設定再読込は役割が異なり、除外理由を説明する対象は鍵リポジトリ保守です。初出語鍵リポジトリとは、IBM MQ 9.3で扱う定義、属性、または管理操作のことで、用語定義は鍵リポジトリ復旧です。
+
+**出典:** mq93.refadmin / mq93.administer / mq93.secure / mq93.reference / mq93.configure
+
+---
+
+**問題.** 暗号通信設定再読込を運用引継ぎで確認します。技術項目 REFRESH SECURITY TYPE(SSL) の設定値と管理コマンド応答を照合し、暗号設定再読込応答を記録します。担当者が交代しても同じ確認順で読めるよう、属性名と出力欄を対応させます。この条件で適切な確認対象はどれですか。
+
+- A. DEFINE CHANNEL SDR
+- B. SSLKEYR
+- C. REFRESH SECURITY TYPE(SSL) ✅
+- D. DISPLAY CHSTATUS SSLCIPH
+
+正解: **C** ／ 難易度: 上級
+
+**解説:** 正答暗号通信設定再読込根拠はCです。設計面の暗号通信設定再読込応答は、証明書や鍵リポジトリ変更を反映することを目的に扱う説明単位が暗号通信設定再読込保守です。背景暗号通信設定再読込応答として、キューマネージャーの定義値、実行時状態、応答メッセージを結ぶ証跡単位は暗号通信設定再読込保守です。変更面の暗号通信設定再読込監査を読む管理コマンド応答は、暗号設定再読込応答を出典の属性説明と照合する点が暗号通信設定再読込引継ぎです。A: 暗号通信設定再読込根拠で見る送信チャネル定義は役割が異なり、除外理由を説明する対象は暗号通信設定再読込根拠です。B: 暗号通信設定再読込応答で見る鍵リポジトリは役割が異なり、除外理由を説明する対象は暗号通信設定再読込応答です。C: 暗号通信設定再読込が正答です。暗号通信設定再読込保守の応答で確認できる対象は暗号通信設定再読込保守です。D: 暗号通信設定再読込監査で見るチャネル暗号通信状態は役割が異なり、除外理由を説明する対象は暗号通信設定再読込監査です。初出語暗号通信設定再読込とは、IBM MQ 9.3で扱う定義、属性、または管理操作のことで、用語定義は暗号通信設定再読込照合です。
+
+**出典:** mq93.refadmin / mq93.administer / mq93.secure / mq93.reference / mq93.configure
+
+---
+
+**問題.** チャネル暗号通信状態を運用引継ぎで確認します。技術項目 DISPLAY CHSTATUS SSLCIPH の設定値と管理コマンド応答を照合し、チャネル状態の暗号仕様を記録します。担当者が交代しても同じ確認順で読めるよう、属性名と出力欄を対応させます。この条件で適切な確認対象はどれですか。
+
+- A. DEFINE QLOCAL
+- B. XMITQ
+- C. CONNAME
+- D. DISPLAY CHSTATUS SSLCIPH ✅
+
+正解: **D** ／ 難易度: 上級
+
+**解説:** 正答チャネル暗号通信状態応答はDです。変更面のチャネル暗号通信状態保守は、実行中チャネルが使用中の暗号仕様を確認することを目的に扱う説明単位がチャネル暗号通信状態監査です。背景チャネル暗号通信状態保守として、キューマネージャーの定義値、実行時状態、応答メッセージを結ぶ証跡単位はチャネル暗号通信状態監査です。障害面のチャネル暗号通信状態引継ぎを読む管理コマンド応答は、チャネル状態の暗号仕様を出典の属性説明と照合する点がチャネル暗号通信状態棚卸です。A: チャネル暗号通信状態応答で見るローカルキュー定義は役割が異なり、除外理由を説明する対象はチャネル暗号通信状態応答です。B: チャネル暗号通信状態保守で見る伝送キューは役割が異なり、除外理由を説明する対象はチャネル暗号通信状態保守です。C: チャネル暗号通信状態監査で見る接続名は役割が異なり、除外理由を説明する対象はチャネル暗号通信状態監査です。D: チャネル暗号通信状態が正答です。チャネル暗号通信状態引継ぎの応答で確認できる対象はチャネル暗号通信状態引継ぎです。初出語チャネル暗号通信状態とは、IBM MQ 9.3で扱う定義、属性、または管理操作のことで、用語定義はチャネル暗号通信状態観点です。
+
+**出典:** mq93.refadmin / mq93.administer / mq93.secure / mq93.reference / mq93.configure
+
+---
+
+**問題.** 証明書マップを運用引継ぎで確認します。技術項目 CHLAUTH SSLPEERMAP の設定値と管理コマンド応答を照合し、チャネル認証 種別(証明書マップ)を記録します。担当者が交代しても同じ確認順で読めるよう、属性名と出力欄を対応させます。この条件で適切な確認対象はどれですか。
+
+- A. CHLAUTH SSLPEERMAP ✅
+- B. PUB attribute
+- C. MAXDEPTH
+- D. DEFPSIST
+
+正解: **A** ／ 難易度: 上級
+
+**解説:** 正答証明書マップ保守はAです。障害面の証明書マップ監査は、相手証明書の識別名と接続許可の対応を確認することを目的に扱う説明単位が証明書マップ引継ぎです。背景証明書マップ監査として、キューマネージャーの定義値、実行時状態、応答メッセージを結ぶ証跡単位は証明書マップ引継ぎです。監査面の証明書マップ棚卸を読む管理コマンド応答は、チャネル認証 種別(証明書マップ)を出典の属性説明と照合する点が証明書マップ復旧です。A: 証明書マップが正答です。証明書マップ保守の応答で確認できる対象は証明書マップ保守です。B: 証明書マップ監査で見る発行許可は役割が異なり、除外理由を説明する対象は証明書マップ監査です。C: 証明書マップ引継ぎで見る最大キュー深度は役割が異なり、除外理由を説明する対象は証明書マップ引継ぎです。D: 証明書マップ棚卸で見る既定永続性は役割が異なり、除外理由を説明する対象は証明書マップ棚卸です。初出語証明書マップとは、IBM MQ 9.3で扱う定義、属性、または管理操作のことで、用語定義は証明書マップ証跡です。
+
+**出典:** mq93.refadmin / mq93.administer / mq93.secure / mq93.reference / mq93.configure
+
+---
+
+**問題.** 相手証明書名を運用引継ぎで確認します。技術項目 SSLPEER の設定値と管理コマンド応答を照合し、相手証明書名値を記録します。担当者が交代しても同じ確認順で読めるよう、属性名と出力欄を対応させます。この条件で適切な確認対象はどれですか。
+
+- A. PUB attribute
+- B. SSLPEER ✅
+- C. MAXDEPTH
+- D. DEFPSIST
+
+正解: **B** ／ 難易度: 上級
+
+**解説:** 正答相手証明書名監査はBです。監査面の相手証明書名引継ぎは、相手証明書の識別名条件を確認することを目的に扱う説明単位が相手証明書名棚卸です。背景相手証明書名引継ぎとして、キューマネージャーの定義値、実行時状態、応答メッセージを結ぶ証跡単位は相手証明書名棚卸です。引継ぎ面の相手証明書名復旧を読む管理コマンド応答は、相手証明書名値を出典の属性説明と照合する点が相手証明書名照合です。A: 相手証明書名監査で見る発行許可は役割が異なり、除外理由を説明する対象は相手証明書名監査です。B: 相手証明書名が正答です。相手証明書名引継ぎの応答で確認できる対象は相手証明書名引継ぎです。C: 相手証明書名棚卸で見る最大キュー深度は役割が異なり、除外理由を説明する対象は相手証明書名棚卸です。D: 相手証明書名復旧で見る既定永続性は役割が異なり、除外理由を説明する対象は相手証明書名復旧です。初出語相手証明書名とは、IBM MQ 9.3で扱う定義、属性、または管理操作のことで、用語定義は相手証明書名読取です。
+
+**出典:** mq93.refadmin / mq93.administer / mq93.secure / mq93.reference / mq93.configure
+
+---
+
+**問題.** 送信チャネル定義を運用引継ぎで確認します。技術項目 DEFINE CHANNEL SDR の設定値と管理コマンド応答を照合し、チャネル種別と伝送キューを記録します。担当者が交代しても同じ確認順で読めるよう、属性名と出力欄を対応させます。この条件で適切な確認対象はどれですか。
+
+- A. DISCINT
+- B. STOP CHANNEL
+- C. DEFINE CHANNEL SDR ✅
+- D. DISPLAY CHSTATUS
+
+正解: **C** ／ 難易度: 中級
+
+**解説:** 正答送信チャネル定義引継ぎはCです。引継ぎ面の送信チャネル定義棚卸は、送信チャネルの接続先と伝送キューを定義することを目的に扱う説明単位が送信チャネル定義復旧です。背景送信チャネル定義棚卸として、キューマネージャーの定義値、実行時状態、応答メッセージを結ぶ証跡単位は送信チャネル定義復旧です。応答面の送信チャネル定義照合を読む管理コマンド応答は、チャネル種別と伝送キューを出典の属性説明と照合する点が送信チャネル定義観点です。A: 送信チャネル定義引継ぎで見る切断間隔は役割が異なり、除外理由を説明する対象は送信チャネル定義引継ぎです。B: 送信チャネル定義棚卸で見るチャネル停止は役割が異なり、除外理由を説明する対象は送信チャネル定義棚卸です。C: 送信チャネル定義が正答です。送信チャネル定義復旧の応答で確認できる対象は送信チャネル定義復旧です。D: 送信チャネル定義照合で見るチャネル状態表示は役割が異なり、除外理由を説明する対象は送信チャネル定義照合です。初出語送信チャネル定義とは、IBM MQ 9.3で扱う定義、属性、または管理操作のことで、用語定義は送信チャネル定義状態です。
+
+**出典:** mq93.refadmin / mq93.administer / mq93.secure / mq93.reference / mq93.configure
+
+---
+
+**問題.** 受信チャネル定義を運用引継ぎで確認します。技術項目 DEFINE CHANNEL RCVR の設定値と管理コマンド応答を照合し、チャネル種別(受信)を記録します。担当者が交代しても同じ確認順で読めるよう、属性名と出力欄を対応させます。この条件で適切な確認対象はどれですか。
+
+- A. DISPLAY SUB
+- B. SUB attribute
+- C. DISPLAY TOPIC
+- D. DEFINE CHANNEL RCVR ✅
+
+正解: **D** ／ 難易度: 中級
+
+**解説:** 正答受信チャネル定義棚卸はDです。応答面の受信チャネル定義復旧は、相手キューマネージャーからの接続受け口を定義することを目的に扱う説明単位が受信チャネル定義照合です。背景受信チャネル定義復旧として、キューマネージャーの定義値、実行時状態、応答メッセージを結ぶ証跡単位は受信チャネル定義照合です。定義面の受信チャネル定義観点を読む管理コマンド応答は、チャネル種別(受信)を出典の属性説明と照合する点が受信チャネル定義証跡です。A: 受信チャネル定義棚卸で見る購読定義表示は役割が異なり、除外理由を説明する対象は受信チャネル定義棚卸です。B: 受信チャネル定義復旧で見る購読許可は役割が異なり、除外理由を説明する対象は受信チャネル定義復旧です。C: 受信チャネル定義照合で見るトピック表示は役割が異なり、除外理由を説明する対象は受信チャネル定義照合です。D: 受信チャネル定義が正答です。受信チャネル定義観点の応答で確認できる対象は受信チャネル定義観点です。初出語受信チャネル定義とは、IBM MQ 9.3で扱う定義、属性、または管理操作のことで、用語定義は受信チャネル定義定義です。
+
+**出典:** mq93.refadmin / mq93.administer / mq93.secure / mq93.reference / mq93.configure
+
+---
+
+**問題.** チャネル開始を運用引継ぎで確認します。技術項目 START CHANNEL の設定値と管理コマンド応答を照合し、開始 チャネル応答を記録します。担当者が交代しても同じ確認順で読めるよう、属性名と出力欄を対応させます。この条件で適切な確認対象はどれですか。
+
+- A. START CHANNEL ✅
+- B. CERTLABL
+- C. PSPROP
+- D. DURABLE subscription
+
+正解: **A** ／ 難易度: 初級
+
+**解説:** 正答チャネル開始復旧はAです。定義面のチャネル開始照合は、定義済みチャネルを開始して送受信を進めることを目的に扱う説明単位がチャネル開始観点です。背景チャネル開始照合として、キューマネージャーの定義値、実行時状態、応答メッセージを結ぶ証跡単位はチャネル開始観点です。状態面のチャネル開始証跡を読む管理コマンド応答は、開始 チャネル応答を出典の属性説明と照合する点がチャネル開始読取です。A: チャネル開始が正答です。チャネル開始復旧の応答で確認できる対象はチャネル開始復旧です。B: チャネル開始照合で見る証明書ラベルは役割が異なり、除外理由を説明する対象はチャネル開始照合です。C: チャネル開始観点で見る発行購読プロパティは役割が異なり、除外理由を説明する対象はチャネル開始観点です。D: チャネル開始証跡で見る永続購読は役割が異なり、除外理由を説明する対象はチャネル開始証跡です。初出語チャネル開始とは、IBM MQ 9.3で扱う定義、属性、または管理操作のことで、用語定義はチャネル開始根拠です。
+
+**出典:** mq93.refadmin / mq93.administer / mq93.secure / mq93.reference / mq93.configure
+
+---
+
+**問題.** チャネル停止を運用引継ぎで確認します。技術項目 STOP CHANNEL の設定値と管理コマンド応答を照合し、停止 チャネル応答を記録します。担当者が交代しても同じ確認順で読めるよう、属性名と出力欄を対応させます。この条件で適切な確認対象はどれですか。
+
+- A. XMITQ
+- B. STOP CHANNEL ✅
+- C. DEFINE CHANNEL SDR
+- D. DEFINE CHANNEL RCVR
+
+正解: **B** ／ 難易度: 初級
+
+**解説:** 正答チャネル停止照合はBです。状態面のチャネル停止観点は、変更や障害切り分けのためチャネルを停止することを目的に扱う説明単位がチャネル停止証跡です。背景チャネル停止観点として、キューマネージャーの定義値、実行時状態、応答メッセージを結ぶ証跡単位はチャネル停止証跡です。証跡面のチャネル停止読取を読む管理コマンド応答は、停止 チャネル応答を出典の属性説明と照合する点がチャネル停止状態です。A: チャネル停止照合で見る伝送キューは役割が異なり、除外理由を説明する対象はチャネル停止照合です。B: チャネル停止が正答です。チャネル停止観点の応答で確認できる対象はチャネル停止観点です。C: チャネル停止証跡で見る送信チャネル定義は役割が異なり、除外理由を説明する対象はチャネル停止証跡です。D: チャネル停止読取で見る受信チャネル定義は役割が異なり、除外理由を説明する対象はチャネル停止読取です。初出語チャネル停止とは、IBM MQ 9.3で扱う定義、属性、または管理操作のことで、用語定義はチャネル停止応答です。
+
+**出典:** mq93.refadmin / mq93.administer / mq93.secure / mq93.reference / mq93.configure
+
+---
+
+**問題.** 切断間隔を運用引継ぎで確認します。技術項目 DISCINT の設定値と管理コマンド応答を照合し、切断間隔属性を記録します。担当者が交代しても同じ確認順で読めるよう、属性名と出力欄を対応させます。この条件で適切な確認対象はどれですか。
+
+- A. SUB attribute
+- B. DISCINT ✅
+- C. DEFPSIST
+- D. DEFINE TOPIC
+
+正解: **B** ／ 難易度: 中級
+
+**解説:** 正答切断間隔状態はBです。照合面の切断間隔定義は、アイドル時にチャネルを切断するまでの時間を確認することを目的に扱う説明単位が切断間隔根拠です。背景切断間隔定義として、キューマネージャーの定義値、実行時状態、応答メッセージを結ぶ証跡単位は切断間隔根拠です。運用面の切断間隔応答を読む管理コマンド応答は、切断間隔属性を出典の属性説明と照合する点が切断間隔保守です。A: 切断間隔状態で見る購読許可は役割が異なり、除外理由を説明する対象は切断間隔状態です。B: 切断間隔が正答です。切断間隔定義の応答で確認できる対象は切断間隔定義です。C: 切断間隔根拠で見る既定永続性は役割が異なり、除外理由を説明する対象は切断間隔根拠です。D: 切断間隔応答で見るトピック定義は役割が異なり、除外理由を説明する対象は切断間隔応答です。初出語切断間隔とは、IBM MQ 9.3で扱う定義、属性、または管理操作のことで、用語定義は切断間隔棚卸です。
+
+**出典:** mq93.refadmin / mq93.administer / mq93.secure / mq93.reference / mq93.configure
+
+---
+
+**問題.** 展開判定のインストールで Installing and uninstallの点検記録を作ります。証跡として扱える確認はどれですか。
+
+- A. Installing and uninstallの出力を取らず展開判定のインストールの説明文と承認印のみを残す。
+- B. 参照資料名、表示行、メッセージをそろえて展開判定の根拠を固定する。 ✅
+- C. DISPLAY QLOCAL(OSKBQUEUE) ALL を省略して展開判定のインストールの記録番号と時刻のみを残す。
+- D. 隣接項目の結果を展開判定のインストールへ転記して同じ結果として扱う。
+
+正解: **B** ／ 難易度: 上級
+
+**解説:** 展開判定正解では選択記号 B を採用し、正解名は展開判定正解です。展開判定根拠では Installing and uninstall は「展開判定のインストールに関係する定義値と表示行を照合する展開判定項目」と DISPLAY QLOCAL(OSKB.QUEUE) ALL または該当パネルの出力を照合し、根拠名は展開判定根拠です。展開判定追跡では Installing and uninstallの属性行と CSQ9022I を合わせ、追跡名は展開判定追跡です。誤答側の問題点を分けます。 A: 展開判定不足は名称や説明のみに寄り、判定名は展開判定不足です。 B: 展開判定正答は対象出力と項目説明を結び、根拠名は展開判定正答です。 C: 展開判定欠落は戻り値や記録番号に寄り、欠落名は展開判定欠落です。 D: 展開判定流用は別カテゴリの確認であり、排除名は展開判定流用です。展開判定初出では Installing and uninstallを IBM MQ メッセージングの運用手順で確認し、初出名は展開判定初出です。
+
+**出典:** mq93.administer / mq93.configure / mq93.refadmin / mq93.reference
+
+---
+
+**問題.** 順序整理のセキュリティでメッセージングの運用確認を行います。Configuring SSL or TLS bの根拠にできる作業はどれですか。
+
+- A. IBM MQ for z/OS と無関係な一覧で順序整理のセキュリティを確認した扱いにする。
+- B. CSQ9022I の有無を確認せず順序整理のセキュリティを正常終了として記録する。
+- C. IBM MQ for z/OS の表示形式に沿って根拠行を採り、順序整理の点検結果を残す。 ✅
+- D. Configuring SSL or TLS bの属性行を読まず順序整理のセキュリティの画面名と利用者名のみを保存する。
+
+正解: **C** ／ 難易度: 上級
+
+**解説:** 順序整理正解では選択記号 C を採用し、正解名は順序整理正解です。順序整理根拠では Configuring SSL or TLS b は「IBM MQ for z/OS で Configuring SSL or TLS bの扱いを記録する順序整理項目」と DISPLAY CHLAUTH(*) ALL または該当パネルの出力を照合し、根拠名は順序整理根拠です。順序整理受渡では Configuring SSL or TLS bの表示結果と CSQ9022I を同じ確認単位にし、受渡名は順序整理受渡です。不適切な選択肢を整理します。 A: 順序整理流用は別カテゴリの確認であり、排除名は順序整理流用です。 B: 順序整理欠落は戻り値や記録番号に寄り、欠落名は順序整理欠落です。 C: 順序整理正答は対象出力と項目説明を結び、根拠名は順序整理正答です。 D: 順序整理不足は名称や説明のみに寄り、判定名は順序整理不足です。順序整理資料では Configuring SSL or TLS bの使い方を出典欄から追跡し、資料名は順序整理資料です。
+
+**出典:** mq93.administer / mq93.configure / mq93.refadmin / mq93.reference
+
+---
+
+**問題.** 探索判定の全般リファレンスで Certificate validation aの点検記録を作ります。証跡として扱える確認はどれですか。
+
+- A. Certificate validation aの出力を取らず探索判定の全般リファレンスの説明文と承認印のみを残す。
+- B. 同じ画面で対象行と CSQ9022I を読み、探索判定の結果として保存する。 ✅
+- C. DISPLAY QLOCAL(OSKBQUEUE) ALL を省略して探索判定の全般リファレンスの記録番号と時刻のみを残す。
+- D. 隣接項目の結果を探索判定の全般リファレンスへ転記して同じ結果として扱う。
+
+正解: **B** ／ 難易度: 上級
+
+**解説:** 探索判定正解では選択記号 B を採用し、正解名は探索判定正解です。探索判定根拠では Certificate validation a は「探索判定の全般リファレンスに関係する定義値と表示行を照合する探索判定項目」と DISPLAY QLOCAL(OSKB.QUEUE) ALL または該当パネルの出力を照合し、根拠名は探索判定根拠です。探索判定追跡では Certificate validation aの属性行と CSQ9022I を合わせ、追跡名は探索判定追跡です。誤答側の問題点を分けます。 A: 探索判定不足は名称や説明のみに寄り、判定名は探索判定不足です。 B: 探索判定正答は対象出力と項目説明を結び、根拠名は探索判定正答です。 C: 探索判定欠落は戻り値や記録番号に寄り、欠落名は探索判定欠落です。 D: 探索判定流用は別カテゴリの確認であり、排除名は探索判定流用です。探索判定初出では Certificate validation aを IBM MQ メッセージングの運用手順で確認し、初出名は探索判定初出です。
+
+**出典:** mq93.administer / mq93.configure / mq93.refadmin / mq93.reference
+
+---
+
+**問題.** 監査分離の構成でメッセージングの運用確認を行います。Configuring a queue manaの根拠にできる作業はどれですか。
+
+- A. IBM MQ for z/OS と無関係な一覧で監査分離の構成を確認した扱いにする。
+- B. CSQ9022I の有無を確認せず監査分離の構成を正常終了として記録する。
+- C. DISPLAY CHANNEL(*) ALL で得た表示本文を使い、監査分離の採否を説明欄に結び付ける。 ✅
+- D. Configuring a queue manaの属性行を読まず監査分離の構成の画面名と利用者名のみを保存する。
+
+正解: **C** ／ 難易度: 上級
+
+**解説:** 監査分離正解では選択記号 C を採用し、正解名は監査分離正解です。監査分離根拠では Configuring a queue mana は「IBM MQ for z/OS で Configuring a queue manaの扱いを記録する監査分離項目」と DISPLAY CHANNEL(*) ALL または該当パネルの出力を照合し、根拠名は監査分離根拠です。監査分離受渡では Configuring a queue manaの表示結果と CSQ9022I を同じ確認単位にし、受渡名は監査分離受渡です。不適切な選択肢を整理します。 A: 監査分離流用は別カテゴリの確認であり、排除名は監査分離流用です。 B: 監査分離欠落は戻り値や記録番号に寄り、欠落名は監査分離欠落です。 C: 監査分離正答は対象出力と項目説明を結び、根拠名は監査分離正答です。 D: 監査分離不足は名称や説明のみに寄り、判定名は監査分離不足です。監査分離資料では Configuring a queue manaの使い方を出典欄から追跡し、資料名は監査分離資料です。
+
+**出典:** mq93.administer / mq93.configure / mq93.refadmin / mq93.reference
+
+---
+
+**問題.** 呼出確認の構成でメッセージングの運用確認を行います。Configuring WebSphere Apの根拠にできる作業はどれですか。
+
+- A. IBM MQ for z/OS と無関係な一覧で呼出確認の構成を確認した扱いにする。
+- B. CSQ9022I の有無を確認せず呼出確認の構成を正常終了として記録する。
+- C. 資料上の説明と画面上の表示行を突き合わせ、呼出確認として引き継ぐ。 ✅
+- D. Configuring WebSphere Apの属性行を読まず呼出確認の構成の画面名と利用者名のみを保存する。
+
+正解: **C** ／ 難易度: 上級
+
+**解説:** 呼出確認正解では選択記号 C を採用し、正解名は呼出確認正解です。呼出確認根拠では Configuring WebSphere Ap は「IBM MQ for z/OS で Configuring WebSphere Apの扱いを記録する呼出確認項目」と DISPLAY CHANNEL(*) ALL または該当パネルの出力を照合し、根拠名は呼出確認根拠です。呼出確認受渡では Configuring WebSphere Apの表示結果と CSQ9022I を同じ確認単位にし、受渡名は呼出確認受渡です。不適切な選択肢を整理します。 A: 呼出確認流用は別カテゴリの確認であり、排除名は呼出確認流用です。 B: 呼出確認欠落は戻り値や記録番号に寄り、欠落名は呼出確認欠落です。 C: 呼出確認正答は対象出力と項目説明を結び、根拠名は呼出確認正答です。 D: 呼出確認不足は名称や説明のみに寄り、判定名は呼出確認不足です。呼出確認資料では Configuring WebSphere Apの使い方を出典欄から追跡し、資料名は呼出確認資料です。
+
+**出典:** mq93.administer / mq93.configure / mq93.refadmin / mq93.reference
+
+---
+
+**問題.** 比較確認の構成で Creating server-connectiの点検記録を作ります。証跡として扱える確認はどれですか。
+
+- A. Creating server-connectiの出力を取らず比較確認の構成の説明文と承認印のみを残す。
+- B. DISPLAY CHANNEL(*) ALL で得た表示本文を使い、比較確認の採否を説明欄に結び付ける。 ✅
+- C. DISPLAY CHANNEL(*) ALL を省略して比較確認の構成の記録番号と時刻のみを残す。
+- D. 隣接項目の結果を比較確認の構成へ転記して同じ結果として扱う。
+
+正解: **B** ／ 難易度: 上級
+
+**解説:** 比較確認正解では選択記号 B を採用し、正解名は比較確認正解です。比較確認根拠では Creating server-connecti は「比較確認の構成に関係する定義値と表示行を照合する比較確認項目」と DISPLAY CHANNEL(*) ALL または該当パネルの出力を照合し、根拠名は比較確認根拠です。比較確認追跡では Creating server-connectiの属性行と CSQ9022I を合わせ、追跡名は比較確認追跡です。誤答側の問題点を分けます。 A: 比較確認不足は名称や説明のみに寄り、判定名は比較確認不足です。 B: 比較確認正答は対象出力と項目説明を結び、根拠名は比較確認正答です。 C: 比較確認欠落は戻り値や記録番号に寄り、欠落名は比較確認欠落です。 D: 比較確認流用は別カテゴリの確認であり、排除名は比較確認流用です。比較確認初出では Creating server-connectiを IBM MQ メッセージングの運用手順で確認し、初出名は比較確認初出です。
+
+**出典:** mq93.administer / mq93.configure / mq93.refadmin / mq93.reference
+
+---
+
+**問題.** 置換整理の管理リファレンスに関する Guidance for setting MQ の引き継ぎです。後続担当者へ残すべき確認はどれですか。
+
+- A. DISPLAY QLOCAL(OSKBQUEUE) ALL の結果を残さず置換整理の管理リファレンスの担当者名と日時のみを記録する。
+- B. 別製品のメッセージを置換整理の管理リファレンスの証跡として保存して根拠にする。
+- C. Guidance for setting MQ の変更点を出力本文から切り離して置換整理の管理リファレンスの承認欄のみ残す。
+- D. 参照資料名、表示行、メッセージをそろえて置換整理の根拠を固定する。 ✅
+
+正解: **D** ／ 難易度: 上級
+
+**解説:** 置換整理正解では選択記号 D を採用し、正解名は置換整理正解です。置換整理根拠では Guidance for setting MQ は「Guidance for setting MQ の状態と出力メッセージを結び付ける置換整理項目」と DISPLAY QLOCAL(OSKB.QUEUE) ALL または該当パネルの出力を照合し、根拠名は置換整理根拠です。置換整理保存では Guidance for setting MQ の出力行と CSQ9022I を一緒に残し、保存名は置換整理保存です。選択肢ごとの違いを示します。 A: 置換整理欠落は戻り値や記録番号に寄り、欠落名は置換整理欠落です。 B: 置換整理流用は別カテゴリの確認であり、排除名は置換整理流用です。 C: 置換整理不足は名称や説明のみに寄り、判定名は置換整理不足です。 D: 置換整理正答は対象出力と項目説明を結び、根拠名は置換整理正答です。置換整理対象では Guidance for setting MQ を IBM MQ for z/OS の確認記録に残し、対象名は置換整理対象です。
+
+**出典:** mq93.administer / mq93.configure / mq93.refadmin / mq93.reference</code></pre>
+<p>??? note "検証手順（33件）"
+    <strong>DEFINE QLOCAL 確認手順</strong></p>
+<pre class="highlight"><code>- 検証目的: ローカル・キューの定義と主要属性が意図した値で作成されることを確認します。
+- 前提条件: 検証用キューマネージャー QMGR1 に管理権限で接続でき、対象オブジェクトが存在すること。変更操作は検証環境でのみ行います。
+- セッション環境: IBM MQ 9.3 のコマンド・シェル。CSQ9022I の手順だけは z/OS 操作卓を使用します。
+
+**ステップ 1**
+現在の画面は IBM MQ のコマンド・シェルです。Shell ===&gt; に APP.INPUT を MAXDEPTH(5000) と DEFPSIST(NO) で定義するための MQSC コマンドを入力し、QMGR1 へ渡します。
+操作（入力）:
+```text
+Shell ===&gt; echo "DEFINE QLOCAL(APP.INPUT) REPLACE MAXDEPTH(5000) DEFPSIST(NO)" | runmqsc QMGR1
+→ Enter を押す
+```
+
+画面・出力:
+```text
+Starting MQSC for queue manager QMGR1.
+  1 : DEFINE QLOCAL(APP.INPUT) REPLACE MAXDEPTH(5000) DEFPSIST(NO)
+AMQ8006I: IBM MQ queue created.
+One MQSC command read.
+No commands have a syntax error.
+All valid MQSC commands were processed.
+```
+
+AMQ8006I は APP.INPUT のキュー定義が受理され、作成処理が完了したことを示します。
+
+**ステップ 2**
+現在の画面は IBM MQ のコマンド・シェルです。Shell ===&gt; に APP.INPUT の種別、最大深度、既定永続性を表示するための MQSC コマンドを入力し、QMGR1 へ渡します。
+操作（入力）:
+```text
+Shell ===&gt; echo "DISPLAY QLOCAL(APP.INPUT) MAXDEPTH DEFPSIST" | runmqsc QMGR1
+→ Enter を押す
+```
+
+画面・出力:
+```text
+Starting MQSC for queue manager QMGR1.
+  1 : DISPLAY QLOCAL(APP.INPUT) MAXDEPTH DEFPSIST
+AMQ8409I: Display Queue details.
+   QUEUE(APP.INPUT) TYPE(QLOCAL)
+   MAXDEPTH(5000) DEFPSIST(NO)
+One MQSC command read.
+No commands have a syntax error.
+All valid MQSC commands were processed.
+```
+
+AMQ8409I の後に TYPE(QLOCAL)、MAXDEPTH(5000)、DEFPSIST(NO) が表示され、定義値を確認できます。
+
+- 合格条件: ① ステップ1の AMQ8006I が表示されること
+② ステップ2の TYPE(QLOCAL) と MAXDEPTH(5000) が表示されること
+- 検証状態: 机上
+- 出典: mq93.administer / mq93.configure / mq93.refadmin / mq93.reference
+
+---
+
+**DEFINE QREMOTE 確認手順**
+
+- 検証目的: リモート・キューが相手キュー、相手キューマネージャー、伝送キューへ正しく解決されることを確認します。
+- 前提条件: 検証用キューマネージャー QMGR1 に管理権限で接続でき、対象オブジェクトが存在すること。変更操作は検証環境でのみ行います。
+- セッション環境: IBM MQ 9.3 のコマンド・シェル。CSQ9022I の手順だけは z/OS 操作卓を使用します。
+
+**ステップ 1**
+現在の画面は IBM MQ のコマンド・シェルです。Shell ===&gt; に TO.QM2 を QMGR2 上の APP.INPUT へ解決するための MQSC コマンドを入力し、QMGR1 へ渡します。
+操作（入力）:
+```text
+Shell ===&gt; echo "DEFINE QREMOTE(TO.QM2) RNAME(APP.INPUT) RQMNAME(QMGR2) XMITQ(QMGR2.XMIT) REPLACE" | runmqsc QMGR1
+→ Enter を押す
+```
+
+画面・出力:
+```text
+Starting MQSC for queue manager QMGR1.
+  1 : DEFINE QREMOTE(TO.QM2) RNAME(APP.INPUT) RQMNAME(QMGR2) XMITQ(QMGR2.XMIT) REPLACE
+AMQ8006I: IBM MQ queue created.
+One MQSC command read.
+No commands have a syntax error.
+All valid MQSC commands were processed.
+```
+
+AMQ8006I は TO.QM2 のリモート・キュー定義が作成されたことを示します。
+
+**ステップ 2**
+現在の画面は IBM MQ のコマンド・シェルです。Shell ===&gt; に TO.QM2 の解決先と伝送キューを表示するための MQSC コマンドを入力し、QMGR1 へ渡します。
+操作（入力）:
+```text
+Shell ===&gt; echo "DISPLAY QREMOTE(TO.QM2) RNAME RQMNAME XMITQ" | runmqsc QMGR1
+→ Enter を押す
+```
+
+画面・出力:
+```text
+Starting MQSC for queue manager QMGR1.
+  1 : DISPLAY QREMOTE(TO.QM2) RNAME RQMNAME XMITQ
+AMQ8409I: Display Queue details.
+   QUEUE(TO.QM2) TYPE(QREMOTE)
+   RNAME(APP.INPUT) RQMNAME(QMGR2)
+   XMITQ(QMGR2.XMIT)
+One MQSC command read.
+No commands have a syntax error.
+All valid MQSC commands were processed.
+```
+
+TYPE(QREMOTE) と RNAME、RQMNAME、XMITQ の各値により、実宛先と伝送経路を確認できます。
+
+- 合格条件: ① ステップ1の AMQ8006I が表示されること
+② ステップ2の RNAME(APP.INPUT)、RQMNAME(QMGR2)、XMITQ(QMGR2.XMIT) が表示されること
+- 検証状態: 机上
+- 出典: mq93.administer / mq93.configure / mq93.refadmin / mq93.reference
+
+---
+
+**DEFINE QALIAS 確認手順**
+
+- 検証目的: 別名キューが意図したローカル・キューへ解決されることを確認します。
+- 前提条件: 検証用キューマネージャー QMGR1 に管理権限で接続でき、対象オブジェクトが存在すること。変更操作は検証環境でのみ行います。
+- セッション環境: IBM MQ 9.3 のコマンド・シェル。CSQ9022I の手順だけは z/OS 操作卓を使用します。
+
+**ステップ 1**
+現在の画面は IBM MQ のコマンド・シェルです。Shell ===&gt; に APP.ALIAS を APP.INPUT の別名として定義するための MQSC コマンドを入力し、QMGR1 へ渡します。
+操作（入力）:
+```text
+Shell ===&gt; echo "DEFINE QALIAS(APP.ALIAS) TARGET(APP.INPUT) REPLACE" | runmqsc QMGR1
+→ Enter を押す
+```
+
+画面・出力:
+```text
+Starting MQSC for queue manager QMGR1.
+  1 : DEFINE QALIAS(APP.ALIAS) TARGET(APP.INPUT) REPLACE
+AMQ8006I: IBM MQ queue created.
+One MQSC command read.
+No commands have a syntax error.
+All valid MQSC commands were processed.
+```
+
+AMQ8006I は APP.ALIAS のキュー定義が作成されたことを示します。
+
+**ステップ 2**
+現在の画面は IBM MQ のコマンド・シェルです。Shell ===&gt; に APP.ALIAS のキュー種別と解決先を表示するための MQSC コマンドを入力し、QMGR1 へ渡します。
+操作（入力）:
+```text
+Shell ===&gt; echo "DISPLAY QALIAS(APP.ALIAS) TARGET" | runmqsc QMGR1
+→ Enter を押す
+```
+
+画面・出力:
+```text
+Starting MQSC for queue manager QMGR1.
+  1 : DISPLAY QALIAS(APP.ALIAS) TARGET
+AMQ8409I: Display Queue details.
+   QUEUE(APP.ALIAS) TYPE(QALIAS)
+   TARGET(APP.INPUT)
+One MQSC command read.
+No commands have a syntax error.
+All valid MQSC commands were processed.
+```
+
+AMQ8409I の TYPE(QALIAS) と TARGET(APP.INPUT) により、別名の解決先を確認できます。
+
+- 合格条件: ① ステップ1の AMQ8006I が表示されること
+② ステップ2の TYPE(QALIAS) と TARGET(APP.INPUT) が表示されること
+- 検証状態: 机上
+- 出典: mq93.administer / mq93.configure / mq93.refadmin / mq93.reference
+
+---
+
+**DEFINE QMODEL 確認手順**
+
+- 検証目的: モデル・キューが一時動的キュー用の属性を保持していることを確認します。
+- 前提条件: 検証用キューマネージャー QMGR1 に管理権限で接続でき、対象オブジェクトが存在すること。変更操作は検証環境でのみ行います。
+- セッション環境: IBM MQ 9.3 のコマンド・シェル。CSQ9022I の手順だけは z/OS 操作卓を使用します。
+
+**ステップ 1**
+現在の画面は IBM MQ のコマンド・シェルです。Shell ===&gt; に APP.MODEL を一時動的キューのひな型として定義するための MQSC コマンドを入力し、QMGR1 へ渡します。
+操作（入力）:
+```text
+Shell ===&gt; echo "DEFINE QMODEL(APP.MODEL) DEFTYPE(TEMPDYN) MAXDEPTH(1000) REPLACE" | runmqsc QMGR1
+→ Enter を押す
+```
+
+画面・出力:
+```text
+Starting MQSC for queue manager QMGR1.
+  1 : DEFINE QMODEL(APP.MODEL) DEFTYPE(TEMPDYN) MAXDEPTH(1000) REPLACE
+AMQ8006I: IBM MQ queue created.
+One MQSC command read.
+No commands have a syntax error.
+All valid MQSC commands were processed.
+```
+
+AMQ8006I は APP.MODEL のモデル・キュー定義が作成されたことを示します。
+
+**ステップ 2**
+現在の画面は IBM MQ のコマンド・シェルです。Shell ===&gt; に APP.MODEL の動的種別と最大深度を表示するための MQSC コマンドを入力し、QMGR1 へ渡します。
+操作（入力）:
+```text
+Shell ===&gt; echo "DISPLAY QMODEL(APP.MODEL) DEFTYPE MAXDEPTH" | runmqsc QMGR1
+→ Enter を押す
+```
+
+画面・出力:
+```text
+Starting MQSC for queue manager QMGR1.
+  1 : DISPLAY QMODEL(APP.MODEL) DEFTYPE MAXDEPTH
+AMQ8409I: Display Queue details.
+   QUEUE(APP.MODEL) TYPE(QMODEL)
+   DEFTYPE(TEMPDYN) MAXDEPTH(1000)
+One MQSC command read.
+No commands have a syntax error.
+All valid MQSC commands were processed.
+```
+
+TYPE(QMODEL) と DEFTYPE(TEMPDYN) により、一時動的キュー用のモデルであることを確認できます。
+
+- 合格条件: ① ステップ1の AMQ8006I が表示されること
+② ステップ2の TYPE(QMODEL) と DEFTYPE(TEMPDYN) が表示されること
+- 検証状態: 机上
+- 出典: mq93.administer / mq93.configure / mq93.refadmin / mq93.reference
+
+---
+
+**MAXDEPTH 確認手順**
+
+- 検証目的: キューの最大深度と現在深度を別々の表示で照合し、収容上限までの余裕を確認します。
+- 前提条件: 検証用キューマネージャー QMGR1 に管理権限で接続でき、対象オブジェクトが存在すること。変更操作は検証環境でのみ行います。
+- セッション環境: IBM MQ 9.3 のコマンド・シェル。CSQ9022I の手順だけは z/OS 操作卓を使用します。
+
+**ステップ 1**
+現在の画面は IBM MQ のコマンド・シェルです。Shell ===&gt; に APP.INPUT に設定された最大メッセージ件数を表示するための MQSC コマンドを入力し、QMGR1 へ渡します。
+操作（入力）:
+```text
+Shell ===&gt; echo "DISPLAY QLOCAL(APP.INPUT) MAXDEPTH" | runmqsc QMGR1
+→ Enter を押す
+```
+
+画面・出力:
+```text
+Starting MQSC for queue manager QMGR1.
+  1 : DISPLAY QLOCAL(APP.INPUT) MAXDEPTH
+AMQ8409I: Display Queue details.
+   QUEUE(APP.INPUT) TYPE(QLOCAL)
+   MAXDEPTH(5000)
+One MQSC command read.
+No commands have a syntax error.
+All valid MQSC commands were processed.
+```
+
+MAXDEPTH(5000) は APP.INPUT が最大 5000 件を保持する設定であることを示します。
+
+**ステップ 2**
+現在の画面は IBM MQ のコマンド・シェルです。Shell ===&gt; に APP.INPUT の実行時の現在深度を表示するための MQSC コマンドを入力し、QMGR1 へ渡します。
+操作（入力）:
+```text
+Shell ===&gt; echo "DISPLAY QSTATUS(APP.INPUT) TYPE(QUEUE) CURDEPTH" | runmqsc QMGR1
+→ Enter を押す
+```
+
+画面・出力:
+```text
+Starting MQSC for queue manager QMGR1.
+  1 : DISPLAY QSTATUS(APP.INPUT) TYPE(QUEUE) CURDEPTH
+AMQ8450I: Display queue status details.
+   QUEUE(APP.INPUT) TYPE(QUEUE)
+   CURDEPTH(42)
+One MQSC command read.
+No commands have a syntax error.
+All valid MQSC commands were processed.
+```
+
+AMQ8450I の CURDEPTH(42) を MAXDEPTH(5000) と比較し、上限までの余裕を判断できます。
+
+- 合格条件: ① ステップ1の MAXDEPTH(5000) が表示されること
+② ステップ2の CURDEPTH(42) が表示されること
+- 検証状態: 机上
+- 出典: mq93.administer / mq93.configure / mq93.refadmin / mq93.reference
+
+---
+
+**CURDEPTH 確認手順**
+
+- 検証目的: 実行時のキュー深度を QSTATUS から取得し、滞留件数を確認します。
+- 前提条件: 検証用キューマネージャー QMGR1 に管理権限で接続でき、対象オブジェクトが存在すること。変更操作は検証環境でのみ行います。
+- セッション環境: IBM MQ 9.3 のコマンド・シェル。CSQ9022I の手順だけは z/OS 操作卓を使用します。
+
+**ステップ 1**
+現在の画面は IBM MQ のコマンド・シェルです。Shell ===&gt; に APP.INPUT の現在深度と入出力オープン数を表示するための MQSC コマンドを入力し、QMGR1 へ渡します。
+操作（入力）:
+```text
+Shell ===&gt; echo "DISPLAY QSTATUS(APP.INPUT) TYPE(QUEUE) CURDEPTH IPPROCS OPPROCS" | runmqsc QMGR1
+→ Enter を押す
+```
+
+画面・出力:
+```text
+Starting MQSC for queue manager QMGR1.
+  1 : DISPLAY QSTATUS(APP.INPUT) TYPE(QUEUE) CURDEPTH IPPROCS OPPROCS
+AMQ8450I: Display queue status details.
+   QUEUE(APP.INPUT) TYPE(QUEUE)
+   CURDEPTH(42) IPPROCS(1) OPPROCS(2)
+One MQSC command read.
+No commands have a syntax error.
+All valid MQSC commands were processed.
+```
+
+AMQ8450I の CURDEPTH(42) は滞留件数、IPPROCS(1) と OPPROCS(2) は入出力利用数を示します。
+
+- 合格条件: ① ステップ1の AMQ8450I と CURDEPTH(42) が表示されること
+- 検証状態: 机上
+- 出典: mq93.administer / mq93.configure / mq93.refadmin / mq93.reference
+
+---
+
+**DEFPSIST 確認手順**
+
+- 検証目的: キューの既定メッセージ永続性が運用設計どおりであることを確認します。
+- 前提条件: 検証用キューマネージャー QMGR1 に管理権限で接続でき、対象オブジェクトが存在すること。変更操作は検証環境でのみ行います。
+- セッション環境: IBM MQ 9.3 のコマンド・シェル。CSQ9022I の手順だけは z/OS 操作卓を使用します。
+
+**ステップ 1**
+現在の画面は IBM MQ のコマンド・シェルです。Shell ===&gt; に APP.INPUT の既定永続性を表示するための MQSC コマンドを入力し、QMGR1 へ渡します。
+操作（入力）:
+```text
+Shell ===&gt; echo "DISPLAY QLOCAL(APP.INPUT) DEFPSIST" | runmqsc QMGR1
+→ Enter を押す
+```
+
+画面・出力:
+```text
+Starting MQSC for queue manager QMGR1.
+  1 : DISPLAY QLOCAL(APP.INPUT) DEFPSIST
+AMQ8409I: Display Queue details.
+   QUEUE(APP.INPUT) TYPE(QLOCAL)
+   DEFPSIST(NO)
+One MQSC command read.
+No commands have a syntax error.
+All valid MQSC commands were processed.
+```
+
+DEFPSIST(NO) は、永続性を既定値にしたメッセージが非永続として扱われる設定を示します。
+
+- 合格条件: ① ステップ1の DEFPSIST(NO) が表示されること
+- 検証状態: 机上
+- 出典: mq93.administer / mq93.configure / mq93.refadmin / mq93.reference
+
+---
+
+**BOTHRESH 確認手順**
+
+- 検証目的: バックアウト回数のしきい値が毒メッセージ処理の設計値に一致することを確認します。
+- 前提条件: 検証用キューマネージャー QMGR1 に管理権限で接続でき、対象オブジェクトが存在すること。変更操作は検証環境でのみ行います。
+- セッション環境: IBM MQ 9.3 のコマンド・シェル。CSQ9022I の手順だけは z/OS 操作卓を使用します。
+
+**ステップ 1**
+現在の画面は IBM MQ のコマンド・シェルです。Shell ===&gt; に APP.WORK のバックアウトしきい値と退避先を表示するための MQSC コマンドを入力し、QMGR1 へ渡します。
+操作（入力）:
+```text
+Shell ===&gt; echo "DISPLAY QLOCAL(APP.WORK) BOTHRESH BOQNAME" | runmqsc QMGR1
+→ Enter を押す
+```
+
+画面・出力:
+```text
+Starting MQSC for queue manager QMGR1.
+  1 : DISPLAY QLOCAL(APP.WORK) BOTHRESH BOQNAME
+AMQ8409I: Display Queue details.
+   QUEUE(APP.WORK) TYPE(QLOCAL)
+   BOTHRESH(3) BOQNAME(APP.BACKOUT)
+One MQSC command read.
+No commands have a syntax error.
+All valid MQSC commands were processed.
+```
+
+BOTHRESH(3) は 3 回をしきい値とし、BOQNAME(APP.BACKOUT) が退避候補を示します。
+
+- 合格条件: ① ステップ1の BOTHRESH(3) と BOQNAME(APP.BACKOUT) が表示されること
+- 検証状態: 机上
+- 出典: mq93.administer / mq93.configure / mq93.refadmin / mq93.reference
+
+---
+
+**BOQNAME 確認手順**
+
+- 検証目的: バックアウト超過メッセージの退避先キューが実在し、指定名と一致することを確認します。
+- 前提条件: 検証用キューマネージャー QMGR1 に管理権限で接続でき、対象オブジェクトが存在すること。変更操作は検証環境でのみ行います。
+- セッション環境: IBM MQ 9.3 のコマンド・シェル。CSQ9022I の手順だけは z/OS 操作卓を使用します。
+
+**ステップ 1**
+現在の画面は IBM MQ のコマンド・シェルです。Shell ===&gt; に APP.WORK に設定された退避先キュー名を表示するための MQSC コマンドを入力し、QMGR1 へ渡します。
+操作（入力）:
+```text
+Shell ===&gt; echo "DISPLAY QLOCAL(APP.WORK) BOQNAME BOTHRESH" | runmqsc QMGR1
+→ Enter を押す
+```
+
+画面・出力:
+```text
+Starting MQSC for queue manager QMGR1.
+  1 : DISPLAY QLOCAL(APP.WORK) BOQNAME BOTHRESH
+AMQ8409I: Display Queue details.
+   QUEUE(APP.WORK) TYPE(QLOCAL)
+   BOQNAME(APP.BACKOUT) BOTHRESH(3)
+One MQSC command read.
+No commands have a syntax error.
+All valid MQSC commands were processed.
+```
+
+BOQNAME(APP.BACKOUT) が処理キュー APP.WORK の退避候補として設定されています。
+
+**ステップ 2**
+現在の画面は IBM MQ のコマンド・シェルです。Shell ===&gt; に APP.BACKOUT が書き込み可能なローカル・キューとして存在するか表示するための MQSC コマンドを入力し、QMGR1 へ渡します。
+操作（入力）:
+```text
+Shell ===&gt; echo "DISPLAY QLOCAL(APP.BACKOUT) PUT GET" | runmqsc QMGR1
+→ Enter を押す
+```
+
+画面・出力:
+```text
+Starting MQSC for queue manager QMGR1.
+  1 : DISPLAY QLOCAL(APP.BACKOUT) PUT GET
+AMQ8409I: Display Queue details.
+   QUEUE(APP.BACKOUT) TYPE(QLOCAL)
+   PUT(ENABLED) GET(ENABLED)
+One MQSC command read.
+No commands have a syntax error.
+All valid MQSC commands were processed.
+```
+
+QUEUE(APP.BACKOUT)、TYPE(QLOCAL)、PUT(ENABLED) により退避先が実在し書き込み可能と確認できます。
+
+- 合格条件: ① ステップ1の BOQNAME(APP.BACKOUT) が表示されること
+② ステップ2の QUEUE(APP.BACKOUT) と TYPE(QLOCAL) が表示されること
+- 検証状態: 机上
+- 出典: mq93.administer / mq93.configure / mq93.refadmin / mq93.reference
+
+---
+
+**TRIGGER 確認手順**
+
+- 検証目的: トリガー起動が対象キューで有効になっていることを確認します。
+- 前提条件: 検証用キューマネージャー QMGR1 に管理権限で接続でき、対象オブジェクトが存在すること。変更操作は検証環境でのみ行います。
+- セッション環境: IBM MQ 9.3 のコマンド・シェル。CSQ9022I の手順だけは z/OS 操作卓を使用します。
+
+**ステップ 1**
+現在の画面は IBM MQ のコマンド・シェルです。Shell ===&gt; に APP.TRIGGER のトリガー関連属性をまとめて表示するための MQSC コマンドを入力し、QMGR1 へ渡します。
+操作（入力）:
+```text
+Shell ===&gt; echo "DISPLAY QLOCAL(APP.TRIGGER) TRIGGER TRIGTYPE INITQ PROCESS" | runmqsc QMGR1
+→ Enter を押す
+```
+
+画面・出力:
+```text
+Starting MQSC for queue manager QMGR1.
+  1 : DISPLAY QLOCAL(APP.TRIGGER) TRIGGER TRIGTYPE INITQ PROCESS
+AMQ8409I: Display Queue details.
+   QUEUE(APP.TRIGGER) TYPE(QLOCAL)
+   TRIGGER TRIGTYPE(FIRST)
+   INITQ(SYSTEM.DEFAULT.INITIATION.QUEUE)
+   PROCESS(APP.PROCESS)
+One MQSC command read.
+No commands have a syntax error.
+All valid MQSC commands were processed.
+```
+
+TRIGGER と TRIGTYPE(FIRST) が表示され、最初のメッセージ到着を契機にする設定を確認できます。
+
+- 合格条件: ① ステップ1の TRIGGER と TRIGTYPE(FIRST) が表示されること
+- 検証状態: 机上
+- 出典: mq93.administer / mq93.configure / mq93.refadmin / mq93.reference
+
+---
+
+**TRIGTYPE 確認手順**
+
+- 検証目的: トリガー条件が最初のメッセージ到着時に設定されていることを確認します。
+- 前提条件: 検証用キューマネージャー QMGR1 に管理権限で接続でき、対象オブジェクトが存在すること。変更操作は検証環境でのみ行います。
+- セッション環境: IBM MQ 9.3 のコマンド・シェル。CSQ9022I の手順だけは z/OS 操作卓を使用します。
+
+**ステップ 1**
+現在の画面は IBM MQ のコマンド・シェルです。Shell ===&gt; に APP.TRIGGER のトリガー種別と深度条件を表示するための MQSC コマンドを入力し、QMGR1 へ渡します。
+操作（入力）:
+```text
+Shell ===&gt; echo "DISPLAY QLOCAL(APP.TRIGGER) TRIGTYPE TRIGDPTH" | runmqsc QMGR1
+→ Enter を押す
+```
+
+画面・出力:
+```text
+Starting MQSC for queue manager QMGR1.
+  1 : DISPLAY QLOCAL(APP.TRIGGER) TRIGTYPE TRIGDPTH
+AMQ8409I: Display Queue details.
+   QUEUE(APP.TRIGGER) TYPE(QLOCAL)
+   TRIGTYPE(FIRST) TRIGDPTH(1)
+One MQSC command read.
+No commands have a syntax error.
+All valid MQSC commands were processed.
+```
+
+TRIGTYPE(FIRST) は最初の到着を条件とし、TRIGDPTH(1) は深度条件値を示します。
+
+- 合格条件: ① ステップ1の TRIGTYPE(FIRST) が表示されること
+- 検証状態: 机上
+- 出典: mq93.administer / mq93.configure / mq93.refadmin / mq93.reference
+
+---
+
+**TRIGINT 確認手順**
+
+- 検証目的: FIRST トリガーの再生成を抑制する最小間隔がキューマネージャーに設定されていることを確認します。
+- 前提条件: 検証用キューマネージャー QMGR1 に管理権限で接続でき、対象オブジェクトが存在すること。変更操作は検証環境でのみ行います。
+- セッション環境: IBM MQ 9.3 のコマンド・シェル。CSQ9022I の手順だけは z/OS 操作卓を使用します。
+
+**ステップ 1**
+現在の画面は IBM MQ のコマンド・シェルです。Shell ===&gt; に QMGR1 のトリガー最小間隔を表示するための MQSC コマンドを入力し、QMGR1 へ渡します。
+操作（入力）:
+```text
+Shell ===&gt; echo "DISPLAY QMGR TRIGINT" | runmqsc QMGR1
+→ Enter を押す
+```
+
+画面・出力:
+```text
+Starting MQSC for queue manager QMGR1.
+  1 : DISPLAY QMGR TRIGINT
+AMQ8408I: Display Queue Manager details.
+   QMNAME(QMGR1)
+   TRIGINT(999999)
+One MQSC command read.
+No commands have a syntax error.
+All valid MQSC commands were processed.
+```
+
+TRIGINT(999999) は FIRST トリガーの再生成間隔が 999999 ミリ秒であることを示します。
+
+- 合格条件: ① ステップ1の TRIGINT(999999) が表示されること
+- 検証状態: 机上
+- 出典: mq93.administer / mq93.configure / mq93.refadmin / mq93.reference
+
+---
+
+**INITQ 確認手順**
+
+- 検証目的: トリガー・メッセージの送付先となる開始キューが対象キューに設定されていることを確認します。
+- 前提条件: 検証用キューマネージャー QMGR1 に管理権限で接続でき、対象オブジェクトが存在すること。変更操作は検証環境でのみ行います。
+- セッション環境: IBM MQ 9.3 のコマンド・シェル。CSQ9022I の手順だけは z/OS 操作卓を使用します。
+
+**ステップ 1**
+現在の画面は IBM MQ のコマンド・シェルです。Shell ===&gt; に APP.TRIGGER の開始キューとトリガー有効状態を表示するための MQSC コマンドを入力し、QMGR1 へ渡します。
+操作（入力）:
+```text
+Shell ===&gt; echo "DISPLAY QLOCAL(APP.TRIGGER) INITQ TRIGGER" | runmqsc QMGR1
+→ Enter を押す
+```
+
+画面・出力:
+```text
+Starting MQSC for queue manager QMGR1.
+  1 : DISPLAY QLOCAL(APP.TRIGGER) INITQ TRIGGER
+AMQ8409I: Display Queue details.
+   QUEUE(APP.TRIGGER) TYPE(QLOCAL)
+   INITQ(SYSTEM.DEFAULT.INITIATION.QUEUE) TRIGGER
+One MQSC command read.
+No commands have a syntax error.
+All valid MQSC commands were processed.
+```
+
+INITQ(SYSTEM.DEFAULT.INITIATION.QUEUE) はトリガー・メッセージの送付先を示します。
+
+- 合格条件: ① ステップ1の INITQ(SYSTEM.DEFAULT.INITIATION.QUEUE) が表示されること
+- 検証状態: 机上
+- 出典: mq93.administer / mq93.configure / mq93.refadmin / mq93.reference
+
+---
+
+**PROCESS 確認手順**
+
+- 検証目的: トリガーから参照されるプロセス定義と実行プログラム名が一致することを確認します。
+- 前提条件: 検証用キューマネージャー QMGR1 に管理権限で接続でき、対象オブジェクトが存在すること。変更操作は検証環境でのみ行います。
+- セッション環境: IBM MQ 9.3 のコマンド・シェル。CSQ9022I の手順だけは z/OS 操作卓を使用します。
+
+**ステップ 1**
+現在の画面は IBM MQ のコマンド・シェルです。Shell ===&gt; に APP.PROCESS の実行プログラムとプラットフォーム種別を表示するための MQSC コマンドを入力し、QMGR1 へ渡します。
+操作（入力）:
+```text
+Shell ===&gt; echo "DISPLAY PROCESS(APP.PROCESS) APPLICID APPLTYPE" | runmqsc QMGR1
+→ Enter を押す
+```
+
+画面・出力:
+```text
+Starting MQSC for queue manager QMGR1.
+  1 : DISPLAY PROCESS(APP.PROCESS) APPLICID APPLTYPE
+AMQ8407I: Display Process details.
+   PROCESS(APP.PROCESS)
+   APPLICID(/opt/app/bin/worker) APPLTYPE(UNIX)
+One MQSC command read.
+No commands have a syntax error.
+All valid MQSC commands were processed.
+```
+
+APPLICID(/opt/app/bin/worker) と APPLTYPE(UNIX) が起動対象の実体を示します。
+
+**ステップ 2**
+現在の画面は IBM MQ のコマンド・シェルです。Shell ===&gt; に APP.TRIGGER が参照するプロセス定義名を表示するための MQSC コマンドを入力し、QMGR1 へ渡します。
+操作（入力）:
+```text
+Shell ===&gt; echo "DISPLAY QLOCAL(APP.TRIGGER) PROCESS INITQ" | runmqsc QMGR1
+→ Enter を押す
+```
+
+画面・出力:
+```text
+Starting MQSC for queue manager QMGR1.
+  1 : DISPLAY QLOCAL(APP.TRIGGER) PROCESS INITQ
+AMQ8409I: Display Queue details.
+   QUEUE(APP.TRIGGER) TYPE(QLOCAL)
+   PROCESS(APP.PROCESS)
+   INITQ(SYSTEM.DEFAULT.INITIATION.QUEUE)
+One MQSC command read.
+No commands have a syntax error.
+All valid MQSC commands were processed.
+```
+
+PROCESS(APP.PROCESS) により、対象キューから表示済みプロセス定義への参照を確認できます。
+
+- 合格条件: ① ステップ1の APPLICID(/opt/app/bin/worker) が表示されること
+② ステップ2の PROCESS(APP.PROCESS) が表示されること
+- 検証状態: 机上
+- 出典: mq93.administer / mq93.configure / mq93.refadmin / mq93.reference
+
+---
+
+**DEFINE CHANNEL 確認手順**
+
+- 検証目的: 送信チャネルの定義を作成し、通信方式と接続先が反映されることを確認します。
+- 前提条件: 検証用キューマネージャー QMGR1 に管理権限で接続でき、対象オブジェクトが存在すること。変更操作は検証環境でのみ行います。
+- セッション環境: IBM MQ 9.3 のコマンド・シェル。CSQ9022I の手順だけは z/OS 操作卓を使用します。
+
+**ステップ 1**
+現在の画面は IBM MQ のコマンド・シェルです。Shell ===&gt; に QMGR2 への TCP 送信チャネルを定義するための MQSC コマンドを入力し、QMGR1 へ渡します。
+操作（入力）:
+```text
+Shell ===&gt; echo "DEFINE CHANNEL(QMGR1.TO.QMGR2) CHLTYPE(SDR) TRPTYPE(TCP) CONNAME('mq2.example.com(1414)') XMITQ(QMGR2.XMIT) REPLACE" | runmqsc QMGR1
+→ Enter を押す
+```
+
+画面・出力:
+```text
+Starting MQSC for queue manager QMGR1.
+  1 : DEFINE CHANNEL(QMGR1.TO.QMGR2) CHLTYPE(SDR) TRPTYPE(TCP) CONNAME('mq2.example.com(1414)') XMITQ(QMGR2.XMIT) REPLACE
+AMQ8014I: IBM MQ channel created.
+One MQSC command read.
+No commands have a syntax error.
+All valid MQSC commands were processed.
+```
+
+AMQ8014I は QMGR1.TO.QMGR2 のチャネル定義が作成されたことを示します。
+
+**ステップ 2**
+現在の画面は IBM MQ のコマンド・シェルです。Shell ===&gt; に 作成した送信チャネルの種別、通信方式、接続先、伝送キューを表示するための MQSC コマンドを入力し、QMGR1 へ渡します。
+操作（入力）:
+```text
+Shell ===&gt; echo "DISPLAY CHANNEL(QMGR1.TO.QMGR2) CHLTYPE TRPTYPE CONNAME XMITQ" | runmqsc QMGR1
+→ Enter を押す
+```
+
+画面・出力:
+```text
+Starting MQSC for queue manager QMGR1.
+  1 : DISPLAY CHANNEL(QMGR1.TO.QMGR2) CHLTYPE TRPTYPE CONNAME XMITQ
+AMQ8414I: Display Channel details.
+   CHANNEL(QMGR1.TO.QMGR2) CHLTYPE(SDR)
+   TRPTYPE(TCP) CONNAME(mq2.example.com(1414))
+   XMITQ(QMGR2.XMIT)
+One MQSC command read.
+No commands have a syntax error.
+All valid MQSC commands were processed.
+```
+
+AMQ8414I の CHLTYPE(SDR)、TRPTYPE(TCP)、CONNAME、XMITQ により定義内容を確認できます。
+
+- 合格条件: ① ステップ1の AMQ8014I が表示されること
+② ステップ2の CHLTYPE(SDR) と CONNAME(mq2.example.com(1414)) が表示されること
+- 検証状態: 机上
+- 出典: mq93.administer / mq93.configure / mq93.refadmin / mq93.reference
+
+---
+
+**CHLTYPE 確認手順**
+
+- 検証目的: チャネル種別が送信側として定義され、想定する役割と一致することを確認します。
+- 前提条件: 検証用キューマネージャー QMGR1 に管理権限で接続でき、対象オブジェクトが存在すること。変更操作は検証環境でのみ行います。
+- セッション環境: IBM MQ 9.3 のコマンド・シェル。CSQ9022I の手順だけは z/OS 操作卓を使用します。
+
+**ステップ 1**
+現在の画面は IBM MQ のコマンド・シェルです。Shell ===&gt; に QMGR1.TO.QMGR2 のチャネル種別を表示するための MQSC コマンドを入力し、QMGR1 へ渡します。
+操作（入力）:
+```text
+Shell ===&gt; echo "DISPLAY CHANNEL(QMGR1.TO.QMGR2) CHLTYPE" | runmqsc QMGR1
+→ Enter を押す
+```
+
+画面・出力:
+```text
+Starting MQSC for queue manager QMGR1.
+  1 : DISPLAY CHANNEL(QMGR1.TO.QMGR2) CHLTYPE
+AMQ8414I: Display Channel details.
+   CHANNEL(QMGR1.TO.QMGR2) CHLTYPE(SDR)
+One MQSC command read.
+No commands have a syntax error.
+All valid MQSC commands were processed.
+```
+
+CHLTYPE(SDR) は、このチャネルが送信チャネルとして定義されていることを示します。
+
+- 合格条件: ① ステップ1の CHLTYPE(SDR) が表示されること
+- 検証状態: 机上
+- 出典: mq93.administer / mq93.configure / mq93.refadmin / mq93.reference
+
+---
+
+**CONNAME 確認手順**
+
+- 検証目的: 送信チャネルの接続先ホスト名と待受ポートが相手側リスナーの設計値に一致することを確認します。
+- 前提条件: 検証用キューマネージャー QMGR1 に管理権限で接続でき、対象オブジェクトが存在すること。変更操作は検証環境でのみ行います。
+- セッション環境: IBM MQ 9.3 のコマンド・シェル。CSQ9022I の手順だけは z/OS 操作卓を使用します。
+
+**ステップ 1**
+現在の画面は IBM MQ のコマンド・シェルです。Shell ===&gt; に QMGR1.TO.QMGR2 の接続先とトランスポートを表示するための MQSC コマンドを入力し、QMGR1 へ渡します。
+操作（入力）:
+```text
+Shell ===&gt; echo "DISPLAY CHANNEL(QMGR1.TO.QMGR2) CONNAME TRPTYPE" | runmqsc QMGR1
+→ Enter を押す
+```
+
+画面・出力:
+```text
+Starting MQSC for queue manager QMGR1.
+  1 : DISPLAY CHANNEL(QMGR1.TO.QMGR2) CONNAME TRPTYPE
+AMQ8414I: Display Channel details.
+   CHANNEL(QMGR1.TO.QMGR2) CHLTYPE(SDR)
+   CONNAME(mq2.example.com(1414)) TRPTYPE(TCP)
+One MQSC command read.
+No commands have a syntax error.
+All valid MQSC commands were processed.
+```
+
+CONNAME(mq2.example.com(1414)) と TRPTYPE(TCP) が TCP 接続先を具体的に示します。
+
+- 合格条件: ① ステップ1の CONNAME(mq2.example.com(1414)) と TRPTYPE(TCP) が表示されること
+- 検証状態: 机上
+- 出典: mq93.administer / mq93.configure / mq93.refadmin / mq93.reference
+
+---
+
+**XMITQ 確認手順**
+
+- 検証目的: 送信チャネルが正しい伝送キューからメッセージを取得するように結び付けられていることを確認します。
+- 前提条件: 検証用キューマネージャー QMGR1 に管理権限で接続でき、対象オブジェクトが存在すること。変更操作は検証環境でのみ行います。
+- セッション環境: IBM MQ 9.3 のコマンド・シェル。CSQ9022I の手順だけは z/OS 操作卓を使用します。
+
+**ステップ 1**
+現在の画面は IBM MQ のコマンド・シェルです。Shell ===&gt; に 送信チャネルに結び付く伝送キュー名を表示するための MQSC コマンドを入力し、QMGR1 へ渡します。
+操作（入力）:
+```text
+Shell ===&gt; echo "DISPLAY CHANNEL(QMGR1.TO.QMGR2) XMITQ" | runmqsc QMGR1
+→ Enter を押す
+```
+
+画面・出力:
+```text
+Starting MQSC for queue manager QMGR1.
+  1 : DISPLAY CHANNEL(QMGR1.TO.QMGR2) XMITQ
+AMQ8414I: Display Channel details.
+   CHANNEL(QMGR1.TO.QMGR2) CHLTYPE(SDR)
+   XMITQ(QMGR2.XMIT)
+One MQSC command read.
+No commands have a syntax error.
+All valid MQSC commands were processed.
+```
+
+XMITQ(QMGR2.XMIT) は送信チャネルが QMGR2.XMIT を読み取ることを示します。
+
+**ステップ 2**
+現在の画面は IBM MQ のコマンド・シェルです。Shell ===&gt; に QMGR2.XMIT が伝送キュー用途で存在するか表示するための MQSC コマンドを入力し、QMGR1 へ渡します。
+操作（入力）:
+```text
+Shell ===&gt; echo "DISPLAY QLOCAL(QMGR2.XMIT) USAGE GET PUT" | runmqsc QMGR1
+→ Enter を押す
+```
+
+画面・出力:
+```text
+Starting MQSC for queue manager QMGR1.
+  1 : DISPLAY QLOCAL(QMGR2.XMIT) USAGE GET PUT
+AMQ8409I: Display Queue details.
+   QUEUE(QMGR2.XMIT) TYPE(QLOCAL)
+   USAGE(XMITQ) GET(ENABLED) PUT(ENABLED)
+One MQSC command read.
+No commands have a syntax error.
+All valid MQSC commands were processed.
+```
+
+USAGE(XMITQ) は QMGR2.XMIT が通常のローカル・キューではなく伝送用途であることを示します。
+
+- 合格条件: ① ステップ1の XMITQ(QMGR2.XMIT) が表示されること
+② ステップ2の USAGE(XMITQ) が表示されること
+- 検証状態: 机上
+- 出典: mq93.administer / mq93.configure / mq93.refadmin / mq93.reference
+
+---
+
+**MCAUSER 確認手順**
+
+- 検証目的: サーバー接続チャネルで権限検査に使う実行ユーザーが明示されていることを確認します。
+- 前提条件: 検証用キューマネージャー QMGR1 に管理権限で接続でき、対象オブジェクトが存在すること。変更操作は検証環境でのみ行います。
+- セッション環境: IBM MQ 9.3 のコマンド・シェル。CSQ9022I の手順だけは z/OS 操作卓を使用します。
+
+**ステップ 1**
+現在の画面は IBM MQ のコマンド・シェルです。Shell ===&gt; に APP.SVRCONN の種別と MCAUSER を表示するための MQSC コマンドを入力し、QMGR1 へ渡します。
+操作（入力）:
+```text
+Shell ===&gt; echo "DISPLAY CHANNEL(APP.SVRCONN) CHLTYPE MCAUSER" | runmqsc QMGR1
+→ Enter を押す
+```
+
+画面・出力:
+```text
+Starting MQSC for queue manager QMGR1.
+  1 : DISPLAY CHANNEL(APP.SVRCONN) CHLTYPE MCAUSER
+AMQ8414I: Display Channel details.
+   CHANNEL(APP.SVRCONN) CHLTYPE(SVRCONN)
+   MCAUSER(appmq)
+One MQSC command read.
+No commands have a syntax error.
+All valid MQSC commands were processed.
+```
+
+CHLTYPE(SVRCONN) と MCAUSER(appmq) により、クライアント接続時の権限検査ユーザーを確認できます。
+
+- 合格条件: ① ステップ1の MCAUSER(appmq) と CHLTYPE(SVRCONN) が表示されること
+- 検証状態: 机上
+- 出典: mq93.administer / mq93.configure / mq93.refadmin / mq93.reference
+
+---
+
+**BATCHSZ 確認手順**
+
+- 検証目的: 送信チャネルのバッチ単位が運用設計のメッセージ数に設定されていることを確認します。
+- 前提条件: 検証用キューマネージャー QMGR1 に管理権限で接続でき、対象オブジェクトが存在すること。変更操作は検証環境でのみ行います。
+- セッション環境: IBM MQ 9.3 のコマンド・シェル。CSQ9022I の手順だけは z/OS 操作卓を使用します。
+
+**ステップ 1**
+現在の画面は IBM MQ のコマンド・シェルです。Shell ===&gt; に 送信チャネルのバッチ上限と切断間隔を表示するための MQSC コマンドを入力し、QMGR1 へ渡します。
+操作（入力）:
+```text
+Shell ===&gt; echo "DISPLAY CHANNEL(QMGR1.TO.QMGR2) BATCHSZ DISCINT" | runmqsc QMGR1
+→ Enter を押す
+```
+
+画面・出力:
+```text
+Starting MQSC for queue manager QMGR1.
+  1 : DISPLAY CHANNEL(QMGR1.TO.QMGR2) BATCHSZ DISCINT
+AMQ8414I: Display Channel details.
+   CHANNEL(QMGR1.TO.QMGR2) CHLTYPE(SDR)
+   BATCHSZ(50) DISCINT(6000)
+One MQSC command read.
+No commands have a syntax error.
+All valid MQSC commands were processed.
+```
+
+BATCHSZ(50) は一つのバッチに含める最大 50 メッセージを示し、DISCINT(6000) も併記されます。
+
+- 合格条件: ① ステップ1の BATCHSZ(50) と DISCINT(6000) が表示されること
+- 検証状態: 机上
+- 出典: mq93.administer / mq93.configure / mq93.refadmin / mq93.reference
+
+---
+
+**DISPLAY QSTATUS 確認手順**
+
+- 検証目的: 対象キューの実行時深度と入出力オープン数を QSTATUS で確認します。
+- 前提条件: 検証用キューマネージャー QMGR1 に管理権限で接続でき、対象オブジェクトが存在すること。変更操作は検証環境でのみ行います。
+- セッション環境: IBM MQ 9.3 のコマンド・シェル。CSQ9022I の手順だけは z/OS 操作卓を使用します。
+
+**ステップ 1**
+現在の画面は IBM MQ のコマンド・シェルです。Shell ===&gt; に APP.INPUT の実行時深度とオープン数を表示するための MQSC コマンドを入力し、QMGR1 へ渡します。
+操作（入力）:
+```text
+Shell ===&gt; echo "DISPLAY QSTATUS(APP.INPUT) TYPE(QUEUE) CURDEPTH IPPROCS OPPROCS" | runmqsc QMGR1
+→ Enter を押す
+```
+
+画面・出力:
+```text
+Starting MQSC for queue manager QMGR1.
+  1 : DISPLAY QSTATUS(APP.INPUT) TYPE(QUEUE) CURDEPTH IPPROCS OPPROCS
+AMQ8450I: Display queue status details.
+   QUEUE(APP.INPUT) TYPE(QUEUE)
+   CURDEPTH(42) IPPROCS(1) OPPROCS(2)
+One MQSC command read.
+No commands have a syntax error.
+All valid MQSC commands were processed.
+```
+
+AMQ8450I は QSTATUS の正常応答で、CURDEPTH(42)、IPPROCS(1)、OPPROCS(2) が現在値です。
+
+- 合格条件: ① ステップ1の AMQ8450I、CURDEPTH(42)、IPPROCS(1)、OPPROCS(2) が表示されること
+- 検証状態: 机上
+- 出典: mq93.administer / mq93.configure / mq93.refadmin / mq93.reference
+
+---
+
+**DISPLAY CHSTATUS 確認手順**
+
+- 検証目的: 送信チャネルの現在状態と接続先が稼働中の実体に対応していることを確認します。
+- 前提条件: 検証用キューマネージャー QMGR1 に管理権限で接続でき、対象オブジェクトが存在すること。変更操作は検証環境でのみ行います。
+- セッション環境: IBM MQ 9.3 のコマンド・シェル。CSQ9022I の手順だけは z/OS 操作卓を使用します。
+
+**ステップ 1**
+現在の画面は IBM MQ のコマンド・シェルです。Shell ===&gt; に QMGR1.TO.QMGR2 の現在状態とサブ状態を表示するための MQSC コマンドを入力し、QMGR1 へ渡します。
+操作（入力）:
+```text
+Shell ===&gt; echo "DISPLAY CHSTATUS(QMGR1.TO.QMGR2) STATUS SUBSTATE CONNAME XMITQ" | runmqsc QMGR1
+→ Enter を押す
+```
+
+画面・出力:
+```text
+Starting MQSC for queue manager QMGR1.
+  1 : DISPLAY CHSTATUS(QMGR1.TO.QMGR2) STATUS SUBSTATE CONNAME XMITQ
+AMQ8417I: Display Channel Status details.
+   CHANNEL(QMGR1.TO.QMGR2) CHLTYPE(SDR)
+   CONNAME(mq2.example.com(1414)) CURRENT
+   STATUS(RUNNING) SUBSTATE(MQGET)
+   XMITQ(QMGR2.XMIT)
+One MQSC command read.
+No commands have a syntax error.
+All valid MQSC commands were processed.
+```
+
+AMQ8417I の STATUS(RUNNING) と SUBSTATE(MQGET) は、送信チャネルが伝送キューを待機中であることを示します。
+
+- 合格条件: ① ステップ1の AMQ8417I、STATUS(RUNNING)、SUBSTATE(MQGET) が表示されること
+- 検証状態: 机上
+- 出典: mq93.administer / mq93.configure / mq93.refadmin / mq93.reference
+
+---
+
+**runmqsc 確認手順**
+
+- 検証目的: runmqsc が指定キューマネージャーへ MQSC コマンドを渡し、応答を最後まで受信できることを確認します。
+- 前提条件: 検証用キューマネージャー QMGR1 に管理権限で接続でき、対象オブジェクトが存在すること。変更操作は検証環境でのみ行います。
+- セッション環境: IBM MQ 9.3 のコマンド・シェル。CSQ9022I の手順だけは z/OS 操作卓を使用します。
+
+**ステップ 1**
+現在の画面は IBM MQ のコマンド・シェルです。Shell ===&gt; に runmqsc から QMGR1 のキューマネージャー名を照会するための MQSC コマンドを入力し、QMGR1 へ渡します。
+操作（入力）:
+```text
+Shell ===&gt; echo "DISPLAY QMGR QMNAME" | runmqsc QMGR1
+→ Enter を押す
+```
+
+画面・出力:
+```text
+Starting MQSC for queue manager QMGR1.
+  1 : DISPLAY QMGR QMNAME
+AMQ8408I: Display Queue Manager details.
+   QMNAME(QMGR1)
+One MQSC command read.
+No commands have a syntax error.
+All valid MQSC commands were processed.
+```
+
+Starting MQSC、AMQ8408I、QMNAME(QMGR1)、All valid MQSC commands were processed. が一連の正常応答です。
+
+- 合格条件: ① ステップ1の Starting MQSC、AMQ8408I、QMNAME(QMGR1) が表示されること
+② ステップ1の All valid MQSC commands were processed. が表示されること
+- 検証状態: 机上
+- 出典: mq93.administer / mq93.configure / mq93.refadmin / mq93.reference
+
+---
+
+**ALTER QMGR 確認手順**
+
+- 検証目的: ALTER QMGR で到達不能メッセージ・キューを変更し、変更後の値を表示で確認します。
+- 前提条件: 検証用キューマネージャー QMGR1 に管理権限で接続でき、対象オブジェクトが存在すること。変更操作は検証環境でのみ行います。
+- セッション環境: IBM MQ 9.3 のコマンド・シェル。CSQ9022I の手順だけは z/OS 操作卓を使用します。
+
+**ステップ 1**
+現在の画面は IBM MQ のコマンド・シェルです。Shell ===&gt; に QMGR1 の DEADQ を標準到達不能メッセージ・キューへ設定するための MQSC コマンドを入力し、QMGR1 へ渡します。
+操作（入力）:
+```text
+Shell ===&gt; echo "ALTER QMGR DEADQ(SYSTEM.DEAD.LETTER.QUEUE)" | runmqsc QMGR1
+→ Enter を押す
+```
+
+画面・出力:
+```text
+Starting MQSC for queue manager QMGR1.
+  1 : ALTER QMGR DEADQ(SYSTEM.DEAD.LETTER.QUEUE)
+AMQ8005I: IBM MQ queue manager changed.
+One MQSC command read.
+No commands have a syntax error.
+All valid MQSC commands were processed.
+```
+
+AMQ8005I は ALTER QMGR が受理され、キューマネージャー属性が変更されたことを示します。
+
+**ステップ 2**
+現在の画面は IBM MQ のコマンド・シェルです。Shell ===&gt; に QMGR1 の変更後の DEADQ を表示するための MQSC コマンドを入力し、QMGR1 へ渡します。
+操作（入力）:
+```text
+Shell ===&gt; echo "DISPLAY QMGR DEADQ" | runmqsc QMGR1
+→ Enter を押す
+```
+
+画面・出力:
+```text
+Starting MQSC for queue manager QMGR1.
+  1 : DISPLAY QMGR DEADQ
+AMQ8408I: Display Queue Manager details.
+   QMNAME(QMGR1)
+   DEADQ(SYSTEM.DEAD.LETTER.QUEUE)
+One MQSC command read.
+No commands have a syntax error.
+All valid MQSC commands were processed.
+```
+
+DEADQ(SYSTEM.DEAD.LETTER.QUEUE) により ALTER QMGR の変更結果を確認できます。
+
+- 合格条件: ① ステップ1の AMQ8005I が表示されること
+② ステップ2の DEADQ(SYSTEM.DEAD.LETTER.QUEUE) が表示されること
+- 検証状態: 机上
+- 出典: mq93.administer / mq93.configure / mq93.refadmin / mq93.reference
+
+---
+
+**DEADQ 確認手順**
+
+- 検証目的: キューマネージャーの到達不能メッセージ・キューが実在し、メッセージ受入可能であることを確認します。
+- 前提条件: 検証用キューマネージャー QMGR1 に管理権限で接続でき、対象オブジェクトが存在すること。変更操作は検証環境でのみ行います。
+- セッション環境: IBM MQ 9.3 のコマンド・シェル。CSQ9022I の手順だけは z/OS 操作卓を使用します。
+
+**ステップ 1**
+現在の画面は IBM MQ のコマンド・シェルです。Shell ===&gt; に QMGR1 が使用する到達不能メッセージ・キュー名を表示するための MQSC コマンドを入力し、QMGR1 へ渡します。
+操作（入力）:
+```text
+Shell ===&gt; echo "DISPLAY QMGR DEADQ" | runmqsc QMGR1
+→ Enter を押す
+```
+
+画面・出力:
+```text
+Starting MQSC for queue manager QMGR1.
+  1 : DISPLAY QMGR DEADQ
+AMQ8408I: Display Queue Manager details.
+   QMNAME(QMGR1)
+   DEADQ(SYSTEM.DEAD.LETTER.QUEUE)
+One MQSC command read.
+No commands have a syntax error.
+All valid MQSC commands were processed.
+```
+
+DEADQ(SYSTEM.DEAD.LETTER.QUEUE) が QMGR1 の退避先設定です。
+
+**ステップ 2**
+現在の画面は IBM MQ のコマンド・シェルです。Shell ===&gt; に 設定済み DEADQ のキュー実体と受入属性を表示するための MQSC コマンドを入力し、QMGR1 へ渡します。
+操作（入力）:
+```text
+Shell ===&gt; echo "DISPLAY QLOCAL(SYSTEM.DEAD.LETTER.QUEUE) PUT MAXDEPTH" | runmqsc QMGR1
+→ Enter を押す
+```
+
+画面・出力:
+```text
+Starting MQSC for queue manager QMGR1.
+  1 : DISPLAY QLOCAL(SYSTEM.DEAD.LETTER.QUEUE) PUT MAXDEPTH
+AMQ8409I: Display Queue details.
+   QUEUE(SYSTEM.DEAD.LETTER.QUEUE) TYPE(QLOCAL)
+   PUT(ENABLED) MAXDEPTH(5000)
+One MQSC command read.
+No commands have a syntax error.
+All valid MQSC commands were processed.
+```
+
+TYPE(QLOCAL)、PUT(ENABLED)、MAXDEPTH(5000) により退避先キューが利用可能と確認できます。
+
+- 合格条件: ① ステップ1の DEADQ(SYSTEM.DEAD.LETTER.QUEUE) が表示されること
+② ステップ2の PUT(ENABLED) と MAXDEPTH(5000) が表示されること
+- 検証状態: 机上
+- 出典: mq93.administer / mq93.configure / mq93.refadmin / mq93.reference
+
+---
+
+**MQRC_Q_FULL 確認手順**
+
+- 検証目的: 理由コード 2053 がキュー深度上限到達による MQPUT 失敗であることをログと属性から確認します。
+- 前提条件: 検証用キューマネージャー QMGR1 に管理権限で接続でき、対象オブジェクトが存在すること。変更操作は検証環境でのみ行います。
+- セッション環境: IBM MQ 9.3 のコマンド・シェル。CSQ9022I の手順だけは z/OS 操作卓を使用します。
+
+**ステップ 1**
+現在の画面は IBM MQ 管理用のコマンド・シェルです。Shell ===&gt; に MQPUT が理由コード 2053 で失敗した記録を抽出するための制御コマンドを入力して実行します。
+操作（入力）:
+```text
+Shell ===&gt; grep -n "reason code 2053" /var/mqapp/orders.log
+→ Enter を押す
+```
+
+画面・出力:
+```text
+318:MQPUT ended with reason code 2053
+```
+
+MQPUT ended with reason code 2053 は MQRC_Q_FULL に対応するアプリケーション診断行です。
+
+**ステップ 2**
+現在の画面は IBM MQ のコマンド・シェルです。Shell ===&gt; に APP.INPUT の現在深度と最大深度を同時に表示するための MQSC コマンドを入力し、QMGR1 へ渡します。
+操作（入力）:
+```text
+Shell ===&gt; echo "DISPLAY QLOCAL(APP.INPUT) CURDEPTH MAXDEPTH" | runmqsc QMGR1
+→ Enter を押す
+```
+
+画面・出力:
+```text
+Starting MQSC for queue manager QMGR1.
+  1 : DISPLAY QLOCAL(APP.INPUT) CURDEPTH MAXDEPTH
+AMQ8409I: Display Queue details.
+   QUEUE(APP.INPUT) TYPE(QLOCAL)
+   CURDEPTH(5000) MAXDEPTH(5000)
+One MQSC command read.
+No commands have a syntax error.
+All valid MQSC commands were processed.
+```
+
+CURDEPTH(5000) と MAXDEPTH(5000) が等しく、2053 が上限到達であることを裏付けます。
+
+- 合格条件: ① ステップ1の MQPUT ended with reason code 2053 が表示されること
+② ステップ2の CURDEPTH(5000) と MAXDEPTH(5000) が表示されること
+- 検証状態: 机上
+- 出典: mq93.administer / mq93.configure / mq93.refadmin / mq93.reference
+
+---
+
+**MQRC_NOT_AUTHORIZED 確認手順**
+
+- 検証目的: 理由コード 2035 が権限不足であることを診断記録と現在のオブジェクト権限から確認します。
+- 前提条件: 検証用キューマネージャー QMGR1 に管理権限で接続でき、対象オブジェクトが存在すること。変更操作は検証環境でのみ行います。
+- セッション環境: IBM MQ 9.3 のコマンド・シェル。CSQ9022I の手順だけは z/OS 操作卓を使用します。
+
+**ステップ 1**
+現在の画面は IBM MQ 管理用のコマンド・シェルです。Shell ===&gt; に 権限不足を示す 2035 の診断行を抽出するための制御コマンドを入力して実行します。
+操作（入力）:
+```text
+Shell ===&gt; grep -n "MQRC_NOT_AUTHORIZED" /var/mqapp/client.log
+→ Enter を押す
+```
+
+画面・出力:
+```text
+77:Return code=2035 MQRC_NOT_AUTHORIZED
+```
+
+Return code=2035 MQRC_NOT_AUTHORIZED は IBM MQ が要求を権限不足で拒否した診断です。
+
+**ステップ 2**
+現在の画面は IBM MQ 管理用のコマンド・シェルです。Shell ===&gt; に appusr が APP.INPUT に対して持つ権限を表示するための制御コマンドを入力して実行します。
+操作（入力）:
+```text
+Shell ===&gt; dspmqaut -m QMGR1 -n APP.INPUT -t queue -p appusr
+→ Enter を押す
+```
+
+画面・出力:
+```text
+Entity appusr has the following authorizations for object APP.INPUT:
+        inq
+```
+
+Entity appusr の一覧には inq だけがあり put がないため、MQPUT の 2035 と整合します。
+
+- 合格条件: ① ステップ1の Return code=2035 MQRC_NOT_AUTHORIZED が表示されること
+② ステップ2の Entity appusr と inq が表示され、put が表示されないこと
+- 検証状態: 机上
+- 出典: mq93.administer / mq93.configure / mq93.refadmin / mq93.reference
+
+---
+
+**CHLAUTH 確認手順**
+
+- 検証目的: クライアント・ユーザーと接続元アドレスに対する CHLAUTH の実行時照合結果を確認します。
+- 前提条件: 検証用キューマネージャー QMGR1 に管理権限で接続でき、対象オブジェクトが存在すること。変更操作は検証環境でのみ行います。
+- セッション環境: IBM MQ 9.3 のコマンド・シェル。CSQ9022I の手順だけは z/OS 操作卓を使用します。
+
+**ステップ 1**
+現在の画面は IBM MQ のコマンド・シェルです。Shell ===&gt; に alice と 192.168.1.138 を条件に CHLAUTH の実行結果を照合するための MQSC コマンドを入力し、QMGR1 へ渡します。
+操作（入力）:
+```text
+Shell ===&gt; echo "DISPLAY CHLAUTH(APP.SVRCONN) MATCH(RUNCHECK) CLNTUSER('alice') ADDRESS('192.168.1.138')" | runmqsc QMGR1
+→ Enter を押す
+```
+
+画面・出力:
+```text
+Starting MQSC for queue manager QMGR1.
+  1 : DISPLAY CHLAUTH(APP.SVRCONN) MATCH(RUNCHECK) CLNTUSER('alice') ADDRESS('192.168.1.138')
+AMQ9783: Channel will run using MCAUSER('alice').
+One MQSC command read.
+No commands have a syntax error.
+All valid MQSC commands were processed.
+```
+
+AMQ9783 と MCAUSER('alice') は、この接続条件でチャネルが alice の権限として実行されることを示します。
+
+- 合格条件: ① ステップ1の AMQ9783 と MCAUSER('alice') が表示されること
+- 検証状態: 机上
+- 出典: mq93.administer / mq93.configure / mq93.refadmin / mq93.reference
+
+---
+
+**setmqaut 確認手順**
+
+- 検証目的: setmqaut でグループへ付与したキュー権限が dspmqaut の表示に反映されることを確認します。
+- 前提条件: 検証用キューマネージャー QMGR1 に管理権限で接続でき、対象オブジェクトが存在すること。変更操作は検証環境でのみ行います。
+- セッション環境: IBM MQ 9.3 のコマンド・シェル。CSQ9022I の手順だけは z/OS 操作卓を使用します。
+
+**ステップ 1**
+現在の画面は IBM MQ 管理用のコマンド・シェルです。Shell ===&gt; に appgrp へ APP.INPUT の put と inq を付与するための制御コマンドを入力して実行します。
+操作（入力）:
+```text
+Shell ===&gt; setmqaut -m QMGR1 -n APP.INPUT -t queue -g appgrp +put +inq
+→ Enter を押す
+```
+
+setmqaut は正常時に標準出力を必須としないため、次の dspmqaut で付与結果を確認します。
+
+**ステップ 2**
+現在の画面は IBM MQ 管理用のコマンド・シェルです。Shell ===&gt; に appgrp の APP.INPUT に対する現在権限を表示するための制御コマンドを入力して実行します。
+操作（入力）:
+```text
+Shell ===&gt; dspmqaut -m QMGR1 -n APP.INPUT -t queue -g appgrp
+→ Enter を押す
+```
+
+画面・出力:
+```text
+Entity appgrp has the following authorizations for object APP.INPUT:
+        put
+        inq
+```
+
+Entity appgrp の APP.INPUT に put と inq が列挙され、setmqaut の付与結果を確認できます。
+
+- 合格条件: ① ステップ2の Entity appgrp、APP.INPUT、put、inq が表示されること
+- 検証状態: 机上
+- 出典: mq93.administer / mq93.configure / mq93.refadmin / mq93.reference
+
+---
+
+**CLUSRCVR 確認手順**
+
+- 検証目的: クラスター受信チャネルが自身の接続先と所属クラスターを公開する定義になっていることを確認します。
+- 前提条件: 検証用キューマネージャー QMGR1 に管理権限で接続でき、対象オブジェクトが存在すること。変更操作は検証環境でのみ行います。
+- セッション環境: IBM MQ 9.3 のコマンド・シェル。CSQ9022I の手順だけは z/OS 操作卓を使用します。
+
+**ステップ 1**
+現在の画面は IBM MQ のコマンド・シェルです。Shell ===&gt; に INVENTORY.QMGR1 の種別、クラスター、公開接続先を表示するための MQSC コマンドを入力し、QMGR1 へ渡します。
+操作（入力）:
+```text
+Shell ===&gt; echo "DISPLAY CHANNEL(INVENTORY.QMGR1) CHLTYPE CLUSTER CONNAME" | runmqsc QMGR1
+→ Enter を押す
+```
+
+画面・出力:
+```text
+Starting MQSC for queue manager QMGR1.
+  1 : DISPLAY CHANNEL(INVENTORY.QMGR1) CHLTYPE CLUSTER CONNAME
+AMQ8414I: Display Channel details.
+   CHANNEL(INVENTORY.QMGR1) CHLTYPE(CLUSRCVR)
+   CLUSTER(INVENTORY)
+   CONNAME(mq1.example.com(1414))
+One MQSC command read.
+No commands have a syntax error.
+All valid MQSC commands were processed.
+```
+
+CHLTYPE(CLUSRCVR)、CLUSTER(INVENTORY)、CONNAME(mq1.example.com(1414)) が公開定義を構成します。
+
+- 合格条件: ① ステップ1の CHLTYPE(CLUSRCVR)、CLUSTER(INVENTORY)、CONNAME(mq1.example.com(1414)) が表示されること
+- 検証状態: 机上
+- 出典: mq93.administer / mq93.configure / mq93.refadmin / mq93.reference
+
+---
+
+**CLUSSDR 確認手順**
+
+- 検証目的: 初期クラスター送信チャネルがフル・リポジトリーの接続先を指していることを確認します。
+- 前提条件: 検証用キューマネージャー QMGR1 に管理権限で接続でき、対象オブジェクトが存在すること。変更操作は検証環境でのみ行います。
+- セッション環境: IBM MQ 9.3 のコマンド・シェル。CSQ9022I の手順だけは z/OS 操作卓を使用します。
+
+**ステップ 1**
+現在の画面は IBM MQ のコマンド・シェルです。Shell ===&gt; に 初期クラスター送信チャネルの所属と接続先を表示するための MQSC コマンドを入力し、QMGR1 へ渡します。
+操作（入力）:
+```text
+Shell ===&gt; echo "DISPLAY CHANNEL(INVENTORY.TO.REPOS) CHLTYPE CLUSTER CONNAME" | runmqsc QMGR1
+→ Enter を押す
+```
+
+画面・出力:
+```text
+Starting MQSC for queue manager QMGR1.
+  1 : DISPLAY CHANNEL(INVENTORY.TO.REPOS) CHLTYPE CLUSTER CONNAME
+AMQ8414I: Display Channel details.
+   CHANNEL(INVENTORY.TO.REPOS) CHLTYPE(CLUSSDR)
+   CLUSTER(INVENTORY)
+   CONNAME(repos.example.com(1414))
+One MQSC command read.
+No commands have a syntax error.
+All valid MQSC commands were processed.
+```
+
+CHLTYPE(CLUSSDR) と CONNAME(repos.example.com(1414)) によりリポジトリーへの初期接続を確認できます。
+
+**ステップ 2**
+現在の画面は IBM MQ のコマンド・シェルです。Shell ===&gt; に クラスター情報から初期送信チャネル由来の定義を表示するための MQSC コマンドを入力し、QMGR1 へ渡します。
+操作（入力）:
+```text
+Shell ===&gt; echo "DISPLAY CLUSQMGR(QMGR2) CLUSTER CHANNEL DEFTYPE" | runmqsc QMGR1
+→ Enter を押す
+```
+
+画面・出力:
+```text
+Starting MQSC for queue manager QMGR1.
+  1 : DISPLAY CLUSQMGR(QMGR2) CLUSTER CHANNEL DEFTYPE
+AMQ8441I: Display Cluster Queue Manager details.
+   CLUSQMGR(QMGR2) CLUSTER(INVENTORY)
+   CHANNEL(INVENTORY.TO.REPOS) DEFTYPE(CLUSSDR)
+One MQSC command read.
+No commands have a syntax error.
+All valid MQSC commands were processed.
+```
+
+AMQ8441I の DEFTYPE(CLUSSDR) は QMGR2 の情報が手動定義した CLUSSDR に由来することを示します。
+
+- 合格条件: ① ステップ1の CHLTYPE(CLUSSDR)、CLUSTER(INVENTORY)、CONNAME(repos.example.com(1414)) が表示されること
+② ステップ2の AMQ8441I と DEFTYPE(CLUSSDR) が表示されること
+- 検証状態: 机上
+- 出典: mq93.administer / mq93.configure / mq93.refadmin / mq93.reference
+
+---
+
+**REPOS 確認手順**
+
+- 検証目的: キューマネージャーが指定クラスターのフル・リポジトリーとして設定されていることを確認します。
+- 前提条件: 検証用キューマネージャー QMGR1 に管理権限で接続でき、対象オブジェクトが存在すること。変更操作は検証環境でのみ行います。
+- セッション環境: IBM MQ 9.3 のコマンド・シェル。CSQ9022I の手順だけは z/OS 操作卓を使用します。
+
+**ステップ 1**
+現在の画面は IBM MQ のコマンド・シェルです。Shell ===&gt; に QMGR1 を INVENTORY クラスターのフル・リポジトリーに設定するための MQSC コマンドを入力し、QMGR1 へ渡します。
+操作（入力）:
+```text
+Shell ===&gt; echo "ALTER QMGR REPOS(INVENTORY)" | runmqsc QMGR1
+→ Enter を押す
+```
+
+画面・出力:
+```text
+Starting MQSC for queue manager QMGR1.
+  1 : ALTER QMGR REPOS(INVENTORY)
+AMQ8005I: IBM MQ queue manager changed.
+One MQSC command read.
+No commands have a syntax error.
+All valid MQSC commands were processed.
+```
+
+AMQ8005I は REPOS(INVENTORY) のキューマネージャー属性変更が完了したことを示します。
+
+**ステップ 2**
+現在の画面は IBM MQ のコマンド・シェルです。Shell ===&gt; に QMGR1 のフル・リポジトリー対象クラスターを表示するための MQSC コマンドを入力し、QMGR1 へ渡します。
+操作（入力）:
+```text
+Shell ===&gt; echo "DISPLAY QMGR REPOS" | runmqsc QMGR1
+→ Enter を押す
+```
+
+画面・出力:
+```text
+Starting MQSC for queue manager QMGR1.
+  1 : DISPLAY QMGR REPOS
+AMQ8408I: Display Queue Manager details.
+   QMNAME(QMGR1)
+   REPOS(INVENTORY)
+One MQSC command read.
+No commands have a syntax error.
+All valid MQSC commands were processed.
+```
+
+REPOS(INVENTORY) は QMGR1 が INVENTORY のフル・リポジトリーであることを示します。
+
+- 合格条件: ① ステップ1の AMQ8005I が表示されること
+② ステップ2の REPOS(INVENTORY) が表示されること
+- 検証状態: 机上
+- 出典: mq93.administer / mq93.configure / mq93.refadmin / mq93.reference
+
+---
+
+**CSQ9022I 確認手順**
+
+- 検証目的: z/OS 上の IBM MQ コマンドが同期処理を正常に終えたことを CSQ9022I で確認します。
+- 前提条件: 検証用キューマネージャー QMGR1 に管理権限で接続でき、対象オブジェクトが存在すること。変更操作は検証環境でのみ行います。
+- セッション環境: IBM MQ 9.3 のコマンド・シェル。CSQ9022I の手順だけは z/OS 操作卓を使用します。
+
+**ステップ 1**
+現在の画面は z/OS 操作卓です。Console ===&gt; に CSQ1 のログ表示コマンドを発行し、同期完了メッセージを確認するための IBM MQ サブシステム・コマンドを入力して実行します。
+操作（入力）:
+```text
+Console ===&gt; +CSQ1 DISPLAY LOG
+→ Enter を押す
+```
+
+画面・出力:
+```text
+CSQ9022I +CSQ1 CSQJC001 ' DISPLAY LOG' NORMAL COMPLETION
+```
+
+CSQ9022I と ' DISPLAY LOG' NORMAL COMPLETION は DISPLAY LOG の同期処理が正常終了したことを示します。
+
+- 合格条件: ① ステップ1の CSQ9022I と NORMAL COMPLETION が表示されること
+- 検証状態: 机上
+- 出典: mq93.administer / mq93.configure / mq93.refadmin / mq93.reference</code></pre>
+
+
+
+
+
+
+
+  
+  
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+  <script>var tabs=__md_get("__tabs");if(Array.isArray(tabs))e:for(var set of document.querySelectorAll(".tabbed-set")){var labels=set.querySelector(".tabbed-labels");for(var tab of tabs)for(var label of labels.getElementsByTagName("label"))if(label.innerText.trim()===tab){var input=document.getElementById(label.htmlFor);input.checked=!0;continue e}}</script>
+
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  ページトップへ戻る
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+    
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../../..", "features": ["navigation.tabs", "navigation.tabs.sticky", "navigation.sections", "navigation.indexes", "navigation.path", "navigation.top", "navigation.footer", "toc.follow", "search.suggest", "search.highlight", "search.share", "content.tabs.link", "content.code.copy"], "search": "../../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "\u30b3\u30d4\u30fc\u3057\u307e\u3057\u305f", "clipboard.copy": "\u30af\u30ea\u30c3\u30d7\u30dc\u30fc\u30c9\u3078\u30b3\u30d4\u30fc", "search.result.more.one": "\u3053\u306e\u30da\u30fc\u30b8\u5185\u306b\u3082\u30461\u4ef6\u898b\u3064\u304b\u308a\u307e\u3057\u305f", "search.result.more.other": "\u3053\u306e\u30da\u30fc\u30b8\u5185\u306b\u3042\u3068#\u4ef6\u898b\u3064\u304b\u308a\u307e\u3057\u305f", "search.result.none": "\u4f55\u3082\u898b\u3064\u304b\u308a\u307e\u305b\u3093\u3067\u3057\u305f", "search.result.one": "1\u4ef6\u898b\u3064\u304b\u308a\u307e\u3057\u305f", "search.result.other": "#\u4ef6\u898b\u3064\u304b\u308a\u307e\u3057\u305f", "search.result.placeholder": "\u691c\u7d22\u30ad\u30fc\u30ef\u30fc\u30c9\u3092\u5165\u529b\u3057\u3066\u304f\u3060\u3055\u3044", "search.result.term.missing": "\u691c\u7d22\u306b\u542b\u307e\u308c\u306a\u3044", "select.version": "\u30d0\u30fc\u30b8\u30e7\u30f3\u5207\u308a\u66ff\u3048"}, "version": null}</script>
+    
+    
+      <script src="../../../assets/javascripts/bundle.d7400e89.min.js"></script>
+      
+    
+  </body>
+</html>

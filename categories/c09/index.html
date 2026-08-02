@@ -1,0 +1,2453 @@
+
+<!doctype html>
+<html lang="ja" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="技術項目・確認問題・検証手順をカテゴリ別に検索できるナレッジベース">
+      
+      
+        <meta name="author" content="Knowledge Base">
+      
+      
+        <link rel="canonical" href="https://ai-crafted-portfolio.github.io/knowledge-based/categories/c09/">
+      
+      
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.7">
+    
+    
+      
+        <title>GDPS 災害対策・サイトスイッチ - z/OS 技術ナレッジベース</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.ec1eaa64.min.css">
+      
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Segoe+UI:300,300i,400,400i,700,700i%7CCascadia+Code:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Segoe UI";--md-code-font:"Cascadia Code"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../stylesheets/ms-style.css">
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="blue">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#gdps" class="md-skip">
+          コンテンツにスキップ
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow md-header--lifted" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="ヘッダー">
+    <a href="../.." title="z/OS 技術ナレッジベース" class="md-header__button md-logo" aria-label="z/OS 技術ナレッジベース" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            z/OS 技術ナレッジベース
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              GDPS 災害対策・サイトスイッチ
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="blue"  aria-label="ダークモードに切り替え"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="ダークモードに切り替え" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m17.75 4.09-2.53 1.94.91 3.06-2.63-1.81-2.63 1.81.91-3.06-2.53-1.94L12.44 4l1.06-3 1.06 3zm3.5 6.91-1.64 1.25.59 1.98-1.7-1.17-1.7 1.17.59-1.98L15.75 11l2.06-.05L18.5 9l.69 1.95zm-2.28 4.95c.83-.08 1.72 1.1 1.19 1.85-.32.45-.66.87-1.08 1.27C15.17 23 8.84 23 4.94 19.07c-3.91-3.9-3.91-10.24 0-14.14.4-.4.82-.76 1.27-1.08.75-.53 1.93.36 1.85 1.19-.27 2.86.69 5.83 2.89 8.02a9.96 9.96 0 0 0 8.02 2.89m-1.64 2.02a12.08 12.08 0 0 1-7.8-3.47c-2.17-2.19-3.33-5-3.49-7.82-2.81 3.14-2.7 7.96.31 10.98 3.02 3.01 7.84 3.12 10.98.31"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="slate" data-md-color-primary="indigo" data-md-color-accent="blue"  aria-label="ライトモードに切り替え"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="ライトモードに切り替え" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 7a5 5 0 0 1 5 5 5 5 0 0 1-5 5 5 5 0 0 1-5-5 5 5 0 0 1 5-5m0 2a3 3 0 0 0-3 3 3 3 0 0 0 3 3 3 3 0 0 0 3-3 3 3 0 0 0-3-3m0-7 2.39 3.42C13.65 5.15 12.84 5 12 5s-1.65.15-2.39.42zM3.34 7l4.16-.35A7.2 7.2 0 0 0 5.94 8.5c-.44.74-.69 1.5-.83 2.29zm.02 10 1.76-3.77a7.131 7.131 0 0 0 2.38 4.14zM20.65 7l-1.77 3.79a7.02 7.02 0 0 0-2.38-4.15zm-.01 10-4.14.36c.59-.51 1.12-1.14 1.54-1.86.42-.73.69-1.5.83-2.29zM12 22l-2.41-3.44c.74.27 1.55.44 2.41.44.82 0 1.63-.17 2.37-.44z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="検索" placeholder="検索" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="検索">
+        
+          <a href="javascript:void(0)" class="md-search__icon md-icon" title="共有" aria-label="共有" data-clipboard data-clipboard-text="" data-md-component="search-share" tabindex="-1">
+            
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M18 16.08c-.76 0-1.44.3-1.96.77L8.91 12.7c.05-.23.09-.46.09-.7s-.04-.47-.09-.7l7.05-4.11c.54.5 1.25.81 2.04.81a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3c0 .24.04.47.09.7L8.04 9.81C7.5 9.31 6.79 9 6 9a3 3 0 0 0-3 3 3 3 0 0 0 3 3c.79 0 1.5-.31 2.04-.81l7.12 4.15c-.05.21-.08.43-.08.66 0 1.61 1.31 2.91 2.92 2.91s2.92-1.3 2.92-2.91A2.92 2.92 0 0 0 18 16.08"/></svg>
+          </a>
+        
+        <button type="reset" class="md-search__icon md-icon" title="クリア" aria-label="クリア" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            検索を初期化
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+  </nav>
+  
+    
+      
+<nav class="md-tabs" aria-label="タブ" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../.." class="md-tabs__link">
+        
+  
+  
+    
+  
+  ホーム
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../" class="md-tabs__link">
+          
+  
+  
+    
+  
+  カテゴリ
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../articles/" class="md-tabs__link">
+          
+  
+  
+    
+  
+  記事
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../about/" class="md-tabs__link">
+          
+  
+  
+    
+  
+  ガイド
+
+        </a>
+      </li>
+    
+  
+
+      
+    </ul>
+  </div>
+</nav>
+    
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="ナビゲーション" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="z/OS 技術ナレッジベース" class="md-nav__button md-logo" aria-label="z/OS 技術ナレッジベース" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    z/OS 技術ナレッジベース
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    ホーム
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    カテゴリ
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    カテゴリ
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../articles/" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    記事
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    記事
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    ガイド
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    ガイド
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../about/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    このサイトについて
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../faq/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    FAQ
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../search/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    検索
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+  
+
+<nav class="md-nav md-nav--secondary" aria-label="このページの目次">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      このページの目次
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        収録項目
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="収録項目">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#active-active" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Active-Active 概要・計画
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#active-active-k-sys" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Active-Active 概要・計画 &gt; K-sys
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#active-active-r-sys" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Active-Active 概要・計画 &gt; R-sys
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#active-active-region-switch" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Active-Active 概要・計画 &gt; Region Switch
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ds8000-copy-services" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        DS8000 Copy Services
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ds8000-copy-services-metro-mirror-suspend" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        DS8000 Copy Services &gt; Metro Mirror suspend
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ds8000-copy-services-symmetrical-configuration" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        DS8000 Copy Services &gt; symmetrical configuration
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ds8000-global-mirror" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        DS8000 Global Mirror ベストプラクティス
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#gdps-family" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        GDPS Family 概要 / 機能
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#gdps-family-gdps-gm" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        GDPS Family 概要 / 機能 &gt; GDPS GM
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#gdps-family-gdps-mgm" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        GDPS Family 概要 / 機能 &gt; GDPS MGM
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#gdps-family-gdps-metro" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        GDPS Family 概要 / 機能 &gt; GDPS Metro
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#gdps-family-rpo" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        GDPS Family 概要 / 機能 &gt; RPO
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#gdps-family-rto" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        GDPS Family 概要 / 機能 &gt; RTO
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#gdps-family-controlling-system" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        GDPS Family 概要 / 機能 &gt; controlling system
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#metroglobal-mirror-incremental-resync" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Metro/Global Mirror Incremental Resync
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#zos-global-mirror" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        z/OS Global Mirror ベストプラクティス
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#control-script" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        スクリプト &gt; Control script
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#planned-actions" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        スクリプト &gt; Planned Actions
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#takeover-script" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        スクリプト &gt; Takeover script
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#post-swap-script" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        スクリプト &gt; post-swap script
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pprcfailurestop" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        凍結方針 &gt; PPRCFAILURE=STOP
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pprcfailurestoplast" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        凍結方針 &gt; PPRCFAILURE=STOPLAST
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#freeze-policy" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        凍結方針 &gt; freeze policy
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#geogroup" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        構成定義 &gt; GEOGROUP
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#geoparm" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        構成定義 &gt; GEOPARM
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#hyperswap" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        継続可用性 &gt; HyperSwap
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#hyperswap_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        継続可用性 &gt; 計画HyperSwap
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#hyperswap_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        継続可用性 &gt; 非計画HyperSwap
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#global-mirror" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        複製技術 &gt; Global Mirror
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#metro-mirror" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        複製技術 &gt; Metro Mirror
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pprc-link" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        複製技術 &gt; PPRC link
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#elb" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        障害対応 &gt; ELB
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#freeze" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        障害対応 &gt; Freeze
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#incremental-resynchronization" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        障害対応 &gt; Incremental Resynchronization
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#primaryfailure" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        障害対応 &gt; PRIMARYFAILURE
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#preferred-swap-leg" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        障害対応 &gt; Preferred Swap Leg
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#dual-leg-configuration" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        障害対応 &gt; dual-leg configuration
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#site-failure" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        障害対応 &gt; site failure
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        その他
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+                
+
+
+
+  
+
+
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<h1 id="gdps">GDPS 災害対策・サイトスイッチ<a class="headerlink" href="#gdps" title="Permanent link">&para;</a></h1>
+<div class="kb-cov">
+<p><strong>技術項目 1,101 件</strong>  ／  QA対応 1,069（97.09%・不足 32）  ／  手順対応 33（3.0%・不足 1,068）</p>
+</div>
+<p>このカテゴリでは技術項目 1,101 件を掲載し、確認問題 1,069 問・検証手順 33 件を項目ごとに紐づけています。対応率は技術項目に明示的に対応付けられた件数で算出しています（増補継続中）。</p>
+<blockquote>
+<p>最終更新: 2026-07-16</p>
+</blockquote>
+<h2 id="_1">収録項目<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h2>
+<h3 id="active-active">Active-Active 概要・計画<a class="headerlink" href="#active-active" title="Permanent link">&para;</a></h3>
+<ul>
+<li><a href="part-01/#c09-i0001">Active/Active site configuration options</a></li>
+<li><a href="part-01/#c09-i0002">Active/Active sites concept</a></li>
+<li><a href="part-01/#c09-i0003">Active/Standby or Active/Query Configuration</a></li>
+<li><a href="part-01/#c09-i0004">Application Middleware for IBM GDPS Active/Active</a></li>
+<li><a href="part-01/#c09-i0005">Application considerations</a></li>
+<li><a href="part-01/#c09-i0006">Architectural overview</a></li>
+<li><a href="part-01/#c09-i0007">Base Control Program internal interface (BCPii) considerations</a></li>
+<li><a href="part-01/#c09-i0008">Batch optimization</a></li>
+<li><a href="part-01/#c09-i0009">Batch workload</a></li>
+<li><a href="part-01/#c09-i0010">Benefits of using GDPS Active/Active</a></li>
+<li><a href="part-01/#c09-i0011">Both sites running workloads</a></li>
+<li><a href="part-01/#c09-i0012">Business decision</a></li>
+<li><a href="part-01/#c09-i0013">Challenges of the batch workload to GDPS Active/Active</a></li>
+<li><a href="part-01/#c09-i0014">Checklist</a></li>
+<li><a href="part-01/#c09-i0015">Components of GDPS Active/Active</a></li>
+<li><a href="part-01/#c09-i0016">Components of the monitoring architecture</a></li>
+<li><a href="part-01/#c09-i0017">Controllers windows and functions</a></li>
+<li><a href="part-01/#c09-i0018">Controlling and monitoring</a></li>
+<li><a href="part-01/#c09-i0019">Data replication overview using software</a></li>
+<li><a href="part-01/#c09-i0020">Decide on an Active/Standby or Active/Query configuration</a></li>
+<li><a href="part-01/#c09-i0021">Decision Point</a></li>
+<li><a href="part-01/#c09-i0022">Disaster recovery (DR) solution option</a></li>
+<li><a href="part-01/#c09-i0023">Evolution of GDPS Active/Active solution</a></li>
+<li><a href="part-01/#c09-i0024">Failure detection</a></li>
+<li><a href="part-01/#c09-i0025">GDPS Active/Active Workload</a></li>
+<li><a href="part-01/#c09-i0026">GDPS Active/Active co-operation with GDPS/PPRC</a></li>
+<li><a href="part-01/#c09-i0027">GDPS Active/Active integration with GDPS/MGM</a></li>
+<li><a href="part-01/#c09-i0028">GDPS Active/Active monitoring and alerting</a></li>
+<li><a href="part-01/#c09-i0029">GDPS Active/Active product</a></li>
+<li><a href="part-01/#c09-i0030">GDPS Active/Active site switch of workloads</a></li>
+<li><a href="part-01/#c09-i0031">GDPS Active/Active solution concepts</a></li>
+<li><a href="part-01/#c09-i0032">GDPS Offerings</a></li>
+<li><a href="part-01/#c09-i0033">GDPS Standard Actions</a></li>
+<li><a href="part-01/#c09-i0034">GDPS and data replication</a></li>
+<li><a href="part-01/#c09-i0035">GDPS environment</a></li>
+<li><a href="part-01/#c09-i0036">Graceful switch</a></li>
+<li><a href="part-01/#c09-i0037">Handling batch</a></li>
+<li><a href="part-01/#c09-i0038">Hardware prerequisites and corequisites</a></li>
+<li><a href="part-01/#c09-i0039">Hints and Tips</a></li>
+<li><a href="part-01/#c09-i0040">How do I contact IBM for GDPS services?</a></li>
+<li><a href="part-01/#c09-i0041">How does IIDR for DB2 work?</a></li>
+<li><a href="part-01/#c09-i0042">How does IIDR for IMS work?</a></li>
+<li><a href="part-01/#c09-i0043">How does IIDR for VSAM work?</a></li>
+<li><a href="part-01/#c09-i0044">IBM GDPS Active/Active Monitor processing during a workload or site failure</a></li>
+<li><a href="part-01/#c09-i0045">IBM GDPS Active/Active monitor processing</a></li>
+<li><a href="part-01/#c09-i0046">IBM GDPS Active/Active web interface</a></li>
+<li><a href="part-01/#c09-i0047">IBM GDPS Integration</a></li>
+<li><a href="part-01/#c09-i0048">IBM Global Technology Services and GDPS service offering</a></li>
+<li><a href="part-01/#c09-i0049">IBM InfoSphere Data Replication for DB2 in GDPS Active/Active</a></li>
+<li><a href="part-01/#c09-i0050">IBM InfoSphere Data Replication for IMS in GDPS/AA</a></li>
+<li><a href="part-01/#c09-i0051">IBM InfoSphere Data Replication for VSAM in GDPS/AA</a></li>
+<li><a href="part-01/#c09-i0052">IBM Installation Services for GDPS</a></li>
+<li><a href="part-01/#c09-i0053">IBM Multi-site Workload Lifeline for z/OS</a></li>
+<li><a href="part-01/#c09-i0054">IBM NetView Agent</a></li>
+<li><a href="part-01/#c09-i0055">IBM OMEGAMON XE Family</a></li>
+<li><a href="part-01/#c09-i0056">IBM Redbooks</a></li>
+<li><a href="part-01/#c09-i0057">IBM Redbooks promotions</a></li>
+<li><a href="part-01/#c09-i0058">IBM Tivoli Monitoring</a></li>
+<li><a href="part-01/#c09-i0059">IBM Tivoli Monitoring and IBM Tivoli NetView for z/OS</a></li>
+<li><a href="part-01/#c09-i0060">IBM Tivoli Monitoring components</a></li>
+<li><a href="part-01/#c09-i0061">IBM Tivoli Monitoring operational considerations</a></li>
+<li><a href="part-01/#c09-i0062">IBM Tivoli NetView for z/OS</a></li>
+<li><a href="part-01/#c09-i0063">IBM Tivoli NetView for z/OS and IBM Tivoli NetView Monitoring for GDPS</a></li>
+<li><a href="part-01/#c09-i0064">IBM Tivoli System Automation for z/OS</a></li>
+<li><a href="part-01/#c09-i0065">IIDR for DB2 and GDPS Active/Active</a></li>
+<li><a href="part-01/#c09-i0066">IIDR for DB2 architectural overview</a></li>
+<li><a href="part-01/#c09-i0067">IIDR for IMS Architectural Overview</a></li>
+<li><a href="part-01/#c09-i0068">IIDR for IMS and GDPS/AA</a></li>
+<li><a href="part-01/#c09-i0069">IIDR for VSAM and GDPS/AA</a></li>
+<li><a href="part-01/#c09-i0070">IIDR for VSAM architectural overview</a></li>
+<li><a href="part-01/#c09-i0071">Identify GDPS Active/Active workloads</a></li>
+<li><a href="part-01/#c09-i0072">Identify the workload</a></li>
+<li><a href="part-01/#c09-i0073">Installation</a></li>
+<li><a href="part-01/#c09-i0074">Integrate with current disaster recovery plan</a></li>
+<li><a href="part-01/#c09-i0075">Interaction with other components within GDPS Active/Active</a></li>
+<li><a href="part-01/#c09-i0076">Introduction</a></li>
+<li><a href="part-01/#c09-i0077">Isolation from catastrophic failures</a></li>
+<li><a href="part-01/#c09-i0078">Key concepts</a></li>
+<li><a href="part-01/#c09-i0079">Launching Tivoli Enterprise Portal from the GDPS web interface</a></li>
+<li><a href="part-01/#c09-i0080">Lifeline Advisor</a></li>
+<li><a href="part-01/#c09-i0081">Lifeline Agent</a></li>
+<li><a href="part-01/#c09-i0082">Lifeline communication route</a></li>
+<li><a href="part-01/#c09-i0083">Lifeline in graceful switch</a></li>
+<li><a href="part-01/#c09-i0084">Lifeline recommendation on workload distribution</a></li>
+<li><a href="part-01/#c09-i0085">Middleware</a></li>
+<li><a href="part-01/#c09-i0086">Minimizing latency (and RPO) and improving replication performance by using parallel apply</a></li>
+<li><a href="part-01/#c09-i0087">Multi-Site Workload Lifeline for z/OS</a></li>
+<li><a href="part-01/#c09-i0088">Multi-site Workload Lifeline Components</a></li>
+<li><a href="part-01/#c09-i0089">NetView Web Application requirements</a></li>
+<li><a href="part-01/#c09-i0090">Network Connectivity and bandwidth considerations</a></li>
+<li><a href="part-01/#c09-i0091">Online resources</a></li>
+<li><a href="part-01/#c09-i0092">Online workload consideration</a></li>
+<li><a href="part-01/#c09-i0093">Other considerations</a></li>
+<li><a href="part-01/#c09-i0094">Other publications</a></li>
+<li><a href="part-01/#c09-i0095">Other web interface options</a></li>
+<li><a href="part-01/#c09-i0096">Overview</a></li>
+<li><a href="part-01/#c09-i0097">Overview of IBM Tivoli Monitoring</a></li>
+<li><a href="part-01/#c09-i0098">Plan GDPS Active/Active use cases</a></li>
+<li><a href="part-01/#c09-i0099">Plan software data replication</a></li>
+<li><a href="part-01/#c09-i0100">Plan the monitoring</a></li>
+<li><a href="part-01/#c09-i0101">Plan the workload distribution</a></li>
+<li><a href="part-01/#c09-i0102">Planned Actions windows and functions</a></li>
+<li><a href="part-01/#c09-i0103">Planning considerations</a></li>
+<li><a href="part-01/#c09-i0104">Preparation</a></li>
+<li><a href="part-01/#c09-i0105">Prerequisite software for controlling and monitoring</a></li>
+<li><a href="part-01/#c09-i0106">Prerequisites for each component</a></li>
+<li><a href="part-01/#c09-i0107">Production</a></li>
+<li><a href="part-01/#c09-i0108">Reduce planned and unplanned outages for critical applications</a></li>
+<li><a href="part-01/#c09-i0109">Server/Application State Protocol (SASP)-compliant routing</a></li>
+<li><a href="part-01/#c09-i0110">Single consistency groups or multiple?</a></li>
+<li><a href="part-01/#c09-i0111">Sites windows and functions</a></li>
+<li><a href="part-01/#c09-i0112">Software data replication</a></li>
+<li><a href="part-01/#c09-i0113">Software data replication products</a></li>
+<li><a href="part-01/#c09-i0114">Software prerequisites and corequisites</a></li>
+<li><a href="part-01/#c09-i0115">Software replication considerations</a></li>
+<li><a href="part-01/#c09-i0116">Solution</a></li>
+<li><a href="part-01/#c09-i0117">Storage-based replication considerations</a></li>
+<li><a href="part-01/#c09-i0118">Study the outage</a></li>
+<li><a href="part-01/#c09-i0119">Sysplex configuration</a></li>
+<li><a href="part-01/#c09-i0120">Technical Consulting Workshop</a></li>
+<li><a href="part-01/#c09-i0121">Testing</a></li>
+<li><a href="part-01/#c09-i0122">Tivoli OMEGAMON XE on z/OS</a></li>
+<li><a href="part-01/#c09-i0123">Tuning</a></li>
+<li><a href="part-01/#c09-i0124">What are GDPS service offerings and how do they address business requirements?</a></li>
+<li><a href="part-01/#c09-i0125">What is IBM Global Technology Services?</a></li>
+<li><a href="part-01/#c09-i0126">Workload Management windows and functions</a></li>
+<li><a href="part-01/#c09-i0127">Workload distribution</a></li>
+<li><a href="part-01/#c09-i0128">Workload distribution and balancing</a></li>
+</ul>
+<h3 id="active-active-k-sys">Active-Active 概要・計画 &gt; K-sys<a class="headerlink" href="#active-active-k-sys" title="Permanent link">&para;</a></h3>
+<ul>
+<li><a href="part-01/#c09-i0129">K-sys</a></li>
+</ul>
+<h3 id="active-active-r-sys">Active-Active 概要・計画 &gt; R-sys<a class="headerlink" href="#active-active-r-sys" title="Permanent link">&para;</a></h3>
+<ul>
+<li><a href="part-01/#c09-i0130">R-sys</a></li>
+</ul>
+<h3 id="active-active-region-switch">Active-Active 概要・計画 &gt; Region Switch<a class="headerlink" href="#active-active-region-switch" title="Permanent link">&para;</a></h3>
+<ul>
+<li><a href="part-01/#c09-i0131">Region Switch</a></li>
+</ul>
+<h3 id="ds8000-copy-services">DS8000 Copy Services<a class="headerlink" href="#ds8000-copy-services" title="Permanent link">&para;</a></h3>
+<ul>
+<li><a href="part-01/#c09-i0132">4-site and 6-site Metro/Global Mirror with Incremental Resynchronization</a></li>
+<li><a href="part-01/#c09-i0133">A 4-site scenario with Metro/Global Mirror and Global Copy</a></li>
+<li><a href="part-01/#c09-i0134">Abbreviations and acronyms</a></li>
+<li><a href="part-01/#c09-i0135">Adding and removing a subordinate storage system</a></li>
+<li><a href="part-01/#c09-i0136">Adding and removing an LSS to an existing Global Mirror environment</a></li>
+<li><a href="part-01/#c09-i0137">Adding and removing volumes to the Global Mirror environment</a></li>
+<li><a href="part-01/#c09-i0138">Adding copy sets (volumes) into the MT-PPRC session</a></li>
+<li><a href="part-01/#c09-i0139">Adding or removing storage systems or LSSs</a></li>
+<li><a href="part-01/#c09-i0140">Adding or removing volume pairs to or from a Global Mirror session</a></li>
+<li><a href="part-01/#c09-i0141">Ansible Collection for IBM Copy Services Manager</a></li>
+<li><a href="part-01/#c09-i0142">Application I/O and Global Mirror</a></li>
+<li><a href="part-01/#c09-i0143">Asynchronous replication technique</a></li>
+<li><a href="part-01/#c09-i0144">Automation and management</a></li>
+<li><a href="part-01/#c09-i0145">Autonomic behavior</a></li>
+<li><a href="part-01/#c09-i0146">Background copy performance</a></li>
+<li><a href="part-01/#c09-i0147">Bandwidth considerations</a></li>
+<li><a href="part-01/#c09-i0148">Basic Metro Mirror and Global Copy operation</a></li>
+<li><a href="part-01/#c09-i0149">Basic concepts</a></li>
+<li><a href="part-01/#c09-i0150">Benefits</a></li>
+<li><a href="part-01/#c09-i0151">Benefits of using the concurrent copy function</a></li>
+<li><a href="part-01/#c09-i0152">Best practices for setting up Metro/Global Mirror</a></li>
+<li><a href="part-01/#c09-i0153">Business-continuity functions</a></li>
+<li><a href="part-01/#c09-i0154">Cache-based concurrent copy on the DS8000</a></li>
+<li><a href="part-01/#c09-i0155">Cache-based concurrent copy sizing and requirements</a></li>
+<li><a href="part-01/#c09-i0156">Cascaded FlashCopy</a></li>
+<li><a href="part-01/#c09-i0157">Cascaded FlashCopy usage and examples</a></li>
+<li><a href="part-01/#c09-i0158">Cascaded MGM and MT-PPRC MGM</a></li>
+<li><a href="part-01/#c09-i0159">Cascaded Metro Mirror and Global Mirror</a></li>
+<li><a href="part-01/#c09-i0160">Cascaded Metro/Global Mirror topology</a></li>
+<li><a href="part-01/#c09-i0161">Cascaded PPRC after Multi-Target Peer-to-Peer Remote Copy failover</a></li>
+<li><a href="part-01/#c09-i0162">Cascading FlashCopy</a></li>
+<li><a href="part-01/#c09-i0163">Cascading FlashCopy and Fast Reverse Restore</a></li>
+<li><a href="part-01/#c09-i0164">Cascading FlashCopy concept and design</a></li>
+<li><a href="part-01/#c09-i0165">Cascading IBM FlashCopy</a></li>
+<li><a href="part-01/#c09-i0166">Cascading dataset level FlashCopy</a></li>
+<li><a href="part-01/#c09-i0167">Changing the Global Mirror tuning parameters</a></li>
+<li><a href="part-01/#c09-i0168">Changing the copy mode from Global Copy to Metro Mirror</a></li>
+<li><a href="part-01/#c09-i0169">Changing the copy mode from Metro Mirror to Global Copy</a></li>
+<li><a href="part-01/#c09-i0170">Channel extender</a></li>
+<li><a href="part-01/#c09-i0171">Checking consistency at H3 volumes at site 3</a></li>
+<li><a href="part-01/#c09-i0172">Cleaning up the remaining components at H2</a></li>
+<li><a href="part-01/#c09-i0173">Comparing Metro Mirror and Global Mirror</a></li>
+<li><a href="part-01/#c09-i0174">Concurrent copy function characteristics and usage</a></li>
+<li><a href="part-01/#c09-i0175">Concurrent copy function terminology</a></li>
+<li><a href="part-01/#c09-i0176">Concurrent copy operation</a></li>
+<li><a href="part-01/#c09-i0177">Connectivity: Ports, paths, and links</a></li>
+<li><a href="part-01/#c09-i0178">Considerations</a></li>
+<li><a href="part-01/#c09-i0179">Considerations for FlashCopy onto Global Mirror</a></li>
+<li><a href="part-01/#c09-i0180">Consistency group formation</a></li>
+<li><a href="part-01/#c09-i0181">Consistency group function</a></li>
+<li><a href="part-01/#c09-i0182">Consistency group function: How it works</a></li>
+<li><a href="part-01/#c09-i0183">Consistency group parameters</a></li>
+<li><a href="part-01/#c09-i0184">Consistent FlashCopy (FlashCopy consistency group)</a></li>
+<li><a href="part-01/#c09-i0185">Converting Global Mirror to Metro/Global Mirror</a></li>
+<li><a href="part-01/#c09-i0186">Copy Services Manager</a></li>
+<li><a href="part-01/#c09-i0187">Copy Services Manager 6.3 advantages for multi-site replication and migration</a></li>
+<li><a href="part-01/#c09-i0188">Copy Services Manager CLI</a></li>
+<li><a href="part-01/#c09-i0189">Copy Services Manager GUI</a></li>
+<li><a href="part-01/#c09-i0190">Copy Services Manager Python Client</a></li>
+<li><a href="part-01/#c09-i0191">Copy Services Manager interfaces</a></li>
+<li><a href="part-01/#c09-i0192">Copy Services Manager overview</a></li>
+<li><a href="part-01/#c09-i0193">Copy Services Manager reliability, availability, and serviceability</a></li>
+<li><a href="part-01/#c09-i0194">Copy Services Manager terminology</a></li>
+<li><a href="part-01/#c09-i0195">Copy Services capacity examples</a></li>
+<li><a href="part-01/#c09-i0196">Copy Services license functions and guidelines</a></li>
+<li><a href="part-01/#c09-i0197">Copy Services license rules</a></li>
+<li><a href="part-01/#c09-i0198">Copy option</a></li>
+<li><a href="part-01/#c09-i0199">Copy set</a></li>
+<li><a href="part-01/#c09-i0200">Creating FlashCopy H3:J3</a></li>
+<li><a href="part-01/#c09-i0201">Creating FlashCopy relationships: H2 to J2 volumes</a></li>
+<li><a href="part-01/#c09-i0202">Creating Global Copy from H2 to H3</a></li>
+<li><a href="part-01/#c09-i0203">Creating Global Copy relationships: H1 to H2 volumes</a></li>
+<li><a href="part-01/#c09-i0204">Creating H1-H2 Metro Mirror pairs</a></li>
+<li><a href="part-01/#c09-i0205">Creating H1-H3 Global Copy pairs</a></li>
+<li><a href="part-01/#c09-i0206">Creating H1:H2’ Metro Mirror pairs</a></li>
+<li><a href="part-01/#c09-i0207">Creating Metro Mirror with Incremental Resynchronization at H1</a></li>
+<li><a href="part-01/#c09-i0208">Creating a FlashCopy for backup purposes without a volume copy</a></li>
+<li><a href="part-01/#c09-i0209">Creating a Global Copy consistent copy</a></li>
+<li><a href="part-01/#c09-i0210">Creating a Metro Mirror and Global Mirror topology</a></li>
+<li><a href="part-01/#c09-i0211">Creating a Metro/Global Mirror session</a></li>
+<li><a href="part-01/#c09-i0212">Creating a Multi-Target Global Mirror plus Global Mirror topology</a></li>
+<li><a href="part-01/#c09-i0213">Creating a backup</a></li>
+<li><a href="part-01/#c09-i0214">Creating a test system or integration system</a></li>
+<li><a href="part-01/#c09-i0215">Creating a two Metro Mirror topology</a></li>
+<li><a href="part-01/#c09-i0216">Creating and starting the Global Mirror session</a></li>
+<li><a href="part-01/#c09-i0217">Creating consistent data on H2 volumes</a></li>
+<li><a href="part-01/#c09-i0218">Creating paths from H1 to H2 if they do not exist</a></li>
+<li><a href="part-01/#c09-i0219">Creating paths from H2 to H1</a></li>
+<li><a href="part-01/#c09-i0220">Critical attribute (IBM Z only)</a></li>
+<li><a href="part-01/#c09-i0221">DFSMSdss copy commands with fast replication</a></li>
+<li><a href="part-01/#c09-i0222">DFSMSdss dataset for FlashCopy</a></li>
+<li><a href="part-01/#c09-i0223">DFSMSdss full volume FlashCopy</a></li>
+<li><a href="part-01/#c09-i0224">DFSMShsm fast replication</a></li>
+<li><a href="part-01/#c09-i0225">DS CLI Copy Services command structure</a></li>
+<li><a href="part-01/#c09-i0226">DS CLI command modes</a></li>
+<li><a href="part-01/#c09-i0227">DS CLI profile</a></li>
+<li><a href="part-01/#c09-i0228">DS Command-line Interface</a></li>
+<li><a href="part-01/#c09-i0229">DS8000 connectivity</a></li>
+<li><a href="part-01/#c09-i0230">DS8000 specific information</a></li>
+<li><a href="part-01/#c09-i0231">Data consistency and dependent writes</a></li>
+<li><a href="part-01/#c09-i0232">Data migration with double cascading</a></li>
+<li><a href="part-01/#c09-i0233">Defining and querying a Metro Mirror path</a></li>
+<li><a href="part-01/#c09-i0234">Defining and starting Global Mirror</a></li>
+<li><a href="part-01/#c09-i0235">Delayed creation of MTIR pairs</a></li>
+<li><a href="part-01/#c09-i0236">Dense wavelength division multiplexing</a></li>
+<li><a href="part-01/#c09-i0237">Design limitations</a></li>
+<li><a href="part-01/#c09-i0238">Disaster recovery test at the intermediate H2 site</a></li>
+<li><a href="part-01/#c09-i0239">Disaster recovery test at the remote H3 site</a></li>
+<li><a href="part-01/#c09-i0240">Displaying the Fibre Channel Connection Information Table</a></li>
+<li><a href="part-01/#c09-i0241">Distance considerations</a></li>
+<li><a href="part-01/#c09-i0242">Distribution of the workload: Location of source and target volumes</a></li>
+<li><a href="part-01/#c09-i0243">Effects of a failover on a path state</a></li>
+<li><a href="part-01/#c09-i0244">Effects of a freeze on a path state</a></li>
+<li><a href="part-01/#c09-i0245">Ending Global Mirror processing</a></li>
+<li><a href="part-01/#c09-i0246">Establishing Global Copy from H3 to H2</a></li>
+<li><a href="part-01/#c09-i0247">Establishing H1-H3 pairs</a></li>
+<li><a href="part-01/#c09-i0248">Establishing PPRC paths</a></li>
+<li><a href="part-01/#c09-i0249">Establishing Remote Pair FlashCopy</a></li>
+<li><a href="part-01/#c09-i0250">Establishing a Global Mirror environment by using the DS CLI</a></li>
+<li><a href="part-01/#c09-i0251">Establishing a PPRC pair</a></li>
+<li><a href="part-01/#c09-i0252">Establishing a remote FlashCopy</a></li>
+<li><a href="part-01/#c09-i0253">Establishing logical PPRC paths</a></li>
+<li><a href="part-01/#c09-i0254">Establishing the FlashCopy relationship</a></li>
+<li><a href="part-01/#c09-i0255">Establishing the PPRC paths</a></li>
+<li><a href="part-01/#c09-i0256">Examples of concurrent copy invocation</a></li>
+<li><a href="part-01/#c09-i0257">Failing back Global Copy from the H3 to H2</a></li>
+<li><a href="part-01/#c09-i0258">Failing back Metro Mirror from H1 to H2</a></li>
+<li><a href="part-01/#c09-i0259">Failing back Metro Mirror from H2 to H1</a></li>
+<li><a href="part-01/#c09-i0260">Failing over Metro Mirror to H2</a></li>
+<li><a href="part-01/#c09-i0261">Failing over to H1</a></li>
+<li><a href="part-01/#c09-i0262">Failover or failback scenario</a></li>
+<li><a href="part-01/#c09-i0263">Failure at remote H3 site</a></li>
+<li><a href="part-01/#c09-i0264">Failure at the intermediate H2 site</a></li>
+<li><a href="part-01/#c09-i0265">Failure at the local H1 site</a></li>
+<li><a href="part-01/#c09-i0266">Fast Reverse Restore</a></li>
+<li><a href="part-01/#c09-i0267">Features of Remote Pair FlashCopy</a></li>
+<li><a href="part-01/#c09-i0268">Fibre Channel physical links and I/O port considerations</a></li>
+<li><a href="part-01/#c09-i0269">Fibre Channel switches (FICON switches)</a></li>
+<li><a href="part-01/#c09-i0270">FlashCopy</a></li>
+<li><a href="part-01/#c09-i0271">FlashCopy Withdraw interface differences</a></li>
+<li><a href="part-01/#c09-i0272">FlashCopy and Global Mirror</a></li>
+<li><a href="part-01/#c09-i0273">FlashCopy before the cascading capability</a></li>
+<li><a href="part-01/#c09-i0274">FlashCopy command interface reference</a></li>
+<li><a href="part-01/#c09-i0275">FlashCopy considerations for Metro/Global Mirror and MT-PPRC</a></li>
+<li><a href="part-01/#c09-i0276">FlashCopy control with the interfaces</a></li>
+<li><a href="part-01/#c09-i0277">FlashCopy establish performance</a></li>
+<li><a href="part-01/#c09-i0278">FlashCopy for z/OS datasets</a></li>
+<li><a href="part-01/#c09-i0279">FlashCopy full copy</a></li>
+<li><a href="part-01/#c09-i0280">FlashCopy impact on applications</a></li>
+<li><a href="part-01/#c09-i0281">FlashCopy in z/OS by using DFSMSdss</a></li>
+<li><a href="part-01/#c09-i0282">FlashCopy management interfaces: Overview</a></li>
+<li><a href="part-01/#c09-i0283">FlashCopy nocopy</a></li>
+<li><a href="part-01/#c09-i0284">FlashCopy operational environments</a></li>
+<li><a href="part-01/#c09-i0285">FlashCopy performance overview</a></li>
+<li><a href="part-01/#c09-i0286">FlashCopy scenarios</a></li>
+<li><a href="part-01/#c09-i0287">FlashCopy with Metro Mirror and Global Copy</a></li>
+<li><a href="part-01/#c09-i0288">FlashCopy with other Copy Services</a></li>
+<li><a href="part-01/#c09-i0289">Forcing FlashCopy Withdraw</a></li>
+<li><a href="part-01/#c09-i0290">Free Journal Space</a></li>
+<li><a href="part-01/#c09-i0291">Freeze</a></li>
+<li><a href="part-01/#c09-i0292">Full volume FlashCopy</a></li>
+<li><a href="part-01/#c09-i0293">Functional description</a></li>
+<li><a href="part-01/#c09-i0294">GDPS 3-site solution overview</a></li>
+<li><a href="part-01/#c09-i0295">GDPS 4-site solution overview</a></li>
+<li><a href="part-01/#c09-i0296">GDPS 6-site solution overview</a></li>
+<li><a href="part-01/#c09-i0297">GDPS Global - GM overview</a></li>
+<li><a href="part-01/#c09-i0298">GDPS Logical Corruption Protection Manager</a></li>
+<li><a href="part-01/#c09-i0299">GDPS Metro and Metro HyperSwap</a></li>
+<li><a href="part-01/#c09-i0300">GDPS Metro overview</a></li>
+<li><a href="part-01/#c09-i0301">GDPS Virtual Appliance overview</a></li>
+<li><a href="part-01/#c09-i0302">GDPS offerings</a></li>
+<li><a href="part-01/#c09-i0303">GM general recovery scenario</a></li>
+<li><a href="part-01/#c09-i0304">General considerations</a></li>
+<li><a href="part-01/#c09-i0305">General considerations for storage failover</a></li>
+<li><a href="part-01/#c09-i0306">Global Copy</a></li>
+<li><a href="part-01/#c09-i0307">Global Copy bandwidth considerations</a></li>
+<li><a href="part-01/#c09-i0308">Global Copy overview</a></li>
+<li><a href="part-01/#c09-i0309">Global Copy plus Global Mirror</a></li>
+<li><a href="part-01/#c09-i0310">Global Copy point-in-time backup solution considerations</a></li>
+<li><a href="part-01/#c09-i0311">Global Copy positioning</a></li>
+<li><a href="part-01/#c09-i0312">Global Mirror</a></li>
+<li><a href="part-01/#c09-i0313">Global Mirror Bandwidth Accelerator</a></li>
+<li><a href="part-01/#c09-i0314">Global Mirror basic concepts</a></li>
+<li><a href="part-01/#c09-i0315">Global Mirror command reference</a></li>
+<li><a href="part-01/#c09-i0316">Global Mirror configuration and multiple FlashCopy targets</a></li>
+<li><a href="part-01/#c09-i0317">Global Mirror consistency group processing</a></li>
+<li><a href="part-01/#c09-i0318">Global Mirror environment topology changes</a></li>
+<li><a href="part-01/#c09-i0319">Global Mirror interface overview</a></li>
+<li><a href="part-01/#c09-i0320">Global Mirror interfaces and examples</a></li>
+<li><a href="part-01/#c09-i0321">Global Mirror master subordinate relationship</a></li>
+<li><a href="part-01/#c09-i0322">Global Mirror operations and recovery</a></li>
+<li><a href="part-01/#c09-i0323">Global Mirror overview</a></li>
+<li><a href="part-01/#c09-i0324">Global Mirror recovery</a></li>
+<li><a href="part-01/#c09-i0325">Global Mirror with multiple storage systems</a></li>
+<li><a href="part-01/#c09-i0326">H1 recovered</a></li>
+<li><a href="part-01/#c09-i0327">H1 recovery and returning to original topology</a></li>
+<li><a href="part-01/#c09-i0328">Hardware requirements</a></li>
+<li><a href="part-01/#c09-i0329">Host connectivity at primary and secondary sites</a></li>
+<li><a href="part-01/#c09-i0330">IBM Copy Services Manager</a></li>
+<li><a href="part-01/#c09-i0331">IBM Copy Services interfaces overview</a></li>
+<li><a href="part-01/#c09-i0332">IBM FlashCopy</a></li>
+<li><a href="part-01/#c09-i0333">IBM FlashCopy examples</a></li>
+<li><a href="part-01/#c09-i0334">IBM FlashCopy interfaces</a></li>
+<li><a href="part-01/#c09-i0335">IBM FlashCopy options</a></li>
+<li><a href="part-01/#c09-i0336">IBM FlashCopy overview</a></li>
+<li><a href="part-01/#c09-i0337">IBM FlashCopy performance</a></li>
+<li><a href="part-01/#c09-i0338">IBM FlashCopy usage with IBM z/OS products</a></li>
+<li><a href="part-01/#c09-i0339">IBM Geographically Dispersed Parallel Sysplex</a></li>
+<li><a href="part-01/#c09-i0340">IBM Redbooks</a></li>
+<li><a href="part-01/#c09-i0341">IBM Z command alternatives</a></li>
+<li><a href="part-01/#c09-i0342">IBM Z interfaces</a></li>
+<li><a href="part-01/#c09-i0343">IBM z/OS HyperSwap</a></li>
+<li><a href="part-01/#c09-i0344">IBM z/OS concurrent copy function</a></li>
+<li><a href="part-01/#c09-i0345">ICKDSF commands for z/OS, z/VM, and VSEn</a></li>
+<li><a href="part-01/#c09-i0346">ICKDSF query command for FlashCopy</a></li>
+<li><a href="part-01/#c09-i0347">Implementing a MT Global Mirror and GM topology</a></li>
+<li><a href="part-01/#c09-i0348">Implementing a Metro Mirror and Global Mirror topology</a></li>
+<li><a href="part-01/#c09-i0349">Implementing a Metro/Global Mirror and Metro Mirror topology</a></li>
+<li><a href="part-01/#c09-i0350">Implementing a two Metro Mirror topology</a></li>
+<li><a href="part-01/#c09-i0351">Incremental FlashCopy</a></li>
+<li><a href="part-01/#c09-i0352">Incremental FlashCopy for backup purposes</a></li>
+<li><a href="part-01/#c09-i0353">Incremental Resynchronization recovery scenarios</a></li>
+<li><a href="part-01/#c09-i0354">Initial configuration</a></li>
+<li><a href="part-01/#c09-i0355">Initial synchronization</a></li>
+<li><a href="part-01/#c09-i0356">Installing a new DS8000 at H1’</a></li>
+<li><a href="part-01/#c09-i0357">Installing a new DS8000 at H2’</a></li>
+<li><a href="part-01/#c09-i0358">Interfaces</a></li>
+<li><a href="part-01/#c09-i0359">Interoperability</a></li>
+<li><a href="part-01/#c09-i0360">Introduction</a></li>
+<li><a href="part-01/#c09-i0361">LSS and consistency group considerations</a></li>
+<li><a href="part-01/#c09-i0362">License</a></li>
+<li><a href="part-01/#c09-i0363">License scope</a></li>
+<li><a href="part-01/#c09-i0364">Licensed functions</a></li>
+<li><a href="part-01/#c09-i0365">Licensing</a></li>
+<li><a href="part-01/#c09-i0366">Licensing requirements and restrictions</a></li>
+<li><a href="part-01/#c09-i0367">Location</a></li>
+<li><a href="part-01/#c09-i0368">Logical corruption protection functions</a></li>
+<li><a href="part-01/#c09-i0369">Logical paths</a></li>
+<li><a href="part-01/#c09-i0370">Logical subsystem and logical control unit versus rank: Considerations</a></li>
+<li><a href="part-01/#c09-i0371">MT-PPRC with cascaded MGM</a></li>
+<li><a href="part-01/#c09-i0372">MTIR change recording</a></li>
+<li><a href="part-01/#c09-i0373">MTIR enhancements in DS8000 10.1</a></li>
+<li><a href="part-01/#c09-i0374">Maintaining multiple FlashCopy relationships</a></li>
+<li><a href="part-01/#c09-i0375">Management interfaces with Copy Services functions</a></li>
+<li><a href="part-01/#c09-i0376">Managing data migration with Global Copy</a></li>
+<li><a href="part-01/#c09-i0377">Managing the Global Mirror environment with the DS CLI</a></li>
+<li><a href="part-01/#c09-i0378">Managing the load</a></li>
+<li><a href="part-01/#c09-i0379">Managing the usage of Copy Services licensed functions</a></li>
+<li><a href="part-01/#c09-i0380">Method 1: Using IBM Copy Services Manager</a></li>
+<li><a href="part-01/#c09-i0381">Method 2: Using DS CLI commands</a></li>
+<li><a href="part-01/#c09-i0382">Metro Mirror</a></li>
+<li><a href="part-01/#c09-i0383">Metro Mirror and Global Copy</a></li>
+<li><a href="part-01/#c09-i0384">Metro Mirror and Global Copy DS CLI examples</a></li>
+<li><a href="part-01/#c09-i0385">Metro Mirror and Global Copy ICKDSF examples</a></li>
+<li><a href="part-01/#c09-i0386">Metro Mirror and Global Copy TSO examples</a></li>
+<li><a href="part-01/#c09-i0387">Metro Mirror and Global Copy command reference</a></li>
+<li><a href="part-02/#c09-i0388">Metro Mirror and Global Copy implementation considerations</a></li>
+<li><a href="part-02/#c09-i0389">Metro Mirror and Global Copy interfaces and examples</a></li>
+<li><a href="part-02/#c09-i0390">Metro Mirror and Global Copy interfaces overview</a></li>
+<li><a href="part-02/#c09-i0391">Metro Mirror and Global Copy operations</a></li>
+<li><a href="part-02/#c09-i0392">Metro Mirror and Global Copy pair states</a></li>
+<li><a href="part-02/#c09-i0393">Metro Mirror and Global Copy paths</a></li>
+<li><a href="part-02/#c09-i0394">Metro Mirror and Global Mirror</a></li>
+<li><a href="part-02/#c09-i0395">Metro Mirror bandwidth considerations</a></li>
+<li><a href="part-02/#c09-i0396">Metro Mirror data consistency</a></li>
+<li><a href="part-02/#c09-i0397">Metro Mirror distance considerations</a></li>
+<li><a href="part-02/#c09-i0398">Metro Mirror freezepprc and unfreezepprc commands</a></li>
+<li><a href="part-02/#c09-i0399">Metro Mirror overview</a></li>
+<li><a href="part-02/#c09-i0400">Metro Mirror positioning</a></li>
+<li><a href="part-02/#c09-i0401">Metro/Global Mirror Incremental Resynchronization</a></li>
+<li><a href="part-02/#c09-i0402">Metro/Global Mirror configuration</a></li>
+<li><a href="part-02/#c09-i0403">Metro/Global Mirror configuration and setup</a></li>
+<li><a href="part-02/#c09-i0404">Metro/Global Mirror design objectives</a></li>
+<li><a href="part-02/#c09-i0405">Metro/Global Mirror disaster recovery test scenarios</a></li>
+<li><a href="part-02/#c09-i0406">Metro/Global Mirror operations</a></li>
+<li><a href="part-02/#c09-i0407">Metro/Global Mirror overview</a></li>
+<li><a href="part-02/#c09-i0408">Metro/Global Mirror plus Metro Mirror</a></li>
+<li><a href="part-02/#c09-i0409">Metro/Global Mirror processes</a></li>
+<li><a href="part-02/#c09-i0410">Metro/Global Mirror recovery scenarios</a></li>
+<li><a href="part-02/#c09-i0411">Metro/Global Mirror session operational functions</a></li>
+<li><a href="part-02/#c09-i0412">Metro/Global Mirror with bidirectional Global Mirror leg</a></li>
+<li><a href="part-02/#c09-i0413">Metro/Global Mirror with multiple storage systems</a></li>
+<li><a href="part-02/#c09-i0414">Migrating from Metro Mirror to Metro/Global Mirror</a></li>
+<li><a href="part-02/#c09-i0415">Modifying Global Mirror session parameters</a></li>
+<li><a href="part-02/#c09-i0416">Modifying a Global Mirror session</a></li>
+<li><a href="part-02/#c09-i0417">Monitoring for H1:H1’ FULL DUPLEX</a></li>
+<li><a href="part-02/#c09-i0418">Monitoring for H1:H2’ FULL DUPLEX</a></li>
+<li><a href="part-02/#c09-i0419">Monitoring out-of-sync tracks for H1’:H2 and H2:H1’</a></li>
+<li><a href="part-02/#c09-i0420">Moving host systems to H1</a></li>
+<li><a href="part-02/#c09-i0421">Moving production back to H1’</a></li>
+<li><a href="part-02/#c09-i0422">Moving production to H1’</a></li>
+<li><a href="part-02/#c09-i0423">Moving production to H2</a></li>
+<li><a href="part-02/#c09-i0424">Multi-Target Incremental Resynchronization</a></li>
+<li><a href="part-02/#c09-i0425">Multi-Target Incremental Resynchronization pairs</a></li>
+<li><a href="part-02/#c09-i0426">Multi-Target Peer-to-Peer Remote Copy</a></li>
+<li><a href="part-02/#c09-i0427">Multi-Target Peer-to-Peer Remote Copy architecture and design</a></li>
+<li><a href="part-02/#c09-i0428">Multi-Target Peer-to-Peer Remote Copy overview</a></li>
+<li><a href="part-02/#c09-i0429">Multi-Target Peer-to-Peer Remote Copy pairs</a></li>
+<li><a href="part-02/#c09-i0430">Multi-Target Peer-to-Peer Remote Copy topologies</a></li>
+<li><a href="part-02/#c09-i0431">Multi-site replication scenario examples</a></li>
+<li><a href="part-02/#c09-i0432">Multiple FlashCopy relationships in a more complex configuration</a></li>
+<li><a href="part-02/#c09-i0433">Multiple Global Mirror sessions</a></li>
+<li><a href="part-02/#c09-i0434">Multiple setups of a test system with the same contents</a></li>
+<li><a href="part-02/#c09-i0435">Multisite configurations</a></li>
+<li><a href="part-02/#c09-i0436">Multisite host connectivity</a></li>
+<li><a href="part-02/#c09-i0437">Native VSE commands for FlashCopy</a></li>
+<li><a href="part-02/#c09-i0438">Native z/TPF commands</a></li>
+<li><a href="part-02/#c09-i0439">Native z/VM commands for FlashCopy</a></li>
+<li><a href="part-02/#c09-i0440">Nocopy option</a></li>
+<li><a href="part-02/#c09-i0441">One-time test system</a></li>
+<li><a href="part-02/#c09-i0442">Online resources</a></li>
+<li><a href="part-02/#c09-i0443">Operating system interfaces summary tables</a></li>
+<li><a href="part-02/#c09-i0444">Options for DS CLI</a></li>
+<li><a href="part-02/#c09-i0445">Out-of-space conditions</a></li>
+<li><a href="part-02/#c09-i0446">Outage at H1</a></li>
+<li><a href="part-02/#c09-i0447">Outage at H2</a></li>
+<li><a href="part-02/#c09-i0448">Outage at H2 or H3</a></li>
+<li><a href="part-02/#c09-i0449">Outage at H3</a></li>
+<li><a href="part-02/#c09-i0450">Outage at the H1 site</a></li>
+<li><a href="part-02/#c09-i0451">Overview</a></li>
+<li><a href="part-02/#c09-i0452">Overview of Metro/Global Mirror and Metro Mirror topology</a></li>
+<li><a href="part-02/#c09-i0453">Overview of a Metro Mirror and Global Mirror topology</a></li>
+<li><a href="part-02/#c09-i0454">Overview of a Multi-Target Global Mirror plus Global Mirror topology</a></li>
+<li><a href="part-02/#c09-i0455">Overview of a two Metro Mirror topology</a></li>
+<li><a href="part-02/#c09-i0456">Overview of the concurrent copy function features</a></li>
+<li><a href="part-02/#c09-i0457">PPRC failback</a></li>
+<li><a href="part-02/#c09-i0458">PPRC failover</a></li>
+<li><a href="part-02/#c09-i0459">PPRC failover and failback</a></li>
+<li><a href="part-02/#c09-i0460">PPRC path states</a></li>
+<li><a href="part-02/#c09-i0461">PPRC paths</a></li>
+<li><a href="part-02/#c09-i0462">PPRC paths H1:H2’</a></li>
+<li><a href="part-02/#c09-i0463">PPRC paths and links</a></li>
+<li><a href="part-02/#c09-i0464">Pausing Global Copy pairs</a></li>
+<li><a href="part-02/#c09-i0465">Pausing Global Mirror and checking its completion</a></li>
+<li><a href="part-02/#c09-i0466">Pausing and resuming Global Mirror consistency group formation</a></li>
+<li><a href="part-02/#c09-i0467">Performance considerations</a></li>
+<li><a href="part-02/#c09-i0468">Performing Global Copy failback from H1 to H2</a></li>
+<li><a href="part-02/#c09-i0469">Performing Global Copy failback from H2 to H1</a></li>
+<li><a href="part-02/#c09-i0470">Performing Global Copy failover from H1 to H2</a></li>
+<li><a href="part-02/#c09-i0471">Performing Global Copy failover from H2 to H1</a></li>
+<li><a href="part-02/#c09-i0472">Performing disaster recovery testing by using the H2 volume</a></li>
+<li><a href="part-02/#c09-i0473">Periodic offsite backup procedure</a></li>
+<li><a href="part-02/#c09-i0474">Persistent FlashCopy</a></li>
+<li><a href="part-02/#c09-i0475">Point-in-time copy functions</a></li>
+<li><a href="part-02/#c09-i0476">Positioning</a></li>
+<li><a href="part-02/#c09-i0477">Practicing disaster recovery readiness</a></li>
+<li><a href="part-02/#c09-i0478">Preparing the disaster recovery environments in H2 and H3 sites</a></li>
+<li><a href="part-02/#c09-i0479">Production and performance considerations</a></li>
+<li><a href="part-02/#c09-i0480">Properties of the Global Mirror journal</a></li>
+<li><a href="part-02/#c09-i0481">Protecting ANTRQST API functions</a></li>
+<li><a href="part-02/#c09-i0482">Protecting ANTTREXX API functions</a></li>
+<li><a href="part-02/#c09-i0483">Protecting ICKDSF Copy Services commands</a></li>
+<li><a href="part-02/#c09-i0484">Protecting TSO Copy Services commands</a></li>
+<li><a href="part-02/#c09-i0485">Querying Global Mirror session by using TSO</a></li>
+<li><a href="part-02/#c09-i0486">Querying Global Mirror session information with IBM Z TSO or ICKDSF interfaces</a></li>
+<li><a href="part-02/#c09-i0487">Querying a Metro Mirror Secondary</a></li>
+<li><a href="part-02/#c09-i0488">Querying a Metro Mirror and Global Copy primary</a></li>
+<li><a href="part-02/#c09-i0489">Querying an established path</a></li>
+<li><a href="part-02/#c09-i0490">Querying for the Global Copy first pass completion</a></li>
+<li><a href="part-02/#c09-i0491">Querying the Global Mirror environment</a></li>
+<li><a href="part-02/#c09-i0492">Querying the Global Mirror session by using ICKDSF</a></li>
+<li><a href="part-02/#c09-i0493">Querying the device status</a></li>
+<li><a href="part-02/#c09-i0494">Querying the out-of-sync tracks until the result shows zero</a></li>
+<li><a href="part-02/#c09-i0495">Quiescing the application at the remote site</a></li>
+<li><a href="part-02/#c09-i0496">RESTful application programming interface</a></li>
+<li><a href="part-02/#c09-i0497">Rank characteristics</a></li>
+<li><a href="part-02/#c09-i0498">Recover at H2</a></li>
+<li><a href="part-02/#c09-i0499">Recovering at H2</a></li>
+<li><a href="part-02/#c09-i0500">Recovering the production environment at H2</a></li>
+<li><a href="part-02/#c09-i0501">Recovering the production environment at H3</a></li>
+<li><a href="part-02/#c09-i0502">Recovery scenario after a local site failure by using the DS CLI</a></li>
+<li><a href="part-02/#c09-i0503">Reestablishing the FlashCopy relationship from H2 to J2</a></li>
+<li><a href="part-02/#c09-i0504">Reestablishing the FlashCopy relationships</a></li>
+<li><a href="part-02/#c09-i0505">Reflash After Recover</a></li>
+<li><a href="part-02/#c09-i0506">Refresh States</a></li>
+<li><a href="part-02/#c09-i0507">Remote (in-band) FlashCopy</a></li>
+<li><a href="part-02/#c09-i0508">Remote Pair FlashCopy</a></li>
+<li><a href="part-02/#c09-i0509">Remote Pair FlashCopy (Preserve Mirror)</a></li>
+<li><a href="part-02/#c09-i0510">Remote Pair FlashCopy and SMS volume selection</a></li>
+<li><a href="part-02/#c09-i0511">Remote Pair FlashCopy impact on Metro Mirror state</a></li>
+<li><a href="part-02/#c09-i0512">Remote Pair FlashCopy implementation and usage</a></li>
+<li><a href="part-02/#c09-i0513">Remote Pair FlashCopy with MT-PPRC</a></li>
+<li><a href="part-02/#c09-i0514">Remote Pair FlashCopy withdrawal</a></li>
+<li><a href="part-02/#c09-i0515">Remote Pair IBM FlashCopy</a></li>
+<li><a href="part-02/#c09-i0516">Removing H1:H2</a></li>
+<li><a href="part-02/#c09-i0517">Removing H2:H1</a></li>
+<li><a href="part-02/#c09-i0518">Removing Metro Mirror pairs for H1</a></li>
+<li><a href="part-02/#c09-i0519">Removing PPRC paths for H1</a></li>
+<li><a href="part-02/#c09-i0520">Removing a Global Mirror environment with the DS CLI</a></li>
+<li><a href="part-02/#c09-i0521">Removing a PPRC pair</a></li>
+<li><a href="part-02/#c09-i0522">Removing logical PPRC paths</a></li>
+<li><a href="part-02/#c09-i0523">Removing the Global Mirror session</a></li>
+<li><a href="part-02/#c09-i0524">Removing the H1 volumes from the Global Mirror session</a></li>
+<li><a href="part-02/#c09-i0525">Replacing a Metro Mirror secondary</a></li>
+<li><a href="part-02/#c09-i0526">Replacing the Metro Mirror primary</a></li>
+<li><a href="part-02/#c09-i0527">Replacing the Metro Mirror primary: alternative method</a></li>
+<li><a href="part-02/#c09-i0528">Requirements</a></li>
+<li><a href="part-02/#c09-i0529">Restarting the application at the remote site</a></li>
+<li><a href="part-02/#c09-i0530">Restoring the original Metro/Global Mirror configuration</a></li>
+<li><a href="part-02/#c09-i0531">Resuming Global Mirror</a></li>
+<li><a href="part-02/#c09-i0532">Resuming Global Mirror H2-H3 replication</a></li>
+<li><a href="part-02/#c09-i0533">Resuming Metro Mirror H1-H2 replication</a></li>
+<li><a href="part-02/#c09-i0534">Resuming a PPRC pair</a></li>
+<li><a href="part-02/#c09-i0535">Returning production to H1</a></li>
+<li><a href="part-02/#c09-i0536">Returning the production environment from H3 to H1</a></li>
+<li><a href="part-02/#c09-i0537">Returning to the local site</a></li>
+<li><a href="part-02/#c09-i0538">Reverse FlashCopy</a></li>
+<li><a href="part-02/#c09-i0539">Reversing FlashCopy</a></li>
+<li><a href="part-02/#c09-i0540">Reversing FlashCopy from H2 to J2</a></li>
+<li><a href="part-02/#c09-i0541">Reversing Global Copy to run from H2 to H3</a></li>
+<li><a href="part-02/#c09-i0542">Rolling disaster</a></li>
+<li><a href="part-02/#c09-i0543">Safeguarded Copy</a></li>
+<li><a href="part-02/#c09-i0544">Sample REXX Programs in DGTCLIB</a></li>
+<li><a href="part-02/#c09-i0545">Scalability</a></li>
+<li><a href="part-02/#c09-i0546">Scenario #1: Backup to disk</a></li>
+<li><a href="part-02/#c09-i0547">Scenario #2: Backup to tape</a></li>
+<li><a href="part-02/#c09-i0548">Scenario #3: FlashCopy during peak application activity</a></li>
+<li><a href="part-02/#c09-i0549">Scenario #4: Ranks reserved for FlashCopy</a></li>
+<li><a href="part-02/#c09-i0550">Scenario: Outage at primary site H1</a></li>
+<li><a href="part-02/#c09-i0551">Scripts for managing Metro Mirror and Global Mirror</a></li>
+<li><a href="part-02/#c09-i0552">Session</a></li>
+<li><a href="part-02/#c09-i0553">Setting up Metro/Global Mirror</a></li>
+<li><a href="part-02/#c09-i0554">Setting up Metro/Global Mirror with Incremental Resynchronization</a></li>
+<li><a href="part-02/#c09-i0555">Setting up, removing, and managing a Metro Mirror configuration</a></li>
+<li><a href="part-02/#c09-i0556">Setup</a></li>
+<li><a href="part-02/#c09-i0557">Simple forward cascading FlashCopy</a></li>
+<li><a href="part-02/#c09-i0558">Single-site host connectivity</a></li>
+<li><a href="part-02/#c09-i0559">Software considerations</a></li>
+<li><a href="part-02/#c09-i0560">Solutions</a></li>
+<li><a href="part-02/#c09-i0561">Source and target limitations</a></li>
+<li><a href="part-02/#c09-i0562">Sources of information</a></li>
+<li><a href="part-02/#c09-i0563">Space release</a></li>
+<li><a href="part-02/#c09-i0564">Start replication H1:H2</a></li>
+<li><a href="part-02/#c09-i0565">Starting Global Copy from H3 to H2</a></li>
+<li><a href="part-02/#c09-i0566">Starting Global Mirror</a></li>
+<li><a href="part-02/#c09-i0567">Starting Global Mirror at H2</a></li>
+<li><a href="part-02/#c09-i0568">Starting Global Mirror or adding volumes to the session</a></li>
+<li><a href="part-02/#c09-i0569">Starting H1-H2 and H1-H3 replication</a></li>
+<li><a href="part-02/#c09-i0570">Starting I/O</a></li>
+<li><a href="part-02/#c09-i0571">Starting I/O at H3</a></li>
+<li><a href="part-02/#c09-i0572">Starting I/O on the disaster recovery host</a></li>
+<li><a href="part-02/#c09-i0573">Starting Incremental Resynchronization at H1</a></li>
+<li><a href="part-02/#c09-i0574">Starting MT-PPRC session replication in a cascaded MGM topology</a></li>
+<li><a href="part-02/#c09-i0575">Starting Metro Mirror H1:H1’</a></li>
+<li><a href="part-02/#c09-i0576">Starting Metro Mirror H2:H1’</a></li>
+<li><a href="part-02/#c09-i0577">Starting Metro Mirror H3:H2</a></li>
+<li><a href="part-02/#c09-i0578">Starting Metro Mirror from H1 to H2</a></li>
+<li><a href="part-02/#c09-i0579">Starting replication for H1’:H2</a></li>
+<li><a href="part-02/#c09-i0580">Starting replication for H2-H3</a></li>
+<li><a href="part-02/#c09-i0581">Starting the concurrent copy function</a></li>
+<li><a href="part-02/#c09-i0582">Stopping Global Copy from H1 to H3 at H3</a></li>
+<li><a href="part-02/#c09-i0583">Stopping Global Mirror at H1 and suspending Global Copy</a></li>
+<li><a href="part-02/#c09-i0584">Stopping Global Mirror processing</a></li>
+<li><a href="part-02/#c09-i0585">Stopping I/O at H1</a></li>
+<li><a href="part-02/#c09-i0586">Stopping I/O at H3</a></li>
+<li><a href="part-02/#c09-i0587">Stopping and starting Global Mirror</a></li>
+<li><a href="part-02/#c09-i0588">Summary of the recovery scenario</a></li>
+<li><a href="part-02/#c09-i0589">Suspending a PPRC pair</a></li>
+<li><a href="part-02/#c09-i0590">Suspending the Global Mirror leg for the disaster recovery test</a></li>
+<li><a href="part-02/#c09-i0591">Suspending the Metro Mirror leg for the disaster recovery test</a></li>
+<li><a href="part-02/#c09-i0592">Suspension</a></li>
+<li><a href="part-02/#c09-i0593">Switching back to a primary site</a></li>
+<li><a href="part-02/#c09-i0594">Switching over to a backup site</a></li>
+<li><a href="part-02/#c09-i0595">Symmetrical configuration</a></li>
+<li><a href="part-02/#c09-i0596">Synchronizing MTIR pairs</a></li>
+<li><a href="part-02/#c09-i0597">System management facility information</a></li>
+<li><a href="part-02/#c09-i0598">TSO FlashCopy query commands</a></li>
+<li><a href="part-02/#c09-i0599">TSO commands for z/OS</a></li>
+<li><a href="part-02/#c09-i0600">Taking a FlashCopy from I2 to H2</a></li>
+<li><a href="part-02/#c09-i0601">Taking an extra copy for disaster recovery testing</a></li>
+<li><a href="part-02/#c09-i0602">Terminating FlashCopy pairs</a></li>
+<li><a href="part-02/#c09-i0603">Terminating Global Copy</a></li>
+<li><a href="part-02/#c09-i0604">Terminating Global Copy at target H3</a></li>
+<li><a href="part-02/#c09-i0605">Terminating Global Copy from H3 to H2</a></li>
+<li><a href="part-02/#c09-i0606">Terminating Global Copy pairs and removing the paths</a></li>
+<li><a href="part-02/#c09-i0607">Terminating Global Mirror</a></li>
+<li><a href="part-02/#c09-i0608">Terminating Global Mirror and suspending Global Copy at H1</a></li>
+<li><a href="part-02/#c09-i0609">Terminology</a></li>
+<li><a href="part-02/#c09-i0610">Terminology in Global Mirror environments</a></li>
+<li><a href="part-02/#c09-i0611">Terms that are used in examples</a></li>
+<li><a href="part-02/#c09-i0612">Terms that are used in the examples</a></li>
+<li><a href="part-02/#c09-i0613">Terms that are used in this example</a></li>
+<li><a href="part-02/#c09-i0614">The ANTRQST API</a></li>
+<li><a href="part-02/#c09-i0615">The ANTTREXX API and samples</a></li>
+<li><a href="part-02/#c09-i0616">Thin provisioning considerations</a></li>
+<li><a href="part-02/#c09-i0617">Three-site Metro/Global Mirror with Incremental Resynchronization</a></li>
+<li><a href="part-02/#c09-i0618">Two Global Mirror relationships (GM+GM)</a></li>
+<li><a href="part-02/#c09-i0619">Two Metro Mirror relationships</a></li>
+<li><a href="part-02/#c09-i0620">Typical use cases</a></li>
+<li><a href="part-02/#c09-i0621">Unfreeze (CG created)</a></li>
+<li><a href="part-02/#c09-i0622">User accounts</a></li>
+<li><a href="part-02/#c09-i0623">Using FlashCopy for COPY, DUMP, and RESTORE</a></li>
+<li><a href="part-02/#c09-i0624">Using FlashCopy for DEFRAG</a></li>
+<li><a href="part-02/#c09-i0625">Using FlashCopy with IBM Db2 for z/OS</a></li>
+<li><a href="part-02/#c09-i0626">Using Multi-Target Peer-to-Peer Remote Copy for migration</a></li>
+<li><a href="part-02/#c09-i0627">Using Remote Pair FlashCopy in a z/OS environment</a></li>
+<li><a href="part-02/#c09-i0628">Using a target volume to restore its contents back to the source</a></li>
+<li><a href="part-02/#c09-i0629">VMware Live Site Recovery</a></li>
+<li><a href="part-02/#c09-i0630">Verifying a valid consistency group state</a></li>
+<li><a href="part-02/#c09-i0631">Virtual concurrent copy on the DS8000</a></li>
+<li><a href="part-02/#c09-i0632">Virtual concurrent copy sizing and requirements</a></li>
+<li><a href="part-02/#c09-i0633">Volume selection</a></li>
+<li><a href="part-02/#c09-i0634">Volume types in a copy set</a></li>
+<li><a href="part-02/#c09-i0635">Waiting for the FlashCopy background copy to complete</a></li>
+<li><a href="part-02/#c09-i0636">Waiting for the Global Copy first pass to complete</a></li>
+<li><a href="part-02/#c09-i0637">What Copy Services Manager provides</a></li>
+<li><a href="part-02/#c09-i0638">What is new in IBM Copy Services Manager 6.3.15</a></li>
+<li><a href="part-02/#c09-i0639">Why you need Copy Services Manager</a></li>
+<li><a href="part-02/#c09-i0640">Withdraw with Background Copy</a></li>
+<li><a href="part-02/#c09-i0641">Withdrawing Cascading FlashCopy relationships</a></li>
+<li><a href="part-02/#c09-i0642">Withdrawing on the Metro Mirror secondary</a></li>
+<li><a href="part-02/#c09-i0643">z/OS Consistent Read from Secondary</a></li>
+<li><a href="part-02/#c09-i0644">z/OS HyperSwap overview</a></li>
+<li><a href="part-02/#c09-i0645">z/OS HyperSwap sequence</a></li>
+<li><a href="part-02/#c09-i0646">z/OS Resource Management Facility</a></li>
+<li><a href="part-02/#c09-i0647">z/OS multiple subchannel set support</a></li>
+</ul>
+<h3 id="ds8000-copy-services-metro-mirror-suspend">DS8000 Copy Services &gt; Metro Mirror suspend<a class="headerlink" href="#ds8000-copy-services-metro-mirror-suspend" title="Permanent link">&para;</a></h3>
+<ul>
+<li><a href="part-02/#c09-i0648">Metro Mirror suspend</a></li>
+</ul>
+<h3 id="ds8000-copy-services-symmetrical-configuration">DS8000 Copy Services &gt; symmetrical configuration<a class="headerlink" href="#ds8000-copy-services-symmetrical-configuration" title="Permanent link">&para;</a></h3>
+<ul>
+<li><a href="part-02/#c09-i0649">symmetrical configuration</a></li>
+</ul>
+<h3 id="ds8000-global-mirror">DS8000 Global Mirror ベストプラクティス<a class="headerlink" href="#ds8000-global-mirror" title="Permanent link">&para;</a></h3>
+<ul>
+<li><a href="part-02/#c09-i0650">A simple configuration</a></li>
+<li><a href="part-02/#c09-i0651">Asymmetrical configuration</a></li>
+<li><a href="part-02/#c09-i0652">Autonomic behavior</a></li>
+<li><a href="part-02/#c09-i0653">Bandwidth estimation</a></li>
+<li><a href="part-02/#c09-i0654">Bandwidth reduction</a></li>
+<li><a href="part-02/#c09-i0655">Collisions</a></li>
+<li><a href="part-02/#c09-i0656">Communication between primary disk systems</a></li>
+<li><a href="part-02/#c09-i0657">Compression</a></li>
+<li><a href="part-02/#c09-i0658">Configuration guidelines for primary and secondary</a></li>
+<li><a href="part-02/#c09-i0659">Configuring the FCIP gateway</a></li>
+<li><a href="part-02/#c09-i0660">Connectivity</a></li>
+<li><a href="part-02/#c09-i0661">Copy Services Manager</a></li>
+<li><a href="part-02/#c09-i0662">Creating a Global Copy relationship</a></li>
+<li><a href="part-02/#c09-i0663">DS8000 configuration considerations</a></li>
+<li><a href="part-02/#c09-i0664">Data Migration example scenario</a></li>
+<li><a href="part-02/#c09-i0665">Defining a Global Mirror session</a></li>
+<li><a href="part-02/#c09-i0666">Disk Magic</a></li>
+<li><a href="part-02/#c09-i0667">Environments with very low bandwidth</a></li>
+<li><a href="part-02/#c09-i0668">Establishing connectivity to a secondary site (PPRC paths)</a></li>
+<li><a href="part-02/#c09-i0669">Extreme distance tuning</a></li>
+<li><a href="part-02/#c09-i0670">Fibre Channel flow control</a></li>
+<li><a href="part-02/#c09-i0671">Fibre Channel to IP conversion</a></li>
+<li><a href="part-02/#c09-i0672">Forming consistency groups</a></li>
+<li><a href="part-02/#c09-i0673">Four-site configuration</a></li>
+<li><a href="part-02/#c09-i0674">GDPS Global Mirror (GDPS/GM)</a></li>
+<li><a href="part-02/#c09-i0675">General recovery principle</a></li>
+<li><a href="part-02/#c09-i0676">Global Mirror Bandwidth/RPO estimation tool</a></li>
+<li><a href="part-02/#c09-i0677">Global Mirror externalized parameters</a></li>
+<li><a href="part-02/#c09-i0678">Global Mirror implementation planning</a></li>
+<li><a href="part-02/#c09-i0679">Global Mirror management and disaster recovery solutions</a></li>
+<li><a href="part-02/#c09-i0680">Global Mirror overview</a></li>
+<li><a href="part-02/#c09-i0681">Global Mirror overview and architecture</a></li>
+<li><a href="part-02/#c09-i0682">Global Mirror recovery</a></li>
+<li><a href="part-02/#c09-i0683">Global Mirror secondary disk system recommendations</a></li>
+<li><a href="part-02/#c09-i0684">Global Mirror session</a></li>
+<li><a href="part-02/#c09-i0685">Global Mirror tuning</a></li>
+<li><a href="part-02/#c09-i0686">Global Mirror/GlobalCopy data synchronization</a></li>
+<li><a href="part-02/#c09-i0687">Growth within Global Mirror configurations</a></li>
+<li><a href="part-02/#c09-i0688">IBM Redbooks</a></li>
+<li><a href="part-02/#c09-i0689">IBM Spectrum Control</a></li>
+<li><a href="part-02/#c09-i0690">IBM System i PowerHA for i</a></li>
+<li><a href="part-02/#c09-i0691">Impact of the consistency formation process</a></li>
+<li><a href="part-02/#c09-i0692">Inter-site connectivity</a></li>
+<li><a href="part-02/#c09-i0693">Introducing FlashCopy</a></li>
+<li><a href="part-02/#c09-i0694">Long-distance link considerations</a></li>
+<li><a href="part-02/#c09-i0695">Managing peak activity</a></li>
+<li><a href="part-02/#c09-i0696">Metro Global Mirror</a></li>
+<li><a href="part-02/#c09-i0697">Multiple Target PPRC with Global Mirror</a></li>
+<li><a href="part-02/#c09-i0698">Online resources</a></li>
+<li><a href="part-02/#c09-i0699">Overview of a Metro Mirror and Global Mirror topology</a></li>
+<li><a href="part-02/#c09-i0700">PPRC pairs</a></li>
+<li><a href="part-02/#c09-i0701">PPRC paths</a></li>
+<li><a href="part-02/#c09-i0702">Path and port configuration for optimal data transmission.</a></li>
+<li><a href="part-02/#c09-i0703">Performance at distance</a></li>
+<li><a href="part-02/#c09-i0704">Performance tuning</a></li>
+<li><a href="part-02/#c09-i0705">Planned recovery scenario</a></li>
+<li><a href="part-02/#c09-i0706">Planning and implementation</a></li>
+<li><a href="part-02/#c09-i0707">Pokeables or internal switches</a></li>
+<li><a href="part-02/#c09-i0708">Populating a Global Mirror session with volumes</a></li>
+<li><a href="part-02/#c09-i0709">Primary disk system performance</a></li>
+<li><a href="part-02/#c09-i0710">RMF and RMF Magic</a></li>
+<li><a href="part-02/#c09-i0711">Replacement of Global Mirror primary DS8870 system</a></li>
+<li><a href="part-02/#c09-i0712">Replacement of Global Mirror secondary DS8870 system</a></li>
+<li><a href="part-02/#c09-i0713">Return to primary site with asymmetrical Global Mirror configuration</a></li>
+<li><a href="part-02/#c09-i0714">Secondary disk system performance</a></li>
+<li><a href="part-02/#c09-i0715">Setting up a Global Mirror session</a></li>
+<li><a href="part-02/#c09-i0716">Sizing tools for Global Mirror</a></li>
+<li><a href="part-02/#c09-i0717">Starting a Global Mirror session</a></li>
+<li><a href="part-02/#c09-i0718">Symmetrical configuration</a></li>
+<li><a href="part-02/#c09-i0719">Taking advantage of Easy Tier</a></li>
+<li><a href="part-02/#c09-i0720">Taking an additional copy for Disaster Recovery testing</a></li>
+<li><a href="part-02/#c09-i0721">The different phases of consistency formation</a></li>
+<li><a href="part-02/#c09-i0722">Topologies and solution scenarios</a></li>
+<li><a href="part-02/#c09-i0723">Unplanned recovery scenario</a></li>
+<li><a href="part-02/#c09-i0724">VMware SRM</a></li>
+<li><a href="part-02/#c09-i0725">Volume placement on secondary disk system</a></li>
+</ul>
+<h3 id="gdps-family">GDPS Family 概要 / 機能<a class="headerlink" href="#gdps-family" title="Permanent link">&para;</a></h3>
+<ul>
+<li><a href="part-02/#c09-i0726">Abbreviations and acronyms</a></li>
+<li><a href="part-02/#c09-i0727">Additional system management information</a></li>
+<li><a href="part-02/#c09-i0728">Application programming interfaces</a></li>
+<li><a href="part-02/#c09-i0729">August 2024, Twentieth Edition</a></li>
+<li><a href="part-02/#c09-i0730">Automation</a></li>
+<li><a href="part-02/#c09-i0731">Automation and disk replication compatibility</a></li>
+<li><a href="part-02/#c09-i0732">Autonomous Path Reconfiguration</a></li>
+<li><a href="part-02/#c09-i0733">Benefits of a GDPS MGM 4-site configuration</a></li>
+<li><a href="part-02/#c09-i0734">Benefits of a GDPS MGM 6-site configuration</a></li>
+<li><a href="part-02/#c09-i0735">Business Recovery Services configuration</a></li>
+<li><a href="part-02/#c09-i0736">Capacity BackUp upgrade</a></li>
+<li><a href="part-02/#c09-i0737">Capacity for Planned Events</a></li>
+<li><a href="part-02/#c09-i0738">Characteristics of an IT resilience solution</a></li>
+<li><a href="part-02/#c09-i0739">Combining GDPS Metro with GDPS GM</a></li>
+<li><a href="part-02/#c09-i0740">Combining disk remote copy technologies for CA and DR</a></li>
+<li><a href="part-02/#c09-i0741">Combining local and metro continuous availability with out-of-region disaster recovery</a></li>
+<li><a href="part-02/#c09-i0742">Comparing GDPS Continuous Availability to other GDPS offerings</a></li>
+<li><a href="part-02/#c09-i0743">Comparing GDPS GM versus other GDPS offerings</a></li>
+<li><a href="part-02/#c09-i0744">Comparing GDPS Metro HyperSwap Manager to other GDPS offerings</a></li>
+<li><a href="part-02/#c09-i0745">Comparing GDPS Metro versus other GDPS offerings</a></li>
+<li><a href="part-02/#c09-i0746">Comparing GDPS Virtual Appliance to other GDPS offerings</a></li>
+<li><a href="part-02/#c09-i0747">Concurrent Copy cleanup</a></li>
+<li><a href="part-02/#c09-i0748">Connectivity options</a></li>
+<li><a href="part-02/#c09-i0749">Considerations for other non-CA workloads</a></li>
+<li><a href="part-02/#c09-i0750">Continuous availability in a single data center</a></li>
+<li><a href="part-02/#c09-i0751">Controlling system</a></li>
+<li><a href="part-02/#c09-i0752">Controlling systems</a></li>
+<li><a href="part-02/#c09-i0753">Cost considerations</a></li>
+<li><a href="part-02/#c09-i0754">Coupling links</a></li>
+<li><a href="part-02/#c09-i0755">Creating a test copy by using GM CGPause and testing on isolated disks</a></li>
+<li><a href="part-02/#c09-i0756">Cross-site connectivity considerations</a></li>
+<li><a href="part-02/#c09-i0757">DASD Configuration Report</a></li>
+<li><a href="part-02/#c09-i0758">DR across two data centers at metro distance</a></li>
+<li><a href="part-02/#c09-i0759">DR and continuous availability across two data centers at metro distance</a></li>
+<li><a href="part-02/#c09-i0760">DR and continuous availability across two data centers at metro distance for z/VM and Linux on IBM Z</a></li>
+<li><a href="part-02/#c09-i0761">DR in two data centers at global distance</a></li>
+<li><a href="part-02/#c09-i0762">Data consistency</a></li>
+<li><a href="part-02/#c09-i0763">Data replication links</a></li>
+<li><a href="part-02/#c09-i0764">Data replication technologies</a></li>
+<li><a href="part-02/#c09-i0765">Db2 ZDL replication within Metro Mirror distances</a></li>
+<li><a href="part-02/#c09-i0766">Db2 replication in a non-ZDL environment</a></li>
+<li><a href="part-02/#c09-i0767">Db2 replication over Global Mirror distances</a></li>
+<li><a href="part-02/#c09-i0768">Dependent write logic</a></li>
+<li><a href="part-02/#c09-i0769">Design considerations</a></li>
+<li><a href="part-03/#c09-i0770">Disaster recovery</a></li>
+<li><a href="part-03/#c09-i0771">Dual-leg configuration</a></li>
+<li><a href="part-03/#c09-i0772">Dynamic PPRC Link Configuration Management</a></li>
+<li><a href="part-03/#c09-i0773">Dynamic Site Table refresh</a></li>
+<li><a href="part-03/#c09-i0774">Easy Tier Heat Map Transfer</a></li>
+<li><a href="part-03/#c09-i0775">Easy Tier Heat Map Transfer in a GDPS MGM 3-site environment</a></li>
+<li><a href="part-03/#c09-i0776">Enhanced resiliency with Region Switch and GM Bidirectional support</a></li>
+<li><a href="part-03/#c09-i0777">External LCP</a></li>
+<li><a href="part-03/#c09-i0778">FB disk management prerequisites</a></li>
+<li><a href="part-03/#c09-i0779">Fixed-Block disk management</a></li>
+<li><a href="part-03/#c09-i0780">FlashCopy</a></li>
+<li><a href="part-03/#c09-i0781">Flexible Capacity for Cyber Resiliency</a></li>
+<li><a href="part-03/#c09-i0782">Flexible server capacity</a></li>
+<li><a href="part-03/#c09-i0783">Flexible testing and Logical Corruption Protection</a></li>
+<li><a href="part-03/#c09-i0784">Flexible testing in a GDPS MGM 3-site environment</a></li>
+<li><a href="part-03/#c09-i0785">Flexible testing with GDPS Continuous Availability</a></li>
+<li><a href="part-03/#c09-i0786">Flexible testing, resync protection, and Logical Corruption Protection</a></li>
+<li><a href="part-03/#c09-i0787">Four-copy solutions</a></li>
+<li><a href="part-03/#c09-i0788">GDPS CBU, OOCoD, CPE, SRB, and Flexible Capacity</a></li>
+<li><a href="part-03/#c09-i0789">GDPS Continuous Availability Graphical User Interface (GUI)</a></li>
+<li><a href="part-03/#c09-i0790">GDPS Continuous Availability co-operation with GDPS Metro</a></li>
+<li><a href="part-03/#c09-i0791">GDPS Continuous Availability environment</a></li>
+<li><a href="part-03/#c09-i0792">GDPS Continuous Availability functions and features</a></li>
+<li><a href="part-03/#c09-i0793">GDPS Continuous Availability prerequisites</a></li>
+<li><a href="part-03/#c09-i0794">GDPS Continuous Availability product</a></li>
+<li><a href="part-03/#c09-i0795">GDPS Continuous Availability scripts</a></li>
+<li><a href="part-03/#c09-i0796">GDPS Continuous Availability services</a></li>
+<li><a href="part-03/#c09-i0797">GDPS Continuous Availability sites concept</a></li>
+<li><a href="part-03/#c09-i0798">GDPS Continuous Availability solution products</a></li>
+<li><a href="part-03/#c09-i0799">GDPS Continuous Availability: A closer look</a></li>
+<li><a href="part-03/#c09-i0800">GDPS Freeze function for mirroring failures</a></li>
+<li><a href="part-03/#c09-i0801">GDPS GM Bidirectional support</a></li>
+<li><a href="part-03/#c09-i0802">GDPS GM Copy Once facility</a></li>
+<li><a href="part-03/#c09-i0803">GDPS GM Region Switch</a></li>
+<li><a href="part-03/#c09-i0804">GDPS GM health checks</a></li>
+<li><a href="part-03/#c09-i0805">GDPS GM in a 3-site, 4-site or 6-site configuration</a></li>
+<li><a href="part-03/#c09-i0806">GDPS GM monitoring and alerting</a></li>
+<li><a href="part-03/#c09-i0807">GDPS GM prerequisites</a></li>
+<li><a href="part-03/#c09-i0808">GDPS Global - GM</a></li>
+<li><a href="part-03/#c09-i0809">GDPS Global - GM configuration</a></li>
+<li><a href="part-03/#c09-i0810">GDPS HM reduced impact on initial copy and resynchronization</a></li>
+<li><a href="part-03/#c09-i0811">GDPS HyperSwap function</a></li>
+<li><a href="part-03/#c09-i0812">GDPS MGM 3-site integration with GDPS Continuous Availability</a></li>
+<li><a href="part-03/#c09-i0813">GDPS MGM 3-site overview</a></li>
+<li><a href="part-03/#c09-i0814">GDPS MGM 3-site support for multiple IBM Z platforms</a></li>
+<li><a href="part-03/#c09-i0815">GDPS MGM Site1 failures</a></li>
+<li><a href="part-03/#c09-i0816">GDPS MGM Site2 failures</a></li>
+<li><a href="part-03/#c09-i0817">GDPS MGM region switch and return home</a></li>
+<li><a href="part-03/#c09-i0818">GDPS Metro</a></li>
+<li><a href="part-03/#c09-i0819">GDPS Metro Global - GM</a></li>
+<li><a href="part-03/#c09-i0820">GDPS Metro Global - GM 3-site solution</a></li>
+<li><a href="part-03/#c09-i0821">GDPS Metro Global - GM 4-site solution</a></li>
+<li><a href="part-03/#c09-i0822">GDPS Metro Global - GM 6-site solution</a></li>
+<li><a href="part-03/#c09-i0823">GDPS Metro HyperSwap Manager configurations</a></li>
+<li><a href="part-03/#c09-i0824">GDPS Metro HyperSwap Manager flexible testing and resync protection</a></li>
+<li><a href="part-03/#c09-i0825">GDPS Metro HyperSwap Manager health checks</a></li>
+<li><a href="part-03/#c09-i0826">GDPS Metro HyperSwap Manager in a 2-site configuration</a></li>
+<li><a href="part-03/#c09-i0827">GDPS Metro HyperSwap Manager in a 3-site configuration</a></li>
+<li><a href="part-03/#c09-i0828">GDPS Metro HyperSwap Manager in a single site</a></li>
+<li><a href="part-03/#c09-i0829">GDPS Metro HyperSwap Manager monitoring and alerting</a></li>
+<li><a href="part-03/#c09-i0830">GDPS Metro HyperSwap Manager prerequisites</a></li>
+<li><a href="part-03/#c09-i0831">GDPS Metro co-operation with GDPS Continuous Availability</a></li>
+<li><a href="part-03/#c09-i0832">GDPS Metro configurations</a></li>
+<li><a href="part-03/#c09-i0833">GDPS Metro health checks</a></li>
+<li><a href="part-03/#c09-i0834">GDPS Metro in a single site</a></li>
+<li><a href="part-03/#c09-i0835">GDPS Metro management of distributed systems and data</a></li>
+<li><a href="part-03/#c09-i0836">GDPS Metro monitoring and alerting</a></li>
+<li><a href="part-03/#c09-i0837">GDPS Metro prerequisites</a></li>
+<li><a href="part-03/#c09-i0838">GDPS Query Services in a GDPS MGM 3-site environment</a></li>
+<li><a href="part-03/#c09-i0839">GDPS Virtual Appliance</a></li>
+<li><a href="part-03/#c09-i0840">GDPS Virtual Appliance configuration components</a></li>
+<li><a href="part-03/#c09-i0841">GDPS Virtual Appliance prerequisites</a></li>
+<li><a href="part-03/#c09-i0842">GDPS graphic user interface</a></li>
+<li><a href="part-03/#c09-i0843">GDPS monitoring and alerting</a></li>
+<li><a href="part-03/#c09-i0844">GDPS offerings</a></li>
+<li><a href="part-03/#c09-i0845">GDPS scripts</a></li>
+<li><a href="part-03/#c09-i0846">GDPS tools for GDPS GM</a></li>
+<li><a href="part-03/#c09-i0847">GDPS tools for GDPS Metro</a></li>
+<li><a href="part-03/#c09-i0848">GDPS tools for GDPS Metro HyperSwap Manager</a></li>
+<li><a href="part-03/#c09-i0849">GDPS usage of DS8000 functions</a></li>
+<li><a href="part-03/#c09-i0850">Global Mirror</a></li>
+<li><a href="part-03/#c09-i0851">Global Mirror Monitor integration</a></li>
+<li><a href="part-03/#c09-i0852">HMC and consoles</a></li>
+<li><a href="part-03/#c09-i0853">HyperSwap coexistence</a></li>
+<li><a href="part-03/#c09-i0854">IBM GDPS Continuous Availability solution</a></li>
+<li><a href="part-03/#c09-i0855">IBM GDPS Enterprise Portal</a></li>
+<li><a href="part-03/#c09-i0856">IBM GDPS Global - GM</a></li>
+<li><a href="part-03/#c09-i0857">IBM GDPS Logical Corruption Protection and Testcopy Manager</a></li>
+<li><a href="part-03/#c09-i0858">IBM GDPS Metro</a></li>
+<li><a href="part-03/#c09-i0859">IBM GDPS Metro HyperSwap Manager</a></li>
+<li><a href="part-03/#c09-i0860">IBM GDPS Virtual Appliance</a></li>
+<li><a href="part-03/#c09-i0861">IBM Multi-site Workload Lifeline for z/OS</a></li>
+<li><a href="part-03/#c09-i0862">IBM Redbooks publications</a></li>
+<li><a href="part-03/#c09-i0863">IBM Z NetView</a></li>
+<li><a href="part-03/#c09-i0864">IBM Z NetView Monitoring for Continuous Availability</a></li>
+<li><a href="part-03/#c09-i0865">IBM Z System Automation for z/OS</a></li>
+<li><a href="part-03/#c09-i0866">IBM software replication products</a></li>
+<li><a href="part-03/#c09-i0867">IT resilience</a></li>
+<li><a href="part-03/#c09-i0868">Infrastructure planning for availability and IBM GDPS</a></li>
+<li><a href="part-03/#c09-i0869">Internal LCP</a></li>
+<li><a href="part-03/#c09-i0870">Introducing GDPS Global - GM</a></li>
+<li><a href="part-03/#c09-i0871">Introducing GDPS HM</a></li>
+<li><a href="part-03/#c09-i0872">Introducing GDPS Metro</a></li>
+<li><a href="part-03/#c09-i0873">Introducing LCP and Testcopy Manager</a></li>
+<li><a href="part-03/#c09-i0874">Introducing business resilience and the role of IBM GDPS</a></li>
+<li><a href="part-03/#c09-i0875">Introducing the GDPS Virtual Appliance</a></li>
+<li><a href="part-03/#c09-i0876">Introduction</a></li>
+<li><a href="part-03/#c09-i0877">LCP operational models</a></li>
+<li><a href="part-03/#c09-i0878">LCP terminology</a></li>
+<li><a href="part-03/#c09-i0879">Layout of this book</a></li>
+<li><a href="part-03/#c09-i0880">Local continuous availability and remote disaster recovery across two data centers at a long metropolitan distance</a></li>
+<li><a href="part-03/#c09-i0881">Logical Corruption Protection</a></li>
+<li><a href="part-03/#c09-i0882">Logical view</a></li>
+<li><a href="part-03/#c09-i0883">Managing the GDPS MGM 3-site environment</a></li>
+<li><a href="part-03/#c09-i0884">Managing the GDPS Metro HyperSwap Manager environment</a></li>
+<li><a href="part-03/#c09-i0885">Managing the GDPS environment</a></li>
+<li><a href="part-03/#c09-i0886">Managing the LCP and TCM environments</a></li>
+<li><a href="part-03/#c09-i0887">Managing your GDPS environments</a></li>
+<li><a href="part-03/#c09-i0888">Managing z/OS systems outside of the GDPS sysplex</a></li>
+<li><a href="part-03/#c09-i0889">March 2022, Eighteenth Edition</a></li>
+<li><a href="part-03/#c09-i0890">March 2023, Nineteenth Edition</a></li>
+<li><a href="part-03/#c09-i0891">March 2025, Twenty first Edition</a></li>
+<li><a href="part-03/#c09-i0892">Maximizing application availability</a></li>
+<li><a href="part-03/#c09-i0893">Metro Mirror</a></li>
+<li><a href="part-03/#c09-i0894">Middleware</a></li>
+<li><a href="part-03/#c09-i0895">Monitoring</a></li>
+<li><a href="part-03/#c09-i0896">Multi-site workload</a></li>
+<li><a href="part-03/#c09-i0897">Multi-target and cascading topologies</a></li>
+<li><a href="part-03/#c09-i0898">Multiplatform Resiliency for IBM Z</a></li>
+<li><a href="part-03/#c09-i0899">Multisite sysplex considerations</a></li>
+<li><a href="part-03/#c09-i0900">Multisite workload configuration</a></li>
+<li><a href="part-03/#c09-i0901">NetView commands</a></li>
+<li><a href="part-03/#c09-i0902">Objective</a></li>
+<li><a href="part-03/#c09-i0903">On/Off Capacity on Demand</a></li>
+<li><a href="part-03/#c09-i0904">Online resources</a></li>
+<li><a href="part-03/#c09-i0905">Operational considerations</a></li>
+<li><a href="part-03/#c09-i0906">Operational consistency</a></li>
+<li><a href="part-03/#c09-i0907">Other GM considerations</a></li>
+<li><a href="part-03/#c09-i0908">Other configurations</a></li>
+<li><a href="part-03/#c09-i0909">Other considerations</a></li>
+<li><a href="part-03/#c09-i0910">Other considerations in a GDPS MGM 3-site environment</a></li>
+<li><a href="part-03/#c09-i0911">Other facilities that are related to GDPS</a></li>
+<li><a href="part-03/#c09-i0912">Other important considerations</a></li>
+<li><a href="part-03/#c09-i0913">Other optional components</a></li>
+<li><a href="part-03/#c09-i0914">Other publications</a></li>
+<li><a href="part-03/#c09-i0915">Overview</a></li>
+<li><a href="part-03/#c09-i0916">Overview of GDPS Continuous Availability</a></li>
+<li><a href="part-03/#c09-i0917">Panels</a></li>
+<li><a href="part-03/#c09-i0918">Parallel Sysplex overview</a></li>
+<li><a href="part-03/#c09-i0919">Physical view</a></li>
+<li><a href="part-03/#c09-i0920">Positioning GDPS Continuous Availability</a></li>
+<li><a href="part-03/#c09-i0921">Prerequisites for a GDPS MGM 3-site configuration</a></li>
+<li><a href="part-03/#c09-i0922">Protecting data integrity</a></li>
+<li><a href="part-03/#c09-i0923">Protecting data integrity and data availability with GDPS HM</a></li>
+<li><a href="part-03/#c09-i0924">Protecting data integrity and data availability with GDPS Metro</a></li>
+<li><a href="part-03/#c09-i0925">Protecting data integrity and data availability with the GDPS Virtual Appliance</a></li>
+<li><a href="part-03/#c09-i0926">Protecting distributed (Fixed-Block) data</a></li>
+<li><a href="part-03/#c09-i0927">Protecting other CKD data</a></li>
+<li><a href="part-03/#c09-i0928">Protecting secondary disks from accidental update</a></li>
+<li><a href="part-03/#c09-i0929">Protecting tape data</a></li>
+<li><a href="part-03/#c09-i0930">Reconfiguring the remote copy environment</a></li>
+<li><a href="part-03/#c09-i0931">Recovery time objective</a></li>
+<li><a href="part-03/#c09-i0932">Reduced impact on initial copy and resynchronization</a></li>
+<li><a href="part-03/#c09-i0933">Replication software</a></li>
+<li><a href="part-03/#c09-i0934">Reserve Storage Pool</a></li>
+<li><a href="part-03/#c09-i0935">Sample continuous availability and disaster recovery scenarios</a></li>
+<li><a href="part-03/#c09-i0936">Scalability in a GDPS MGM 3-site environment</a></li>
+<li><a href="part-03/#c09-i0937">Scripting</a></li>
+<li><a href="part-03/#c09-i0938">Securing the GDPS LCP environment</a></li>
+<li><a href="part-03/#c09-i0939">Securing the GDPS environment</a></li>
+<li><a href="part-03/#c09-i0940">Server Time Protocol</a></li>
+<li><a href="part-03/#c09-i0941">Server-to-disk links</a></li>
+<li><a href="part-03/#c09-i0942">Services component</a></li>
+<li><a href="part-03/#c09-i0943">Single points of failure</a></li>
+<li><a href="part-03/#c09-i0944">Single-leg configuration</a></li>
+<li><a href="part-03/#c09-i0945">Single-site workload configuration</a></li>
+<li><a href="part-03/#c09-i0946">Site Table refresh Report</a></li>
+<li><a href="part-03/#c09-i0947">Skills impact</a></li>
+<li><a href="part-03/#c09-i0948">Summary</a></li>
+<li><a href="part-03/#c09-i0949">Synchronous versus asynchronous data transfer</a></li>
+<li><a href="part-03/#c09-i0950">System Management actions</a></li>
+<li><a href="part-03/#c09-i0951">System Recovery Boost</a></li>
+<li><a href="part-03/#c09-i0952">Tape-resident data</a></li>
+<li><a href="part-03/#c09-i0953">Testcopy Manager</a></li>
+<li><a href="part-03/#c09-i0954">Testing considerations</a></li>
+<li><a href="part-03/#c09-i0955">The IBM Z® Cyber Vault Solution</a></li>
+<li><a href="part-03/#c09-i0956">The next level</a></li>
+<li><a href="part-03/#c09-i0957">Three-copy solutions versus 3-site solutions</a></li>
+<li><a href="part-03/#c09-i0958">User interfaces</a></li>
+<li><a href="part-03/#c09-i0959">Using space-efficient FlashCopy</a></li>
+<li><a href="part-03/#c09-i0960">Using space-efficient FlashCopy volumes</a></li>
+<li><a href="part-03/#c09-i0961">Viewing your GDPS environments</a></li>
+<li><a href="part-03/#c09-i0962">XCF signaling</a></li>
+<li><a href="part-03/#c09-i0963">Zero Data Loss configuration</a></li>
+<li><a href="part-03/#c09-i0964">z/OS Proxy disk and disk subsystem sharing</a></li>
+</ul>
+<h3 id="gdps-family-gdps-gm">GDPS Family 概要 / 機能 &gt; GDPS GM<a class="headerlink" href="#gdps-family-gdps-gm" title="Permanent link">&para;</a></h3>
+<ul>
+<li><a href="part-03/#c09-i0965">GDPS GM</a></li>
+</ul>
+<h3 id="gdps-family-gdps-mgm">GDPS Family 概要 / 機能 &gt; GDPS MGM<a class="headerlink" href="#gdps-family-gdps-mgm" title="Permanent link">&para;</a></h3>
+<ul>
+<li><a href="part-03/#c09-i0966">GDPS MGM</a></li>
+</ul>
+<h3 id="gdps-family-gdps-metro">GDPS Family 概要 / 機能 &gt; GDPS Metro<a class="headerlink" href="#gdps-family-gdps-metro" title="Permanent link">&para;</a></h3>
+<ul>
+<li><a href="part-03/#c09-i0967">GDPS Metro</a></li>
+</ul>
+<h3 id="gdps-family-rpo">GDPS Family 概要 / 機能 &gt; RPO<a class="headerlink" href="#gdps-family-rpo" title="Permanent link">&para;</a></h3>
+<ul>
+<li><a href="part-03/#c09-i0968">RPO</a></li>
+</ul>
+<h3 id="gdps-family-rto">GDPS Family 概要 / 機能 &gt; RTO<a class="headerlink" href="#gdps-family-rto" title="Permanent link">&para;</a></h3>
+<ul>
+<li><a href="part-03/#c09-i0969">RTO</a></li>
+</ul>
+<h3 id="gdps-family-controlling-system">GDPS Family 概要 / 機能 &gt; controlling system<a class="headerlink" href="#gdps-family-controlling-system" title="Permanent link">&para;</a></h3>
+<ul>
+<li><a href="part-03/#c09-i0970">controlling system</a></li>
+</ul>
+<h3 id="metroglobal-mirror-incremental-resync">Metro/Global Mirror Incremental Resync<a class="headerlink" href="#metroglobal-mirror-incremental-resync" title="Permanent link">&para;</a></h3>
+<ul>
+<li><a href="part-03/#c09-i0971">Adjustments to SDM, GDPS/XRC, and GDPS/PPRC</a></li>
+<li><a href="part-03/#c09-i0972">Basic HyperSwap</a></li>
+<li><a href="part-03/#c09-i0973">Basic HyperSwap trigger</a></li>
+<li><a href="part-03/#c09-i0974">Conclusion</a></li>
+<li><a href="part-03/#c09-i0975">Failures in volumes B or C</a></li>
+<li><a href="part-03/#c09-i0976">GDPS/HyperSwap Manager</a></li>
+<li><a href="part-03/#c09-i0977">High availability despite primary site failures</a></li>
+<li><a href="part-03/#c09-i0978">HyperSwap technology</a></li>
+<li><a href="part-03/#c09-i0979">HyperSwap through GDPS</a></li>
+<li><a href="part-03/#c09-i0980">IBM z/OS Metro/Global Mirror Incremental Resync</a></li>
+<li><a href="part-03/#c09-i0981">Incremental resync after site A failure and HyperSwap</a></li>
+<li><a href="part-03/#c09-i0982">Metro/Global Mirror configuration</a></li>
+<li><a href="part-03/#c09-i0983">Metro/zOS Global Mirror</a></li>
+<li><a href="part-03/#c09-i0984">Peer-to-peer dynamic address switching (P/DAS)</a></li>
+<li><a href="part-03/#c09-i0985">The team that wrote this IBM Redpaper publication</a></li>
+<li><a href="part-03/#c09-i0986">Three-site Copy Services configuration</a></li>
+<li><a href="part-03/#c09-i0987">z/OS Metro/Global Mirror</a></li>
+<li><a href="part-03/#c09-i0988">z/OS Metro/Global Mirror Incremental Resync</a></li>
+</ul>
+<h3 id="zos-global-mirror">z/OS Global Mirror ベストプラクティス<a class="headerlink" href="#zos-global-mirror" title="Permanent link">&para;</a></h3>
+<ul>
+<li><a href="part-03/#c09-i0989">Adding storage capacity</a></li>
+<li><a href="part-03/#c09-i0990">An introduction to z/OS Global Mirror</a></li>
+<li><a href="part-03/#c09-i0991">Auxiliary disk systems</a></li>
+<li><a href="part-03/#c09-i0992">Auxiliary storage systems performance monitoring</a></li>
+<li><a href="part-03/#c09-i0993">Checklists for z/OS Global Mirror</a></li>
+<li><a href="part-03/#c09-i0994">Components in zGM</a></li>
+<li><a href="part-03/#c09-i0995">Concurrent copy sessions</a></li>
+<li><a href="part-03/#c09-i0996">Connectivity</a></li>
+<li><a href="part-03/#c09-i0997">Considerations about z/OS Global Mirror planning</a></li>
+<li><a href="part-03/#c09-i0998">Considerations for zSeries/Virtual Machine</a></li>
+<li><a href="part-03/#c09-i0999">Creating an SDM parmlib data set</a></li>
+<li><a href="part-03/#c09-i1000">Data currency</a></li>
+<li><a href="part-03/#c09-i1001">Data flow</a></li>
+<li><a href="part-03/#c09-i1002">Data migration</a></li>
+<li><a href="part-03/#c09-i1003">Determining what data should be copied</a></li>
+<li><a href="part-03/#c09-i1004">Dynamic workload pacing</a></li>
+<li><a href="part-03/#c09-i1005">Evaluate your installation</a></li>
+<li><a href="part-03/#c09-i1006">Excessive injected write pacing</a></li>
+<li><a href="part-03/#c09-i1007">GDPS/XRC Performance Toolkit</a></li>
+<li><a href="part-03/#c09-i1008">Hardware definition considerations</a></li>
+<li><a href="part-03/#c09-i1009">Hardware requirements</a></li>
+<li><a href="part-03/#c09-i1010">How can zGM affect production performance</a></li>
+<li><a href="part-03/#c09-i1011">How zGM maintains data consistency</a></li>
+<li><a href="part-03/#c09-i1012">HyperPAV</a></li>
+<li><a href="part-03/#c09-i1013">IBM Redbooks publications</a></li>
+<li><a href="part-03/#c09-i1014">IBM TotalStorage XRC Performance Monitor</a></li>
+<li><a href="part-03/#c09-i1015">IBM z/OS Global Mirror overview</a></li>
+<li><a href="part-03/#c09-i1016">Infrastructure data sets placement considerations for zGM</a></li>
+<li><a href="part-03/#c09-i1017">Initial z/OS Global Mirror planning considerations</a></li>
+<li><a href="part-03/#c09-i1018">Initializing volume pairs</a></li>
+<li><a href="part-03/#c09-i1019">Intersite connectivity</a></li>
+<li><a href="part-03/#c09-i1020">Keeping your z/OS Global Mirror environment working correctly</a></li>
+<li><a href="part-03/#c09-i1021">Management with GDPS in zGM</a></li>
+<li><a href="part-03/#c09-i1022">Mapping</a></li>
+<li><a href="part-03/#c09-i1023">Maximizing data currency to maintain peak performance</a></li>
+<li><a href="part-03/#c09-i1024">Maximizing reader efficiency</a></li>
+<li><a href="part-03/#c09-i1025">Maximizing write to auxiliary efficiency</a></li>
+<li><a href="part-03/#c09-i1026">Maximizing write to journal data set efficiency</a></li>
+<li><a href="part-03/#c09-i1027">Metro zGM configuration</a></li>
+<li><a href="part-03/#c09-i1028">Monitoring z/OS Global Mirror</a></li>
+<li><a href="part-03/#c09-i1029">Online resources</a></li>
+<li><a href="part-03/#c09-i1030">Other publications</a></li>
+<li><a href="part-03/#c09-i1031">Parameters that control SDM monitoring</a></li>
+<li><a href="part-03/#c09-i1032">Parameters that control pacing of application writes</a></li>
+<li><a href="part-03/#c09-i1033">Parameters that optimize consistency group writes to auxiliary</a></li>
+<li><a href="part-03/#c09-i1034">Parameters that optimize internal data mover throughput</a></li>
+<li><a href="part-03/#c09-i1035">Parameters that optimize reader performance</a></li>
+<li><a href="part-03/#c09-i1036">Parameters that optimize volume copy activity</a></li>
+<li><a href="part-03/#c09-i1037">Performance monitoring and analysis</a></li>
+<li><a href="part-03/#c09-i1038">Performance troubleshooting</a></li>
+<li><a href="part-03/#c09-i1039">Planned outage support</a></li>
+<li><a href="part-03/#c09-i1040">Planning for configuration and workload changes</a></li>
+<li><a href="part-03/#c09-i1041">Planning to protect critical data and applications</a></li>
+<li><a href="part-03/#c09-i1042">Preparing for initial deployment</a></li>
+<li><a href="part-03/#c09-i1043">Primary disk systems</a></li>
+<li><a href="part-03/#c09-i1044">Primary site definitions</a></li>
+<li><a href="part-03/#c09-i1045">Primary systems</a></li>
+<li><a href="part-03/#c09-i1046">Primary systems performance monitoring</a></li>
+<li><a href="part-03/#c09-i1047">Processor requirement considerations for SDM</a></li>
+<li><a href="part-03/#c09-i1048">Recovery site definitions</a></li>
+<li><a href="part-03/#c09-i1049">Recovery site in a production sysplex</a></li>
+<li><a href="part-03/#c09-i1050">Requirements for z/OS Global Mirror</a></li>
+<li><a href="part-03/#c09-i1051">Resource contention</a></li>
+<li><a href="part-03/#c09-i1052">SAN monitoring</a></li>
+<li><a href="part-03/#c09-i1053">SDM location</a></li>
+<li><a href="part-03/#c09-i1054">SDM resources</a></li>
+<li><a href="part-03/#c09-i1055">SDM session considerations</a></li>
+<li><a href="part-03/#c09-i1056">Scenarios for installation deployment and upgrade</a></li>
+<li><a href="part-03/#c09-i1057">Scenarios for ongoing operations</a></li>
+<li><a href="part-03/#c09-i1058">Software requirements</a></li>
+<li><a href="part-03/#c09-i1059">Storage management subsystem</a></li>
+<li><a href="part-03/#c09-i1060">Storage requirements</a></li>
+<li><a href="part-03/#c09-i1061">Suspending a zGM session</a></li>
+<li><a href="part-03/#c09-i1062">Suspending volumes</a></li>
+<li><a href="part-03/#c09-i1063">System Data Mover</a></li>
+<li><a href="part-03/#c09-i1064">System Data Mover considerations</a></li>
+<li><a href="part-03/#c09-i1065">Terms and process definitions for z/OS Global Mirror</a></li>
+<li><a href="part-03/#c09-i1066">Testing z/OS Global Mirror</a></li>
+<li><a href="part-03/#c09-i1067">The MzGM Incremental Resync function</a></li>
+<li><a href="part-03/#c09-i1068">The data set for zGM</a></li>
+<li><a href="part-03/#c09-i1069">The zGM enhanced multiple reader (enhanced reader) function</a></li>
+<li><a href="part-03/#c09-i1070">Time-consistent recovery</a></li>
+<li><a href="part-03/#c09-i1071">Tuning parameters for zGM</a></li>
+<li><a href="part-03/#c09-i1072">Tuning z/OS Global Mirror</a></li>
+<li><a href="part-03/#c09-i1073">Unplanned outage support</a></li>
+<li><a href="part-03/#c09-i1074">Upgrading the server</a></li>
+<li><a href="part-03/#c09-i1075">Upgrading the storage system</a></li>
+<li><a href="part-03/#c09-i1076">Using XQuery to verify SDM parameter settings</a></li>
+<li><a href="part-03/#c09-i1077">What to expect from z/OS Global Mirror</a></li>
+<li><a href="part-03/#c09-i1078">Write pacing and device blocking</a></li>
+<li><a href="part-03/#c09-i1079">XRC testing</a></li>
+</ul>
+<h3 id="control-script">スクリプト &gt; Control script<a class="headerlink" href="#control-script" title="Permanent link">&para;</a></h3>
+<ul>
+<li><a href="part-03/#c09-i1080">Control script</a></li>
+</ul>
+<h3 id="planned-actions">スクリプト &gt; Planned Actions<a class="headerlink" href="#planned-actions" title="Permanent link">&para;</a></h3>
+<ul>
+<li><a href="part-03/#c09-i1081">Planned Actions</a></li>
+</ul>
+<h3 id="takeover-script">スクリプト &gt; Takeover script<a class="headerlink" href="#takeover-script" title="Permanent link">&para;</a></h3>
+<ul>
+<li><a href="part-03/#c09-i1082">Takeover script</a></li>
+</ul>
+<h3 id="post-swap-script">スクリプト &gt; post-swap script<a class="headerlink" href="#post-swap-script" title="Permanent link">&para;</a></h3>
+<ul>
+<li><a href="part-03/#c09-i1083">post-swap script</a></li>
+</ul>
+<h3 id="pprcfailurestop">凍結方針 &gt; PPRCFAILURE=STOP<a class="headerlink" href="#pprcfailurestop" title="Permanent link">&para;</a></h3>
+<ul>
+<li><a href="part-03/#c09-i1084">PPRCFAILURE=STOP</a></li>
+</ul>
+<h3 id="pprcfailurestoplast">凍結方針 &gt; PPRCFAILURE=STOPLAST<a class="headerlink" href="#pprcfailurestoplast" title="Permanent link">&para;</a></h3>
+<ul>
+<li><a href="part-03/#c09-i1085">PPRCFAILURE=STOPLAST</a></li>
+</ul>
+<h3 id="freeze-policy">凍結方針 &gt; freeze policy<a class="headerlink" href="#freeze-policy" title="Permanent link">&para;</a></h3>
+<ul>
+<li><a href="part-03/#c09-i1086">freeze policy</a></li>
+</ul>
+<h3 id="geogroup">構成定義 &gt; GEOGROUP<a class="headerlink" href="#geogroup" title="Permanent link">&para;</a></h3>
+<ul>
+<li><a href="part-03/#c09-i1087">GEOGROUP</a></li>
+</ul>
+<h3 id="geoparm">構成定義 &gt; GEOPARM<a class="headerlink" href="#geoparm" title="Permanent link">&para;</a></h3>
+<ul>
+<li><a href="part-03/#c09-i1088">GEOPARM</a></li>
+</ul>
+<h3 id="hyperswap">継続可用性 &gt; HyperSwap<a class="headerlink" href="#hyperswap" title="Permanent link">&para;</a></h3>
+<ul>
+<li><a href="part-03/#c09-i1089">HyperSwap</a></li>
+</ul>
+<h3 id="hyperswap_1">継続可用性 &gt; 計画HyperSwap<a class="headerlink" href="#hyperswap_1" title="Permanent link">&para;</a></h3>
+<ul>
+<li><a href="part-03/#c09-i1090">計画HyperSwap</a></li>
+</ul>
+<h3 id="hyperswap_2">継続可用性 &gt; 非計画HyperSwap<a class="headerlink" href="#hyperswap_2" title="Permanent link">&para;</a></h3>
+<ul>
+<li><a href="part-03/#c09-i1091">非計画HyperSwap</a></li>
+</ul>
+<h3 id="global-mirror">複製技術 &gt; Global Mirror<a class="headerlink" href="#global-mirror" title="Permanent link">&para;</a></h3>
+<ul>
+<li><a href="part-03/#c09-i1092">Global Mirror</a></li>
+</ul>
+<h3 id="metro-mirror">複製技術 &gt; Metro Mirror<a class="headerlink" href="#metro-mirror" title="Permanent link">&para;</a></h3>
+<ul>
+<li><a href="part-03/#c09-i1093">Metro Mirror</a></li>
+</ul>
+<h3 id="pprc-link">複製技術 &gt; PPRC link<a class="headerlink" href="#pprc-link" title="Permanent link">&para;</a></h3>
+<ul>
+<li><a href="part-03/#c09-i1094">PPRC link</a></li>
+</ul>
+<h3 id="elb">障害対応 &gt; ELB<a class="headerlink" href="#elb" title="Permanent link">&para;</a></h3>
+<ul>
+<li><a href="part-03/#c09-i1095">ELB</a></li>
+</ul>
+<h3 id="freeze">障害対応 &gt; Freeze<a class="headerlink" href="#freeze" title="Permanent link">&para;</a></h3>
+<ul>
+<li><a href="part-03/#c09-i1096">Freeze</a></li>
+</ul>
+<h3 id="incremental-resynchronization">障害対応 &gt; Incremental Resynchronization<a class="headerlink" href="#incremental-resynchronization" title="Permanent link">&para;</a></h3>
+<ul>
+<li><a href="part-03/#c09-i1097">Incremental Resynchronization</a></li>
+</ul>
+<h3 id="primaryfailure">障害対応 &gt; PRIMARYFAILURE<a class="headerlink" href="#primaryfailure" title="Permanent link">&para;</a></h3>
+<ul>
+<li><a href="part-03/#c09-i1098">PRIMARYFAILURE</a></li>
+</ul>
+<h3 id="preferred-swap-leg">障害対応 &gt; Preferred Swap Leg<a class="headerlink" href="#preferred-swap-leg" title="Permanent link">&para;</a></h3>
+<ul>
+<li><a href="part-03/#c09-i1099">Preferred Swap Leg</a></li>
+</ul>
+<h3 id="dual-leg-configuration">障害対応 &gt; dual-leg configuration<a class="headerlink" href="#dual-leg-configuration" title="Permanent link">&para;</a></h3>
+<ul>
+<li><a href="part-03/#c09-i1100">dual-leg configuration</a></li>
+</ul>
+<h3 id="site-failure">障害対応 &gt; site failure<a class="headerlink" href="#site-failure" title="Permanent link">&para;</a></h3>
+<ul>
+<li><a href="part-03/#c09-i1101">site failure</a></li>
+</ul>
+<h3 id="_2">その他<a class="headerlink" href="#_2" title="Permanent link">&para;</a></h3>
+<ul>
+<li><a href="part-03/#c09-other">その他</a></li>
+</ul>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+  <script>var tabs=__md_get("__tabs");if(Array.isArray(tabs))e:for(var set of document.querySelectorAll(".tabbed-set")){var labels=set.querySelector(".tabbed-labels");for(var tab of tabs)for(var label of labels.getElementsByTagName("label"))if(label.innerText.trim()===tab){var input=document.getElementById(label.htmlFor);input.checked=!0;continue e}}</script>
+
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  ページトップへ戻る
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+    
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["navigation.tabs", "navigation.tabs.sticky", "navigation.sections", "navigation.indexes", "navigation.path", "navigation.top", "navigation.footer", "toc.follow", "search.suggest", "search.highlight", "search.share", "content.tabs.link", "content.code.copy"], "search": "../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "\u30b3\u30d4\u30fc\u3057\u307e\u3057\u305f", "clipboard.copy": "\u30af\u30ea\u30c3\u30d7\u30dc\u30fc\u30c9\u3078\u30b3\u30d4\u30fc", "search.result.more.one": "\u3053\u306e\u30da\u30fc\u30b8\u5185\u306b\u3082\u30461\u4ef6\u898b\u3064\u304b\u308a\u307e\u3057\u305f", "search.result.more.other": "\u3053\u306e\u30da\u30fc\u30b8\u5185\u306b\u3042\u3068#\u4ef6\u898b\u3064\u304b\u308a\u307e\u3057\u305f", "search.result.none": "\u4f55\u3082\u898b\u3064\u304b\u308a\u307e\u305b\u3093\u3067\u3057\u305f", "search.result.one": "1\u4ef6\u898b\u3064\u304b\u308a\u307e\u3057\u305f", "search.result.other": "#\u4ef6\u898b\u3064\u304b\u308a\u307e\u3057\u305f", "search.result.placeholder": "\u691c\u7d22\u30ad\u30fc\u30ef\u30fc\u30c9\u3092\u5165\u529b\u3057\u3066\u304f\u3060\u3055\u3044", "search.result.term.missing": "\u691c\u7d22\u306b\u542b\u307e\u308c\u306a\u3044", "select.version": "\u30d0\u30fc\u30b8\u30e7\u30f3\u5207\u308a\u66ff\u3048"}, "version": null}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.d7400e89.min.js"></script>
+      
+    
+  </body>
+</html>

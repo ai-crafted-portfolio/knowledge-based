@@ -1,0 +1,1712 @@
+
+<!doctype html>
+<html lang="ja" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="技術項目・確認問題・検証手順をカテゴリ別に検索できるナレッジベース">
+      
+      
+        <meta name="author" content="Knowledge Base">
+      
+      
+        <link rel="canonical" href="https://ai-crafted-portfolio.github.io/knowledge-based/categories/c34/part-01/">
+      
+      
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.7">
+    
+    
+      
+        <title>VIOS — 詳細 (1/1) - z/OS 技術ナレッジベース</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../../assets/stylesheets/main.ec1eaa64.min.css">
+      
+        
+        <link rel="stylesheet" href="../../../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Segoe+UI:300,300i,400,400i,700,700i%7CCascadia+Code:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Segoe UI";--md-code-font:"Cascadia Code"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../../stylesheets/ms-style.css">
+    
+    <script>__md_scope=new URL("../../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="blue">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#vios-11" class="md-skip">
+          コンテンツにスキップ
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow md-header--lifted" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="ヘッダー">
+    <a href="../../.." title="z/OS 技術ナレッジベース" class="md-header__button md-logo" aria-label="z/OS 技術ナレッジベース" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            z/OS 技術ナレッジベース
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              VIOS — 詳細 (1/1)
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="blue"  aria-label="ダークモードに切り替え"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="ダークモードに切り替え" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m17.75 4.09-2.53 1.94.91 3.06-2.63-1.81-2.63 1.81.91-3.06-2.53-1.94L12.44 4l1.06-3 1.06 3zm3.5 6.91-1.64 1.25.59 1.98-1.7-1.17-1.7 1.17.59-1.98L15.75 11l2.06-.05L18.5 9l.69 1.95zm-2.28 4.95c.83-.08 1.72 1.1 1.19 1.85-.32.45-.66.87-1.08 1.27C15.17 23 8.84 23 4.94 19.07c-3.91-3.9-3.91-10.24 0-14.14.4-.4.82-.76 1.27-1.08.75-.53 1.93.36 1.85 1.19-.27 2.86.69 5.83 2.89 8.02a9.96 9.96 0 0 0 8.02 2.89m-1.64 2.02a12.08 12.08 0 0 1-7.8-3.47c-2.17-2.19-3.33-5-3.49-7.82-2.81 3.14-2.7 7.96.31 10.98 3.02 3.01 7.84 3.12 10.98.31"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="slate" data-md-color-primary="indigo" data-md-color-accent="blue"  aria-label="ライトモードに切り替え"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="ライトモードに切り替え" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 7a5 5 0 0 1 5 5 5 5 0 0 1-5 5 5 5 0 0 1-5-5 5 5 0 0 1 5-5m0 2a3 3 0 0 0-3 3 3 3 0 0 0 3 3 3 3 0 0 0 3-3 3 3 0 0 0-3-3m0-7 2.39 3.42C13.65 5.15 12.84 5 12 5s-1.65.15-2.39.42zM3.34 7l4.16-.35A7.2 7.2 0 0 0 5.94 8.5c-.44.74-.69 1.5-.83 2.29zm.02 10 1.76-3.77a7.131 7.131 0 0 0 2.38 4.14zM20.65 7l-1.77 3.79a7.02 7.02 0 0 0-2.38-4.15zm-.01 10-4.14.36c.59-.51 1.12-1.14 1.54-1.86.42-.73.69-1.5.83-2.29zM12 22l-2.41-3.44c.74.27 1.55.44 2.41.44.82 0 1.63-.17 2.37-.44z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="検索" placeholder="検索" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="検索">
+        
+          <a href="javascript:void(0)" class="md-search__icon md-icon" title="共有" aria-label="共有" data-clipboard data-clipboard-text="" data-md-component="search-share" tabindex="-1">
+            
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M18 16.08c-.76 0-1.44.3-1.96.77L8.91 12.7c.05-.23.09-.46.09-.7s-.04-.47-.09-.7l7.05-4.11c.54.5 1.25.81 2.04.81a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3c0 .24.04.47.09.7L8.04 9.81C7.5 9.31 6.79 9 6 9a3 3 0 0 0-3 3 3 3 0 0 0 3 3c.79 0 1.5-.31 2.04-.81l7.12 4.15c-.05.21-.08.43-.08.66 0 1.61 1.31 2.91 2.92 2.91s2.92-1.3 2.92-2.91A2.92 2.92 0 0 0 18 16.08"/></svg>
+          </a>
+        
+        <button type="reset" class="md-search__icon md-icon" title="クリア" aria-label="クリア" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            検索を初期化
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+  </nav>
+  
+    
+      
+<nav class="md-tabs" aria-label="タブ" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../.." class="md-tabs__link">
+        
+  
+  
+    
+  
+  ホーム
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../" class="md-tabs__link">
+          
+  
+  
+    
+  
+  カテゴリ
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../../articles/" class="md-tabs__link">
+          
+  
+  
+    
+  
+  記事
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../../about/" class="md-tabs__link">
+          
+  
+  
+    
+  
+  ガイド
+
+        </a>
+      </li>
+    
+  
+
+      
+    </ul>
+  </div>
+</nav>
+    
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="ナビゲーション" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../../.." title="z/OS 技術ナレッジベース" class="md-nav__button md-logo" aria-label="z/OS 技術ナレッジベース" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    z/OS 技術ナレッジベース
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    ホーム
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    カテゴリ
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    カテゴリ
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../../articles/" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    記事
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    記事
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    ガイド
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    ガイド
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../about/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    このサイトについて
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../faq/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    FAQ
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../search/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    検索
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+  
+
+<nav class="md-nav md-nav--secondary" aria-label="このページの目次">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      このページの目次
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#fibre-channel" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Fibre Channel性能
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#npiv" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        NPIV
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#shared-storage-pool" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Shared Storage Pool
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ストレージ仮想化
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        セキュリティ
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ネットワーク仮想化
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ネットワーク性能
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_5" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        バックアップ・復元
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_6" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        仮想メディア
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_7" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        更新・アップグレード
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+                
+
+
+
+  
+
+
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<h1 id="vios-11">VIOS — 詳細 (1/1)<a class="headerlink" href="#vios-11" title="Permanent link">&para;</a></h1>
+<p><a href="../">← VIOS の概要へ戻る</a></p>
+<h2 id="fibre-channel">Fibre Channel性能<a class="headerlink" href="#fibre-channel" title="Permanent link">&para;</a></h2>
+<section class="kb-item" id="c34-i0001"><h3>fcstatのポート識別と速度</h3><p class="kb-meta">分類: Fibre Channel性能 ・ 難易度: 中級</p><p>FCポート実体は、VIOSのFibre Channel性能で統計対象をSAN側ポートへ結び付ける識別情報である。fcstatのWWPN、Port Speed、Port FC ID、Port Typeを記録し、エラー値を正しいファブリック接続へ対応させる。</p><p class="kb-src"><strong>出典:</strong> IBM Power Systems: Virtual I / O Server and Integrated Virtualization Manager commands p8hcg / https: / public.dhe.ibm.com / systems / power / docs / hw / p8 / p8hcg / IBM Power Systems Virtual I / O Server Commands: fcstat command / www.ibm.com / en / power10 / 9105-42A?topic=commands-fcstat-command</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> ポート識別と速度（fcstat）について、fcs0の統計をSANスイッチ側記録と突き合わせる際に必要なfcstat項目はどれか。</p><ul class="kb-choices"><li>A. Framesの合計だけを物理ポート識別子としてSANへ渡す。</li><li>B. Option ROM VersionをクライアントLPARのWWPNとして扱う。</li><li>C. Seconds Since Last ResetをPort FC IDへ変換する。</li><li>D. World Wide Port NameとPort FC IDと実行中Port Speedを記録する。 <span class="kb-ok">✅ 正解</span></li></ul><p class="kb-meta">正解: <strong>D</strong> ／ 難易度: 中級</p><p><strong>解説:</strong> ポート実体（FC）でDを正答とする理由は、WWPNとFC IDはファブリック上のポートを対応させ、running speedは現在のリンク速度を示すことです。
+ポート識別と速度（fcstat）の仕組みとして、同一VIOSに複数fcsアダプターがあると、装置名だけではSAN側の接続先と一致しない場合がある。物理位置とWWPNを組にして統計を渡すと対象の取り違えを防げる。
+ポート識別と速度（fcstat）の誤答は、AはFramesは通信量で恒久識別子ではない、BはOption ROMはアダプターファームウェア情報でクライアントWWPNではない、Cはリセット後経過秒数とFC IDに変換関係はない。
+ポート識別と速度（fcstat）で使うWWPNとはWorld Wide Port Nameの略で、Fibre Channelポートをファブリック内で識別する64ビット値。</p><p class="kb-src"><strong>出典:</strong> IBM Power Systems: Virtual I / O Server and Integrated Virtualization Manager commands p8hcg / https: / public.dhe.ibm.com / systems / power / docs / hw / p8 / p8hcg / IBM Power Systems Virtual I / O Server Commands: fcstat command / www.ibm.com / en / power10 / 9105-42A?topic=commands-fcstat-command</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>fcstatのポート識別と速度</strong></p><p>検証目的: FCポート実体について、一次資料のコマンドと出力形式を用いて構成・状態を机上確認する。</p><p>前提条件: padmin権限のVIOS CLIに接続でき、対象装置名と変更計画を確認済み。変更を伴う操作は本手順では実行しない。</p><p>セッション環境: VIOS padmin shell</p><pre class="kb-code">■ ステップ 1
+現在の画面はVIOSのpadminコマンド入力画面である。指定WWPNの仮想ポート統計を表示し、FC IDと実行速度をSAN側記録へ対応させる。
+［操作（入力）］
+VIOS CLI
+COMMAND ===&gt; fcstat -n C050760547E90000 fcs0
+→ Enter を押す
+［画面・出力］
+FIBRE CHANNEL STATISTICS REPORT: fcs0
+World Wide Node Name: 0xC050760547E90000
+World Wide Port Name: 0xC050760547E90000
+Port Speed (supported): 8 GBIT
+Port Speed (running):   8 GBIT
+Port FC ID: 0x010f00
+Port Type: Fabric
+画面・出力に含まれる 0x010f00 を読み、FCポート実体の判定資料として保存する。
+――――</pre><p>合格条件: ステップ1: 0x010f00 が画面・出力に現れ、指定WWPNの仮想ポート統計を表示し、FC IDと実行速度をSAN側記録へ対応させる。</p><p class="kb-meta">検証状態: 机上 ／ 出典: IBM Power Systems: Virtual I / O Server and Integrated Virtualization Manager commands p8hcg / https: / public.dhe.ibm.com / systems / power / docs / hw / p8 / p8hcg / IBM Power Systems Virtual I / O Server Commands: fcstat command / www.ibm.com / en / power10 / 9105-42A?topic=commands-fcstat-command</p></div></details></section>
+
+<section class="kb-item" id="c34-i0002"><h3>fcstatのリンク障害カウンター</h3><p class="kb-meta">分類: Fibre Channel性能 ・ 難易度: 中級</p><p>FCリンク品質は、VIOSのFibre Channel性能で物理ポートとSAN接続の異常を示す統計である。fcstatのLink Failure、Loss of Sync、Loss of Signal、Invalid CRCなどを増分で追い、I/O量と分けて評価する。</p><p class="kb-src"><strong>出典:</strong> IBM Power Systems: Virtual I / O Server and Integrated Virtualization Manager commands p8hcg / https: / public.dhe.ibm.com / systems / power / docs / hw / p8 / p8hcg / IBM Power Systems Virtual I / O Server Commands: fcstat command / www.ibm.com / en / power10 / 9105-42A?topic=commands-fcstat-command</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> リンク障害カウンター（fcstat）について、リンク品質（FC）について、FCポートの物理リンク不安定を疑うとき、fcstatで優先して比較するカウンター群はどれか。</p><ul class="kb-choices"><li>A. Input Bytesだけを読みCRCと同期損失を同じ値として扱う。FCリンク品質の判定にも同じ前提を広げ、Loss of Syncの表示値を確認せずに結論を確定する。</li><li>B. Link FailureとLoss of SyncとLoss of SignalとInvalid CRCを前回値と比較する。 <span class="kb-ok">✅ 正解</span></li><li>C. World Wide Port Nameの桁数からLink Failureを推定する。</li><li>D. Control Requestsが0なら物理リンクは必ず正常とする。</li></ul><p class="kb-meta">正解: <strong>B</strong> ／ 難易度: 中級</p><p><strong>解説:</strong> リンク品質（FC）でBを正答とする理由は、リンク障害、同期喪失、信号喪失、CRC不正は物理・伝送品質の異常を直接表すカウンターであることです。
+リンク障害カウンター（fcstat）の仕組みとして、fcstatはトラフィック量とエラー統計を同時に示す。累積値の単発採取だけでは発生時期が分からないため、時刻付き差分とSAN側ポート統計を対応させる。
+リンク障害カウンター（fcstat）の誤答は、AはI/O量と伝送エラーは別の統計欄である、CはWWPNは識別子で障害回数を含まない、DはControl Requestsの有無だけでは信号品質を判定できない。
+リンク障害カウンター（fcstat）で使うLoss of SyncとはFibre Channel受信側が信号の同期を維持できなかった回数を示すリンク統計。</p><p class="kb-src"><strong>出典:</strong> IBM Power Systems: Virtual I / O Server and Integrated Virtualization Manager commands p8hcg / https: / public.dhe.ibm.com / systems / power / docs / hw / p8 / p8hcg / IBM Power Systems Virtual I / O Server Commands: fcstat command / www.ibm.com / en / power10 / 9105-42A?topic=commands-fcstat-command</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>fcstatのリンク障害カウンター</strong></p><p>検証目的: FCリンク品質について、一次資料のコマンドと出力形式を用いて構成・状態を机上確認する。</p><p>前提条件: padmin権限のVIOS CLIに接続でき、対象装置名と変更計画を確認済み。変更を伴う操作は本手順では実行しない。</p><p>セッション環境: VIOS padmin shell</p><pre class="kb-code">■ ステップ 1
+現在の画面はVIOSのpadminコマンド入力画面である。対象FCポートのエラーカウンターを表示し、前回採取値からの増分を確認する。
+［操作（入力）］
+VIOS CLI
+COMMAND ===&gt; fcstat fcs0
+→ Enter を押す
+［画面・出力］
+Transmit Statistics    Receive Statistics
+Frames: 1              Frames: 1
+LIP Count: 1
+NOS Count: 1
+Error Frames: 1
+Link Failure Count: 1
+Loss of Sync Count: 1
+Loss of Signal: 1
+Invalid CRC Count: 1
+画面・出力に含まれる Loss of Sync Count を読み、FCリンク品質の判定資料として保存する。
+――――</pre><p>合格条件: ステップ1: Loss of Sync Count が画面・出力に現れ、対象FCポートのエラーカウンターを表示し、前回採取値からの増分を確認する。</p><p class="kb-meta">検証状態: 机上 ／ 出典: IBM Power Systems: Virtual I / O Server and Integrated Virtualization Manager commands p8hcg / https: / public.dhe.ibm.com / systems / power / docs / hw / p8 / p8hcg / IBM Power Systems Virtual I / O Server Commands: fcstat command / www.ibm.com / en / power10 / 9105-42A?topic=commands-fcstat-command</p></div></details></section>
+
+<h2 id="npiv">NPIV<a class="headerlink" href="#npiv" title="Permanent link">&para;</a></h2>
+<section class="kb-item" id="c34-i0003"><h3>NPIVログイン状態とポート数</h3><p class="kb-meta">分類: NPIV ・ 難易度: 中級</p><p>SANログイン状態は、VIOSのNPIV構成で仮想FCアダプターがターゲットへ到達しているかを示す。lsmap -npivのStatusとPorts logged inを読み、未接続とポート不足を物理バインディングから分けて扱う。</p><p class="kb-src"><strong>出典:</strong> IBM Power Systems: Virtual I / O Server and Integrated Virtualization Manager commands p8hcg / https: / public.dhe.ibm.com / systems / power / docs / hw / p8 / p8hcg / IBM Power Systems Virtual I / O Server Commands: lsmap command / www.ibm.com / en / power10?topic=commands-lsmap-command</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> ログイン状態とポート数（NPIV）について、lsmap -npivでStatusがNOT_LOGGED_INと表示されたときの解釈として適切なものはどれか。</p><ul class="kb-choices"><li>A. vfchostの存在だけで到達済みとせずSANログインと接続状態を追加調査する。 <span class="kb-ok">✅ 正解</span></li><li>B. NOT_LOGGED_INはvSCSIのLUNがAvailableであることを示す。</li><li>C. Ports logged inが0なら物理FCアダプターは必ず故障している。</li><li>D. ClntOSがAIXならStatus表示を無視して正常と判定する。</li></ul><p class="kb-meta">正解: <strong>A</strong> ／ 難易度: 中級</p><p><strong>解説:</strong> ログイン状態（SAN）でAを正答とする理由は、NOT_LOGGED_INはVFC側のログイン未成立を示すため、ゾーニング、クライアント状態、物理ポート対応を確認する必要があることです。
+ログイン状態とポート数（NPIV）の仕組みとして、ログイン状態（SAN）について、NPIVでは仮想アダプター定義、VIOS物理ポート割当、SANファブリックのログインが段階的に成立する。定義が存在してもクライアント停止中などでログインしない場合がある。
+ログイン状態とポート数（NPIV）の誤答は、BはvSCSIのStatusとは別のNPIV状態欄である、Cは0は接続未成立を示すが原因を物理故障一つに限定できない、DはクライアントOS種別はログイン成功の代替証拠にならない。
+ログイン状態とポート数（NPIV）で使うNOT_LOGGED_INとは仮想FCアダプターからSANターゲットへのポートログインが成立していない状態表示。</p><p class="kb-src"><strong>出典:</strong> IBM Power Systems: Virtual I / O Server and Integrated Virtualization Manager commands p8hcg / https: / public.dhe.ibm.com / systems / power / docs / hw / p8 / p8hcg / IBM Power Systems Virtual I / O Server Commands: lsmap command / www.ibm.com / en / power10?topic=commands-lsmap-command</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>NPIVログイン状態とポート数</strong></p><p>検証目的: SANログイン状態について、一次資料のコマンドと出力形式を用いて構成・状態を机上確認する。</p><p>前提条件: padmin権限のVIOS CLIに接続でき、対象装置名と変更計画を確認済み。変更を伴う操作は本手順では実行しない。</p><p>セッション環境: VIOS padmin shell</p><pre class="kb-code">■ ステップ 1
+現在の画面はVIOSのpadminコマンド入力画面である。区切り形式のNPIV行を取得し、状態欄とログインポート数を機械的に判定できる形で残す。
+［操作（入力）］
+VIOS CLI
+COMMAND ===&gt; lsmap -all -npiv -fmt2 :
+→ Enter を押す
+［画面・出力］
+vfchost0:U9117.MMD.10581C7-V31-C4:37:::NOT_LOGGED_IN:::0:1::
+画面・出力に含まれる NOT_LOGGED_IN を読み、SANログイン状態の判定資料として保存する。
+――――</pre><p>合格条件: ステップ1: NOT_LOGGED_IN が画面・出力に現れ、区切り形式のNPIV行を取得し、状態欄とログインポート数を機械的に判定できる形で残す。</p><p class="kb-meta">検証状態: 机上 ／ 出典: IBM Power Systems: Virtual I / O Server and Integrated Virtualization Manager commands p8hcg / https: / public.dhe.ibm.com / systems / power / docs / hw / p8 / p8hcg / IBM Power Systems Virtual I / O Server Commands: lsmap command / www.ibm.com / en / power10?topic=commands-lsmap-command</p></div></details></section>
+
+<section class="kb-item" id="c34-i0004"><h3>lsmap -npivのVFCバインディング</h3><p class="kb-meta">分類: NPIV ・ 難易度: 中級</p><p>VFC物理ポート対応は、VIOSのNPIV構成でvfchostを物理Fibre Channelアダプターへ結び付ける情報である。lsmap -npivはクライアント名、状態、FC name、FC loc code、ログインポート数を表示する。</p><p class="kb-src"><strong>出典:</strong> IBM Power Systems: Virtual I / O Server and Integrated Virtualization Manager commands p8hcg / https: / public.dhe.ibm.com / systems / power / docs / hw / p8 / p8hcg / IBM Power Systems Virtual I / O Server Commands: lsmap command / www.ibm.com / en / power10?topic=commands-lsmap-command</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> バインディング（lsmap / npiv / VFC）について、vfchost0がどの物理FCアダプターへ結び付くかを確認するlsmap -npivの項目はどれか。</p><ul class="kb-choices"><li>A. VTDのBacking deviceを物理FCポート名として読む。</li><li>B. vfchost0のグループ内にあるFC nameとFC loc codeを確認する。 <span class="kb-ok">✅ 正解</span></li><li>C. ClntIDをWorld Wide Port Nameへ変換して採用する。</li><li>D. Ports logged inの数値をfcsアダプター番号とみなす。VFC物理ポート対応の判定にも同じ前提を広げ、VFCの表示値を確認せずに結論を確定する。</li></ul><p class="kb-meta">正解: <strong>B</strong> ／ 難易度: 中級</p><p><strong>解説:</strong> 物理ポート対応（VFC）でBを正答とする理由は、NPIV表示のFC nameはfcs0などの物理アダプター名を、FC loc codeはそのハードウェア位置を示すことです。
+バインディング（lsmap / npiv / VFC）の仕組みとして、vfchostはクライアントVFCアダプターのVIOS側終端であり、物理FCポートへのバインディングを介してSANへ到達する。状態とポート対応は別欄なので両方を保存する。
+バインディング（lsmap / npiv / VFC）の誤答は、AはVTDとbacking deviceはvSCSI表示の概念である、CはClntIDはLPAR識別子でWWPNではない、Dはログイン数はアダプター論理名を符号化しない。
+バインディング（lsmap / npiv / VFC）で使うVFCとはVirtual Fibre Channelの略で、NPIVによりクライアントへ仮想FC接続を提供する方式。</p><p class="kb-src"><strong>出典:</strong> IBM Power Systems: Virtual I / O Server and Integrated Virtualization Manager commands p8hcg / https: / public.dhe.ibm.com / systems / power / docs / hw / p8 / p8hcg / IBM Power Systems Virtual I / O Server Commands: lsmap command / www.ibm.com / en / power10?topic=commands-lsmap-command</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>lsmap -npivのVFCバインディング</strong></p><p>検証目的: VFC物理ポート対応について、一次資料のコマンドと出力形式を用いて構成・状態を机上確認する。</p><p>前提条件: padmin権限のVIOS CLIに接続でき、対象装置名と変更計画を確認済み。変更を伴う操作は本手順では実行しない。</p><p>セッション環境: VIOS padmin shell</p><pre class="kb-code">■ ステップ 1
+現在の画面はVIOSのpadminコマンド入力画面である。NPIVマッピングを表示し、vfchostから物理FCアダプターへの対応を採取する。
+［操作（入力）］
+VIOS CLI
+COMMAND ===&gt; lsmap -all -npiv
+→ Enter を押す
+［画面・出力］
+Name           Physloc                   ClntID ClntName  ClntOS
+vfchost0       U8203.E4A.HV40026-V1-C12  1      HV-40026 AIX
+Status:NOT_LOGGED_IN
+FC name:fcs0  FC loc code:U789C.001.0607088-P1-C5-T1
+Ports logged in:3
+Flags:1 &lt;not_mapped, not_connected&gt;
+画面・出力に含まれる fcs0 を読み、VFC物理ポート対応の判定資料として保存する。
+――――</pre><p>合格条件: ステップ1: fcs0 が画面・出力に現れ、NPIVマッピングを表示し、vfchostから物理FCアダプターへの対応を採取する。</p><p class="kb-meta">検証状態: 机上 ／ 出典: IBM Power Systems: Virtual I / O Server and Integrated Virtualization Manager commands p8hcg / https: / public.dhe.ibm.com / systems / power / docs / hw / p8 / p8hcg / IBM Power Systems Virtual I / O Server Commands: lsmap command / www.ibm.com / en / power10?topic=commands-lsmap-command</p></div></details></section>
+
+<section class="kb-item" id="c34-i0005"><h3>lsnportsのNPIV割当余力</h3><p class="kb-meta">分類: NPIV ・ 難易度: 中級</p><p>NPIVポート容量は、VIOSのNPIV構成で新しいVFC割当を受け入れられる余力を示す。lsnportsのtportsとaports、swwpnsとawwpnsを物理ポートごとに比較し、ポート数とWWPN数を別々に評価する。</p><p class="kb-src"><strong>出典:</strong> IBM Power Systems: Virtual I / O Server and Integrated Virtualization Manager commands p8hcg / https: / public.dhe.ibm.com / systems / power / docs / hw / p8 / p8hcg / IBM Power Systems Virtual I / O Server Commands: lsnports command / www.ibm.com / en / power10 / 9105-22B?topic=commands-lsnports-command</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> 割当余力（lsnports / NPIV）について、fcs0とfcs1のNPIV割当余力を判断する際、lsnportsで比較すべき値の組合せはどれか。</p><ul class="kb-choices"><li>A. aportsで利用可能ポート数を見てawwpnsで利用可能WWPN数も確認する。 <span class="kb-ok">✅ 正解</span></li><li>B. fabric列だけを読み空きポート数とWWPN数を同一視する。NPIVポート容量の判定にも同じ前提を広げ、awwpnsの表示値を確認せずに結論を確定する。</li><li>C. physlocの文字数から利用可能NPIVポート数を算出する。</li><li>D. tportsを使用済み数としてaportsを総数として逆に読む。</li></ul><p class="kb-meta">正解: <strong>A</strong> ／ 難易度: 中級</p><p><strong>解説:</strong> ポート容量（NPIV）でAを正答とする理由は、aportsは割当可能なNPIVポート数、awwpnsは割当可能なWWPN数であり、どちらか一方だけでは資源制約を見落とすことです。
+割当余力（lsnports / NPIV）の仕組みとして、物理FCポートは仮想ポート数とWWPN資源の双方に上限を持つ。tportsとswwpnsは総量、aportsとawwpnsは残量なので、同じ単位同士で差を読む。
+割当余力（lsnports / NPIV）の誤答は、Bはfabricはファブリック対応可否で残量ではない、Cはロケーションコードは容量値を含まない、Dはtportsが総数でaportsが利用可能数である。
+割当余力（lsnports / NPIV）で使うawwpnsとはNPIV対応物理ポートで新たに割り当て可能なtarget worldwide port nameの数。</p><p class="kb-src"><strong>出典:</strong> IBM Power Systems: Virtual I / O Server and Integrated Virtualization Manager commands p8hcg / https: / public.dhe.ibm.com / systems / power / docs / hw / p8 / p8hcg / IBM Power Systems Virtual I / O Server Commands: lsnports command / www.ibm.com / en / power10 / 9105-22B?topic=commands-lsnports-command</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>lsnportsのNPIV割当余力</strong></p><p>検証目的: NPIVポート容量について、一次資料のコマンドと出力形式を用いて構成・状態を机上確認する。</p><p>前提条件: padmin権限のVIOS CLIに接続でき、対象装置名と変更計画を確認済み。変更を伴う操作は本手順では実行しない。</p><p>セッション環境: VIOS padmin shell</p><pre class="kb-code">■ ステップ 1
+現在の画面はVIOSのpadminコマンド入力画面である。NPIV対応物理ポートの総量と残量を一覧表示し、割当候補ごとの余力を比較する。
+［操作（入力）］
+VIOS CLI
+COMMAND ===&gt; lsnports
+→ Enter を押す
+［画面・出力］
+Name     physloc                      fabric  tports  aports  swwpns  awwpns
+fcs0     U789D.001.DQDMLWV-P1-C1-T1   1       64      64      2048    2047
+fcs1     U787A.001.DPM0WVZ-P1-C1-T2   1       63      62      504     496
+画面・出力に含まれる awwpns を読み、NPIVポート容量の判定資料として保存する。
+――――</pre><p>合格条件: ステップ1: awwpns が画面・出力に現れ、NPIV対応物理ポートの総量と残量を一覧表示し、割当候補ごとの余力を比較する。</p><p class="kb-meta">検証状態: 机上 ／ 出典: IBM Power Systems: Virtual I / O Server and Integrated Virtualization Manager commands p8hcg / https: / public.dhe.ibm.com / systems / power / docs / hw / p8 / p8hcg / IBM Power Systems Virtual I / O Server Commands: lsnports command / www.ibm.com / en / power10 / 9105-22B?topic=commands-lsnports-command</p></div></details></section>
+
+<h2 id="shared-storage-pool">Shared Storage Pool<a class="headerlink" href="#shared-storage-pool" title="Permanent link">&para;</a></h2>
+<section class="kb-item" id="c34-i0006"><h3>cluster -statusによるSSP健全性</h3><p class="kb-meta">分類: Shared Storage Pool ・ 難易度: 中級</p><p>SSPクラスタ状態は、VIOSのShared Storage Poolでノードとプールのサービス可否を判断する基礎情報である。cluster -statusでCluster、Node、PoolのStateを確認し、-verboseでRepositoryやUpgrade Statusまで追う。</p><p class="kb-src"><strong>出典:</strong> IBM Power Systems: Virtual I / O Server and Integrated Virtualization Manager commands p8hcg / https: / public.dhe.ibm.com / systems / power / docs / hw / p8 / p8hcg / IBM Power Systems Virtual I / O Server Commands: cluster command / www.ibm.com / en / power10?topic=commands-cluster-command</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> 健全性（cluster / status / SSP）について、クラスタ状態（SSP）について、SSP参加VIOSの更新前に冗長系が利用可能か確認する表示として適切なものはどれか。</p><ul class="kb-choices"><li>A. ioslevelだけを見て全ノードのPool StateをOKとみなす。</li><li>B. lsrepのPARENT FREEからNode Stateを推定する。</li><li>C. 一台のVIOSが起動していればcluster表示のDOWNを無視する。SSPクラスタ状態の判定にも同じ前提を広げ、ON_LEVELの表示値を確認せずに結論を確定する。</li><li>D. cluster -statusでクラスタと各ノードとプールのStateを確認する。 <span class="kb-ok">✅ 正解</span></li></ul><p class="kb-meta">正解: <strong>D</strong> ／ 難易度: 中級</p><p><strong>解説:</strong> クラスタ状態（SSP）でDを正答とする理由は、cluster -statusはクラスタ全体と構成ノード、プールの健全性を同じ報告で示し、更新対象の相手系状態を確認できることです。
+健全性（cluster / status / SSP）の仕組みとして、冗長VIOSの一方を保守する前に、他方がクライアントI/Oを引き受けられる必要がある。verbose表示のNode Upgrade Statusはローリング更新の水準整合にも使う。
+健全性（cluster / status / SSP）の誤答は、Aは製品版数はサービス健全性を示さない、Bは光媒体リポジトリー容量とSSPノード状態は別である、CはDOWNノードを無視すると冗長性を失ったまま保守することになる。
+健全性（cluster / status / SSP）で使うON_LEVELとはSSPのノード更新状態がクラスタの要求水準と揃っていることを示すNode Upgrade Status。</p><p class="kb-src"><strong>出典:</strong> IBM Power Systems: Virtual I / O Server and Integrated Virtualization Manager commands p8hcg / https: / public.dhe.ibm.com / systems / power / docs / hw / p8 / p8hcg / IBM Power Systems Virtual I / O Server Commands: cluster command / www.ibm.com / en / power10?topic=commands-cluster-command</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>cluster -statusによるSSP健全性</strong></p><p>検証目的: SSPクラスタ状態について、一次資料のコマンドと出力形式を用いて構成・状態を机上確認する。</p><p>前提条件: padmin権限のVIOS CLIに接続でき、対象装置名と変更計画を確認済み。変更を伴う操作は本手順では実行しない。</p><p>セッション環境: VIOS padmin shell</p><pre class="kb-code">■ ステップ 1
+現在の画面はVIOSのpadminコマンド入力画面である。クラスタ概要を表示し、ノードごとのクラスタ状態とプール状態を確認する。
+［操作（入力）］
+VIOS CLI
+COMMAND ===&gt; cluster -status
+→ Enter を押す
+［画面・出力］
+Cluster Name State
+testcluster OK
+Node Name Pool State MTM Partition #State
+testhost1 OK 9115-505031006A2A 1 OK
+testhost2 DOWN 9115-5050310069FA 1 OK
+画面・出力に含まれる testhost2 を読み、SSPクラスタ状態の判定資料として保存する。
+――――
+■ ステップ 2
+現在の画面はVIOSのpadminコマンド入力画面である。詳細状態を表示し、RepositoryとPoolとNode Upgrade Statusを更新前証跡に残す。
+［操作（入力）］
+VIOS CLI
+COMMAND ===&gt; cluster -status -verbose
+→ Enter を押す
+［画面・出力］
+Cluster Name: testcluster
+Cluster State: OK
+Repository Mode: EVENT
+Number of Nodes: 2
+Nodes OK: 2
+Nodes DOWN: 0
+Pool Name: testpool
+Pool Mirror State: NOT_MIRRORED
+Node Name: testhost2
+Node State: OK
+Node Repos State: OK
+Node Upgrade Status: 4.1.1.00 ON_LEVEL
+画面・出力に含まれる ON_LEVEL を読み、SSPクラスタ状態の判定資料として保存する。
+――――</pre><p>合格条件: ステップ1: testhost2 が画面・出力に現れ、クラスタ概要を表示し、ノードごとのクラスタ状態とプール状態を確認する。
+ステップ2: ON_LEVEL が画面・出力に現れ、詳細状態を表示し、RepositoryとPoolとNode Upgrade Statusを更新前証跡に残す。</p><p class="kb-meta">検証状態: 机上 ／ 出典: IBM Power Systems: Virtual I / O Server and Integrated Virtualization Manager commands p8hcg / https: / public.dhe.ibm.com / systems / power / docs / hw / p8 / p8hcg / IBM Power Systems Virtual I / O Server Commands: cluster command / www.ibm.com / en / power10?topic=commands-cluster-command</p></div></details></section>
+
+<section class="kb-item" id="c34-i0007"><h3>lsspによるプール容量とLU把握</h3><p class="kb-meta">分類: Shared Storage Pool ・ 難易度: 中級</p><p>ストレージプール余力は、VIOSのShared Storage Poolとローカルプールで新規backing deviceを確保できるかを示す。lsspのSize、Free、Alloc Size、BDsを読み、必要に応じてLUのTHINまたはTHICKと使用量を確認する。</p><p class="kb-src"><strong>出典:</strong> IBM Power Systems: Virtual I / O Server and Integrated Virtualization Manager commands p8hcg / https: / public.dhe.ibm.com / systems / power / docs / hw / p8 / p8hcg / IBM Power Systems Virtual I / O Server Commands: lssp command / www.ibm.com / en / power10 / 9043-MRX?topic=commands-lssp-command</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> プール容量とLU把握（lssp）について、新しい仮想ディスクを作成する前にlsspで確認すべき容量情報はどれか。</p><ul class="kb-choices"><li>A. Pool名の文字数を空きMBとして容量計画に使う。</li><li>B. 対象PoolのSizeとFreeとAlloc Sizeを読み既存BD数も確認する。 <span class="kb-ok">✅ 正解</span></li><li>C. TypeがLVPOOLならFree値を確認せず無制限に割り当てる。</li><li>D. ioslevelとPool Sizeを加算して利用可能容量を求める。ストレージプール余力の判定にも同じ前提を広げ、Alloc Sizeの表示値を確認せずに結論を確定する。</li></ul><p class="kb-meta">正解: <strong>B</strong> ／ 難易度: 中級</p><p><strong>解説:</strong> ストレージプール余力でBを正答とする理由は、Sizeは総量、Freeは現在の空き、Alloc Sizeは割当粒度を示し、作成可能量と消費単位の判断に必要になることです。
+プール容量とLU把握（lssp）の仕組みとして、ストレージプール余力について、LVPOOLとFBPOOLではbacking deviceの持ち方が異なり、SSPのLUではthin provisioningにより論理容量と実使用量が分かれる。総量だけでなく空きと割当方式を合わせて読む。
+プール容量とLU把握（lssp）の誤答は、Aはプール名は識別子で容量を符号化しない、Cはプール種別だけでは空き枯渇を検出できない、Dはソフトウェア版数はストレージ容量へ換算できない。
+プール容量とLU把握（lssp）で使うAlloc Sizeとはストレージプールがbacking deviceへ容量を割り当てる基本単位をMBで示す値。</p><p class="kb-src"><strong>出典:</strong> IBM Power Systems: Virtual I / O Server and Integrated Virtualization Manager commands p8hcg / https: / public.dhe.ibm.com / systems / power / docs / hw / p8 / p8hcg / IBM Power Systems Virtual I / O Server Commands: lssp command / www.ibm.com / en / power10 / 9043-MRX?topic=commands-lssp-command</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>lsspによるプール容量とLU把握</strong></p><p>検証目的: ストレージプール余力について、一次資料のコマンドと出力形式を用いて構成・状態を机上確認する。</p><p>前提条件: padmin権限のVIOS CLIに接続でき、対象装置名と変更計画を確認済み。変更を伴う操作は本手順では実行しない。</p><p>セッション環境: VIOS padmin shell</p><pre class="kb-code">■ ステップ 1
+現在の画面はVIOSのpadminコマンド入力画面である。全ストレージプールを表示し、対象プールの総量と空きと割当単位を確認する。
+［操作（入力）］
+VIOS CLI
+COMMAND ===&gt; lssp
+→ Enter を押す
+［画面・出力］
+Pool             Size(mb) Free(mb) Alloc Size(mb) BDs Type
+PRODClient       30624    28576    32             0   LVPOOL
+rootvg           30656    14208    64             0   LVPOOL
+DEVClient        18352    18352    16             0   LVPOOL
+PRODClient_FBP   1016     985      32             3   FBPOOL
+画面・出力に含まれる PRODClient を読み、ストレージプール余力の判定資料として保存する。
+――――
+■ ステップ 2
+現在の画面はVIOSのpadminコマンド入力画面である。対象プールの構成ディスクを詳細表示し、PVIDと容量を物理構成記録へ対応させる。
+［操作（入力）］
+VIOS CLI
+COMMAND ===&gt; lssp -detail -sp sp_sp00
+→ Enter を押す
+［画面・出力］
+NAME       PVID                  SIZE(megabytes)
+hdisk3     00cdfd8c85bd4b2e      34624
+hdisk2     00cdfd8c525d94a2      34624
+画面・出力に含まれる 00cdfd8c85bd4b2e を読み、ストレージプール余力の判定資料として保存する。
+――――</pre><p>合格条件: ステップ1: PRODClient が画面・出力に現れ、全ストレージプールを表示し、対象プールの総量と空きと割当単位を確認する。
+ステップ2: 00cdfd8c85bd4b2e が画面・出力に現れ、対象プールの構成ディスクを詳細表示し、PVIDと容量を物理構成記録へ対応させる。</p><p class="kb-meta">検証状態: 机上 ／ 出典: IBM Power Systems: Virtual I / O Server and Integrated Virtualization Manager commands p8hcg / https: / public.dhe.ibm.com / systems / power / docs / hw / p8 / p8hcg / IBM Power Systems Virtual I / O Server Commands: lssp command / www.ibm.com / en / power10 / 9043-MRX?topic=commands-lssp-command</p></div></details></section>
+
+<h2 id="_1">ストレージ仮想化<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h2>
+<section class="kb-item" id="c34-i0008"><h3>lsmap -fieldと-fmtの機械可読出力</h3><p class="kb-meta">分類: ストレージ仮想化 ・ 難易度: 中級</p><p>区切り形式マッピングは、VIOSのストレージ仮想化情報をスクリプトで比較するための出力方式である。lsmapの-fieldで項目を選び-fmtまたは-fmt2で区切ると、表見出しに依存せず対応行を保存できる。</p><p class="kb-src"><strong>出典:</strong> IBM Power Systems: Virtual I / O Server and Integrated Virtualization Manager commands p8hcg / https: / public.dhe.ibm.com / systems / power / docs / hw / p8 / p8hcg / IBM Power Systems Virtual I / O Server Commands: lsmap command / www.ibm.com / en / power10?topic=commands-lsmap-command</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> 機械可読出力（lsmap / field / fmt）について、区切り形式マッピングについて、SVSA、VTD、Physloc、LUNをカンマ区切りで比較用ファイルへ出す指定として適切なものはどれか。</p><ul class="kb-choices"><li>A. lsmap -all -type commaで列順を自動推定させる。</li><li>B. lsmap -npiv -status CSVでvSCSI項目を変換する。区切り形式マッピングの判定にも同じ前提を広げ、-fmt2の表示値を確認せずに結論を確定する。</li><li>C. lsmap -all -fmt , -field SVSA VTD Physloc LUNを使う。 <span class="kb-ok">✅ 正解</span></li><li>D. lsdev -field SVSA VTDだけでlsmap情報を再構成する。</li></ul><p class="kb-meta">正解: <strong>C</strong> ／ 難易度: 中級</p><p><strong>解説:</strong> 区切り形式マッピングでCを正答とする理由は、-fieldは出力項目を選び-fmtは非空白区切り文字を指定するため、マッピング比較に必要な列を明示できることです。
+機械可読出力（lsmap / field / fmt）の仕組みとして、人向け表形式はグループ構造を持つ一方、区切り形式はスクリプトの入力に適する。空値の表現は-fmtと-fmt2で異なるので、既存解析処理と同じ方式を継続する。
+機械可読出力（lsmap / field / fmt）の誤答は、Aは-typeはbacking device種別の絞り込みで区切り指定ではない、Bは-status CSVというlsmap構文は存在しない、DはlsdevはVTDとLUNの対応表を生成しない。
+機械可読出力（lsmap / field / fmt）で使う-fmt2とは指定区切り文字で出力し空フィールドには文字を置かないlsmapのスクリプト向け形式。</p><p class="kb-src"><strong>出典:</strong> IBM Power Systems: Virtual I / O Server and Integrated Virtualization Manager commands p8hcg / https: / public.dhe.ibm.com / systems / power / docs / hw / p8 / p8hcg / IBM Power Systems Virtual I / O Server Commands: lsmap command / www.ibm.com / en / power10?topic=commands-lsmap-command</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>lsmap -fieldと-fmtの機械可読出力</strong></p><p>検証目的: 区切り形式マッピングについて、一次資料のコマンドと出力形式を用いて構成・状態を机上確認する。</p><p>前提条件: padmin権限のVIOS CLIに接続でき、対象装置名と変更計画を確認済み。変更を伴う操作は本手順では実行しない。</p><p>セッション環境: VIOS padmin shell</p><pre class="kb-code">■ ステップ 1
+現在の画面はVIOSのpadminコマンド入力画面である。指定列の区切り出力を採取し、複数SVSAの境界とVTD列を確認する。
+［操作（入力）］
+VIOS CLI
+COMMAND ===&gt; lsmap -all -fmt , -field SVSA VTD Physloc LUN
+→ Enter を押す
+［画面・出力］
+vhost0,U9117.MMD.10581C7-V34-C5,vtscsi0,0x8100000000000000,vtscsi1,0x8200000000000000,vtscsi2,0x8300000000000000
+vhost1,U9117.MMD.10581C7-V34-C6,vtscsi4,0x8200000000000000,vtscsi5,0x8300000000000000
+画面・出力に含まれる vtscsi4 を読み、区切り形式マッピングの判定資料として保存する。
+――――</pre><p>合格条件: ステップ1: vtscsi4 が画面・出力に現れ、指定列の区切り出力を採取し、複数SVSAの境界とVTD列を確認する。</p><p class="kb-meta">検証状態: 机上 ／ 出典: IBM Power Systems: Virtual I / O Server and Integrated Virtualization Manager commands p8hcg / https: / public.dhe.ibm.com / systems / power / docs / hw / p8 / p8hcg / IBM Power Systems Virtual I / O Server Commands: lsmap command / www.ibm.com / en / power10?topic=commands-lsmap-command</p></div></details></section>
+
+<section class="kb-item" id="c34-i0009"><h3>lsmapのSVSAとクライアントID</h3><p class="kb-meta">分類: ストレージ仮想化 ・ 難易度: 初級</p><p>SVSA接続先は、VIOSのストレージ仮想化でvhostがどのクライアント区画へ結び付くかを示す。lsmapの先頭グループにSVSA、Physloc、Client Partition IDが表示され、仮想スロット対応を確認できる。</p><p class="kb-src"><strong>出典:</strong> IBM Power Systems: Virtual I / O Server and Integrated Virtualization Manager commands p8hcg / https: / public.dhe.ibm.com / systems / power / docs / hw / p8 / p8hcg / IBM Power Systems Virtual I / O Server Commands: lsmap command / www.ibm.com / en / power10?topic=commands-lsmap-command</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> クライアントID（lsmap / SVSA）について、vhost2が接続するクライアント区画をlsmap出力から特定する際に読む組合せはどれか。</p><ul class="kb-choices"><li>A. アダプター情報部をVTD表から分け、0x00000004を接続先区画の識別値として記録する。 <span class="kb-ok">✅ 正解</span></li><li>B. VTDのLUN値を十進変換してクライアント区画番号とする。</li><li>C. Backing deviceのhdisk番号をLPAR IDとして採用する。</li><li>D. Physlocの筐体シリアルだけを区画IDへ置換する。</li></ul><p class="kb-meta">正解: <strong>A</strong> ／ 難易度: 初級</p><p><strong>解説:</strong> 接続先（SVSA）でAを正答とする理由は、lsmapはアダプター情報とVTD情報を別グループで出し、クライアント区画IDはSVSA側に属することです。
+クライアントID（lsmap / SVSA）の仕組みとして、一つのvhostには複数VTDをぶら下げられるため、接続先LPARは各VTDではなくサーバー仮想アダプターの属性として管理される。接続先（SVSA）について、IDが0の場合は接続条件とクライアント状態も確認する。
+クライアントID（lsmap / SVSA）の誤答は、BはLUNは仮想SCSI装置内の論理ユニット番号である、Cはhdisk番号はVIOSローカル装置名である、DはPhyslocは配置情報でClient Partition IDそのものではない。
+クライアントID（lsmap / SVSA）で使うSVSAとはServer Virtual SCSI Adapterの略で、VIOS側の仮想SCSIサーバーアダプターを表す。</p><p class="kb-src"><strong>出典:</strong> IBM Power Systems: Virtual I / O Server and Integrated Virtualization Manager commands p8hcg / https: / public.dhe.ibm.com / systems / power / docs / hw / p8 / p8hcg / IBM Power Systems Virtual I / O Server Commands: lsmap command / www.ibm.com / en / power10?topic=commands-lsmap-command</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>lsmapのSVSAとクライアントID</strong></p><p>検証目的: SVSA接続先について、一次資料のコマンドと出力形式を用いて構成・状態を机上確認する。</p><p>前提条件: padmin権限のVIOS CLIに接続でき、対象装置名と変更計画を確認済み。変更を伴う操作は本手順では実行しない。</p><p>セッション環境: VIOS padmin shell</p><pre class="kb-code">■ ステップ 1
+現在の画面はVIOSのpadminコマンド入力画面である。対象vhostを詳細表示し、SVSAグループのクライアント区画IDを採取する。
+［操作（入力）］
+VIOS CLI
+COMMAND ===&gt; lsmap -vadapter vhost2
+→ Enter を押す
+［画面・出力］
+SVSA                 Physloc                         Client Partition ID
+vhost2               U9111.520.10004BA-V1-C2          0x00000004
+VTD                   vtscsi0
+Status                Available
+LUN                   0x8100000000000000
+Backing device        vtd0-1
+画面・出力に含まれる 0x00000004 を読み、SVSA接続先の判定資料として保存する。
+――――</pre><p>合格条件: ステップ1: 0x00000004 が画面・出力に現れ、対象vhostを詳細表示し、SVSAグループのクライアント区画IDを採取する。</p><p class="kb-meta">検証状態: 机上 ／ 出典: IBM Power Systems: Virtual I / O Server and Integrated Virtualization Manager commands p8hcg / https: / public.dhe.ibm.com / systems / power / docs / hw / p8 / p8hcg / IBM Power Systems Virtual I / O Server Commands: lsmap command / www.ibm.com / en / power10?topic=commands-lsmap-command</p></div></details></section>
+
+<section class="kb-item" id="c34-i0010"><h3>lsmapのVTDとLUN</h3><p class="kb-meta">分類: ストレージ仮想化 ・ 難易度: 初級</p><p>仮想ターゲット単位は、VIOSのストレージ仮想化でクライアントへ見せる各装置を区別する粒度である。lsmapはVTDごとにStatusとLUNを示し、同一vhost配下の複数割当を識別する。</p><p class="kb-src"><strong>出典:</strong> IBM Power Systems: Virtual I / O Server and Integrated Virtualization Manager commands p8hcg / https: / public.dhe.ibm.com / systems / power / docs / hw / p8 / p8hcg / IBM Power Systems Virtual I / O Server Commands: lsmap command / www.ibm.com / en / power10?topic=commands-lsmap-command</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> lsmapで扱うVTDとLUNについて、同じvhost配下に複数の仮想ディスクがあるとき、各割当をクライアント側の論理ユニットまで区別する表示はどれか。</p><ul class="kb-choices"><li>A. SVSA名だけを全ディスク共通のLUNとして記録する。仮想ターゲット単位の判定にも同じ前提を広げ、VTDの表示値を確認せずに結論を確定する。</li><li>B. Physlocが空ならVTDは存在しないものとして除外する。</li><li>C. Client Partition IDを各VTDのLUNへ複写する。</li><li>D. VTD名とその直下に表示されるLUNを組にして記録する。 <span class="kb-ok">✅ 正解</span></li></ul><p class="kb-meta">正解: <strong>D</strong> ／ 難易度: 初級</p><p><strong>解説:</strong> 仮想ターゲット単位でDを正答とする理由は、VTDは公開する仮想ターゲットを、LUNはそのターゲットの論理ユニット番号を表し、複数割当を区別できることです。
+lsmapで扱うVTDとLUNの仕組みとして、lsmapでは一つのSVSA情報に続いて複数のVTDグループが並ぶ。仮想ターゲット単位について、VTDごとにLUNとbacking deviceを追うことで、クライアントの認識順とVIOS側資源を結び付ける。
+lsmapで扱うVTDとLUNの誤答は、AはSVSAは接続口で個別LUNではない、Bは論理ボリュームなどではbacking Physlocが空でもVTDは有効である、Cは区画IDとSCSI LUNは異なる名前空間である。
+lsmapで扱うVTDとLUNで使うVTDとはVirtual Target Deviceの略で、VIOSがbacking deviceをクライアントへ公開する仮想装置。</p><p class="kb-src"><strong>出典:</strong> IBM Power Systems: Virtual I / O Server and Integrated Virtualization Manager commands p8hcg / https: / public.dhe.ibm.com / systems / power / docs / hw / p8 / p8hcg / IBM Power Systems Virtual I / O Server Commands: lsmap command / www.ibm.com / en / power10?topic=commands-lsmap-command</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>lsmapのVTDとLUN</strong></p><p>検証目的: 仮想ターゲット単位について、一次資料のコマンドと出力形式を用いて構成・状態を机上確認する。</p><p>前提条件: padmin権限のVIOS CLIに接続でき、対象装置名と変更計画を確認済み。変更を伴う操作は本手順では実行しない。</p><p>セッション環境: VIOS padmin shell</p><pre class="kb-code">■ ステップ 1
+現在の画面はVIOSのpadminコマンド入力画面である。対象SVSA配下のVTDを連続表示し、それぞれのLUN境界を確認する。
+［操作（入力）］
+VIOS CLI
+COMMAND ===&gt; lsmap -vadapter vhost2
+→ Enter を押す
+［画面・出力］
+VTD                   vtscsi0
+Status                Available
+LUN                   0x8100000000000000
+Backing device        vtd0-1
+VTD                   vtscsi1
+LUN                   0x8200000000000000
+Backing device        vtd0-2
+画面・出力に含まれる 0x8200000000000000 を読み、仮想ターゲット単位の判定資料として保存する。
+――――</pre><p>合格条件: ステップ1: 0x8200000000000000 が画面・出力に現れ、対象SVSA配下のVTDを連続表示し、それぞれのLUN境界を確認する。</p><p class="kb-meta">検証状態: 机上 ／ 出典: IBM Power Systems: Virtual I / O Server and Integrated Virtualization Manager commands p8hcg / https: / public.dhe.ibm.com / systems / power / docs / hw / p8 / p8hcg / IBM Power Systems Virtual I / O Server Commands: lsmap command / www.ibm.com / en / power10?topic=commands-lsmap-command</p></div></details></section>
+
+<section class="kb-item" id="c34-i0011"><h3>lsmapのbacking device追跡</h3><p class="kb-meta">分類: ストレージ仮想化 ・ 難易度: 中級</p><p>割当元資源は、VIOSのストレージ仮想化でVTDの実体となる物理ディスク、論理ボリューム、ファイルを示す。lsmapのBacking deviceとPhyslocをVTDに対応させ、容量調査や障害切分けの起点にする。</p><p class="kb-src"><strong>出典:</strong> IBM Power Systems: Virtual I / O Server and Integrated Virtualization Manager commands p8hcg / https: / public.dhe.ibm.com / systems / power / docs / hw / p8 / p8hcg / IBM Power Systems Virtual I / O Server Commands: lsmap command / www.ibm.com / en / power10?topic=commands-lsmap-command</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> 追跡（lsmap / backing / device）について、クライアントのvtscsi2がVIOS上のどの実体へ結び付くかを確認する読み方として正しいものはどれか。</p><ul class="kb-choices"><li>A. 直前のSVSAのPhyslocを物理ディスクLUNとして扱う。</li><li>B. 別VTDのBacking deviceを同一vhost内で共有して読む。割当元資源の判定にも同じ前提を広げ、backing deviceの表示値を確認せずに結論を確定する。</li><li>C. Client Partition IDをSAN装置のunique_idとして記録する。</li><li>D. vtscsi2のグループ内にあるBacking deviceとPhyslocを読む。 <span class="kb-ok">✅ 正解</span></li></ul><p class="kb-meta">正解: <strong>D</strong> ／ 難易度: 中級</p><p><strong>解説:</strong> 割当元資源でDを正答とする理由は、VTDグループ内のBacking deviceがその仮想ターゲットの実体を示し、物理装置ならPhyslocも追跡材料になることです。
+追跡（lsmap / backing / device）の仕組みとして、lsmapはdisk、lv、file、clustered backing deviceなど複数種別を同じ構造で表示する。障害調査ではVTDから実体へ一方向に対応を追い、別グループの値を混ぜない。
+追跡（lsmap / backing / device）の誤答は、AはSVSAのPhyslocは仮想アダプターの配置でディスクLUNではない、BはVTDごとに独立したグループを読まなければならない、Cは区画IDはストレージ装置固有識別子ではない。
+追跡（lsmap / backing / device）で使うbacking deviceとは仮想ターゲットの背後で実際にデータを保持または転送するVIOS側資源。</p><p class="kb-src"><strong>出典:</strong> IBM Power Systems: Virtual I / O Server and Integrated Virtualization Manager commands p8hcg / https: / public.dhe.ibm.com / systems / power / docs / hw / p8 / p8hcg / IBM Power Systems Virtual I / O Server Commands: lsmap command / www.ibm.com / en / power10?topic=commands-lsmap-command</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>lsmapのbacking device追跡</strong></p><p>検証目的: 割当元資源について、一次資料のコマンドと出力形式を用いて構成・状態を机上確認する。</p><p>前提条件: padmin権限のVIOS CLIに接続でき、対象装置名と変更計画を確認済み。変更を伴う操作は本手順では実行しない。</p><p>セッション環境: VIOS padmin shell</p><pre class="kb-code">■ ステップ 1
+現在の画面はVIOSのpadminコマンド入力画面である。VTDの詳細グループを表示し、backing deviceと物理ロケーションを同じ証跡に残す。
+［操作（入力）］
+VIOS CLI
+COMMAND ===&gt; lsmap -vadapter vhost0
+→ Enter を押す
+［画面・出力］
+VTD                   vtscsi2
+Status                Available
+LUN                   0x8300000000000000
+Backing device        hdisk3
+Physloc               U787A.001.0397658-P1-T16-L5-L0
+Mirrored              false
+画面・出力に含まれる hdisk3 を読み、割当元資源の判定資料として保存する。
+――――</pre><p>合格条件: ステップ1: hdisk3 が画面・出力に現れ、VTDの詳細グループを表示し、backing deviceと物理ロケーションを同じ証跡に残す。</p><p class="kb-meta">検証状態: 机上 ／ 出典: IBM Power Systems: Virtual I / O Server and Integrated Virtualization Manager commands p8hcg / https: / public.dhe.ibm.com / systems / power / docs / hw / p8 / p8hcg / IBM Power Systems Virtual I / O Server Commands: lsmap command / www.ibm.com / en / power10?topic=commands-lsmap-command</p></div></details></section>
+
+<section class="kb-item" id="c34-i0012"><h3>lspathによるMPIOパス状態の切分け</h3><p class="kb-meta">分類: ストレージ仮想化 ・ 難易度: 中級</p><p>MPIOパス状態は、VIOSのストレージ仮想化でディスク到達性を経路単位に分解する情報である。lspathはenabled、disabled、failed、missingなどを装置名と親アダプターに対応させて表示する。</p><p class="kb-src"><strong>出典:</strong> IBM Power Systems: Virtual I / O Server and Integrated Virtualization Manager commands p8hcg / https: / public.dhe.ibm.com / systems / power / docs / hw / p8 / p8hcg / IBM Power Systems Virtual I / O Server Commands: lspath command / www.ibm.com / en / power10 / 9043-MRX?topic=commands-lspath-command</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> パス状態の切分け（lspath / MPIO）について、運用から外されているMPIOパスだけをVIOSで抽出するコマンド指定はどれか。</p><ul class="kb-choices"><li>A. lsmap -status disabledでVTDだけを抽出する。</li><li>B. lspath -status disabledを実行してdisabledの装置と親を確認する。 <span class="kb-ok">✅ 正解</span></li><li>C. ioslevel -status disabledで保守停止中のパスを表示する。MPIOパス状態の判定にも同じ前提を広げ、MPIOの表示値を確認せずに結論を確定する。</li><li>D. lsrep -field disabledでSAN経路を一覧化する。</li></ul><p class="kb-meta">正解: <strong>B</strong> ／ 難易度: 中級</p><p><strong>解説:</strong> パス状態（MPIO）でBを正答とする理由は、lspathの-statusはパス状態を条件にでき、disabledはMPIO選択から明示的に外された経路を返すことです。
+パス状態の切分け（lspath / MPIO）の仕組みとして、一つのhdiskに複数の親アダプター経路があるため、ディスク全体のAvailableだけでは冗長性を評価できない。failedはI/Oエラー起因、missingは構成上見えない状態として意味が異なる。
+パス状態の切分け（lspath / MPIO）の誤答は、Aはlsmapは仮想デバイス対応を表示しMPIO状態を条件にしない、Cはioslevelにパス状態の絞り込み機能はない、Dはlsrepは光媒体リポジトリーの情報を扱う。
+パス状態の切分け（lspath / MPIO）で使うMPIOとは一つのストレージ装置へ複数のI/O経路を持たせ選択と障害迂回を行う仕組み。</p><p class="kb-src"><strong>出典:</strong> IBM Power Systems: Virtual I / O Server and Integrated Virtualization Manager commands p8hcg / https: / public.dhe.ibm.com / systems / power / docs / hw / p8 / p8hcg / IBM Power Systems Virtual I / O Server Commands: lspath command / www.ibm.com / en / power10 / 9043-MRX?topic=commands-lspath-command</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>lspathによるMPIOパス状態の切分け</strong></p><p>検証目的: MPIOパス状態について、一次資料のコマンドと出力形式を用いて構成・状態を机上確認する。</p><p>前提条件: padmin権限のVIOS CLIに接続でき、対象装置名と変更計画を確認済み。変更を伴う操作は本手順では実行しない。</p><p>セッション環境: VIOS padmin shell</p><pre class="kb-code">■ ステップ 1
+現在の画面はVIOSのpadminコマンド入力画面である。disabled経路だけを表示し、対象hdiskと親SCSI装置の組を記録する。
+［操作（入力）］
+VIOS CLI
+COMMAND ===&gt; lspath -status disabled
+→ Enter を押す
+［画面・出力］
+disabled  hdisk1   scsi1
+disabled  hdisk2   scsi1
+disabled  hdisk23  scsi8
+disabled  hdisk25  scsi8
+画面・出力に含まれる disabled を読み、MPIOパス状態の判定資料として保存する。
+――――</pre><p>合格条件: ステップ1: disabled が画面・出力に現れ、disabled経路だけを表示し、対象hdiskと親SCSI装置の組を記録する。</p><p class="kb-meta">検証状態: 机上 ／ 出典: IBM Power Systems: Virtual I / O Server and Integrated Virtualization Manager commands p8hcg / https: / public.dhe.ibm.com / systems / power / docs / hw / p8 / p8hcg / IBM Power Systems Virtual I / O Server Commands: lspath command / www.ibm.com / en / power10 / 9043-MRX?topic=commands-lspath-command</p></div></details></section>
+
+<section class="kb-item" id="c34-i0013"><h3>mkvdevによるvSCSIマッピング</h3><p class="kb-meta">分類: ストレージ仮想化 ・ 難易度: 中級</p><p>物理ディスク公開は、VIOSのストレージ仮想化でhdiskを指定vhostのVTDとしてクライアントへ割り当てる操作である。mkvdevの戻り値で作成VTDを確認し、直後のlsmapでhdiskとLUNまで検証する。</p><p class="kb-src"><strong>出典:</strong> IBM Power Systems: Virtual I / O Server and Integrated Virtualization Manager commands p8hcg / https: / public.dhe.ibm.com / systems / power / docs / hw / p8 / p8hcg / IBM Power Systems Guide: Configuring the VIOS for client storage / www.ibm.com / en / power10 / 0000-REF?topic=POWER10_REF%2Fp10eew%2Fp10eew_configure_vios_client_storage.html</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> マッピング（mkvdev / vSCSI）について、hdisk6をvhost0へ割り当てた直後の受入確認として適切な組合せはどれか。</p><ul class="kb-choices"><li>A. mkvdevの終了後にioslevelだけを記録して割当を完了とする。</li><li>B. vhost0のPhyslocをhdisk6のunique_idとして保存する。</li><li>C. lsvoptでvtscsi0の仮想光媒体サイズを確認する。物理ディスク公開の判定にも同じ前提を広げ、mkvdevの表示値を確認せずに結論を確定する。</li><li>D. mkvdevのvtscsi0 Availableを記録しlsmapでBacking device hdisk6を確認する。 <span class="kb-ok">✅ 正解</span></li></ul><p class="kb-meta">正解: <strong>D</strong> ／ 難易度: 中級</p><p><strong>解説:</strong> 物理ディスク公開でDを正答とする理由は、作成結果のVTD名とlsmap上のbacking deviceを連結すると、操作対象と実際の割当を二段階で確認できることです。
+マッピング（mkvdev / vSCSI）の仕組みとして、mkvdevは指定backing deviceとサーバー仮想アダプターの間にVTDを作る。コマンド成功だけでなく、LUNと物理ロケーションを含む表示を採ることで取り違えを検出する。
+マッピング（mkvdev / vSCSI）の誤答は、Aは版数は個別マッピングを表さない、BはアダプターのPhyslocはディスク固有IDではない、Cはlsvoptはファイルバック仮想光学装置を扱う。
+マッピング（mkvdev / vSCSI）で使うmkvdevとはVIOSで物理・論理backing deviceを仮想ターゲットとしてクライアントへ割り当てるコマンド。</p><p class="kb-src"><strong>出典:</strong> IBM Power Systems: Virtual I / O Server and Integrated Virtualization Manager commands p8hcg / https: / public.dhe.ibm.com / systems / power / docs / hw / p8 / p8hcg / IBM Power Systems Guide: Configuring the VIOS for client storage / www.ibm.com / en / power10 / 0000-REF?topic=POWER10_REF%2Fp10eew%2Fp10eew_configure_vios_client_storage.html</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>mkvdevによるvSCSIマッピング</strong></p><p>検証目的: 物理ディスク公開について、一次資料のコマンドと出力形式を用いて構成・状態を机上確認する。</p><p>前提条件: padmin権限のVIOS CLIに接続でき、対象装置名と変更計画を確認済み。変更を伴う操作は本手順では実行しない。</p><p>セッション環境: VIOS padmin shell</p><pre class="kb-code">■ ステップ 1
+現在の画面はVIOSのpadminコマンド入力画面である。指定hdiskを対象vhostへ割り当て、作成されたVTD名を確認する。
+［操作（入力）］
+VIOS CLI
+COMMAND ===&gt; mkvdev -vdev hdisk6 -vadapter vhost0
+→ Enter を押す
+［画面・出力］
+vtscsi0 Available
+画面・出力に含まれる vtscsi0 を読み、物理ディスク公開の判定資料として保存する。
+――――
+■ ステップ 2
+現在の画面はVIOSのpadminコマンド入力画面である。作成後のマッピングを表示し、VTDとbacking deviceとLUNの対応を確定する。
+［操作（入力）］
+VIOS CLI
+COMMAND ===&gt; lsmap -vadapter vhost0
+→ Enter を押す
+［画面・出力］
+SVSA            Physloc                                      Client Partition ID
+vhost0          U8233.E8B.061AB2P-V1-C101                    0x0000000a
+VTD             vtscsi0
+Status          Available
+LUN             0x8100000000000000
+Backing device  hdisk6
+Mirrored        false
+画面・出力に含まれる hdisk6 を読み、物理ディスク公開の判定資料として保存する。
+――――</pre><p>合格条件: ステップ1: vtscsi0 が画面・出力に現れ、指定hdiskを対象vhostへ割り当て、作成されたVTD名を確認する。
+ステップ2: hdisk6 が画面・出力に現れ、作成後のマッピングを表示し、VTDとbacking deviceとLUNの対応を確定する。</p><p class="kb-meta">検証状態: 机上 ／ 出典: IBM Power Systems: Virtual I / O Server and Integrated Virtualization Manager commands p8hcg / https: / public.dhe.ibm.com / systems / power / docs / hw / p8 / p8hcg / IBM Power Systems Guide: Configuring the VIOS for client storage / www.ibm.com / en / power10 / 0000-REF?topic=POWER10_REF%2Fp10eew%2Fp10eew_configure_vios_client_storage.html</p></div></details></section>
+
+<section class="kb-item" id="c34-i0014"><h3>reserve_policyとunique_idの同時確認</h3><p class="kb-meta">分類: ストレージ仮想化 ・ 難易度: 中級</p><p>ディスク属性対は、VIOSのストレージ仮想化で共有可否と装置同一性を同時に判断する材料である。reserve_policyとunique_idを同じhdiskから採取し、両VIOS間で設定とLUN識別を照合する。</p><p class="kb-src"><strong>出典:</strong> IBM Power Systems: Virtual I / O Server and Integrated Virtualization Manager commands p8hcg / https: / public.dhe.ibm.com / systems / power / docs / hw / p8 / p8hcg / IBM Power Systems Guide: Configuring the VIOS for client storage / www.ibm.com / en / power10 / 0000-REF?topic=POWER10_REF%2Fp10eew%2Fp10eew_configure_vios_client_storage.html</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> 同時確認（reserve_policy / unique_id）について、同じSAN LUNを二台のVIOSで扱う前提確認として、同じ対象ディスクから組で記録すべき属性はどれか。</p><ul class="kb-choices"><li>A. ioslevelとuptimeを採取してLUNの同一性を確定する。</li><li>B. VTD名とVIOSホスト名だけで物理LUNを同定する。ディスク属性対の判定にも同じ前提を広げ、unique_idの表示値を確認せずに結論を確定する。</li><li>C. reserve_policyとunique_idを採取してVIOS間で対応を確認する。 <span class="kb-ok">✅ 正解</span></li><li>D. ファイルシステム使用率だけを比較して予約方式を推定する。</li></ul><p class="kb-meta">正解: <strong>C</strong> ／ 難易度: 中級</p><p><strong>解説:</strong> ディスク属性対でCを正答とする理由は、reserve_policyは共有時の予約動作を、unique_idは装置固有識別を示すため、役割の異なる二つの確認を組にできることです。
+同時確認（reserve_policy / unique_id）の仕組みとして、同じLUNでもVIOSごとにhdisk番号は異なり得る。unique_idで実体を合わせたうえで予約ポリシーを揃えることで、別ディスクの取り違えと予約競合を分離して防ぐ。
+同時確認（reserve_policy / unique_id）の誤答は、Aは版数と稼働時間はLUN識別属性ではない、BはVTD名はVIOS内で作成され物理装置固有ではない、Dは使用率はSCSI予約ポリシーを表さない。
+同時確認（reserve_policy / unique_id）で使うunique_idとはVIOS上の可変なhdisk番号とは別にストレージ装置の実体を識別する長い装置識別値。</p><p class="kb-src"><strong>出典:</strong> IBM Power Systems: Virtual I / O Server and Integrated Virtualization Manager commands p8hcg / https: / public.dhe.ibm.com / systems / power / docs / hw / p8 / p8hcg / IBM Power Systems Guide: Configuring the VIOS for client storage / www.ibm.com / en / power10 / 0000-REF?topic=POWER10_REF%2Fp10eew%2Fp10eew_configure_vios_client_storage.html</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>reserve_policyとunique_idの同時確認</strong></p><p>検証目的: ディスク属性対について、一次資料のコマンドと出力形式を用いて構成・状態を机上確認する。</p><p>前提条件: padmin権限のVIOS CLIに接続でき、対象装置名と変更計画を確認済み。変更を伴う操作は本手順では実行しない。</p><p>セッション環境: VIOS padmin shell</p><pre class="kb-code">■ ステップ 1
+現在の画面はVIOSのpadminコマンド入力画面である。対象hdiskの予約方式と固有IDを一度に抽出し、対向VIOSの記録と照合する。
+［操作（入力）］
+VIOS CLI
+COMMAND ===&gt; lsdev -dev hdisk6 -attr | grep -i -E &quot;reserve|unique_id&quot;
+→ Enter を押す
+［画面・出力］
+reserve_policy single_path Reserve Policy True
+unique_id 3E213600A0B8000114632000092784EC50F0B0F1815 FAStT03IBMfcp Unique device identifier False
+画面・出力に含まれる single_path を読み、ディスク属性対の判定資料として保存する。
+――――</pre><p>合格条件: ステップ1: single_path が画面・出力に現れ、対象hdiskの予約方式と固有IDを一度に抽出し、対向VIOSの記録と照合する。</p><p class="kb-meta">検証状態: 机上 ／ 出典: IBM Power Systems: Virtual I / O Server and Integrated Virtualization Manager commands p8hcg / https: / public.dhe.ibm.com / systems / power / docs / hw / p8 / p8hcg / IBM Power Systems Guide: Configuring the VIOS for client storage / www.ibm.com / en / power10 / 0000-REF?topic=POWER10_REF%2Fp10eew%2Fp10eew_configure_vios_client_storage.html</p></div></details></section>
+
+<section class="kb-item" id="c34-i0015"><h3>reserve_policyの共有要件</h3><p class="kb-meta">分類: ストレージ仮想化 ・ 難易度: 上級</p><p>SCSI予約方式は、VIOSのストレージ仮想化で同一LUNを複数経路や複数VIOSから扱えるかを左右する。MPIOクライアント向けvSCSIではno_reserveを基本とし、移行では送信元と送信先の値を一致させる。</p><p class="kb-src"><strong>出典:</strong> IBM Power Systems: Virtual I / O Server and Integrated Virtualization Manager commands p8hcg / https: / public.dhe.ibm.com / systems / power / docs / hw / p8 / p8hcg / IBM Power Systems Guide: Setting reserve policy attributes of a device / www.ibm.com / en / power10 / 9105-41B?topic=device-setting-reserve-policy-attributes</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> 共有要件（reserve_policy）について、同じvSCSIディスクを二台のVIOS経由でMPIO利用する際のreserve_policy確認として正しいものはどれか。</p><ul class="kb-choices"><li>A. 一台だけをsingle_pathにして他方の値は確認しない。</li><li>B. クライアント側のLUN番号が同じならVIOSの予約属性は無関係とする。</li><li>C. 両VIOSで対象LUNを特定しreserve_policyのno_reserveまたは対応値を揃える。 <span class="kb-ok">✅ 正解</span></li><li>D. Physlocが異なる場合は同一LUNでも予約方式を比較しない。SCSI予約方式の判定にも同じ前提を広げ、no_reserveの表示値を確認せずに結論を確定する。</li></ul><p class="kb-meta">正解: <strong>C</strong> ／ 難易度: 上級</p><p><strong>解説:</strong> 予約方式（SCSI）でCを正答とする理由は、予約属性は各VIOSが装置ごとに保持するため、同じ実体を特定して双方の値を整合させる必要があることです。
+共有要件（reserve_policy）の仕組みとして、予約方式（SCSI）について、SCSI予約が残ると別経路からのアクセスを阻害し、MPIOやLPAR移行に影響する。pr_sharedを使える条件もあるため、単純な固定値ではなく構成要件と対向VIOSの一致を確認する。
+共有要件（reserve_policy）の誤答は、Aは片側だけ異なる値では共有アクセス条件が揃わない、BはクライアントLUN番号はVIOS装置属性を上書きしない、DはPhysloc差があってもunique_idで同一実体なら比較対象になる。
+共有要件（reserve_policy）で使うno_reserveとはSCSI装置をVIOSが排他的に予約せず複数経路から扱えるようにするreserve_policy値。</p><p class="kb-src"><strong>出典:</strong> IBM Power Systems: Virtual I / O Server and Integrated Virtualization Manager commands p8hcg / https: / public.dhe.ibm.com / systems / power / docs / hw / p8 / p8hcg / IBM Power Systems Guide: Setting reserve policy attributes of a device / www.ibm.com / en / power10 / 9105-41B?topic=device-setting-reserve-policy-attributes</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>reserve_policyの共有要件</strong></p><p>検証目的: SCSI予約方式について、一次資料のコマンドと出力形式を用いて構成・状態を机上確認する。</p><p>前提条件: padmin権限のVIOS CLIに接続でき、対象装置名と変更計画を確認済み。変更を伴う操作は本手順では実行しない。</p><p>セッション環境: VIOS padmin shell</p><pre class="kb-code">■ ステップ 1
+現在の画面はVIOSのpadminコマンド入力画面である。対象LUNの予約方式をVIOSごとに表示し、対向系と同じ値か確認する。
+［操作（入力）］
+VIOS CLI
+COMMAND ===&gt; lsdev -dev hdisk5 -attr reserve_policy
+→ Enter を押す
+［画面・出力］
+reserve_policy  no_reserve  Reserve Policy  True
+画面・出力に含まれる no_reserve を読み、SCSI予約方式の判定資料として保存する。
+――――</pre><p>合格条件: ステップ1: no_reserve が画面・出力に現れ、対象LUNの予約方式をVIOSごとに表示し、対向系と同じ値か確認する。</p><p class="kb-meta">検証状態: 机上 ／ 出典: IBM Power Systems: Virtual I / O Server and Integrated Virtualization Manager commands p8hcg / https: / public.dhe.ibm.com / systems / power / docs / hw / p8 / p8hcg / IBM Power Systems Guide: Setting reserve policy attributes of a device / www.ibm.com / en / power10 / 9105-41B?topic=device-setting-reserve-policy-attributes</p></div></details></section>
+
+<section class="kb-item" id="c34-i0016"><h3>unique_idによるLUN同一性確認</h3><p class="kb-meta">分類: ストレージ仮想化 ・ 難易度: 上級</p><p>LUN実体照合は、VIOSのストレージ仮想化で異なるhdisk番号が同じSAN装置を指すかを確認する。lsdevのunique_idを両VIOSで比較し、hdisk名や検出順序ではなく装置固有値で対応を確定する。</p><p class="kb-src"><strong>出典:</strong> IBM Power Systems: Virtual I / O Server and Integrated Virtualization Manager commands p8hcg / https: / public.dhe.ibm.com / systems / power / docs / hw / p8 / p8hcg / IBM Power Systems Guide: Configuring the VIOS for client storage / www.ibm.com / en / power10 / 0000-REF?topic=POWER10_REF%2Fp10eew%2Fp10eew_configure_vios_client_storage.html</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> 同一性確認（unique_id / LUN）について、実体照合（LUN）について、VIOS1のhdisk6とVIOS2のhdisk9が同じSAN LUNか確認する最も確実な方法はどれか。</p><ul class="kb-choices"><li>A. hdiskの末尾番号が異なるため別LUNと即断する。LUN実体照合の判定にも同じ前提を広げ、LUNの表示値を確認せずに結論を確定する。</li><li>B. 両方のunique_idを取得して装置固有値が一致するか比較する。 <span class="kb-ok">✅ 正解</span></li><li>C. 両VIOSのioslevelが同じなら同一LUNとみなす。</li><li>D. vhost名が一致するかだけで物理ストレージを同定する。</li></ul><p class="kb-meta">正解: <strong>B</strong> ／ 難易度: 上級</p><p><strong>解説:</strong> 実体照合（LUN）でBを正答とする理由は、hdisk番号は各VIOSの検出順で変わるがunique_idはストレージ実体を識別するため、系間対応に利用できることです。
+同一性確認（unique_id / LUN）の仕組みとして、冗長VIOSでは同じLUNが別のローカル装置名で見えることがある。マッピングや予約属性を比較する前にunique_idで対象を揃えると、別LUNの設定を混ぜる事故を防げる。
+同一性確認（unique_id / LUN）の誤答は、Aは装置番号差は実体差を意味しない、Cはソフトウェア版数はSAN装置IDではない、Dはvhostはクライアント接続口で物理LUNを一意にしない。
+同一性確認（unique_id / LUN）で使うLUNとはストレージ装置がホストへ公開する論理ユニットで、VIOSではhdiskとして認識されることが多い。</p><p class="kb-src"><strong>出典:</strong> IBM Power Systems: Virtual I / O Server and Integrated Virtualization Manager commands p8hcg / https: / public.dhe.ibm.com / systems / power / docs / hw / p8 / p8hcg / IBM Power Systems Guide: Configuring the VIOS for client storage / www.ibm.com / en / power10 / 0000-REF?topic=POWER10_REF%2Fp10eew%2Fp10eew_configure_vios_client_storage.html</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>unique_idによるLUN同一性確認</strong></p><p>検証目的: LUN実体照合について、一次資料のコマンドと出力形式を用いて構成・状態を机上確認する。</p><p>前提条件: padmin権限のVIOS CLIに接続でき、対象装置名と変更計画を確認済み。変更を伴う操作は本手順では実行しない。</p><p>セッション環境: VIOS padmin shell</p><pre class="kb-code">■ ステップ 1
+現在の画面はVIOSのpadminコマンド入力画面である。対象hdiskの固有識別値を表示し、対向VIOSで採取した値と完全一致を確認する。
+［操作（入力）］
+VIOS CLI
+COMMAND ===&gt; lsdev -dev hdisk6 -attr unique_id
+→ Enter を押す
+［画面・出力］
+unique_id 3E213600A0B8000114632000092784EC50F0B0F1815 FAStT03IBMfcp Unique device identifier False
+画面・出力に含まれる 3E213600A0B8000114632000092784EC50F0B0F1815 を読み、LUN実体照合の判定資料として保存する。
+――――</pre><p>合格条件: ステップ1: 3E213600A0B8000114632000092784EC50F0B0F1815 が画面・出力に現れ、対象hdiskの固有識別値を表示し、対向VIOSで採取した値と完全一致を確認する。</p><p class="kb-meta">検証状態: 机上 ／ 出典: IBM Power Systems: Virtual I / O Server and Integrated Virtualization Manager commands p8hcg / https: / public.dhe.ibm.com / systems / power / docs / hw / p8 / p8hcg / IBM Power Systems Guide: Configuring the VIOS for client storage / www.ibm.com / en / power10 / 0000-REF?topic=POWER10_REF%2Fp10eew%2Fp10eew_configure_vios_client_storage.html</p></div></details></section>
+
+<section class="kb-item" id="c34-i0017"><h3>仮想SCSIサーバーアダプターの検出</h3><p class="kb-meta">分類: ストレージ仮想化 ・ 難易度: 初級</p><p>vhostアダプター識別は、VIOSのストレージ仮想化でクライアント向けSCSI接続口を特定する作業である。lsdevのVPD表示からVirtual SCSI Server Adapterと物理ロケーションコードを対応させる。</p><p class="kb-src"><strong>出典:</strong> IBM Power Systems: Virtual I / O Server and Integrated Virtualization Manager commands p8hcg / https: / public.dhe.ibm.com / systems / power / docs / hw / p8 / p8hcg / IBM Power Systems Guide: Configuring the VIOS for client storage / www.ibm.com / en / power10 / 0000-REF?topic=POWER10_REF%2Fp10eew%2Fp10eew_configure_vios_client_storage.html</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> 仮想SCSIサーバーアダプターの検出について、クライアント用仮想SCSIサーバーアダプターをVIOSで特定する表示として適切なものはどれか。</p><ul class="kb-choices"><li>A. fcstatのWorld Wide Port Nameをvhost名として採用する。vhostアダプター識別の判定にも同じ前提を広げ、vhostの表示値を確認せずに結論を確定する。</li><li>B. ioslevelの版数末尾をクライアントアダプター番号とみなす。</li><li>C. lspathのparent列だけでVirtual SCSI Server Adapterを決める。</li><li>D. lsdev -vpdのVirtual SCSI Server Adapter行でvhost名とPhyslocを確認する。 <span class="kb-ok">✅ 正解</span></li></ul><p class="kb-meta">正解: <strong>D</strong> ／ 難易度: 初級</p><p><strong>解説:</strong> アダプター識別（vhost）でDを正答とする理由は、lsdev -vpdはvhost0のような論理名とHMC上の仮想スロットに対応するロケーションを同じ行で示すことです。
+仮想SCSIサーバーアダプターの検出の仕組みとして、vhostはVIOS側の仮想SCSIサーバーアダプターで、VTDを介してbacking deviceをクライアントへ公開する。スロット対応を誤ると別LPARへ資源を割り当てる危険がある。
+仮想SCSIサーバーアダプターの検出の誤答は、AはWWPNはFibre Channelポート識別子でvhostとは異なる、Bは版数はアダプター番号を符号化していない、CはMPIO親デバイス名だけでは仮想SCSIサーバーを特定できない。
+仮想SCSIサーバーアダプターの検出で使うvhostとはVIOS側でクライアントの仮想SCSIアダプターを受けるサーバーアダプターの論理名。</p><p class="kb-src"><strong>出典:</strong> IBM Power Systems: Virtual I / O Server and Integrated Virtualization Manager commands p8hcg / https: / public.dhe.ibm.com / systems / power / docs / hw / p8 / p8hcg / IBM Power Systems Guide: Configuring the VIOS for client storage / www.ibm.com / en / power10 / 0000-REF?topic=POWER10_REF%2Fp10eew%2Fp10eew_configure_vios_client_storage.html</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>仮想SCSIサーバーアダプターの検出</strong></p><p>検証目的: vhostアダプター識別について、一次資料のコマンドと出力形式を用いて構成・状態を机上確認する。</p><p>前提条件: padmin権限のVIOS CLIに接続でき、対象装置名と変更計画を確認済み。変更を伴う操作は本手順では実行しない。</p><p>セッション環境: VIOS padmin shell</p><pre class="kb-code">■ ステップ 1
+現在の画面はVIOSのpadminコマンド入力画面である。Virtual SCSIのVPD行を抽出し、論理名とクライアント側スロットを対応させる。
+［操作（入力）］
+VIOS CLI
+COMMAND ===&gt; lsdev -vpd | grep &quot;Virtual SCSI&quot;
+→ Enter を押す
+［画面・出力］
+vhost0 U8233.E8B.061AB2P-V1-C101 Virtual SCSI Server Adapter
+画面・出力に含まれる vhost0 を読み、vhostアダプター識別の判定資料として保存する。
+――――</pre><p>合格条件: ステップ1: vhost0 が画面・出力に現れ、Virtual SCSIのVPD行を抽出し、論理名とクライアント側スロットを対応させる。</p><p class="kb-meta">検証状態: 机上 ／ 出典: IBM Power Systems: Virtual I / O Server and Integrated Virtualization Manager commands p8hcg / https: / public.dhe.ibm.com / systems / power / docs / hw / p8 / p8hcg / IBM Power Systems Guide: Configuring the VIOS for client storage / www.ibm.com / en / power10 / 0000-REF?topic=POWER10_REF%2Fp10eew%2Fp10eew_configure_vios_client_storage.html</p></div></details></section>
+
+<section class="kb-item" id="c34-i0018"><h3>物理ディスク在庫と状態の確認</h3><p class="kb-meta">分類: ストレージ仮想化 ・ 難易度: 初級</p><p>hdisk在庫は、VIOSのストレージ仮想化で割当候補となる物理ディスクの見える範囲を示す。lsdev -type diskで論理名、Available状態、SASまたはMPIOなどの装置説明を確認する。</p><p class="kb-src"><strong>出典:</strong> IBM Power Systems: Virtual I / O Server and Integrated Virtualization Manager commands p8hcg / https: / public.dhe.ibm.com / systems / power / docs / hw / p8 / p8hcg / IBM Power Systems Guide: Configuring the VIOS for client storage / www.ibm.com / en / power10 / 0000-REF?topic=POWER10_REF%2Fp10eew%2Fp10eew_configure_vios_client_storage.html</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> 物理ディスク在庫と状態の確認について、クライアントへ割り当てる候補ディスクをVIOS上で棚卸しする最初の表示として適切なものはどれか。</p><ul class="kb-choices"><li>A. lsrepで仮想光媒体だけを表示しSANディスク一覧とみなす。hdisk在庫の判定にも同じ前提を広げ、hdiskの表示値を確認せずに結論を確定する。</li><li>B. cluster -statusでSSPノードだけを表示し全hdiskを推定する。</li><li>C. lsdev -type diskでhdisk名とStatusとDescriptionを一覧化する。 <span class="kb-ok">✅ 正解</span></li><li>D. lsvoptのMedia列を物理ディスクのStatus列として読み替える。</li></ul><p class="kb-meta">正解: <strong>C</strong> ／ 難易度: 初級</p><p><strong>解説:</strong> 在庫（hdisk）でCを正答とする理由は、lsdev -type diskはVIOSが認識するディスクを装置状態と種類付きで列挙するため、個別属性調査の入口になることです。
+物理ディスク在庫と状態の確認の仕組みとして、Availableは装置が構成済みで利用可能な状態を示すが、割当可否には既存VG所属や予約ポリシーなど追加確認が要る。在庫一覧と割当承認は別段階である。
+物理ディスク在庫と状態の確認の誤答は、AはlsrepはVirtual Media Repositoryの情報を扱う、Bはcluster表示はローカルhdiskの全在庫を列挙しない、DはlsvoptのMediaは仮想光学媒体名である。
+物理ディスク在庫と状態の確認で使うhdiskとはAIXおよびVIOSが物理またはSAN論理ディスクへ付ける装置論理名。</p><p class="kb-src"><strong>出典:</strong> IBM Power Systems: Virtual I / O Server and Integrated Virtualization Manager commands p8hcg / https: / public.dhe.ibm.com / systems / power / docs / hw / p8 / p8hcg / IBM Power Systems Guide: Configuring the VIOS for client storage / www.ibm.com / en / power10 / 0000-REF?topic=POWER10_REF%2Fp10eew%2Fp10eew_configure_vios_client_storage.html</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>物理ディスク在庫と状態の確認</strong></p><p>検証目的: hdisk在庫について、一次資料のコマンドと出力形式を用いて構成・状態を机上確認する。</p><p>前提条件: padmin権限のVIOS CLIに接続でき、対象装置名と変更計画を確認済み。変更を伴う操作は本手順では実行しない。</p><p>セッション環境: VIOS padmin shell</p><pre class="kb-code">■ ステップ 1
+現在の画面はVIOSのpadminコマンド入力画面である。ディスク種別を限定して一覧を表示し、MPIO対象とローカルSAS装置を区別する。
+［操作（入力）］
+VIOS CLI
+COMMAND ===&gt; lsdev -type disk
+→ Enter を押す
+［画面・出力］
+Name   Status    Description
+hdisk0 Available SAS Disk Drive
+hdisk1 Available SAS Disk Drive
+hdisk2 Available MPIO DS4800 Disk
+hdisk3 Available MPIO DS4800 Disk
+hdisk4 Available MPIO DS4800 Disk
+hdisk5 Available MPIO DS4800 Disk
+画面・出力に含まれる hdisk2 を読み、hdisk在庫の判定資料として保存する。
+――――</pre><p>合格条件: ステップ1: hdisk2 が画面・出力に現れ、ディスク種別を限定して一覧を表示し、MPIO対象とローカルSAS装置を区別する。</p><p class="kb-meta">検証状態: 机上 ／ 出典: IBM Power Systems: Virtual I / O Server and Integrated Virtualization Manager commands p8hcg / https: / public.dhe.ibm.com / systems / power / docs / hw / p8 / p8hcg / IBM Power Systems Guide: Configuring the VIOS for client storage / www.ibm.com / en / power10 / 0000-REF?topic=POWER10_REF%2Fp10eew%2Fp10eew_configure_vios_client_storage.html</p></div></details></section>
+
+<h2 id="_2">セキュリティ<a class="headerlink" href="#_2" title="Permanent link">&para;</a></h2>
+<section class="kb-item" id="c34-i0019"><h3>RBACによる権限分離とpvi</h3><p class="kb-meta">分類: セキュリティ ・ 難易度: 上級</p><p>最小権限編集は、VIOSのセキュリティで管理機能を職務別に分離し、必要な構成ファイルだけを扱わせる方式である。RBACではauthorizationをroleへ割り当て、pvi対象ファイルにはsetsecattrとsetkstで権限を反映する。</p><p class="kb-src"><strong>出典:</strong> IBM Power Systems: Virtual I / O Server and Integrated Virtualization Manager commands p8hcg / https: / public.dhe.ibm.com / systems / power / docs / hw / p8 / p8hcg / IBM Power Systems Security Guide: Using role-based access control with VIOS / www.ibm.com / en / power10?topic=security-using-role-based-access-control</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> 権限分離とpvi（RBAC）について、一般管理者へroot権限全体を渡さず特定構成ファイルの編集だけを許可する流れとして適切なものはどれか。</p><ul class="kb-choices"><li>A. 対象ファイルへvios.file.writeを設定しsetkst反映後に権限を持つroleからpviを使う。 <span class="kb-ok">✅ 正解</span></li><li>B. 全利用者へALLOW_ALLを付け通常のviで任意ファイルを編集させる。最小権限編集の判定にも同じ前提を広げ、RBACの表示値を確認せずに結論を確定する。</li><li>C. lsmap -npivのClntOSをauthorization名としてroleへ登録する。</li><li>D. setsecattrだけ実行してkernel security tableへの反映を省く。</li></ul><p class="kb-meta">正解: <strong>A</strong> ／ 難易度: 上級</p><p><strong>解説:</strong> 最小権限編集でAを正答とする理由は、pviはRBACで許可されたファイルを安全に編集するための経路で、ファイル権限とroleのauthorizationを限定できることです。
+権限分離とpvi（RBAC）の仕組みとして、setsecattrはprivileged file databaseを更新し、setkstがその定義をkernel security tableへ読み込む。職務に必要なauthorizationだけをroleへ付与すると管理機能を分離できる。
+権限分離とpvi（RBAC）の誤答は、BはALLOW_ALLは最小権限の目的に反する、CはクライアントOS種別はRBAC authorizationではない、Dはデータベース変更だけでは実行中kernelへ反映されない。
+権限分離とpvi（RBAC）で使うRBACとはRole-Based Access Controlの略で、利用者へ個別権限ではなく職務roleとauthorizationを介して操作権を与える仕組み。</p><p class="kb-src"><strong>出典:</strong> IBM Power Systems: Virtual I / O Server and Integrated Virtualization Manager commands p8hcg / https: / public.dhe.ibm.com / systems / power / docs / hw / p8 / p8hcg / IBM Power Systems Security Guide: Using role-based access control with VIOS / www.ibm.com / en / power10?topic=security-using-role-based-access-control</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>RBACによる権限分離とpvi</strong></p><p>検証目的: 最小権限編集について、一次資料のコマンドと出力形式を用いて構成・状態を机上確認する。</p><p>前提条件: padmin権限のVIOS CLIに接続でき、対象装置名と変更計画を確認済み。変更を伴う操作は本手順では実行しない。</p><p>セッション環境: VIOS padmin shell</p><pre class="kb-code">■ ステップ 1
+現在の画面はVIOSのpadminコマンド入力画面である。対象ファイルに設定されたwrite authorizationを表示し、編集許可範囲を確認する。
+［操作（入力）］
+VIOS CLI
+COMMAND ===&gt; lssecattr -f /etc/cronlog.conf
+→ Enter を押す
+［画面・出力］
+/etc/cronlog.conf writeauths=vios.file.write
+画面・出力に含まれる vios.file.write を読み、最小権限編集の判定資料として保存する。
+――――
+■ ステップ 2
+現在の画面はVIOSのpadminコマンド入力画面である。現在のroleセッションで利用できるファイル権限を表示し、pvi実行前に最小権限を確認する。
+［操作（入力）］
+VIOS CLI
+COMMAND ===&gt; rolelist -p
+→ Enter を押す
+［画面・出力］
+Role Name: VIOSConfigEditor
+Authorizations: vios.file.read,vios.file.write
+画面・出力に含まれる VIOSConfigEditor を読み、最小権限編集の判定資料として保存する。
+――――</pre><p>合格条件: ステップ1: vios.file.write が画面・出力に現れ、対象ファイルに設定されたwrite authorizationを表示し、編集許可範囲を確認する。
+ステップ2: VIOSConfigEditor が画面・出力に現れ、現在のroleセッションで利用できるファイル権限を表示し、pvi実行前に最小権限を確認する。</p><p class="kb-meta">検証状態: 机上 ／ 出典: IBM Power Systems: Virtual I / O Server and Integrated Virtualization Manager commands p8hcg / https: / public.dhe.ibm.com / systems / power / docs / hw / p8 / p8hcg / IBM Power Systems Security Guide: Using role-based access control with VIOS / www.ibm.com / en / power10?topic=security-using-role-based-access-control</p></div></details></section>
+
+<h2 id="_3">ネットワーク仮想化<a class="headerlink" href="#_3" title="Permanent link">&para;</a></h2>
+<section class="kb-item" id="c34-i0020"><h3>lsmap -netによるSEA構成対応</h3><p class="kb-meta">分類: ネットワーク仮想化 ・ 難易度: 初級</p><p>SEAアダプター連鎖は、VIOSのネットワーク仮想化でサーバー仮想EthernetからSEAと実アダプターへ至る対応である。lsmap -netはSVEA、SEA、Backing device、Status、Physlocを一つの構成として表示する。</p><p class="kb-src"><strong>出典:</strong> IBM Power Systems: Virtual I / O Server and Integrated Virtualization Manager commands p8hcg / https: / public.dhe.ibm.com / systems / power / docs / hw / p8 / p8hcg / IBM Power Systems Virtual I / O Server Commands: lsmap command / www.ibm.com / en / power10?topic=commands-lsmap-command</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> 構成対応（lsmap / net / SEA）について、仮想Ethernetアダプターent4がどのSEAと物理アダプターを使うか確認する読み方はどれか。</p><ul class="kb-choices"><li>A. lsmap -npivでFC nameをSEAの実アダプターとして読む。</li><li>B. lsvoptのVTDをSVEA名へ置換してネットワーク対応を作る。</li><li>C. lsmap -vadapter ent4 -netでSEA ent5とBacking device ent1を読む。 <span class="kb-ok">✅ 正解</span></li><li>D. Client Partition IDをVLAN IDとしてそのまま採用する。</li></ul><p class="kb-meta">正解: <strong>C</strong> ／ 難易度: 初級</p><p><strong>解説:</strong> アダプター連鎖（SEA）でCを正答とする理由は、-net表示は指定SVEAに対応するSEAと実backing adapterを同じ出力グループに示すことです。
+構成対応（lsmap / net / SEA）の仕組みとして、アダプター連鎖（SEA）について、SEAはクライアント側仮想Ethernetと外部物理ネットワークを橋渡しする。障害切分けではSVEA、SEA、実アダプターのどの層がUnavailableかを順に追う。
+構成対応（lsmap / net / SEA）の誤答は、AはNPIVはFibre Channel仮想化の表示である、Bはlsvoptは仮想光媒体を扱いEthernet対応を持たない、Dは区画IDとVLAN IDは別の識別体系である。
+構成対応（lsmap / net / SEA）で使うSVEAとはServer Virtual Ethernet Adapterの略で、SEAへ接続するVIOS側の仮想Ethernetアダプター。</p><p class="kb-src"><strong>出典:</strong> IBM Power Systems: Virtual I / O Server and Integrated Virtualization Manager commands p8hcg / https: / public.dhe.ibm.com / systems / power / docs / hw / p8 / p8hcg / IBM Power Systems Virtual I / O Server Commands: lsmap command / www.ibm.com / en / power10?topic=commands-lsmap-command</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>lsmap -netによるSEA構成対応</strong></p><p>検証目的: SEAアダプター連鎖について、一次資料のコマンドと出力形式を用いて構成・状態を机上確認する。</p><p>前提条件: padmin権限のVIOS CLIに接続でき、対象装置名と変更計画を確認済み。変更を伴う操作は本手順では実行しない。</p><p>セッション環境: VIOS padmin shell</p><pre class="kb-code">■ ステップ 1
+現在の画面はVIOSのpadminコマンド入力画面である。対象SVEAのネットワーク対応を表示し、SEAと実アダプターと状態を記録する。
+［操作（入力）］
+VIOS CLI
+COMMAND ===&gt; lsmap -vadapter ent4 -net
+→ Enter を押す
+［画面・出力］
+SVEA                 Physloc
+ent4                  P2-I1/E1
+SEA                  ent5
+Backing device       ent1
+Status               Available
+Physloc              P2-I4/E1
+画面・出力に含まれる ent5 を読み、SEAアダプター連鎖の判定資料として保存する。
+――――</pre><p>合格条件: ステップ1: ent5 が画面・出力に現れ、対象SVEAのネットワーク対応を表示し、SEAと実アダプターと状態を記録する。</p><p class="kb-meta">検証状態: 机上 ／ 出典: IBM Power Systems: Virtual I / O Server and Integrated Virtualization Manager commands p8hcg / https: / public.dhe.ibm.com / systems / power / docs / hw / p8 / p8hcg / IBM Power Systems Virtual I / O Server Commands: lsmap command / www.ibm.com / en / power10?topic=commands-lsmap-command</p></div></details></section>
+
+<h2 id="_4">ネットワーク性能<a class="headerlink" href="#_4" title="Permanent link">&para;</a></h2>
+<section class="kb-item" id="c34-i0021"><h3>SEAの実側・仮想側パケット統計</h3><p class="kb-meta">分類: ネットワーク性能 ・ 難易度: 上級</p><p>ブリッジ方向別統計は、VIOSのネットワーク性能で外部物理網とクライアント仮想網のどちらに停滞があるかを分ける。entstatのReal SideとVirtual Sideでreceived、bridged、transmitted、droppedを比較する。</p><p class="kb-src"><strong>出典:</strong> IBM Power Systems: Virtual I / O Server and Integrated Virtualization Manager commands p8hcg / https: / public.dhe.ibm.com / systems / power / docs / hw / p8 / p8hcg / IBM Power Systems Reference Guide: Shared Ethernet Adapter statistics / www.ibm.com / en / power10 / 9105-22B?topic=reference-sea-statistics</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> 実側・仮想側パケット統計（SEA）について、ブリッジ方向別統計について、SEAの物理側では受信しているが仮想側へ渡せていない疑いを調べる組合せはどれか。</p><ul class="kb-choices"><li>A. SEA Flagsだけを見て全パケットが転送されたと判定する。</li><li>B. Hardware Addressの末尾をPackets bridgedの件数として扱う。ブリッジ方向別統計の判定にも同じ前提を広げ、Packets bridgedの表示値を確認せずに結論を確定する。</li><li>C. 物理側のPackets receivedだけで仮想側到達を証明する。</li><li>D. Real SideのPackets receivedとbridgedを比べVirtual Side transmittedも合わせて読む。 <span class="kb-ok">✅ 正解</span></li></ul><p class="kb-meta">正解: <strong>D</strong> ／ 難易度: 上級</p><p><strong>解説:</strong> ブリッジ方向別統計でDを正答とする理由は、受信、bridge処理、仮想側送信は連続する別カウンターであり、段階間の差が滞留や破棄の位置を示すことです。
+実側・仮想側パケット統計（SEA）の仕組みとして、ブリッジ方向別統計について、SEAは実アダプターと複数仮想アダプター間でフレームを橋渡しする。方向別統計にはVLAN不一致、memory不足、queue overflowなど異なる破棄理由が含まれる。
+実側・仮想側パケット統計（SEA）の誤答は、AはFlagsは機能状態で個々の転送成功数ではない、BはMACアドレスは統計値へ変換できない、Cは物理受信後にbridgeまたは仮想送信で失敗する可能性がある。
+実側・仮想側パケット統計（SEA）で使うPackets bridgedとは一方のネットワーク側で受信され反対側へ橋渡しされたパケット数を示すSEA統計。</p><p class="kb-src"><strong>出典:</strong> IBM Power Systems: Virtual I / O Server and Integrated Virtualization Manager commands p8hcg / https: / public.dhe.ibm.com / systems / power / docs / hw / p8 / p8hcg / IBM Power Systems Reference Guide: Shared Ethernet Adapter statistics / www.ibm.com / en / power10 / 9105-22B?topic=reference-sea-statistics</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>SEAの実側・仮想側パケット統計</strong></p><p>検証目的: ブリッジ方向別統計について、一次資料のコマンドと出力形式を用いて構成・状態を机上確認する。</p><p>前提条件: padmin権限のVIOS CLIに接続でき、対象装置名と変更計画を確認済み。変更を伴う操作は本手順では実行しない。</p><p>セッション環境: VIOS padmin shell</p><pre class="kb-code">■ ステップ 1
+現在の画面はVIOSのpadminコマンド入力画面である。SEAの実側と仮想側を含む統計を表示し、bridge前後のカウンター差を採取する。
+［操作（入力）］
+VIOS CLI
+COMMAND ===&gt; entstat -all ent5
+→ Enter を押す
+［画面・出力］
+Statistics for adapters in the Shared Ethernet Adapter ent5
+Number of adapters: 3
+SEA Flags: 00000001
+Real Side Statistics:
+Packets received: 10763329
+Packets bridged: 10718078
+Packets transmitted: 181044
+Packets dropped: 0
+Virtual Side Statistics:
+Packets received: 363027
+Packets bridged: 181044
+Packets transmitted: 10900061
+Packets dropped: 0
+画面・出力に含まれる Packets bridged を読み、ブリッジ方向別統計の判定資料として保存する。
+――――</pre><p>合格条件: ステップ1: Packets bridged が画面・出力に現れ、SEAの実側と仮想側を含む統計を表示し、bridge前後のカウンター差を採取する。</p><p class="kb-meta">検証状態: 机上 ／ 出典: IBM Power Systems: Virtual I / O Server and Integrated Virtualization Manager commands p8hcg / https: / public.dhe.ibm.com / systems / power / docs / hw / p8 / p8hcg / IBM Power Systems Reference Guide: Shared Ethernet Adapter statistics / www.ibm.com / en / power10 / 9105-22B?topic=reference-sea-statistics</p></div></details></section>
+
+<section class="kb-item" id="c34-i0022"><h3>entstatの送受信エラーカウンター</h3><p class="kb-meta">分類: ネットワーク性能 ・ 難易度: 中級</p><p>Ethernetエラー統計は、VIOSのネットワーク性能でパケット損失を送信側と受信側へ分ける材料である。entstatはPackets、Bytes、Transmit Errors、Receive Errors、Packets Droppedなどを装置ドライバーから表示する。</p><p class="kb-src"><strong>出典:</strong> IBM Power Systems: Virtual I / O Server and Integrated Virtualization Manager commands p8hcg / https: / public.dhe.ibm.com / systems / power / docs / hw / p8 / p8hcg / IBM Power Systems Virtual I / O Server Commands: entstat command / www.ibm.com / en / power10 / 9105-22A?topic=commands-entstat-command</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> 送受信エラーカウンター（entstat）について、エラー統計（Ethernet）について、SEAで通信不良を調べる際、entstat出力の読み方として適切なものはどれか。</p><ul class="kb-choices"><li>A. 送信・受信のPacketsとErrorsとDroppedを同じ採取時刻で比較する。 <span class="kb-ok">✅ 正解</span></li><li>B. Hardware Addressだけを見てパケット損失の有無を決める。</li><li>C. Elapsed Timeをエラー件数として送受信に加算する。Ethernetエラー統計の判定にも同じ前提を広げ、Packets Droppedの表示値を確認せずに結論を確定する。</li><li>D. Transmit Errorsが0ならReceive Errorsを確認せず正常とする。</li></ul><p class="kb-meta">正解: <strong>A</strong> ／ 難易度: 中級</p><p><strong>解説:</strong> エラー統計（Ethernet）でAを正答とする理由は、entstatは方向別の成功量と失敗量を並べるため、増分と偏りを同じ時間窓で評価できることです。
+送受信エラーカウンター（entstat）の仕組みとして、累積カウンターは採取期間に依存するので、単発の絶対値だけでなくElapsed Timeと前回値を併用する。送信正常でも受信側やunderlying adapterに問題が残る場合がある。
+送受信エラーカウンター（entstat）の誤答は、BはMACアドレスは装置識別で損失件数ではない、CはElapsed Timeは統計経過時間でエラー数ではない、Dは通信は双方向なので受信統計も独立に確認する。
+送受信エラーカウンター（entstat）で使うPackets Droppedとはドライバーまたは装置が処理できず破棄したパケットの累積数を示す統計欄。</p><p class="kb-src"><strong>出典:</strong> IBM Power Systems: Virtual I / O Server and Integrated Virtualization Manager commands p8hcg / https: / public.dhe.ibm.com / systems / power / docs / hw / p8 / p8hcg / IBM Power Systems Virtual I / O Server Commands: entstat command / www.ibm.com / en / power10 / 9105-22A?topic=commands-entstat-command</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>entstatの送受信エラーカウンター</strong></p><p>検証目的: Ethernetエラー統計について、一次資料のコマンドと出力形式を用いて構成・状態を机上確認する。</p><p>前提条件: padmin権限のVIOS CLIに接続でき、対象装置名と変更計画を確認済み。変更を伴う操作は本手順では実行しない。</p><p>セッション環境: VIOS padmin shell</p><pre class="kb-code">■ ステップ 1
+現在の画面はVIOSのpadminコマンド入力画面である。SEAの全統計を表示し、送受信エラーと破棄数を同じ時間窓で記録する。
+［操作（入力）］
+VIOS CLI
+COMMAND ===&gt; entstat -all ent8
+→ Enter を押す
+［画面・出力］
+ETHERNET STATISTICS (ent8) :
+Device Type: Shared Ethernet Adapter
+Hardware Address: 00:0d:60:0c:05:00
+Elapsed Time: 3 days 20 hours 34 minutes 26 seconds
+Transmit Statistics:                          Receive Statistics:
+Packets: 7978002                              Packets: 5701362
+Transmit Errors: 0                            Receive Errors: 0
+Packets Dropped: 0                            Packets Dropped: 0
+画面・出力に含まれる Receive Errors を読み、Ethernetエラー統計の判定資料として保存する。
+――――</pre><p>合格条件: ステップ1: Receive Errors が画面・出力に現れ、SEAの全統計を表示し、送受信エラーと破棄数を同じ時間窓で記録する。</p><p class="kb-meta">検証状態: 机上 ／ 出典: IBM Power Systems: Virtual I / O Server and Integrated Virtualization Manager commands p8hcg / https: / public.dhe.ibm.com / systems / power / docs / hw / p8 / p8hcg / IBM Power Systems Virtual I / O Server Commands: entstat command / www.ibm.com / en / power10 / 9105-22A?topic=commands-entstat-command</p></div></details></section>
+
+<section class="kb-item" id="c34-i0023"><h3>queues_rxによる受信マルチキュー</h3><p class="kb-meta">分類: ネットワーク性能 ・ 難易度: 上級</p><p>仮想Ethernet受信キューは、VIOSのネットワーク性能でtrunk adapterの受信処理を複数CPUへ分散する調整点である。queues_rxを0より大きくすると受信帯域向上が見込める一方、追加CPU資源を消費する。</p><p class="kb-src"><strong>出典:</strong> IBM Power Systems: Virtual I / O Server and Integrated Virtualization Manager commands p8hcg / https: / public.dhe.ibm.com / systems / power / docs / hw / p8 / p8hcg / IBM Power Systems Reference Guide: Network attributes / www.ibm.com / en / power10?topic=reference-network-attributes</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> 受信マルチキュー（queues_rx）について、queues_rxを増やす判断として最も適切なものはどれか。</p><ul class="kb-choices"><li>A. すべてのSEAで無条件に最大値へ設定しCPU影響を測らない。仮想Ethernet受信キューの判定にも同じ前提を広げ、queues_rxの表示値を確認せずに結論を確定する。</li><li>B. 受信負荷とCPU余力を測定し対象仮想Ethernetアダプターだけ段階的に調整する。 <span class="kb-ok">✅ 正解</span></li><li>C. queues_rxをFibre Channelのログインポート数として変更する。</li><li>D. 送信キューが12なら受信キューも自動的に12だとみなす。</li></ul><p class="kb-meta">正解: <strong>B</strong> ／ 難易度: 上級</p><p><strong>解説:</strong> 仮想Ethernet受信キューでBを正答とする理由は、複数受信キューは並列処理を増やす代わりにCPU消費も増えるため、ボトルネック測定と余力確認が必要になることです。
+受信マルチキュー（queues_rx）の仕組みとして、従来モードでは受信キューが0で、受信処理の並列度を上げるには対応仮想Ethernetアダプターのqueues_rxを変更する。効果はワークロードとCPU配置に依存する。
+受信マルチキュー（queues_rx）の誤答は、Aは一律最大化はCPU競合を招き得る、CはFibre Channelポート容量はlsnportsで管理する、Dは送信と受信の既定キュー数は同値とは限らない。
+受信マルチキュー（queues_rx）で使うqueues_rxとはVIOSの仮想Ethernetアダプターで受信処理に使うキュー数を指定する装置属性。</p><p class="kb-src"><strong>出典:</strong> IBM Power Systems: Virtual I / O Server and Integrated Virtualization Manager commands p8hcg / https: / public.dhe.ibm.com / systems / power / docs / hw / p8 / p8hcg / IBM Power Systems Reference Guide: Network attributes / www.ibm.com / en / power10?topic=reference-network-attributes</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>queues_rxによる受信マルチキュー</strong></p><p>検証目的: 仮想Ethernet受信キューについて、一次資料のコマンドと出力形式を用いて構成・状態を机上確認する。</p><p>前提条件: padmin権限のVIOS CLIに接続でき、対象装置名と変更計画を確認済み。変更を伴う操作は本手順では実行しない。</p><p>セッション環境: VIOS padmin shell</p><pre class="kb-code">■ ステップ 1
+現在の画面はVIOSのpadminコマンド入力画面である。対象仮想Ethernetアダプターの受信キュー設定値を表示し、変更前のCPU調査記録へ残す。
+［操作（入力）］
+VIOS CLI
+COMMAND ===&gt; lsdev -dev ent3 -attr queues_rx
+→ Enter を押す
+［画面・出力］
+queues_rx  0  Number of receive queues  True
+画面・出力に含まれる queues_rx を読み、仮想Ethernet受信キューの判定資料として保存する。
+――――</pre><p>合格条件: ステップ1: queues_rx が画面・出力に現れ、対象仮想Ethernetアダプターの受信キュー設定値を表示し、変更前のCPU調査記録へ残す。</p><p class="kb-meta">検証状態: 机上 ／ 出典: IBM Power Systems: Virtual I / O Server and Integrated Virtualization Manager commands p8hcg / https: / public.dhe.ibm.com / systems / power / docs / hw / p8 / p8hcg / IBM Power Systems Reference Guide: Network attributes / www.ibm.com / en / power10?topic=reference-network-attributes</p></div></details></section>
+
+<h2 id="_5">バックアップ・復元<a class="headerlink" href="#_5" title="Permanent link">&para;</a></h2>
+<section class="kb-item" id="c34-i0024"><h3>backupiosのrootvgイメージ</h3><p class="kb-meta">分類: バックアップ・復元 ・ 難易度: 中級</p><p>起動可能システム保護は、VIOSのrootvgを再導入できるイメージとして保存するバックアップである。backupiosはファイルシステム、テープ、DVDへ出力でき、viosbrの構成メタデータ保護とは用途を分ける。</p><p class="kb-src"><strong>出典:</strong> IBM Power Systems: Virtual I / O Server and Integrated Virtualization Manager commands p8hcg / https: / public.dhe.ibm.com / systems / power / docs / hw / p8 / p8hcg / IBM Power Systems Virtual I / O Server Commands: backupios command / www.ibm.com / en / power10?topic=commands-backupios-command</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> イメージ（backupios / rootvg）について、起動可能システム保護について、VIOSを破損前のrootvg状態へ再導入できるイメージを作る用途に適したコマンドはどれか。</p><ul class="kb-choices"><li>A. viosbr -viewだけで起動可能rootvgイメージを生成する。</li><li>B. lsmap -allのテキストをDVDへ保存して再導入媒体とする。起動可能システム保護の判定にも同じ前提を広げ、rootvgの表示値を確認せずに結論を確定する。</li><li>C. backupiosでファイルまたは起動可能媒体へrootvgイメージを作成する。 <span class="kb-ok">✅ 正解</span></li><li>D. cluster -statusの出力をmksysbイメージとして利用する。</li></ul><p class="kb-meta">正解: <strong>C</strong> ／ 難易度: 中級</p><p><strong>解説:</strong> 起動可能システム保護でCを正答とする理由は、backupiosはroot volume groupのインストール可能イメージを作る目的を持ち、媒体からシステム再導入に使えることです。
+イメージ（backupios / rootvg）の仕組みとして、viosbrは仮想I/O構成の復元に強いがOSファイル全体の起動イメージではない。復旧設計ではrootvgイメージと構成バックアップを別々に取得し保管先も確認する。
+イメージ（backupios / rootvg）の誤答は、Aは-viewは既存構成バックアップの内容表示である、Bはマッピング一覧はOS導入プログラムを含まない、Dはクラスタ状態表示はシステムイメージ形式ではない。
+イメージ（backupios / rootvg）で使うrootvgとはVIOSのオペレーティングシステムと基本ファイルシステムを保持するルートボリュームグループ。</p><p class="kb-src"><strong>出典:</strong> IBM Power Systems: Virtual I / O Server and Integrated Virtualization Manager commands p8hcg / https: / public.dhe.ibm.com / systems / power / docs / hw / p8 / p8hcg / IBM Power Systems Virtual I / O Server Commands: backupios command / www.ibm.com / en / power10?topic=commands-backupios-command</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>backupiosのrootvgイメージ</strong></p><p>検証目的: 起動可能システム保護について、一次資料のコマンドと出力形式を用いて構成・状態を机上確認する。</p><p>前提条件: padmin権限のVIOS CLIに接続でき、対象装置名と変更計画を確認済み。変更を伴う操作は本手順では実行しない。</p><p>セッション環境: VIOS padmin shell</p><pre class="kb-code">■ ステップ 1
+現在の画面はVIOSのpadminコマンド入力画面である。イメージ採取前のVIOS保守レベルを記録し、復旧媒体の版管理に使う。
+［操作（入力）］
+VIOS CLI
+COMMAND ===&gt; ioslevel
+→ Enter を押す
+［画面・出力］
+COMMAND ===&gt; ioslevel
+4.1.0.40
+画面・出力に含まれる ioslevel を読み、起動可能システム保護の判定資料として保存する。
+――――
+■ ステップ 2
+現在の画面はVIOSのpadminコマンド入力画面である。rootvgの稼働状態とstale領域を確認し、破損を含むイメージ取得を避ける。
+［操作（入力）］
+VIOS CLI
+COMMAND ===&gt; lsvg rootvg
+→ Enter を押す
+［画面・出力］
+VOLUME GROUP: rootvg
+VG STATE: active
+VG PERMISSION: read/write
+TOTAL PVs: 1
+STALE PVs: 0
+STALE PPs: 0
+ACTIVE PVs: 1
+AUTO ON: yes
+画面・出力に含まれる STALE PVs を読み、起動可能システム保護の判定資料として保存する。
+――――</pre><p>合格条件: ステップ1: ioslevel が画面・出力に現れ、イメージ採取前のVIOS保守レベルを記録し、復旧媒体の版管理に使う。
+ステップ2: STALE PVs が画面・出力に現れ、rootvgの稼働状態とstale領域を確認し、破損を含むイメージ取得を避ける。</p><p class="kb-meta">検証状態: 机上 ／ 出典: IBM Power Systems: Virtual I / O Server and Integrated Virtualization Manager commands p8hcg / https: / public.dhe.ibm.com / systems / power / docs / hw / p8 / p8hcg / IBM Power Systems Virtual I / O Server Commands: backupios command / www.ibm.com / en / power10?topic=commands-backupios-command</p></div></details></section>
+
+<section class="kb-item" id="c34-i0025"><h3>viosbr -restoreの展開結果判定</h3><p class="kb-meta">分類: バックアップ・復元 ・ 難易度: 上級</p><p>復元未展開資源は、VIOSの構成復元で自動再作成できなかった装置を明示する結果である。viosbr -restoreのDeployed/changed devicesとUnable to deploy/change devicesを分け、後者を手動対応へ引き継ぐ。</p><p class="kb-src"><strong>出典:</strong> IBM Power Systems: Virtual I / O Server and Integrated Virtualization Manager commands p8hcg / https: / public.dhe.ibm.com / systems / power / docs / hw / p8 / p8hcg / IBM Power Systems Virtual I / O Server Commands: viosbr command / www.ibm.com / en / power10 / 0000-REF?topic=POWER10_REF%2Fp10hcg%2Fp10hcg_viosbr.html</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> 展開結果判定（viosbr / restore）について、viosbr -restore後の受入判定として正しいものはどれか。</p><ul class="kb-choices"><li>A. Deployed/changed devicesが一件あれば未展開欄を無視する。</li><li>B. Unable欄の資源名を成功一覧として監査記録へ転記する。</li><li>C. Unable to deploy/change devicesに列挙された資源を残件として個別に解消する。 <span class="kb-ok">✅ 正解</span></li><li>D. ioslevelが目標値なら復元結果の二つの欄を確認しない。</li></ul><p class="kb-meta">正解: <strong>C</strong> ／ 難易度: 上級</p><p><strong>解説:</strong> 復元未展開資源でCを正答とする理由は、restore出力は展開できた資源とできなかった資源を別欄で報告するため、未展開欄が復元残件の直接証拠になることです。
+展開結果判定（viosbr / restore）の仕組みとして、物理装置の不在、位置コード差、制約対象マッピングなどにより自動復元できない場合がある。成功件数ではなく未展開資源をゼロまたは承認済み残件へ整理する。
+展開結果判定（viosbr / restore）の誤答は、Aは一部成功は全体成功を意味しない、BはUnable欄は失敗または未展開の一覧である、Dは版数到達と仮想構成復元は別の合格条件である。
+展開結果判定（viosbr / restore）で使うUnable to deploy/change devicesとはviosbrが復元処理で配置または変更できなかった装置名を列挙する結果節。</p><p class="kb-src"><strong>出典:</strong> IBM Power Systems: Virtual I / O Server and Integrated Virtualization Manager commands p8hcg / https: / public.dhe.ibm.com / systems / power / docs / hw / p8 / p8hcg / IBM Power Systems Virtual I / O Server Commands: viosbr command / www.ibm.com / en / power10 / 0000-REF?topic=POWER10_REF%2Fp10hcg%2Fp10hcg_viosbr.html</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>viosbr -restoreの展開結果判定</strong></p><p>検証目的: 復元未展開資源について、一次資料のコマンドと出力形式を用いて構成・状態を机上確認する。</p><p>前提条件: padmin権限のVIOS CLIに接続でき、対象装置名と変更計画を確認済み。変更を伴う操作は本手順では実行しない。</p><p>セッション環境: VIOS padmin shell</p><pre class="kb-code">■ ステップ 1
+現在の画面はVIOSのpadminコマンド入力画面である。復元結果の成功節と未展開節を表示し、手動対応が必要な資源を切り分ける。
+［操作（入力）］
+VIOS CLI
+COMMAND ===&gt; viosbr -restore -file /home/padmin/cfgbackups/myserverbackup.002.tar.gz
+→ Enter を押す
+［画面・出力］
+Deployed/changed devices:
+&lt;Name(s) of deployed devices&gt;
+Unable to deploy/change devices:
+&lt;Name(s) of non-deployed devices&gt;
+画面・出力に含まれる Unable to deploy/change devices を読み、復元未展開資源の判定資料として保存する。
+――――</pre><p>合格条件: ステップ1: Unable to deploy/change devices が画面・出力に現れ、復元結果の成功節と未展開節を表示し、手動対応が必要な資源を切り分ける。</p><p class="kb-meta">検証状態: 机上 ／ 出典: IBM Power Systems: Virtual I / O Server and Integrated Virtualization Manager commands p8hcg / https: / public.dhe.ibm.com / systems / power / docs / hw / p8 / p8hcg / IBM Power Systems Virtual I / O Server Commands: viosbr command / www.ibm.com / en / power10 / 0000-REF?topic=POWER10_REF%2Fp10hcg%2Fp10hcg_viosbr.html</p></div></details></section>
+
+<section class="kb-item" id="c34-i0026"><h3>viosbr -viewによる復元前査読</h3><p class="kb-meta">分類: バックアップ・復元 ・ 難易度: 中級</p><p>バックアップ内容確認は、VIOSの復元前に保存ファイルへ含まれる装置とマッピングを査読する工程である。viosbr -viewでControllers、Physical Volumes、SEA、Storage Pools、VSCSI、SVFCを確認し復元対象を限定する。</p><p class="kb-src"><strong>出典:</strong> IBM Power Systems: Virtual I / O Server and Integrated Virtualization Manager commands p8hcg / https: / public.dhe.ibm.com / systems / power / docs / hw / p8 / p8hcg / IBM Power Systems Virtual I / O Server Commands: viosbr command / www.ibm.com / en / power10 / 0000-REF?topic=POWER10_REF%2Fp10hcg%2Fp10hcg_viosbr.html</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> 復元前査読（viosbr / view）について、viosbrファイルから復元する前に内容を確認する操作として適切なものはどれか。</p><ul class="kb-choices"><li>A. ファイル名の日時だけを見て内容確認なしで全復元する。</li><li>B. ioslevelを実行してバックアップ内の物理ボリュームを推定する。バックアップ内容確認の判定にも同じ前提を広げ、Controllersの表示値を確認せずに結論を確定する。</li><li>C. lsvoptだけでSVFCアダプターの保存有無を判定する。</li><li>D. viosbr -viewでコントローラーやSEAやVSCSIなどの保存内容を表示する。 <span class="kb-ok">✅ 正解</span></li></ul><p class="kb-meta">正解: <strong>D</strong> ／ 難易度: 中級</p><p><strong>解説:</strong> バックアップ内容確認でDを正答とする理由は、-viewはバックアップに記録された構成エンティティを展開せず表示でき、復元範囲の事前レビューに使えることです。
+復元前査読（viosbr / view）の仕組みとして、同じVIOSでもバックアップ世代により装置名やマッピングが異なる。view結果を現行HMC構成と突き合わせ、存在しない物理資源や不要な定義を復元計画から分ける。
+復元前査読（viosbr / view）の誤答は、Aは日時は内容の妥当性を示さない、Bは製品版数から保存PV一覧は分からない、Cはlsvoptは仮想光媒体だけを表示する。
+復元前査読（viosbr / view）で使うControllersとはviosbr -viewでSCSI、FC、iSCSIなど保存対象コントローラーを列挙する節。</p><p class="kb-src"><strong>出典:</strong> IBM Power Systems: Virtual I / O Server and Integrated Virtualization Manager commands p8hcg / https: / public.dhe.ibm.com / systems / power / docs / hw / p8 / p8hcg / IBM Power Systems Virtual I / O Server Commands: viosbr command / www.ibm.com / en / power10 / 0000-REF?topic=POWER10_REF%2Fp10hcg%2Fp10hcg_viosbr.html</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>viosbr -viewによる復元前査読</strong></p><p>検証目的: バックアップ内容確認について、一次資料のコマンドと出力形式を用いて構成・状態を机上確認する。</p><p>前提条件: padmin権限のVIOS CLIに接続でき、対象装置名と変更計画を確認済み。変更を伴う操作は本手順では実行しない。</p><p>セッション環境: VIOS padmin shell</p><pre class="kb-code">■ ステップ 1
+現在の画面はVIOSのpadminコマンド入力画面である。バックアップ内容を展開せず物理ボリューム表を表示し、保存対象の装置名と物理位置を確認する。
+［操作（入力）］
+VIOS CLI
+COMMAND ===&gt; viosbr -view -file myserverbackup.012909.tar.gz
+→ Enter を押す
+［画面・出力］
+Name         Phys loc
+hdisk1       U787B.001.DNWFPMH-P1-C3-T2-L4-L0
+画面・出力に含まれる hdisk1 を読み、バックアップ内容確認の判定資料として保存する。
+――――</pre><p>合格条件: ステップ1: hdisk1 が画面・出力に現れ、バックアップ内容を展開せず物理ボリューム表を表示し、保存対象の装置名と物理位置を確認する。</p><p class="kb-meta">検証状態: 机上 ／ 出典: IBM Power Systems: Virtual I / O Server and Integrated Virtualization Manager commands p8hcg / https: / public.dhe.ibm.com / systems / power / docs / hw / p8 / p8hcg / IBM Power Systems Virtual I / O Server Commands: viosbr command / www.ibm.com / en / power10 / 0000-REF?topic=POWER10_REF%2Fp10hcg%2Fp10hcg_viosbr.html</p></div></details></section>
+
+<section class="kb-item" id="c34-i0027"><h3>viosbrによる仮想構成バックアップ</h3><p class="kb-meta">分類: バックアップ・復元 ・ 難易度: 中級</p><p>VIOS構成保護は、仮想・論理デバイス定義を再構築できるようメタデータを保存するバックアップである。viosbr -backupは装置属性やマッピングをcfgbackups配下へ世代管理し、変更後は新しい採取が必要になる。</p><p class="kb-src"><strong>出典:</strong> IBM Power Systems: Virtual I / O Server and Integrated Virtualization Manager commands p8hcg / https: / public.dhe.ibm.com / systems / power / docs / hw / p8 / p8hcg / IBM Power Systems Virtual I / O Server Commands: viosbr command / www.ibm.com / en / power10 / 0000-REF?topic=POWER10_REF%2Fp10hcg%2Fp10hcg_viosbr.html</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> 仮想構成バックアップ（viosbr）について、viosbrバックアップの用途と運用として正しいものはどれか。</p><ul class="kb-choices"><li>A. rootvgの全ファイルを起動可能イメージとして保存する。</li><li>B. 仮想I/O構成を保存し構成変更後には新しいバックアップを取得する。 <span class="kb-ok">✅ 正解</span></li><li>C. 一度取得すればクラスタ構成変更後も同じファイルを永久利用する。VIOS構成保護の判定にも同じ前提を広げ、viosbrの表示値を確認せずに結論を確定する。</li><li>D. クライアントLPARのアプリケーションデータを自動的に全量保存する。</li></ul><p class="kb-meta">正解: <strong>B</strong> ／ 難易度: 中級</p><p><strong>解説:</strong> 構成保護（VIOS）でBを正答とする理由は、viosbrはVIOSの装置属性と論理・仮想マッピングを保護する構成バックアップであり、システムイメージとは目的が異なることです。
+仮想構成バックアップ（viosbr）の仕組みとして、復元は保存時点の識別子と構成を前提にする。クラスタのディスクやノードを変更した場合は旧バックアップと現況がずれるため、変更直後に新しい世代を確保する。
+仮想構成バックアップ（viosbr）の誤答は、Aは起動可能rootvgイメージはbackupiosの対象である、Cは構成変更で復元前提が変わるため再取得が必要になる、Dはクライアントの業務データはviosbrの保護範囲ではない。
+仮想構成バックアップ（viosbr）で使うviosbrとはVIOSの物理・論理・仮想デバイス属性とマッピングをバックアップおよび復元するコマンド。</p><p class="kb-src"><strong>出典:</strong> IBM Power Systems: Virtual I / O Server and Integrated Virtualization Manager commands p8hcg / https: / public.dhe.ibm.com / systems / power / docs / hw / p8 / p8hcg / IBM Power Systems Virtual I / O Server Commands: viosbr command / www.ibm.com / en / power10 / 0000-REF?topic=POWER10_REF%2Fp10hcg%2Fp10hcg_viosbr.html</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>viosbrによる仮想構成バックアップ</strong></p><p>検証目的: VIOS構成保護について、一次資料のコマンドと出力形式を用いて構成・状態を机上確認する。</p><p>前提条件: padmin権限のVIOS CLIに接続でき、対象装置名と変更計画を確認済み。変更を伴う操作は本手順では実行しない。</p><p>セッション環境: VIOS padmin shell</p><pre class="kb-code">■ ステップ 1
+現在の画面はVIOSのpadminコマンド入力画面である。クラスタ構成バックアップを実行した例の成功メッセージで対象ノードを確認する。
+［操作（入力）］
+VIOS CLI
+COMMAND ===&gt; viosbr -backup -clustername mycluster -file systemA
+→ Enter を押す
+［画面・出力］
+Backup of node systemB successful.
+Backup of this node systemA successful.
+画面・出力に含まれる systemA を読み、VIOS構成保護の判定資料として保存する。
+――――</pre><p>合格条件: ステップ1: systemA が画面・出力に現れ、クラスタ構成バックアップを実行した例の成功メッセージで対象ノードを確認する。</p><p class="kb-meta">検証状態: 机上 ／ 出典: IBM Power Systems: Virtual I / O Server and Integrated Virtualization Manager commands p8hcg / https: / public.dhe.ibm.com / systems / power / docs / hw / p8 / p8hcg / IBM Power Systems Virtual I / O Server Commands: viosbr command / www.ibm.com / en / power10 / 0000-REF?topic=POWER10_REF%2Fp10hcg%2Fp10hcg_viosbr.html</p></div></details></section>
+
+<h2 id="_6">仮想メディア<a class="headerlink" href="#_6" title="Permanent link">&para;</a></h2>
+<section class="kb-item" id="c34-i0028"><h3>loadopt後の装着確認</h3><p class="kb-meta">分類: 仮想メディア ・ 難易度: 初級</p><p>仮想光媒体装着は、VIOSの仮想メディア機能でRepository内媒体を特定VTDへロードする操作である。loadoptの後にlsvoptでVTD、Media、Sizeを確認し、別の仮想光学装置への誤装着を防ぐ。</p><p class="kb-src"><strong>出典:</strong> IBM Power Systems: Virtual I / O Server and Integrated Virtualization Manager commands p8hcg / https: / public.dhe.ibm.com / systems / power / docs / hw / p8 / p8hcg / IBM Power Systems Virtual I / O Server Commands: loadopt command / www.ibm.com / en / power10?topic=commands-loadopt-command</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> 後の装着確認（loadopt）について、clientCDをvtopt3へloadoptした後の確認として適切なものはどれか。</p><ul class="kb-choices"><li>A. lsvoptでvtopt3のMediaがclientCDでSizeが640と表示されることを確認する。 <span class="kb-ok">✅ 正解</span></li><li>B. lsnportsでvtopt3のavailable WWPN数を確認する。</li><li>C. lsmap -npivでclientCDのFC nameを表示する。仮想光媒体装着の判定にも同じ前提を広げ、loadoptの表示値を確認せずに結論を確定する。</li><li>D. ioslevelが640へ変化したことを成功条件にする。</li></ul><p class="kb-meta">正解: <strong>A</strong> ／ 難易度: 初級</p><p><strong>解説:</strong> 仮想光媒体装着でAを正答とする理由は、lsvoptはファイルバック仮想光学VTDごとに現在のMediaとSizeを表示するため、装着結果を直接検証できることです。
+後の装着確認（loadopt）の仕組みとして、Repository登録済みでもVTDへロードされるまではクライアントから媒体として見えない。複数vtoptがある環境では媒体名だけでなく装着先VTDを必ず組にする。
+後の装着確認（loadopt）の誤答は、BはWWPNはNPIVポート資源で仮想光学装置とは無関係である、CはFC mapping表示に光媒体名は含まれない、Dは媒体容量は製品版数ではない。
+後の装着確認（loadopt）で使うloadoptとはRepository内の仮想光学媒体を指定したファイルバックVTDへロードするVIOSコマンド。</p><p class="kb-src"><strong>出典:</strong> IBM Power Systems: Virtual I / O Server and Integrated Virtualization Manager commands p8hcg / https: / public.dhe.ibm.com / systems / power / docs / hw / p8 / p8hcg / IBM Power Systems Virtual I / O Server Commands: loadopt command / www.ibm.com / en / power10?topic=commands-loadopt-command</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>loadopt後の装着確認</strong></p><p>検証目的: 仮想光媒体装着について、一次資料のコマンドと出力形式を用いて構成・状態を机上確認する。</p><p>前提条件: padmin権限のVIOS CLIに接続でき、対象装置名と変更計画を確認済み。変更を伴う操作は本手順では実行しない。</p><p>セッション環境: VIOS padmin shell</p><pre class="kb-code">■ ステップ 1
+現在の画面はVIOSのpadminコマンド入力画面である。対象VTDだけを表示し、ロード済み媒体名と容量を確認する。
+［操作（入力）］
+VIOS CLI
+COMMAND ===&gt; lsvopt -vtd vtopt3
+→ Enter を押す
+［画面・出力］
+VTD             Media                                   Size(mb)
+vtopt3          clientCD                                640
+画面・出力に含まれる clientCD を読み、仮想光媒体装着の判定資料として保存する。
+――――</pre><p>合格条件: ステップ1: clientCD が画面・出力に現れ、対象VTDだけを表示し、ロード済み媒体名と容量を確認する。</p><p class="kb-meta">検証状態: 机上 ／ 出典: IBM Power Systems: Virtual I / O Server and Integrated Virtualization Manager commands p8hcg / https: / public.dhe.ibm.com / systems / power / docs / hw / p8 / p8hcg / IBM Power Systems Virtual I / O Server Commands: loadopt command / www.ibm.com / en / power10?topic=commands-loadopt-command</p></div></details></section>
+
+<section class="kb-item" id="c34-i0029"><h3>lsrep -verboseのリンク媒体状態</h3><p class="kb-meta">分類: 仮想メディア ・ 難易度: 中級</p><p>リンク媒体健全性は、VIOSの仮想メディア機能でNFSなど外部パスを参照する媒体の到達性を表す。lsrep -verboseのTarget ImageとStateを読み、ActiveとInActiveを実ファイル経路ごとに区別する。</p><p class="kb-src"><strong>出典:</strong> IBM Power Systems: Virtual I / O Server and Integrated Virtualization Manager commands p8hcg / https: / public.dhe.ibm.com / systems / power / docs / hw / p8 / p8hcg / IBM Power Systems Virtual I / O Server Commands: lsrep command / www.ibm.com / en / power10 / 0000-REF?topic=POWER10_REF%2Fp10hcg%2Fp10hcg_lsrep.html</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> リンク媒体状態（lsrep / verbose）について、リンク媒体健全性について、NFSリンク媒体が利用可能かをlsrep -verboseで確認する際の読み方はどれか。</p><ul class="kb-choices"><li>A. File Sizeが0ならリンク媒体は必ず削除済みと判定する。</li><li>B. OpticalがNoneならTarget Imageの到達状態を確認しない。リンク媒体健全性の判定にも同じ前提を広げ、Target Imageの表示値を確認せずに結論を確定する。</li><li>C. Access欄をSANのFCポートログイン状態として扱う。</li><li>D. Target Imageの外部パスとStateのActiveまたはInActiveを同じ行で確認する。 <span class="kb-ok">✅ 正解</span></li></ul><p class="kb-meta">正解: <strong>D</strong> ／ 難易度: 中級</p><p><strong>解説:</strong> リンク媒体健全性でDを正答とする理由は、リンク媒体は実体をリポジトリーへ複製しないためFile Sizeが0でも有効であり、Target ImageとStateが実体到達性を示すことです。
+リンク媒体状態（lsrep / verbose）の仕組みとして、-nfslinkで登録した媒体は外部ファイルを参照する。マウントやパスが失われるとInActiveになり、媒体名が残っていてもクライアントへ装着できない。
+リンク媒体状態（lsrep / verbose）の誤答は、Aは0はリンク方式の特徴で削除状態とは限らない、Bは未装着と外部実体の到達不能は別の状態である、CはAccessは媒体アクセス方式でFCログインではない。
+リンク媒体状態（lsrep / verbose）で使うTarget Imageとはリンク媒体が参照する外部ISOファイルの実パスをlsrep -verboseで示す項目。</p><p class="kb-src"><strong>出典:</strong> IBM Power Systems: Virtual I / O Server and Integrated Virtualization Manager commands p8hcg / https: / public.dhe.ibm.com / systems / power / docs / hw / p8 / p8hcg / IBM Power Systems Virtual I / O Server Commands: lsrep command / www.ibm.com / en / power10 / 0000-REF?topic=POWER10_REF%2Fp10hcg%2Fp10hcg_lsrep.html</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>lsrep -verboseのリンク媒体状態</strong></p><p>検証目的: リンク媒体健全性について、一次資料のコマンドと出力形式を用いて構成・状態を机上確認する。</p><p>前提条件: padmin権限のVIOS CLIに接続でき、対象装置名と変更計画を確認済み。変更を伴う操作は本手順では実行しない。</p><p>セッション環境: VIOS padmin shell</p><pre class="kb-code">■ ステップ 1
+現在の画面はVIOSのpadminコマンド入力画面である。詳細媒体一覧を表示し、外部パスとActive状態を媒体名ごとに記録する。
+［操作（入力）］
+VIOS CLI
+COMMAND ===&gt; lsrep -verbose
+→ Enter を押す
+［画面・出力］
+Name=image1,File Size=1021,Optical=vtopt1,Access=rw,Target Image=image1,State=Active
+Name=link1,File Size=0,Optical=None,Access=vtopt2,Target Image=/mnt/db_2342D4_aix73F_Thu.iso,State=Active
+Name=link2,File Size=0,Optical=None,Access=NA,Target Image=/my_mount/db_2342D2_aix73D_Thu.iso,State=InActive
+画面・出力に含まれる State=InActive を読み、リンク媒体健全性の判定資料として保存する。
+――――</pre><p>合格条件: ステップ1: State=InActive が画面・出力に現れ、詳細媒体一覧を表示し、外部パスとActive状態を媒体名ごとに記録する。</p><p class="kb-meta">検証状態: 机上 ／ 出典: IBM Power Systems: Virtual I / O Server and Integrated Virtualization Manager commands p8hcg / https: / public.dhe.ibm.com / systems / power / docs / hw / p8 / p8hcg / IBM Power Systems Virtual I / O Server Commands: lsrep command / www.ibm.com / en / power10 / 0000-REF?topic=POWER10_REF%2Fp10hcg%2Fp10hcg_lsrep.html</p></div></details></section>
+
+<section class="kb-item" id="c34-i0030"><h3>lsrepによる容量と媒体一覧</h3><p class="kb-meta">分類: 仮想メディア ・ 難易度: 初級</p><p>媒体容量台帳は、VIOSの仮想メディア機能でリポジトリー空きと登録イメージを同時に把握する一覧である。lsrepのName、File Size、Optical、Accessを読み、装着中媒体と未装着媒体を区別する。</p><p class="kb-src"><strong>出典:</strong> IBM Power Systems: Virtual I / O Server and Integrated Virtualization Manager commands p8hcg / https: / public.dhe.ibm.com / systems / power / docs / hw / p8 / p8hcg / IBM Power Systems Virtual I / O Server Commands: lsrep command / www.ibm.com / en / power10 / 0000-REF?topic=POWER10_REF%2Fp10hcg%2Fp10hcg_lsrep.html</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> 容量と媒体一覧（lsrep）について、clientCDがどの仮想光学装置へ装着され読み取り専用かを確認するlsrep項目はどれか。</p><ul class="kb-choices"><li>A. PARENT FREEをvtopt番号として媒体装着先にする。媒体容量台帳の判定にも同じ前提を広げ、Opticalの表示値を確認せずに結論を確定する。</li><li>B. File Size 640を読み書き権限コードとして解釈する。</li><li>C. Name clientCDの行でOptical vtopt3とAccess roを確認する。 <span class="kb-ok">✅ 正解</span></li><li>D. Repository SIZEだけで個別媒体の装着状態を決める。</li></ul><p class="kb-meta">正解: <strong>C</strong> ／ 難易度: 初級</p><p><strong>解説:</strong> 媒体容量台帳でCを正答とする理由は、同じ媒体行のOpticalが装着先VTDを、Accessがroまたはrwのアクセス形態を示すことです。
+容量と媒体一覧（lsrep）の仕組みとして、lsrepの上段は容量、下段は媒体単位の情報である。Noneはリポジトリーに存在しても仮想光学装置へ装着されていない状態として読める。
+容量と媒体一覧（lsrep）の誤答は、AはPARENT FREEは親プール空き容量である、BはFile Sizeは媒体容量でアクセス権ではない、Dは総容量欄は個別VTDの装着先を含まない。
+容量と媒体一覧（lsrep）で使うOpticalとはlsrepで媒体が現在ロードされている仮想光学VTD名を示す列。</p><p class="kb-src"><strong>出典:</strong> IBM Power Systems: Virtual I / O Server and Integrated Virtualization Manager commands p8hcg / https: / public.dhe.ibm.com / systems / power / docs / hw / p8 / p8hcg / IBM Power Systems Virtual I / O Server Commands: lsrep command / www.ibm.com / en / power10 / 0000-REF?topic=POWER10_REF%2Fp10hcg%2Fp10hcg_lsrep.html</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>lsrepによる容量と媒体一覧</strong></p><p>検証目的: 媒体容量台帳について、一次資料のコマンドと出力形式を用いて構成・状態を机上確認する。</p><p>前提条件: padmin権限のVIOS CLIに接続でき、対象装置名と変更計画を確認済み。変更を伴う操作は本手順では実行しない。</p><p>セッション環境: VIOS padmin shell</p><pre class="kb-code">■ ステップ 1
+現在の画面はVIOSのpadminコマンド入力画面である。媒体一覧を表示し、各イメージの容量と装着先とアクセス方式を同じ行で確認する。
+［操作（入力）］
+VIOS CLI
+COMMAND ===&gt; lsrep
+→ Enter を押す
+［画面・出力］
+Name                                    File Size Optical         Access
+clientCD                                640       vtopt3          ro
+installDVD1                             1000      vtopt16         rw
+installDVD2                             100       None            rw
+画面・出力に含まれる vtopt3 を読み、媒体容量台帳の判定資料として保存する。
+――――</pre><p>合格条件: ステップ1: vtopt3 が画面・出力に現れ、媒体一覧を表示し、各イメージの容量と装着先とアクセス方式を同じ行で確認する。</p><p class="kb-meta">検証状態: 机上 ／ 出典: IBM Power Systems: Virtual I / O Server and Integrated Virtualization Manager commands p8hcg / https: / public.dhe.ibm.com / systems / power / docs / hw / p8 / p8hcg / IBM Power Systems Virtual I / O Server Commands: lsrep command / www.ibm.com / en / power10 / 0000-REF?topic=POWER10_REF%2Fp10hcg%2Fp10hcg_lsrep.html</p></div></details></section>
+
+<section class="kb-item" id="c34-i0031"><h3>mkrepによるVirtual Media Repository作成</h3><p class="kb-meta">分類: 仮想メディア ・ 難易度: 中級</p><p>媒体リポジトリー基盤は、VIOSの仮想メディア機能でISOイメージを格納するファイルバック領域である。mkrepで親ストレージプール上に容量を確保し、lsrepでRepositoryと親プールの使用量を確認する。</p><p class="kb-src"><strong>出典:</strong> IBM Power Systems: Virtual I / O Server and Integrated Virtualization Manager commands p8hcg / https: / public.dhe.ibm.com / systems / power / docs / hw / p8 / p8hcg / IBM Power Systems Virtual I / O Server Commands: mkrep command / www.ibm.com / en / power10?topic=commands-mkrep-command</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> 作成（mkrep / Virtual / Media / Repository）について、Virtual Media Repositoryを作成した後の受入確認として適切なものはどれか。</p><ul class="kb-choices"><li>A. lsrepでRepositoryのSIZEとFREEと親プール容量を確認する。 <span class="kb-ok">✅ 正解</span></li><li>B. lsnportsでRepositoryのWWPN残量を確認する。</li><li>C. fcstatでISOファイル名とAccess属性を表示する。</li><li>D. ioslevelの末尾をRepository容量として記録する。媒体リポジトリー基盤の判定にも同じ前提を広げ、Virtual Media Repositoryの表示値を確認せずに結論を確定する。</li></ul><p class="kb-meta">正解: <strong>A</strong> ／ 難易度: 中級</p><p><strong>解説:</strong> 媒体リポジトリー基盤でAを正答とする理由は、lsrepはリポジトリー本体と親ストレージプールの容量、登録媒体を表示する専用コマンドであることです。
+作成（mkrep / Virtual / Media / Repository）の仕組みとして、mkrepは指定ストレージプールにVMLibrary領域を作る。媒体追加前にも空き容量を確認し、親プールの余力とリポジトリー内の空きの双方を管理する。
+作成（mkrep / Virtual / Media / Repository）の誤答は、BはlsnportsはNPIV物理ポート容量を扱う、CはfcstatはFibre Channel統計で媒体名を列挙しない、Dは製品版数とストレージ容量に対応関係はない。
+作成（mkrep / Virtual / Media / Repository）で使うVirtual Media RepositoryとはVIOSがファイルバック仮想光学媒体を保管しクライアントへ装着するための専用リポジトリー。</p><p class="kb-src"><strong>出典:</strong> IBM Power Systems: Virtual I / O Server and Integrated Virtualization Manager commands p8hcg / https: / public.dhe.ibm.com / systems / power / docs / hw / p8 / p8hcg / IBM Power Systems Virtual I / O Server Commands: mkrep command / www.ibm.com / en / power10?topic=commands-mkrep-command</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>mkrepによるVirtual Media Repository作成</strong></p><p>検証目的: 媒体リポジトリー基盤について、一次資料のコマンドと出力形式を用いて構成・状態を机上確認する。</p><p>前提条件: padmin権限のVIOS CLIに接続でき、対象装置名と変更計画を確認済み。変更を伴う操作は本手順では実行しない。</p><p>セッション環境: VIOS padmin shell</p><pre class="kb-code">■ ステップ 1
+現在の画面はVIOSのpadminコマンド入力画面である。作成後のリポジトリー容量と親プール余力を表示し、媒体格納の受入値を記録する。
+［操作（入力）］
+VIOS CLI
+COMMAND ===&gt; lsrep
+→ Enter を押す
+［画面・出力］
+SIZE(mb) FREE(mb)     PARENT SIZE      PARENT FREE
+2039     299          18352            16304
+Name                                    File Size Optical         Access
+clientCD                                640       vtopt3          ro
+画面・出力に含まれる PARENT FREE を読み、媒体リポジトリー基盤の判定資料として保存する。
+――――</pre><p>合格条件: ステップ1: PARENT FREE が画面・出力に現れ、作成後のリポジトリー容量と親プール余力を表示し、媒体格納の受入値を記録する。</p><p class="kb-meta">検証状態: 机上 ／ 出典: IBM Power Systems: Virtual I / O Server and Integrated Virtualization Manager commands p8hcg / https: / public.dhe.ibm.com / systems / power / docs / hw / p8 / p8hcg / IBM Power Systems Virtual I / O Server Commands: mkrep command / www.ibm.com / en / power10?topic=commands-mkrep-command</p></div></details></section>
+
+<section class="kb-item" id="c34-i0032"><h3>mkvopt -nfslinkの外部参照</h3><p class="kb-meta">分類: 仮想メディア ・ 難易度: 上級</p><p>NFSリンク登録は、VIOSの仮想メディア機能でISOをRepositoryへ複製せず外部ファイルを参照する方式である。mkvopt -nfslinkで作成した媒体はlsrep -verboseのTarget ImageとStateで到達性を監視する。</p><p class="kb-src"><strong>出典:</strong> IBM Power Systems: Virtual I / O Server and Integrated Virtualization Manager commands p8hcg / https: / public.dhe.ibm.com / systems / power / docs / hw / p8 / p8hcg / IBM Power Systems Virtual I / O Server Commands: mkvopt command / www.ibm.com / en / power10 / 9043-MRX?topic=commands-mkvopt-command</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> 外部参照（mkvopt / nfslink）について、大容量ISOを複製せずNFS上の実体へリンクする運用で必要な確認はどれか。</p><ul class="kb-choices"><li>A. File Size=0をデータ欠損として即座に媒体を削除する。</li><li>B. リンク登録後はNFSマウントを解除してRepositoryだけで利用する。</li><li>C. 外部マウントを維持しlsrep -verboseでTarget ImageとState=Activeを確認する。 <span class="kb-ok">✅ 正解</span></li><li>D. State=InActiveでもOptical=Noneなら正常な待機状態とみなす。</li></ul><p class="kb-meta">正解: <strong>C</strong> ／ 難易度: 上級</p><p><strong>解説:</strong> リンク登録（NFS）でCを正答とする理由は、リンク媒体は実体を外部パスに置くため、利用可否はTarget Imageへの到達とActive状態で判断することです。
+外部参照（mkvopt / nfslink）の仕組みとして、コピー型と違いRepository容量をほとんど消費しないが、NFSマウントや外部ファイルの可用性に依存する。媒体名の存在だけではクライアント装着の成功を保証しない。
+外部参照（mkvopt / nfslink）の誤答は、Aはリンク方式ではFile Size 0が正常に現れる、Bは外部実体を参照するためマウント解除後は利用できない、DはInActiveは参照先が利用可能でないことを示す。
+外部参照（mkvopt / nfslink）で使う-nfslinkとは外部NFS上のISOを複製せずVirtual Media Repositoryへリンク登録するmkvoptの指定。</p><p class="kb-src"><strong>出典:</strong> IBM Power Systems: Virtual I / O Server and Integrated Virtualization Manager commands p8hcg / https: / public.dhe.ibm.com / systems / power / docs / hw / p8 / p8hcg / IBM Power Systems Virtual I / O Server Commands: mkvopt command / www.ibm.com / en / power10 / 9043-MRX?topic=commands-mkvopt-command</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>mkvopt -nfslinkの外部参照</strong></p><p>検証目的: NFSリンク登録について、一次資料のコマンドと出力形式を用いて構成・状態を机上確認する。</p><p>前提条件: padmin権限のVIOS CLIに接続でき、対象装置名と変更計画を確認済み。変更を伴う操作は本手順では実行しない。</p><p>セッション環境: VIOS padmin shell</p><pre class="kb-code">■ ステップ 1
+現在の画面はVIOSのpadminコマンド入力画面である。リンク媒体の詳細を表示し、NFSパスと状態の組を確認する。
+［操作（入力）］
+VIOS CLI
+COMMAND ===&gt; lsrep -verbose
+→ Enter を押す
+［画面・出力］
+Name=link1,File Size=0,Optical=None,Access=vtopt2,Target Image=/mnt/db_2342D4_aix73F_Thu.iso,State=Active
+Name=link2,File Size=0,Optical=None,Access=NA,Target Image=/my_mount/db_2342D2_aix73D_Thu.iso,State=InActive
+画面・出力に含まれる Target Image=/mnt/db_2342D4_aix73F_Thu.iso を読み、NFSリンク登録の判定資料として保存する。
+――――</pre><p>合格条件: ステップ1: Target Image=/mnt/db_2342D4_aix73F_Thu.iso が画面・出力に現れ、リンク媒体の詳細を表示し、NFSパスと状態の組を確認する。</p><p class="kb-meta">検証状態: 机上 ／ 出典: IBM Power Systems: Virtual I / O Server and Integrated Virtualization Manager commands p8hcg / https: / public.dhe.ibm.com / systems / power / docs / hw / p8 / p8hcg / IBM Power Systems Virtual I / O Server Commands: mkvopt command / www.ibm.com / en / power10 / 9043-MRX?topic=commands-mkvopt-command</p></div></details></section>
+
+<section class="kb-item" id="c34-i0033"><h3>mkvoptによるISOコピー登録</h3><p class="kb-meta">分類: 仮想メディア ・ 難易度: 中級</p><p>コピー型仮想媒体は、VIOSの仮想メディア機能でISOファイルをRepository内部へ取り込んだ媒体である。mkvoptでsource fileとmedia nameを指定し、lsrepでFile SizeとAccessを確認する。</p><p class="kb-src"><strong>出典:</strong> IBM Power Systems: Virtual I / O Server and Integrated Virtualization Manager commands p8hcg / https: / public.dhe.ibm.com / systems / power / docs / hw / p8 / p8hcg / IBM Power Systems Virtual I / O Server Commands: mkvopt command / www.ibm.com / en / power10 / 9043-MRX?topic=commands-mkvopt-command</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> コピー登録（mkvopt / ISO）について、外部ISOをRepositoryへコピーして登録した後の検証として適切なものはどれか。</p><ul class="kb-choices"><li>A. lsmap -npivでmedia nameのWWPNが生成されたことを確認する。</li><li>B. lsrepで指定media nameがFile Size付きで表示されることを確認する。 <span class="kb-ok">✅ 正解</span></li><li>C. コピー後は元ISOのパスだけを残しlsrepの登録を確認しない。コピー型仮想媒体の判定にも同じ前提を広げ、media nameの表示値を確認せずに結論を確定する。</li><li>D. ioslevelが変わることを媒体登録の成功条件にする。</li></ul><p class="kb-meta">正解: <strong>B</strong> ／ 難易度: 中級</p><p><strong>解説:</strong> コピー型仮想媒体でBを正答とする理由は、コピー型ではRepository内に媒体ファイルが作られるため、媒体名と容量がlsrepの一覧へ現れることです。
+コピー登録（mkvopt / ISO）の仕組みとして、mkvoptは元ファイルを取り込んで仮想光学媒体として管理する。登録とクライアント装着は別操作なので、まずRepository登録を確認してからloadoptへ進む。
+コピー登録（mkvopt / ISO）の誤答は、AはNPIVはFC仮想化で光媒体登録を扱わない、Cはコマンド実行だけではRepository内の結果を検証できない、Dは媒体追加はVIOS保守レベルを変更しない。
+コピー登録（mkvopt / ISO）で使うmedia nameとはRepository内で仮想光学イメージを一意に参照するためmkvoptで付ける媒体名。</p><p class="kb-src"><strong>出典:</strong> IBM Power Systems: Virtual I / O Server and Integrated Virtualization Manager commands p8hcg / https: / public.dhe.ibm.com / systems / power / docs / hw / p8 / p8hcg / IBM Power Systems Virtual I / O Server Commands: mkvopt command / www.ibm.com / en / power10 / 9043-MRX?topic=commands-mkvopt-command</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>mkvoptによるISOコピー登録</strong></p><p>検証目的: コピー型仮想媒体について、一次資料のコマンドと出力形式を用いて構成・状態を机上確認する。</p><p>前提条件: padmin権限のVIOS CLIに接続でき、対象装置名と変更計画を確認済み。変更を伴う操作は本手順では実行しない。</p><p>セッション環境: VIOS padmin shell</p><pre class="kb-code">■ ステップ 1
+現在の画面はVIOSのpadminコマンド入力画面である。Repository一覧を表示し、登録媒体名とファイル容量とアクセス方式を確認する。
+［操作（入力）］
+VIOS CLI
+COMMAND ===&gt; lsrep
+→ Enter を押す
+［画面・出力］
+Name                                    File Size Optical         Access
+clientCD                                640       vtopt3          ro
+installDVD1                             1000      vtopt16         rw
+installDVD2                             100       None            rw
+画面・出力に含まれる installDVD1 を読み、コピー型仮想媒体の判定資料として保存する。
+――――</pre><p>合格条件: ステップ1: installDVD1 が画面・出力に現れ、Repository一覧を表示し、登録媒体名とファイル容量とアクセス方式を確認する。</p><p class="kb-meta">検証状態: 机上 ／ 出典: IBM Power Systems: Virtual I / O Server and Integrated Virtualization Manager commands p8hcg / https: / public.dhe.ibm.com / systems / power / docs / hw / p8 / p8hcg / IBM Power Systems Virtual I / O Server Commands: mkvopt command / www.ibm.com / en / power10 / 9043-MRX?topic=commands-mkvopt-command</p></div></details></section>
+
+<section class="kb-item" id="c34-i0034"><h3>unloadopt後のNo Media確認</h3><p class="kb-meta">分類: 仮想メディア ・ 難易度: 初級</p><p>仮想光媒体取り外しは、VIOSの仮想メディア機能でVTDから媒体をアンロードし更新や削除を可能にする操作である。unloadopt後のlsvoptでMediaがNo Media、Sizeがn/aになったことを確認する。</p><p class="kb-src"><strong>出典:</strong> IBM Power Systems: Virtual I / O Server and Integrated Virtualization Manager commands p8hcg / https: / public.dhe.ibm.com / systems / power / docs / hw / p8 / p8hcg / IBM Power Systems Virtual I / O Server Commands: unloadopt command / www.ibm.com / en / power10?topic=commands-unloadopt-command</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> 後のNo Media確認（unloadopt）について、vtopt2から媒体をunloadoptした後の受入状態として正しい表示はどれか。</p><ul class="kb-choices"><li>A. lsvoptでvtopt2のMediaがNo MediaかつSizeがn/aと表示される。 <span class="kb-ok">✅ 正解</span></li><li>B. lsvoptからvtopt2行そのものが必ず削除される。仮想光媒体取り外しの判定にも同じ前提を広げ、No Mediaの表示値を確認せずに結論を確定する。</li><li>C. MediaがclientCDのままでもSizeが640なら取り外し完了とする。</li><li>D. unload後にFC nameがNOT_LOGGED_INになることを条件にする。</li></ul><p class="kb-meta">正解: <strong>A</strong> ／ 難易度: 初級</p><p><strong>解説:</strong> 仮想光媒体取り外しでAを正答とする理由は、unloadoptは仮想光学VTDを削除せず媒体だけを外すため、VTD行は残りNo Mediaとn/aが表示されることです。
+後のNo Media確認（unloadopt）の仕組みとして、更新前にFile Backed Optical Mediaをオフロードする要件がある場合、装置の存在ではなく媒体装着状態を確認する。No MediaはVTDが空であることを明示する。
+後のNo Media確認（unloadopt）の誤答は、BはVTD削除と媒体アンロードは別操作である、Cは媒体名が残ればまだ装着中である、DはNPIVログイン状態は仮想光学VTDの取り外し条件ではない。
+後のNo Media確認（unloadopt）で使うNo Mediaとはファイルバック仮想光学VTDは存在するが現在ロードされた媒体がないことを示すlsvopt表示。</p><p class="kb-src"><strong>出典:</strong> IBM Power Systems: Virtual I / O Server and Integrated Virtualization Manager commands p8hcg / https: / public.dhe.ibm.com / systems / power / docs / hw / p8 / p8hcg / IBM Power Systems Virtual I / O Server Commands: unloadopt command / www.ibm.com / en / power10?topic=commands-unloadopt-command</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>unloadopt後のNo Media確認</strong></p><p>検証目的: 仮想光媒体取り外しについて、一次資料のコマンドと出力形式を用いて構成・状態を机上確認する。</p><p>前提条件: padmin権限のVIOS CLIに接続でき、対象装置名と変更計画を確認済み。変更を伴う操作は本手順では実行しない。</p><p>セッション環境: VIOS padmin shell</p><pre class="kb-code">■ ステップ 1
+現在の画面はVIOSのpadminコマンド入力画面である。全仮想光学VTDを表示し、対象装置が媒体なしへ遷移したことを確認する。
+［操作（入力）］
+VIOS CLI
+COMMAND ===&gt; lsvopt
+→ Enter を押す
+［画面・出力］
+VTD             Media                                   Size(mb)
+testopt         No Media                                     n/a
+vtopt2          No Media                                     n/a
+vtopt3          clientCD                                     640
+画面・出力に含まれる No Media を読み、仮想光媒体取り外しの判定資料として保存する。
+――――</pre><p>合格条件: ステップ1: No Media が画面・出力に現れ、全仮想光学VTDを表示し、対象装置が媒体なしへ遷移したことを確認する。</p><p class="kb-meta">検証状態: 机上 ／ 出典: IBM Power Systems: Virtual I / O Server and Integrated Virtualization Manager commands p8hcg / https: / public.dhe.ibm.com / systems / power / docs / hw / p8 / p8hcg / IBM Power Systems Virtual I / O Server Commands: unloadopt command / www.ibm.com / en / power10?topic=commands-unloadopt-command</p></div></details></section>
+
+<h2 id="_7">更新・アップグレード<a class="headerlink" href="#_7" title="Permanent link">&para;</a></h2>
+<section class="kb-item" id="c34-i0035"><h3>ioslevelによる保守レベル確認</h3><p class="kb-meta">分類: 更新・アップグレード ・ 難易度: 初級</p><p>導入済み保守レベルは、VIOSの更新管理で現在地を確定する基準値である。ioslevelの単一行出力を更新前後に採取し、計画したサービスレベルへの反映を版数で照合する。</p><p class="kb-src"><strong>出典:</strong> IBM Power Systems: Virtual I / O Server and Integrated Virtualization Manager commands p8hcg / https: / public.dhe.ibm.com / systems / power / docs / hw / p8 / p8hcg / IBM Power Systems Virtual I / O Server Commands: ioslevel command / www.ibm.com / en / power10?topic=commands-ioslevel-command</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> 保守レベル確認（ioslevel）について、導入済み保守レベルを変更作業の前後で比較する際、ioslevelの扱いとして正しいものはどれか。</p><ul class="kb-choices"><li>A. 更新前後でioslevelを実行し表示された版数を変更記録に残す。 <span class="kb-ok">✅ 正解</span></li><li>B. oslevel -sの値だけでVIOS保守レベルを確定する。</li><li>C. HMCのファームウェア版数をVIOS版数として記録する。</li><li>D. 再起動回数だけで更新適用の完了を判断する。</li></ul><p class="kb-meta">正解: <strong>A</strong> ／ 難易度: 初級</p><p><strong>解説:</strong> 導入済み保守レベルでAを正答とする理由は、ioslevelはVIOSに導入された最新保守レベルを直接報告するため、前後差分の一次証跡になることです。
+保守レベル確認（ioslevel）の仕組みとして、更新パッケージの導入と再起動が済んでも、期待版数に到達したかはコマンドの表示値で確定する必要がある。4.1.0.40のような値は製品レベルと更新水準を一体で示す。
+保守レベル確認（ioslevel）の誤答は、Bはoslevelは基盤AIXの情報でVIOS固有の水準確認を代替しない、CはシステムファームウェアとVIOSソフトウェアは別の版管理対象である、Dは再起動の実施自体は更新内容の反映を証明しない。
+保守レベル確認（ioslevel）で使う保守レベルとは製品に適用済みの更新水準を識別する版数であり、ioslevelによる保守レベル確認ではioslevelの表示値を指す。</p><p class="kb-src"><strong>出典:</strong> IBM Power Systems: Virtual I / O Server and Integrated Virtualization Manager commands p8hcg / https: / public.dhe.ibm.com / systems / power / docs / hw / p8 / p8hcg / IBM Power Systems Virtual I / O Server Commands: ioslevel command / www.ibm.com / en / power10?topic=commands-ioslevel-command</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>ioslevelによる保守レベル確認</strong></p><p>検証目的: 導入済み保守レベルについて、一次資料のコマンドと出力形式を用いて構成・状態を机上確認する。</p><p>前提条件: padmin権限のVIOS CLIに接続でき、対象装置名と変更計画を確認済み。変更を伴う操作は本手順では実行しない。</p><p>セッション環境: VIOS padmin shell</p><pre class="kb-code">■ ステップ 1
+現在の画面はVIOSのpadminコマンド入力画面である。padminシェルで現在のVIOS保守レベルを表示し、更新計画の基準値を採取する。
+［操作（入力）］
+VIOS CLI
+COMMAND ===&gt; ioslevel
+→ Enter を押す
+［画面・出力］
+COMMAND ===&gt; ioslevel
+4.1.0.40
+画面・出力に含まれる ioslevel を読み、導入済み保守レベルの判定資料として保存する。
+――――</pre><p>合格条件: ステップ1: ioslevel が画面・出力に現れ、padminシェルで現在のVIOS保守レベルを表示し、更新計画の基準値を採取する。</p><p class="kb-meta">検証状態: 机上 ／ 出典: IBM Power Systems: Virtual I / O Server and Integrated Virtualization Manager commands p8hcg / https: / public.dhe.ibm.com / systems / power / docs / hw / p8 / p8hcg / IBM Power Systems Virtual I / O Server Commands: ioslevel command / www.ibm.com / en / power10?topic=commands-ioslevel-command</p></div></details></section>
+
+<section class="kb-item" id="c34-i0036"><h3>updateios -altdiskの更新先分離</h3><p class="kb-meta">分類: 更新・アップグレード ・ 難易度: 上級</p><p>代替ディスク更新は、VIOSの保守適用先を稼働中rootvgから分離する方式である。updateiosの-altdiskには未使用ディスクをコロン区切りで指定し、元rootvgをロールバック候補として保持する。</p><p class="kb-src"><strong>出典:</strong> IBM Power Systems: Virtual I / O Server and Integrated Virtualization Manager commands p8hcg / https: / public.dhe.ibm.com / systems / power / docs / hw / p8 / p8hcg / IBM Power Systems Virtual I / O Server Commands: updateios command / www.ibm.com / en / power11 / 9080-HEU?topic=commands-updateios-command</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> 更新先分離（updateios / altdisk）について、代替ディスク更新でhdisk3とhdisk4を使う場合、updateiosの指定と事前確認の組合せとして正しいものはどれか。</p><ul class="kb-choices"><li>A. -altdisk rootvgを指定して稼働中ボリュームグループへ上書きする。</li><li>B. -altdisk hdisk3:hdisk4を指定し両ディスクが更新先に利用可能か確認する。 <span class="kb-ok">✅ 正解</span></li><li>C. -dev hdisk3:hdisk4だけを指定して更新媒体の指定を省略する。</li><li>D. クライアントLPARのhdisk名をVIOSの代替ディスク名として使う。代替ディスク更新の判定にも同じ前提を広げ、代替ディスクの表示値を確認せずに結論を確定する。</li></ul><p class="kb-meta">正解: <strong>B</strong> ／ 難易度: 上級</p><p><strong>解説:</strong> 代替ディスク更新でBを正答とする理由は、-altdiskは一つ以上のVIOS側ディスクをコロンで連結して受け取り、更新処理をその複製先で実行することです。
+更新先分離（updateios / altdisk）の仕組みとして、代替ディスク方式では現行rootvgを直ちに書き換えず、指定ディスクへクローンした環境に更新を適用する。ディスク名はVIOSから見える物理ボリュームでなければならない。
+更新先分離（updateios / altdisk）の誤答は、Aはrootvgはディスク名ではなく稼働中ボリュームグループ名である、Cは-devは更新媒体を示すため代替先の意味にならない、Dはクライアントの論理ディスク名はVIOS側資源を特定しない。
+更新先分離（updateios / altdisk）で使う代替ディスクとは現在のrootvgとは別に更新済み起動環境を作るためVIOS側で確保する未使用物理ディスク。</p><p class="kb-src"><strong>出典:</strong> IBM Power Systems: Virtual I / O Server and Integrated Virtualization Manager commands p8hcg / https: / public.dhe.ibm.com / systems / power / docs / hw / p8 / p8hcg / IBM Power Systems Virtual I / O Server Commands: updateios command / www.ibm.com / en / power11 / 9080-HEU?topic=commands-updateios-command</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>updateios -altdiskの更新先分離</strong></p><p>検証目的: 代替ディスク更新について、一次資料のコマンドと出力形式を用いて構成・状態を机上確認する。</p><p>前提条件: padmin権限のVIOS CLIに接続でき、対象装置名と変更計画を確認済み。変更を伴う操作は本手順では実行しない。</p><p>セッション環境: VIOS padmin shell</p><pre class="kb-code">■ ステップ 1
+現在の画面はVIOSのpadminコマンド入力画面である。VIOSから見えるディスク一覧を表示し、代替候補の状態と種別を確認する。
+［操作（入力）］
+VIOS CLI
+COMMAND ===&gt; lsdev -type disk
+→ Enter を押す
+［画面・出力］
+Name   Status    Description
+hdisk0 Available SAS Disk Drive
+hdisk1 Available SAS Disk Drive
+hdisk2 Available MPIO DS4800 Disk
+hdisk3 Available MPIO DS4800 Disk
+hdisk4 Available MPIO DS4800 Disk
+画面・出力に含まれる hdisk3 を読み、代替ディスク更新の判定資料として保存する。
+――――
+■ ステップ 2
+現在の画面はVIOSのpadminコマンド入力画面である。候補ディスクの予約ポリシーを表示し、更新計画に必要な属性記録を残す。
+［操作（入力）］
+VIOS CLI
+COMMAND ===&gt; lsdev -dev hdisk3 -attr reserve_policy
+→ Enter を押す
+［画面・出力］
+reserve_policy  no_reserve  Reserve Policy  True
+画面・出力に含まれる no_reserve を読み、代替ディスク更新の判定資料として保存する。
+――――</pre><p>合格条件: ステップ1: hdisk3 が画面・出力に現れ、VIOSから見えるディスク一覧を表示し、代替候補の状態と種別を確認する。
+ステップ2: no_reserve が画面・出力に現れ、候補ディスクの予約ポリシーを表示し、更新計画に必要な属性記録を残す。</p><p class="kb-meta">検証状態: 机上 ／ 出典: IBM Power Systems: Virtual I / O Server and Integrated Virtualization Manager commands p8hcg / https: / public.dhe.ibm.com / systems / power / docs / hw / p8 / p8hcg / IBM Power Systems Virtual I / O Server Commands: updateios command / www.ibm.com / en / power11 / 9080-HEU?topic=commands-updateios-command</p></div></details></section>
+
+<section class="kb-item" id="c34-i0037"><h3>updateiosのプレビュー判定</h3><p class="kb-meta">分類: 更新・アップグレード ・ 難易度: 中級</p><p>更新プレビューは、VIOSの保守適用で導入可否を事前判定する工程である。updateiosは実インストール前にプレビュー結果を表示するため、失敗した場合は続行せず原因を除去する。</p><p class="kb-src"><strong>出典:</strong> IBM Power Systems: Virtual I / O Server and Integrated Virtualization Manager commands p8hcg / https: / public.dhe.ibm.com / systems / power / docs / hw / p8 / p8hcg / IBM Power Systems Virtual I / O Server Commands: updateios command / www.ibm.com / en / power11 / 9080-HEU?topic=commands-updateios-command</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> プレビュー判定（updateios）について、更新プレビューで失敗が報告された場合、updateiosを使う保守作業で採るべき対応はどれか。</p><ul class="kb-choices"><li>A. 失敗表示を無視して強制オプションで本導入へ進む。</li><li>B. ioslevelが表示できればプレビュー結果を破棄する。更新プレビューの判定にも同じ前提を広げ、プレビューの表示値を確認せずに結論を確定する。</li><li>C. インストールを中止しプレビュー失敗の原因を解消してから再実行する。 <span class="kb-ok">✅ 正解</span></li><li>D. SSPノードがUPでも停止確認なしで修正パックを適用する。</li></ul><p class="kb-meta">正解: <strong>C</strong> ／ 難易度: 中級</p><p><strong>解説:</strong> 更新プレビューでCを正答とする理由は、IBMのコマンド説明はプレビュー失敗時に更新を導入しないよう明示しており、失敗内容の解消が先になることです。
+プレビュー判定（updateios）の仕組みとして、updateiosは媒体の整合性や導入前提を本処理より前に評価する。さらにSSP参加ノードではクラスタ状態と媒体装着状況が前提条件になり、実行可否を版数だけでは決められない。
+プレビュー判定（updateios）の誤答は、Aは強制続行は事前判定の保護を失わせる、Bはioslevelは現行版を示すだけで媒体検査を実施しない、DはSSPが稼働中の保守適用には停止条件がある。
+プレビュー判定（updateios）で使うプレビューとは更新を実際に適用する前に前提条件と導入予定を評価する処理であり、失敗時は本処理へ進まない。</p><p class="kb-src"><strong>出典:</strong> IBM Power Systems: Virtual I / O Server and Integrated Virtualization Manager commands p8hcg / https: / public.dhe.ibm.com / systems / power / docs / hw / p8 / p8hcg / IBM Power Systems Virtual I / O Server Commands: updateios command / www.ibm.com / en / power11 / 9080-HEU?topic=commands-updateios-command</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>updateiosのプレビュー判定</strong></p><p>検証目的: 更新プレビューについて、一次資料のコマンドと出力形式を用いて構成・状態を机上確認する。</p><p>前提条件: padmin権限のVIOS CLIに接続でき、対象装置名と変更計画を確認済み。変更を伴う操作は本手順では実行しない。</p><p>セッション環境: VIOS padmin shell</p><pre class="kb-code">■ ステップ 1
+現在の画面はVIOSのpadminコマンド入力画面である。更新前の基準版数を採取し、保守媒体の対象水準と比較する。
+［操作（入力）］
+VIOS CLI
+COMMAND ===&gt; ioslevel
+→ Enter を押す
+［画面・出力］
+COMMAND ===&gt; ioslevel
+4.1.0.40
+画面・出力に含まれる ioslevel を読み、更新プレビューの判定資料として保存する。
+――――
+■ ステップ 2
+現在の画面はVIOSのpadminコマンド入力画面である。SSP参加環境ではクラスタとプールの健全性を表示し、更新前提を確定する。
+［操作（入力）］
+VIOS CLI
+COMMAND ===&gt; cluster -status
+→ Enter を押す
+［画面・出力］
+Cluster Name State
+testcluster OK
+Node Name Pool State MTM Partition #State
+testhost1 OK 9115-505031006A2A 1 OK
+画面・出力に含まれる testcluster を読み、更新プレビューの判定資料として保存する。
+――――</pre><p>合格条件: ステップ1: ioslevel が画面・出力に現れ、更新前の基準版数を採取し、保守媒体の対象水準と比較する。
+ステップ2: testcluster が画面・出力に現れ、SSP参加環境ではクラスタとプールの健全性を表示し、更新前提を確定する。</p><p class="kb-meta">検証状態: 机上 ／ 出典: IBM Power Systems: Virtual I / O Server and Integrated Virtualization Manager commands p8hcg / https: / public.dhe.ibm.com / systems / power / docs / hw / p8 / p8hcg / IBM Power Systems Virtual I / O Server Commands: updateios command / www.ibm.com / en / power11 / 9080-HEU?topic=commands-updateios-command</p></div></details></section>
+
+<section class="kb-item" id="c34-i0038"><h3>viosupgradeのデバイス名保持</h3><p class="kb-meta">分類: 更新・アップグレード ・ 難易度: 上級</p><p>デバイス名の継承は、VIOS世代更新後も運用スクリプトと構成記録の参照先を維持する機能である。viosupgradeはvhost、vfchost、hdisk、fscsi、ネットワークアダプター、SEAなどの名前を既定で保持する。</p><p class="kb-src"><strong>出典:</strong> IBM Power Systems: Virtual I / O Server and Integrated Virtualization Manager commands p8hcg / https: / public.dhe.ibm.com / systems / power / docs / hw / p8 / p8hcg / IBM Power Systems Virtual I / O Server Commands: viosupgrade command / www.ibm.com / en / power10 / 9043-MRX?topic=commands-viosupgrade-command</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> デバイス名保持（viosupgrade）について、現行viosupgradeのデバイス名処理について正しい説明はどれか。</p><ul class="kb-choices"><li>A. 主要な仮想・物理デバイス名は既定で保持されskipdevnameで上書きできる。 <span class="kb-ok">✅ 正解</span></li><li>B. すべてのhdisk名は必ずゼロから連番へ変更され保持機能はない。</li><li>C. 保持対象はvhostだけでvfchostとSEAは常に再採番される。</li><li>D. デバイス名保持にはupdateios -commitの実行が必要になる。</li></ul><p class="kb-meta">正解: <strong>A</strong> ／ 難易度: 上級</p><p><strong>解説:</strong> デバイス名の継承でAを正答とする理由は、現行コマンドの-F説明は複数のデバイス種別を既定保持対象に挙げ、skipdevnameでその動作を外せるとしていることです。
+デバイス名保持（viosupgrade）の仕組みとして、名前保持は復元後の参照整合性を高めるが、更新前後の一覧比較を不要にするものではない。保持を外す場合は運用スクリプトや監視定義に与える影響を別途評価する。
+デバイス名保持（viosupgrade）の誤答は、Bは既定保持が追加されているため一律再採番ではない、CはvfchostやSEAも列挙された保持対象に含まれる、Dはupdateiosのコミットはviosupgrade名保持の条件ではない。
+デバイス名保持（viosupgrade）で使うskipdevnameとはviosupgradeの既定デバイス名保持を行わず新環境側の命名に任せる上書き指定。</p><p class="kb-src"><strong>出典:</strong> IBM Power Systems: Virtual I / O Server and Integrated Virtualization Manager commands p8hcg / https: / public.dhe.ibm.com / systems / power / docs / hw / p8 / p8hcg / IBM Power Systems Virtual I / O Server Commands: viosupgrade command / www.ibm.com / en / power10 / 9043-MRX?topic=commands-viosupgrade-command</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>viosupgradeのデバイス名保持</strong></p><p>検証目的: デバイス名の継承について、一次資料のコマンドと出力形式を用いて構成・状態を机上確認する。</p><p>前提条件: padmin権限のVIOS CLIに接続でき、対象装置名と変更計画を確認済み。変更を伴う操作は本手順では実行しない。</p><p>セッション環境: VIOS padmin shell</p><pre class="kb-code">■ ステップ 1
+現在の画面はVIOSのpadminコマンド入力画面である。更新前のvfchost名と物理ロケーションを区切り形式で保存する。
+［操作（入力）］
+VIOS CLI
+COMMAND ===&gt; lsmap -all -npiv -fmt2 :
+→ Enter を押す
+［画面・出力］
+vfchost0:U9117.MMD.10581C7-V31-C4:37:::NOT_LOGGED_IN:::0:1::
+画面・出力に含まれる vfchost0 を読み、デバイス名の継承の判定資料として保存する。
+――――
+■ ステップ 2
+現在の画面はVIOSのpadminコマンド入力画面である。更新後のvhost名とVTDを表示し、名前保持とマッピング復元を分けて照合する。
+［操作（入力）］
+VIOS CLI
+COMMAND ===&gt; lsmap -vadapter vhost2
+→ Enter を押す
+［画面・出力］
+SVSA                 Physloc                         Client Partition ID
+vhost2               U9111.520.10004BA-V1-C2          0x00000004
+VTD                   vtscsi0
+Status                Available
+LUN                   0x8100000000000000
+Backing device        vtd0-1
+画面・出力に含まれる vhost2 を読み、デバイス名の継承の判定資料として保存する。
+――――</pre><p>合格条件: ステップ1: vfchost0 が画面・出力に現れ、更新前のvfchost名と物理ロケーションを区切り形式で保存する。
+ステップ2: vhost2 が画面・出力に現れ、更新後のvhost名とVTDを表示し、名前保持とマッピング復元を分けて照合する。</p><p class="kb-meta">検証状態: 机上 ／ 出典: IBM Power Systems: Virtual I / O Server and Integrated Virtualization Manager commands p8hcg / https: / public.dhe.ibm.com / systems / power / docs / hw / p8 / p8hcg / IBM Power Systems Virtual I / O Server Commands: viosupgrade command / www.ibm.com / en / power10 / 9043-MRX?topic=commands-viosupgrade-command</p></div></details></section>
+
+<section class="kb-item" id="c34-i0039"><h3>viosupgradeのバックアップ・導入・復元</h3><p class="kb-meta">分類: 更新・アップグレード ・ 難易度: 中級</p><p>アップグレード三段階は、VIOSの世代更新で仮想構成を引き継ぐ基本動作である。viosupgradeは構成をバックアップし、新規完全導入を行った後に論理・仮想構成を復元する。</p><p class="kb-src"><strong>出典:</strong> IBM Power Systems: Virtual I / O Server and Integrated Virtualization Manager commands p8hcg / https: / public.dhe.ibm.com / systems / power / docs / hw / p8 / p8hcg / IBM Power Systems Virtual I / O Server Commands: viosupgrade command / www.ibm.com / en / power10 / 9043-MRX?topic=commands-viosupgrade-command</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> バックアップ・導入・復元（viosupgrade）について、viosupgradeがバックグラウンドで行う処理順序としてIBMの説明に一致するものはどれか。</p><ul class="kb-choices"><li>A. 稼働中rootvgへ差分更新した後にファームウェアを復元する。アップグレード三段階の判定にも同じ前提を広げ、新規完全導入の表示値を確認せずに結論を確定する。</li><li>B. クライアントLPARを再作成してからVIOS構成を削除する。</li><li>C. 構成復元だけを行い新しいVIOSイメージは導入しない。</li><li>D. 仮想・論理構成のバックアップ後に新規完全導入を行い構成を復元する。 <span class="kb-ok">✅ 正解</span></li></ul><p class="kb-meta">正解: <strong>D</strong> ／ 難易度: 中級</p><p><strong>解説:</strong> アップグレード三段階でDを正答とする理由は、viosupgradeの目的は構成保護と新規導入と復元を連続させることであり、単なる修正パック適用ではないことです。
+バックアップ・導入・復元（viosupgrade）の仕組みとして、世代アップでは指定イメージを代替ディスクへ新規導入する。前環境の仮想デバイス定義は事前バックアップから戻されるが、任意のカスタムファイルは-gなど別の保護計画が必要になる。
+バックアップ・導入・復元（viosupgrade）の誤答は、Aは差分保守はupdateiosの領域で処理方式が異なる、BはクライアントLPARの再作成は標準処理に含まれない、Cは新イメージ導入を省くと世代更新にならない。
+バックアップ・導入・復元（viosupgrade）で使う新規完全導入とは既存rootvgを差分更新せず指定イメージから新しいVIOS環境を構成する導入形態。</p><p class="kb-src"><strong>出典:</strong> IBM Power Systems: Virtual I / O Server and Integrated Virtualization Manager commands p8hcg / https: / public.dhe.ibm.com / systems / power / docs / hw / p8 / p8hcg / IBM Power Systems Virtual I / O Server Commands: viosupgrade command / www.ibm.com / en / power10 / 9043-MRX?topic=commands-viosupgrade-command</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>viosupgradeのバックアップ・導入・復元</strong></p><p>検証目的: アップグレード三段階について、一次資料のコマンドと出力形式を用いて構成・状態を机上確認する。</p><p>前提条件: padmin権限のVIOS CLIに接続でき、対象装置名と変更計画を確認済み。変更を伴う操作は本手順では実行しない。</p><p>セッション環境: VIOS padmin shell</p><pre class="kb-code">■ ステップ 1
+現在の画面はVIOSのpadminコマンド入力画面である。アップグレード前バックアップのコントローラー表を表示し、引継ぎ対象が保存されているか確認する。
+［操作（入力）］
+VIOS CLI
+COMMAND ===&gt; viosbr -view -file myserverbackup.012909.tar.gz
+→ Enter を押す
+［画面・出力］
+Name        Phys Loc
+scsi0       U787B.001.DNWFPMH-P1-C3-T1
+fscsi0      U789D.001.DQD42T5-P1-C1-T1
+画面・出力に含まれる scsi0 を読み、アップグレード三段階の判定資料として保存する。
+――――
+■ ステップ 2
+現在の画面はVIOSのpadminコマンド入力画面である。導入後に起動したVIOSの保守レベルを表示し、目標世代への到達を確認する。
+［操作（入力）］
+VIOS CLI
+COMMAND ===&gt; ioslevel
+→ Enter を押す
+［画面・出力］
+COMMAND ===&gt; ioslevel
+4.1.0.40
+画面・出力に含まれる ioslevel を読み、アップグレード三段階の判定資料として保存する。
+――――</pre><p>合格条件: ステップ1: scsi0 が画面・出力に現れ、アップグレード前バックアップのコントローラー表を表示し、引継ぎ対象が保存されているか確認する。
+ステップ2: ioslevel が画面・出力に現れ、導入後に起動したVIOSの保守レベルを表示し、目標世代への到達を確認する。</p><p class="kb-meta">検証状態: 机上 ／ 出典: IBM Power Systems: Virtual I / O Server and Integrated Virtualization Manager commands p8hcg / https: / public.dhe.ibm.com / systems / power / docs / hw / p8 / p8hcg / IBM Power Systems Virtual I / O Server Commands: viosupgrade command / www.ibm.com / en / power10 / 9043-MRX?topic=commands-viosupgrade-command</p></div></details></section>
+
+<section class="kb-item" id="c34-i0040"><h3>viosupgrade後の仮想構成照合</h3><p class="kb-meta">分類: 更新・アップグレード ・ 難易度: 上級</p><p>更新後構成比較は、VIOSの世代更新で復元漏れを検出する確認工程である。ioslevelだけで完了とせず、事前に保存したlsmapやネットワーク割当と更新後の実表示を対応させる。</p><p class="kb-src"><strong>出典:</strong> IBM Power Systems: Virtual I / O Server and Integrated Virtualization Manager commands p8hcg / https: / public.dhe.ibm.com / systems / power / docs / hw / p8 / p8hcg / IBM Power Systems Virtual I / O Server Commands: viosupgrade command / www.ibm.com / en / power10 / 9043-MRX?topic=commands-viosupgrade-command</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> 後の仮想構成照合（viosupgrade）について、viosupgrade完了後に仮想I/O構成の復元を確かめる証跡として最も適切なものはどれか。</p><ul class="kb-choices"><li>A. ioslevelの一行だけを構成復元の証明として採用する。</li><li>B. 更新前後のlsmap出力をSVSA・VTD・backing device単位で比較する。 <span class="kb-ok">✅ 正解</span></li><li>C. 更新後のuptimeだけを保存して仮想割当の比較を省く。更新後構成比較の判定にも同じ前提を広げ、構成照合の表示値を確認せずに結論を確定する。</li><li>D. HMCの電源状態がRunningなら全マッピングが戻ったとみなす。</li></ul><p class="kb-meta">正解: <strong>B</strong> ／ 難易度: 上級</p><p><strong>解説:</strong> 更新後構成比較でBを正答とする理由は、lsmapは仮想ホストアダプターからVTDと物理・論理backing deviceまでを表示し、復元対象を直接比較できることです。
+後の仮想構成照合（viosupgrade）の仕組みとして、viosupgradeは保存したメタデータから仮想・論理構成を戻すが、制約や追加ソフトウェアにより一部が戻らない可能性がある。更新後の版数確認と構成比較は別の受入観点である。
+後の仮想構成照合（viosupgrade）の誤答は、Aは版数はデバイス割当の存在を示さない、Cは稼働時間はVTDの復元内容を表現しない、DはLPARの電源状態とVIOS内マッピングは同一情報ではない。
+後の仮想構成照合（viosupgrade）で使う構成照合とは更新前に採取した仮想I/Oの識別子と更新後の実表示を項目単位で比較する受入確認。</p><p class="kb-src"><strong>出典:</strong> IBM Power Systems: Virtual I / O Server and Integrated Virtualization Manager commands p8hcg / https: / public.dhe.ibm.com / systems / power / docs / hw / p8 / p8hcg / IBM Power Systems Virtual I / O Server Commands: viosupgrade command / www.ibm.com / en / power10 / 9043-MRX?topic=commands-viosupgrade-command</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>viosupgrade後の仮想構成照合</strong></p><p>検証目的: 更新後構成比較について、一次資料のコマンドと出力形式を用いて構成・状態を机上確認する。</p><p>前提条件: padmin権限のVIOS CLIに接続でき、対象装置名と変更計画を確認済み。変更を伴う操作は本手順では実行しない。</p><p>セッション環境: VIOS padmin shell</p><pre class="kb-code">■ ステップ 1
+現在の画面はVIOSのpadminコマンド入力画面である。更新前にスクリプト形式のSVSAとVTDを採取し、比較可能な基準行を作る。
+［操作（入力）］
+VIOS CLI
+COMMAND ===&gt; lsmap -all -fmt , -field SVSA VTD Physloc LUN
+→ Enter を押す
+［画面・出力］
+vhost0,U9117.MMD.10581C7-V34-C5,vtscsi0,0x8100000000000000,vtscsi1,0x8200000000000000
+vhost1,U9117.MMD.10581C7-V34-C6,vtscsi4,0x8200000000000000
+画面・出力に含まれる vhost0 を読み、更新後構成比較の判定資料として保存する。
+――――
+■ ステップ 2
+現在の画面はVIOSのpadminコマンド入力画面である。更新後の対象SVSAを詳細表示し、VTDとbacking deviceが基準行に対応するか確認する。
+［操作（入力）］
+VIOS CLI
+COMMAND ===&gt; lsmap -vadapter vhost0
+→ Enter を押す
+［画面・出力］
+SVSA                 Physloc                          Client Partition ID
+vhost0               U9117.570.10D1B0E-V4-C3          0x00000000
+VTD                   vtscsi0
+Status                Available
+LUN                   0x8100000000000000
+Backing device        hdisk0
+画面・出力に含まれる vtscsi0 を読み、更新後構成比較の判定資料として保存する。
+――――</pre><p>合格条件: ステップ1: vhost0 が画面・出力に現れ、更新前にスクリプト形式のSVSAとVTDを採取し、比較可能な基準行を作る。
+ステップ2: vtscsi0 が画面・出力に現れ、更新後の対象SVSAを詳細表示し、VTDとbacking deviceが基準行に対応するか確認する。</p><p class="kb-meta">検証状態: 机上 ／ 出典: IBM Power Systems: Virtual I / O Server and Integrated Virtualization Manager commands p8hcg / https: / public.dhe.ibm.com / systems / power / docs / hw / p8 / p8hcg / IBM Power Systems Virtual I / O Server Commands: viosupgrade command / www.ibm.com / en / power10 / 9043-MRX?topic=commands-viosupgrade-command</p></div></details></section>
+
+
+
+
+
+
+
+  
+  
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+  <script>var tabs=__md_get("__tabs");if(Array.isArray(tabs))e:for(var set of document.querySelectorAll(".tabbed-set")){var labels=set.querySelector(".tabbed-labels");for(var tab of tabs)for(var label of labels.getElementsByTagName("label"))if(label.innerText.trim()===tab){var input=document.getElementById(label.htmlFor);input.checked=!0;continue e}}</script>
+
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  ページトップへ戻る
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+    
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../../..", "features": ["navigation.tabs", "navigation.tabs.sticky", "navigation.sections", "navigation.indexes", "navigation.path", "navigation.top", "navigation.footer", "toc.follow", "search.suggest", "search.highlight", "search.share", "content.tabs.link", "content.code.copy"], "search": "../../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "\u30b3\u30d4\u30fc\u3057\u307e\u3057\u305f", "clipboard.copy": "\u30af\u30ea\u30c3\u30d7\u30dc\u30fc\u30c9\u3078\u30b3\u30d4\u30fc", "search.result.more.one": "\u3053\u306e\u30da\u30fc\u30b8\u5185\u306b\u3082\u30461\u4ef6\u898b\u3064\u304b\u308a\u307e\u3057\u305f", "search.result.more.other": "\u3053\u306e\u30da\u30fc\u30b8\u5185\u306b\u3042\u3068#\u4ef6\u898b\u3064\u304b\u308a\u307e\u3057\u305f", "search.result.none": "\u4f55\u3082\u898b\u3064\u304b\u308a\u307e\u305b\u3093\u3067\u3057\u305f", "search.result.one": "1\u4ef6\u898b\u3064\u304b\u308a\u307e\u3057\u305f", "search.result.other": "#\u4ef6\u898b\u3064\u304b\u308a\u307e\u3057\u305f", "search.result.placeholder": "\u691c\u7d22\u30ad\u30fc\u30ef\u30fc\u30c9\u3092\u5165\u529b\u3057\u3066\u304f\u3060\u3055\u3044", "search.result.term.missing": "\u691c\u7d22\u306b\u542b\u307e\u308c\u306a\u3044", "select.version": "\u30d0\u30fc\u30b8\u30e7\u30f3\u5207\u308a\u66ff\u3048"}, "version": null}</script>
+    
+    
+      <script src="../../../assets/javascripts/bundle.d7400e89.min.js"></script>
+      
+    
+  </body>
+</html>

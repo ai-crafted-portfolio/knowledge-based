@@ -1,0 +1,1339 @@
+
+<!doctype html>
+<html lang="ja" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="技術項目・確認問題・検証手順をカテゴリ別に検索できるナレッジベース">
+      
+      
+        <meta name="author" content="Knowledge Base">
+      
+      
+        <link rel="canonical" href="https://ai-crafted-portfolio.github.io/knowledge-based/categories/c24/">
+      
+      
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.7">
+    
+    
+      
+        <title>PSF for z/OS 4.7 - z/OS 技術ナレッジベース</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.ec1eaa64.min.css">
+      
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Segoe+UI:300,300i,400,400i,700,700i%7CCascadia+Code:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Segoe UI";--md-code-font:"Cascadia Code"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../stylesheets/ms-style.css">
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="blue">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#psf-for-zos-47" class="md-skip">
+          コンテンツにスキップ
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow md-header--lifted" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="ヘッダー">
+    <a href="../.." title="z/OS 技術ナレッジベース" class="md-header__button md-logo" aria-label="z/OS 技術ナレッジベース" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            z/OS 技術ナレッジベース
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              PSF for z/OS 4.7
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="blue"  aria-label="ダークモードに切り替え"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="ダークモードに切り替え" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m17.75 4.09-2.53 1.94.91 3.06-2.63-1.81-2.63 1.81.91-3.06-2.53-1.94L12.44 4l1.06-3 1.06 3zm3.5 6.91-1.64 1.25.59 1.98-1.7-1.17-1.7 1.17.59-1.98L15.75 11l2.06-.05L18.5 9l.69 1.95zm-2.28 4.95c.83-.08 1.72 1.1 1.19 1.85-.32.45-.66.87-1.08 1.27C15.17 23 8.84 23 4.94 19.07c-3.91-3.9-3.91-10.24 0-14.14.4-.4.82-.76 1.27-1.08.75-.53 1.93.36 1.85 1.19-.27 2.86.69 5.83 2.89 8.02a9.96 9.96 0 0 0 8.02 2.89m-1.64 2.02a12.08 12.08 0 0 1-7.8-3.47c-2.17-2.19-3.33-5-3.49-7.82-2.81 3.14-2.7 7.96.31 10.98 3.02 3.01 7.84 3.12 10.98.31"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="slate" data-md-color-primary="indigo" data-md-color-accent="blue"  aria-label="ライトモードに切り替え"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="ライトモードに切り替え" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 7a5 5 0 0 1 5 5 5 5 0 0 1-5 5 5 5 0 0 1-5-5 5 5 0 0 1 5-5m0 2a3 3 0 0 0-3 3 3 3 0 0 0 3 3 3 3 0 0 0 3-3 3 3 0 0 0-3-3m0-7 2.39 3.42C13.65 5.15 12.84 5 12 5s-1.65.15-2.39.42zM3.34 7l4.16-.35A7.2 7.2 0 0 0 5.94 8.5c-.44.74-.69 1.5-.83 2.29zm.02 10 1.76-3.77a7.131 7.131 0 0 0 2.38 4.14zM20.65 7l-1.77 3.79a7.02 7.02 0 0 0-2.38-4.15zm-.01 10-4.14.36c.59-.51 1.12-1.14 1.54-1.86.42-.73.69-1.5.83-2.29zM12 22l-2.41-3.44c.74.27 1.55.44 2.41.44.82 0 1.63-.17 2.37-.44z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="検索" placeholder="検索" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="検索">
+        
+          <a href="javascript:void(0)" class="md-search__icon md-icon" title="共有" aria-label="共有" data-clipboard data-clipboard-text="" data-md-component="search-share" tabindex="-1">
+            
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M18 16.08c-.76 0-1.44.3-1.96.77L8.91 12.7c.05-.23.09-.46.09-.7s-.04-.47-.09-.7l7.05-4.11c.54.5 1.25.81 2.04.81a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3c0 .24.04.47.09.7L8.04 9.81C7.5 9.31 6.79 9 6 9a3 3 0 0 0-3 3 3 3 0 0 0 3 3c.79 0 1.5-.31 2.04-.81l7.12 4.15c-.05.21-.08.43-.08.66 0 1.61 1.31 2.91 2.92 2.91s2.92-1.3 2.92-2.91A2.92 2.92 0 0 0 18 16.08"/></svg>
+          </a>
+        
+        <button type="reset" class="md-search__icon md-icon" title="クリア" aria-label="クリア" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            検索を初期化
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+  </nav>
+  
+    
+      
+<nav class="md-tabs" aria-label="タブ" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../.." class="md-tabs__link">
+        
+  
+  
+    
+  
+  ホーム
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../" class="md-tabs__link">
+          
+  
+  
+    
+  
+  カテゴリ
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../articles/" class="md-tabs__link">
+          
+  
+  
+    
+  
+  記事
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../about/" class="md-tabs__link">
+          
+  
+  
+    
+  
+  ガイド
+
+        </a>
+      </li>
+    
+  
+
+      
+    </ul>
+  </div>
+</nav>
+    
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="ナビゲーション" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="z/OS 技術ナレッジベース" class="md-nav__button md-logo" aria-label="z/OS 技術ナレッジベース" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    z/OS 技術ナレッジベース
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    ホーム
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    カテゴリ
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    カテゴリ
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../articles/" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    記事
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    記事
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    ガイド
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    ガイド
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../about/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    このサイトについて
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../faq/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    FAQ
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../search/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    検索
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+  
+
+<nav class="md-nav md-nav--secondary" aria-label="このページの目次">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      このページの目次
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        収録項目
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="収録項目">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#afp" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        AFPリソース
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#download-plus" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Download Plus
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#jes" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        JES 連携
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#jes_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        JES機能サブシステム
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#printer-inventory" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Printer Inventory
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        セキュリティ
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        データストリーム
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        フォント管理
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#fsa" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        プリンターFSA
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_5" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        プリンター定義
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_6" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ページ制御
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_7" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        メッセージ確認
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_8" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        リソース
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_9" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        出力経路確認
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_10" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        印刷アドレス空間
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_11" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        基本概念
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_12" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        変換
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_13" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        診断
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_14" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        診断・トレース
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_15" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        起動設定
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_16" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        運用
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_17" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        開始手順
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+                
+
+
+
+  
+
+
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<h1 id="psf-for-zos-47">PSF for z/OS 4.7<a class="headerlink" href="#psf-for-zos-47" title="Permanent link">&para;</a></h1>
+<div class="kb-cov">
+<p><strong>技術項目 240 件</strong>  ／  QA対応 140（58.33%・不足 100）  ／  手順対応 240（100.0%・不足 0）</p>
+</div>
+<p>このカテゴリでは技術項目 240 件を掲載し、確認問題 140 問・検証手順 240 件を項目ごとに紐づけています。対応率は技術項目に明示的に対応付けられた件数で算出しています（増補継続中）。</p>
+<blockquote>
+<p>最終更新: 2026-07-16</p>
+</blockquote>
+<h2 id="_1">収録項目<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h2>
+<h3 id="afp">AFPリソース<a class="headerlink" href="#afp" title="Permanent link">&para;</a></h3>
+<ul>
+<li><a href="part-01/#c24-i0001">AFPリソース AFP Resource ログとの照合 RES07</a></li>
+<li><a href="part-01/#c24-i0002">AFPリソース AFP Resource 代替経路の確認 RES10</a></li>
+<li><a href="part-01/#c24-i0003">AFPリソース AFP Resource 変更前の確認 RES02</a></li>
+<li><a href="part-01/#c24-i0004">AFPリソース AFP Resource 変更後の確認 RES03</a></li>
+<li><a href="part-01/#c24-i0005">AFPリソース AFP Resource 引継ぎ記録 RES09</a></li>
+<li><a href="part-01/#c24-i0006">AFPリソース AFP Resource 復旧後の確認 RES06</a></li>
+<li><a href="part-01/#c24-i0007">AFPリソース AFP Resource 復旧準備 RES05</a></li>
+<li><a href="part-01/#c24-i0008">AFPリソース AFP Resource 構成監査 RES08</a></li>
+<li><a href="part-01/#c24-i0009">AFPリソース AFP Resource 通常状態の確認 RES01</a></li>
+<li><a href="part-01/#c24-i0010">AFPリソース AFP Resource 障害切り分け RES04</a></li>
+<li><a href="part-01/#c24-i0011">APSRMARK フォント照合 関連付け029</a></li>
+<li><a href="part-01/#c24-i0012">APSRMARK 起動確認 照合089</a></li>
+<li><a href="part-01/#c24-i0013">PRINTDEV トレース準備 照合065</a></li>
+<li><a href="part-01/#c24-i0014">PRINTDEV プリンター関連付け 関連付け005</a></li>
+<li><a href="part-01/#c24-i0015">チャネル接続プリンター 出力経路確認 関連付け053</a></li>
+<li><a href="part-01/#c24-i0016">ページ定義 定義照合 照合041</a></li>
+<li><a href="part-01/#c24-i0017">リソースライブラリー トレース準備 照合017</a></li>
+<li><a href="part-01/#c24-i0018">リソースライブラリー フォント照合 関連付け077</a></li>
+</ul>
+<h3 id="download-plus">Download Plus<a class="headerlink" href="#download-plus" title="Permanent link">&para;</a></h3>
+<ul>
+<li><a href="part-01/#c24-i0019">APSRMARK 送信先確認 確認059</a></li>
+<li><a href="part-01/#c24-i0020">Download Plus AFP Download Plus Status ログとの照合 AFPDP07</a></li>
+<li><a href="part-01/#c24-i0021">Download Plus AFP Download Plus Status 代替経路の確認 AFPDP10</a></li>
+<li><a href="part-01/#c24-i0022">Download Plus AFP Download Plus Status 変更前の確認 AFPDP02</a></li>
+<li><a href="part-01/#c24-i0023">Download Plus AFP Download Plus Status 変更後の確認 AFPDP03</a></li>
+<li><a href="part-01/#c24-i0024">Download Plus AFP Download Plus Status 引継ぎ記録 AFPDP09</a></li>
+<li><a href="part-01/#c24-i0025">Download Plus AFP Download Plus Status 復旧後の確認 AFPDP06</a></li>
+<li><a href="part-01/#c24-i0026">Download Plus AFP Download Plus Status 復旧準備 AFPDP05</a></li>
+<li><a href="part-01/#c24-i0027">Download Plus AFP Download Plus Status 構成監査 AFPDP08</a></li>
+<li><a href="part-01/#c24-i0028">Download Plus AFP Download Plus Status 通常状態の確認 AFPDP01</a></li>
+<li><a href="part-01/#c24-i0029">Download Plus AFP Download Plus Status 障害切り分け AFPDP04</a></li>
+<li><a href="part-01/#c24-i0030">PRINTDEV ページ提示確認 開始確認095</a></li>
+<li><a href="part-01/#c24-i0031">PRINTDEV 障害切り分け 確認035</a></li>
+<li><a href="part-01/#c24-i0032">チャネル接続プリンター プリンター関連付け 確認083</a></li>
+<li><a href="part-01/#c24-i0033">チャネル接続プリンター リソース解決 開始確認023</a></li>
+<li><a href="part-01/#c24-i0034">ページ定義 リソース解決 開始確認071</a></li>
+<li><a href="part-01/#c24-i0035">ページ定義 起動確認 確認011</a></li>
+<li><a href="part-01/#c24-i0036">リソースライブラリー ページ提示確認 開始確認047</a></li>
+</ul>
+<h3 id="jes">JES 連携<a class="headerlink" href="#jes" title="Permanent link">&para;</a></h3>
+<ul>
+<li><a href="part-01/#c24-i0037">JES スプール入力</a></li>
+</ul>
+<h3 id="jes_1">JES機能サブシステム<a class="headerlink" href="#jes_1" title="Permanent link">&para;</a></h3>
+<ul>
+<li><a href="part-01/#c24-i0038">APSメッセージ トレース準備 関連付け085</a></li>
+<li><a href="part-01/#c24-i0039">APSメッセージ プリンター関連付け 照合025</a></li>
+<li><a href="part-01/#c24-i0040">JES機能サブシステム PSF FSS ログとの照合 PSF07</a></li>
+<li><a href="part-01/#c24-i0041">JES機能サブシステム PSF FSS 代替経路の確認 PSF10</a></li>
+<li><a href="part-01/#c24-i0042">JES機能サブシステム PSF FSS 変更前の確認 PSF02</a></li>
+<li><a href="part-01/#c24-i0043">JES機能サブシステム PSF FSS 変更後の確認 PSF03</a></li>
+<li><a href="part-01/#c24-i0044">JES機能サブシステム PSF FSS 引継ぎ記録 PSF09</a></li>
+<li><a href="part-01/#c24-i0045">JES機能サブシステム PSF FSS 復旧後の確認 PSF06</a></li>
+<li><a href="part-01/#c24-i0046">JES機能サブシステム PSF FSS 復旧準備 PSF05</a></li>
+<li><a href="part-01/#c24-i0047">JES機能サブシステム PSF FSS 構成監査 PSF08</a></li>
+<li><a href="part-01/#c24-i0048">JES機能サブシステム PSF FSS 通常状態の確認 PSF01</a></li>
+<li><a href="part-01/#c24-i0049">JES機能サブシステム PSF FSS 障害切り分け PSF04</a></li>
+<li><a href="part-01/#c24-i0050">PSF FSS リソース解決 関連付け061</a></li>
+<li><a href="part-01/#c24-i0051">PSF FSS 起動確認 照合001</a></li>
+<li><a href="part-01/#c24-i0052">Printer Inventory ページ提示確認 関連付け037</a></li>
+<li><a href="part-01/#c24-i0053">Printer Inventory 送信先確認 照合097</a></li>
+<li><a href="part-01/#c24-i0054">コードページ プリンター関連付け 照合073</a></li>
+<li><a href="part-01/#c24-i0055">コードページ リソース解決 関連付け013</a></li>
+<li><a href="part-01/#c24-i0056">セパレーターページ 送信先確認 照合049</a></li>
+</ul>
+<h3 id="printer-inventory">Printer Inventory<a class="headerlink" href="#printer-inventory" title="Permanent link">&para;</a></h3>
+<ul>
+<li><a href="part-01/#c24-i0057">PPT とプロセス上限 ページ提示確認 診断028</a></li>
+<li><a href="part-01/#c24-i0058">PPT とプロセス上限 送信先確認 経路確認088</a></li>
+<li><a href="part-01/#c24-i0059">PRTnnnn 出力経路確認 診断004</a></li>
+<li><a href="part-01/#c24-i0060">PRTnnnn 障害切り分け 経路確認064</a></li>
+<li><a href="part-01/#c24-i0061">Printer Inventory Printer Inventory FSA object ログとの照合 PINV07</a></li>
+<li><a href="part-01/#c24-i0062">Printer Inventory Printer Inventory FSA object 代替経路の確認 PINV10</a></li>
+<li><a href="part-01/#c24-i0063">Printer Inventory Printer Inventory FSA object 変更前の確認 PINV02</a></li>
+<li><a href="part-01/#c24-i0064">Printer Inventory Printer Inventory FSA object 変更後の確認 PINV03</a></li>
+<li><a href="part-01/#c24-i0065">Printer Inventory Printer Inventory FSA object 引継ぎ記録 PINV09</a></li>
+<li><a href="part-01/#c24-i0066">Printer Inventory Printer Inventory FSA object 復旧後の確認 PINV06</a></li>
+<li><a href="part-01/#c24-i0067">Printer Inventory Printer Inventory FSA object 復旧準備 PINV05</a></li>
+<li><a href="part-01/#c24-i0068">Printer Inventory Printer Inventory FSA object 構成監査 PINV08</a></li>
+<li><a href="part-01/#c24-i0069">Printer Inventory Printer Inventory FSA object 通常状態の確認 PINV01</a></li>
+<li><a href="part-01/#c24-i0070">Printer Inventory Printer Inventory FSA object 障害切り分け PINV04</a></li>
+<li><a href="part-01/#c24-i0071">TCP/IP接続プリンター リソース解決 診断052</a></li>
+<li><a href="part-01/#c24-i0072">フォーム定義 リソース解決 診断100</a></li>
+<li><a href="part-01/#c24-i0073">フォーム定義 起動確認 経路確認040</a></li>
+<li><a href="part-01/#c24-i0074">ページセグメント ページ提示確認 診断076</a></li>
+<li><a href="part-01/#c24-i0075">ページセグメント 障害切り分け 経路確認016</a></li>
+</ul>
+<h3 id="_2">セキュリティ<a class="headerlink" href="#_2" title="Permanent link">&para;</a></h3>
+<ul>
+<li><a href="part-01/#c24-i0076">PSF セキュリティ定義</a></li>
+</ul>
+<h3 id="_3">データストリーム<a class="headerlink" href="#_3" title="Permanent link">&para;</a></h3>
+<ul>
+<li><a href="part-01/#c24-i0077">CNTL と ENDCNTL ページ提示確認 点検066</a></li>
+<li><a href="part-01/#c24-i0078">CNTL と ENDCNTL 障害切り分け 資源解決006</a></li>
+<li><a href="part-01/#c24-i0079">インラインリソース ページ提示確認 点検018</a></li>
+<li><a href="part-01/#c24-i0080">インラインリソース 送信先確認 資源解決078</a></li>
+<li><a href="part-01/#c24-i0081">コード化フォント リソース解決 点検042</a></li>
+<li><a href="part-01/#c24-i0082">データストリーム AFP/IPDS data stream ログとの照合 DATA07</a></li>
+<li><a href="part-01/#c24-i0083">データストリーム AFP/IPDS data stream 代替経路の確認 DATA10</a></li>
+<li><a href="part-01/#c24-i0084">データストリーム AFP/IPDS data stream 変更前の確認 DATA02</a></li>
+<li><a href="part-01/#c24-i0085">データストリーム AFP/IPDS data stream 変更後の確認 DATA03</a></li>
+<li><a href="part-01/#c24-i0086">データストリーム AFP/IPDS data stream 引継ぎ記録 DATA09</a></li>
+<li><a href="part-01/#c24-i0087">データストリーム AFP/IPDS data stream 復旧後の確認 DATA06</a></li>
+<li><a href="part-01/#c24-i0088">データストリーム AFP/IPDS data stream 復旧準備 DATA05</a></li>
+<li><a href="part-01/#c24-i0089">データストリーム AFP/IPDS data stream 構成監査 DATA08</a></li>
+<li><a href="part-01/#c24-i0090">データストリーム AFP/IPDS data stream 通常状態の確認 DATA01</a></li>
+<li><a href="part-01/#c24-i0091">データストリーム AFP/IPDS data stream 障害切り分け DATA04</a></li>
+<li><a href="part-01/#c24-i0092">トレースデータセット プリンター関連付け 資源解決054</a></li>
+<li><a href="part-01/#c24-i0093">複数APSメッセージ照合 定義照合 点検090</a></li>
+<li><a href="part-01/#c24-i0094">複数APSメッセージ照合 送信先確認 資源解決030</a></li>
+</ul>
+<h3 id="_4">フォント管理<a class="headerlink" href="#_4" title="Permanent link">&para;</a></h3>
+<ul>
+<li><a href="part-01/#c24-i0095">APSメッセージ 障害切り分け 開始確認055</a></li>
+<li><a href="part-01/#c24-i0096">PSF FSS 出力経路確認 確認091</a></li>
+<li><a href="part-01/#c24-i0097">PSF FSS 定義照合 開始確認031</a></li>
+<li><a href="part-01/#c24-i0098">Printer Inventory トレース準備 開始確認007</a></li>
+<li><a href="part-01/#c24-i0099">Printer Inventory フォント照合 確認067</a></li>
+<li><a href="part-01/#c24-i0100">コードページ 出力経路確認 確認043</a></li>
+<li><a href="part-01/#c24-i0101">セパレーターページ フォント照合 確認019</a></li>
+<li><a href="part-01/#c24-i0102">セパレーターページ 起動確認 開始確認079</a></li>
+<li><a href="part-01/#c24-i0103">フォント管理 AFP Font Resource ログとの照合 FONT07</a></li>
+<li><a href="part-01/#c24-i0104">フォント管理 AFP Font Resource 代替経路の確認 FONT10</a></li>
+<li><a href="part-01/#c24-i0105">フォント管理 AFP Font Resource 変更前の確認 FONT02</a></li>
+<li><a href="part-01/#c24-i0106">フォント管理 AFP Font Resource 変更後の確認 FONT03</a></li>
+<li><a href="part-01/#c24-i0107">フォント管理 AFP Font Resource 引継ぎ記録 FONT09</a></li>
+<li><a href="part-01/#c24-i0108">フォント管理 AFP Font Resource 復旧後の確認 FONT06</a></li>
+<li><a href="part-01/#c24-i0109">フォント管理 AFP Font Resource 復旧準備 FONT05</a></li>
+<li><a href="part-01/#c24-i0110">フォント管理 AFP Font Resource 構成監査 FONT08</a></li>
+<li><a href="part-01/#c24-i0111">フォント管理 AFP Font Resource 通常状態の確認 FONT01</a></li>
+<li><a href="part-01/#c24-i0112">フォント管理 AFP Font Resource 障害切り分け FONT04</a></li>
+</ul>
+<h3 id="fsa">プリンターFSA<a class="headerlink" href="#fsa" title="Permanent link">&para;</a></h3>
+<ul>
+<li><a href="part-01/#c24-i0113">AFP Download Plus 起動確認 点検050</a></li>
+<li><a href="part-01/#c24-i0114">AFPデータストリーム フォント照合 資源解決038</a></li>
+<li><a href="part-01/#c24-i0115">AFPデータストリーム 起動確認 点検098</a></li>
+<li><a href="part-01/#c24-i0116">PSF FSA 出力経路確認 資源解決062</a></li>
+<li><a href="part-01/#c24-i0117">PSF FSA 定義照合 点検002</a></li>
+<li><a href="part-01/#c24-i0118">PSF開始手順 ページ提示確認 資源解決086</a></li>
+<li><a href="part-01/#c24-i0119">PSF開始手順 障害切り分け 点検026</a></li>
+<li><a href="part-01/#c24-i0120">プリンターFSA PSF FSA ログとの照合 PRT07</a></li>
+<li><a href="part-01/#c24-i0121">プリンターFSA PSF FSA 代替経路の確認 PRT10</a></li>
+<li><a href="part-01/#c24-i0122">プリンターFSA PSF FSA 変更前の確認 PRT02</a></li>
+<li><a href="part-01/#c24-i0123">プリンターFSA PSF FSA 変更後の確認 PRT03</a></li>
+<li><a href="part-01/#c24-i0124">プリンターFSA PSF FSA 引継ぎ記録 PRT09</a></li>
+<li><a href="part-01/#c24-i0125">プリンターFSA PSF FSA 復旧後の確認 PRT06</a></li>
+<li><a href="part-01/#c24-i0126">プリンターFSA PSF FSA 復旧準備 PRT05</a></li>
+<li><a href="part-01/#c24-i0127">プリンターFSA PSF FSA 構成監査 PRT08</a></li>
+<li><a href="part-01/#c24-i0128">プリンターFSA PSF FSA 通常状態の確認 PRT01</a></li>
+<li><a href="part-01/#c24-i0129">プリンターFSA PSF FSA 障害切り分け PRT04</a></li>
+<li><a href="part-01/#c24-i0130">文字セット 出力経路確認 資源解決014</a></li>
+<li><a href="part-01/#c24-i0131">文字セット 障害切り分け 点検074</a></li>
+</ul>
+<h3 id="_5">プリンター定義<a class="headerlink" href="#_5" title="Permanent link">&para;</a></h3>
+<ul>
+<li><a href="part-01/#c24-i0132">Printer Inventory</a></li>
+</ul>
+<h3 id="_6">ページ制御<a class="headerlink" href="#_6" title="Permanent link">&para;</a></h3>
+<ul>
+<li><a href="part-01/#c24-i0133">AFP Download Plus 定義照合 経路確認080</a></li>
+<li><a href="part-01/#c24-i0134">AFP Download Plus 送信先確認 診断020</a></li>
+<li><a href="part-01/#c24-i0135">AFPデータストリーム ページ提示確認 経路確認008</a></li>
+<li><a href="part-01/#c24-i0136">AFPデータストリーム 送信先確認 診断068</a></li>
+<li><a href="part-01/#c24-i0137">PSF FSA プリンター関連付け 診断092</a></li>
+<li><a href="part-01/#c24-i0138">PSF FSA リソース解決 経路確認032</a></li>
+<li><a href="part-01/#c24-i0139">PSF開始手順 トレース準備 経路確認056</a></li>
+<li><a href="part-01/#c24-i0140">ページ制御 PAGEDEF and FORMDEF ログとの照合 PAGE07</a></li>
+<li><a href="part-01/#c24-i0141">ページ制御 PAGEDEF and FORMDEF 代替経路の確認 PAGE10</a></li>
+<li><a href="part-01/#c24-i0142">ページ制御 PAGEDEF and FORMDEF 変更前の確認 PAGE02</a></li>
+<li><a href="part-01/#c24-i0143">ページ制御 PAGEDEF and FORMDEF 変更後の確認 PAGE03</a></li>
+<li><a href="part-01/#c24-i0144">ページ制御 PAGEDEF and FORMDEF 引継ぎ記録 PAGE09</a></li>
+<li><a href="part-01/#c24-i0145">ページ制御 PAGEDEF and FORMDEF 復旧後の確認 PAGE06</a></li>
+<li><a href="part-01/#c24-i0146">ページ制御 PAGEDEF and FORMDEF 復旧準備 PAGE05</a></li>
+<li><a href="part-01/#c24-i0147">ページ制御 PAGEDEF and FORMDEF 構成監査 PAGE08</a></li>
+<li><a href="part-01/#c24-i0148">ページ制御 PAGEDEF and FORMDEF 通常状態の確認 PAGE01</a></li>
+<li><a href="part-01/#c24-i0149">ページ制御 PAGEDEF and FORMDEF 障害切り分け PAGE04</a></li>
+<li><a href="part-01/#c24-i0150">文字セット プリンター関連付け 診断044</a></li>
+</ul>
+<h3 id="_7">メッセージ確認<a class="headerlink" href="#_7" title="Permanent link">&para;</a></h3>
+<ul>
+<li><a href="part-01/#c24-i0151">PPT とプロセス上限 フォント照合 点検058</a></li>
+<li><a href="part-01/#c24-i0152">PRTnnnn トレース準備 資源解決094</a></li>
+<li><a href="part-01/#c24-i0153">PRTnnnn プリンター関連付け 点検034</a></li>
+<li><a href="part-01/#c24-i0154">TCP/IP接続プリンター 出力経路確認 点検082</a></li>
+<li><a href="part-01/#c24-i0155">TCP/IP接続プリンター 定義照合 資源解決022</a></li>
+<li><a href="part-01/#c24-i0156">フォーム定義 定義照合 資源解決070</a></li>
+<li><a href="part-01/#c24-i0157">フォーム定義 送信先確認 点検010</a></li>
+<li><a href="part-01/#c24-i0158">ページセグメント トレース準備 資源解決046</a></li>
+<li><a href="part-01/#c24-i0159">メッセージ確認 APS Message ログとの照合 MSG07</a></li>
+<li><a href="part-01/#c24-i0160">メッセージ確認 APS Message 代替経路の確認 MSG10</a></li>
+<li><a href="part-01/#c24-i0161">メッセージ確認 APS Message 変更前の確認 MSG02</a></li>
+<li><a href="part-01/#c24-i0162">メッセージ確認 APS Message 変更後の確認 MSG03</a></li>
+<li><a href="part-01/#c24-i0163">メッセージ確認 APS Message 引継ぎ記録 MSG09</a></li>
+<li><a href="part-01/#c24-i0164">メッセージ確認 APS Message 復旧後の確認 MSG06</a></li>
+<li><a href="part-01/#c24-i0165">メッセージ確認 APS Message 復旧準備 MSG05</a></li>
+<li><a href="part-01/#c24-i0166">メッセージ確認 APS Message 構成監査 MSG08</a></li>
+<li><a href="part-01/#c24-i0167">メッセージ確認 APS Message 通常状態の確認 MSG01</a></li>
+<li><a href="part-01/#c24-i0168">メッセージ確認 APS Message 障害切り分け MSG04</a></li>
+</ul>
+<h3 id="_8">リソース<a class="headerlink" href="#_8" title="Permanent link">&para;</a></h3>
+<ul>
+<li><a href="part-01/#c24-i0169">オーバーレイ</a></li>
+<li><a href="part-01/#c24-i0170">フォントリソース</a></li>
+<li><a href="part-01/#c24-i0171">フォーム定義</a></li>
+<li><a href="part-01/#c24-i0172">ページ定義</a></li>
+<li><a href="part-01/#c24-i0173">リソースライブラリ</a></li>
+</ul>
+<h3 id="_9">出力経路確認<a class="headerlink" href="#_9" title="Permanent link">&para;</a></h3>
+<ul>
+<li><a href="part-01/#c24-i0174">CNTL と ENDCNTL トレース準備 診断036</a></li>
+<li><a href="part-01/#c24-i0175">CNTL と ENDCNTL フォント照合 経路確認096</a></li>
+<li><a href="part-01/#c24-i0176">インラインリソース フォント照合 経路確認048</a></li>
+<li><a href="part-01/#c24-i0177">コード化フォント 出力経路確認 経路確認072</a></li>
+<li><a href="part-01/#c24-i0178">コード化フォント 定義照合 診断012</a></li>
+<li><a href="part-01/#c24-i0179">トレースデータセット 出力経路確認 経路確認024</a></li>
+<li><a href="part-01/#c24-i0180">トレースデータセット 障害切り分け 診断084</a></li>
+<li><a href="part-01/#c24-i0181">出力経路確認 JES to PSF Output Route ログとの照合 ROUTE07</a></li>
+<li><a href="part-01/#c24-i0182">出力経路確認 JES to PSF Output Route 代替経路の確認 ROUTE10</a></li>
+<li><a href="part-01/#c24-i0183">出力経路確認 JES to PSF Output Route 変更前の確認 ROUTE02</a></li>
+<li><a href="part-01/#c24-i0184">出力経路確認 JES to PSF Output Route 変更後の確認 ROUTE03</a></li>
+<li><a href="part-01/#c24-i0185">出力経路確認 JES to PSF Output Route 引継ぎ記録 ROUTE09</a></li>
+<li><a href="part-01/#c24-i0186">出力経路確認 JES to PSF Output Route 復旧後の確認 ROUTE06</a></li>
+<li><a href="part-01/#c24-i0187">出力経路確認 JES to PSF Output Route 復旧準備 ROUTE05</a></li>
+<li><a href="part-01/#c24-i0188">出力経路確認 JES to PSF Output Route 構成監査 ROUTE08</a></li>
+<li><a href="part-01/#c24-i0189">出力経路確認 JES to PSF Output Route 通常状態の確認 ROUTE01</a></li>
+<li><a href="part-02/#c24-i0190">出力経路確認 JES to PSF Output Route 障害切り分け ROUTE04</a></li>
+<li><a href="part-02/#c24-i0191">複数APSメッセージ照合 起動確認 診断060</a></li>
+</ul>
+<h3 id="_10">印刷アドレス空間<a class="headerlink" href="#_10" title="Permanent link">&para;</a></h3>
+<ul>
+<li><a href="part-02/#c24-i0192">FSA</a></li>
+<li><a href="part-02/#c24-i0193">FSS</a></li>
+</ul>
+<h3 id="_11">基本概念<a class="headerlink" href="#_11" title="Permanent link">&para;</a></h3>
+<ul>
+<li><a href="part-02/#c24-i0194">AFP</a></li>
+<li><a href="part-02/#c24-i0195">IPDS</a></li>
+<li><a href="part-02/#c24-i0196">PSF for z/OS</a></li>
+</ul>
+<h3 id="_12">変換<a class="headerlink" href="#_12" title="Permanent link">&para;</a></h3>
+<ul>
+<li><a href="part-02/#c24-i0197">ACIF</a></li>
+</ul>
+<h3 id="_13">診断<a class="headerlink" href="#_13" title="Permanent link">&para;</a></h3>
+<ul>
+<li><a href="part-02/#c24-i0198">PSF トレース</a></li>
+<li><a href="part-02/#c24-i0199">PSF メッセージ</a></li>
+</ul>
+<h3 id="_14">診断・トレース<a class="headerlink" href="#_14" title="Permanent link">&para;</a></h3>
+<ul>
+<li><a href="part-02/#c24-i0200">AFPPARMS ページ提示確認 照合057</a></li>
+<li><a href="part-02/#c24-i0201">Download for z/OS リソース解決 照合081</a></li>
+<li><a href="part-02/#c24-i0202">Download for z/OS 起動確認 関連付け021</a></li>
+<li><a href="part-02/#c24-i0203">JES2 FSSDEF 出力経路確認 照合033</a></li>
+<li><a href="part-02/#c24-i0204">JES2 FSSDEF 障害切り分け 関連付け093</a></li>
+<li><a href="part-02/#c24-i0205">MO:DCA-P フォント照合 照合009</a></li>
+<li><a href="part-02/#c24-i0206">MO:DCA-P 起動確認 関連付け069</a></li>
+<li><a href="part-02/#c24-i0207">オーバーレイ 障害切り分け 関連付け045</a></li>
+<li><a href="part-02/#c24-i0208">診断・トレース PSF Trace ログとの照合 TRACE07</a></li>
+<li><a href="part-02/#c24-i0209">診断・トレース PSF Trace 代替経路の確認 TRACE10</a></li>
+<li><a href="part-02/#c24-i0210">診断・トレース PSF Trace 変更前の確認 TRACE02</a></li>
+<li><a href="part-02/#c24-i0211">診断・トレース PSF Trace 変更後の確認 TRACE03</a></li>
+<li><a href="part-02/#c24-i0212">診断・トレース PSF Trace 引継ぎ記録 TRACE09</a></li>
+<li><a href="part-02/#c24-i0213">診断・トレース PSF Trace 復旧後の確認 TRACE06</a></li>
+<li><a href="part-02/#c24-i0214">診断・トレース PSF Trace 復旧準備 TRACE05</a></li>
+<li><a href="part-02/#c24-i0215">診断・トレース PSF Trace 構成監査 TRACE08</a></li>
+<li><a href="part-02/#c24-i0216">診断・トレース PSF Trace 通常状態の確認 TRACE01</a></li>
+<li><a href="part-02/#c24-i0217">診断・トレース PSF Trace 障害切り分け TRACE04</a></li>
+</ul>
+<h3 id="_15">起動設定<a class="headerlink" href="#_15" title="Permanent link">&para;</a></h3>
+<ul>
+<li><a href="part-02/#c24-i0218">AFPPARMS</a></li>
+<li><a href="part-02/#c24-i0219">EXEC PARM パラメータ</a></li>
+</ul>
+<h3 id="_16">運用<a class="headerlink" href="#_16" title="Permanent link">&para;</a></h3>
+<ul>
+<li><a href="part-02/#c24-i0220">AFP Download Plus</a></li>
+<li><a href="part-02/#c24-i0221">プリンター再始動</a></li>
+</ul>
+<h3 id="_17">開始手順<a class="headerlink" href="#_17" title="Permanent link">&para;</a></h3>
+<ul>
+<li><a href="part-02/#c24-i0222">AFPPARMS トレース準備 確認027</a></li>
+<li><a href="part-02/#c24-i0223">AFPPARMS フォント照合 開始確認087</a></li>
+<li><a href="part-02/#c24-i0224">Download for z/OS 定義照合 確認051</a></li>
+<li><a href="part-02/#c24-i0225">JES2 FSSDEF プリンター関連付け 開始確認063</a></li>
+<li><a href="part-02/#c24-i0226">JES2 FSSDEF リソース解決 確認003</a></li>
+<li><a href="part-02/#c24-i0227">MO:DCA-P 定義照合 確認099</a></li>
+<li><a href="part-02/#c24-i0228">MO:DCA-P 送信先確認 開始確認039</a></li>
+<li><a href="part-02/#c24-i0229">オーバーレイ トレース準備 確認075</a></li>
+<li><a href="part-02/#c24-i0230">オーバーレイ プリンター関連付け 開始確認015</a></li>
+<li><a href="part-02/#c24-i0231">開始手順 PSF started task ログとの照合 START07</a></li>
+<li><a href="part-02/#c24-i0232">開始手順 PSF started task 代替経路の確認 START10</a></li>
+<li><a href="part-02/#c24-i0233">開始手順 PSF started task 変更前の確認 START02</a></li>
+<li><a href="part-02/#c24-i0234">開始手順 PSF started task 変更後の確認 START03</a></li>
+<li><a href="part-02/#c24-i0235">開始手順 PSF started task 引継ぎ記録 START09</a></li>
+<li><a href="part-02/#c24-i0236">開始手順 PSF started task 復旧後の確認 START06</a></li>
+<li><a href="part-02/#c24-i0237">開始手順 PSF started task 復旧準備 START05</a></li>
+<li><a href="part-02/#c24-i0238">開始手順 PSF started task 構成監査 START08</a></li>
+<li><a href="part-02/#c24-i0239">開始手順 PSF started task 通常状態の確認 START01</a></li>
+<li><a href="part-02/#c24-i0240">開始手順 PSF started task 障害切り分け START04</a></li>
+</ul>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+  <script>var tabs=__md_get("__tabs");if(Array.isArray(tabs))e:for(var set of document.querySelectorAll(".tabbed-set")){var labels=set.querySelector(".tabbed-labels");for(var tab of tabs)for(var label of labels.getElementsByTagName("label"))if(label.innerText.trim()===tab){var input=document.getElementById(label.htmlFor);input.checked=!0;continue e}}</script>
+
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  ページトップへ戻る
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+    
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["navigation.tabs", "navigation.tabs.sticky", "navigation.sections", "navigation.indexes", "navigation.path", "navigation.top", "navigation.footer", "toc.follow", "search.suggest", "search.highlight", "search.share", "content.tabs.link", "content.code.copy"], "search": "../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "\u30b3\u30d4\u30fc\u3057\u307e\u3057\u305f", "clipboard.copy": "\u30af\u30ea\u30c3\u30d7\u30dc\u30fc\u30c9\u3078\u30b3\u30d4\u30fc", "search.result.more.one": "\u3053\u306e\u30da\u30fc\u30b8\u5185\u306b\u3082\u30461\u4ef6\u898b\u3064\u304b\u308a\u307e\u3057\u305f", "search.result.more.other": "\u3053\u306e\u30da\u30fc\u30b8\u5185\u306b\u3042\u3068#\u4ef6\u898b\u3064\u304b\u308a\u307e\u3057\u305f", "search.result.none": "\u4f55\u3082\u898b\u3064\u304b\u308a\u307e\u305b\u3093\u3067\u3057\u305f", "search.result.one": "1\u4ef6\u898b\u3064\u304b\u308a\u307e\u3057\u305f", "search.result.other": "#\u4ef6\u898b\u3064\u304b\u308a\u307e\u3057\u305f", "search.result.placeholder": "\u691c\u7d22\u30ad\u30fc\u30ef\u30fc\u30c9\u3092\u5165\u529b\u3057\u3066\u304f\u3060\u3055\u3044", "search.result.term.missing": "\u691c\u7d22\u306b\u542b\u307e\u308c\u306a\u3044", "select.version": "\u30d0\u30fc\u30b8\u30e7\u30f3\u5207\u308a\u66ff\u3048"}, "version": null}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.d7400e89.min.js"></script>
+      
+    
+  </body>
+</html>

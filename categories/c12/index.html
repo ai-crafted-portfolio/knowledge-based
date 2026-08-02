@@ -1,0 +1,2464 @@
+
+<!doctype html>
+<html lang="ja" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="技術項目・確認問題・検証手順をカテゴリ別に検索できるナレッジベース">
+      
+      
+        <meta name="author" content="Knowledge Base">
+      
+      
+        <link rel="canonical" href="https://ai-crafted-portfolio.github.io/knowledge-based/categories/c12/">
+      
+      
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.7">
+    
+    
+      
+        <title>IBM MQ メッセージング - z/OS 技術ナレッジベース</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.ec1eaa64.min.css">
+      
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Segoe+UI:300,300i,400,400i,700,700i%7CCascadia+Code:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Segoe UI";--md-code-font:"Cascadia Code"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../stylesheets/ms-style.css">
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="blue">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#ibm-mq" class="md-skip">
+          コンテンツにスキップ
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow md-header--lifted" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="ヘッダー">
+    <a href="../.." title="z/OS 技術ナレッジベース" class="md-header__button md-logo" aria-label="z/OS 技術ナレッジベース" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            z/OS 技術ナレッジベース
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              IBM MQ メッセージング
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="blue"  aria-label="ダークモードに切り替え"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="ダークモードに切り替え" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m17.75 4.09-2.53 1.94.91 3.06-2.63-1.81-2.63 1.81.91-3.06-2.53-1.94L12.44 4l1.06-3 1.06 3zm3.5 6.91-1.64 1.25.59 1.98-1.7-1.17-1.7 1.17.59-1.98L15.75 11l2.06-.05L18.5 9l.69 1.95zm-2.28 4.95c.83-.08 1.72 1.1 1.19 1.85-.32.45-.66.87-1.08 1.27C15.17 23 8.84 23 4.94 19.07c-3.91-3.9-3.91-10.24 0-14.14.4-.4.82-.76 1.27-1.08.75-.53 1.93.36 1.85 1.19-.27 2.86.69 5.83 2.89 8.02a9.96 9.96 0 0 0 8.02 2.89m-1.64 2.02a12.08 12.08 0 0 1-7.8-3.47c-2.17-2.19-3.33-5-3.49-7.82-2.81 3.14-2.7 7.96.31 10.98 3.02 3.01 7.84 3.12 10.98.31"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="slate" data-md-color-primary="indigo" data-md-color-accent="blue"  aria-label="ライトモードに切り替え"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="ライトモードに切り替え" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 7a5 5 0 0 1 5 5 5 5 0 0 1-5 5 5 5 0 0 1-5-5 5 5 0 0 1 5-5m0 2a3 3 0 0 0-3 3 3 3 0 0 0 3 3 3 3 0 0 0 3-3 3 3 0 0 0-3-3m0-7 2.39 3.42C13.65 5.15 12.84 5 12 5s-1.65.15-2.39.42zM3.34 7l4.16-.35A7.2 7.2 0 0 0 5.94 8.5c-.44.74-.69 1.5-.83 2.29zm.02 10 1.76-3.77a7.131 7.131 0 0 0 2.38 4.14zM20.65 7l-1.77 3.79a7.02 7.02 0 0 0-2.38-4.15zm-.01 10-4.14.36c.59-.51 1.12-1.14 1.54-1.86.42-.73.69-1.5.83-2.29zM12 22l-2.41-3.44c.74.27 1.55.44 2.41.44.82 0 1.63-.17 2.37-.44z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="検索" placeholder="検索" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="検索">
+        
+          <a href="javascript:void(0)" class="md-search__icon md-icon" title="共有" aria-label="共有" data-clipboard data-clipboard-text="" data-md-component="search-share" tabindex="-1">
+            
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M18 16.08c-.76 0-1.44.3-1.96.77L8.91 12.7c.05-.23.09-.46.09-.7s-.04-.47-.09-.7l7.05-4.11c.54.5 1.25.81 2.04.81a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3c0 .24.04.47.09.7L8.04 9.81C7.5 9.31 6.79 9 6 9a3 3 0 0 0-3 3 3 3 0 0 0 3 3c.79 0 1.5-.31 2.04-.81l7.12 4.15c-.05.21-.08.43-.08.66 0 1.61 1.31 2.91 2.92 2.91s2.92-1.3 2.92-2.91A2.92 2.92 0 0 0 18 16.08"/></svg>
+          </a>
+        
+        <button type="reset" class="md-search__icon md-icon" title="クリア" aria-label="クリア" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            検索を初期化
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+  </nav>
+  
+    
+      
+<nav class="md-tabs" aria-label="タブ" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../.." class="md-tabs__link">
+        
+  
+  
+    
+  
+  ホーム
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../" class="md-tabs__link">
+          
+  
+  
+    
+  
+  カテゴリ
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../articles/" class="md-tabs__link">
+          
+  
+  
+    
+  
+  記事
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../about/" class="md-tabs__link">
+          
+  
+  
+    
+  
+  ガイド
+
+        </a>
+      </li>
+    
+  
+
+      
+    </ul>
+  </div>
+</nav>
+    
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="ナビゲーション" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="z/OS 技術ナレッジベース" class="md-nav__button md-logo" aria-label="z/OS 技術ナレッジベース" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    z/OS 技術ナレッジベース
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    ホーム
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    カテゴリ
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    カテゴリ
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../articles/" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    記事
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    記事
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    ガイド
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    ガイド
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../about/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    このサイトについて
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../faq/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    FAQ
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../search/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    検索
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+  
+
+<nav class="md-nav md-nav--secondary" aria-label="このページの目次">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      このページの目次
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        収録項目
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="収録項目">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#mq-explorer" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        MQ Explorer
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#mqsc-pcf" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        MQSC / PCF / 管理
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#zos-csq9022i" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        z/OS運用 &gt; CSQ9022I
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#mqi-jms" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        アプリ開発 (MQI / JMS)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        インストール
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#deadq" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        キューマネージャー属性 &gt; DEADQ
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#define-qalias" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        キュー定義 &gt; DEFINE QALIAS
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#define-qlocal" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        キュー定義 &gt; DEFINE QLOCAL
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#define-qmodel" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        キュー定義 &gt; DEFINE QMODEL
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#define-qremote" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        キュー定義 &gt; DEFINE QREMOTE
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#boqname" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        キュー属性 &gt; BOQNAME
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#bothresh" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        キュー属性 &gt; BOTHRESH
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#curdepth" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        キュー属性 &gt; CURDEPTH
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#defpsist" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        キュー属性 &gt; DEFPSIST
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#maxdepth" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        キュー属性 &gt; MAXDEPTH
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#clusrcvr" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        クラスター &gt; CLUSRCVR
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#clussdr" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        クラスター &gt; CLUSSDR
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#repos" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        クラスター &gt; REPOS
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#chlauth-tls" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        セキュリティ (CHLAUTH / TLS)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#chlauth" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        セキュリティー &gt; CHLAUTH
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#setmqaut" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        セキュリティー &gt; setmqaut
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#define-channel" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        チャネル定義 &gt; DEFINE CHANNEL
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#batchsz" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        チャネル属性 &gt; BATCHSZ
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#chltype" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        チャネル属性 &gt; CHLTYPE
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#conname" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        チャネル属性 &gt; CONNAME
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#mcauser" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        チャネル属性 &gt; MCAUSER
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#xmitq" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        チャネル属性 &gt; XMITQ
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        トラブルシューティング
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#initq" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        トリガー &gt; INITQ
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#process" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        トリガー &gt; PROCESS
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#trigger" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        トリガー &gt; TRIGGER
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#trigint" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        トリガー &gt; TRIGINT
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#trigtype" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        トリガー &gt; TRIGTYPE
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        全般リファレンス
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_5" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        概要 / アーキテクチャ
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#qm-queue-channel" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        構成 (QM / Queue / Channel)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#mqrc_not_authorized" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        理由コード &gt; MQRC_NOT_AUTHORIZED
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#mqrc_q_full" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        理由コード &gt; MQRC_Q_FULL
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_6" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        監視 / メトリクス
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_7" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        管理リファレンス
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_8" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        計画 (キャパシティ / 可用性)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#alter-qmgr" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        運用コマンド &gt; ALTER QMGR
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#display-chstatus" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        運用コマンド &gt; DISPLAY CHSTATUS
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#display-qstatus" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        運用コマンド &gt; DISPLAY QSTATUS
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#runmqsc" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        運用コマンド &gt; runmqsc
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_9" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        開発リファレンス
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_10" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        その他
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+                
+
+
+
+  
+
+
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<h1 id="ibm-mq">IBM MQ メッセージング<a class="headerlink" href="#ibm-mq" title="Permanent link">&para;</a></h1>
+<div class="kb-cov">
+<p><strong>技術項目 1,014 件</strong>  ／  QA対応 996（98.22%・不足 18）  ／  手順対応 33（3.25%・不足 981）</p>
+</div>
+<p>このカテゴリでは技術項目 1,014 件を掲載し、確認問題 1,146 問・検証手順 33 件を項目ごとに紐づけています。対応率は技術項目に明示的に対応付けられた件数で算出しています（増補継続中）。</p>
+<blockquote>
+<p>最終更新: 2026-07-16</p>
+</blockquote>
+<h2 id="_1">収録項目<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h2>
+<h3 id="mq-explorer">MQ Explorer<a class="headerlink" href="#mq-explorer" title="Permanent link">&para;</a></h3>
+<ul>
+<li><a href="part-01/#c12-i0001">API Reference</a></li>
+<li><a href="part-01/#c12-i0002">Adding an initial context</a></li>
+<li><a href="part-01/#c12-i0003">Administering MQ Telemetry using IBM MQ Explorer</a></li>
+<li><a href="part-01/#c12-i0004">Administering remote queue managers</a></li>
+<li><a href="part-01/#c12-i0005">Applying plug-ins to IBM MQ Explorer</a></li>
+<li><a href="part-01/#c12-i0006">Byte array dialog</a></li>
+<li><a href="part-01/#c12-i0007">Changing the colors</a></li>
+<li><a href="part-01/#c12-i0008">Changing the refresh frequency of queue manager information</a></li>
+<li><a href="part-01/#c12-i0009">Changing the transport type used for connections</a></li>
+<li><a href="part-01/#c12-i0010">Collecting IBM MQ Explorer trace</a></li>
+<li><a href="part-01/#c12-i0011">Collecting IBM MQ Explorer trace in other Eclipse environments</a></li>
+<li><a href="part-01/#c12-i0012">Collecting Javacore from IBM MQ Explorer</a></li>
+<li><a href="part-01/#c12-i0013">Configuring IBM MQ Explorer</a></li>
+<li><a href="part-01/#c12-i0014">Configuring IBM MQ using IBM MQ Explorer</a></li>
+<li><a href="part-01/#c12-i0015">Configuring MQ Telemetry using IBM MQ Explorer</a></li>
+<li><a href="part-01/#c12-i0016">Configuring publish/subscribe for IBM MQ queue managers</a></li>
+<li><a href="part-01/#c12-i0017">Configuring publish/subscribe messaging</a></li>
+<li><a href="part-01/#c12-i0018">Connecting and disconnecting an initial context</a></li>
+<li><a href="part-01/#c12-i0019">Connecting or disconnecting a queue manager</a></li>
+<li><a href="part-01/#c12-i0020">Copying an administered object</a></li>
+<li><a href="part-01/#c12-i0021">Creating a JMS object and an IBM MQ object simultaneously</a></li>
+<li><a href="part-01/#c12-i0022">Creating a JMS object from an IBM MQ object</a></li>
+<li><a href="part-01/#c12-i0023">Creating a connection factory</a></li>
+<li><a href="part-01/#c12-i0024">Creating a destination</a></li>
+<li><a href="part-01/#c12-i0025">Creating a subcontext</a></li>
+<li><a href="part-01/#c12-i0026">Creating and configuring JMS administered objects</a></li>
+<li><a href="part-01/#c12-i0027">Creating and configuring a queue manager cluster</a></li>
+<li><a href="part-01/#c12-i0028">Creating and configuring a queue manager set</a></li>
+<li><a href="part-01/#c12-i0029">Creating and configuring a service definition</a></li>
+<li><a href="part-01/#c12-i0030">Creating and configuring queue managers and objects</a></li>
+<li><a href="part-01/#c12-i0031">Define schemes to change the order of columns in tables</a></li>
+<li><a href="part-01/#c12-i0032">Deleting a subcontext</a></li>
+<li><a href="part-01/#c12-i0033">Deleting an administered object</a></li>
+<li><a href="part-01/#c12-i0034">Displaying context-sensitive help (pop-up window help)</a></li>
+<li><a href="part-01/#c12-i0035">Displaying object authority settings as text</a></li>
+<li><a href="part-01/#c12-i0036">Distinguished names in AMS</a></li>
+<li><a href="part-01/#c12-i0037">Enabling installed plug-ins</a></li>
+<li><a href="part-01/#c12-i0038">Exporting and importing IBM MQ Explorer settings</a></li>
+<li><a href="part-01/#c12-i0039">Extending IBM MQ Explorer</a></li>
+<li><a href="part-01/#c12-i0040">Filtering the objects displayed in tables</a></li>
+<li><a href="part-01/#c12-i0041">IBM MQ Explorer</a></li>
+<li><a href="part-01/#c12-i0042">IBM MQ Explorer installation requirements</a></li>
+<li><a href="part-01/#c12-i0043">IBM MQ Tutorials</a></li>
+<li><a href="part-01/#c12-i0044">Icons in IBM MQ Explorer</a></li>
+<li><a href="part-01/#c12-i0045">Identifying durable subscriptions to the SYSTEM.FTE topic</a></li>
+<li><a href="part-01/#c12-i0046">Importing the sample Eclipse plug-ins</a></li>
+<li><a href="part-01/#c12-i0047">Including SYSTEM objects when you run tests</a></li>
+<li><a href="part-01/#c12-i0048">Including hidden queue managers in test configurations</a></li>
+<li><a href="part-01/#c12-i0049">Installing IBM MQ Explorer into Eclipse environments</a></li>
+<li><a href="part-01/#c12-i0050">JMS connection factories</a></li>
+<li><a href="part-01/#c12-i0051">JMS contexts</a></li>
+<li><a href="part-01/#c12-i0052">JMS destinations (queues and topics)</a></li>
+<li><a href="part-01/#c12-i0053">Launching IBM MQ Explorer</a></li>
+<li><a href="part-01/#c12-i0054">MQ Telemetry objects</a></li>
+<li><a href="part-01/#c12-i0055">MQ Telemetry reference</a></li>
+<li><a href="part-01/#c12-i0056">MQTT client utility</a></li>
+<li><a href="part-01/#c12-i0057">Maintaining intercommunications along message channels</a></li>
+<li><a href="part-01/#c12-i0058">Managing multi-instance queue managers</a></li>
+<li><a href="part-01/#c12-i0059">Managing security and authorities</a></li>
+<li><a href="part-01/#c12-i0060">Message encryption in AMS</a></li>
+<li><a href="part-01/#c12-i0061">Message signing in AMS</a></li>
+<li><a href="part-01/#c12-i0062">Messaging providers for IBM MQ classes for JMS</a></li>
+<li><a href="part-01/#c12-i0063">Preferences for IBM MQ Explorer</a></li>
+<li><a href="part-01/#c12-i0064">Programming interface information</a></li>
+<li><a href="part-01/#c12-i0065">Properties</a></li>
+<li><a href="part-01/#c12-i0066">Reference</a></li>
+<li><a href="part-01/#c12-i0067">Removing an initial context</a></li>
+<li><a href="part-01/#c12-i0068">Renaming a context</a></li>
+<li><a href="part-01/#c12-i0069">Renaming an administered object</a></li>
+<li><a href="part-01/#c12-i0070">Sending test messages</a></li>
+<li><a href="part-01/#c12-i0071">Showing or hiding a queue manager</a></li>
+<li><a href="part-01/#c12-i0072">Specifying the default values used to connect to remote queue managers</a></li>
+<li><a href="part-01/#c12-i0073">Starting and stopping objects and services</a></li>
+<li><a href="part-01/#c12-i0074">Status attributes</a></li>
+<li><a href="part-01/#c12-i0075">Strings in property dialogs</a></li>
+<li><a href="part-01/#c12-i0076">Testing your object definitions for problems</a></li>
+<li><a href="part-01/#c12-i0077">Troubleshooting MQ Telemetry using IBM MQ Explorer</a></li>
+<li><a href="part-01/#c12-i0078">Troubleshooting problems with IBM MQ Explorer</a></li>
+<li><a href="part-01/#c12-i0079">Tutorial 1: Sending a message to a local queue</a></li>
+<li><a href="part-01/#c12-i0080">Tutorial 2: Sending a message to a remote queue</a></li>
+<li><a href="part-01/#c12-i0081">Tutorial 3: Sending a message on a client-server configuration</a></li>
+<li><a href="part-01/#c12-i0082">Using Advanced Message Security</a></li>
+<li><a href="part-01/#c12-i0083">Using IBM MQ trace</a></li>
+<li><a href="part-01/#c12-i0084">Using MQ Telemetry</a></li>
+<li><a href="part-01/#c12-i0085">Viewing and closing connections to applications</a></li>
+<li><a href="part-01/#c12-i0086">Viewing the status of objects</a></li>
+<li><a href="part-01/#c12-i0087">Views in IBM MQ Explorer</a></li>
+<li><a href="part-01/#c12-i0088">What's new and what's changed in IBM MQ Explorer</a></li>
+<li><a href="part-01/#c12-i0089">Writing an Eclipse plug-in for IBM MQ Explorer</a></li>
+</ul>
+<h3 id="mqsc-pcf">MQSC / PCF / 管理<a class="headerlink" href="#mqsc-pcf" title="Permanent link">&para;</a></h3>
+<ul>
+<li><a href="part-01/#c12-i0090">AMQP client identification, authorization, and authentication</a></li>
+<li><a href="part-01/#c12-i0091">Administering</a></li>
+<li><a href="part-01/#c12-i0092">Administering IBM MQ Internet Pass-Thru</a></li>
+<li><a href="part-01/#c12-i0093">Administering IBM MQ for IBM i</a></li>
+<li><a href="part-01/#c12-i0094">Administering IBM MQ for Multiplatforms using control commands</a></li>
+<li><a href="part-01/#c12-i0095">Administering IBM MQ for z/OS</a></li>
+<li><a href="part-01/#c12-i0096">Administering IBM MQ using MQSC commands</a></li>
+<li><a href="part-01/#c12-i0097">Administering MQ Telemetry</a></li>
+<li><a href="part-01/#c12-i0098">Administering MQIPT by using the command line</a></li>
+<li><a href="part-01/#c12-i0099">Administering Managed File Transfer</a></li>
+<li><a href="part-01/#c12-i0100">Administering an AMQP client</a></li>
+<li><a href="part-01/#c12-i0101">Administering multicast</a></li>
+<li><a href="part-01/#c12-i0102">Administration using the IBM MQ Console</a></li>
+<li><a href="part-01/#c12-i0103">Administration using the IBM MQ Explorer</a></li>
+<li><a href="part-01/#c12-i0104">Administration using the REST API</a></li>
+<li><a href="part-01/#c12-i0105">Advanced multicast tasks</a></li>
+<li><a href="part-01/#c12-i0106">Alternative ways of administering IBM MQ for IBM i</a></li>
+<li><a href="part-01/#c12-i0107">Automatic configuration from an MQSC script at startup</a></li>
+<li><a href="part-01/#c12-i0108">Automating IBM MQ administration using PCF commands</a></li>
+<li><a href="part-01/#c12-i0109">Availability, backup, recovery, and restart on IBM i</a></li>
+<li><a href="part-01/#c12-i0110">Configuring AMQP clients with TLS</a></li>
+<li><a href="part-01/#c12-i0111">Configuring a queue manager for telemetry on Linux and AIX</a></li>
+<li><a href="part-01/#c12-i0112">Configuring a queue manager for telemetry on Windows</a></li>
+<li><a href="part-01/#c12-i0113">Configuring distributed queuing to send messages to MQTT clients</a></li>
+<li><a href="part-01/#c12-i0114">Configuring queue managers for remote administration</a></li>
+<li><a href="part-01/#c12-i0115">Controlling the size of multicast messages</a></li>
+<li><a href="part-01/#c12-i0116">Creating a scheduled file transfer</a></li>
+<li><a href="part-01/#c12-i0117">Data conversion between coded character sets</a></li>
+<li><a href="part-01/#c12-i0118">Disconnecting AMQP clients from the queue manager</a></li>
+<li><a href="part-01/#c12-i0119">Enabling data conversion for Multicast messaging</a></li>
+<li><a href="part-01/#c12-i0120">Getting started with multicast</a></li>
+<li><a href="part-01/#c12-i0121">Getting started with the IBM MQ Console</a></li>
+<li><a href="part-01/#c12-i0122">Getting started with the administrative REST API</a></li>
+<li><a href="part-01/#c12-i0123">IBM MQ Console settings</a></li>
+<li><a href="part-01/#c12-i0124">IBM MQ Multicast topic topology</a></li>
+<li><a href="part-01/#c12-i0125">IBM MQ and IMS</a></li>
+<li><a href="part-01/#c12-i0126">Implementing the system using multiple cluster transmission queues</a></li>
+<li><a href="part-01/#c12-i0127">Introduction to IBM MQ Programmable Command Formats</a></li>
+<li><a href="part-01/#c12-i0128">Issuing MQSC commands on a remote queue manager</a></li>
+<li><a href="part-01/#c12-i0129">Issuing queue manager commands on z/OS</a></li>
+<li><a href="part-01/#c12-i0130">Listing MFT agents</a></li>
+<li><a href="part-01/#c12-i0131">MFT recovery and restart</a></li>
+<li><a href="part-01/#c12-i0132">MQSC command syntax</a></li>
+<li><a href="part-01/#c12-i0133">MQSC input file syntax</a></li>
+<li><a href="part-01/#c12-i0134">MQTT client identification, authorization, and authentication</a></li>
+<li><a href="part-01/#c12-i0135">Making backups</a></li>
+<li><a href="part-01/#c12-i0136">Managing IBM MQ for IBM i using CL commands</a></li>
+<li><a href="part-01/#c12-i0137">Managing IBM MQ resources on z/OS</a></li>
+<li><a href="part-01/#c12-i0138">Managing objects for triggering</a></li>
+<li><a href="part-01/#c12-i0139">Managing the command server for remote administration</a></li>
+<li><a href="part-01/#c12-i0140">Monitoring MFT resources</a></li>
+<li><a href="part-01/#c12-i0141">Monitoring file transfers that are in progress</a></li>
+<li><a href="part-01/#c12-i0142">Multicast application monitoring</a></li>
+<li><a href="part-01/#c12-i0143">Multicast message reliability</a></li>
+<li><a href="part-01/#c12-i0144">Operating Advanced Message Security on z/OS</a></li>
+<li><a href="part-01/#c12-i0145">Performance tuning</a></li>
+<li><a href="part-01/#c12-i0146">Programming interface information</a></li>
+<li><a href="part-01/#c12-i0147">Publication privacy on channels</a></li>
+<li><a href="part-01/#c12-i0148">Publication privacy on telemetry channels</a></li>
+<li><a href="part-01/#c12-i0149">Quick tour of the IBM MQ Console - CD only</a></li>
+<li><a href="part-01/#c12-i0150">Quick tour of the IBM MQ Console - LTS only</a></li>
+<li><a href="part-01/#c12-i0151">Quiescing IBM MQ for IBM i</a></li>
+<li><a href="part-01/#c12-i0152">REST API discovery</a></li>
+<li><a href="part-01/#c12-i0153">REST API error handling</a></li>
+<li><a href="part-01/#c12-i0154">REST API national language support</a></li>
+<li><a href="part-01/#c12-i0155">REST API time stamps</a></li>
+<li><a href="part-01/#c12-i0156">REST API versions</a></li>
+<li><a href="part-01/#c12-i0157">Recovery and restart on z/OS</a></li>
+<li><a href="part-01/#c12-i0158">Remote administration using the REST API</a></li>
+<li><a href="part-01/#c12-i0159">Running MQSC commands from text files under runmqsc</a></li>
+<li><a href="part-01/#c12-i0160">Running MQSC commands interactively under runmqsc</a></li>
+<li><a href="part-01/#c12-i0161">Setting a timeout for recovery of stalled transfers</a></li>
+<li><a href="part-01/#c12-i0162">Setting up the IBM MQ Explorer</a></li>
+<li><a href="part-01/#c12-i0163">Starting a new file transfer</a></li>
+<li><a href="part-01/#c12-i0164">Starting an MFT agent</a></li>
+<li><a href="part-01/#c12-i0165">Starting and stopping MQIPT</a></li>
+<li><a href="part-01/#c12-i0166">Stopping MQI channels</a></li>
+<li><a href="part-01/#c12-i0167">Stopping an MFT agent</a></li>
+<li><a href="part-01/#c12-i0168">TLS configuration of MQTT Java clients and telemetry channels</a></li>
+<li><a href="part-01/#c12-i0169">Telemetry channel JAAS configuration</a></li>
+<li><a href="part-01/#c12-i0170">Telemetry channel authentication using TLS</a></li>
+<li><a href="part-01/#c12-i0171">The Connect:Direct bridge</a></li>
+<li><a href="part-01/#c12-i0172">The IBM MQ alert monitor application ( Windows only)</a></li>
+<li><a href="part-01/#c12-i0173">The protocol bridge</a></li>
+<li><a href="part-01/#c12-i0174">Transferring data from files to messages</a></li>
+<li><a href="part-01/#c12-i0175">Transferring data from messages to files</a></li>
+<li><a href="part-01/#c12-i0176">Triggering a file transfer</a></li>
+<li><a href="part-01/#c12-i0177">Using the Command Facility on z/OS</a></li>
+<li><a href="part-01/#c12-i0178">Using the IBM MQ Taskbar application (Windows only)</a></li>
+<li><a href="part-01/#c12-i0179">Using the IBM MQ for z/OS utilities</a></li>
+<li><a href="part-01/#c12-i0180">Using the MQAI to simplify the use of PCFs</a></li>
+<li><a href="part-01/#c12-i0181">Using the dmpmqmsg utility between two systems</a></li>
+<li><a href="part-01/#c12-i0182">Using the operations and control panels on z/OS</a></li>
+<li><a href="part-01/#c12-i0183">Viewing IBM MQ objects in use by AMQP clients</a></li>
+<li><a href="part-01/#c12-i0184">Viewing the status of file transfers in the Transfer Log</a></li>
+<li><a href="part-01/#c12-i0185">Ways of administering IBM MQ queue managers and associated resources</a></li>
+<li><a href="part-01/#c12-i0186">What you can do with the IBM MQ Explorer</a></li>
+<li><a href="part-01/#c12-i0187">Work management for IBM i</a></li>
+<li><a href="part-01/#c12-i0188">Working with IBM MQ objects on z/OS</a></li>
+<li><a href="part-01/#c12-i0189">Working with MFT from IBM Integration Bus</a></li>
+<li><a href="part-01/#c12-i0190">Working with administrative topics</a></li>
+<li><a href="part-01/#c12-i0191">Working with alias queues</a></li>
+<li><a href="part-01/#c12-i0192">Working with dead-letter queues</a></li>
+<li><a href="part-01/#c12-i0193">Working with file transfer templates</a></li>
+<li><a href="part-01/#c12-i0194">Working with local IBM MQ objects</a></li>
+<li><a href="part-01/#c12-i0195">Working with local queues</a></li>
+<li><a href="part-01/#c12-i0196">Working with model queues</a></li>
+<li><a href="part-01/#c12-i0197">Working with pending file transfers</a></li>
+<li><a href="part-01/#c12-i0198">Working with queue managers</a></li>
+<li><a href="part-01/#c12-i0199">Working with remote IBM MQ objects</a></li>
+<li><a href="part-01/#c12-i0200">Working with remote queues</a></li>
+<li><a href="part-01/#c12-i0201">Working with services</a></li>
+<li><a href="part-01/#c12-i0202">Working with subscriptions</a></li>
+<li><a href="part-01/#c12-i0203">Writing programs to administer IBM MQ for z/OS</a></li>
+</ul>
+<h3 id="zos-csq9022i">z/OS運用 &gt; CSQ9022I<a class="headerlink" href="#zos-csq9022i" title="Permanent link">&para;</a></h3>
+<ul>
+<li><a href="part-01/#c12-i0204">CSQ9022I</a></li>
+</ul>
+<h3 id="mqi-jms">アプリ開発 (MQI / JMS)<a class="headerlink" href="#mqi-jms" title="Permanent link">&para;</a></h3>
+<ul>
+<li><a href="part-01/#c12-i0205">AMQP 1.0 support</a></li>
+<li><a href="part-01/#c12-i0206">Actions that your applications can perform</a></li>
+<li><a href="part-01/#c12-i0207">Application design and performance considerations</a></li>
+<li><a href="part-01/#c12-i0208">Application development concepts</a></li>
+<li><a href="part-01/#c12-i0209">Application programs using the MQI</a></li>
+<li><a href="part-01/#c12-i0210">Applications, application names, and application instances</a></li>
+<li><a href="part-01/#c12-i0211">Building IBM MQ C++ programs</a></li>
+<li><a href="part-01/#c12-i0212">Building a procedural application</a></li>
+<li><a href="part-01/#c12-i0213">C++ language considerations</a></li>
+<li><a href="part-01/#c12-i0214">C++ sample programs</a></li>
+<li><a href="part-01/#c12-i0215">Coding IBM MQ programs in RPG (IBM i only)</a></li>
+<li><a href="part-01/#c12-i0216">Coding in C</a></li>
+<li><a href="part-01/#c12-i0217">Coding in COBOL</a></li>
+<li><a href="part-01/#c12-i0218">Coding in PL/I (z/OS only)</a></li>
+<li><a href="part-01/#c12-i0219">Coding in System/390 assembler language (Message queue interface)</a></li>
+<li><a href="part-01/#c12-i0220">Configuring your queue manager to accept TCP/IP client connections</a></li>
+<li><a href="part-01/#c12-i0221">Controlling MFT by putting messages on the agent command queue</a></li>
+<li><a href="part-01/#c12-i0222">Customizing MFT with user exits</a></li>
+<li><a href="part-01/#c12-i0223">Design and performance considerations for IBM i applications</a></li>
+<li><a href="part-01/#c12-i0224">Design and performance considerations for z/OS applications</a></li>
+<li><a href="part-01/#c12-i0225">Design considerations for IBM MQ applications</a></li>
+<li><a href="part-01/#c12-i0226">Design considerations for Linux on Power Systems - Little Endian applications</a></li>
+<li><a href="part-01/#c12-i0227">Design techniques for advanced applications</a></li>
+<li><a href="part-01/#c12-i0228">Design techniques for messages</a></li>
+<li><a href="part-01/#c12-i0229">Developing .NET applications</a></li>
+<li><a href="part-01/#c12-i0230">Developing AMQP client applications</a></li>
+<li><a href="part-01/#c12-i0231">Developing C++ applications</a></li>
+<li><a href="part-01/#c12-i0232">Developing JMS/Jakarta Messaging and Java applications</a></li>
+<li><a href="part-01/#c12-i0233">Developing MQI applications with IBM MQ</a></li>
+<li><a href="part-01/#c12-i0234">Developing Microsoft Windows Communication Foundation applications with IBM MQ</a></li>
+<li><a href="part-01/#c12-i0235">Developing REST applications with IBM MQ</a></li>
+<li><a href="part-01/#c12-i0236">Developing XMS .NET applications</a></li>
+<li><a href="part-01/#c12-i0237">Developing applications</a></li>
+<li><a href="part-01/#c12-i0238">Developing applications for MQ Telemetry</a></li>
+<li><a href="part-01/#c12-i0239">Developing applications for Managed File Transfer</a></li>
+<li><a href="part-01/#c12-i0240">Developing flexible and scalable client applications</a></li>
+<li><a href="part-01/#c12-i0241">Distributed transactions in .NET</a></li>
+<li><a href="part-01/#c12-i0242">Handling procedural program errors</a></li>
+<li><a href="part-01/#c12-i0243">IBM MQ AMQP listener control properties</a></li>
+<li><a href="part-01/#c12-i0244">IBM MQ Telemetry Transport sample programs</a></li>
+<li><a href="part-01/#c12-i0245">IBM MQ data definition files</a></li>
+<li><a href="part-01/#c12-i0246">IBM MQ messages</a></li>
+<li><a href="part-01/#c12-i0247">IMS and IMS bridge applications on IBM MQ for z/OS</a></li>
+<li><a href="part-01/#c12-i0248">Installing IBM MQ classes for .NET</a></li>
+<li><a href="part-01/#c12-i0249">Installing IBM MQ classes for .NET Framework</a></li>
+<li><a href="part-01/#c12-i0250">Installing IBM MQ classes for XMS .NET</a></li>
+<li><a href="part-01/#c12-i0251">Introduction to the IBM MQ custom channel for WCF with .NET</a></li>
+<li><a href="part-01/#c12-i0252">Java application development using a Maven repository</a></li>
+<li><a href="part-01/#c12-i0253">MQ Light, Apache Qpid JMS, and AMQP (Advanced Message Queuing Protocol)</a></li>
+<li><a href="part-01/#c12-i0254">MQTT client programming concepts</a></li>
+<li><a href="part-01/#c12-i0255">MQTT service control properties</a></li>
+<li><a href="part-01/#c12-i0256">Mapping AMQP and IBM MQ message fields</a></li>
+<li><a href="part-01/#c12-i0257">Message delivery reliability</a></li>
+<li><a href="part-01/#c12-i0258">Messaging in C++</a></li>
+<li><a href="part-01/#c12-i0259">Messaging using the REST API</a></li>
+<li><a href="part-01/#c12-i0260">Multicast programming</a></li>
+<li><a href="part-01/#c12-i0261">Object-oriented applications</a></li>
+<li><a href="part-01/#c12-i0262">Options for connecting IBM MQ classes for .NET to a queue manager</a></li>
+<li><a href="part-01/#c12-i0263">Point-to-point support on AMQP channels</a></li>
+<li><a href="part-01/#c12-i0264">Preparing and running Microsoft Transaction Server applications</a></li>
+<li><a href="part-01/#c12-i0265">Preventing applications from using a newer XMS version</a></li>
+<li><a href="part-01/#c12-i0266">Programming interface information</a></li>
+<li><a href="part-01/#c12-i0267">Sample applications for .NET</a></li>
+<li><a href="part-01/#c12-i0268">Securing communications for XMS applications</a></li>
+<li><a href="part-01/#c12-i0269">Setting up IBM MQ on IBM i with Java and JMS</a></li>
+<li><a href="part-01/#c12-i0270">Setting up the messaging server environment</a></li>
+<li><a href="part-01/#c12-i0271">Specifying programs to run with MFT</a></li>
+<li><a href="part-01/#c12-i0272">Specifying the application name in supported programming languages</a></li>
+<li><a href="part-01/#c12-i0273">Styles of messaging supported by XMS</a></li>
+<li><a href="part-01/#c12-i0274">The XMS message model</a></li>
+<li><a href="part-01/#c12-i0275">The XMS object model</a></li>
+<li><a href="part-01/#c12-i0276">Topologies for AMQP clients with IBM MQ</a></li>
+<li><a href="part-01/#c12-i0277">User exits, API exits, and IBM MQ installable services</a></li>
+<li><a href="part-01/#c12-i0278">Using Apache Ant with MFT</a></li>
+<li><a href="part-01/#c12-i0279">Using IBM MQ and WebSphere Application Server together</a></li>
+<li><a href="part-01/#c12-i0280">Using IBM MQ classes for JMS/Jakarta Messaging</a></li>
+<li><a href="part-01/#c12-i0281">Using IBM MQ classes for Java</a></li>
+<li><a href="part-01/#c12-i0282">Using IBM MQ custom channels for WCF</a></li>
+<li><a href="part-01/#c12-i0283">Using client connections to connect to multiple IBM MQ queue managers</a></li>
+<li><a href="part-01/#c12-i0284">Using the IBM MQ Headers package</a></li>
+<li><a href="part-01/#c12-i0285">Using the IBM MQ resource adapters</a></li>
+<li><a href="part-01/#c12-i0286">Using the IBM MQ sample procedural programs</a></li>
+<li><a href="part-01/#c12-i0287">Using the WCF samples</a></li>
+<li><a href="part-01/#c12-i0288">Using the XMS sample applications</a></li>
+<li><a href="part-01/#c12-i0289">Working with XMS .NET administered objects</a></li>
+<li><a href="part-01/#c12-i0290">Writing XMS .NET applications</a></li>
+<li><a href="part-01/#c12-i0291">Writing XMS applications</a></li>
+<li><a href="part-01/#c12-i0292">Writing a procedural application for queuing</a></li>
+<li><a href="part-01/#c12-i0293">Writing and deploying IBM MQ .NET programs</a></li>
+<li><a href="part-01/#c12-i0294">Writing client procedural applications</a></li>
+<li><a href="part-01/#c12-i0295">XMS messages</a></li>
+</ul>
+<h3 id="_2">インストール<a class="headerlink" href="#_2" title="Permanent link">&para;</a></h3>
+<ul>
+<li><a href="part-01/#c12-i0296">Applying maintenance to IBM MQ</a></li>
+<li><a href="part-01/#c12-i0297">Characteristics of upgrades and fixes</a></li>
+<li><a href="part-01/#c12-i0298">IBM MQ installation overview</a></li>
+<li><a href="part-01/#c12-i0299">Installing IBM MQ Advanced for Multiplatforms</a></li>
+<li><a href="part-01/#c12-i0300">Installing IBM MQ for z/OS</a></li>
+<li><a href="part-01/#c12-i0301">Installing and migrating</a></li>
+<li><a href="part-01/#c12-i0302">Installing and uninstalling</a></li>
+<li><a href="part-01/#c12-i0303">Installing and uninstalling IBM MQ Explorer as a stand-alone application on Linux and Windows</a></li>
+<li><a href="part-01/#c12-i0304">Installing and uninstalling IBM MQ Internet Pass-Thru</a></li>
+<li><a href="part-01/#c12-i0305">Installing and uninstalling IBM MQ on AIX</a></li>
+<li><a href="part-01/#c12-i0306">Installing and uninstalling IBM MQ on IBM i</a></li>
+<li><a href="part-01/#c12-i0307">Installing and uninstalling IBM MQ on Linux</a></li>
+<li><a href="part-01/#c12-i0308">Installing and uninstalling IBM MQ on Windows</a></li>
+<li><a href="part-01/#c12-i0309">Installing the stand-alone IBM MQ Web Server</a></li>
+<li><a href="part-01/#c12-i0310">Maintaining and migrating</a></li>
+<li><a href="part-01/#c12-i0311">Migrating IBM MQ</a></li>
+<li><a href="part-01/#c12-i0312">Migrating IBM MQ Internet Pass-Thru</a></li>
+<li><a href="part-01/#c12-i0313">Migrating IBM MQ Managed File Transfer</a></li>
+<li><a href="part-01/#c12-i0314">Programming interface information</a></li>
+<li><a href="part-01/#c12-i0315">Upgrading IBM MQ</a></li>
+</ul>
+<h3 id="deadq">キューマネージャー属性 &gt; DEADQ<a class="headerlink" href="#deadq" title="Permanent link">&para;</a></h3>
+<ul>
+<li><a href="part-01/#c12-i0316">DEADQ</a></li>
+</ul>
+<h3 id="define-qalias">キュー定義 &gt; DEFINE QALIAS<a class="headerlink" href="#define-qalias" title="Permanent link">&para;</a></h3>
+<ul>
+<li><a href="part-01/#c12-i0317">DEFINE QALIAS</a></li>
+</ul>
+<h3 id="define-qlocal">キュー定義 &gt; DEFINE QLOCAL<a class="headerlink" href="#define-qlocal" title="Permanent link">&para;</a></h3>
+<ul>
+<li><a href="part-01/#c12-i0318">DEFINE QLOCAL</a></li>
+</ul>
+<h3 id="define-qmodel">キュー定義 &gt; DEFINE QMODEL<a class="headerlink" href="#define-qmodel" title="Permanent link">&para;</a></h3>
+<ul>
+<li><a href="part-01/#c12-i0319">DEFINE QMODEL</a></li>
+</ul>
+<h3 id="define-qremote">キュー定義 &gt; DEFINE QREMOTE<a class="headerlink" href="#define-qremote" title="Permanent link">&para;</a></h3>
+<ul>
+<li><a href="part-01/#c12-i0320">DEFINE QREMOTE</a></li>
+</ul>
+<h3 id="boqname">キュー属性 &gt; BOQNAME<a class="headerlink" href="#boqname" title="Permanent link">&para;</a></h3>
+<ul>
+<li><a href="part-01/#c12-i0321">BOQNAME</a></li>
+</ul>
+<h3 id="bothresh">キュー属性 &gt; BOTHRESH<a class="headerlink" href="#bothresh" title="Permanent link">&para;</a></h3>
+<ul>
+<li><a href="part-01/#c12-i0322">BOTHRESH</a></li>
+</ul>
+<h3 id="curdepth">キュー属性 &gt; CURDEPTH<a class="headerlink" href="#curdepth" title="Permanent link">&para;</a></h3>
+<ul>
+<li><a href="part-01/#c12-i0323">CURDEPTH</a></li>
+</ul>
+<h3 id="defpsist">キュー属性 &gt; DEFPSIST<a class="headerlink" href="#defpsist" title="Permanent link">&para;</a></h3>
+<ul>
+<li><a href="part-01/#c12-i0324">DEFPSIST</a></li>
+</ul>
+<h3 id="maxdepth">キュー属性 &gt; MAXDEPTH<a class="headerlink" href="#maxdepth" title="Permanent link">&para;</a></h3>
+<ul>
+<li><a href="part-01/#c12-i0325">MAXDEPTH</a></li>
+</ul>
+<h3 id="clusrcvr">クラスター &gt; CLUSRCVR<a class="headerlink" href="#clusrcvr" title="Permanent link">&para;</a></h3>
+<ul>
+<li><a href="part-01/#c12-i0326">CLUSRCVR</a></li>
+</ul>
+<h3 id="clussdr">クラスター &gt; CLUSSDR<a class="headerlink" href="#clussdr" title="Permanent link">&para;</a></h3>
+<ul>
+<li><a href="part-01/#c12-i0327">CLUSSDR</a></li>
+</ul>
+<h3 id="repos">クラスター &gt; REPOS<a class="headerlink" href="#repos" title="Permanent link">&para;</a></h3>
+<ul>
+<li><a href="part-01/#c12-i0328">REPOS</a></li>
+</ul>
+<h3 id="chlauth-tls">セキュリティ (CHLAUTH / TLS)<a class="headerlink" href="#chlauth-tls" title="Permanent link">&para;</a></h3>
+<ul>
+<li><a href="part-01/#c12-i0329">Administering Advanced Message Security security policies</a></li>
+<li><a href="part-01/#c12-i0330">Advanced Message Security</a></li>
+<li><a href="part-01/#c12-i0331">Advanced Message Security installation overview</a></li>
+<li><a href="part-01/#c12-i0332">Auditing</a></li>
+<li><a href="part-01/#c12-i0333">Auditing for AMS on z/OS</a></li>
+<li><a href="part-01/#c12-i0334">Authority to administer IBM MQ on AIX, Linux, and Windows</a></li>
+<li><a href="part-01/#c12-i0335">Authority to work with IBM MQ objects on AIX, Linux, and Windows</a></li>
+<li><a href="part-01/#c12-i0336">Authorization</a></li>
+<li><a href="part-01/#c12-i0337">Authorizing access to objects</a></li>
+<li><a href="part-01/#c12-i0338">Authorizing putting messages on remote cluster queues</a></li>
+<li><a href="part-01/#c12-i0339">Backwards migration considerations when using z/OS data set encryption</a></li>
+<li><a href="part-01/#c12-i0340">Changing the certificate provided by the IBM MQ Console to your browser</a></li>
+<li><a href="part-01/#c12-i0341">Confidentiality</a></li>
+<li><a href="part-01/#c12-i0342">Confidentiality for data at rest on IBM MQ for z/OS with data set encryption</a></li>
+<li><a href="part-01/#c12-i0343">Confidentiality of messages</a></li>
+<li><a href="part-01/#c12-i0344">Configuring CORS for the REST API</a></li>
+<li><a href="part-01/#c12-i0345">Configuring JAAS for AMQP channels</a></li>
+<li><a href="part-01/#c12-i0346">Configuring SSL or TLS between the Connect:Direct bridge agent and the Connect:Direct node</a></li>
+<li><a href="part-01/#c12-i0347">Configuring SSL or TLS encryption for MFT</a></li>
+<li><a href="part-01/#c12-i0348">Configuring TLS channels with MQSC</a></li>
+<li><a href="part-01/#c12-i0349">Configuring host header validation for the IBM MQ Console and REST API</a></li>
+<li><a href="part-01/#c12-i0350">Configuring users and roles</a></li>
+<li><a href="part-01/#c12-i0351">Connecting to a queue manager in client mode with channel authentication</a></li>
+<li><a href="part-01/#c12-i0352">Considerations for z/OS data set encryption in a queue sharing group</a></li>
+<li><a href="part-01/#c12-i0353">Controlling access to objects by using the OAM on AIX, Linux, and Windows</a></li>
+<li><a href="part-01/#c12-i0354">Cryptographic concepts</a></li>
+<li><a href="part-01/#c12-i0355">Cryptographic security protocols: TLS</a></li>
+<li><a href="part-01/#c12-i0356">Data integrity</a></li>
+<li><a href="part-01/#c12-i0357">Data integrity of messages</a></li>
+<li><a href="part-01/#c12-i0358">Determining which user is used for authorization</a></li>
+<li><a href="part-01/#c12-i0359">Displaying authorizations</a></li>
+<li><a href="part-01/#c12-i0360">Embedding the IBM MQ Console in an IFrame</a></li>
+<li><a href="part-01/#c12-i0361">Enabling CipherSpecs</a></li>
+<li><a href="part-01/#c12-i0362">Encrypting stored credentials in MFT</a></li>
+<li><a href="part-01/#c12-i0363">Example of how to encrypt queue manager active logs</a></li>
+<li><a href="part-01/#c12-i0364">Example publish/subscribe security setup</a></li>
+<li><a href="part-01/#c12-i0365">Firewalls and Internet pass-thru</a></li>
+<li><a href="part-01/#c12-i0366">Forcing unwanted queue managers to leave a cluster</a></li>
+<li><a href="part-01/#c12-i0367">Granting required access to resources</a></li>
+<li><a href="part-01/#c12-i0368">IBM MQ Console and REST API security</a></li>
+<li><a href="part-01/#c12-i0369">IBM MQ for z/OS security implementation checklist</a></li>
+<li><a href="part-01/#c12-i0370">IBM MQ security mechanisms</a></li>
+<li><a href="part-01/#c12-i0371">Identification and authentication</a></li>
+<li><a href="part-01/#c12-i0372">Identifying and authenticating users</a></li>
+<li><a href="part-01/#c12-i0373">Identifying and authenticating users using the MQCSP structure</a></li>
+<li><a href="part-01/#c12-i0374">Identity mapping in message exits</a></li>
+<li><a href="part-01/#c12-i0375">Identity mapping in the API exit and API-crossing exit</a></li>
+<li><a href="part-01/#c12-i0376">Implementing access control in message exits</a></li>
+<li><a href="part-01/#c12-i0377">Implementing access control in security exits</a></li>
+<li><a href="part-01/#c12-i0378">Implementing access control in the API exit and API-crossing exit</a></li>
+<li><a href="part-01/#c12-i0379">Implementing confidentiality in user exit programs</a></li>
+<li><a href="part-01/#c12-i0380">Implementing identification and authentication in security exits</a></li>
+<li><a href="part-02/#c12-i0381">Keeping clusters secure</a></li>
+<li><a href="part-02/#c12-i0382">LDAP administration</a></li>
+<li><a href="part-02/#c12-i0383">LDAP authorization</a></li>
+<li><a href="part-02/#c12-i0384">MFT and IBM MQ connection authentication</a></li>
+<li><a href="part-02/#c12-i0385">MFT sandboxes</a></li>
+<li><a href="part-02/#c12-i0386">Managing keys and certificates on AIX, Linux, and Windows</a></li>
+<li><a href="part-02/#c12-i0387">Non-repudiation</a></li>
+<li><a href="part-02/#c12-i0388">Other considerations when using LDAP authorization</a></li>
+<li><a href="part-02/#c12-i0389">Overview of Advanced Message Security</a></li>
+<li><a href="part-02/#c12-i0390">Overview of steps to encrypt an IBM MQ for z/OS data set</a></li>
+<li><a href="part-02/#c12-i0391">Password phrase support across IBM MQ for z/OS interfaces</a></li>
+<li><a href="part-02/#c12-i0392">Planning auditing</a></li>
+<li><a href="part-02/#c12-i0393">Planning authorization</a></li>
+<li><a href="part-02/#c12-i0394">Planning confidentiality</a></li>
+<li><a href="part-02/#c12-i0395">Planning data integrity</a></li>
+<li><a href="part-02/#c12-i0396">Planning for your security requirements</a></li>
+<li><a href="part-02/#c12-i0397">Planning identification and authentication</a></li>
+<li><a href="part-02/#c12-i0398">Planning security by topology</a></li>
+<li><a href="part-02/#c12-i0399">Preventing queue managers joining a cluster</a></li>
+<li><a href="part-02/#c12-i0400">Preventing queue managers receiving messages</a></li>
+<li><a href="part-02/#c12-i0401">Privileged users</a></li>
+<li><a href="part-02/#c12-i0402">Programming interface information</a></li>
+<li><a href="part-02/#c12-i0403">Protecting passwords in IBM MQ component configuration files</a></li>
+<li><a href="part-02/#c12-i0404">Protection of database authentication details</a></li>
+<li><a href="part-02/#c12-i0405">Publish/subscribe security</a></li>
+<li><a href="part-02/#c12-i0406">Publish/subscribe security between queue managers</a></li>
+<li><a href="part-02/#c12-i0407">Resetting SSL and TLS secret keys</a></li>
+<li><a href="part-02/#c12-i0408">Restricting AMQP client takeover</a></li>
+<li><a href="part-02/#c12-i0409">SSL/TLS and clusters</a></li>
+<li><a href="part-02/#c12-i0410">Securing AMQP clients</a></li>
+<li><a href="part-02/#c12-i0411">Securing IBM MQ</a></li>
+<li><a href="part-02/#c12-i0412">Securing Managed File Transfer</a></li>
+<li><a href="part-02/#c12-i0413">Security considerations for the IBM MQ Console and REST API on z/OS</a></li>
+<li><a href="part-02/#c12-i0414">Security overview</a></li>
+<li><a href="part-02/#c12-i0415">Setting authorizations</a></li>
+<li><a href="part-02/#c12-i0416">Setting up IBM MQ MQI client security</a></li>
+<li><a href="part-02/#c12-i0417">Setting up communications for SSL or TLS on AIX, Linux, and Windows</a></li>
+<li><a href="part-02/#c12-i0418">Setting up communications for SSL or TLS on IBM i</a></li>
+<li><a href="part-02/#c12-i0419">Setting up communications for SSL or TLS on z/OS</a></li>
+<li><a href="part-02/#c12-i0420">Setting up security</a></li>
+<li><a href="part-02/#c12-i0421">Setting up security on AIX, Linux, and Windows</a></li>
+<li><a href="part-02/#c12-i0422">Setting up security on IBM i</a></li>
+<li><a href="part-02/#c12-i0423">Setting up security on z/OS</a></li>
+<li><a href="part-02/#c12-i0424">Stopping unauthorized queue managers putting messages on your queues</a></li>
+<li><a href="part-02/#c12-i0425">Stopping unauthorized queue managers sending messages</a></li>
+<li><a href="part-02/#c12-i0426">Streaming queues security</a></li>
+<li><a href="part-02/#c12-i0427">Subscription security</a></li>
+<li><a href="part-02/#c12-i0428">Switching between OS and LDAP authorization models</a></li>
+<li><a href="part-02/#c12-i0429">The limits to protection through password encryption</a></li>
+<li><a href="part-02/#c12-i0430">Using HTTP basic authentication with the REST API</a></li>
+<li><a href="part-02/#c12-i0431">Using client certificate authentication with the REST API and IBM MQ Console</a></li>
+<li><a href="part-02/#c12-i0432">Using keystores and certificates with AMS</a></li>
+<li><a href="part-02/#c12-i0433">Using the Pluggable Authentication Method (PAM)</a></li>
+<li><a href="part-02/#c12-i0434">Using token-based authentication with the REST API</a></li>
+<li><a href="part-02/#c12-i0435">Working with SSL/TLS</a></li>
+<li><a href="part-02/#c12-i0436">Working with authentication tokens</a></li>
+<li><a href="part-02/#c12-i0437">Working with revoked certificates</a></li>
+<li><a href="part-02/#c12-i0438">runmqakm error codes on AIX, Linux, and Windows</a></li>
+<li><a href="part-02/#c12-i0439">runmqckm and runmqakm commands on AIX, Linux, and Windows</a></li>
+<li><a href="part-02/#c12-i0440">runmqckm and runmqakm options on AIX, Linux, and Windows</a></li>
+</ul>
+<h3 id="chlauth">セキュリティー &gt; CHLAUTH<a class="headerlink" href="#chlauth" title="Permanent link">&para;</a></h3>
+<ul>
+<li><a href="part-02/#c12-i0441">CHLAUTH</a></li>
+</ul>
+<h3 id="setmqaut">セキュリティー &gt; setmqaut<a class="headerlink" href="#setmqaut" title="Permanent link">&para;</a></h3>
+<ul>
+<li><a href="part-02/#c12-i0442">setmqaut</a></li>
+</ul>
+<h3 id="define-channel">チャネル定義 &gt; DEFINE CHANNEL<a class="headerlink" href="#define-channel" title="Permanent link">&para;</a></h3>
+<ul>
+<li><a href="part-02/#c12-i0443">DEFINE CHANNEL</a></li>
+</ul>
+<h3 id="batchsz">チャネル属性 &gt; BATCHSZ<a class="headerlink" href="#batchsz" title="Permanent link">&para;</a></h3>
+<ul>
+<li><a href="part-02/#c12-i0444">BATCHSZ</a></li>
+</ul>
+<h3 id="chltype">チャネル属性 &gt; CHLTYPE<a class="headerlink" href="#chltype" title="Permanent link">&para;</a></h3>
+<ul>
+<li><a href="part-02/#c12-i0445">CHLTYPE</a></li>
+</ul>
+<h3 id="conname">チャネル属性 &gt; CONNAME<a class="headerlink" href="#conname" title="Permanent link">&para;</a></h3>
+<ul>
+<li><a href="part-02/#c12-i0446">CONNAME</a></li>
+</ul>
+<h3 id="mcauser">チャネル属性 &gt; MCAUSER<a class="headerlink" href="#mcauser" title="Permanent link">&para;</a></h3>
+<ul>
+<li><a href="part-02/#c12-i0447">MCAUSER</a></li>
+</ul>
+<h3 id="xmitq">チャネル属性 &gt; XMITQ<a class="headerlink" href="#xmitq" title="Permanent link">&para;</a></h3>
+<ul>
+<li><a href="part-02/#c12-i0448">XMITQ</a></li>
+</ul>
+<h3 id="_3">トラブルシューティング<a class="headerlink" href="#_3" title="Permanent link">&para;</a></h3>
+<ul>
+<li><a href="part-02/#c12-i0449">Automatic media recovery failure</a></li>
+<li><a href="part-02/#c12-i0450">Collecting troubleshooting information</a></li>
+<li><a href="part-02/#c12-i0451">Collecting troubleshooting information on Multiplatforms</a></li>
+<li><a href="part-02/#c12-i0452">Collecting troubleshooting information on z/OS</a></li>
+<li><a href="part-02/#c12-i0453">Damaged queue manager object</a></li>
+<li><a href="part-02/#c12-i0454">Damaged single object</a></li>
+<li><a href="part-02/#c12-i0455">Detailed troubleshooting</a></li>
+<li><a href="part-02/#c12-i0456">Disk drive failures</a></li>
+<li><a href="part-02/#c12-i0457">Enabling dynamic tracing of LDAP client library code</a></li>
+<li><a href="part-02/#c12-i0458">Error logs in IBM MQ classes for JMS</a></li>
+<li><a href="part-02/#c12-i0459">Error logs on AIX, Linux, and Windows</a></li>
+<li><a href="part-02/#c12-i0460">Error logs on IBM i</a></li>
+<li><a href="part-02/#c12-i0461">Error logs on z/OS</a></li>
+<li><a href="part-02/#c12-i0462">Example recovery procedures on z/OS</a></li>
+<li><a href="part-02/#c12-i0463">FFDC configuration for XMS .NET applications</a></li>
+<li><a href="part-02/#c12-i0464">FFST: IBM MQ classes for JMS</a></li>
+<li><a href="part-02/#c12-i0465">FFST: IBM MQ for AIX or Linux</a></li>
+<li><a href="part-02/#c12-i0466">FFST: IBM MQ for IBM i</a></li>
+<li><a href="part-02/#c12-i0467">FFST: IBM MQ for Windows</a></li>
+<li><a href="part-02/#c12-i0468">FFST: WCF XMS First Failure Support Technology</a></li>
+<li><a href="part-02/#c12-i0469">First Failure Support Technology (FFST)</a></li>
+<li><a href="part-02/#c12-i0470">Making initial checks</a></li>
+<li><a href="part-02/#c12-i0471">Making initial checks on AIX</a></li>
+<li><a href="part-02/#c12-i0472">Making initial checks on IBM i</a></li>
+<li><a href="part-02/#c12-i0473">Making initial checks on Linux</a></li>
+<li><a href="part-02/#c12-i0474">Making initial checks on Windows</a></li>
+<li><a href="part-02/#c12-i0475">Making initial checks on z/OS</a></li>
+<li><a href="part-02/#c12-i0476">Programming interface information</a></li>
+<li><a href="part-02/#c12-i0477">Recovering after failure</a></li>
+<li><a href="part-02/#c12-i0478">Sending troubleshooting information to IBM</a></li>
+<li><a href="part-02/#c12-i0479">Suppressing channel error messages from error logs on Multiplatforms</a></li>
+<li><a href="part-02/#c12-i0480">Tracing</a></li>
+<li><a href="part-02/#c12-i0481">Tracing IBM MQ .NET applications</a></li>
+<li><a href="part-02/#c12-i0482">Tracing JMS/Jakarta Messaging and Java applications</a></li>
+<li><a href="part-02/#c12-i0483">Tracing Managed File Transfer for z/OS resources</a></li>
+<li><a href="part-02/#c12-i0484">Tracing Managed File Transfer resources on Multiplatforms</a></li>
+<li><a href="part-02/#c12-i0485">Tracing TLS: runmqakm, strmqikm, and runmqckm functions</a></li>
+<li><a href="part-02/#c12-i0486">Tracing XMS .NET applications</a></li>
+<li><a href="part-02/#c12-i0487">Tracing errors in IBM MQ Internet Pass-Thru</a></li>
+<li><a href="part-02/#c12-i0488">Tracing on AIX and Linux</a></li>
+<li><a href="part-02/#c12-i0489">Tracing on IBM i</a></li>
+<li><a href="part-02/#c12-i0490">Tracing on Windows</a></li>
+<li><a href="part-02/#c12-i0491">Tracing on z/OS</a></li>
+<li><a href="part-02/#c12-i0492">Tracing the Advanced Message Queuing Protocol (AMQP) Service</a></li>
+<li><a href="part-02/#c12-i0493">Tracing the IBM MQ Bridge to Salesforce</a></li>
+<li><a href="part-02/#c12-i0494">Tracing the IBM MQ Bridge to blockchain</a></li>
+<li><a href="part-02/#c12-i0495">Tracing the IBM MQ Console</a></li>
+<li><a href="part-02/#c12-i0496">Tracing the REST API</a></li>
+<li><a href="part-02/#c12-i0497">Tracing the WCF custom channel for IBM MQ</a></li>
+<li><a href="part-02/#c12-i0498">Troubleshooting AMQP problems</a></li>
+<li><a href="part-02/#c12-i0499">Troubleshooting AMS problems</a></li>
+<li><a href="part-02/#c12-i0500">Troubleshooting IBM MQ .NET problems</a></li>
+<li><a href="part-02/#c12-i0501">Troubleshooting IBM MQ Console and REST API problems</a></li>
+<li><a href="part-02/#c12-i0502">Troubleshooting IBM MQ Internet Pass-Thru problems</a></li>
+<li><a href="part-02/#c12-i0503">Troubleshooting IBM MQ MQI client application problems</a></li>
+<li><a href="part-02/#c12-i0504">Troubleshooting IBM MQ for z/OS problems</a></li>
+<li><a href="part-02/#c12-i0505">Troubleshooting Java and JMS problems</a></li>
+<li><a href="part-02/#c12-i0506">Troubleshooting MQ Telemetry problems</a></li>
+<li><a href="part-02/#c12-i0507">Troubleshooting Managed File Transfer problems</a></li>
+<li><a href="part-02/#c12-i0508">Troubleshooting RDQM configuration problems</a></li>
+<li><a href="part-02/#c12-i0509">Troubleshooting WCF custom channel for IBM MQ problems</a></li>
+<li><a href="part-02/#c12-i0510">Troubleshooting XMS .NET problems</a></li>
+<li><a href="part-02/#c12-i0511">Troubleshooting and support</a></li>
+<li><a href="part-02/#c12-i0512">Troubleshooting command problems</a></li>
+<li><a href="part-02/#c12-i0513">Troubleshooting distributed publish/subscribe problems</a></li>
+<li><a href="part-02/#c12-i0514">Troubleshooting distributed queue management problems</a></li>
+<li><a href="part-02/#c12-i0515">Troubleshooting message problems</a></li>
+<li><a href="part-02/#c12-i0516">Troubleshooting multicast problems</a></li>
+<li><a href="part-02/#c12-i0517">Troubleshooting queue manager cluster problems</a></li>
+<li><a href="part-02/#c12-i0518">Troubleshooting queue manager problems</a></li>
+<li><a href="part-02/#c12-i0519">Troubleshooting security problems</a></li>
+<li><a href="part-02/#c12-i0520">Using error logs</a></li>
+</ul>
+<h3 id="initq">トリガー &gt; INITQ<a class="headerlink" href="#initq" title="Permanent link">&para;</a></h3>
+<ul>
+<li><a href="part-02/#c12-i0521">INITQ</a></li>
+</ul>
+<h3 id="process">トリガー &gt; PROCESS<a class="headerlink" href="#process" title="Permanent link">&para;</a></h3>
+<ul>
+<li><a href="part-02/#c12-i0522">PROCESS</a></li>
+</ul>
+<h3 id="trigger">トリガー &gt; TRIGGER<a class="headerlink" href="#trigger" title="Permanent link">&para;</a></h3>
+<ul>
+<li><a href="part-02/#c12-i0523">TRIGGER</a></li>
+</ul>
+<h3 id="trigint">トリガー &gt; TRIGINT<a class="headerlink" href="#trigint" title="Permanent link">&para;</a></h3>
+<ul>
+<li><a href="part-02/#c12-i0524">TRIGINT</a></li>
+</ul>
+<h3 id="trigtype">トリガー &gt; TRIGTYPE<a class="headerlink" href="#trigtype" title="Permanent link">&para;</a></h3>
+<ul>
+<li><a href="part-02/#c12-i0525">TRIGTYPE</a></li>
+</ul>
+<h3 id="_4">全般リファレンス<a class="headerlink" href="#_4" title="Permanent link">&para;</a></h3>
+<ul>
+<li><a href="part-02/#c12-i0526">AMQ messages on Multiplatforms</a></li>
+<li><a href="part-02/#c12-i0527">API completion and reason codes</a></li>
+<li><a href="part-02/#c12-i0528">Administration reference PDF</a></li>
+<li><a href="part-02/#c12-i0529">AuthCallback MQXR class</a></li>
+<li><a href="part-02/#c12-i0530">Authority Record attributes</a></li>
+<li><a href="part-02/#c12-i0531">Certificate validation and trust policy design on AIX, Linux, and Windows systems</a></li>
+<li><a href="part-02/#c12-i0532">Configuration reference PDF</a></li>
+<li><a href="part-02/#c12-i0533">Cryptographic hardware</a></li>
+<li><a href="part-02/#c12-i0534">Developing applications reference PDF</a></li>
+<li><a href="part-02/#c12-i0535">Event message reference</a></li>
+<li><a href="part-02/#c12-i0536">GSKit return codes used in AMS messages</a></li>
+<li><a href="part-02/#c12-i0537">GSKit: Digital certificate signature algorithms compliant with FIPS 140-2</a></li>
+<li><a href="part-02/#c12-i0538">IBM MQ Bridge to Salesforce diagnostic messages</a></li>
+<li><a href="part-02/#c12-i0539">IBM MQ Bridge to blockchain diagnostic messages</a></li>
+<li><a href="part-02/#c12-i0540">IBM MQ Console messages</a></li>
+<li><a href="part-02/#c12-i0541">IBM MQ Internet Pass-Thru messages</a></li>
+<li><a href="part-02/#c12-i0542">IBM MQ Telemetry Transport format and protocol</a></li>
+<li><a href="part-02/#c12-i0543">IBM MQ for z/OS messages, completion, and reason codes</a></li>
+<li><a href="part-02/#c12-i0544">IBM MQ rules for SSLPEER values</a></li>
+<li><a href="part-02/#c12-i0545">JSON format diagnostic messages</a></li>
+<li><a href="part-02/#c12-i0546">MFT messages</a></li>
+<li><a href="part-02/#c12-i0547">MQ Telemetry Reference</a></li>
+<li><a href="part-02/#c12-i0548">MQXR properties</a></li>
+<li><a href="part-02/#c12-i0549">Managed File Transfer security reference</a></li>
+<li><a href="part-02/#c12-i0550">Messages and reason codes</a></li>
+<li><a href="part-02/#c12-i0551">Monitoring reference</a></li>
+<li><a href="part-02/#c12-i0552">Object attributes for event data</a></li>
+<li><a href="part-02/#c12-i0553">PCF reason codes</a></li>
+<li><a href="part-02/#c12-i0554">Programming interface information</a></li>
+<li><a href="part-02/#c12-i0555">REST API messages</a></li>
+<li><a href="part-02/#c12-i0556">Reference</a></li>
+<li><a href="part-02/#c12-i0557">Security reference</a></li>
+<li><a href="part-02/#c12-i0558">Structure data types</a></li>
+<li><a href="part-02/#c12-i0559">Telemetry messages</a></li>
+<li><a href="part-02/#c12-i0560">The API exit</a></li>
+<li><a href="part-02/#c12-i0561">The API-crossing exit</a></li>
+<li><a href="part-02/#c12-i0562">Token authentication error codes</a></li>
+<li><a href="part-02/#c12-i0563">Transport Layer Security (TLS) return codes</a></li>
+<li><a href="part-02/#c12-i0564">WCF custom channel exceptions</a></li>
+</ul>
+<h3 id="_5">概要 / アーキテクチャ<a class="headerlink" href="#_5" title="Permanent link">&para;</a></h3>
+<ul>
+<li><a href="part-02/#c12-i0565">About IBM MQ</a></li>
+<li><a href="part-02/#c12-i0566">Aspera gateway roadmap</a></li>
+<li><a href="part-02/#c12-i0567">IBM MQ 9.3 PDF files for product documentation and Program Directories</a></li>
+<li><a href="part-02/#c12-i0568">IBM MQ 9.3 Quick Start Guide</a></li>
+<li><a href="part-02/#c12-i0569">IBM MQ 9.3 in the IBM Documentation Offline app</a></li>
+<li><a href="part-02/#c12-i0570">IBM MQ 9.3 information roadmap</a></li>
+<li><a href="part-02/#c12-i0571">IBM MQ Client for .NET license information</a></li>
+<li><a href="part-02/#c12-i0572">IBM MQ Internet Pass-Thru roadmap</a></li>
+<li><a href="part-02/#c12-i0573">IBM MQ Redistributable Components</a></li>
+<li><a href="part-02/#c12-i0574">IBM MQ Telemetry roadmap</a></li>
+<li><a href="part-02/#c12-i0575">IBM MQ license information</a></li>
+<li><a href="part-02/#c12-i0576">IBM MQ product identifiers and export information</a></li>
+<li><a href="part-02/#c12-i0577">IBM MQ release types and versioning</a></li>
+<li><a href="part-02/#c12-i0578">Icons used in the product documentation</a></li>
+<li><a href="part-02/#c12-i0579">Introduction to IBM MQ</a></li>
+<li><a href="part-02/#c12-i0580">Managed File Transfer roadmap</a></li>
+<li><a href="part-02/#c12-i0581">New, changed and removed messages for IBM MQ 9.3 LTS Fix Packs</a></li>
+<li><a href="part-02/#c12-i0582">Pricing metric for Virtual Processor Cores (VPCs)</a></li>
+<li><a href="part-02/#c12-i0583">Programming interface information</a></li>
+<li><a href="part-02/#c12-i0584">Readme for IBM MQ 9.3 and its maintenance</a></li>
+<li><a href="part-02/#c12-i0585">What was new and changed in earlier versions</a></li>
+</ul>
+<h3 id="qm-queue-channel">構成 (QM / Queue / Channel)<a class="headerlink" href="#qm-queue-channel" title="Permanent link">&para;</a></h3>
+<ul>
+<li><a href="part-02/#c12-i0586">Activity trace configuration file, mqat.ini</a></li>
+<li><a href="part-02/#c12-i0587">Adding a stream</a></li>
+<li><a href="part-02/#c12-i0588">Adding a subscription point</a></li>
+<li><a href="part-02/#c12-i0589">Additional configuration options for IBM MQ Bridge to Salesforce</a></li>
+<li><a href="part-02/#c12-i0590">Additional configuration options for IBM MQ Bridge to blockchain</a></li>
+<li><a href="part-02/#c12-i0591">Associating a queue manager with an installation</a></li>
+<li><a href="part-02/#c12-i0592">Automatic client reconnection</a></li>
+<li><a href="part-02/#c12-i0593">Backing up and restoring IBM MQ queue manager data</a></li>
+<li><a href="part-02/#c12-i0594">Backing up and restoring your mqweb server configuration</a></li>
+<li><a href="part-02/#c12-i0595">Backing up configuration files after creating a queue manager</a></li>
+<li><a href="part-02/#c12-i0596">Basic configuration for the mqweb server</a></li>
+<li><a href="part-02/#c12-i0597">Changes to cluster error recovery (on servers other than z/OS )</a></li>
+<li><a href="part-02/#c12-i0598">Changing IBM MQ configuration information in .ini files on Multiplatforms</a></li>
+<li><a href="part-02/#c12-i0599">Changing the primary installation</a></li>
+<li><a href="part-02/#c12-i0600">Channel-exit programs for MQI channels</a></li>
+<li><a href="part-02/#c12-i0601">Configurable ephemeral directory</a></li>
+<li><a href="part-02/#c12-i0602">Configuring</a></li>
+<li><a href="part-02/#c12-i0603">Configuring IBM MQ Advanced for z/OS VUE for use with blockchain</a></li>
+<li><a href="part-02/#c12-i0604">Configuring IBM MQ Internet Pass-Thru</a></li>
+<li><a href="part-02/#c12-i0605">Configuring IBM MQ Internet Pass-Thru using containers</a></li>
+<li><a href="part-02/#c12-i0606">Configuring IBM MQ for use with Salesforce push topics and platform events</a></li>
+<li><a href="part-02/#c12-i0607">Configuring IBM MQ for use with blockchain</a></li>
+<li><a href="part-02/#c12-i0608">Configuring IBM MQ for use with the IBM Cloud Private metering service</a></li>
+<li><a href="part-02/#c12-i0609">Configuring JMS 2.0 objects using IBM MQ Explorer</a></li>
+<li><a href="part-02/#c12-i0610">Configuring JMS 2.0 resources in WebSphere Application Server</a></li>
+<li><a href="part-02/#c12-i0611">Configuring JMS and Jakarta Messaging objects using the administration tools</a></li>
+<li><a href="part-02/#c12-i0612">Configuring JMS and Jakarta Messaging resources</a></li>
+<li><a href="part-02/#c12-i0613">Configuring MFT Agent queue managers</a></li>
+<li><a href="part-02/#c12-i0614">Configuring MFT for first use</a></li>
+<li><a href="part-02/#c12-i0615">Configuring MFT on IBM i</a></li>
+<li><a href="part-02/#c12-i0616">Configuring Managed File Transfer</a></li>
+<li><a href="part-02/#c12-i0617">Configuring Managed File Transfer for z/OS</a></li>
+<li><a href="part-02/#c12-i0618">Configuring WebSphere Application Server to use the latest resource adapter maintenance level</a></li>
+<li><a href="part-02/#c12-i0619">Configuring a queue manager cluster</a></li>
+<li><a href="part-02/#c12-i0620">Configuring a queue manager for use with the metering service instance on IBM Cloud Private</a></li>
+<li><a href="part-02/#c12-i0621">Configuring a uniform cluster</a></li>
+<li><a href="part-02/#c12-i0622">Configuring an MFT logger</a></li>
+<li><a href="part-02/#c12-i0623">Configuring an extended transactional client</a></li>
+<li><a href="part-02/#c12-i0624">Configuring autostart</a></li>
+<li><a href="part-02/#c12-i0625">Configuring connection factories and destinations in a JNDI namespace</a></li>
+<li><a href="part-02/#c12-i0626">Configuring connections between the client and server</a></li>
+<li><a href="part-02/#c12-i0627">Configuring distributed publish/subscribe networks</a></li>
+<li><a href="part-02/#c12-i0628">Configuring distributed queuing</a></li>
+<li><a href="part-02/#c12-i0629">Configuring high availability, recovery and restart</a></li>
+<li><a href="part-02/#c12-i0630">Configuring logging</a></li>
+<li><a href="part-02/#c12-i0631">Configuring multiple installations</a></li>
+<li><a href="part-02/#c12-i0632">Configuring publish/subscribe messaging</a></li>
+<li><a href="part-02/#c12-i0633">Configuring queue managers on z/OS</a></li>
+<li><a href="part-02/#c12-i0634">Configuring remote queue manager connection behavior for the IBM MQ Console</a></li>
+<li><a href="part-02/#c12-i0635">Configuring security</a></li>
+<li><a href="part-02/#c12-i0636">Configuring streaming queues</a></li>
+<li><a href="part-02/#c12-i0637">Configuring the Connect:Direct bridge</a></li>
+<li><a href="part-02/#c12-i0638">Configuring the HTTP and HTTPS ports</a></li>
+<li><a href="part-02/#c12-i0639">Configuring the HTTP host name</a></li>
+<li><a href="part-02/#c12-i0640">Configuring the IBM MQ Bridge to Salesforce</a></li>
+<li><a href="part-02/#c12-i0641">Configuring the IBM MQ Console and REST API</a></li>
+<li><a href="part-02/#c12-i0642">Configuring the JMS PROVIDERVERSION property</a></li>
+<li><a href="part-02/#c12-i0643">Configuring the LTPA token</a></li>
+<li><a href="part-02/#c12-i0644">Configuring the REST API for MFT</a></li>
+<li><a href="part-02/#c12-i0645">Configuring the administrative REST API gateway</a></li>
+<li><a href="part-02/#c12-i0646">Configuring the messaging REST API</a></li>
+<li><a href="part-02/#c12-i0647">Configuring the response timeout</a></li>
+<li><a href="part-02/#c12-i0648">Configuring the stand-alone IBM MQ Web Server</a></li>
+<li><a href="part-02/#c12-i0649">Connecting a client to a queue sharing group</a></li>
+<li><a href="part-02/#c12-i0650">Connecting applications in a multiple installation environment</a></li>
+<li><a href="part-02/#c12-i0651">Connecting to the IBM Cloud Private metering service through an HTTP proxy</a></li>
+<li><a href="part-02/#c12-i0652">Connection logs in MQIPT</a></li>
+<li><a href="part-02/#c12-i0653">Console message monitoring</a></li>
+<li><a href="part-02/#c12-i0654">Creating a default queue manager</a></li>
+<li><a href="part-02/#c12-i0655">Creating an MFT Agent or Logger command data set</a></li>
+<li><a href="part-02/#c12-i0656">Creating and using AMQP channels</a></li>
+<li><a href="part-02/#c12-i0657">Creating event messages for Salesforce platform events</a></li>
+<li><a href="part-02/#c12-i0658">Creating queue managers on Multiplatforms</a></li>
+<li><a href="part-02/#c12-i0659">Creating server-connection and client-connection definitions on different platforms</a></li>
+<li><a href="part-02/#c12-i0660">Creating server-connection and client-connection definitions on the server</a></li>
+<li><a href="part-02/#c12-i0661">Creating the configuration file for the IBM MQ Bridge to blockchain</a></li>
+<li><a href="part-02/#c12-i0662">Creating the configuration file for the IBM MQ Bridge to blockchain on z/OS</a></li>
+<li><a href="part-02/#c12-i0663">Defining MQI channels</a></li>
+<li><a href="part-02/#c12-i0664">Defining an Aspera gateway connection on Linux or Windows platforms</a></li>
+<li><a href="part-02/#c12-i0665">Deleting a stream</a></li>
+<li><a href="part-02/#c12-i0666">Downloading and configuring Redistributable Managed File Transfer components</a></li>
+<li><a href="part-02/#c12-i0667">Enabling MFT agent connectivity to remote z/OS queue managers</a></li>
+<li><a href="part-02/#c12-i0668">Encrypting stored passwords in MQIPT</a></li>
+<li><a href="part-02/#c12-i0669">Environment variables descriptions</a></li>
+<li><a href="part-02/#c12-i0670">Example Hyperledger Fabric network credentials file</a></li>
+<li><a href="part-02/#c12-i0671">File structure of the IBM MQ Console and REST API installation component</a></li>
+<li><a href="part-02/#c12-i0672">Finding installations of IBM MQ on a system</a></li>
+<li><a href="part-02/#c12-i0673">HTTP support in MQIPT</a></li>
+<li><a href="part-02/#c12-i0674">High availability configurations</a></li>
+<li><a href="part-02/#c12-i0675">How to set up an IBM MQ MQI client</a></li>
+<li><a href="part-02/#c12-i0676">IBM MQ MQI client configuration file, mqclient.ini</a></li>
+<li><a href="part-02/#c12-i0677">IBM MQ configuration file, mqs.ini</a></li>
+<li><a href="part-02/#c12-i0678">IBM MQ distributed queuing techniques</a></li>
+<li><a href="part-02/#c12-i0679">IBM MQ security configuration for the IBM MQ Bridge to blockchain on z/OS</a></li>
+<li><a href="part-02/#c12-i0680">Installation configuration file, mqinst.ini</a></li>
+<li><a href="part-02/#c12-i0681">Introduction to distributed queue management</a></li>
+<li><a href="part-02/#c12-i0682">Java security manager in MQIPT</a></li>
+<li><a href="part-02/#c12-i0683">Logging: Making sure that messages are not lost</a></li>
+<li><a href="part-02/#c12-i0684">MFT configuration options on Multiplatforms</a></li>
+<li><a href="part-02/#c12-i0685">MFT configuration options on z/OS</a></li>
+<li><a href="part-02/#c12-i0686">Making an existing queue manager the default</a></li>
+<li><a href="part-02/#c12-i0687">Monitoring and controlling channels on AIX, Linux, and Windows</a></li>
+<li><a href="part-02/#c12-i0688">Monitoring and controlling channels on IBM i</a></li>
+<li><a href="part-02/#c12-i0689">Other security considerations for MQIPT</a></li>
+<li><a href="part-02/#c12-i0690">Port number control in MQIPT</a></li>
+<li><a href="part-02/#c12-i0691">Preparing to customize queue managers on z/OS</a></li>
+<li><a href="part-02/#c12-i0692">Programming interface information</a></li>
+<li><a href="part-02/#c12-i0693">Queue manager configuration files, qm.ini</a></li>
+<li><a href="part-02/#c12-i0694">Removing WebSphere Application Server durable subscriptions</a></li>
+<li><a href="part-02/#c12-i0695">Running the IBM MQ Bridge to Salesforce</a></li>
+<li><a href="part-02/#c12-i0696">Running the IBM MQ Bridge to blockchain</a></li>
+<li><a href="part-02/#c12-i0697">Running the IBM MQ Bridge to blockchain on z/OS</a></li>
+<li><a href="part-02/#c12-i0698">SOCKS support in MQIPT</a></li>
+<li><a href="part-02/#c12-i0699">SSL/TLS support in MQIPT</a></li>
+<li><a href="part-02/#c12-i0700">Security exits in MQIPT</a></li>
+<li><a href="part-02/#c12-i0701">Setting queued publish/subscribe message attributes</a></li>
+<li><a href="part-02/#c12-i0702">Setting up IBM MQ for z/OS</a></li>
+<li><a href="part-02/#c12-i0703">Setting up communications with other queue managers on z/OS</a></li>
+<li><a href="part-02/#c12-i0704">Starting queued publish/subscribe</a></li>
+<li><a href="part-02/#c12-i0705">Stopping queued publish/subscribe</a></li>
+<li><a href="part-02/#c12-i0706">Testing a queue manager on z/OS</a></li>
+<li><a href="part-02/#c12-i0707">Troubleshooting the connection to the metering service</a></li>
+<li><a href="part-02/#c12-i0708">Tuning the mqweb server JVM</a></li>
+<li><a href="part-02/#c12-i0709">Upgrading and applying service to Language Environment or z/OS Callable Services</a></li>
+<li><a href="part-02/#c12-i0710">Userdata directory</a></li>
+<li><a href="part-02/#c12-i0711">Using IBM MQ environment variables</a></li>
+<li><a href="part-02/#c12-i0712">Using IBM MQ with CICS</a></li>
+<li><a href="part-02/#c12-i0713">Using IBM MQ with IMS</a></li>
+<li><a href="part-02/#c12-i0714">Using IBM z/OSMF to automate IBM MQ</a></li>
+<li><a href="part-02/#c12-i0715">Using OTMA exits in IMS</a></li>
+<li><a href="part-02/#c12-i0716">Which communication type to use</a></li>
+</ul>
+<h3 id="mqrc_not_authorized">理由コード &gt; MQRC_NOT_AUTHORIZED<a class="headerlink" href="#mqrc_not_authorized" title="Permanent link">&para;</a></h3>
+<ul>
+<li><a href="part-02/#c12-i0717">MQRC_NOT_AUTHORIZED</a></li>
+</ul>
+<h3 id="mqrc_q_full">理由コード &gt; MQRC_Q_FULL<a class="headerlink" href="#mqrc_q_full" title="Permanent link">&para;</a></h3>
+<ul>
+<li><a href="part-02/#c12-i0718">MQRC_Q_FULL</a></li>
+</ul>
+<h3 id="_6">監視 / メトリクス<a class="headerlink" href="#_6" title="Permanent link">&para;</a></h3>
+<ul>
+<li><a href="part-02/#c12-i0719">Accounting and statistics messages</a></li>
+<li><a href="part-02/#c12-i0720">Application activity trace</a></li>
+<li><a href="part-02/#c12-i0721">Aspera gateway can improve performance over high latency networks</a></li>
+<li><a href="part-02/#c12-i0722">Event monitoring</a></li>
+<li><a href="part-02/#c12-i0723">Message monitoring</a></li>
+<li><a href="part-02/#c12-i0724">Monitoring and performance</a></li>
+<li><a href="part-02/#c12-i0725">Monitoring application balancing</a></li>
+<li><a href="part-02/#c12-i0726">Monitoring clusters</a></li>
+<li><a href="part-02/#c12-i0727">Monitoring performance and resource usage on z/OS</a></li>
+<li><a href="part-02/#c12-i0728">Monitoring the IBM MQ Bridge to Salesforce</a></li>
+<li><a href="part-02/#c12-i0729">Monitoring your IBM MQ network</a></li>
+<li><a href="part-02/#c12-i0730">OpenTelemetry integration</a></li>
+<li><a href="part-02/#c12-i0731">Programming interface information</a></li>
+<li><a href="part-02/#c12-i0732">Queue manager health check behavior</a></li>
+<li><a href="part-02/#c12-i0733">Real-time monitoring</a></li>
+<li><a href="part-02/#c12-i0734">Reducing the number of unwanted topics in the topic tree</a></li>
+<li><a href="part-02/#c12-i0735">System topics for monitoring and activity trace</a></li>
+<li><a href="part-02/#c12-i0736">Tuning client and server connection channels</a></li>
+<li><a href="part-02/#c12-i0737">Tuning distributed publish/subscribe networks</a></li>
+<li><a href="part-02/#c12-i0738">Tuning your IBM MQ network</a></li>
+</ul>
+<h3 id="_7">管理リファレンス<a class="headerlink" href="#_7" title="Permanent link">&para;</a></h3>
+<ul>
+<li><a href="part-02/#c12-i0739">Administration reference</a></li>
+<li><a href="part-02/#c12-i0740">Administrative REST API reference</a></li>
+<li><a href="part-02/#c12-i0741">Authorities for the MFT logger</a></li>
+<li><a href="part-02/#c12-i0742">Available code pages for MFT</a></li>
+<li><a href="part-02/#c12-i0743">CL commands for IBM i reference</a></li>
+<li><a href="part-02/#c12-i0744">Command sets comparison</a></li>
+<li><a href="part-02/#c12-i0745">Commands reference</a></li>
+<li><a href="part-02/#c12-i0746">Display queue manager information utility (CSQUDSPM)</a></li>
+<li><a href="part-02/#c12-i0747">Example: A Connect:Direct process file that calls MFT commands</a></li>
+<li><a href="part-02/#c12-i0748">FIPS support in MFT</a></li>
+<li><a href="part-02/#c12-i0749">FTPS server support by the protocol bridge</a></li>
+<li><a href="part-02/#c12-i0750">File permissions for destination files</a></li>
+<li><a href="part-02/#c12-i0751">Guidance for setting MQ attributes and MFT properties associated with message size</a></li>
+<li><a href="part-02/#c12-i0752">Guidance for specifying a wait time on a message-to-file transfer</a></li>
+<li><a href="part-02/#c12-i0753">Guidelines for transferring files</a></li>
+<li><a href="part-02/#c12-i0754">How MFT agents allocate source transfer slots to new requests</a></li>
+<li><a href="part-02/#c12-i0755">How MFT agents use Java heap and native heap memory</a></li>
+<li><a href="part-02/#c12-i0756">How to read syntax diagrams</a></li>
+<li><a href="part-02/#c12-i0757">IBM MQ Administration Interface reference</a></li>
+<li><a href="part-02/#c12-i0758">IBM MQ control commands reference</a></li>
+<li><a href="part-02/#c12-i0759">IBM MQ message properties read by MFT from messages on source queues</a></li>
+<li><a href="part-02/#c12-i0760">IBM MQ utilities on z/OS by category</a></li>
+<li><a href="part-02/#c12-i0761">IBM MQ utilities on z/OS reference</a></li>
+<li><a href="part-02/#c12-i0762">IBM MQ utility program (CSQUTIL) on z/OS</a></li>
+<li><a href="part-02/#c12-i0763">MFT agent process controller status values</a></li>
+<li><a href="part-02/#c12-i0764">MFT agent status values</a></li>
+<li><a href="part-02/#c12-i0765">MFT commands reference</a></li>
+<li><a href="part-02/#c12-i0766">MFT database logger tables</a></li>
+<li><a href="part-02/#c12-i0767">MFT logger process controller status values</a></li>
+<li><a href="part-03/#c12-i0768">MFT logger status values</a></li>
+<li><a href="part-03/#c12-i0769">MFT process controller exit codes</a></li>
+<li><a href="part-03/#c12-i0770">MFT process controller overview</a></li>
+<li><a href="part-03/#c12-i0771">MQ message properties set by MFT on messages written to destination queues</a></li>
+<li><a href="part-03/#c12-i0772">MQAI calls</a></li>
+<li><a href="part-03/#c12-i0773">MQAI selectors</a></li>
+<li><a href="part-03/#c12-i0774">MQIPT commands reference</a></li>
+<li><a href="part-03/#c12-i0775">MQSC commands reference</a></li>
+<li><a href="part-03/#c12-i0776">Managed File Transfer administration reference</a></li>
+<li><a href="part-03/#c12-i0777">Programmable command formats (PCFs) reference</a></li>
+<li><a href="part-03/#c12-i0778">Programming interface information</a></li>
+<li><a href="part-03/#c12-i0779">REST API and PCF equivalents</a></li>
+<li><a href="part-03/#c12-i0780">REST API resources</a></li>
+<li><a href="part-03/#c12-i0781">Regular expressions used by MFT</a></li>
+<li><a href="part-03/#c12-i0782">Restrictions of the Connect:Direct bridge agent</a></li>
+<li><a href="part-03/#c12-i0783">SFTP server support by the protocol bridge</a></li>
+<li><a href="part-03/#c12-i0784">Substitution variables for use with user-defined Connect:Direct processes</a></li>
+<li><a href="part-03/#c12-i0785">The BSDS conversion utility (CSQJUCNV) on z/OS</a></li>
+<li><a href="part-03/#c12-i0786">The active log preformat utility (CSQJUFMT) on z/OS</a></li>
+<li><a href="part-03/#c12-i0787">The change log inventory utility (CSQJU003) on z/OS</a></li>
+<li><a href="part-03/#c12-i0788">The dead-letter queue handler utility (CSQUDLQH) on z/OS</a></li>
+<li><a href="part-03/#c12-i0789">The log print utility (CSQ1LOGP) on z/OS</a></li>
+<li><a href="part-03/#c12-i0790">The message security policy utility (CSQ0UTIL)</a></li>
+<li><a href="part-03/#c12-i0791">The print log map utility (CSQJU004) on z/OS</a></li>
+<li><a href="part-03/#c12-i0792">The queue sharing group utility (CSQ5PQSG) on z/OS</a></li>
+<li><a href="part-03/#c12-i0793">XML message formats used by MFT</a></li>
+</ul>
+<h3 id="_8">計画 (キャパシティ / 可用性)<a class="headerlink" href="#_8" title="Permanent link">&para;</a></h3>
+<ul>
+<li><a href="part-03/#c12-i0794">Architectures based on a single queue manager</a></li>
+<li><a href="part-03/#c12-i0795">Architectures based on multiple queue managers</a></li>
+<li><a href="part-03/#c12-i0796">Choosing circular or linear logging on Multiplatforms</a></li>
+<li><a href="part-03/#c12-i0797">Disk space requirements on Multiplatforms</a></li>
+<li><a href="part-03/#c12-i0798">IBM MQ and IBM MQ Appliance on premises considerations for GDPR readiness</a></li>
+<li><a href="part-03/#c12-i0799">IBM MQ and UNIX Process Priority</a></li>
+<li><a href="part-03/#c12-i0800">IBM MQ and UNIX System V IPC resources</a></li>
+<li><a href="part-03/#c12-i0801">IBM MQ release types: planning considerations</a></li>
+<li><a href="part-03/#c12-i0802">Planning</a></li>
+<li><a href="part-03/#c12-i0803">Planning file system support for MFT on Multiplatforms</a></li>
+<li><a href="part-03/#c12-i0804">Planning file system support on Multiplatforms</a></li>
+<li><a href="part-03/#c12-i0805">Planning for Advanced Message Security</a></li>
+<li><a href="part-03/#c12-i0806">Planning for Managed File Transfer</a></li>
+<li><a href="part-03/#c12-i0807">Planning for backup and recovery</a></li>
+<li><a href="part-03/#c12-i0808">Planning for your queue manager</a></li>
+<li><a href="part-03/#c12-i0809">Planning to use the IBM MQ Console and REST API on z/OS</a></li>
+<li><a href="part-03/#c12-i0810">Planning your IBM MQ environment on z/OS</a></li>
+<li><a href="part-03/#c12-i0811">Planning your channel initiator</a></li>
+<li><a href="part-03/#c12-i0812">Planning your distributed publish/subscribe network</a></li>
+<li><a href="part-03/#c12-i0813">Planning your distributed queues and clusters</a></li>
+<li><a href="part-03/#c12-i0814">Planning your queue sharing group (QSG)</a></li>
+<li><a href="part-03/#c12-i0815">Planning your storage and performance requirements on Multiplatforms</a></li>
+<li><a href="part-03/#c12-i0816">Planning your z/OS UNIX environment</a></li>
+<li><a href="part-03/#c12-i0817">Programming interface information</a></li>
+<li><a href="part-03/#c12-i0818">Shared memory on AIX</a></li>
+</ul>
+<h3 id="alter-qmgr">運用コマンド &gt; ALTER QMGR<a class="headerlink" href="#alter-qmgr" title="Permanent link">&para;</a></h3>
+<ul>
+<li><a href="part-03/#c12-i0819">ALTER QMGR</a></li>
+</ul>
+<h3 id="display-chstatus">運用コマンド &gt; DISPLAY CHSTATUS<a class="headerlink" href="#display-chstatus" title="Permanent link">&para;</a></h3>
+<ul>
+<li><a href="part-03/#c12-i0820">DISPLAY CHSTATUS</a></li>
+</ul>
+<h3 id="display-qstatus">運用コマンド &gt; DISPLAY QSTATUS<a class="headerlink" href="#display-qstatus" title="Permanent link">&para;</a></h3>
+<ul>
+<li><a href="part-03/#c12-i0821">DISPLAY QSTATUS</a></li>
+</ul>
+<h3 id="runmqsc">運用コマンド &gt; runmqsc<a class="headerlink" href="#runmqsc" title="Permanent link">&para;</a></h3>
+<ul>
+<li><a href="part-03/#c12-i0822">runmqsc</a></li>
+</ul>
+<h3 id="_9">開発リファレンス<a class="headerlink" href="#_9" title="Permanent link">&para;</a></h3>
+<ul>
+<li><a href="part-03/#c12-i0823">.NET interfaces</a></li>
+<li><a href="part-03/#c12-i0824">API exit reference</a></li>
+<li><a href="part-03/#c12-i0825">APPLICATIONNAME</a></li>
+<li><a href="part-03/#c12-i0826">ASYNCEXCEPTION</a></li>
+<li><a href="part-03/#c12-i0827">Applications</a></li>
+<li><a href="part-03/#c12-i0828">Attributes of objects</a></li>
+<li><a href="part-03/#c12-i0829">Attributes of objects on IBM i</a></li>
+<li><a href="part-03/#c12-i0830">BALOPTIONS</a></li>
+<li><a href="part-03/#c12-i0831">BALTIMEOUT</a></li>
+<li><a href="part-03/#c12-i0832">BALTYPE</a></li>
+<li><a href="part-03/#c12-i0833">BROKERCCDURSUBQ</a></li>
+<li><a href="part-03/#c12-i0834">BROKERCCSUBQ</a></li>
+<li><a href="part-03/#c12-i0835">BROKERCONQ</a></li>
+<li><a href="part-03/#c12-i0836">BROKERDURSUBQ</a></li>
+<li><a href="part-03/#c12-i0837">BROKERPUBQ</a></li>
+<li><a href="part-03/#c12-i0838">BROKERPUBQMGR</a></li>
+<li><a href="part-03/#c12-i0839">BROKERQMGR</a></li>
+<li><a href="part-03/#c12-i0840">BROKERSUBQ</a></li>
+<li><a href="part-03/#c12-i0841">BROKERVER</a></li>
+<li><a href="part-03/#c12-i0842">C++ and MQI cross-reference</a></li>
+<li><a href="part-03/#c12-i0843">CCDTURL</a></li>
+<li><a href="part-03/#c12-i0844">CCSID</a></li>
+<li><a href="part-03/#c12-i0845">CHANNEL</a></li>
+<li><a href="part-03/#c12-i0846">CLEANUP</a></li>
+<li><a href="part-03/#c12-i0847">CLEANUPINT</a></li>
+<li><a href="part-03/#c12-i0848">CLIENTID</a></li>
+<li><a href="part-03/#c12-i0849">CLIENTRECONNECTOPTIONS</a></li>
+<li><a href="part-03/#c12-i0850">CLIENTRECONNECTTIMEOUT</a></li>
+<li><a href="part-03/#c12-i0851">CLONESUPP</a></li>
+<li><a href="part-03/#c12-i0852">COMPHDR</a></li>
+<li><a href="part-03/#c12-i0853">COMPMSG</a></li>
+<li><a href="part-03/#c12-i0854">CONNECTIONNAMELIST</a></li>
+<li><a href="part-03/#c12-i0855">CONNOPT</a></li>
+<li><a href="part-03/#c12-i0856">CONNTAG</a></li>
+<li><a href="part-03/#c12-i0857">Channel-exit calls and data structures</a></li>
+<li><a href="part-03/#c12-i0858">Character set identifiers for .NET applications</a></li>
+<li><a href="part-03/#c12-i0859">Cluster workload exit call and data structures</a></li>
+<li><a href="part-03/#c12-i0860">Code examples</a></li>
+<li><a href="part-03/#c12-i0861">Code page conversion</a></li>
+<li><a href="part-03/#c12-i0862">Coding standards on 64-bit platforms</a></li>
+<li><a href="part-03/#c12-i0863">Constants</a></li>
+<li><a href="part-03/#c12-i0864">Conversion of report messages on IBM i</a></li>
+<li><a href="part-03/#c12-i0865">Conversion processing on IBM i</a></li>
+<li><a href="part-03/#c12-i0866">DESCRIPTION</a></li>
+<li><a href="part-03/#c12-i0867">DIRECTAUTH</a></li>
+<li><a href="part-03/#c12-i0868">Data conversion on IBM i</a></li>
+<li><a href="part-03/#c12-i0869">Data type descriptions on IBM i</a></li>
+<li><a href="part-03/#c12-i0870">Data types used in the MQI</a></li>
+<li><a href="part-03/#c12-i0871">Data-conversion exit</a></li>
+<li><a href="part-03/#c12-i0872">Data-conversion exit reference</a></li>
+<li><a href="part-03/#c12-i0873">Dependencies between properties of IBM MQ classes for JMS objects</a></li>
+<li><a href="part-03/#c12-i0874">Developing applications reference</a></li>
+<li><a href="part-03/#c12-i0875">ENCODING</a></li>
+<li><a href="part-03/#c12-i0876">EXPIRY</a></li>
+<li><a href="part-03/#c12-i0877">Examples of using fteCreateTransfer to start programs</a></li>
+<li><a href="part-03/#c12-i0878">FAILIFQUIESCE</a></li>
+<li><a href="part-03/#c12-i0879">Function calls</a></li>
+<li><a href="part-03/#c12-i0880">Function calls on IBM i</a></li>
+<li><a href="part-03/#c12-i0881">HOSTNAME</a></li>
+<li><a href="part-03/#c12-i0882">IBM MQ C++ classes</a></li>
+<li><a href="part-03/#c12-i0883">IBM MQ Message Service Client (XMS) for .NET reference</a></li>
+<li><a href="part-03/#c12-i0884">IBM i Application Programming Reference (ILE/RPG)</a></li>
+<li><a href="part-03/#c12-i0885">IMQObjectTrigger.NET interface</a></li>
+<li><a href="part-03/#c12-i0886">ImqAuthenticationRecord C++ class</a></li>
+<li><a href="part-03/#c12-i0887">ImqBinary C++ class</a></li>
+<li><a href="part-03/#c12-i0888">ImqCICSBridgeHeader C++ class</a></li>
+<li><a href="part-03/#c12-i0889">ImqCache C++ class</a></li>
+<li><a href="part-03/#c12-i0890">ImqChannel C++ class</a></li>
+<li><a href="part-03/#c12-i0891">ImqDeadLetterHeader C++ class</a></li>
+<li><a href="part-03/#c12-i0892">ImqDistributionList C++ class</a></li>
+<li><a href="part-03/#c12-i0893">ImqError C++ class</a></li>
+<li><a href="part-03/#c12-i0894">ImqGetMessageOptions C++ class</a></li>
+<li><a href="part-03/#c12-i0895">ImqHeader C++ class</a></li>
+<li><a href="part-03/#c12-i0896">ImqIMSBridgeHeader C++ class</a></li>
+<li><a href="part-03/#c12-i0897">ImqItem C++ class</a></li>
+<li><a href="part-03/#c12-i0898">ImqMessage C++ class</a></li>
+<li><a href="part-03/#c12-i0899">ImqMessageTracker C++ class</a></li>
+<li><a href="part-03/#c12-i0900">ImqNamelist C++ class</a></li>
+<li><a href="part-03/#c12-i0901">ImqObject C++ class</a></li>
+<li><a href="part-03/#c12-i0902">ImqProcess C++ class</a></li>
+<li><a href="part-03/#c12-i0903">ImqPutMessageOptions C++ class</a></li>
+<li><a href="part-03/#c12-i0904">ImqQueue C++ class</a></li>
+<li><a href="part-03/#c12-i0905">ImqQueueManager C++ class</a></li>
+<li><a href="part-03/#c12-i0906">ImqReferenceHeader C++ class</a></li>
+<li><a href="part-03/#c12-i0907">ImqString C++ class</a></li>
+<li><a href="part-03/#c12-i0908">ImqTrigger C++ class</a></li>
+<li><a href="part-03/#c12-i0909">ImqWorkHeader C++ class</a></li>
+<li><a href="part-03/#c12-i0910">Installable services interface reference information</a></li>
+<li><a href="part-03/#c12-i0911">Installable services interface reference information on IBM i</a></li>
+<li><a href="part-03/#c12-i0912">LOCALADDRESS</a></li>
+<li><a href="part-03/#c12-i0913">MAPNAMESTYLE</a></li>
+<li><a href="part-03/#c12-i0914">MAXBUFFSIZE</a></li>
+<li><a href="part-03/#c12-i0915">MDMSGCTX</a></li>
+<li><a href="part-03/#c12-i0916">MDREAD</a></li>
+<li><a href="part-03/#c12-i0917">MDWRITE</a></li>
+<li><a href="part-03/#c12-i0918">MFT user exits for customization reference</a></li>
+<li><a href="part-03/#c12-i0919">MQAsyncStatus.NET class</a></li>
+<li><a href="part-03/#c12-i0920">MQAuthenticationInformationRecord.NET class</a></li>
+<li><a href="part-03/#c12-i0921">MQC.NET interface</a></li>
+<li><a href="part-03/#c12-i0922">MQCONVX (Data conversion exit) on IBM i</a></li>
+<li><a href="part-03/#c12-i0923">MQDXP (Data-conversion exit parameter) on IBM i</a></li>
+<li><a href="part-03/#c12-i0924">MQDestination.NET class</a></li>
+<li><a href="part-03/#c12-i0925">MQEnvironment.NET class</a></li>
+<li><a href="part-03/#c12-i0926">MQException.NET class</a></li>
+<li><a href="part-03/#c12-i0927">MQGetMessageOptions.NET class</a></li>
+<li><a href="part-03/#c12-i0928">MQI applications reference</a></li>
+<li><a href="part-03/#c12-i0929">MQIEP structure</a></li>
+<li><a href="part-03/#c12-i0930">MQManagedObject.NET class</a></li>
+<li><a href="part-03/#c12-i0931">MQMessage.NET class</a></li>
+<li><a href="part-03/#c12-i0932">MQProcess.NET class</a></li>
+<li><a href="part-03/#c12-i0933">MQPropertyDescriptor.NET class</a></li>
+<li><a href="part-03/#c12-i0934">MQPutMessageOptions.NET class</a></li>
+<li><a href="part-03/#c12-i0935">MQQueue.NET class</a></li>
+<li><a href="part-03/#c12-i0936">MQQueueManager.NET class</a></li>
+<li><a href="part-03/#c12-i0937">MQSubscription.NET class</a></li>
+<li><a href="part-03/#c12-i0938">MQTopic.NET class</a></li>
+<li><a href="part-03/#c12-i0939">MQXCNVC (Convert characters) on IBM i</a></li>
+<li><a href="part-03/#c12-i0940">MQ_PUBLISH_EXIT - Publish exit</a></li>
+<li><a href="part-03/#c12-i0941">MSGBATCHSZ</a></li>
+<li><a href="part-03/#c12-i0942">MSGBODY</a></li>
+<li><a href="part-03/#c12-i0943">MSGRETENTION</a></li>
+<li><a href="part-03/#c12-i0944">MSGSELECTION</a></li>
+<li><a href="part-03/#c12-i0945">MULTICAST</a></li>
+<li><a href="part-03/#c12-i0946">Machine encodings</a></li>
+<li><a href="part-03/#c12-i0947">Machine encodings on IBM i</a></li>
+<li><a href="part-03/#c12-i0948">Managed File Transfer developing applications reference</a></li>
+<li><a href="part-03/#c12-i0949">Message formats for messages you can put on the MFT Agent command queue</a></li>
+<li><a href="part-03/#c12-i0950">Messaging REST API reference</a></li>
+<li><a href="part-03/#c12-i0951">OPTIMISTICPUBLICATION</a></li>
+<li><a href="part-03/#c12-i0952">OUTCOMENOTIFICATION</a></li>
+<li><a href="part-03/#c12-i0953">PERSISTENCE</a></li>
+<li><a href="part-03/#c12-i0954">POLLINGINT</a></li>
+<li><a href="part-03/#c12-i0955">PORT</a></li>
+<li><a href="part-03/#c12-i0956">PRIORITY</a></li>
+<li><a href="part-03/#c12-i0957">PROCESSDURATION</a></li>
+<li><a href="part-03/#c12-i0958">PROVIDERVERSION</a></li>
+<li><a href="part-03/#c12-i0959">PROXYHOSTNAME</a></li>
+<li><a href="part-03/#c12-i0960">PROXYPORT</a></li>
+<li><a href="part-03/#c12-i0961">PUBACKINT</a></li>
+<li><a href="part-03/#c12-i0962">PUTASYNCALLOWED</a></li>
+<li><a href="part-03/#c12-i0963">Processing conventions on IBM i</a></li>
+<li><a href="part-03/#c12-i0964">Programming interface information</a></li>
+<li><a href="part-03/#c12-i0965">Properties of IBM MQ classes for JMS objects</a></li>
+<li><a href="part-03/#c12-i0966">Properties of XMS objects</a></li>
+<li><a href="part-03/#c12-i0967">Properties specified as MQRFH2 elements</a></li>
+<li><a href="part-03/#c12-i0968">QMANAGER</a></li>
+<li><a href="part-03/#c12-i0969">QUEUE</a></li>
+<li><a href="part-03/#c12-i0970">Queued publish/subscribe command messages</a></li>
+<li><a href="part-03/#c12-i0971">READAHEADALLOWED</a></li>
+<li><a href="part-03/#c12-i0972">READAHEADCLOSEPOLICY</a></li>
+<li><a href="part-03/#c12-i0973">RECEIVECCSID</a></li>
+<li><a href="part-03/#c12-i0974">RECEIVECONVERSION</a></li>
+<li><a href="part-03/#c12-i0975">RECEIVEISOLATION</a></li>
+<li><a href="part-03/#c12-i0976">RECEXIT</a></li>
+<li><a href="part-03/#c12-i0977">RECEXITINIT</a></li>
+<li><a href="part-03/#c12-i0978">REPLYTOSTYLE</a></li>
+<li><a href="part-03/#c12-i0979">RESCANINT</a></li>
+<li><a href="part-03/#c12-i0980">REST API resources</a></li>
+<li><a href="part-03/#c12-i0981">Report options and message flags</a></li>
+<li><a href="part-03/#c12-i0982">Report options and message flags on IBM i</a></li>
+<li><a href="part-03/#c12-i0983">Return codes</a></li>
+<li><a href="part-03/#c12-i0984">Return codes for IBM i (ILE RPG)</a></li>
+<li><a href="part-03/#c12-i0985">Rules for validating MQI options</a></li>
+<li><a href="part-03/#c12-i0986">Rules for validating MQI options for IBM i (ILE RPG)</a></li>
+<li><a href="part-03/#c12-i0987">SECEXIT</a></li>
+<li><a href="part-03/#c12-i0988">SECEXITINIT</a></li>
+<li><a href="part-03/#c12-i0989">SENDCHECKCOUNT</a></li>
+<li><a href="part-03/#c12-i0990">SENDEXIT</a></li>
+<li><a href="part-03/#c12-i0991">SENDEXITINIT</a></li>
+<li><a href="part-03/#c12-i0992">SHARECONVALLOWED</a></li>
+<li><a href="part-03/#c12-i0993">SPARSESUBS</a></li>
+<li><a href="part-03/#c12-i0994">SSLCIPHERSUITE</a></li>
+<li><a href="part-03/#c12-i0995">SSLCRL</a></li>
+<li><a href="part-03/#c12-i0996">SSLFIPSREQUIRED</a></li>
+<li><a href="part-03/#c12-i0997">SSLPEERNAME</a></li>
+<li><a href="part-03/#c12-i0998">SSLRESETCOUNT</a></li>
+<li><a href="part-03/#c12-i0999">STATREFRESHINT</a></li>
+<li><a href="part-03/#c12-i1000">SUBSTORE</a></li>
+<li><a href="part-03/#c12-i1001">SYNCPOINTALLGETS</a></li>
+<li><a href="part-03/#c12-i1002">TARGCLIENT</a></li>
+<li><a href="part-03/#c12-i1003">TARGCLIENTMATCHING</a></li>
+<li><a href="part-03/#c12-i1004">TEMPMODEL</a></li>
+<li><a href="part-03/#c12-i1005">TEMPQPREFIX</a></li>
+<li><a href="part-03/#c12-i1006">TEMPTOPICPREFIX</a></li>
+<li><a href="part-03/#c12-i1007">TLS properties of JMS objects</a></li>
+<li><a href="part-03/#c12-i1008">TOPIC</a></li>
+<li><a href="part-03/#c12-i1009">TRANSPORT</a></li>
+<li><a href="part-03/#c12-i1010">The ENCODING property</a></li>
+<li><a href="part-03/#c12-i1011">The IBM MQ .NET classes and interfaces</a></li>
+<li><a href="part-03/#c12-i1012">User exits, API exits, and installable services reference</a></li>
+<li><a href="part-03/#c12-i1013">WILDCARDFORMAT</a></li>
+<li><a href="part-03/#c12-i1014">fteAnt: run Ant tasks in MFT</a></li>
+</ul>
+<h3 id="_10">その他<a class="headerlink" href="#_10" title="Permanent link">&para;</a></h3>
+<ul>
+<li><a href="part-03/#c12-other">その他</a></li>
+</ul>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+  <script>var tabs=__md_get("__tabs");if(Array.isArray(tabs))e:for(var set of document.querySelectorAll(".tabbed-set")){var labels=set.querySelector(".tabbed-labels");for(var tab of tabs)for(var label of labels.getElementsByTagName("label"))if(label.innerText.trim()===tab){var input=document.getElementById(label.htmlFor);input.checked=!0;continue e}}</script>
+
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  ページトップへ戻る
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+    
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["navigation.tabs", "navigation.tabs.sticky", "navigation.sections", "navigation.indexes", "navigation.path", "navigation.top", "navigation.footer", "toc.follow", "search.suggest", "search.highlight", "search.share", "content.tabs.link", "content.code.copy"], "search": "../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "\u30b3\u30d4\u30fc\u3057\u307e\u3057\u305f", "clipboard.copy": "\u30af\u30ea\u30c3\u30d7\u30dc\u30fc\u30c9\u3078\u30b3\u30d4\u30fc", "search.result.more.one": "\u3053\u306e\u30da\u30fc\u30b8\u5185\u306b\u3082\u30461\u4ef6\u898b\u3064\u304b\u308a\u307e\u3057\u305f", "search.result.more.other": "\u3053\u306e\u30da\u30fc\u30b8\u5185\u306b\u3042\u3068#\u4ef6\u898b\u3064\u304b\u308a\u307e\u3057\u305f", "search.result.none": "\u4f55\u3082\u898b\u3064\u304b\u308a\u307e\u305b\u3093\u3067\u3057\u305f", "search.result.one": "1\u4ef6\u898b\u3064\u304b\u308a\u307e\u3057\u305f", "search.result.other": "#\u4ef6\u898b\u3064\u304b\u308a\u307e\u3057\u305f", "search.result.placeholder": "\u691c\u7d22\u30ad\u30fc\u30ef\u30fc\u30c9\u3092\u5165\u529b\u3057\u3066\u304f\u3060\u3055\u3044", "search.result.term.missing": "\u691c\u7d22\u306b\u542b\u307e\u308c\u306a\u3044", "select.version": "\u30d0\u30fc\u30b8\u30e7\u30f3\u5207\u308a\u66ff\u3048"}, "version": null}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.d7400e89.min.js"></script>
+      
+    
+  </body>
+</html>
