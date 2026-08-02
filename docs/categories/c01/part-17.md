@@ -1,8 +1,3 @@
----
-search:
-  exclude: true
----
-
 # AIX 7.3 — 詳細 (17/18)
 
 [← AIX 7.3 の概要へ戻る](index.md)

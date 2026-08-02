@@ -1,0 +1,99 @@
+site_name: z/OS 技術ナレッジベース
+site_description: 技術項目・確認問題・検証手順をカテゴリ別に検索できるナレッジベース
+site_author: Knowledge Base
+site_url: https://ai-crafted-portfolio.github.io/knowledge-based/
+docs_dir: docs
+use_directory_urls: true
+strict: true
+
+theme:
+  name: material
+  language: ja
+  font:
+    text: Segoe UI
+    code: Cascadia Code
+  palette:
+    - scheme: default
+      primary: indigo
+      accent: blue
+      toggle:
+        icon: material/weather-night
+        name: ダークモードに切り替え
+    - scheme: slate
+      primary: indigo
+      accent: blue
+      toggle:
+        icon: material/weather-sunny
+        name: ライトモードに切り替え
+  features:
+    - navigation.tabs
+    - navigation.tabs.sticky
+    - navigation.sections
+    - navigation.indexes
+    - navigation.path
+    - navigation.top
+    - navigation.footer
+    - toc.follow
+    - search.suggest
+    - search.highlight
+    - search.share
+    - content.tabs.link
+    - content.code.copy
+
+extra_css:
+  - stylesheets/ms-style.css
+
+extra:
+  generator: false
+
+plugins:
+  - search:
+      lang:
+        - ja
+        - en
+
+not_in_nav: |
+  /categories/*/part-*.md
+
+exclude_docs: |
+  /overrides/*
+
+validation:
+  nav:
+    omitted_files: ignore
+    not_found: warn
+    absolute_links: warn
+  links:
+    not_found: warn
+    absolute_links: warn
+    unrecognized_links: warn
+    anchors: ignore
+
+markdown_extensions:
+  - admonition
+  - attr_list
+  - def_list
+  - md_in_html
+  - tables
+  - toc:
+      permalink: true
+      title: このページの目次
+      toc_depth: 3
+  - pymdownx.superfences
+  - pymdownx.highlight:
+      use_pygments: false
+  - pymdownx.keys
+  - pymdownx.emoji:
+      emoji_index: !!python/name:material.extensions.emoji.twemoji
+      emoji_generator: !!python/name:material.extensions.emoji.to_svg
+
+nav:
+  - ホーム: index.md
+  - カテゴリ:
+      - 掲載状況: categories/index.md
+  - 記事:
+      - 記事一覧: articles/index.md
+  - ガイド:
+      - このサイトについて: about.md
+      - FAQ: faq.md
+      - 検索: search.md
