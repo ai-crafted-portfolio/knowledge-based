@@ -1,0 +1,146 @@
+<div class="official-dom"><div>
+<section><h2>目的</h2> <p>ファイル内の 1 つ以上のチューナブル・スタンザを更新します。</p>
+</section>
+
+<section><h2>構文</h2> <p><strong>tunchange</strong> <a href="https://www.ibm.com/docs/ja/ssw_aix_73/t_commands/tunchange.html#tunchange__row-d3e137941" target="_blank" rel="noopener noreferrer"><strong>-f</strong></a> <em>ファイル名</em> ( <a href="https://www.ibm.com/docs/ja/ssw_aix_73/t_commands/tunchange.html#tunchange__row-d3e137956" target="_blank" rel="noopener noreferrer"><strong>-t</strong></a> <em> スタンザ</em> ({<a href="https://www.ibm.com/docs/ja/ssw_aix_73/t_commands/tunchange.html#tunchange__row-d3e137993" target="_blank" rel="noopener noreferrer"><strong>-o</strong></a> パラメーター [=<em>Value</em>]} | <a href="https://www.ibm.com/docs/ja/ssw_aix_73/t_commands/tunchange.html#tunchange__row-d3e138014" target="_blank" rel="noopener noreferrer"><strong>-D</strong></a> ) | <a href="https://www.ibm.com/docs/ja/ssw_aix_73/t_commands/tunchange.html#tunchange__row-d3e138023" target="_blank" rel="noopener noreferrer"><strong>-m</strong></a> <em>Filename2</em> )</p>
+</section>
+
+<section><h2>説明</h2> <div><strong>tunchange</strong> コマンドは、チューナブル・ファイルを無条件に更新します。 このコマンドを使用して、別のファイルを現行ファイルとマージすることもできます。<div><div>
+        <div>
+          <div><span>注:</span> メッセージは表示されません (bosboot タイプのパラメーターが変更された場合でも)。</div>
+        </div>
+      </div></div>
+</div>
+</section>
+
+<section><h2>フラグ</h2> 
+<div><div><table><thead> <tr> <th><div>項目</div></th>
+ <th><div>説明</div></th>
+ </tr>
+ </thead>
+<tbody>
+<tr>
+<td><strong>-f</strong> <em>ファイル名</em></td>
+
+<td>更新されるチューナブル・ファイルの名前。 この名前に
+「<strong>/</strong>」(スラッシュ) 文字が含まれていない場合は、
+この名前は <strong>/etc/tunables</strong> に関連していると見なされます。</td>
+
+</tr>
+
+<tr>
+<td><strong>-t</strong> <em>Stanza</em></td>
+
+<td>更新するスタンザの名前。 <em>スタンザ</em> は、 <strong>schedo</strong>、 <strong>vmo</strong>、 <strong>ioo</strong>、 <strong>no</strong>、 <strong>nfso</strong>、または <span><span>raso</span></span>のいずれかです。 <em>Stanza</em> は、
+<strong>-o</strong> フラグで指定されたパラメーター (複数の場合もある)
+を更新できるコマンドの名前に対応しています。</td>
+
+</tr>
+
+<tr>
+<td><strong>-o</strong> Parameter=<em>Value</em></td>
+
+<td>パラメーターを <em>Value</em> に設定します。 これは、<strong>-t</strong> フラグで指定された  <em>Stanza</em> で有効で、<strong>-f</strong> フラグで指定されたファイルの他のパラメーターと整合性がある必要があります。</td>
+
+</tr>
+
+<tr>
+<td><strong>-D</strong></td>
+
+<td><em>Stanza</em> のすべてのパラメーターをデフォルト値にリセットします。</td>
+
+</tr>
+
+<tr>
+<td><strong>-m</strong> <em>Filename2</em></td>
+
+<td><em>Filename2</em> ファイルを現行の
+<em>Filename</em> ファイルとマージします。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</section>
+
+<section><h2>終了状況</h2> 
+<div><div><table><thead> <tr> <th><div>項目</div></th>
+ <th><div>説明</div></th>
+ </tr>
+ </thead>
+<tbody>
+<tr>
+<td>0</td>
+
+<td>変更が正しく適用されました。</td>
+
+</tr>
+
+<tr>
+<td>&gt;0</td>
+
+<td>以下のいずれかの条件により、エラーが生じました。<ul>
+<li>指定された <em>Filename</em>、<em>Filename2</em>、
+または <em>Stanza</em> が無効です。</li>
+
+<li>Parameter=<em>Value</em> がこのパラメーターでは無効です。</li>
+
+<li>メッセージが示されていません。</li>
+
+</ul>
+</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</section>
+
+<section><h2>例</h2> <div> <ol>
+<li><strong>/etc/tunables/nextboot</strong> ファイル内の <strong>pacefork</strong> パラメーターを更新するには、
+次のように入力します。<div><div><pre><code>tunchange -f nextboot -t schedo -o pacefork=10</code></pre></div><div></div></div> 
+ </li>
+
+<li><strong>/home/mine/mytunable</strong> ファイル内の <strong>pacefork</strong> パラメーターを更新するには、
+次のように入力します。<div><div><pre><code>tunchange -f /home/mine/mytunable -t schedo -o pacefork=10</code></pre></div><div></div></div>  </li>
+
+<li>すべての <strong>schedo</strong> スタンザ・パラメーターを
+<strong>/etc/tunables/nextboot</strong> ファイル内のデフォルト値にリセットするには、
+次のように入力します。<div><div><pre><code>tunchange -f nextboot -t schedo -D</code></pre></div><div></div></div> 
+ </li>
+
+<li><strong>/home/mine/mytunable</strong> ファイルを <strong>/etc/tunables/nextboot</strong> ファイルとマージするには、
+次のように入力します。<div><div><pre><code>tunchange -f nextboot -m /home/mine/mytunable</code></pre></div><div></div></div> </li>
+
+</ol>
+</div>
+</section>
+
+<section><h2>ファイル</h2> 
+<div><div><table><thead> <tr> <th><div>項目</div></th>
+ <th><div>説明</div></th>
+ </tr>
+ </thead>
+<tbody>
+<tr>
+<td><strong>/usr/sbin/tunchange</strong></td>
+
+<td><strong>tunchange</strong> コマンドが入っています。</td>
+
+</tr>
+
+<tr>
+<td><strong>/etc/tunables/</strong></td>
+
+<td>デフォルトのチューナブル・ファイルが入っています。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</section>
+
+</div></div>

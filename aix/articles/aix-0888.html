@@ -1,0 +1,106 @@
+<div class="official-dom"><div>
+<div></div>
+
+<section><h2>目的</h2> <p>システムが Common Criteria 使用可能セキュリティー・モードで動作するように構成します。</p>
+</section>
+
+<section><h2>構文</h2> <p><strong>mkCCadmin</strong> {[ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/m_commands/mkCCadmin.html#mkCCadmin__row-d3e126454" target="_blank" rel="noopener noreferrer"><strong>-m</strong></a> ] | [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/m_commands/mkCCadmin.html#mkCCadmin__row-d3e126441" target="_blank" rel="noopener noreferrer"><strong>-a</strong></a> <em>address</em> ] <a href="https://www.ibm.com/docs/ja/ssw_aix_73/m_commands/mkCCadmin.html#mkCCadmin__row-d3e126471" target="_blank" rel="noopener noreferrer"><em>hostname</em></a> }</p>
+</section>
+
+<section><h2>説明</h2> <p><strong>mkCCadmin</strong> コマンドは、
+Common Criteria 使用可能システム構成で使用するようにセキュリティー・ディレクトリーを初期化します。 分散データベース・ディレクトリーが作成され、シンボリック・リンクが初期化されます。 システムを (<strong>-m</strong> フラグを使用して) 管理ホストとして構成中の場合は、
+追加のファイルシステムが作成され、管理データベース・ファイルのマスター・コピーが保持されます。 これらのファイルは、<strong>hd10sec</strong>
+という論理ボリューム名を持つディレクトリー <strong>/etc/data.master </strong> に保管されます。</p>
+ <div>管理データベース・ファイルは 3 つのカテゴリーに分けられます。 共有する必要のあるファイル、
+オプションで共有する可能性のあるファイル、および共有する可能性のないファイルに分けられます。 オプションで共有するファイルは、ファイル <strong>/etc/security/files.config</strong> で記述しています。 このファイルは、次のような形式の複数行で構成されています。<div><div><pre><code>[y|n]|filename</code></pre></div><div></div></div>また、管理者はこのファイルを編集可能です。 オプションで共有するファイル名を選択するには、管理者が 1 番目のフィールドを値 <strong>y</strong> に設定します。 オプションで共有可能なファイルを共有しないようにするには、このフィールドを値 <strong>n</strong> に設定します。 Common Criteria 対応システムのすべてのホストは、同一の <strong>/etc/security/files.config</strong> ファイルを持たなければなりません。</div>
+ <p>システム <em>hostname</em> は、
+このコマンドの実行時に <strong>/etc/hosts</strong> ファイルで定義してください。 そうしない場合は、新規の Common Criteria 使用可能システム管理ホストの IP アドレスを <strong>-a</strong>
+オプションと共に指定し、エントリーを <strong>/etc/hosts</strong> に追加します。</p>
+</section>
+
+<section><h2>フラグ</h2> 
+<div><div><table><thead> <tr> <th><div>項目</div></th>
+ <th><div>説明</div></th>
+ </tr>
+ </thead>
+<tbody>
+<tr>
+<td><strong>-a</strong> <em>アドレス</em></td>
+
+<td>アドレスを <em>hostname</em> の IP アドレスとして使用します。</td>
+
+</tr>
+
+<tr>
+<td><strong>-m</strong></td>
+
+<td>ホストを管理マスターとして構成します。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</section>
+
+<section><h2>パラメーター</h2> 
+<div><div><table><thead> <tr> <th><div>項目</div></th>
+ <th><div>説明</div></th>
+ </tr>
+ </thead>
+<tbody>
+<tr>
+<td><em>hostname</em></td>
+
+<td>ホスト名を指定します。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</section>
+
+<section><h2>終了状況</h2> <dl>
+<dt>0</dt>
+
+<dd>システムは Common Criteria 使用可能モードで動作するように正しく構成されています。</dd>
+
+
+<dt>1</dt>
+
+<dd>システムのインストールで Common Criteria 使用可能オプションが使用されませんでした。</dd>
+
+
+<dt>2</dt>
+
+<dd>システムが Common Criteria 使用可能モードで動作するような構成が正常に実行できませんでした。</dd>
+
+
+<dt>3</dt>
+
+<dd>システムは以前に Common Criteria 使用可能モードで動作するように構成されました。
+まだ構成解除は行われていません。</dd>
+
+</dl>
+</section>
+
+<section><h2>ファイル</h2> 
+<div><div><table><thead> <tr> <th><div>項目</div></th>
+ <th><div>説明</div></th>
+ </tr>
+ </thead>
+<tbody>
+<tr>
+<td><strong>/usr/sbin/mkCCadmin</strong></td>
+
+<td>mkCCadmin コマンドが入っています。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</section>
+
+</div></div>

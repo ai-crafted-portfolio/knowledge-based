@@ -1,0 +1,78 @@
+<div class="official-dom"><div>
+<section><h2>目的</h2> <p>作業ディレクトリーのパス名を表示します。</p>
+</section>
+
+<section><h2>構文</h2> <p><strong>パスワード</strong> [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/p_commands/pwd.html#pwd__pwd_flags_bigl" target="_blank" rel="noopener noreferrer"><strong>-L (L)</strong></a> | <a href="https://www.ibm.com/docs/ja/ssw_aix_73/p_commands/pwd.html#pwd__pwd_flags_bigp" target="_blank" rel="noopener noreferrer"><strong>-P</strong></a> ]</p>
+</section>
+
+<section><h2>説明</h2> <p><strong>pwd</strong> コマンドは、現行ディレクトリーの絶対パス名 (ルート・ディレクトリーから) を標準出力に書き出します。 すべてのディレクトリーは / (スラッシュ) で区切られます。 ルート・ディレクトリーは先頭の / で表され、最後のディレクトリーが現行ディレクトリーです。</p>
+</section>
+
+<section><h2>フラグ</h2> <dl>
+<dt>-L</dt>
+
+<dd>PWD 環境変数に、ファイル名 <strong>.</strong> を含まない現行ディレクトリーの絶対パス名が含まれている場合に、PWD 環境変数の値を表示します。 (ドット) または <strong>..</strong> (ドット・ドット) 以外のすべてのエントリーをリストします。 それ以外の場合は、<strong>-L</strong> フラグは
+<strong>-P</strong> フラグと同じ働きをします。</dd>
+
+
+<dt>-P</dt>
+
+<dd>現行ディレクトリーの絶対パス名を表示します。 <strong>-P</strong> フラグを使用して表示される絶対パス名には、
+シンボリック・リンクのタイプのファイルを参照する
+(パス名のコンテキストの) ファイル名が含まれません。</dd>
+
+</dl>
+</section>
+
+<section><h2>終了状況</h2> <p>このコマンドは、以下の終了値を戻します。</p>
+ 
+<div><div><table><thead> <tr> <th><div>項目</div></th>
+ <th><div>説明</div></th>
+ </tr>
+ </thead>
+<tbody>
+<tr>
+<td><strong>0</strong></td>
+
+<td>正常終了。</td>
+
+</tr>
+
+<tr>
+<td><strong>&gt;0</strong></td>
+
+<td>エラーが発生しました。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</section>
+
+<section><h2>例</h2> <p>次のように入力します。</p>
+ <div> <div><div><pre><code>pwd</code></pre></div><div></div></div></div>
+ <p>現行ディレクトリーが次のように表示されます。</p>
+ <div> <div><div><pre><code>/home/thomas</code></pre></div><div></div></div></div>
+</section>
+
+<section><h2>ファイル</h2> <div> 
+<div><div><table><thead> <tr> <th><div>項目</div></th>
+ <th><div>説明</div></th>
+ </tr>
+ </thead>
+<tbody>
+<tr>
+<td><strong>/usr/bin/pwd</strong></td>
+
+<td><strong>pwd</strong> コマンドが入っています。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+</section>
+
+</div></div>

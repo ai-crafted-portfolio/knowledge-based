@@ -1,0 +1,178 @@
+<div class="official-dom"><div>
+<section><h2>目的</h2> <p>非同期デバイス・ストリームを PPP (Point-to-Point プロトコル) サブシステムに接続します。 デーモン・プロセスまたは通常プロセスとして起動できます。</p>
+</section>
+
+<section><h2>構文</h2><p><strong>特定の tty ポートを接続として使用する (デーモンとして実行する) には</strong></p>
+ <p><strong>pppattachd</strong> <strong>/dev/tty</strong><em> ポート番号</em> { <a href="https://www.ibm.com/docs/ja/ssw_aix_73/p_commands/pppattachd.html#pppattachd__row-d3e94748" target="_blank" rel="noopener noreferrer"><strong>クライアント</strong> | <strong>サーバー</strong> | <strong>デマンド</strong></a> } { <a href="https://www.ibm.com/docs/ja/ssw_aix_73/p_commands/pppattachd.html#pppattachd__row-d3e94760" target="_blank" rel="noopener noreferrer"><strong>ip</strong> | <strong>ipv6</strong> | <strong>ip ipv6</strong></a> } [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/p_commands/pppattachd.html#pppattachd__row-d3e94793" target="_blank" rel="noopener noreferrer"><strong>マルチリンク</strong></a> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/p_commands/pppattachd.html#pppattachd__row-d3e94772" target="_blank" rel="noopener noreferrer"><strong>connect</strong> " <em>コネクタプログラム</em> "</a><strong></strong> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/p_commands/pppattachd.html#pppattachd__row-d3e94785" target="_blank" rel="noopener noreferrer"><strong>非アクティブ</strong><em>秒数</em></a> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/p_commands/pppattachd.html#pppattachd__row-d3e94737" target="_blank" rel="noopener noreferrer"><strong>認証</strong><strong> pap</strong> | <strong>chap</strong></a> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/p_commands/pppattachd.html#pppattachd__row-d3e94805" target="_blank" rel="noopener noreferrer"><strong>ピア</strong><strong> pap</strong> | <strong>chap</strong></a> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/p_commands/pppattachd.html#pppattachd__row-d3e94834" target="_blank" rel="noopener noreferrer"><strong>ユーザー</strong></a><em> 名</em> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/p_commands/pppattachd.html#pppattachd__row-d3e94816" target="_blank" rel="noopener noreferrer"><strong>リモート</strong></a><em>HostName</em> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/p_commands/pppattachd.html#pppattachd__row-d3e94799" target="_blank" rel="noopener noreferrer"><strong>nodaemon</strong></a> ]</p>
+<p><strong>標準入力および標準出力を tty デバイスとして使用する (プロセスとして実行する) には</strong></p>
+ <p><strong>pppattachd</strong> { <a href="https://www.ibm.com/docs/ja/ssw_aix_73/p_commands/pppattachd.html#pppattachd__row-d3e94748" target="_blank" rel="noopener noreferrer"><strong>client </strong>| <strong>server </strong>| <strong>demand </strong></a>} { <a href="https://www.ibm.com/docs/ja/ssw_aix_73/p_commands/pppattachd.html#pppattachd__row-d3e94760" target="_blank" rel="noopener noreferrer"><strong>ip</strong> | <strong>ipv6</strong> | <strong>ip ipv6 </strong></a>} [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/p_commands/pppattachd.html#pppattachd__row-d3e94793" target="_blank" rel="noopener noreferrer"><strong>multilink </strong></a>] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/p_commands/pppattachd.html#pppattachd__row-d3e94785" target="_blank" rel="noopener noreferrer"><strong>inactive </strong><em>Seconds </em></a>] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/p_commands/pppattachd.html#pppattachd__row-d3e94737" target="_blank" rel="noopener noreferrer"><strong>authenticate </strong><strong>pap </strong>| <strong>chap </strong></a>] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/p_commands/pppattachd.html#pppattachd__row-d3e94805" target="_blank" rel="noopener noreferrer"><strong>ピア </strong><strong>pap </strong>| <strong>chap </strong></a>] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/p_commands/pppattachd.html#pppattachd__row-d3e94834" target="_blank" rel="noopener noreferrer"><strong>user </strong></a><em>Name</em> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/p_commands/pppattachd.html#pppattachd__row-d3e94816" target="_blank" rel="noopener noreferrer"><strong>remote </strong></a><em>HostName</em> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/p_commands/pppattachd.html#pppattachd__row-d3e94799" target="_blank" rel="noopener noreferrer"><strong>nodaemon </strong></a>]</p>
+</section>
+
+<section><h2>説明</h2> <p><strong>pppattachd</strong> デーモンは、非同期ストリームを PPP サブシステムに結合するためのメカニズムを提供します。 発信接続を特定の tty ポートに配置すると、<strong>pppattachd</strong> はデーモンになります。 stdin (標準入力) および stdout (標準出力) を PPP コミュニケーションに対する tty デバイスとして使用すると、<strong>pppattachd</strong> はデーモンになりません。 (これは tty デバイスのログイン時に <strong>
+$HOME/.profile</strong> から実行されます。)</p>
+ <p>PAP または CHAP 認証は、<strong>authenticate</strong> および <strong>peer</strong> オプションで活動化することができます。 <strong>smit</strong> コマンドを使用して、<strong>/etc/ppp/pap-secrets</strong> または <strong>/etc/ppp/chap-secrets</strong> ファイルに入力を作成してください。 <strong>pppattachd</strong> デーモンは、これらのファイルでパスワードを使用し、接続を認証します。 これは、<strong>/etc/ppp/pap-secrets</strong> ファイルのみで PAP 認証を検索し、<strong>/etc/ppp/chap-secrets</strong> ファイルで CHAP 認証を検索します。</p>
+ <p>マルチリンク・オプションは、PPP リンクを、
+2 つの PPP ピア間で複数のアタッチメントを持つものとして識別するために使用します。 PPP パケットは 1 つのピアでフラグメント化され、複数のアタッチメントに送信され、マルチリンクもサポートしなければならないリモート・ピアに再接続されます。 最大受信再構造単位 (MRRU) および端点ディスクリプターは、PPP リンク構成メニューの SMIT を通して設定されます。 MRRU はフラグメント化の前の最大データ・サイズです。 端点判別プログラムは、一意的にローカル・システムを識別します。</p>
+ <p>エラーおよびメッセージは <strong>syslog</strong> 機能を使用してログに記録されます。</p>
+</section>
+
+<section><h2>オプション</h2> <div> 
+<div><div><table><thead> <tr> <th><div>項目</div></th>
+ <th><div>説明</div></th>
+ </tr>
+ </thead>
+<tbody>
+<tr>
+<td><strong>認証</strong><strong> パップ</strong> | <strong>チャップ</strong></td>
+
+<td>現行システムを、PAP または CHAP のいずれかの認証ホストとして定義します。</td>
+
+</tr>
+
+<tr>
+<td><strong>クライアント</strong> | <strong>サーバー</strong> | <strong>需要</strong></td>
+
+<td>サブシステム接続のタイプを、デーモンが実行中のシステム上で結合されるように定義します。</td>
+
+</tr>
+
+<tr>
+<td><strong>ip</strong> | <strong>ipv6</strong> | <strong>ip ipv6</strong></td>
+
+<td>プロトコル・タイプを指定します。</td>
+
+</tr>
+
+<tr>
+<td>「 <em>コネクタプログラム</em> 」 <strong>を接続する</strong></td>
+
+<td>発信接続を配置するために使用するプログラムを指定します。 開かれた tty デバイスは、stdin および stdout としてプログラムに渡されます。 <strong>/usr/sbin/pppdial</strong> コマンドは、使用できるコネクター・プログラムです。</td>
+
+</tr>
+
+<tr>
+<td><strong>非アクティブ</strong><em> 秒</em></td>
+
+<td>接続終了の前に、リンク上で非活動を待機する秒数 (符号なし整数) を指定します。 デフォルト値は 0 (タイムアウトなし) です。</td>
+
+</tr>
+
+<tr>
+<td><strong>多重リンク</strong></td>
+
+<td>PPP リンクを、2 つの PPP ピアに接続するアタッチメントのグループを持つものとして識別します。</td>
+
+</tr>
+
+<tr>
+<td><strong>非デーモン</strong></td>
+
+<td>接続プロセスに、デーモンにならないように指定します。 このオプションは、要求接続で呼び出される接続プロセスに使用しなければなりません。</td>
+
+</tr>
+
+<tr>
+<td><strong>ピア</strong><strong> パップ</strong> | <strong>チャップ</strong></td>
+
+<td>現行システムを、PAP または CHAP のいずれかのピアとして定義します。</td>
+
+</tr>
+
+<tr>
+<td><strong>リモート</strong><em> HostName</em></td>
+
+<td>リモート・ホスト名が、PAP 認証に使用されるように定義します。 正常に接続するには、<em>UserName</em> <em>RemoteHostName</em> <em>Password</em> に対する入力は、<strong>/etc/ppp/pap-secrets</strong> ファイルに存在しなければなりません。 このオプションは、認証およびピアの両方で PAP 認証に対して意味を持つだけです。</td>
+
+</tr>
+
+<tr>
+<td><strong>ユーザー</strong><em> 名前</em></td>
+
+<td>ユーザー入力を PAP 認証に対して使用するように定義します。 正常に接続するには、<em>UserName</em> <em>RemoteHostName</em> <em>Password</em> に対する入力は、<strong>/etc/ppp/pap-secrets</strong> ファイルに存在しなければなりません。 このオプションは、ピアで PAP 認証に対する意味を持つだけです。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+</section>
+
+<section><h2>終了状況</h2> <p>このコマンドは、以下の終了値を戻します。</p>
+ 
+<div><div><table><thead> <tr> <th><div>項目</div></th>
+ <th><div>説明</div></th>
+ </tr>
+ </thead>
+<tbody>
+<tr>
+<td><strong>0</strong></td>
+
+<td>正常終了。</td>
+
+</tr>
+
+<tr>
+<td><strong>!0</strong></td>
+
+<td>エラーが発生しました。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</section>
+
+<section><h2>セキュリティー</h2> <p>アクセス制御: 任意のユーザー</p>
+ <p>イベントの監査 : 該当しません。</p>
+</section>
+
+<section><h2>例</h2> <ol>
+<li><span></span>システム A をサーバー・システム B のクライアントとして機能させたいとします。システム A から次のように入力します。<div> <div><div><pre><code>/usr/sbin/pppattachd /dev/tty0 client ip connect "sysbconnector" </code></pre></div><div></div></div>ここでsysbconnectorコネクター・プログラムです。</div>
+  <p>システム B では、ログインしたユーザーは <strong>$HOME/.profile</strong> から以下を呼び出しました。</p>
+  <div> <div><div><pre><code>exec /usr/sbin/pppattachd server ip 2&gt;/dev/null</code></pre></div><div></div></div></div>
+</li>
+
+<li><span></span>サーバー・システム B がクライアント・システム A に接続するようにします。システム B から次のように入力します。<div> <div><div><pre><code>/usr/sbin/pppattachd /dev/tty0 server ipv6 connect "sysaconnector"</code></pre></div><div></div></div>ここでsysaconnectorコネクター・プログラムです。</div>
+  <p>システム A では、ログインしたユーザーは <strong>$HOME/.profile</strong> から以下を呼び出しました。</p>
+  <div> <div><div><pre><code>exec /usr/sbin/pppattachd client ipv6 2&gt;/dev/null</code></pre></div><div></div></div></div>
+</li>
+
+<li><span></span>システム A が PAP 認証を使用してサーバー・システム B に対するクライアントとして機能するようにします。 システム B は認証ホストとして作動し、システム A は認証されるピアです。 システム A から以下のように入力します。<div> <div><div><pre><code>/usr/sbin/pppattachd /dev/tty0 client ip ipv6 peer pap user username \
+connect "sysbconnector"</code></pre></div><div></div></div>ここでsysbconnectorコネクター・プログラムです。</div>
+  <p>システム A では、<strong> /etc/ppp/pap-secrets</strong> ファイルには username * ppppassword が入っています。 システム B では、ログインしたユーザーは <strong>$HOME/.profile</strong> から以下を呼び出しました。</p>
+  <div> <div><div><pre><code>exec /usr/sbin/pppattachd server ip ipv6 authenticate pap 2&gt;/dev/null</code></pre></div><div></div></div>システム B では、<strong>/etc/ppp/pap-secrets</strong> ファイルには username * ppppassword が入っています。</div>
+</li>
+
+</ol>
+</section>
+
+<section><h2>ファイル</h2> <div> 
+<div><div><table><thead> <tr> <th><div>項目</div></th>
+ <th><div>説明</div></th>
+ </tr>
+ </thead>
+<tbody>
+<tr>
+<td><strong>/usr/sbin/pppattachd</strong></td>
+
+<td><strong>pppattachd</strong> デーモンが入っています。</td>
+
+</tr>
+
+<tr>
+<td><strong>/etc/ppp/att</strong> <em>XXX</em> <strong>.pid</strong></td>
+
+<td>プロセス ID が入っています。 <em>XXX</em> は pid であり、
+ファイルの内容はアタッチメントがバインドされるネットワーク・レイヤー ID です。 pid ファイルが作成されるためには、ユーザーは uucp グループに属さなければなりません。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+</section>
+
+</div></div>

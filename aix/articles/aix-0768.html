@@ -1,0 +1,24 @@
+<div class="official-dom"><div>
+<section><h2>目的</h2> <p>現在システムに構成されている認証方法をリストします。</p>
+</section>
+
+<section><h2>構文</h2> <p><strong>lsauthent</strong></p>
+</section>
+
+<section><h2>説明</h2> <p><strong>lsauthent</strong> コマンドは、
+<strong>libauthm.a</strong> ライブラリーにある <strong>get_auth_method</strong> サブルーチンを呼び出し、
+返された認証方法のリストを変換し、
+構成された認証方法を <strong>stdout</strong> に出力します。 それぞれの認証方法は別の行に出力されます。</p>
+ <p>認証方法は構成された順序でリストされます。 認証方法が構成されていない場合は、
+<strong>lsauthent</strong> は何も出力せずに戻ります。</p>
+ <p><strong>lsauthent</strong> コマンドは <strong>stderr</strong> にエラー・メッセージを書き、
+<strong>get_auth_method</strong> が失敗した場合は -1 を返します。</p>
+</section>
+
+<section><h2>例</h2> <p>次の入力をした場合に、すべての認証方法が構成されていれば、</p>
+ <div> <div><div><pre><code>lsauthent</code></pre></div><div></div></div>出力は以下の項目で構成されます。<div><div><pre><code>Kerberos 5
+Kerberos 4
+Standard AIX</code></pre></div><div></div></div></div>
+</section>
+
+</div></div>

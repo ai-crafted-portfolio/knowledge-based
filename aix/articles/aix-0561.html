@@ -1,0 +1,178 @@
+<div class="official-dom"><div>
+<section><h2>目的</h2> <p>指定した基準に一致するデバイスをリストします。</p>
+</section>
+
+<section><h2>構文</h2> <p><strong>getdev</strong> [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/g_commands/getdev.html#getdev__row-d3e138404" target="_blank" rel="noopener noreferrer"><strong>-a</strong></a> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/g_commands/getdev.html#getdev__row-d3e138413" target="_blank" rel="noopener noreferrer"><strong>-e</strong></a> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/g_commands/getdev.html#getdev__row-d3e138442" target="_blank" rel="noopener noreferrer"><em>基準</em></a> ] [ ]。 <a href="https://www.ibm.com/docs/ja/ssw_aix_73/g_commands/getdev.html#getdev__row-d3e138564" target="_blank" rel="noopener noreferrer"><em>DeviceList</em></a> ]</p>
+</section>
+
+<section><h2>説明</h2> <p>指定した基準に一致するデバイスをリストします。 基準は、式の形式で指定します。 <strong>getdev</strong> コマンドは、システム上のすべてのデバイスまたは
+指定したリストのデバイスを検査することができます。</p>
+</section>
+
+<section><h2>フラグ</h2> 
+<div><div><table><thead> <tr> <th><div>項目</div></th>
+ <th><div>説明</div></th>
+ </tr>
+ </thead>
+<tbody>
+<tr>
+<td><strong>-a </strong></td>
+
+<td>すべての基準に一致するデバイスが、このコマンドによって生成されるリストに組み込まれることを
+指定します。 基準が定義されていない場合には、<strong>-a
+</strong> フラグは無効になります。</td>
+
+</tr>
+
+<tr>
+<td><strong>-e </strong></td>
+
+<td><em>devicelist</em> に指定されているデバイスを <strong>
+getdev</strong> コマンドにより生成されるリストから除外することを指定します。 <em>-e</em> フラグ
+を指定しないと、<em>devicelist</em> 内のデバイスのみが生成されます。 このフラグ
+は、デバイスが指定されていない場合には無視されます。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</section>
+
+<section><h2>パラメーター</h2> 
+<div><div><table><thead> <tr> <th><div>項目</div></th>
+ <th><div>説明</div></th>
+ </tr>
+ </thead>
+<tbody>
+<tr>
+<td><em>基準</em></td>
+
+<td>デバイスが、生成されるリストに組み込まれる前に、一致していなければならない基準を定義します。 <em>Criteria</em> は、式または式のリストとして指定することができます。
+この基準に一致するデバイスが、<strong>getdev</strong> により生成されるリストに組み込まれます。 基準が指定されていない場合は、すべてのデバイスがリストに組み込まれます。<p>デバイスは、リスト内の基準のうち少なくとも 1 つは満たしている必要があります。 ただし、
+<strong>-a</strong> オプションを使用して、「論理 AND」操作を行うように指定する
+ことができます。 このオプションを指定すると、リスト内のすべての基準に一致するデバイスのみが結果リストに組み込まれます。</p>
+ <div><em>Criteria</em> パラメーターで指定される基準には、次の 4 つのタイプの式
+があります。<dl>
+<dt><em>属性</em>=<em>値</em></dt>
+
+<dd>定義された <em>Attribute</em> を持っており、それが <em>Value
+</em> に等しいメンバーを持つデバイスをすべて取り出します。</dd>
+
+
+<dt><em>属性</em>! =<em>値</em></dt>
+
+<dd>定義された <em>Attribute</em> を持っており、それが <em>Value
+</em> に等しくないメンバーを持つデバイスをすべて取り出します。</dd>
+
+
+<dt><em>属性</em>: *</dt>
+
+<dd>定義された <em>Attribute</em> を持っているメンバーを持つデバイスをすべて取り出します。</dd>
+
+
+<dt><em>属性</em>!: *</dt>
+
+<dd>定義された <em>Attribute</em> を持っていないメンバーを持つデバイスをすべて取り出します。</dd>
+
+</dl>
+</div>
+ <div>有効なデバイス属性は、次のとおりです。<dl>
+
+<dt>alias</dt>
+
+<dd>デバイスが認識されている名前。</dd>
+
+
+<dt>desc</dt>
+
+<dd>デバイスの説明。</dd>
+
+
+<dt>タイプ</dt>
+
+<dd>デバイスのタイプを示すトークン。 <strong>type</strong> 属性の有効な値のセットは、以下のコマンドを実行して取得できます。 <strong><code>odmget PdDv | grep  -w class | awk '{print $3}'
+| sed 's/"//g' | sort | uniq</code> </strong></dd>
+
+
+<dt>状況</dt>
+
+<dd>デバイスの現在の状態。可能な状態の値は、1.Defined (定義済み) 2.Available (使用可能) 3.Stopped (停止) 4.Diagnose (診断) です。<strong>status</strong> の値は大文字と小文字が区別されません。</dd>
+
+</dl>
+</div>
+</td>
+
+</tr>
+
+<tr>
+<td><em>DeviceList</em></td>
+
+<td><em>Criteria</em> を検査するデバイスがスペースで区切られたリストを指定します。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</section>
+
+<section><h2>終了状況</h2> <dl>
+<dt>0</dt>
+
+<dd>コマンドは正常に完了しました。</dd>
+
+
+<dt>&gt; 1</dt>
+
+<dd>故障が発生しました。</dd>
+
+</dl>
+</section>
+
+<section><h2>例</h2> <ol>
+<li>すべてのデバイスを表示するには、次のように入力します。<div><div><pre><code>getdev</code></pre></div><div></div></div></li>
+
+<li>タイプが「logical_volume」であるデバイスをリストするには、次のように入力します。<div><div><pre><code>getdev type=logical_volume</code></pre></div><div></div></div></li>
+
+<li>タイプが「logical_volume」でないデバイスをリストするには、次のように入力します。<div><div><pre><code>getdev type!=logical_volume</code></pre></div><div></div></div></li>
+
+<li>タイプが「logical_volume」であるか、または別名が「sys0」であるデバイスをリストするには、
+次のように入力します。<div><div><pre><code>getdev type=logical_volume alias=sys0</code></pre></div><div></div></div>出力は次のようになります。<div><div><pre><code>hd1  
+hd2  
+hd3  
+hd4  
+...  
+sys0</code></pre></div><div></div></div></li>
+
+<li>タイプが「logical_volume」で、別名が「lv01」であるデバイスをリストするには、
+次のように入力します。<div><div><pre><code>getdev -a type=logical_volume alias=lv01</code></pre></div><div></div></div></li>
+
+<li><strong>status</strong> 属性が定義されているデバイスを表示するには、
+次のように入力します。<div><div><pre><code>getdev status:*</code></pre></div><div></div></div></li>
+
+<li><strong>desc</strong> 属性が定義されていないデバイスを表示するには、
+次のように入力します。<div><div><pre><code>getdev desc!:* </code></pre></div><div></div></div></li>
+
+</ol>
+</section>
+
+<section><h2>ファイル</h2> 
+<div><div><table><thead> <tr> <th><div>項目</div></th>
+ <th><div>説明</div></th>
+ </tr>
+ </thead>
+<tbody>
+<tr>
+<td><strong>/usr/sbin/getdev</strong></td>
+
+<td><strong>getdev</strong> コマンドが入っています。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</section>
+
+</div></div>

@@ -1,0 +1,345 @@
+<div class="official-dom"><div>
+<section><h2>目的</h2> <p>オンライン・ピア・ドメインで定義された 1 つ以上のノードについての情報を表示します。</p>
+</section>
+
+<section><h2>構文</h2> <p><strong>lsrpnode</strong> [ [ <strong>I</strong> ] [ <strong>-</strong> | <strong>T</strong> | <strong>-d 年</strong> | <strong>-D</strong> <em>区切り文字</em> ] <strong>-</strong> | <strong>-O (O)</strong> | <strong>-L (L)</strong> ] <strong>-P</strong> ] <strong>-キュー</strong> ] [ <strong>-B</strong> ] [ <strong>-x (X)</strong> ] [<strong>-h</strong>] [<strong>-テレビ</strong>] [<em>ノード名</em>]</p>
+ <p><span><span>lsrpnode</span></span> <span><span>-p</span></span> <span><span>peer_domain</span></span> [ <span><span>-l</span></span> | <span><span>-t</span></span> | <span><span>-d</span></span> | <span><span>-D</span></span> <span><span>区切り文字</span></span> ] [<span><span>-x</span></span>] [<span><span>-h</span></span>] [<span><span>-TV</span></span>]</p>
+</section>
+
+<section><h2>説明</h2> <p><strong>lsrpnode</strong> コマンドは、オンライン・ピア・ドメインで定義された 1
+つ以上のノードについての情報を表示します。 このコマンドのフラグおよびパラメーターを使用して、表示する情報とその表示方法を指定します。 ノード名を指定すると、コマンドはそのノードのみについての情報を表示します。</p>
+<p><strong>-o</strong>、<strong>-O</strong>、および <strong>-L</strong> フラグもまた、このコマンドが表示する情報を制限します。 <strong>-o</strong> フラグは、オンラインのノードに関する情報を表示します。 <strong>-O</strong> フラグは、オフラインのノードに関する情報を表示します。 <strong>-L</strong> フラグは、ローカル・ノード、つまりコマンドが実行されるノードに関する情報を表示します。</p>
+<p><strong>-P</strong> フラグは、グループ・サービスのグループ・リーダー選択に関連した追加のノード構成情報を表示します。 <strong>-Q</strong> フラグは、クォーラム決定に関連した追加のノード構成情報を表示します。 <strong>-B</strong> フラグは、タイ・ブレーカー・メカニズムに関連した追加のノード構成情報を表示します。</p>
+ <p>デフォルトでは、 <span><span>lsrpnode</span></span> コマンドは情報を表形式 (<span><span>-t</span></span>) で表示します。</p>
+ <div>表示されるノード情報の一部を以下に示します。<div><div><table><thead>
+<tr>
+<th><div>フィールド</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td>名前</td>
+
+<td>ピア・ドメイン内のノードの名前。</td>
+
+</tr>
+
+<tr>
+<td>OpState</td>
+
+<td>ノードの操作状態。</td>
+
+</tr>
+
+<tr>
+<td>RSCTVersion</td>
+
+<td>ノード内でアクティブになっている <span>RSCT</span> のバージョン。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+ <div><span><span>-i</span></span> フラグを指定すると、以下のフィールドが表示されます。<div><div><table><thead>
+<tr>
+<th><div>フィールド</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td>NodeNum</td>
+
+<td>トポロジー・サービスおよびグループ・サービスによって使用されるノード番号。 この番号は、クラスター内で固有の番号です。</td>
+
+</tr>
+
+<tr>
+<td>NodeID</td>
+
+<td>固有のノード ID。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>他のフィールド (指定されたフラグによって決まります) と同様に、このフィールドは、<strong>-P</strong> フラグを指定すると、表示されます。<div><div><table><thead>
+<tr>
+<th><div>フィールド</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td>優先</td>
+
+<td>ノードがグループ・サービスのグループ・リーダー候補であるかどうかを示します。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>他のフィールド (指定されたフラグによって決まります) と同様に、このフィールドは、<strong>-Q</strong> フラグを指定すると、表示されます。<div><div><table><thead>
+<tr>
+<th><div>フィールド</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td>Quorum</td>
+
+<td>ノードがクォーラム決定に参加するかどうかを示します。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>他のフィールド (指定されたフラグによって決まります) と同様に、このフィールドは、<strong>-B</strong> フラグを指定すると、表示されます。<div><div><table><thead>
+<tr>
+<th><div>フィールド</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td>Tiebreaker</td>
+
+<td>ノードがピア・ドメインのタイ・ブレーカー・メカニズムにアクセス権限を持っているかどうかを示します。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>グループ・サービス・グループ・リーダーの選択、クォーラム決定、およびタイブレーカー・メカニズムについては、「 Administering <span>RSCT</span> 」ガイドを参照してください。</div>
+</section>
+
+<section><h2>フラグ</h2> <dl>
+<dt>-d</dt>
+
+<dd>区切り文字を使用して情報を表示します。 デフォルトの区切り文字はコロン (<span><span>:</span></span>) です。 デフォルトの区切り文字を変更する場合は、 <span><span>-D</span></span> フラグを使用します。</dd>
+
+
+<dt>--D <span><span>デリミタ</span></span></dt>
+
+<dd>指定した区切り文字を使用して情報を表示します。 このフラグを使用して、デフォルトのコロン (<span><span>:</span></span>) 以外の区切り文字を指定します。例えば、表示する情報にコロンが含まれている場合などです。 このフラグを使用すると、1 文字以上の区切り文字を指定できま
+す。</dd>
+
+
+<dt>-i</dt>
+
+<dd>ノードのノード番号とノード ID を表示します。 ノード番号は、トポロジー・サービスとグループ・サービスによって使用される、クラスター内で固有の番号です。 ノード ID は固有のノード ID です。</dd>
+
+
+<dt>-l</dt>
+
+<dd>情報を別々の行に表示します (長形式)。</dd>
+
+
+<dt>-L</dt>
+
+<dd>ローカル・ノード、つまりコマンドが実行されるノードに関する情報だけを表示します。</dd>
+
+
+<dt>-o</dt>
+
+<dd>ピア・ドメイン内のオンラインのノードについての情報を表示します。</dd>
+
+
+<dt>-O</dt>
+
+<dd>ピア・ドメイン内のオフラインのノードについての情報を表示します。</dd>
+
+
+<dt>--p <span><span>peer_domain</span></span></dt>
+
+<dd>ローカル・ノードが属する<em>オフライン</em>・ピア・ドメイン内で定義されたノードについての情報を表示します。 (デフォルトでは、 <span><span>lsrpnode</span></span> コマンドは、現在 <em>オンライン</em>になっているドメインに定義されているノードに関する情報を表示します。) ただし、この情報はローカル・ノードがオフラインにされた後のドメインへの変更を反映していない可能性があります。
+なぜなら、オフライン・ノードの構成が最新でない可能性があるためです。<p><span><span>-p</span></span> フラグは、 <span><span>CT_CONTACT</span></span> 環境変数を無視します。 <strong>-p</strong> フラグを使用するには root アクセスを持つ必要があります。</p>
+</dd>
+
+
+<dt>-P</dt>
+
+<dd>ノードがグループ・サービスのグループ・リーダー候補であるかどうかを示します。 ノードがグループ・サービスのグループ・リーダーになりうる場合は、<strong>yes</strong> が表示されます。 ノードがグループ・サービスのグループ・リーダーになりえない場合は、<strong>no</strong> が表示されます。 グループ・サービス・グループ・リーダーの選択について詳しくは、「 Administering <span>RSCT</span> 」を参照してください。</dd>
+
+
+<dt>-Q</dt>
+
+<dd>ノードがクォーラム決定に参加するかどうかを示します。 ノードがクォーラム決定に参加する場合は、「yes」が表示されます。 ノードがクォーラム決定に参加しない場合は、「no」が表示されます。 クォーラム決定について詳しくは、「 Administering <span>RSCT</span> 」を参照してください。</dd>
+
+
+<dt>-B</dt>
+
+<dd>ノードがピア・ドメインのタイ・ブレーカー・メカニズムにアクセス権限を持っているかどうかを示します。 ノードがピア・ドメインのタイ・ブレーカー・メカニズムにアクセス権限を持っている場合は、「yes」が表示されます。 ノードがピア・ドメインのタイ・ブレーカー・メカニズムにアクセス権限を持っていない場合は、「no」が表示されます。 タイブレーカー・メカニズムについて詳しくは、「 Administering <span>RSCT</span> 」を参照してください。</dd>
+
+
+<dt>-t</dt>
+
+<dd>情報を別々の列に表示します (テーブル形式)。 これは、デフォルトのフォーマットです。</dd>
+
+
+<dt>-x</dt>
+
+<dd>ヘッダーを除外します (ヘッダーの印刷を抑止します)。</dd>
+
+
+<dt>-h</dt>
+
+<dd>コマンドの使用ステートメント (使用法) を標準出力に書き込みます。</dd>
+
+
+<dt>-T</dt>
+
+<dd>コマンドのトレース・メッセージを標準エラーに書き込みます。 これは、ソフトウェア保守部門専用の機能です。</dd>
+
+
+<dt>-V</dt>
+
+<dd>コマンドの詳細メッセージを標準出力に書き込みます。</dd>
+
+</dl>
+</section>
+
+<section><h2>パラメーター</h2> <dl>
+<dt><span><span>ノード名</span></span></dt>
+
+<dd>情報を表示する対象のノードの名前を指定します。 このパラメーターには、ノード名またはノード名のサブストリングを指定できます。 サブストリングを指定した場合、コマンドは、そのサブストリングを含む名前を持つすべての定義済みのノードの情報を表示します。</dd>
+
+</dl>
+</section>
+
+<section><h2>セキュリティー</h2> <p><span><span>lsrpnode</span></span> コマンドのユーザーには、このコマンドが実行されるノード上の <span><span>IBM.PeerNode</span></span> リソース・クラスに対する読み取り権限が必要です。 デフォルトでは、ピア・ドメイン内のすべてのノードの <span><span>root</span></span> には、構成リソース・マネージャーを介してこのリソース・クラスに対する読み取りおよび書き込みアクセス権があります。</p>
+</section>
+
+<section><h2>終了状況</h2> <dl>
+<dt>0</dt>
+
+<dd>コマンドは正常に実行されました。</dd>
+
+
+<dt>1</dt>
+
+<dd>RMC 内でエラーが発生しました。</dd>
+
+
+<dt>2</dt>
+
+<dd>コマンド・ライン・インターフェース・スクリプトでエラーが発生しました。</dd>
+
+
+<dt>3</dt>
+
+<dd>コマンド・ラインに指定されたフラグが正しくありません。</dd>
+
+
+<dt>4</dt>
+
+<dd>コマンド・ラインに指定されたパラメーターが正しくありません。</dd>
+
+
+<dt>5</dt>
+
+<dd>コマンド・ライン入力の間違いが原因のエラーが発生しました。</dd>
+
+</dl>
+</section>
+
+<section><h2>環境変数</h2> <dl>
+<dt>CT_CONTACT</dt>
+
+<dd>Resource Monitoring and Control (RMC) デーモンとのセッションが発生するシステムを決定します。 CT_CONTACT をホスト名または IP アドレスに設定すると、コマンドは指定されたホストの RMC デーモンにアクセスします。 CT_CONTACT を設定しないと、コマンドは、そのコマンドが実行されているローカル・システムの RMC デーモンにアクセスします。 RMC デーモン・セッションのターゲットおよび管理有効範囲によって、処理されるリソース・クラスまたはリソースが決定されます。</dd>
+
+
+<dt>CT_IP_AUTHENT</dt>
+
+<dd>CT_IP_AUTHENT 環境変数が存在する場合、RMC デーモンは、IP ベース・ネットワーク認証を使用して、CT_CONTACT 環境変数が設定されている IP アドレスで指定されたシステム上の RMC デーモンにアクセスします。 CT_IP_AUTHENT は、CT_CONTACT が IP アドレスに設定されている場合にのみ意味を持ちます。ドメイン・ネーム・システム (DNS) サービスには依存しません。</dd>
+
+</dl>
+</section>
+
+<section><h2>制約事項</h2> <p>このコマンドは、ピア・ドメインでオンラインのノードで実行する必要があります。</p>
+</section>
+
+<section><h2>実行の特性</h2> <p>このコマンドは<span>AIX</span>用の<span>Reliable Scalable Cluster Technology(RSCT)</span>ファイルセットの一部です。</p>
+</section>
+
+<section><h2>標準入力</h2> <p><span><span>-f
+"-"</span></span> <span>または <span><span>-F "-"</span></span></span> フラグを指定すると、このコマンドは標準入力から 1 つ以上のノード名を読み取ります。</p>
+</section>
+
+<section><h2>標準出力</h2> <p><span><span>-h</span></span> フラグを指定すると、このコマンドの使用状況ステートメントが標準出力に書き込まれます。 詳細メッセージはすべて、標準出力に書き込まれます。</p>
+</section>
+
+<section><h2>標準エラー</h2> <p>トレース・メッセージはすべて、標準エラーに書き込まれます。</p>
+</section>
+
+<section><h2>例</h2> <ol>
+<li><span><span>nodeA</span></span> が属するオンライン・ピア・ドメイン内のノードに関する一般情報を表示するには、 <span><span>nodeA</span></span>で次のコマンドを実行します。<div><div><pre><code>lsrpnode </code></pre></div><div></div></div>出力は次のようになります。<div><div><pre><code>Name    OpState   RSCTVersion 
+nodeA   Online    3.1.4.0   
+nodeB   Online    3.1.4.0     
+nodeC   Offline   3.1.4.0   </code></pre></div><div></div></div></li>
+
+<li><span><span>nodeA</span></span> が属するオンライン・ピア・ドメイン内のノードに関する一般情報を、デフォルトの区切り文字 (見出しなし) で表示するには、 <span><span>nodeA</span></span>で次のコマンドを実行します。<div><div><pre><code>lsrpnode -xd </code></pre></div><div></div></div>出力は次のようになります。<div><div><pre><code>nodeA:Online:3.1.4.0: 
+nodeB:Online:3.1.4.0: 
+nodeC:Offline:3.1.4.0:</code></pre></div><div></div></div></li>
+
+<li><span><span>nodeA</span></span> が属するオンライン・ピア・ドメイン内のノードに関する一般情報を長形式で表示するには、 <span><span>nodeA</span></span>で次のコマンドを実行します。<div><div><pre><code>lsrpnode -l </code></pre></div><div></div></div>出力は次のようになります。<div><div><pre><code>Name        = nodeA 
+OpState     = Online 
+RSCTVersion = 3.1.4.0 
+
+Name        = nodeB
+OpState     = Online 
+RSCTVersion = 3.1.4.0   
+
+Name        = nodeC
+OpState     = Offline 
+RSCTVersion = 3.1.4.0  </code></pre></div><div></div></div></li>
+
+<li><span><span>nodeA</span></span> が属するオンライン・ピア・ドメイン内のノードに関する一般情報 (ノード番号およびノード ID を含む) を表示するには、 <span><span>nodeA</span></span>で次のコマンドを実行します。<div><div><pre><code>lsrpnode -i</code></pre></div><div></div></div>出力は次のようになります。<div><div><pre><code>Name    OpState   RSCTVersion   NodeNum   NodeID           
+nodeA   Online    3.1.4.0       2         40a514bed9d82412 
+nodeB   Online    3.1.4.0       1         47fe57098f4ec4d9      </code></pre></div><div></div></div></li>
+
+<li><strong>nodeA</strong> が属するオンライン・ピア・ドメイン内のノードについての一般情報 (優先グループ・サービスのグループ・リーダー情報を含む) を表示するには、<strong>nodeA</strong> 上でこのコマンドを次のように実行します。<div><div><pre><code>lsrpnode -P</code></pre></div><div></div></div>出力は次のようになります。<div><div><pre><code>Name    OpState   RSCTVersion   Preferred
+nodeA   Online    3.1.4.0       yes 
+nodeB   Online    3.1.4.0       no</code></pre></div><div></div></div></li>
+
+<li><strong>nodeA</strong> が属するオンライン・ピア・ドメイン内のノードについての一般情報 (クォーラム情報を含む) を表示するには、<strong>nodeA</strong> 上でこのコマンドを次のように実行します。<div><div><pre><code>lsrpnode -Q</code></pre></div><div></div></div>出力は次のようになります。<div><div><pre><code>Name    OpState   RSCTVersion   Quorum
+nodeA   Online    3.1.4.0       no 
+nodeB   Online    3.1.4.0       yes
+nodeC   Online    3.1.4.0       yes</code></pre></div><div></div></div></li>
+
+<li><strong>nodeA</strong> が属するオンライン・ピア・ドメイン内のノードについての一般情報 (クォーラムおよびタイ・ブレーカー情報を含む) を表示するには、<strong>nodeA</strong> 上でこのコマンドを次のように実行します。<div><div><pre><code>lsrpnode -QB</code></pre></div><div></div></div>出力は次のようになります。<div><div><pre><code>Name    OpState   RSCTVersion   Quorum		Tiebreaker
+nodeA   Online    3.1.4.0       no 			no
+nodeB   Online    3.1.4.0       yes			yes
+nodeC   Online    3.1.4.0       yes			yes</code></pre></div><div></div></div></li>
+
+</ol>
+</section>
+
+<section><h2>ロケーション</h2> <dl>
+<dt>/opt/rsct/bin/lsrpnode</dt>
+
+<dd></dd>
+
+</dl>
+</section>
+
+</div></div>

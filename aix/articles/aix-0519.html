@@ -1,0 +1,767 @@
+<div class="official-dom"><div>
+<section><h2>目的</h2> <p>照合式に一致するファイルを検索します。</p>
+</section>
+
+<section><h2>構文</h2> <p><span><span>find</span></span> [<a href="https://www.ibm.com/docs/ja/ssw_aix_73/f_commands/find.html#find__row-d3e110214" target="_blank" rel="noopener noreferrer"><strong>-H</strong></a> | <a href="https://www.ibm.com/docs/ja/ssw_aix_73/f_commands/find.html#find__row-d3e110220" target="_blank" rel="noopener noreferrer"><strong>-L</strong></a>] パス ... [式]</p>
+</section>
+
+<section><h2>説明</h2> <p><span>find</span> コマンドは、ディレクトリー・ツリーの中で、指定されたそれぞれの Path パラメーターを再帰的に検索し、ブール式と一致するファイルを探します。 ブール式は、以下のテキストに示す項を使用して記述されます。 <span>find</span> コマンドがディレクトリー構造を上から下へ再帰的に検索している場合は、現在の階層にシンボリック・リンクによってリンクしているディレクトリーを検索しません。 <span>find</span> コマンドからの出力は、Expression パラメーターで指定した項に応じて異なります。</p>
+ <p><span>find</span> コマンドは 4.3 BSD 高速検索構文をサポートしません。</p>
+</section>
+
+<section><h2>フラグ</h2> <div> 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><span>-H</span></td>
+
+<td>コマンド・ラインで検出されたシンボリック・リンクに対して評価されたファイル情報とファイル・タイプが、リンクで参照されるファイル (リンク自体ではない) のファイル情報とファイル・タイプになります。 参照されるファイルが存在しない場合は、
+ファイル情報とファイル・タイプはリンク自体に関するものです。 コマンド・ラインにないすべてのシンボリック・リンクに関するファイル情報は、
+リンク自体のファイル情報です。</td>
+
+</tr>
+
+<tr>
+<td><span>-L</span></td>
+
+<td>シンボリック・リンクに対して評価されたファイル情報とファイル・タイプが、
+リンクで参照されるファイル (リンク自体ではない) のファイル情報とファイル・タイプになります。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+</section>
+
+<section><h2>式の項</h2> <div>ブール式と変数は、<span>find</span> コマンドの検索境界を Path と Expression パラメーターの定義に従って記述します。<div><div>
+        <div>
+          <div><span>注:</span> 以下の定義では、 n 変数は、 <span><span>+</span></span>n ( nより大きい)、 <span><span>-</span></span>n ( nより小さい) として表現できる 10 進整数を指定します。 または n (正確に n)、および Number 変数は、 <span><span>+</span></span>Number (より大きい Number)、 <span><span>-</span></span>Number (より小さい数値)、または Number (Number-1 to Number) として表現できる 10 進整数を指定します。</div>
+        </div>
+      </div></div>
+</div>
+ 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><span><span>\(</span></span>式<span><span>\)</span></span></td>
+
+<td>括弧で囲まれている式が真であるとき、真となります。</td>
+
+</tr>
+
+<tr>
+<td><span>-amin</span> N</td>
+
+<td>n の値は、以下のいずれかの値とすることができます。<dl>
+<dt>n</dt>
+
+<dd>初期設定時間から減算されたファイル・アクセス時間を 60 秒で割った値 (余りは切り捨てる) が n のとき、値は真となります。</dd>
+
+
+<dt>- n</dt>
+
+<dd>初期設定時間から減算されたファイル・アクセス時間を
+60 秒で割った値 (余りは切り捨てる) が n
+より小さいとき、値は真となります。</dd>
+
+
+<dt>+n</dt>
+
+<dd>初期化時間から減算されたファイル・アクセス時間を 60 秒で割った値 (余りは切り捨てる) が n ( <span>UNIX03</span>の場合、 n+ 1 より大きい) より大きい場合は、真として評価されます。</dd>
+
+</dl>
+ <p>例えば、ファイルが 1 分から 2 分以内にアクセスされる場合、 <span><span>-amin 2</span></span> は true です。</p>
+ <div><div>
+        <div>
+          <div><span>注:</span> <span>find</span> コマンドの開始時刻より後にアクセスされるファイルは考慮されません。 ただし、 <span>find</span> コマンドが<span>UNIX03</span> 以外の動作のために単項 <code>NOT</code> 演算子内で使用される場合、コマンドの開始時刻より後に変更されたファイルは、 nの値まで表示されます。</div>
+        </div>
+      </div></div>
+</td>
+
+</tr>
+
+<tr>
+<td><span>-atime</span> N</td>
+
+<td>n の値は、以下のいずれかの値とすることができます。<dl>
+<dt>n</dt>
+
+<dd>初期設定時間から減算されたファイル・アクセス時間を
+86400 秒で割った値 (余りは切り捨てる) が n
+のとき、値は真となります。</dd>
+
+
+<dt>- n</dt>
+
+<dd>初期設定時間から減算されたファイル・アクセス時間を
+86400 秒で割った値 (余りは切り捨てる) が n
+より小さいとき、値は真となります。</dd>
+
+
+<dt>+n</dt>
+
+<dd>初期化時間から減算されたファイル・アクセス時間を 86400 秒で割った値 (余りは切り捨てた値) が n ( <span>UNIX03</span>の場合、 n+ 1 より大きい値) より大きい場合は、真として評価されます。</dd>
+
+</dl>
+ <div><div>
+        <div>
+          <div><span>注:</span> <span><span>-atime</span></span> の定義は、Single UNIX Specification、バージョン 3 に準拠するように変更されています。 ファイルが 24 時間の n-1 から n の倍数でアクセスされた場合、 <span><span>-atime</span></span> の以前の動作は True と評価されます。 デフォルトでは、 <code>find -atime</code> は <span>UNIX03</span>より前と同様に機能します。 <span>UNIX03</span> の動作は、環境変数 <span><span>XPG_SUS_ENV</span></span> を <code>ON</code> に設定し、 <span><span>XPG_UNIX98</span></span> を <code>OFF</code>に設定することによって取得できます。</div>
+        </div>
+      </div></div>
+ <p>このオプションの以前の動作は、 <span><span>XPG_UNIX98</span></span> 変数を <code>ON</code>に設定することで取得できます。</p>
+ <p><span>find</span> コマンドの開始時間以降にアクセスしたファイルは考慮されません。 ただし、 <span>find</span> コマンドが<span>UNIX03</span> 以外の動作のために単項 <code>NOT</code> 演算子内で使用される場合、コマンドの開始時刻より後に変更されたファイルは、 nの値まで表示されます。</p>
+</td>
+
+</tr>
+
+<tr>
+<td><span>-cmin</span> N</td>
+
+<td>n の値は、以下のいずれかの値とすることができます。<dl>
+<dt>n</dt>
+
+<dd>初期設定時間から減算されたファイルの i ノード変更時間を 60 秒で割った値 (余りは切り捨てる) が n のとき、値は真となります。</dd>
+
+
+<dt>- n</dt>
+
+<dd>初期設定時間から減算されたファイルの i ノード変更時間を
+60 秒で割った値 (余りは切り捨てる) が n
+より小さいとき、値は真となります。</dd>
+
+
+<dt>+n</dt>
+
+<dd>初期化時間から減算されたファイル i ノード変更時間を 60 秒で割った値 (余りは切り捨てる) が n ( <span>UNIX03</span>の場合、 n+ 1 より大きい) より大きい場合は、真として評価されます。</dd>
+
+</dl>
+ <div><div>
+        <div>
+          <div><span>注:</span> <span>find</span> コマンドの開始時刻より後に変更された i ノードを持つファイルは考慮されません。 ただし、 <span>find</span> コマンドが<span>UNIX03</span> 以外の動作のために単項 <code>NOT</code> オペレーター内で使用される場合、コマンドの開始時刻より後に変更された i ノードを持つファイルは、 nの値まで表示されます。</div>
+        </div>
+      </div></div>
+</td>
+
+</tr>
+
+<tr>
+<td><span>-cpio</span>  Device</td>
+
+<td>現行ファイルを指定されたデバイスに <span>cpio</span> コマンド・フォーマットで書き込みます。</td>
+
+</tr>
+
+<tr>
+<td><span>-ctime</span> N</td>
+
+<td>n の値は、以下のいずれかの値とすることができます。<dl>
+<dt>n</dt>
+
+<dd>初期設定時間から減算されたファイルの i ノード変更時間を
+86400 秒で割った値 (余りは切り捨てる) が n
+のとき、値は真となります。</dd>
+
+
+<dt>- n</dt>
+
+<dd>初期設定時間から減算されたファイルの i ノード変更時間を
+86400 秒で割った値 (余りは切り捨てる) が n
+より小さいとき、値は真となります。</dd>
+
+
+<dt>+n</dt>
+
+<dd>初期化時間から減算されたファイル i ノード変更時間を 86400 秒で割った値 (余りは切り捨てる) が n より大きい場合 ( <span>UNIX03</span>の場合、 n+ 1 より大きい場合)、値は真となります。</dd>
+
+</dl>
+ <div><div>
+        <div>
+          <div><span>注:</span> <span>-ctime</span> の定義は、Single UNIX Specification、バージョン 3 に準拠するように変更されています。 ファイルが 24 時間の n-1 から n の倍数でアクセスされた場合、 <span>-ctime</span> の以前の動作は True と評価されます。 デフォルトでは、 <code>find -ctime</code> は <span>UNIX03</span>より前と同様に機能します。 <span>UNIX03</span> の動作は、環境変数 <span><span>XPG_SUS_ENV</span></span> を <code>ON</code> に設定し、 <span><span>XPG_UNIX98</span></span> を <code>OFF</code>に設定することによって取得できます。</div>
+        </div>
+      </div></div>
+ <p>このオプションの以前の動作は、 <span><span>XPG_UNIX98</span></span> 変数を <code>ON</code>に設定することで取得できます。</p>
+ <p><span>find</span> コマンドの開始時間以降に i ノード変更したファイルは考慮されません。 ただし、 <span>find</span> コマンドが<span>UNIX03</span> 以外の動作のために単項 <code>NOT</code> オペレーター内で使用される場合、コマンド開始時刻以降に変更された i ノードを持つファイルは、 nの値まで表示されます。</p>
+</td>
+
+</tr>
+
+<tr>
+<td><span>-depth</span></td>
+
+<td>値は常に真となります。 ディレクトリー階層を下位方向に検索していくので、ディレクトリー内のすべてのエントリーが、ディレクトリーそのものよりも先に影響を受けます。 それは、<span>find</span> コマンドを <span>cpio</span> コマンドと一緒に
+使用して、書き込み許可を持たないディレクトリー内に含まれているファイルを転送する場合に便利です。</td>
+
+</tr>
+
+<tr>
+<td><span>-ea</span></td>
+
+<td>ファイルにアクセス制御リスト (ACL) または拡張属性 (EA) が設定されていれば、値は真と評価されます。</td>
+
+</tr>
+
+<tr>
+<td><span>-exec</span>  Command</td>
+
+<td>指定したコマンドが実行されて、終了状況として値 0 が戻されるとき、値は真となります。 指定したコマンドの終わりには、引用符で囲んだセミコロン、エスケープされたセミコロン、または正符号を付ける必要があります。 2 つの文字 <code>{}</code> (中括弧) を含む引数の後には、指定したコマンドの終わりを示す正符号を付ける必要があります。 コマンド・パラメーター <code>{}</code> (中括弧) は現行パス名に置き換えられます。</td>
+
+</tr>
+
+<tr>
+<td><span>-follow</span></td>
+
+<td>シンボリック・リンクおよびハード・リンクが後に続くようにします。</td>
+
+</tr>
+
+<tr>
+<td><span>-fstype</span>  Type</td>
+
+<td>ファイルが属しているファイルシステムが指定されたタイプであるとき、値は真となります。 <span>Type 変数の値には <code>jfs</code> (ジャーナル・ファイルシステム)、<code>nfs</code> (ネットワーク・ファイルシステム)、<code>jfs2</code> (拡張ジャーナル・ファイルシステム)、<code>procfs</code> (proc ファイルシステム)、または <code>namefs</code> (名前ファイルシステム) が入っています。</span></td>
+
+</tr>
+
+<tr>
+<td><span>-group</span>  Group</td>
+
+<td>ファイルが指定したグループに属するとき、値は真になります。 Group 変数の値が数値で、<span>/etc/group</span> ファイルに
+無い場合は、グループ ID と解釈されます。</td>
+
+</tr>
+
+<tr>
+<td><span>-iname</span> ファイル名/パターン</td>
+
+<td>filenameまたはpattern変数の値がファイル名にマッチする場合、Trueと評価される。 <span>-iname</span>オプションは「<span>-name</span>オプションと似ているが、大文字小文字を区別しない検索を行う点が異なる。 <span>*</span>、'<span>?</span> などのワイルドカード文字を含めることができます、 または<span>[]</span>をキーワードとして指定する。</td>
+
+</tr>
+
+<tr>
+<td><span>-inum</span> N</td>
+
+<td>ファイルの i ノード番号が n 変数の値と一致するとき、値は真となります。</td>
+
+</tr>
+
+<tr>
+<td><span>-links</span> N</td>
+
+<td>ファイル内に、指定した数のリンクがあるとき、値は真となります。 リンクについての説明は、<span>ln</span> コマンドを参照してください。</td>
+
+</tr>
+
+<tr>
+<td><span>-iregex</span> 正規表現 (regular_expression)</td>
+
+<td>ファイルのパス名全体が正規表現と一致する場合、値は真となります。 このオプションは <span>-regex</span> オプションと似ていますが、突き合わせの際に大/小文字を区別しない点は異なります。</td>
+
+</tr>
+
+<tr>
+<td><span>-long</span></td>
+
+<td><span><span>-ls</span></span>と組み合わせて使用すると、最初の 8 文字に切り捨てずに、各ユーザー/グループ名の使用可能なすべての文字が印刷されます。</td>
+
+</tr>
+
+<tr>
+<td><span>-ls</span></td>
+
+<td>値は常に真となります。 現行パス名を関連する統計と一緒に表示します。 これらの統計には、以下の値が含まれます。<ul>
+<li>i ノード番号</li>
+
+<li>KB (1024 バイト) 単位のサイズ</li>
+
+<li>保護モード</li>
+
+<li>ハード・リンク数</li>
+
+<li>ユーザー</li>
+
+<li>グループ</li>
+
+<li>バイト単位のサイズ</li>
+
+<li>変更時間</li>
+
+</ul>
+  <p>ファイルがスペシャル・ファイルの場合、
+サイズ・フィールドにはメジャー・デバイス番号とマイナー・デバイス番号が含まれます。 ファイルがシンボリック・リンクの場合、リンク先のファイルのパス名が -&gt;
+(ハイフン、より大) シンボルに続いて出力されます。 このフォーマットは、<span>ls -filds</span> コマンドのフォーマットと似ていますが、フォーマット化は、<span>ls</span> コマンドを実行せずに内部的に行われます。 このため、<span>ls</span> コマンドの出力結果とは異なる場合があります (保護モードの出力の有無など)。</p>
+</td>
+
+</tr>
+
+<tr>
+<td><span>-mmin</span> N</td>
+
+<td>n の値は、以下のいずれかの値とすることができます。<dl>
+<dt>n</dt>
+
+<dd>初期設定時間から減算されたファイル変更時間を
+60 秒で割った値 (余りは切り捨てる) が n
+のとき、値は真となります。</dd>
+
+
+<dt>- n</dt>
+
+<dd>初期設定時間から減算されたファイル変更時間を
+60 秒で割った値 (余りは切り捨てる) が n
+より小さいとき、値は真となります。</dd>
+
+
+<dt>+n</dt>
+
+<dd>初期設定時間から減算されたファイル変更時間を 60 秒で割った値 (余りは切り捨てる) が n ( <span>UNIX03</span>の場合、 n+ 1 より大きい値) より大きい場合は、真として評価されます。</dd>
+
+</dl>
+ <div><div>
+        <div>
+          <div><span>注:</span> <span>find</span> コマンドの開始時刻より後に変更されたファイルは考慮されません。 ただし、 <span>find</span> コマンドが<span>UNIX03</span> 以外の動作のために単項 <code>NOT</code> 演算子内で使用される場合、コマンドの開始時刻より後に変更されたファイルは、 nの値まで表示されます。</div>
+        </div>
+      </div></div>
+</td>
+
+</tr>
+
+<tr>
+<td><span>-mtime</span> N</td>
+
+<td>n の値は、以下のいずれかの値とすることができます。<dl>
+<dt>n</dt>
+
+<dd>初期化時間から減算されたファイル変更時間を 86400 秒で割った値 (余りは切り捨てる) が nの場合は、真と評価されます。 86400 秒は 24 時間です。</dd>
+
+
+<dt>- n</dt>
+
+<dd>初期設定時間から減算されたファイルの変更時間を
+86400 秒で割った値 (余りは切り捨てる) が n
+より小さいとき、値は真となります。</dd>
+
+
+<dt>+n</dt>
+
+<dd>初期化時間から減算されたファイル変更時間を 86400 秒で割った値 (余りは切り捨てる) が n より大きい場合 ( <span>UNIX03</span>の場合、 n+ 1 より大きい場合)、値は真となります。</dd>
+
+</dl>
+ <div><div>
+        <div>
+          <div><span>注:</span> <span>-mtime</span> の定義は、 <span>Single UNIX Specification、バージョン 3</span>に準拠するように変更されました。 <span>-mtime</span> の以前の動作は、ファイルが n-1 から 24 時間の n 倍に変更された場合に真と評価されます。 デフォルトでは、 <span><span>find -mtime</span></span> は <span>UNIX03</span>より前のように動作します。 <span>UNIX03</span> の動作は、環境変数 <span><span>XPG_SUS_ENV</span></span> を <code>ON</code> に設定し、 <span><span>XPG_UNIX98</span></span> を <code>OFF</code>に設定することによって取得できます。<p>このオプションの以前の動作は、 <span><span>XPG_UNIX98</span></span> 変数を <code>ON</code>に設定することで取得できます。</p>
+ <p><span>find</span> コマンドの開始時間以降に変更したファイルは考慮されません。 ただし、 <span>find</span> コマンドが<span>UNIX03</span> 以外の動作のために単項 <code>NOT</code> 演算子内で使用される場合、コマンド開始時刻より後に変更されたファイルは、 nの値まで表示されます。</p>
+</div>
+        </div>
+      </div></div>
+</td>
+
+</tr>
+
+<tr>
+<td><span>-name</span> ファイル</td>
+
+<td>File 変数の値がファイル名と一致するとき、値は真となります。 通常の
+シェル・ファイル名生成文字 (<span>sh</span> コマンドを参照) が使用できます。 パターンは、引用符またはエスケープ文字で囲む必要があります。 <span>find</span> コマンドがシェルから使用される場合は、エスケープ文字が使用されます。 円記号 (&amp;#xa5;) は、パターン内ではエスケープ文字として使用されます。 ワイルドカード (パターン・マッチング) 文字は、引用符で囲めば使用できます。<p>[a-z] のような式で、ハイフンは、現行の照合シーケンスによって
+からを意味します。 照合シーケンスは文字範囲内で使用する等価クラスを定義できます。 照合シーケンスおよび等価クラスについて詳しくは、「 <span><em>グローバリゼーション・ガイドおよびリファレンス</em></span>」の「 <a href="https://www.ibm.com/docs/ja/ssw_aix_73/globalization/nls_kickoff.html" target="_blank" rel="noopener noreferrer">グローバリゼーションの概要</a> 」を参照してください。</p>
+</td>
+
+</tr>
+
+<tr>
+<td><span>-newer</span>  ファイル</td>
+
+<td>現行ファイルが、File 変数で指定したファイルよりも後に変更された場合、値は真となります。</td>
+
+</tr>
+
+<tr>
+<td><span>-nogroup</span></td>
+
+<td>ファイルが <span>/etc/group</span> データベース以外のユーザーに属するとき、値は真となります。</td>
+
+</tr>
+
+<tr>
+<td><span>-nouser</span></td>
+
+<td>ファイルが <span>/etc/passwd</span> データベースに無いユーザーに属するとき、
+値は真となります。</td>
+
+</tr>
+
+<tr>
+<td><span>-ok</span> コマンド</td>
+
+<td><span>-exec</span> 式と同じですが、<span>find</span> コマンドは、指定されたコマンドを開始する必要があるかどうかをユーザーに確認します。 ユーザーが肯定応答すると、そのコマンドを始動します。 指定したコマンドの末尾には、引用符で囲んだセミコロンまたは &amp;#xa5;; (円記号 (エスケープ) と
+セミコロン) を付けなければなりません。</td>
+
+</tr>
+
+<tr>
+<td><span>-perm</span> [<span>-</span>] OctalNumber</td>
+
+<td>ファイルの許可コードが OctalNumber パラメーターと正確に一致する場合、
+値は真となります。 ファイルの許可については、<span>chmod</span> コマンドのセクションを参照してください。 オプションの <span>-</span> (ハイフン) がある場合は、少なくともこれらの許可が設定
+されていれば、この式の値は真になります。 OctalNumber パラメーターには最高 9 個までの 8 進数を指定できます。<div><div>
+        <div>
+          <div><span>注:</span> TCB 環境の一部であるファイルの場合、追加のセキュリティー・ビットがファイルの許可に追加されます。 これらのファイルには S_ITCB ビットが設定されており、セキュリティー・ビット・セットは 0x010000000 と定義されます。 よって、TCB 対応ファイルの 8 進数の許可の値には、ビット設定 100000000 がその他の許可ビットと一緒に含まれている必要があります。</div>
+        </div>
+      </div></div>
+ <p>例: TCB 環境の一部であるファイルをリストするには、find -perm 100000600  -print と入力します。 それによって、オーナー読み取り許可とオーナー書き込み許可のみを持ち、TCB 環境の一部であるファイル名がリストされます。 許可コードについての説明は、<span>chmod</span> コマンドを参照してください。</p>
+</td>
+
+</tr>
+
+<tr>
+<td><span>-perm</span> [ <span>-</span> ] Mode</td>
+
+<td>ファイル・モード・ビットを表すのに、mode 引数が使用されます。 これは、 <span>chmod</span>で説明されている &lt; symbolicmode&gt; オペランドと同じ形式であり、次のように解釈されます。<p>最初に、テンプレートは、すべてのファイル・モード・ビットがクリアされているものと想定されます。 オペランド・シンボル (-) には、以下の機能があります。</p>
+ <dl>
+<dt>+</dt>
+
+<dd>適切なモード・ビットをテンプレート内に設定する。</dd>
+
+
+<dt>-</dt>
+
+<dd>適切なビットをクリアする。</dd>
+
+
+<dt>=</dt>
+
+<dd>プロセスのファイル・モード作成マスクの内容とは関係なく、適切なモード・ビットを設定する。</dd>
+
+</dl>
+ <p>オペランド・シンボル <code>-</code> は、モードの先頭文字になることはできません。 それにより、オプションを先導するハイフンとのあいまいさが避けられます。 初期モードでは、すべてのビットがオフであるので、
+先頭文字として <code>-</code> を使用する必要のあるシンボル・モードはありません。</p>
+ <p>ハイフンが省略されている場合、ファイル許可ビットが、結果として生じるテンプレートの値と正確に一致すると、
+プライマリーは真として評価します。 そうでない場合、つまり、モードに、ハイフンがプレフィックスとして付いている場合、
+少なくとも、結果として生じるテンプレート内のすべてのビットがファイル許可ビット内に設定されていれば、
+プライマリーは真として評価します。</p>
+ <p>Mode パラメーターのコマンド構文は、<span>chmod</span> コマンド構文と同一です。 この式は、ファイルにこれらの許可が正確に付いていれば、値は真となります。 オプションの <span>-</span> (ハイフン) がある場合は、少なくともこれらの許可が設定
+されていれば、この式の値は真になります。</p>
+</td>
+
+</tr>
+
+<tr>
+<td><span>-print</span></td>
+
+<td>値は常に真となります。 現行パス名を表示します。 <span>find</span> コマンドは、<span>-exec, - ls</span> または <span>-ok</span> のいずれかの式を指定しない限り、<span>-print</span> 式を想定します。</td>
+
+</tr>
+
+<tr>
+<td><span>-prune</span></td>
+
+<td>値は常に真となります。 現行パス名がディレクトリーの場合は、そこから下位のパス名の検索は行われません。 <span>-depth</span> フラグを指定すると、<span>-prune</span> フラグは無視されます。</td>
+
+</tr>
+
+<tr>
+<td><span>-size</span> N</td>
+
+<td>ファイルの長さが指定した n ブロック (1 ブロックは 512 バイト) であるとき、値は真となります。 比較を行うために、ファイル・サイズはブロック単位に切り上げられます。</td>
+
+</tr>
+
+<tr>
+<td><span>-regex</span> 正規表現 (regular_expression)</td>
+
+<td>ファイルのパス名全体が正規表現と一致する場合、値は真となります。 このオプションでは正規表現の検索は行いませんが、ファイルの完全パス名と正規表現の突き合わせは行います。 例えば、<span>./test</span> という名前のファイルを突き合わせる場合、<code>.*test.*</code> または <code>.*t.*t</code> という正規表現を使用することができますが、<code>t.*t</code> は使用できません。</td>
+
+</tr>
+
+<tr>
+<td><span>-regextype</span>  Type</td>
+
+<td>値は常に真となります。 このオプションでは、<span>-regex</span> オプションと <span>-iregex</span> オプションにおける正規表現の構文のタイプを指定します。 このオプションは、コマンド・ラインの後ろの方にある正規表現にも影響します。<p>Type 変数には、次のいずれかの値を指定できます。</p>
+<dl>
+
+<dt>基礎</dt>
+
+<dd>基本的な正規表現の構文。</dd>
+
+
+
+<dt>Extended</dt>
+
+<dd>拡張的な正規表現の構文。</dd>
+
+
+</dl>
+<div><div>
+        <div>
+          <div><span>注:</span> <span>-regextype</span> オプションを使用しない場合、正規表現は <code>basic</code>として解釈されます。</div>
+        </div>
+      </div></div>
+</td>
+
+</tr>
+
+<tr>
+<td><span>-size</span> n<span>c</span></td>
+
+<td>ファイルの長さが正確に、指定した n バイトであるとき、値は真となります。 <span>c</span> を n 変数の末尾に追加すると、ファイルのサイズがブロック単位ではなく個々のバイト単位で測定されることを示します。</td>
+
+</tr>
+
+<tr>
+<td><span>-type</span> タイプ</td>
+
+<td>Type 変数が次のいずれかの値を示すと、値は真となります。<dl>
+<dt>b</dt>
+
+<dd>ブロック・スペシャル・ファイル</dd>
+
+
+<dt>c</dt>
+
+<dd>キャラクター・スペシャル・ファイル</dd>
+
+
+<dt>d</dt>
+
+<dd>Directory</dd>
+
+
+<dt>f</dt>
+
+<dd>プレーン・ファイル</dd>
+
+
+<dt>l</dt>
+
+<dd>シンボリック・リンク</dd>
+
+
+<dt>p</dt>
+
+<dd>先入れ先出し (名前付きパイプ)</dd>
+
+
+<dt>s</dt>
+
+<dd>ソケット</dd>
+
+</dl>
+</td>
+
+</tr>
+
+<tr>
+<td><span>-user</span> ユーザー</td>
+
+<td>ファイルが指定したユーザーに属するとき、値は真となります。 User 変数の値が数字で、<span>/etc/passwd</span> ファイルに
+ログイン名として記述されていない場合は、ユーザー ID と解釈されます。</td>
+
+</tr>
+
+<tr>
+<td><span>-xdev</span></td>
+
+<td>値は常に真となります。 <span>find</span> コマンドは、Path パラメーターで指定されたファイルシステムをまたがって検索するのを防止します。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+ <p>これらの式は、次の演算子を優先順位が高い方から順に使用して組み合わせることができます。</p>
+ <ol>
+<li><strong>(</strong> Expression<strong>)</strong> - 括弧で囲まれた式と演算子のグループ (括弧はシェル専用で、円記号のエスケープ・シーケンスが必要です)。</li>
+
+<li><strong>!</strong> Expression -式の否定 (<strong>'!'</strong> は単項 NOT 演算子です)。</li>
+
+<li>Expression [ <span>-a</span> ] Expression - 式の連結 (AND 演算は 2 個の式を並置して暗黙に指定するか、またはオプションの <span>-a</span> 演算子として明示的に記述することができます)。</li>
+
+<li>Expression<span> -o</span> Expression - 式の論理和。<span>-o</span> は OR 演算子です。 第 1 の式が真であれば、第 2 の式は計算されません。</li>
+
+</ol>
+ <div><div>
+        <div>
+          <div><span>注:</span> <span>find</span> コマンドと <span>cpio</span> コマンドを一緒に使用する場合は、 <span>cpio</span> コマンドで <code>-follow</code> オプションと <code>-L</code> オプションを使用する必要があります。 これら 2 つのオプションを一緒に使用しなければ、望ましくない結果が生じます。 式が存在しない場合は、<code>-print</code> がデフォルトの式の中で使用されます。 例えば、指定された式に 1 次式 <code>-exec</code>、 <code>-o</code>k、または <code>-print</code>のいずれも含まれていない場合、式は <code>(given_expression)
+-print</code>に置き換えられます。 <code>-user</code>、<code>-group</code>、および <code>-newer</code> プライマリーは、
+それぞれの引数を 1 回だけ評価します。 <code>-exec</code> または <code>-ok</code> によって指定されたコマンドを使用しても、
+同じファイル上のその後のプライマリーに影響しません。</div>
+        </div>
+      </div></div>
+</section>
+
+<section><h2>終了状況</h2> <p>このコマンドは、以下の終了値を戻します。</p>
+ 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td>0</td>
+
+<td>すべての Path パラメーターが正常に処理されました。</td>
+
+</tr>
+
+<tr>
+<td>&gt;0</td>
+
+<td>エラーが発生しました。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</section>
+
+<section><h2>例</h2> <ol>
+<li>指定された基本ファイル名を持つファイル・システム内のすべてのファイルをリストするには、次のコマンドを入力します。<div><div><pre><code>find /  -name .profile -print</code></pre></div><div></div></div>このコマンドによって、ファイルシステム全体が検索され、<span>.profile</span> と
+いう名前のすべてのファイルの完全なパス名が書き出されます。 この /(スラッシュ) は、ルート・ディレクトリーとそのすべてのサブディレクトリーを検索するように <span>find</span> コマンドに指示します。 時間の無駄を省くには、ファイルが入っていると思われるディレクトリーを指定して、検索範囲を限定するのが最善の方法です。</li>
+
+<li>ルート・ディレクトリー内の「<span>data</span>名前を持つすべてのディレクトリーについて、大文字と小文字を区別しない検索を実行するには、次のコマンドを入力する：<div><div><pre><code>find / -type d -iname data</code></pre></div><div></div></div></li>
+
+<li>現行ディレクトリー・ツリー内の特定の許可コードを持つファイルをリストするには、次のコマンドを入力します。<div><div><pre><code>find . -perm 0600  -print</code></pre></div><div></div></div>このコマンドによって、オーナー読み取り許可とオーナー書き込み許可のみを持ったファイルの名前がリストされます。 . . (ドット) は <span>find</span> コマンドに対して現行ディレクトリーとそのサブディレクトリーを検索するよう指示します。 許可コードについての説明は、<span>chmod</span> コマンドを参照してください。</li>
+
+<li>特定の許可コードを持つファイルを複数のディレクトリーで検索するには、次のコマンドを入力します。<div><div><pre><code>find manual clients proposals -perm -0600  -print</code></pre></div><div></div></div>このコマンドによって、オーナー読み取り許可とオーナー書き込み許可、およびその他の考えられる許可の付いたファイル名がリストされます。 このmanual,clientsおよびproposalsディレクトリーとそのサブディレクトリーが検索されます。 前の例では、-perm 0600一致する許可コードを持つファイルのみを選択します0600正確に この例では以下のようにします。-perm -0600によって示されるアクセスを許可する許可コードを持つファイルを選択します。0600および上記の他のアクセス0600レベル。 許可コード 0622 と 0744 も適合します。</li>
+
+<li>現行ディレクトリー内のファイルのうち、現在の 24 時間以内に変更されたすべてのファイルをリストするには、次のコマンドを入力します。<div><div><pre><code>find .  -ctime 1  -print</code></pre></div><div></div></div></li>
+
+<li>複数のリンクを持つ通常のファイルを検索するには、次のコマンドを入力します。<div><div><pre><code>find .  -type f  -links +1  -print</code></pre></div><div></div></div>このコマンドは、通常ファイルの名前をリストします (-type f) 複数のリンクを持つ (-links +1).<div><div>
+        <div>
+          <div><span>注:</span> 各ディレクトリーには、少なくとも 2 つのリンクがあります。親ディレクトリー内の項目とそれ自体の項目です。.(ドット) 項目。 複数のファイル・リンクについては、<span>ln</span> コマンドのセクションで説明します。</div>
+        </div>
+      </div></div>
+</li>
+
+<li>パス名に <span>find</span>が含まれているすべてのアクセス可能ファイルを検索するには、次のコマンドを入力します。<div><div><pre><code>find .  -name '*find*' -print</code></pre></div><div></div></div></li>
+
+<li>指定されたすべてのファイルを削除するにはa.outまたは*.o1 週間アクセスされず、 <code>nfs</code>を使用してマウントされない場合は、以下のコマンドを入力します。<div><div><pre><code>find / \( -name a.out -o -name '*.o' \) -atime +7 ! -fstype nfs -exec rm {} \;</code></pre></div><div></div></div><div><div>
+        <div>
+          <div><span>注:</span> <span>-atime</span> 式内で使用される番号は <code>+7</code>です。 これは、アクセスされなかった時間が 1 週間 (24 時間の期間が 7 つ) を超えるファイルに対してコマンドを実行する場合の正しいエントリーです。</div>
+        </div>
+      </div></div>
+</li>
+
+<li><code>SCCS</code> という名前のディレクトリーまたは <code>SCCS</code> ディレクトリー内のファイルを除き、現行ディレクトリー内または現行ディレクトリーより下にあるすべてのファイルのパス名を印刷するには、次のコマンドを入力します。<div><div><pre><code>find .  -name SCCS  -prune -o -print</code></pre></div><div></div></div><code>SCCS</code> ディレクトリーの名前を含む、現行ディレクトリー内、またはその下のすべてのファイルのパス名を表示するには、次のように入力します。<div>
+<div><div><pre><code>find . -print -name SCCS -prune</code></pre></div><div></div></div>
+</div>
+</li>
+
+<li>カレント・ディレクトリーとそのサブディレクトリーすべてにおいて、「<span>test</span>ファイル名を持つすべてのファイルの大文字小文字を区別しない検索を実行するには、次のコマンドを入力する：<div><div><pre><code>find . -iname test</code></pre></div><div></div></div></li>
+
+<li>正確に 414 バイトの長さのすべてのファイルを検索するには、次のコマンドを入力します。<div>
+<div><div><pre><code>find . -size 414c -print</code></pre></div><div></div></div>
+</div>
+</li>
+
+<li><span>/home/user/Documents</span>ディレクトリー内の拡張子「<span>.txt</span>」を持つすべてのファイルの大文字小文字を区別しない検索を実行するには、次のコマンドを入力する：<div><div><pre><code>find /home/user/Documents -iname "*.txt"</code></pre></div><div></div></div></li>
+
+<li><span>.c</span> サフィックスを持つホーム・ディレクトリー内のすべてのファイルを検索して削除するには、次のコマンドを入力します。<div>
+<div><div><pre><code>find /u/arnold -name "*.c" -exec rm {} \;</code></pre></div><div></div></div><span>find</span> コマンドが <span>.c</span> という接尾部でファイルを識別するたびに、<span>rm</span> コマンドがそのファイルを削除します。 <span>rm</span>  コマンドは <span>-exec</span> 式に対して指定される唯一のパラメーターです。 { } (中括弧) は現行パス名を表します。</div>
+</li>
+
+<li>この例では、<code>dirlink</code> はディレクトリー <code>dir</code>
+へのシンボリック・リンクです。 コマンド行でシンボリック・リンク <code>dirlink</code> を参照して <code>dir</code> 内のファイルをリストするには、次のコマンドを入力します。<div><div><pre><code>find -H dirlink -print</code></pre></div><div></div></div></li>
+
+<li>この例では、<code>dirlink</code> はディレクトリー <code>dir</code>
+へのシンボリック・リンクです。 <code>dirlink</code>内のファイルをリストし、シンボリック・リンクを含む <code>dir</code> の下のファイル階層をトラバースするには、次のコマンドを入力します。<div><div><pre><code>find -L dirlink -print</code></pre></div><div></div></div></li>
+
+<li>シンボリック・リンク <code>dirlink</code> によって参照されるファイル <code>dir1</code> が <code>dir2</code>より新しいかどうかを判別するには、次のコマンドを入力します。<div><div><pre><code>find -H dirlink -newer dir2</code></pre></div><div></div></div>
+<div><div>
+        <div>
+          <div><span>注:</span> <span>-H</span> フラグが使用されているため、時間データは <code>dirlink</code> からではなく、 <code>dir1</code>から収集されます。これは、シンボリック・リンクをトラバースすることによって検出されます。</div>
+        </div>
+      </div></div>
+</li>
+
+<li>拡張されたユーザー名およびグループ名を使用して、現行ディレクトリー内のファイルのリストを <span><span>ls</span></span> 形式で作成するには、次のコマンドを入力します。<div><div><pre><code>find . -ls -long</code></pre></div><div></div></div></li>
+
+<li>現行ディレクトリーに ACL/EA が設定されているファイルをリストするには、次のコマンドを入力します。<div><div><pre><code>find . -ea</code></pre></div><div></div></div></li>
+
+<li>60 分以内に変更されたファイルをリストするには、次のコマンドを入力します。<div><div><pre><code>find . -mmin -60</code></pre></div><div></div></div></li>
+
+<li>パス名にパターン <code>afile</code> が含まれている、 <span>/home</span> ディレクトリー内のすべてのパス名を検索するには、次のコマンドを入力します。<div><div><pre><code>find /home -regextype basic -regex ".*afile.*"</code></pre></div><div></div></div></li>
+
+<li><span>/home</span> ディレクトリー内のパス名のうち、パス名にパターン <code>afile</code> または <code>cap</code> が含まれているすべてのパス名を検索するには、次のコマンドを入力します。<div><div><pre><code>find /home -regextype extended -regex ".*afile.*|.*cap.*"</code></pre></div><div></div></div></li>
+
+<li><span>/home</span> ディレクトリー内のパス名のうち、パス名にパターン <code>afile</code>、 <code>AFILE</code>、 <code>cap</code>、または <code>CAp</code> が含まれているすべてのパス名を検索するには、次のコマンドを入力します。<div><div><pre><code>find /home -regextype extended -iregex ".*afile.*|.*cap.*"</code></pre></div><div></div></div></li>
+
+<li>ルート・ディレクトリとそのサブディレクトリにある、ファイル名に文字列 「<span>main</span>」が含まれ、拡張子がアルファベット「<span>o</span>」で終わる任意の長さのファ イルを大文字小文字を区別せずに検索するには、次のコマンドを入力する：<div><div><pre><code>find / -iname "*main*.*o"</code></pre></div><div></div></div>このコマンドの検索結果は、'<span>main.o</span>、'<span>app_main.c.o</span>、'<span>mAin.O</span>、'<span>APP_MAIN.o</span>のようなファイルを返します。</li>
+
+<li>ルート・ディレクトリとそのサブ・ディレクトリにある、ファイル名に 「<span>main</span>文字列が含まれ、1文字の拡張子を持つすべてのファ イルについて、大文字と小文字を区別しない検索を行うには、次のコマンドを 入力する：<div><div><pre><code>find / -iname "*main*.?"</code></pre></div><div></div></div>このコマンドの検索結果は、'<span>main.c</span>、'<span>app_main.o</span>、'<span>MAIN.c</span>、'<span>App_main.o</span>のようなファイルを返します。</li>
+
+<li>ルート・ディレクトリとそのサブ・ディレクトリにある、拡張子が「<span>.T</span> で、その後に任意の1文字が続き、アルファベットが「<span>t</span>であるすべての ファイルについて、大文字と小文字を区別しない検索を行うには、以下のコマンドを 入力する：<div><div><pre><code>find / -iname "*.T?t"</code></pre></div><div></div></div>このコマンドの検索結果は、'<span>file.T1t</span>、'<span>log.Tot</span>、'<span>file.txt</span>、'<span>log.tot</span>、または'<span>log.toT</span>のようなファイルを返します。</li>
+
+<li>ルート・ディレクトリとそのサブ・ディレクトリにある、拡張子が「<span>.Sh</span>、「<span>.md</span>、「<span>.Sd</span>、「<span>.mh</span>いずれかであるすべてのファイルについて、大文字と小文字を区別しない検索を実行するには、次のコマンドを入力する：<div><div><pre><code>find / -iname "*.[Sm][hd]"</code></pre></div><div></div></div>このコマンドの検索結果は、'<span>readme.sh</span>、'<span>logo.md</span>、'<span>logo.sd</span>、'<span>readme.mh</span>、'<span>readme.SH</span>、または'<span>logo.mD</span>のようなファイルを返します。</li>
+
+</ol>
+</section>
+
+<section><h2>ファイル</h2> <div> 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><span>/usr/bin/find</span></td>
+
+<td><span>find</span> コマンドが入っています。</td>
+
+</tr>
+
+<tr>
+<td><span>/bin/find</span></td>
+
+<td><span>find</span> コマンドへのシンボリック・リンク。</td>
+
+</tr>
+
+<tr>
+<td><a href="https://www.ibm.com/docs/ja/ssw_aix_73/filesreference/group_security.html" target="_blank" rel="noopener noreferrer"><span>/etc/group</span></a></td>
+
+<td>すべての既知グループのリストが入っています。</td>
+
+</tr>
+
+<tr>
+<td><a href="https://www.ibm.com/docs/ja/ssw_aix_73/filesreference/passwd.html" target="_blank" rel="noopener noreferrer"><span>/etc/passwd</span></a></td>
+
+<td>すべての既知ユーザーのリストが入っています。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+</section>
+
+</div></div>

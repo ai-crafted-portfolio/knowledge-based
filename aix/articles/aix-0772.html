@@ -1,0 +1,95 @@
+<div class="official-dom"><div>
+<section><h2>目的</h2> <p><span><span>/etc/filesystems</span></span> ファイルに定義されている CIFS マウントをリストします。</p>
+</section>
+
+<section><h2>構文</h2> <p><span><span>lscifsmnt</span></span> [<a href="https://www.ibm.com/docs/ja/ssw_aix_73/l_commands/lscifsmnt.html#lscifsmnt__row-d3e77887" target="_blank" rel="noopener noreferrer"><span><span>-c</span></span></a> | <a href="https://www.ibm.com/docs/ja/ssw_aix_73/l_commands/lscifsmnt.html#lscifsmnt__row-d3e77894" target="_blank" rel="noopener noreferrer"><span><span>-l</span></span></a> | <a href="https://www.ibm.com/docs/ja/ssw_aix_73/l_commands/lscifsmnt.html#lscifsmnt__row-d3e77901" target="_blank" rel="noopener noreferrer"><span><span>-p</span></span></a>] [<a href="https://www.ibm.com/docs/ja/ssw_aix_73/l_commands/lscifsmnt.html#lscifsmnt__row-d3e77919" target="_blank" rel="noopener noreferrer"><span><span>FileSystem</span></span></a>]</p>
+</section>
+
+<section><h2>説明</h2> <p><span><span>lscifsmnt</span></span> コマンドは、 <span><span>/etc/filesystems</span></span> ファイルに定義されている指定の CIFS マウントをリストします。</p>
+</section>
+
+<section><h2>フラグ</h2> 
+<div><div><table><thead> <tr> <th><div>項目</div></th>
+ <th><div>説明</div></th>
+ </tr>
+ </thead>
+<tbody>
+<tr>
+<td><span><span>-c</span></span></td>
+
+<td>コロンの区切り文字で区切られているフォーマットで、CIFS マウントがリストされるように指定します。</td>
+
+</tr>
+
+<tr>
+<td><span><span>-l</span></span></td>
+
+<td>各フィールドが空白の区切り文字で区切られている標準形式で、CIFS マウントがリストされるように指定します。 これはデフォルトです。</td>
+
+</tr>
+
+<tr>
+<td><span><span>-p</span></span></td>
+
+<td>パイプの区切り文字で区切られているフォーマットで、CIFS マウントがリストされるように指定します。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</section>
+
+<section><h2>パラメーター</h2> 
+<div><div><table><thead> <tr> <th><div>項目</div></th>
+ <th><div>説明</div></th>
+ </tr>
+ </thead>
+<tbody>
+<tr>
+<td><span><span>FileSystem</span></span></td>
+
+<td>どのファイルシステムの特性をリストするかを指定します。 デフォルトでは、すべての CIFS ファイルシステムをリストします。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</section>
+
+<section><h2>終了状況</h2> 
+<div><div><table><thead> <tr> <th><div>項目</div></th>
+ <th><div>説明</div></th>
+ </tr>
+ </thead>
+<tbody>
+<tr>
+<td><span><span>0</span></span></td>
+
+<td>コマンドは正常に完了しました。</td>
+
+</tr>
+
+<tr>
+<td><span><span>&gt;0</span></span></td>
+
+<td>エラーが発生しました。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</section>
+
+<section><h2>例</h2> <ol>
+<li><span><span>/etc/filesystems</span></span>に定義されているすべての CIFS マウントをリストするには、次のように入力します。<div><div><pre><code>lscifsmnt </code></pre></div><div></div></div></li>
+
+</ol>
+</section>
+
+<section><h2>ロケーション</h2> <p><span><span>/usr/sbin/lscifsmnt</span></span></p>
+</section>
+
+</div></div>

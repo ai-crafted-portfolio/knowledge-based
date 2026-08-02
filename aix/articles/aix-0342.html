@@ -1,0 +1,426 @@
+<div class="official-dom"><div>
+<div> <p></p>
+</div>
+
+<section><h2>目的</h2> <p>他のシステムに直接または間接的に接続します。</p>
+</section>
+
+<section><h2>構文</h2>
+<dl>
+
+<dt>モデムを使用して接続を確立するには</dt>
+
+<dd><p><strong>cu</strong> [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/c_commands/cu.html#cu__row-d3e148473" target="_blank" rel="noopener noreferrer"><strong>-d </strong></a>] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/c_commands/cu.html#cu__row-d3e148485" target="_blank" rel="noopener noreferrer"><strong>-h </strong></a>] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/c_commands/cu.html#cu__row-d3e148553" target="_blank" rel="noopener noreferrer"><strong>-m</strong></a><strong> </strong>] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/c_commands/cu.html#cu__row-d3e148600" target="_blank" rel="noopener noreferrer"><strong>-T</strong></a><em>Seconds </em>] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/c_commands/cu.html#cu__row-d3e148562" target="_blank" rel="noopener noreferrer"><strong>-n </strong></a>] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/c_commands/cu.html#cu__row-d3e148574" target="_blank" rel="noopener noreferrer"><strong>-s</strong></a><em>Speed </em>] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/c_commands/cu.html#cu__row-d3e148594" target="_blank" rel="noopener noreferrer"><strong>-t </strong></a>] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/c_commands/cu.html#cu__row-d3e148479" target="_blank" rel="noopener noreferrer"><strong>-e</strong></a> | <a href="https://www.ibm.com/docs/ja/ssw_aix_73/c_commands/cu.html#cu__row-d3e148568" target="_blank" rel="noopener noreferrer"><strong>-o </strong></a>] <a href="https://www.ibm.com/docs/ja/ssw_aix_73/c_commands/cu.html#cu__row-d3e148671" target="_blank" rel="noopener noreferrer"><em>TelephoneNumber</em></a></p>
+
+</dd>
+
+
+
+<dt>接続用のデバイスの名前を指定するには</dt>
+
+<dd><p><strong>CU</strong> [  <a href="https://www.ibm.com/docs/ja/ssw_aix_73/c_commands/cu.html#cu__row-d3e148473" target="_blank" rel="noopener noreferrer"><strong>-d 年 </strong></a>] [  <a href="https://www.ibm.com/docs/ja/ssw_aix_73/c_commands/cu.html#cu__row-d3e148485" target="_blank" rel="noopener noreferrer"><strong>-h </strong></a>] [  <a href="https://www.ibm.com/docs/ja/ssw_aix_73/c_commands/cu.html#cu__row-d3e148553" target="_blank" rel="noopener noreferrer"><strong>-m (M) </strong></a>] [  <a href="https://www.ibm.com/docs/ja/ssw_aix_73/c_commands/cu.html#cu__row-d3e148600" target="_blank" rel="noopener noreferrer"><strong>-T (T)</strong></a><em>秒 </em>] [  <a href="https://www.ibm.com/docs/ja/ssw_aix_73/c_commands/cu.html#cu__row-d3e148574" target="_blank" rel="noopener noreferrer"><strong>-s</strong></a><em>スピード </em>] [  <a href="https://www.ibm.com/docs/ja/ssw_aix_73/c_commands/cu.html#cu__row-d3e148479" target="_blank" rel="noopener noreferrer"><strong>-e (E)</strong></a> | <a href="https://www.ibm.com/docs/ja/ssw_aix_73/c_commands/cu.html#cu__row-d3e148568" target="_blank" rel="noopener noreferrer"><strong>- </strong></a>]  <a href="https://www.ibm.com/docs/ja/ssw_aix_73/c_commands/cu.html#cu__row-d3e148491" target="_blank" rel="noopener noreferrer"><strong>-</strong></a><em>線</em></p>
+
+</dd>
+
+
+
+<dt>接続のシステム名を指定するには</dt>
+
+<dd><p><strong>cu</strong> [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/c_commands/cu.html#cu__row-d3e148473" target="_blank" rel="noopener noreferrer"><strong>-d </strong></a>] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/c_commands/cu.html#cu__row-d3e148485" target="_blank" rel="noopener noreferrer"><strong>-h </strong></a>] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/c_commands/cu.html#cu__row-d3e148553" target="_blank" rel="noopener noreferrer"><strong>-m </strong></a>] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/c_commands/cu.html#cu__row-d3e148600" target="_blank" rel="noopener noreferrer"><strong>-T</strong></a><em>Seconds </em>] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/c_commands/cu.html#cu__row-d3e148479" target="_blank" rel="noopener noreferrer"><strong>-e</strong></a> | <a href="https://www.ibm.com/docs/ja/ssw_aix_73/c_commands/cu.html#cu__row-d3e148568" target="_blank" rel="noopener noreferrer"><strong>-o </strong></a>] <a href="https://www.ibm.com/docs/ja/ssw_aix_73/c_commands/cu.html#cu__row-d3e148634" target="_blank" rel="noopener noreferrer"><em>SystemName</em></a></p>
+
+</dd>
+
+
+</dl>
+</section>
+
+<section><h2>説明</h2> <p><strong>cu</strong> コマンドは、1 つのシステムを <span>UNIX</span> システムまたは他のシステムに接続された端末に接続する基本ネットワーク・ユーティリティー (BNU) コマンドです。 モデム接続の電話回線または配線回線を介して接続されます。</p>
+ <p>接続が確立すると、ユーザーは両方のシステムに同時にログインでき、BNU 通信リンクを切断することなくどちらかのシステムでもコマンドを実行できます。 リモート・コンピューターも <span>UNIX</span>の下で稼働している場合、ユーザーは 2 つのシステム間で ASCII ファイルを転送できます。</p>
+ <p>ローカル・システムから <strong>cu</strong> コマンドを実行したあとに必ず Enter (実行) キーを押し、それからリモート・システムにログインしてください。 <strong>cu</strong> コマンドは、接続の確立後、送信プロセスと受信プロセスの 2 つのプロセスを同時に実行します。送信プロセスでは、~ (ティルド) で始まる行を除き、標準入力からデータを読み取り、リモート端末へ渡します。</p>
+ <p>受信プロセスでは、リモート・システムから送信されたデータを受け付け、~ (ティルド) で始まる行以外のデータを標準出力へ渡します。 このプログラムは内部的に、リモート・システムからの行が ~&gt; (ティルドとより大記号) で始まる場合、ローカル・システム上のファイルへの出力先変更を開始することによって、これを実行します。 後書きの ~&gt; により、出力先変更の終了がマークされます。 バッファーがオーバーランしないようにリモート・システムからの入力を制御するため、<strong>cu</strong> コマンドは自動 <strong>DC3/DC1</strong> (Ctrl-Q/Ctrl-S) プロトコルを使用します。</p>
+ <p><strong>cu</strong> コマンドを使用して複数のシステムを接続すると、接続されたどのシステムでもコマンドを実行できるようになります。 例えば、ユーザーは、システム X で <strong>cu</strong> コマンドを発行してシステム Y に接続してから、システム Y で<strong> cu</strong> コマンドを発行してシステム Z に接続することができます。 システム X はローカル・コンピューターになり、システム Y と Z はリモート・コンピューターになります。</p>
+ <p>システム Z でコマンドを実行できるようにするには、ログインして cu コマンドを実行します。 コマンドは、単一の波形記号 (<strong>~</strong><em>Command</em>) をコマンドの前に付けることによってシステム X 上で実行でき、コマンドの前に 2 つの波形記号 (<strong>~ ~</strong><em>Command</em>) を付けることによってシステム Y 上で実行できます。 通常、ティルドを 1 つ付けると、指定されたコマンドが元のローカル・コンピューターで実行され、ティルドを 2 つ付けると、2 番目に <strong>cu</strong> コマンドが実行されたシステムでコマンドが実行されます。</p>
+ <p>例えば、複数のシステムを接続している場合、システム Z、X、Y で <strong>uname -n</strong> コマンド (ノード名表示) を実行するには、以下のように入力します。</p>
+ <div> <div><div><pre><code>$ uname -n
+Z
+$ ~!uname -n
+X
+$ ~~!uname -n
+Y</code></pre></div><div></div></div></div>
+
+<div><div>
+        <div>
+          <div><span>注:</span><ol>
+<li><span></span> <strong>cu</strong> コマンドは、転送するデータの整合性検査を行いません。</li>
+
+<li><span></span>特殊な <strong>cu</strong> 文字を持つデータ・フィールドは、正しく伝送されない可能性があります。</li>
+
+<li><span></span>終了コードは、正常終了なら0、そうでなければ-1。</li>
+
+</ol>
+
+</div>
+        </div>
+      </div></div>
+ <p>リモート・システムで通常のコマンドを発行するほかに、ユーザーは、 <strong>~</strong> (波形記号) が前に付いている特殊な <a href="https://www.ibm.com/docs/ja/ssw_aix_73/c_commands/cu.html#cu__a79c1103" target="_blank" rel="noopener noreferrer"><strong>cu</strong> コマンド・サブコマンド</a>を発行することができます。 これらのサブコマンドは、ローカル・システムでコマンドを発行したり、2 つの <span>UNIX</span> システム間でファイルを転送するなどのタスクを実行したりするために使用します。 ユーザーが <strong>~!</strong>、<strong>~$</strong>、<strong>~%</strong>、<strong>~l</strong>、または <strong>~t</strong> のいずれかのサブコマンドを入力すると、直ちにローカル・コンピューターの名前が以下のようなフォーマットで表示されます。</p>
+ <div> <div><div><pre><code>~[SystemName]/%</code></pre></div><div></div></div></div>
+ <p>次に、ローカル・コンピューターで実行するサブコマンドを入力できます。</p>
+</section>
+
+<section><h2>フラグ</h2> <div> 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><strong>-d</strong></td>
+
+<td>診断トレースを出力します。</td>
+
+</tr>
+
+<tr>
+<td><strong>-e</strong></td>
+
+<td>リモート・システムへ送信されるデータに対して偶数パリティーを生成することを指定します。</td>
+
+</tr>
+
+<tr>
+<td><strong>-h</strong></td>
+
+<td>ローカル・エコーをエミュレートし、端末が半二重モードに設定されていることを想定している他のシステムへの呼び出しをサポートします。</td>
+
+</tr>
+
+<tr>
+<td><strong>-l</strong><em>行</em></td>
+
+<td>ローカル・システムとリモート・システムを接続する通信回線として使用するデバイスの名前を指定します。 これは、最初の使用可能な回線に対して正しい速度で行われる検索をオーバーライドするために使用できます。 <a href="https://www.ibm.com/docs/ja/ssw_aix_73/c_commands/cu.html#cu__row-d3e148574" target="_blank" rel="noopener noreferrer"><strong>-s</strong></a> フラグを指定せずに <strong>-l</strong> フラグを使用すると、 <em>Line</em> の速度は <strong>Devices</strong> ファイルから取られます (デフォルトでは、 <strong>/etc/uucp/Devices</strong> ファイル)<p><strong>-l</strong> フラグと <strong>-s</strong> フラグの両方を指定すると、<strong>cu</strong> コマンドは要求されている速度を指定されている回線で使用できるかどうかを確認するため、<strong>Devices</strong> ファイルを検索します。 要求されている速度を使用できる場合は、この速度で接続が確立されます。この速度が使用できない場合は、エラー・メッセージが出力され、呼び出しは行われません。</p>
+
+<p>指定されたデバイスは通常、ハードワイヤードされた非同期回線 (例えば、 <strong>/dev/tty2</strong>) です。この場合、 <a href="https://www.ibm.com/docs/ja/ssw_aix_73/c_commands/cu.html#cu__row-d3e148671" target="_blank" rel="noopener noreferrer"><em>TelephoneNumber</em></a> パラメーターは必要ありません。 モデム関連デバイスを指定した場合、電話番号を指定する必要があります。 このフラグを <em>TelephoneNumber</em> パラメーターではなく、 <a href="https://www.ibm.com/docs/ja/ssw_aix_73/c_commands/cu.html#cu__row-d3e148634" target="_blank" rel="noopener noreferrer"><em>SystemName</em></a> パラメーターと一緒に使用しても、望ましい結果は得られません。</p>
+
+<p>ユーザーが送信速度や回線やデバイスを指定する必要はありません。 BNU のインストール時に設定されたデフォルト値を使用できます。</p>
+</td>
+
+</tr>
+
+<tr>
+<td><strong>-m</strong></td>
+
+<td><strong>cu</strong> コマンドが、モデム制御信号のデータ・キャリア検出 (DCD) を無視するようにします。</td>
+
+</tr>
+
+<tr>
+<td><strong>-n</strong></td>
+
+<td>セキュリティーを強化するため、ダイヤルする電話番号をコマンド・ラインから取り込むのではなく、ユーザーに番号を入力するようプロンプト指示します。</td>
+
+</tr>
+
+<tr>
+<td><strong> -o</strong></td>
+
+<td>リモート・システムへ送信されるデータに対して奇数パリティーを生成することを指定します。</td>
+
+</tr>
+
+<tr>
+<td><strong>-s</strong><em>速度</em></td>
+
+<td>リモート・システムへのデータ送信速度 (300、1200、2400、4800、9600、
+または 19200 ボー) を指定します。デフォルト値は <strong>Any</strong> です。 このデフォルト値は、
+デフォルトの (または指定されている) 送信回線に適切な速度を使用するようシステムに指示します。
+送信回線の順序は、BNU <strong>Devices</strong> ファイル (デフォルトでは <strong>/etc/uucp/</strong><strong>Devices</strong> ファイル) に指定されています。 ほとんどのモデムは 300、1200、または 2400 ボーで動作しますが、ハードワイヤード回線の速度はほとんどの場合 1200 ボー以上に設定されています。 ローカル・システムとリモート・システムとの間でファイルなどのデータを転送する際には、転送速度を 300 ボーに設定する必要がある場合があります。 ボー・レートが低いほど、回線への干渉は少なくなります。</td>
+
+</tr>
+
+<tr>
+<td><strong>-t</strong></td>
+
+<td>自動応答が設定されている ASCII 端末にダイヤルします。 改行から復帰改行へのマッピングが適切に設定されます。</td>
+
+</tr>
+
+<tr>
+<td><strong>-T</strong><em>秒</em></td>
+
+<td>タイムアウトまでの最大待機秒数を指定します。 デフォルト値は 45 秒です。<div><div>
+        <div>
+          <div><span>注:</span> 次のように入力することもできます。WAIT=n<strong>Dialers</strong> ファイル内の送信ストリングの前。 各項の説明は次のとおりです。nタイムアウトになるまで待機する秒数です。</div>
+        </div>
+      </div></div>
+</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+</section>
+
+<section><h2>パラメーター</h2> <div> 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><em>SystemName</em></td>
+
+<td>BNU により認識されるリモート・システムの名前です。
+接続を確立するときにこの名前が使用されます。 電話番号の代わりにシステム名を使用できます。
+システム名を指定すると、<strong>cu</strong> コマンドは BNU <strong>Systems</strong> ファイル (デフォルトでは、
+<strong>/etc/uucp/</strong><strong>Systems</strong> ファイル) から適切なハードワイヤード回線または電話番号を取得します。 システム名には ASCII 文字以外指定できません。<div><div>
+        <div>
+          <div><span>注:</span> <em>SystemName</em> フラグは、 <a href="https://www.ibm.com/docs/ja/ssw_aix_73/c_commands/cu.html#cu__row-d3e148491" target="_blank" rel="noopener noreferrer"><strong>-l</strong></a> フラグおよび <a href="https://www.ibm.com/docs/ja/ssw_aix_73/c_commands/cu.html#cu__row-d3e148574" target="_blank" rel="noopener noreferrer"><strong>-s</strong></a> フラグと一緒に使用しないでください。 これらのフラグを指定すると、<strong> cu</strong> コマンドは、指定されている回線と回線速度を無視して、指定されているシステム用に最初に使用可能になった回線に接続します。</div>
+        </div>
+      </div></div>
+</td>
+
+</tr>
+
+<tr>
+<td><em>TelephoneNumber</em></td>
+
+<td>モデム経由のリモート接続を確立するために使用する電話番号です。 このエントリーには、市内電話番号または市外電話番号のいずれかを指定できます。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+</section>
+
+<section><h2>サブコマンド</h2> <p><strong>cu</strong> コマンドの送信プロセスでは、<strong>~</strong> (ティルド) で始まる行は以下のように解釈されます。</p>
+ 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><strong>~!</strong></td>
+
+<td>ローカル・システムの対話式シェルに戻ります。 ローカル・システムとリモート・システムを切り替えるには、<strong>~!</strong> (リモートからローカルへの切り替え) または Ctrl-D (ローカルからリモートへの切り替え) を使用します。</td>
+
+</tr>
+
+<tr>
+<td><strong>~ %b リーク</strong></td>
+
+<td>ブレーク・シーケンスをリモート・システムに送信します。 ブレークは <strong>~%b</strong> として指定することもできます。</td>
+
+</tr>
+
+<tr>
+<td><strong>~ %c d</strong><em> DirectoryName</em></td>
+
+<td>ローカル・システムのディレクトリーを、現行ディレクトリーから <em>DirectoryName</em> 変数で指定されているディレクトリーに変更します。</td>
+
+</tr>
+
+<tr>
+<td><strong>~ %d ebug</strong></td>
+
+<td><a href="https://www.ibm.com/docs/ja/ssw_aix_73/c_commands/cu.html#cu__row-d3e148473" target="_blank" rel="noopener noreferrer"><strong>-debug</strong></a> フラグのオン/オフを切り替えます。これは、 <strong>~%d</strong>として指定することもできます。</td>
+
+</tr>
+
+<tr>
+<td><strong>~ %nostop</strong></td>
+
+<td><strong>DC3/DC1</strong> 入力制御プロトコルと入力制御プロトコルなしとを切り替えます。 このサブコマンドは、リモート・システムが <strong>DC3</strong> 文字と <strong>DC1</strong> 文字に対して正しく応答しない場合に便利です。</td>
+
+</tr>
+
+<tr>
+<td><strong>~ %put</strong><em> 開始</em> [ <em>終了</em> ]</td>
+
+<td><em>From</em> に指定したローカル・システムのファイルを、<em>To</em> に指定したリモート・システムのファイルにコピーします。 <em>To</em> 変数を省略すると、ローカル・ファイルは同じ名前でリモート・システムにコピーされます。 ファイルのブロックが転送されるたびに、端末画面に 1 桁の連続番号が表示されます。 このサブコマンドで転送できるのは、ASCII ファイルだけです。<p><strong>~%put</strong> サブコマンドを使用する場合、リモート・システムで <strong>stty</strong> コマンドと <strong>cat</strong> コマンドが必要となります。 また、リモート・システムで現在使用されている消去文字と抹消文字は、ローカル・システムの消去文字および抹消文字と同一でなければなりません。 送信データの適切な位置に円記号が挿入されます。 <strong>~%put</strong> サブコマンド実行中は、データの損失を防ぐため、<strong>cu</strong> コマンドによる送信速度が意図的に低下されます。</p>
+</td>
+
+</tr>
+
+<tr>
+<td><strong>~ %take</strong><em> 開始</em> [ <em>終了</em> ]</td>
+
+<td><em>From</em> に指定したリモート・システムのファイルを、<em>To</em> に指定したローカル・システムのファイルにコピーします。 <em>To</em> 変数を省略すると、リモート・ファイルは同じ名前でローカル・システムにコピーされます。 ファイルのブロックが転送されるたびに、端末画面に 1 桁の連続番号が表示されます。 このサブコマンドで転送できるのは、ASCII ファイルだけです。 <strong>~%take</strong> サブコマンドを使用する場合、リモート・システムで <strong>echo</strong> コマンドと <strong>cat</strong> コマンドが必要となります。 また、スペースを拡張せずにタブをコピーする場合、リモート・システムでは <strong>stty</strong><strong> tabs</strong> モードが設定されている必要があります。</td>
+
+</tr>
+
+<tr>
+<td><strong>~.</strong></td>
+
+<td>ユーザーをリモート・コンピューターからログオフし、次にリモート接続を切断します。 通常、ユーザーがリモート・コンピューターからログオフした時点で接続が切断されます。 ただし、相互接続用ハードウェアによっては、通常のログオフ順序の実行後に対話を終了するために、<strong>~.</strong> を使用しなければならないことがあります。</td>
+
+</tr>
+
+<tr>
+<td><strong>~!</strong><em>コマンド</em></td>
+
+<td><em>Command</em> 変数に指定されているコマンドをローカル・システムで実行します。</td>
+
+</tr>
+
+<tr>
+<td><strong>~ $</strong><em>コマンド</em></td>
+
+<td><em>Command</em> 変数に指定されているコマンドをローカル・システムで実行し、次にこのコマンドの出力をリモート・システムへ実行用に送信します。</td>
+
+</tr>
+
+<tr>
+<td><strong>~</strong></td>
+
+<td>リモート通信回線の <strong>TERMIO</strong> 構造変数の値を出力します。 このサブコマンドは、デバッグに役立ちます。</td>
+
+</tr>
+
+<tr>
+<td><strong>~ t</strong></td>
+
+<td>ユーザーの端末の <strong>TERMIO</strong> 構造変数の値を出力します。 このサブコマンドは、デバッグに役立ちます。</td>
+
+</tr>
+
+<tr>
+<td><strong>~ ~</strong><em>ストリング</em></td>
+
+<td><em>String</em> 変数に指定されている文字列をリモート・システムに送信します。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</section>
+
+<section><h2>例</h2> <p>リモート・システムへの接続の例を以下に示します。</p>
+ <ol>
+<li><span></span>リモート・システムに接続するには、次のように入力します。<div> <div><div><pre><code>cu venus</code></pre></div><div></div></div>この例では、リモート・システムに接続されています。venus. システムvenusいずれかのローカル <strong>システム</strong> ファイル (デフォルトでは、 <strong>/etc/uucp/</strong><strong>システム</strong> ファイル、または <strong>/etc/uucp/Sysfiles</strong> ファイル内の <strong>CU</strong> コマンド用にリストされているいずれかの <strong>システム</strong> ファイル) にリストされている必要があります。</div>
+</li>
+
+<li><span></span>リモート・システムにダイヤルしてボー・レートを設定するには、次のように入力します。<div>cu  <a href="https://www.ibm.com/docs/ja/ssw_aix_73/c_commands/cu.html#cu__row-d3e148574" target="_blank" rel="noopener noreferrer">-s</a>1200 9=12015558391</div>この例では, 次の電話番号のリモート・システムをダイヤル呼び出しします。1-201-555-8391、ダイヤルする場所9外側のダイヤル音を出す必要があります。 ボー・レートは、以下のように設定されます。1200.</li>
+
+<li><span></span>ハードワイヤード回線の非同期回線で接続されているシステムにログインするには、次のように入力します。<div>cu  <a href="https://www.ibm.com/docs/ja/ssw_aix_73/c_commands/cu.html#cu__row-d3e148491" target="_blank" rel="noopener noreferrer">-l </a>/dev/tty2</div><strong>cu</strong> コマンドは、以下に接続されているシステムに接続します。tty2装置。</li>
+
+<li><span></span>指定された回線および特定の速度でリモート・システムをダイヤルするには、次のように入力します。<div>cu  <a href="https://www.ibm.com/docs/ja/ssw_aix_73/c_commands/cu.html#cu__row-d3e148574" target="_blank" rel="noopener noreferrer">-s </a>1200  <a href="https://www.ibm.com/docs/ja/ssw_aix_73/c_commands/cu.html#cu__row-d3e148491" target="_blank" rel="noopener noreferrer">-l </a>tty3</div>コマンドは, 接続されているシステムに接続します。tty3装置、速度の使用1200ボー。</li>
+
+<li><span></span>モデムに関連した特定の回線を使用してリモート・システムにダイヤルするには、次のように入力します。<div>cu  <a href="https://www.ibm.com/docs/ja/ssw_aix_73/c_commands/cu.html#cu__row-d3e148491" target="_blank" rel="noopener noreferrer">-l </a>cul4 9=12015558391</div>この例では, 次の電話番号のリモート・システムをダイヤル呼び出しします。1-201-555-8391、ダイヤルする場所9外側のダイヤル音を出す必要があります。 <strong>cu</strong> コマンドは、以下に接続されているモデムを使用します。cul4装置。</li>
+
+</ol>
+ <ol>
+<li><span></span>リモート・システムにログインした後でファイルの内容を表示するには、次のように入力します。<div> <a href="https://www.ibm.com/docs/ja/ssw_aix_73/c_commands/cu.html#cu__row-d3e148696" target="_blank" rel="noopener noreferrer">~!</a>pg /usr/msg/memos/file10</div><strong>~!</strong> サブコマンドは、 <strong>pg</strong> コマンドをローカル・システム上で実行し、file10ファイル/usr/msg/memosローカル・システム上のディレクトリー。</li>
+
+<li><span></span>ファイルの名前を変更せずにローカル・システムからリモート・システムにファイルをコピーするには、次のように入力します。<div> <a href="https://www.ibm.com/docs/ja/ssw_aix_73/c_commands/cu.html#cu__row-d3e148753" target="_blank" rel="noopener noreferrer">~%put </a>/home/amy/file</div>この /home/amy/fileファイルは、ファイルの名前を変更せずに、ローカル・システムからリモート・システムにコピーされます。</li>
+
+<li><span></span>ファイルをローカル・システムからリモート・システムにコピーし、ファイル名を変更するには、次のように入力します。<div> <a href="https://www.ibm.com/docs/ja/ssw_aix_73/c_commands/cu.html#cu__row-d3e148753" target="_blank" rel="noopener noreferrer">~%put </a>/home/amy/file /home/amy/tmpfile</div>この /home/amy/fileファイルがローカル・システムからリモート・システムにコピーされ, ファイル名が次のように変更されます。 /home/amy/tmpfile.</li>
+
+<li><span></span>ファイルの名前を変更せずにリモート・システムからローカル・システムにファイルをコピーするには、次のように入力します。<div> <a href="https://www.ibm.com/docs/ja/ssw_aix_73/c_commands/cu.html#cu__row-d3e148793" target="_blank" rel="noopener noreferrer">~%take </a>/home/jeanne/test1</div>この /home/jeanne/test1ファイルの名前を変更せずに、リモート・システムからローカル・システムにファイルがコピーされます。</li>
+
+<li><span></span>ファイルをリモート・システムからローカル・システムにコピーし、ファイル名を変更するには、次のように入力します。<div> <a href="https://www.ibm.com/docs/ja/ssw_aix_73/c_commands/cu.html#cu__row-d3e148793" target="_blank" rel="noopener noreferrer">~%take </a>/home/jeanne/test1 /usr/dev/jeanne/tmptest</div>この例では、/home/jeanne/test1ファイルがリモート・システムからローカル・システムにコピーされ, ファイル名が次のように変更されます。/usr/dev/jeanne/tmptest.</li>
+
+</ol>
+</section>
+
+<section><h2>ファイル</h2> <div> 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><strong>/etc/locks</strong></td>
+
+<td>デバイスの複数使用を防止します。</td>
+
+</tr>
+
+<tr>
+<td><strong>/usr/bin/cu</strong></td>
+
+<td><strong>cu</strong> コマンドのパス名を指定します。</td>
+
+</tr>
+
+<tr>
+<td><strong>/bin/cu</strong></td>
+
+<td><strong>/usr/bin/cu</strong> コマンドへのシンボリック・リンクを指定します。</td>
+
+</tr>
+
+<tr>
+<td><strong>/etc/uucp/Devices</strong></td>
+
+<td>使用可能なリンクに関する情報が記述されています。</td>
+
+</tr>
+
+<tr>
+<td><strong>/etc/uucp/Dialcodes</strong></td>
+
+<td>ダイヤル・コードの省略形が記述されています。</td>
+
+</tr>
+
+<tr>
+<td><strong>/etc/uucp/Dialers</strong></td>
+
+<td>リンクの初期接続手順を制御します。</td>
+
+</tr>
+
+<tr>
+<td><strong>/etc/uucp/Permissions</strong></td>
+
+<td>アクセス権コードが記述されています。</td>
+
+</tr>
+
+<tr>
+<td><strong>/etc/uucp/Systems</strong></td>
+
+<td>アクセス可能なリモート・システムが登録されています。</td>
+
+</tr>
+
+<tr>
+<td><strong>/etc/uucp/Sysfiles</strong></td>
+
+<td><strong>Systems</strong>、<strong>Devices</strong>、<strong>Dialers</strong> ファイルとして使用できる代替ファイルを指定します。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+</section>
+
+</div></div>

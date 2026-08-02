@@ -1,0 +1,4440 @@
+<div class="official-dom"><div>
+  <section><h2>目的</h2>
+   
+   <p>対話モードでローカル・システム統計を表示し、記録モードでシステム統計を記録します。</p>
+
+  </section>
+
+  <section><h2>構文</h2>
+
+<p><code>Interactive mode</code></p>
+
+<div><div><pre><code>nmon [ -h ]</code></pre></div><div></div></div>
+<p><span>nmon</span> [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/n_commands/nmon.html#nmon__nm-s" target="_blank" rel="noopener noreferrer"><strong>-s</strong></a> &lt; <a href="https://www.ibm.com/docs/ja/ssw_aix_73/n_commands/nmon.html#nmon__nmp-s" target="_blank" rel="noopener noreferrer"><span><span>秒数</span></span></a> &gt; ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/n_commands/nmon.html#nmon__nm-c" target="_blank" rel="noopener noreferrer"><strong>-c</strong></a> &lt; <a href="https://www.ibm.com/docs/ja/ssw_aix_73/n_commands/nmon.html#nmon__nmp-c" target="_blank" rel="noopener noreferrer"><span><span>カウント</span></span></a> &gt; ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/n_commands/nmon.html#nmon__nm-b" target="_blank" rel="noopener noreferrer"><strong>-b</strong></a> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/n_commands/nmon.html#nmon__nm-ub" target="_blank" rel="noopener noreferrer"><strong>-B</strong></a> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/n_commands/nmon.html#nmon__nm-g" target="_blank" rel="noopener noreferrer"><strong>-g</strong></a> &lt; <a href="https://www.ibm.com/docs/ja/ssw_aix_73/n_commands/nmon.html#nmon__nmp-f" target="_blank" rel="noopener noreferrer"><span><span>ファイル名</span></span></a> &gt; ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/n_commands/nmon.html#nmon__nm-k" target="_blank" rel="noopener noreferrer"><strong>-k</strong></a> <a href="https://www.ibm.com/docs/ja/ssw_aix_73/n_commands/nmon.html#nmon__nmp-d" target="_blank" rel="noopener noreferrer"><span><span>ディスクリスト</span></span></a> ] [ <strong><a href="https://www.ibm.com/docs/ja/ssw_aix_73/n_commands/nmon.html#nmon__nmon_flags_big_c" target="_blank" rel="noopener noreferrer">-C</a></strong> &lt; process1:process2:..:processN &gt; ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/n_commands/nmon.html#nmon__nm-i" target="_blank" rel="noopener noreferrer"><strong>-i</strong></a> ]</p>
+
+
+<p><code>Recording mode</code></p>
+
+<p><span>nmon</span> [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/n_commands/nmon.html#nmon__nm-f" target="_blank" rel="noopener noreferrer"><strong>-f</strong></a> | <a href="https://www.ibm.com/docs/ja/ssw_aix_73/n_commands/nmon.html#nmon__nm-uf" target="_blank" rel="noopener noreferrer"><strong>-F</strong> <span><span>ファイル名</span></span></a> | <a href="https://www.ibm.com/docs/ja/ssw_aix_73/n_commands/nmon.html#nmon__nm-x" target="_blank" rel="noopener noreferrer"><strong>-x</strong></a> | <a href="https://www.ibm.com/docs/ja/ssw_aix_73/n_commands/nmon.html#nmon__nm-ux" target="_blank" rel="noopener noreferrer"><strong>-X</strong></a> | <a href="https://www.ibm.com/docs/ja/ssw_aix_73/n_commands/nmon.html#nmon__nm-z" target="_blank" rel="noopener noreferrer"><strong>-z</strong></a> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/n_commands/nmon.html#nmon__nm-r" target="_blank" rel="noopener noreferrer"><strong>-r</strong></a> &lt; <a href="https://www.ibm.com/docs/ja/ssw_aix_73/n_commands/nmon.html#nmon__nmp-r" target="_blank" rel="noopener noreferrer"><span><span>実行名</span></span></a> &gt; ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/n_commands/nmon.html#nmon__nm-t" target="_blank" rel="noopener noreferrer"><strong>-t</strong></a> | <a href="https://www.ibm.com/docs/ja/ssw_aix_73/n_commands/nmon.html#nmon__nm-ut" target="_blank" rel="noopener noreferrer"><strong>-T</strong></a> | <a href="https://www.ibm.com/docs/ja/ssw_aix_73/n_commands/nmon.html#nmon__nm-uy" target="_blank" rel="noopener noreferrer"><strong>-Y</strong></a> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/n_commands/nmon.html#nmon__nm-sr" target="_blank" rel="noopener noreferrer"><strong>-s</strong></a> <span><span>秒数</span></span> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/n_commands/nmon.html#nmon__nm-cr" target="_blank" rel="noopener noreferrer"><strong>-c</strong></a> <a href="https://www.ibm.com/docs/ja/ssw_aix_73/n_commands/nmon.html#nmon__nmp-n" target="_blank" rel="noopener noreferrer"><span><span>数値</span></span></a> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/n_commands/nmon.html#nmon__nm-w" target="_blank" rel="noopener noreferrer"><strong>-w</strong></a> <span><span>数値</span></span> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/n_commands/nmon.html#nmon__nm-l" target="_blank" rel="noopener noreferrer"><strong>-l</strong></a> <a href="https://www.ibm.com/docs/ja/ssw_aix_73/n_commands/nmon.html#nmon__nmp-dpl" target="_blank" rel="noopener noreferrer"><span><span>dpl</span></span></a> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/n_commands/nmon.html#nmon__nm-d" target="_blank" rel="noopener noreferrer"><strong>-d</strong></a> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/n_commands/nmon.html#nmon__nm-gr" target="_blank" rel="noopener noreferrer"><strong>-g</strong></a> <span><span>ファイル名</span></span> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/n_commands/nmon.html#nmon__nm-kr" target="_blank" rel="noopener noreferrer"><strong>-k</strong></a> <span><span>ディスクリスト</span></span> ] [ <strong><a href="https://www.ibm.com/docs/ja/ssw_aix_73/n_commands/nmon.html#nmon__nmon_flags_big_c" target="_blank" rel="noopener noreferrer">-C</a></strong>&lt;process1:process2:..:processN &gt; ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/n_commands/nmon.html#nmon__nm-ug" target="_blank" rel="noopener noreferrer"><strong>-G</strong></a> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/n_commands/nmon.html#nmon__nm-uk" target="_blank" rel="noopener noreferrer"><strong>-K</strong></a> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/n_commands/nmon.html#nmon__nm-o" target="_blank" rel="noopener noreferrer"><strong>-o</strong></a> <a href="https://www.ibm.com/docs/ja/ssw_aix_73/n_commands/nmon.html#nmon__nmp-o" target="_blank" rel="noopener noreferrer"><span><span>出力パス</span></span></a> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/n_commands/nmon.html#nmon__nm-ud" target="_blank" rel="noopener noreferrer"><strong>-D</strong></a> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/n_commands/nmon.html#nmon__nm-ue" target="_blank" rel="noopener noreferrer"><strong>-E</strong></a> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/n_commands/nmon.html#nmon__nm-uj" target="_blank" rel="noopener noreferrer"><strong>-J</strong></a> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/n_commands/nmon.html#nmon__nm-uv" target="_blank" rel="noopener noreferrer"><strong>-V</strong></a> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/n_commands/nmon.html#nmon__nm-up" target="_blank" rel="noopener noreferrer"><strong>-P</strong></a> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/n_commands/nmon.html#nmon__nm-um" target="_blank" rel="noopener noreferrer"><strong>-M</strong></a> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/n_commands/nmon.html#nmon__nm-un" target="_blank" rel="noopener noreferrer"><strong>-N</strong></a> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/n_commands/nmon.html#nmon__nm-uw" target="_blank" rel="noopener noreferrer"><strong>-W</strong></a> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/n_commands/nmon.html#nmon__nm-us" target="_blank" rel="noopener noreferrer"><strong>-S</strong></a> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/n_commands/nmon.html#nmon__nm6" target="_blank" rel="noopener noreferrer"><strong>-^</strong></a> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/n_commands/nmon.html#nmon__nm-uo" target="_blank" rel="noopener noreferrer"><strong>-O</strong></a> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/n_commands/nmon.html#nmon__nm-ul" target="_blank" rel="noopener noreferrer"><strong>-L</strong></a> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/n_commands/nmon.html#nmon__nm-ui" target="_blank" rel="noopener noreferrer"><strong>-I</strong></a> <a href="https://www.ibm.com/docs/ja/ssw_aix_73/n_commands/nmon.html#nmon__nmp-pe" target="_blank" rel="noopener noreferrer"><span><span>パーセント</span></span></a> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/n_commands/nmon.html#nmon__nm-ua" target="_blank" rel="noopener noreferrer"><strong>-A</strong></a> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/n_commands/nmon.html#nmon__nm-m" target="_blank" rel="noopener noreferrer"><strong>-m</strong></a> &lt; <a href="https://www.ibm.com/docs/ja/ssw_aix_73/n_commands/nmon.html#nmon__nmp-di" target="_blank" rel="noopener noreferrer"><span><span>ディレクトリ</span></span></a> &gt; ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/n_commands/nmon.html#nmon__nm-uz" target="_blank" rel="noopener noreferrer"><strong>-Z</strong></a> <a href="https://www.ibm.com/docs/ja/ssw_aix_73/n_commands/nmon.html#nmon__nmp-pri" target="_blank" rel="noopener noreferrer"><span><span>優先度</span></span></a> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/n_commands/nmon.html#nmon__nm-ir" target="_blank" rel="noopener noreferrer"><strong>-i</strong></a> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/n_commands/nmon.html#nmon__nm-y2" target="_blank" rel="noopener noreferrer"><strong>-y</strong> <span><span>オプション</span></span></a> ]</p>
+
+<div><div>
+        <div>
+          <div><span>注:</span> 記録モードでは、最初の引数として <strong>-f</strong>、 <strong>-F</strong>、 <strong>-z</strong>、 <strong>-x</strong>、または <strong>-X</strong> フラグのいずれか 1 つのみを指定してください。</div>
+        </div>
+      </div></div>
+
+</section>
+
+  <section><h2>説明</h2>
+   
+   <p><span>nmon</span> コマンドを使用して、ローカル・システム情報の表示と記録を行います。 このコマンドは対話モードまたは記録モードのいずれかで実行できます。 <span>-F</span>、<span>-f</span>、<span>-X</span>、<span>-x</span>、および <span>-Z</span> フラグのいずれを指定した場合も、<span>nmon</span> コマンドは記録モード状態です。 それ以外の場合は、<span>nmon</span> コマンドは対話モード状態となります。</p>
+
+   <div><span>nmon</span> コマンドを使用すると、対話モードで以下の表示を行うことができます。<ul>
+<li><a href="https://www.ibm.com/docs/ja/ssw_aix_73/n_commands/nmon.html#nmon__aios" target="_blank" rel="noopener noreferrer">アダプター入出力統計 </a>( <strong>a</strong> キーを押す)</li>
+
+<li><a href="https://www.ibm.com/docs/ja/ssw_aix_73/n_commands/nmon.html#nmon__apv" target="_blank" rel="noopener noreferrer">AIO プロセス・ビュー</a> ( <strong>A</strong> キーを押す)</li>
+
+<li><a href="https://www.ibm.com/docs/ja/ssw_aix_73/n_commands/nmon.html#nmon__dps" target="_blank" rel="noopener noreferrer">詳細ページ統計</a> ( <strong>M</strong> キーを押す)</li>
+
+<li><a href="https://www.ibm.com/docs/ja/ssw_aix_73/n_commands/nmon.html#nmon__dbm" target="_blank" rel="noopener noreferrer">ディスク・ビジー・マップ</a> ( <strong>o</strong> キーを押す)</li>
+
+<li><a href="https://www.ibm.com/docs/ja/ssw_aix_73/n_commands/nmon.html#nmon__dg" target="_blank" rel="noopener noreferrer">ディスク・グループ</a> ( <strong>g</strong> キーを押す)</li>
+
+<li><a href="https://www.ibm.com/docs/ja/ssw_aix_73/n_commands/nmon.html#nmon__ds" target="_blank" rel="noopener noreferrer">ディスク統計</a> ( <strong>D</strong> キーを押す)</li>
+
+<li><a href="https://www.ibm.com/docs/ja/ssw_aix_73/n_commands/nmon.html#nmon__four" target="_blank" rel="noopener noreferrer">グラフ付きディスク統計 </a>( <strong>d</strong> キーを押す)</li>
+
+<li><a href="https://www.ibm.com/docs/ja/ssw_aix_73/n_commands/nmon.html#nmon__essv" target="_blank" rel="noopener noreferrer">ESS vpath 統計ビュー</a> ( <strong>e</strong> キーを押す)</li>
+
+<li><a href="https://www.ibm.com/docs/ja/ssw_aix_73/n_commands/nmon.html#nmon__fib" target="_blank" rel="noopener noreferrer">ファイバー・チャネル・アダプター統計</a> ( <strong>^</strong> キーを押す)</li>
+
+<li><a href="https://www.ibm.com/docs/ja/ssw_aix_73/n_commands/nmon.html#nmon__jfsv" target="_blank" rel="noopener noreferrer">JFS ビュー</a> ( <strong>j</strong> キーを押す)</li>
+
+<li><a href="https://www.ibm.com/docs/ja/ssw_aix_73/n_commands/nmon.html#nmon__ks" target="_blank" rel="noopener noreferrer">カーネル統計</a> ( <strong>k</strong> キーを押す)</li>
+
+<li><a href="https://www.ibm.com/docs/ja/ssw_aix_73/n_commands/nmon.html#nmon__ltp" target="_blank" rel="noopener noreferrer">「長期プロセッサー平均」ビュー</a> ( <strong>l</strong> キーを押す)</li>
+
+<li><a href="https://www.ibm.com/docs/ja/ssw_aix_73/n_commands/nmon.html#nmon__lpa" target="_blank" rel="noopener noreferrer">ラージ・ページ分析 </a>( <strong>L</strong> キーを押す)</li>
+
+<li><a href="https://www.ibm.com/docs/ja/ssw_aix_73/n_commands/nmon.html#nmon__mp" target="_blank" rel="noopener noreferrer">メモリーおよびページング統計</a> ( <strong>m</strong> キーを押す)</li>
+
+<li><a href="https://www.ibm.com/docs/ja/ssw_aix_73/n_commands/nmon.html#nmon__niv" target="_blank" rel="noopener noreferrer">ネットワーク・インターフェース・ビュー </a>( <strong>n</strong> キーを押す)</li>
+
+<li><a href="https://www.ibm.com/docs/ja/ssw_aix_73/n_commands/nmon.html#nmon__nfsp" target="_blank" rel="noopener noreferrer">NFS パネル</a> ( <strong>N</strong> キーを押す)</li>
+
+<li><a href="https://www.ibm.com/docs/ja/ssw_aix_73/n_commands/nmon.html#nmon__ps" target="_blank" rel="noopener noreferrer">ページング・スペース</a> ( <strong>P</strong> キーを押す)</li>
+
+<li><a href="https://www.ibm.com/docs/ja/ssw_aix_73/n_commands/nmon.html#nmon__pv" target="_blank" rel="noopener noreferrer">プロセス・ビュー</a> ( <strong>t</strong> キーと <strong>u</strong> キーを押す)</li>
+
+<li><a href="https://www.ibm.com/docs/ja/ssw_aix_73/n_commands/nmon.html#nmon__pus" target="_blank" rel="noopener noreferrer">プロセッサー使用率の小さいビュー</a> ( <strong>c</strong> キーを押す)</li>
+
+<li><a href="https://www.ibm.com/docs/ja/ssw_aix_73/n_commands/nmon.html#nmon__pul" target="_blank" rel="noopener noreferrer">プロセッサー使用率の大きいビュー</a> ( <strong>C</strong> キーを押す)</li>
+
+<li><a href="https://www.ibm.com/docs/ja/ssw_aix_73/n_commands/nmon.html#nmon__sea" target="_blank" rel="noopener noreferrer">共用イーサネット・アダプター統計</a> ( <strong>O</strong> キーを押す)</li>
+
+<li><a href="https://www.ibm.com/docs/ja/ssw_aix_73/n_commands/nmon.html#nmon__splp" target="_blank" rel="noopener noreferrer">共用プロセッサー論理区画ビュー</a> ( <strong>p</strong> キーを押す)</li>
+
+<li><a href="https://www.ibm.com/docs/ja/ssw_aix_73/n_commands/nmon.html#nmon__srv" target="_blank" rel="noopener noreferrer">システム・リソース・ビュー</a> ( <strong>r</strong> キーを押す)</li>
+
+<li><a href="https://www.ibm.com/docs/ja/ssw_aix_73/n_commands/nmon.html#nmon__tls" target="_blank" rel="noopener noreferrer">スレッド・レベル統計</a> ( <strong>i</strong> キーを押す)</li>
+
+<li><a href="https://www.ibm.com/docs/ja/ssw_aix_73/n_commands/nmon.html#nmon__verb" target="_blank" rel="noopener noreferrer">Verbose checks OK/Warn/Danger view</a> ( <strong>v</strong> キーを押します)</li>
+
+<li><a href="https://www.ibm.com/docs/ja/ssw_aix_73/n_commands/nmon.html#nmon__vgs" target="_blank" rel="noopener noreferrer">ボリューム・グループ統計 </a>( <strong>V</strong> キーを押す)</li>
+
+<li><a href="https://www.ibm.com/docs/ja/ssw_aix_73/n_commands/nmon.html#nmon__wlmv" target="_blank" rel="noopener noreferrer">WLM ビュー</a> ( <strong>W</strong> キーを押す)</li>
+
+</ul>
+</div>
+
+   <p>記録モードでは、このコマンドは <span>nmon</span> ファイルを生成します。 これらのファイルは、それをオープンすることにより、あるいは nmon アナライザーなどのポストプロセッシング・ツールを使用して、直接表示できます。 <span>nmon</span> ツールは記録中にはシェルから切断されます。これは、お客様がログアウトした場合でもこのコマンドが実行を継続できるようにするためです。</p>
+
+   <div><span>nmon</span> コマンドを開始するたびに同一セットのキーを使用すると、NMON シェル変数にキーをセットできます。 例えば、以下のコマンドを実行できます。<div><div><pre><code>export NMON=mcd</code></pre></div><div></div></div>次にコマンド <span>nmon</span> を実行します。</div>
+
+   <p>コマンド・ラインから <span>nmon</span> コマンドを停止するには、nmon プロセス ID を指定した <strong>kill -USR2</strong> を使用します。</p>
+
+   <p>nmon記録のバックグラウンドプロセスIDを出力するには、`nmon <strong>-p</strong> ` コマンド <span>nmon</span> を実行します。</p>
+
+   <div><span>nmon</span> コマンドが (オンラインで、およびファイルに対して) リストするプロセスを制限するには、以下のオプションを利用することができます。<ul>
+<li>環境変数内のプログラム名を <strong>NMONCMD0</strong> から <strong>NMONCMD63</strong> までで設定する。</li>
+
+<li><span><span>cmd:cmd:cmd</span></span> パラメーターとともに <strong>-C</strong> フラグを使用します。 例えば、以下のコマンドを入力できます。<div><div><pre><code>nmon -C ksh:vi:syncd</code></pre></div><div></div></div></li>
+
+</ul>
+</div>
+
+   <div>リスト <span>nmon</span> に表示されるディスクを最大64個（オンライン時のみ）に制限するには、 <span><span>diskname</span></span> パラメータに <strong>-k</strong> フラグを指定します。 例えば、以下のコマンドを入力できます。<div><div><pre><code>nmon -k hdisk2,hdisk0,hdisk3</code></pre></div><div></div></div></div>
+
+   <p><span>nmon</span> ツールは記録中にはシェルから切断されます。これは、お客様がログアウトした場合でもこのコマンドが実行を継続できるようにするためです。 オンデマンド記録機能の使用がきっかけとなって記録が行われた場合は、この機能は正しくありません。</p>
+
+   <p>nmon でジャーナル・ファイルシステム (JFS) の記録とモニターを行うと、統計収集時にはこのファイルシステムが使用中になるため、ファイルシステムのアンロードを防止できます。</p>
+
+   <div><span>ワークロードパーティション</span> （ <span>WPAR</span> ）内では、` <span>nmon</span> `コマンドはプロセッサおよびメモリ統計のグローバル値を表示します。 残りの値は <span>WPAR</span> 固有です。 以下の<span>統計</span>情報はWPAR内で取得できず、 <span>画面 </span><span>nmon</span> もWPAR内ではこれらをサポートしていません：<ul>
+<li>ディスク、ディスク入出力グラフ、ディスク・ビジー・マップ、ディスク・グループ</li>
+
+<li>ディスク・アダプター</li>
+
+<li>ページング・スペース</li>
+
+<li>ボリューム・グループ</li>
+
+<li>ESS/vpath</li>
+
+<li>ファイバー・チャネル・アダプター</li>
+
+<li>VIOS 共用イーサネット・アダプター</li>
+
+</ul>
+<div><div>
+        <div>
+          <div><span>注:</span> システムに適用された動的構成変更は、現在の <span>nmon</span> 記録には反映されません。 新しい構成変更を有効にするには、<code>nmon</code> ツールを再始動する必要があります。</div>
+        </div>
+      </div></div>
+</div>
+
+  </section>
+
+  <section><h2>対話モードでのフラグ</h2>
+   
+   <div>対話モードでは以下のフラグを使用できます。<div><div><table><thead>
+       <tr>
+        <th><div>項目</div></th>
+
+        <th><div>説明</div></th>
+
+       </tr>
+
+      </thead>
+<tbody>
+       <tr>
+        <td><strong>-s</strong> &lt; <span><span>秒</span></span> &gt;</td>
+
+        <td>ある画面のリフレッシュから次のリフレッシュまでの時間間隔。 デフォルト値は 2 秒です。</td>
+
+       </tr>
+
+       <tr>
+        <td><strong>-c</strong> &lt; <span><span>カウント</span></span> &gt;</td>
+
+        <td>画面をリフレッシュする必要がある回数。</td>
+
+       </tr>
+
+       <tr>
+        <td><strong>-g</strong> &lt; <span><span>ファイル名</span></span> &gt;</td>
+
+        <td><span><span>filename</span></span> パラメーターを使用して指定可能なユーザー定義ディスク・グループを含むファイル。 ファイルの中の各行はグループ名で始まります。 ハード・ディスクのリストは、グループ名の後ろに続き、スペースで区切られます。 このファイルには最大 64 個のディスク・グループを入れることができます。 1 つのハード・ディスクは、さまざまなディスク・グループに所属することができます。</td>
+
+       </tr>
+
+       <tr>
+        <td><strong>-b</strong></td>
+
+        <td>モノクロ・モードでビューを表示します。</td>
+
+       </tr>
+
+       <tr>
+        <td><strong>-B</strong></td>
+
+        <td>このビューの中にボックスを組み込みません。 デフォルトでは、このコマンドはボックスを表示します。</td>
+
+       </tr>
+
+       <tr>
+        <td><strong>-h</strong></td>
+
+        <td>ヘルプ情報を表示します。</td>
+
+       </tr>
+
+       <tr>
+        <td><strong>-k</strong> &lt; <span><span>ディスク・リスト</span></span> &gt;</td>
+
+        <td>ディスク・リスト内のディスクのみをレポートします。</td>
+
+       </tr>
+
+       <tr>
+        <td><strong>-i</strong></td>
+
+        <td>トップ・スレッド・レベルの CPU 使用率を報告します。</td>
+
+       </tr>
+
+      </tbody>
+</table></div>
+</div>
+</div>
+
+  </section>
+
+  <section><h2>記録モードでのフラグ</h2>
+   
+   
+<div><div><table><thead>
+      <tr>
+       <th><div>項目</div></th>
+
+       <th><div>説明</div></th>
+
+      </tr>
+
+     </thead>
+<tbody>
+      <tr>
+       <td><strong>-A</strong></td>
+
+       <td>ビューに非同期入出力セクションを組み込みます。</td>
+
+      </tr>
+
+      <tr>
+       <td><strong>-c</strong></td>
+
+       <td>このコマンドにより採取されるスナップショット数を指定します。 デフォルト値は 10000000 です。</td>
+
+      </tr>
+
+      <tr>
+       <td><strong>-d</strong></td>
+
+       <td>ビューにディスク・サービス時間セクションを組み込みます。</td>
+
+      </tr>
+
+      <tr>
+       <td><strong>-D</strong></td>
+
+       <td>ディスク構成セクションをスキップします。</td>
+
+      </tr>
+
+      <tr>
+       <td><strong>-E</strong></td>
+
+       <td>ESS 構成セクションをスキップします。</td>
+
+      </tr>
+
+      <tr>
+       <td><strong>-f</strong></td>
+
+       <td>出力がスプレッドシート形式であることを指定します。 デフォルトでは、このコマンドは各スナップショット間で 300 秒の間隔をおいてシステム・データの 288 個のスナップショットを採取します。 出力ファイル名は、<span><span>
+hostname_YYMMDD_HHMM</span></span><strong>.nmon</strong> の形式になっています。</td>
+
+      </tr>
+
+      <tr>
+       <td><strong>-F</strong></td>
+
+       <td>出力がスプレッドシート形式であること、および出力ファイルの名前が <span><span>filename</span></span> であることを指定します。 <span><span>filename</span></span> パラメーターには出力ファイルの名前を指定します。</td>
+
+      </tr>
+
+      <tr>
+       <td><strong>-g</strong></td>
+
+       <td><span><span>filename</span></span> パラメーターを使用して、ユーザー定義ディスク・グループを含むファイルを指定します。 ファイルの中の各行はグループ名で始まります。 ディスクのリストは、グループ名の後ろに続き、スペースで区切られます。 このファイルには最大 64 個のディスク・グループを入れることができます。 1 つのディスクは、さまざまなディスク・グループに所属することができます。</td>
+
+      </tr>
+
+      <tr>
+       <td><strong>-G</strong></td>
+
+       <td>現地時間ではなく、グリニッジ標準時 (GMT) を使用します。 この方法は、1 つのシステムの多数の <span>LPAR</span>からの nmon ファイルをプロセッサー・ビューのために比較するが、 <span>LPAR</span>が異なる時間帯にある場合に役立ちます。</td>
+
+      </tr>
+
+      <tr>
+       <td><strong>-i</strong></td>
+
+       <td>スレッド・レベルの統計を報告します。</td>
+
+      </tr>
+
+      <tr>
+       <td><strong>-I</strong></td>
+
+       <td>このコマンドが TOP プロセス統計を無視するプロセスしきい値のパーセンテージを指定します。 デフォルトのパーセンテージは 0.1です。 プロセスが指定パーセンテージよりも少ないプロセッサー能力を使用している場合、コマンドは TOP プロセス統計を保存しません。</td>
+
+      </tr>
+
+      <tr>
+       <td><strong>-J</strong></td>
+
+       <td>JFS セクションをスキップします。</td>
+
+      </tr>
+
+      <tr>
+       <td><strong>-k</strong></td>
+
+       <td>記録対象のディスク・リストを指定します。</td>
+
+      </tr>
+
+      <tr>
+       <td><strong>-K</strong></td>
+
+       <td>RAW カーネル・セクションと <span>LPAR</span> セクションを記録ファイルに組み込みます。 <strong>-K</strong> フラグは対応するデータ構造の未加工の数をダンプします。 メモリー・ダンプは読み取り可能で、コマンドがそのデータを記録しようとする時に使用できます。</td>
+
+      </tr>
+
+      <tr>
+       <td><strong>-l</strong></td>
+
+       <td>各行にリストするディスク数を指定します。 デフォルトでは、150 ディスクが 1 行にリストされます。 EMC ディスクの場合、64 の値を指定してください。</td>
+
+      </tr>
+
+      <tr>
+       <td><strong>-L</strong></td>
+
+       <td>ラージ・ページ分析セクションを組み込みます。</td>
+
+      </tr>
+
+      <tr>
+       <td><strong>-m</strong></td>
+
+       <td>コマンドがデータをファイルに保存する前に、ディレクトリーを変更します。</td>
+
+      </tr>
+
+      <tr>
+       <td><strong>-M</strong></td>
+
+       <td>記録ファイルに MEMPAGES セクションを組み込みます。 MEMPAGES セクションでは、ページ・サイズごとの詳細メモリー統計が表示されます。</td>
+
+      </tr>
+
+      <tr>
+       <td><strong>-N</strong></td>
+
+       <td>記録ファイルに NFS セクションを組み込みます。 NFSv4 統計を収集するには、<strong>-NN</strong> を指定します。</td>
+
+      </tr>
+
+      <tr>
+       <td><strong> -o</strong></td>
+
+       <td>記録されたファイルの格納先となるファイル名またはディレクトリー名を指定します。</td>
+
+      </tr>
+
+      <tr>
+       <td><strong>-O</strong></td>
+
+       <td>記録ファイルに共用イーサネット・アダプター (SEA) VIOS セクションを組み込みます。</td>
+
+      </tr>
+
+      <tr>
+       <td><strong>-P</strong></td>
+
+       <td>記録ファイルにページング・スペース・セクションを組み込みます。</td>
+
+      </tr>
+
+      <tr>
+       <td><strong>-r</strong></td>
+
+       <td>スプレッドシート・ファイルに書き込まれる <span><span>runname</span></span> フィールドの値を指定します。 デフォルトでは、この値はホスト名です。</td>
+
+      </tr>
+
+      <tr>
+       <td><strong>-s</strong></td>
+
+       <td>2 つの連続する記録用スナップショットの間の間隔を秒数で指定します。</td>
+
+      </tr>
+
+      <tr>
+       <td><strong>-S</strong></td>
+
+       <td>サブクラス指定の WLM セクションを記録ファイルに組み込みます。</td>
+
+      </tr>
+
+      <tr>
+       <td><strong>-t</strong></td>
+
+       <td>トップ・プロセスを出力に組み込みます。 <strong>-t</strong>、<strong>-T</strong>、または <strong>
+-Y</strong> フラグを同時に指定できません。</td>
+
+      </tr>
+
+      <tr>
+       <td><strong>-T</strong></td>
+
+       <td>トップ・プロセスを出力に組み込み、コマンド・ライン引数を UARG セクション保存します。 <strong>-t</strong>、<strong>-T</strong>、または <strong>
+-Y</strong> フラグを同時に指定できません。</td>
+
+      </tr>
+
+      <tr>
+       <td><strong>-V</strong></td>
+
+       <td>ディスク・ボリューム・グループ・セクションを組み込みます。</td>
+
+      </tr>
+
+      <tr>
+       <td><strong>-w</strong></td>
+
+       <td>記録対象のタイム・スタンプ (Tnnnn) のサイズを指定します。 このタイム・スタンプは、<strong>.csv</strong> ファイルに記録されます。 <span><span>number</span></span> パラメーター値の許容範囲は、4 から 16 です。 NMON アナライザーの場合は、4 または 8 の値を使用してください。</td>
+
+      </tr>
+
+      <tr>
+       <td><strong>-W</strong></td>
+
+       <td>記録ファイルに WLM セクションを組み込みます。</td>
+
+      </tr>
+
+      <tr>
+       <td><strong>-x</strong></td>
+
+       <td>キャパシティー・プランニングとして 1 日に記録する実際的なスプレッドシートを指定します。 デフォルトでは、900 秒ごとに記録され、96 回記録されます。 このフラグは、<strong>-ft -s 900 -c 96</strong> と同じです。</td>
+
+      </tr>
+
+      <tr>
+       <td><strong>-X</strong></td>
+
+       <td>キャパシティー・プランニングとして 1 時間に記録する実際的なスプレッドシートを指定します。 デフォルトでは、30 秒ごとに記録され、120 回記録されます。 このフラグは、<strong>-ft -s 30 -c 120</strong> と同じです。</td>
+
+      </tr>
+
+      <tr>
+       <td><strong>-y <span>options</span></strong></td>
+
+       <td><code>nmon</code> 記録セクションを制御します。 <span>options</span> パラメーターの値は、コンマで区切る必要があります。<div><span>options</span> パラメーターの有効な値は次のとおりです。<dl>
+          
+           <dt>sub=sea</dt>
+
+           <dd>SEA Bridged アダプター統計情報を記録します。</dd>
+
+          
+         </dl>
+<dl>
+          
+           <dt>sub=ssp</dt>
+
+           <dd>共有ストレージ・プール (SSP) 統計情報を記録します。</dd>
+
+          
+         </dl>
+<dl>
+          
+           <dt>PCPU=[on | off ]</dt>
+
+           <dd>Physical CPU (PCPU) で始まるメトリックでしかない、PCPU セクションの記録を使用可能または使用不可にします。 これらのメトリックは、Processor Utilization of Resources Register (PURR) に基づいています。 デフォルト値は off です。<div>PCPU セクションには、次の値を指定できます。<dl>
+              
+               <dt>オン</dt>
+
+               <dd>PCPU セクションの記録を使用可能にします。</dd>
+
+              
+              
+               <dt>オフ</dt>
+
+               <dd>PCPU セクションの記録を使用不可にします。</dd>
+
+              
+             </dl>
+</div>
+</dd>
+
+          
+          
+           <dt>SCPU=[on | off ]</dt>
+
+           <dd>Scaled CPU (SCPU) で始まるメトリックである、SCPU セクションの記録を使用可能または使用不可にします。 これらのメトリックは、Scaled Utilization of Resources Register (SPURR) に基づいています。 デフォルト値は off です。<div>SCPU セクションには、次の値を指定できます。<dl>
+              
+               <dt>オン</dt>
+
+               <dd>SCPU セクションの記録を使用可能にします。</dd>
+
+              
+              
+               <dt>オフ</dt>
+
+               <dd>SCPU セクションの記録を使用不可にします。</dd>
+
+              
+             </dl>
+</div>
+</dd>
+
+          
+          
+           <dt>dfreq=[on | off ]</dt>
+
+           <dd>CPUMHZ で始まるメトリックである、周波数セクションの記録を使用可能または使用不可にします。 これらのメトリックは、設定されている POWER オプションに基づいています。 デフォルト値は off です。<div>dfreq セクションには、次の値を指定できます。<dl>
+              
+               <dt>オン</dt>
+
+               <dd>CPUMHZ セクションの記録を使用可能にします。</dd>
+
+              
+              
+               <dt>オフ</dt>
+
+               <dd>CPUMHZ セクションの記録を使用不可にします。</dd>
+
+              
+             </dl>
+</div>
+</dd>
+
+          
+         </dl>
+</div>
+<div><div>
+        <div>
+          <div><span>注:</span><p>CPUMHZ の currentMHz 列で報告される値は、システム負荷などの条件に応じて、実際のプロセッサー速度とは少し異なる場合があります。</p>
+
+         <p>コマンド・ラインで同じ値が複数回使用された場合、<span>options</span> パラメーターの最新値がそれ以前の値をオーバーライドします。</p>
+
+        </div>
+        </div>
+      </div></div>
+<p><strong>例:</strong> コマンド <code>"nmon -f -y PCPU=on -y PCPU=off"</code> を実行すると、値 <em>off</em> が PCPU オプションに使用されます。</p>
+</td>
+
+      </tr>
+
+      <tr>
+       <td><strong>-Y</strong></td>
+
+       <td>追加されて記録される同一名のコマンドすべてを使って、記録の中にトップ・プロセスを組み込みます。 <strong>-t</strong>、<strong>-T</strong>、または <strong>
+-Y</strong> フラグを一緒に指定できません。</td>
+
+      </tr>
+
+      <tr>
+       <td><strong>-Z</strong></td>
+
+       <td>キャパシティー・プランニングとして 1 日に記録する実際的なスプレッドシートを指定します。 デフォルトでは、900 秒ごとに記録され、96 回記録されます。 このフラグは、<strong>-f -s 900 -c 96</strong> と同じです。</td>
+
+      </tr>
+
+      <tr>
+       <td><strong>-Z</strong></td>
+
+       <td>実行しようとする <span>nmon</span> コマンドの優先順位を指定します。 値 -20 は重要であることを意味します。 値 20 は重要でないことを意味します。 root ユーザーだけが負の値を指定できます。</td>
+
+      </tr>
+
+      <tr>
+       <td><strong>-^</strong></td>
+
+       <td>ファイバー・チャネル (FC) セクションを組み込みます。</td>
+
+      </tr>
+
+     </tbody>
+</table></div>
+</div>
+
+  </section>
+
+  <section><h2>パラメーター</h2>
+   
+   
+<div><div><table><thead>
+      <tr>
+       <th><div>項目</div></th>
+
+       <th><div>説明</div></th>
+
+      </tr>
+
+     </thead>
+<tbody>
+      <tr>
+       <td><span> <span>ディスク・リスト</span> </span></td>
+
+       <td>ディスク・リストを指定します。</td>
+
+      </tr>
+
+      <tr>
+       <td><span> <span>ディレクトリー</span> </span></td>
+
+       <td>ディレクトリーを指定します。</td>
+
+      </tr>
+
+      <tr>
+       <td><span><span>しかけ</span></span></td>
+
+       <td>各行にリストするディスク数を指定します。</td>
+
+      </tr>
+
+      <tr>
+       <td><span> <span>ファイル名</span> </span></td>
+
+       <td>選択するディスク・グループを含むファイルを指定します。</td>
+
+      </tr>
+
+      <tr>
+       <td><span> <span>数値</span> </span></td>
+
+       <td>リフレッシュ回数を指定します。</td>
+
+      </tr>
+
+      <tr>
+       <td><span> <span>カウント</span> </span></td>
+
+       <td>記録する回数を指定します。</td>
+
+      </tr>
+
+      <tr>
+       <td><span> <span>パーセント</span> </span></td>
+
+       <td>プロセッサー使用のパーセンテージを指定します。</td>
+
+      </tr>
+
+      <tr>
+       <td><span> <span>優先順位</span> </span></td>
+
+       <td>実行対象のプロセスの優先順位を指定します。</td>
+
+      </tr>
+
+      <tr>
+       <td><span> <span>実行名</span> </span></td>
+
+       <td>実行対象のスプレッドシート・ファイルに <span><span>runname</span></span> フィールドの値を指定します。</td>
+
+      </tr>
+
+      <tr>
+       <td><span> <span>秒</span> </span></td>
+
+       <td>スナップショットをリフレッシュする間隔 (秒単位) を指定します。</td>
+
+      </tr>
+
+      <tr>
+       <td><span> <span>出力パス</span> </span></td>
+
+       <td>出力ファイルのパスを指定します。</td>
+
+      </tr>
+
+     </tbody>
+</table></div>
+</div>
+
+  </section>
+
+  <section><h2>サブコマンド</h2>
+   
+   
+<div><div><table><thead>
+      <tr>
+       <th><div>項目</div></th>
+
+       <th><div>説明</div></th>
+
+      </tr>
+
+     </thead>
+<tbody>
+      <tr>
+       <td>スペース</td>
+
+       <td>画面を即時にリフレッシュします。</td>
+
+      </tr>
+
+      <tr>
+       <td><strong>.</strong></td>
+
+       <td>ビジー・ディスクとプロセスだけを表示します。</td>
+
+      </tr>
+
+      <tr>
+       <td><strong>~</strong></td>
+
+       <td><span>topas</span> 画面に切り替えます。</td>
+
+      </tr>
+
+      <tr>
+       <td><strong>^</strong></td>
+
+       <td>ファイバー・チャネル・アダプター統計を表示します。</td>
+
+      </tr>
+
+      <tr>
+       <td><strong>+</strong></td>
+
+       <td>画面リフレッシュ時間を 2 倍にします。</td>
+
+      </tr>
+
+      <tr>
+       <td><strong>-</strong></td>
+
+       <td>画面リフレッシュ時間を 2 分の 1 にします。</td>
+
+      </tr>
+
+      <tr>
+       <td><strong>0</strong></td>
+
+       <td>統計のピーク値 (画面に表示) をゼロにリセットします。 ピーク値を表示するパネルに対してのみ適用されます。</td>
+
+      </tr>
+
+      <tr>
+       <td><strong>a</strong></td>
+
+       <td>アダプターの入出力統計を表示します。</td>
+
+      </tr>
+
+      <tr>
+       <td><strong>A</strong></td>
+
+       <td>非同期入出力 (AIO サーバー) プロセスを要約します。</td>
+
+      </tr>
+
+      <tr>
+       <td><strong>b</strong></td>
+
+       <td>モノクロ・モードでビューを表示します。</td>
+
+      </tr>
+
+      <tr>
+       <td><strong>C</strong></td>
+
+       <td>棒グラフを使ってプロセッサー統計を表示します。</td>
+
+      </tr>
+
+      <tr>
+       <td><strong>C</strong></td>
+
+       <td>プロセッサー統計を表示します。 この統計が有用なのは、プロセッサー数の範囲が 15 から 128 の場合の比較に対してです。</td>
+
+      </tr>
+
+      <tr>
+       <td><strong>d</strong></td>
+
+       <td>ディスクの入出力情報を表示します。 特定のディスクのみを表示するには、<strong>-k</strong> フラグを指定します。</td>
+
+      </tr>
+
+      <tr>
+       <td><strong>D</strong></td>
+
+       <td>ディスクの入出力統計を表示します。 ディスクの追加の統計を表示するには、<strong>D</strong> キーを複数回押します。</td>
+
+      </tr>
+
+      <tr>
+       <td><strong>e</strong></td>
+
+       <td>ESS 仮想バーチャルの論理ディスクの入出力統計を表示します。</td>
+
+      </tr>
+
+      <tr>
+       <td><strong>g</strong></td>
+
+       <td>ディスク・グループの入出力統計を表示します。 このキーと一緒に <strong>-g</strong> フラグを指定する必要があります。</td>
+
+      </tr>
+
+      <tr>
+       <td><strong>h</strong></td>
+
+       <td>オンライン・ヘルプ情報を表示します。</td>
+
+      </tr>
+
+      <tr>
+       <td><strong>j</strong></td>
+
+       <td>JFS 統計を表示します。</td>
+
+      </tr>
+
+      <tr>
+       <td><strong>k</strong></td>
+
+       <td>カーネルの内部統計を表示します。</td>
+
+      </tr>
+
+      <tr>
+       <td><strong>l</strong></td>
+
+       <td>長形式のプロセッサー統計を表示します。 75 を超えるスナップショットを棒グラフを使って表示します。</td>
+
+      </tr>
+
+      <tr>
+       <td><strong>m</strong></td>
+
+       <td>メモリーとページング統計を表示します。</td>
+
+      </tr>
+
+      <tr>
+       <td><strong>M</strong></td>
+
+       <td>複数のページ・サイズ統計をページ数単位で表示します。 <strong>M</strong> キーを 2 回押すと、この統計がメガバイト単位で表示されます。</td>
+
+      </tr>
+
+      <tr>
+       <td><strong>n</strong></td>
+
+       <td>ネットワーク統計を表示します。</td>
+
+      </tr>
+
+      <tr>
+       <td><strong>N</strong></td>
+
+       <td>NFS ネットワーク・ファイルシステム統計を表示します。 <strong>N</strong> キーを 2 回押すと、NFSv4 統計が表示されます。</td>
+
+      </tr>
+
+      <tr>
+       <td><strong>O</strong></td>
+
+       <td>ディスク入出力マップが表示されます。</td>
+
+      </tr>
+
+      <tr>
+       <td><strong>O</strong></td>
+
+       <td>共用イーサネット・アダプター VIOS のみを表示します。</td>
+
+      </tr>
+
+      <tr>
+       <td><strong>p</strong></td>
+
+       <td>区画の統計を表示します。</td>
+
+      </tr>
+
+      <tr>
+       <td><strong>P</strong></td>
+
+       <td>ページング・スペースの統計を表示します。</td>
+
+      </tr>
+
+      <tr>
+       <td><strong>q</strong></td>
+
+       <td>終了。 <strong>x</strong>、または Ctrl+C キー・シーケンスを使用しても構いません。</td>
+
+      </tr>
+
+      <tr>
+       <td><strong>r</strong></td>
+
+       <td>リソースの種類、システム名、キャッシュの詳細、<span>AIX</span>バージョン、および<span>LPAR</span>情報を表示します。</td>
+
+      </tr>
+
+      <tr>
+       <td><strong>S</strong></td>
+
+       <td>サブクラス指定の WLM を表示します。</td>
+
+      </tr>
+
+      <tr>
+       <td><strong>t</strong></td>
+
+       <td>トップ・プロセスの統計を表示します。 このサブコマンドと一緒に、以下のキーを押すことができます。<ul>
+         <li>1: 基本詳細の表示。</li>
+
+         <li>2: 累積プロセス情報の表示。</li>
+
+         <li>3: ビューをプロセッサー別にソート。</li>
+
+         <li>4: ビューをサイズ別にソート。</li>
+
+         <li>5: ビューを入出力情報別にソート。</li>
+
+        </ul>
+</td>
+
+      </tr>
+
+      <tr>
+       <td><strong>u</strong></td>
+
+       <td>コマンド引数を指定してトップ・プロセスを表示します。 新規のプロセス用に引数をリフレッシュするには、<strong>u</strong> キーを 2 回押します。</td>
+
+      </tr>
+
+      <tr>
+       <td><strong>U</strong></td>
+
+       <td>トップ・プロセスとコマンド引数、およびワークロード・クラスまたは <span>ワークロード・パーティション</span><span>ワークロード・パーティション</span> 情報を表示します。</td>
+
+      </tr>
+
+      <tr>
+       <td><strong>v</strong></td>
+
+       <td>定義済みシステム・リソースの状況を強調表示し、危険、警告、または正常のいずれかとしてそのシステム・リソースを分類します。</td>
+
+      </tr>
+
+      <tr>
+       <td><strong>V</strong></td>
+
+       <td>ディスク・ボリューム・グループの統計を表示します。</td>
+
+      </tr>
+
+      <tr>
+       <td><strong>w</strong></td>
+
+       <td>トップ・プロセスにより使用された時点での待ち状態のプロセスを表示します。</td>
+
+      </tr>
+
+      <tr>
+       <td><strong>W</strong></td>
+
+       <td><span>ワークロード・マネージャー</span> (WLM) の統計を表示します。</td>
+
+      </tr>
+
+      <tr>
+       <td><strong>[</strong></td>
+
+       <td>カスタムのオンデマンド記録を発生させます。 開始した記録は、以前に停止されていない場合、対話式 <span>nmon</span> と一緒に終了します。</td>
+
+      </tr>
+
+      <tr>
+       <td><strong>]</strong></td>
+
+       <td><strong>]</strong> により発生したカスタム記録を停止します。</td>
+
+      </tr>
+
+     </tbody>
+</table></div>
+</div>
+
+  </section>
+
+  <section><h2>出力詳細</h2>
+   
+   <p>このセクションでは、画面 <span>nmon</span> に表示されるメトリクスについて説明します。</p>
+
+   <p><strong>システム・リソース・ビュー </strong></p>
+
+   <div>このビューでは、システム・リソースの一般情報が表示されます。 このビューを表示するには、<strong>r</strong> キーを押します。 このビューには、以下のリソース情報が含まれます。<ul>
+     <li>システム内のプロセッサー数。</li>
+
+     <li>システム内でアクティブ状態のオンライン・プロセッサー数。</li>
+
+     <li>プロセッサーの周波数。</li>
+
+     <li><span>AIX</span> のバージョンとそのテクニカル・レベル。</li>
+
+     <li>実行中のカーネルのタイプ。</li>
+
+     <li>論理区画。</li>
+
+     <li>論理区画の省電力モード。</li>
+
+     <li>ハードウェア・モデル。</li>
+
+     <li>システムのプロセッサー・アーキテクチャー。</li>
+
+     <li>プラットフォーム・バスのタイプ。</li>
+
+     <li>プロセッサーのキャッシュ情報。</li>
+
+     <li>アクティブ・イベント数。</li>
+
+     <li>以前のシリアル番号。 この番号は、動的構成イベント以前の区画のシステム ID です。</li>
+
+     <li>現行のシリアル番号。 この番号は、現行のシステム ID、または動的構成イベント以降の区画のシステム ID です。</li>
+
+     <li>最後の動的再構成イベントが発生した現地時間。 この情報は、"When" キーワードと一緒にラベル付けされます。</li>
+
+     <li>論理区画のサブプロセッサー・モード。</li>
+
+    </ul>
+</div>
+
+   <p><strong>AIO プロセス・ビュー</strong></p>
+
+   <div>AIO プロセス・ビューでは、非同期入出力 (AIO) プロセス情報が表示されます。 このビューを表示するには、<strong>A</strong> キーを押します。 以下のカラムが画面上に表示されます。<div><div><table><thead>
+       <tr>
+        <th><div>項目</div></th>
+
+        <th><div>説明</div></th>
+
+       </tr>
+
+      </thead>
+<tbody>
+       <tr>
+        <td><strong>合計 AIO プロセス</strong></td>
+
+        <td>AIO プロセスの総数。</td>
+
+       </tr>
+
+       <tr>
+        <td><strong>実際に使用中</strong></td>
+
+        <td>プロセッサーの 0.1% を超える量を使用している AIO プロセス数。</td>
+
+       </tr>
+
+       <tr>
+        <td><strong>CPU 使用中</strong></td>
+
+        <td>カーネル・プロセスのすべてが使用したプロセッサーのパーセンテージ。</td>
+
+       </tr>
+
+       <tr>
+        <td><strong>すべての時間のピーク</strong></td>
+
+        <td>システムの始動以降に実行しているカーネル・プロセスの最大数。</td>
+
+       </tr>
+
+       <tr>
+        <td><strong>最近のピーク</strong></td>
+
+        <td>プロセッサーの 0.1% を超える量を使用しているカーネル・プロセスの最近の最大数。</td>
+
+       </tr>
+
+       <tr>
+        <td><strong>peak</strong></td>
+
+        <td>カーネル・プロセスのすべてが使用したプロセッサーの最大パーセンテージ。</td>
+
+       </tr>
+
+      </tbody>
+</table></div>
+</div>
+</div>
+
+   <p><strong>プロセス・ビュー </strong></p>
+
+   <div><strong>プロセス・ビュー</strong>には、システムでのプロセス詳細が表示されます。 このビューを表示するには、<strong>t</strong> キーまたは <strong>v</strong> キーを押します。 このビューでは、以下のカラムが画面上に表示されます。<div><div><table><thead>
+       <tr>
+        <th><div>項目</div></th>
+
+        <th><div>説明</div></th>
+
+       </tr>
+
+      </thead>
+<tbody>
+       <tr>
+        <td><strong>pid</strong></td>
+
+        <td>プロセスの ID。</td>
+
+       </tr>
+
+       <tr>
+        <td><strong>ppid</strong></td>
+
+        <td>親プロセスの ID。</td>
+
+       </tr>
+
+       <tr>
+        <td><strong>User</strong></td>
+
+        <td>プロセスのユーザー ID。</td>
+
+       </tr>
+
+       <tr>
+        <td><strong>プロシージャー・グループ</strong></td>
+
+        <td>プロセス・グループの ID。</td>
+
+       </tr>
+
+       <tr>
+        <td><strong>nice</strong></td>
+
+        <td>プロセスの初期優先順位。 この値は、<strong>nice</strong> コマンドにより設定されます。</td>
+
+       </tr>
+
+       <tr>
+        <td><strong>Priority</strong></td>
+
+        <td>プロセスの基本スケジューリング優先順位。</td>
+
+       </tr>
+
+       <tr>
+        <td><strong>状況</strong></td>
+
+        <td>プログラムの状況。</td>
+
+       </tr>
+
+       <tr>
+        <td><strong>Proc_Flag (プロセス・フラグ)</strong></td>
+
+        <td>プロセスのフラグ。</td>
+
+       </tr>
+
+       <tr>
+        <td><strong>Thrds</strong></td>
+
+        <td>スレッド数。</td>
+
+       </tr>
+
+       <tr>
+        <td><strong>ファイル</strong></td>
+
+        <td>使用中の最大ファイル索引。</td>
+
+       </tr>
+
+       <tr>
+        <td><strong>フォアグラウンド</strong></td>
+
+        <td>フォアグラウンド・プロセスまたはバックグラウンド・プロセス。</td>
+
+       </tr>
+
+       <tr>
+        <td><strong>Command</strong></td>
+
+        <td>コマンド名。</td>
+
+       </tr>
+
+       <tr>
+        <td><strong>開始時刻</strong></td>
+
+        <td>コマンドが開始した時刻。</td>
+
+       </tr>
+
+       <tr>
+        <td><strong>CPU-合計</strong></td>
+
+        <td>プロセスの開始以降にそのプロセスが要した合計時間。</td>
+
+       </tr>
+
+       <tr>
+        <td><strong>子の合計</strong></td>
+
+        <td>子プロセスの開始以降にそのプロセスが要した合計時間。</td>
+
+       </tr>
+
+       <tr>
+        <td><strong>差分-合計</strong></td>
+
+        <td>その間隔の中でそのプロセスが要した合計時間。</td>
+
+       </tr>
+
+       <tr>
+        <td><strong>CPU 使用率 (%CPU Used)</strong></td>
+
+        <td>最後の間隔の中で使用したプロセッサーのパーセンテージ。</td>
+
+       </tr>
+
+       <tr>
+        <td><strong>サイズ (KB)</strong></td>
+
+        <td>ページのサイズ (キロバイト単位)。</td>
+
+       </tr>
+
+       <tr>
+        <td><strong>RES サイズ</strong></td>
+
+        <td>実メモリー・データ (常駐セット) の合計、およびプロセスの実メモリー (常駐セット) 文字サイズの合計。</td>
+
+       </tr>
+
+       <tr>
+        <td><strong>リソース・セット</strong></td>
+
+        <td>実メモリー・データ (常駐セット) の合計、およびプロセスの実メモリー (常駐セット) 文字サイズの合計。</td>
+
+       </tr>
+
+       <tr>
+        <td><strong>RES テキスト</strong></td>
+
+        <td>プロセスの実メモリー文字サイズ。</td>
+
+       </tr>
+
+       <tr>
+        <td><strong>RES データ</strong></td>
+
+        <td>プロセスの実メモリー・データ・サイズ。</td>
+
+       </tr>
+
+       <tr>
+        <td><strong>文字入出力</strong></td>
+
+        <td>最後の間隔での入出力文字数/秒。</td>
+
+       </tr>
+
+       <tr>
+        <td><strong>RAM の使用</strong></td>
+
+        <td>使用された RAM のパーセンテージ。</td>
+
+       </tr>
+
+       <tr>
+        <td><strong>ページング入出力</strong></td>
+
+        <td>最後の間隔での入出力ページ不在数/秒。</td>
+
+       </tr>
+
+       <tr>
+        <td><strong>ページング (その他)</strong></td>
+
+        <td>最後の間隔での非入出力ページ不在数/秒。</td>
+
+       </tr>
+
+       <tr>
+        <td><strong>ページング・ページ数</strong></td>
+
+        <td>最後の間隔での再ページ不在数/秒。</td>
+
+       </tr>
+
+       <tr>
+        <td><strong>クラス</strong></td>
+
+        <td>プロセスの <span>ワークロード・マネージャー</span> ・クラス名。</td>
+
+       </tr>
+
+      </tbody>
+</table></div>
+</div>
+</div>
+
+   <p><strong>プロセッサー使用の小規模ビュー</strong></p>
+
+   <p>プロセッサー使用の小規模ビューでは、論理プロセッサー、対応ライセンス、および使用された仮想プロセッサーの、ユーザー、システム、アイドル、および待ち時間の概要が表示されます。 プロセッサー使用の小規模ビューを生成するには、<strong>c</strong> キーを押します。</p>
+
+   <p><strong>プロセッサー使用の大規模ビュー</strong></p>
+
+   <p>プロセッサー使用の大規模ビューでは、論理プロセッサーの使用状況をグラフで表示します。 このビューを表示するには、<strong>C</strong> キーを押します。</p>
+
+   <div>以下のラベルを使用して異なるモードで消費された時間を明確化します。<ul>
+     <li><strong>s</strong>: システム・モードで消費された時間のパーセンテージを指定します。</li>
+
+     <li><strong>u</strong>: ユーザー・モードで消費された時間のパーセンテージを指定します。</li>
+
+    </ul>
+</div>
+
+   <p><strong>共用プロセッサー論理区画ビュー</strong></p>
+
+   <div>共用プロセッサー論理区画ビューには、区画に関する以下の情報を示すフラグが含まれます。<ul>
+     <li>区画が <span>LPAR</span> であるかどうか</li>
+
+     <li>区画を <span>LPAR</span> にすることができるかどうか</li>
+
+     <li>区画が共有か専用のどちらか</li>
+
+<li>このサーバーでマイグレーションが有効になっているかどうか。 Hardware Management Console (HMC) を参照して、論理区画の移行が使用不可になっているかどうかを判別してください。</li>
+
+     <li>SMT がオンかオフかどうか</li>
+
+     <li>共有区画がキャップかアンキャップかどうか</li>
+
+     <li><span>LPAR</span> が SMT にバインドされているか、有効化されているか</li>
+
+     <li><span>LPAR</span> フラグが設定されているかどうか、および <code>AVG=lp</code> より大きい値を表示するように設定されているかどうか</li>
+
+    </ul>フラグが設定されている場合、<span>nmon+C</span> グラフには、それぞれ、<code>Cpu_user</code> および <code>Avg_user</code> に関する情報が示されます。 グラフを右側の列に表示できます。</div>
+
+   <p>このビューを表示するには、<strong>p</strong> キーを押します。</p>
+
+   <p><strong>プロセッサー</strong>:</p>
+
+   <div>プロセッサー状況に関する以下のメトリックがこのビューに表示されます。<div><div><table><thead>
+       <tr>
+        <th><div>項目</div></th>
+
+        <th><div>説明</div></th>
+
+       </tr>
+
+      </thead>
+<tbody>
+       <tr>
+        <td><strong>システム内の最大物理数 (Max Phys in Sys)</strong></td>
+
+        <td>システム内の物理プロセッサーの最大数</td>
+
+       </tr>
+
+       <tr>
+        <td><strong>システム内の物理 CPU</strong></td>
+
+        <td>システム内の物理プロセッサー数</td>
+
+       </tr>
+
+       <tr>
+        <td><strong>仮想オンライン</strong></td>
+
+        <td>オンラインの仮想プロセッサー数</td>
+
+       </tr>
+
+       <tr>
+        <td><strong>論理オンライン</strong></td>
+
+        <td>オンラインの論理プロセッサー数</td>
+
+       </tr>
+
+       <tr>
+        <td><strong>物理プール</strong></td>
+
+        <td>この区画に割り当てられた、共有プール ID にある共有物理プロセッサー数</td>
+
+       </tr>
+
+       <tr>
+        <td><strong>SMT スレッド /CPU</strong></td>
+
+        <td>SMT スレッド数/プロセッサー</td>
+
+       </tr>
+
+      </tbody>
+</table></div>
+</div>
+</div>
+
+   <p><strong>容量</strong>:</p>
+
+   <div>以下の情報がプロセッサーのキャパシティー情を表示します。<div><div><table><thead>
+       <tr>
+        <th><div>項目</div></th>
+
+        <th><div>説明</div></th>
+
+       </tr>
+
+      </thead>
+<tbody>
+       <tr>
+        <td><strong>利用 プロセッサー最小</strong></td>
+
+        <td>この <span>LPAR</span> に定義されている処理装置の最小数</td>
+
+       </tr>
+
+       <tr>
+        <td><strong>利用 プロセッサー最大</strong></td>
+
+        <td>この <span>LPAR</span> に定義されている処理装置の最大数</td>
+
+       </tr>
+
+       <tr>
+        <td><strong>利用 増分</strong></td>
+
+        <td>ライセンス済みキャパシティーへの変更を行うことができる細分度</td>
+
+       </tr>
+
+       <tr>
+        <td><strong>利用 割り振りを解除された </strong></td>
+
+        <td><span>LPAR</span> グループ内の共有 <span>LPAR</span>から割り振られていない処理装置の数の合計</td>
+
+       </tr>
+
+       <tr>
+        <td><strong>利用 ライセンスあり</strong></td>
+
+        <td>ライセンス済みキャパシティー</td>
+
+       </tr>
+
+       <tr>
+        <td><strong>MinReqVirtualCPU</strong></td>
+
+        <td><span>LPAR</span> に必要な最小仮想プロセッサー数</td>
+
+       </tr>
+
+      </tbody>
+</table></div>
+</div>
+</div>
+
+   <p><strong>ID メモリー</strong>:</p>
+
+   <div>ID メモリーの以下のメトリックが表示されます。<div><div><table><thead>
+       <tr>
+        <th><div>項目</div></th>
+
+        <th><div>説明</div></th>
+
+       </tr>
+
+      </thead>
+<tbody>
+       <tr>
+        <td><strong><span>LPAR</span> ID グループ: プール</strong></td>
+
+        <td><span>LPAR</span> グループの ID とそのプール ID</td>
+
+       </tr>
+
+       <tr>
+        <td><strong>メモリー (MB/GB) 最小: 最大</strong></td>
+
+        <td>この <span>LPAR</span> に定義されている最小メモリーと最大メモリー (メガバイト単位またはギガバイト単位)</td>
+
+       </tr>
+
+       <tr>
+        <td><strong>オンライン・メモリー (MB/GB)</strong></td>
+
+        <td>オンラインの実メモリー (メガバイト単位またはギガバイト単位)</td>
+
+       </tr>
+
+       <tr>
+        <td><strong>メモリー領域 LMB</strong></td>
+
+        <td>1 論理メモリー・ブロック (LMB) のサイズ (バイト単位)</td>
+
+       </tr>
+
+      </tbody>
+</table></div>
+</div>
+</div>
+
+   <div><strong>時間 </strong>(秒):<div><div><table><thead>
+       <tr>
+        <th><div>項目</div></th>
+
+        <th><div>説明</div></th>
+
+       </tr>
+
+      </thead>
+<tbody>
+       <tr>
+        <td><strong>時間ディスパッチ・ホイール</strong></td>
+
+        <td>各仮想プロセッサーがそのライセンスを受け付ける間隔</td>
+
+       </tr>
+
+       <tr>
+        <td><strong>MaxDispatch 待ち時間</strong></td>
+
+        <td>物理プロセッサーでの <span>LPAR</span> のディスパッチ間の最大待ち時間 (秒)</td>
+
+       </tr>
+
+       <tr>
+        <td><strong>プール・アイドル時間</strong></td>
+
+        <td>共有プロセッサー・プールがアイドルとなる時間 (秒単位)</td>
+
+       </tr>
+
+       <tr>
+        <td><strong>合計ディスパッチ時間</strong></td>
+
+        <td><span>LPAR</span> がディスパッチする合計時間 (秒)</td>
+
+       </tr>
+
+      </tbody>
+</table></div>
+</div>
+</div>
+
+   <p><strong>プロセッサー数の最小値と最大値</strong></p>
+
+   <div>プロセッサー数に関する以下の最小値と最大値が表示されます。<div><div><table><thead>
+       <tr>
+        <th><div>項目</div></th>
+
+        <th><div>説明</div></th>
+
+       </tr>
+
+      </thead>
+<tbody>
+       <tr>
+        <td><strong>仮想 CPU (最小-最大)</strong></td>
+
+        <td><span>LPAR</span> 定義内の仮想プロセッサーの最小数と最大数</td>
+
+       </tr>
+
+       <tr>
+        <td><strong>論理 CPU (最小-最大)</strong></td>
+
+        <td>論理プロセッサーの最小数と最大数</td>
+
+       </tr>
+
+      </tbody>
+</table></div>
+</div>
+</div>
+
+   <p><strong>weight</strong></p>
+
+   <div>プロセッサーの重み付けに関する以下の情報が表示されます。<div><div><table><thead>
+       <tr>
+        <th><div>項目</div></th>
+
+        <th><div>説明</div></th>
+
+       </tr>
+
+      </thead>
+<tbody>
+       <tr>
+        <td><strong>重み付け変数 (Weight Variable)</strong></td>
+
+        <td>プロセッサー・キャパシティーに関する可変の重み付け</td>
+
+       </tr>
+
+       <tr>
+        <td><strong>割り振られていない重み</strong></td>
+
+        <td>この区画に使用可能な未割り振りの可変の重み付け</td>
+
+       </tr>
+
+      </tbody>
+</table></div>
+</div>
+</div>
+
+   <p><strong>「NFS 」パネル </strong></p>
+
+   <div>NFS パネルでは、ネットワーク・ファイルシステム (NFS) 関する統計情報が表示されます。 このビューを表示するには、<strong>N</strong> キーを押します。 このビューには以下のメトリックが含まれています。<div><div><table><thead>
+       <tr>
+        <th><div>項目</div></th>
+
+        <th><div>説明</div></th>
+
+       </tr>
+
+      </thead>
+<tbody>
+       <tr>
+        <td><strong>平方根</strong></td>
+
+        <td>NFS V2 サーバーとクライアントのルート要求</td>
+
+       </tr>
+
+       <tr>
+        <td><strong>書き込みキャッシュ</strong></td>
+
+        <td>NFS サーバーとクライアントの書き込みキャッシュ要求</td>
+
+       </tr>
+
+       <tr>
+        <td><strong>ヌル</strong></td>
+
+        <td>NFS サーバーとクライアントの書き込みキャッシュ要求</td>
+
+       </tr>
+
+       <tr>
+        <td><strong>Getattr (Getattr)</strong></td>
+
+        <td>NFS サーバーとクライアントの属性獲得要求</td>
+
+       </tr>
+
+       <tr>
+        <td><strong>setattr</strong></td>
+
+        <td>NFS サーバーとクライアントの属性設定要求</td>
+
+       </tr>
+
+       <tr>
+        <td><strong>LOOKUP</strong></td>
+
+        <td>NFS サーバーとクライアントのファイル名検索要求</td>
+
+       </tr>
+
+       <tr>
+        <td><strong>readlink</strong></td>
+
+        <td>NFS サーバーとクライアントのリンク読み取り要求</td>
+
+       </tr>
+
+       <tr>
+        <td><strong>READ</strong></td>
+
+        <td>NFS サーバーとクライアントの読み取り要求</td>
+
+       </tr>
+
+       <tr>
+        <td><strong>write</strong></td>
+
+        <td>NFS サーバーとクライアントの書き込み要求</td>
+
+       </tr>
+
+       <tr>
+        <td><strong>作成</strong></td>
+
+        <td>NFS サーバーとクライアントのファイル作成要求</td>
+
+       </tr>
+
+       <tr>
+        <td><strong>MKDIR</strong></td>
+
+        <td>NFS サーバーとクライアントのディレクトリー作成要求</td>
+
+       </tr>
+
+       <tr>
+        <td><strong>symlink</strong></td>
+
+        <td>NFS サーバーとクライアントのシンボリック・リンク作成要求</td>
+
+       </tr>
+
+       <tr>
+        <td><strong>削除</strong></td>
+
+        <td>NFS サーバーとクライアントのファイル除去要求</td>
+
+       </tr>
+
+       <tr>
+        <td><strong>rmdir</strong></td>
+
+        <td>NFS サーバーとクライアントのディレクトリー除去要求</td>
+
+       </tr>
+
+       <tr>
+        <td><strong>名前変更</strong></td>
+
+        <td>NFS サーバーとクライアントのファイル名前変更要求</td>
+
+       </tr>
+
+       <tr>
+        <td><strong>リンク</strong></td>
+
+        <td>NFS サーバーとクライアントのリンク作成要求</td>
+
+       </tr>
+
+       <tr>
+        <td><strong>readdir</strong></td>
+
+        <td>NFS サーバーとクライアントのディレクトリー読み取り要求</td>
+
+       </tr>
+
+       <tr>
+        <td><strong>Fsstat (fsstat)</strong></td>
+
+        <td>NFS サーバーとクライアントのファイル状況要求</td>
+
+       </tr>
+
+       <tr>
+        <td><strong>アクセス</strong></td>
+
+        <td>NFS V3 サーバーとクライアントのアクセス要求</td>
+
+       </tr>
+
+       <tr>
+        <td><strong>MKNOD</strong></td>
+
+        <td>NFS V3 サーバーとクライアントの <strong>mknod</strong> 作成要求</td>
+
+       </tr>
+
+       <tr>
+        <td><strong>readdir + (readdir +)</strong></td>
+
+        <td>NFS V3 サーバーとクライアントのディレクトリー読み取りプラス要求</td>
+
+       </tr>
+
+       <tr>
+        <td><strong>fsinfo</strong></td>
+
+        <td>NFS V3 サーバーとクライアントのファイル情報要求</td>
+
+       </tr>
+
+       <tr>
+        <td><strong>pathconf</strong></td>
+
+        <td>NFS V3 サーバーとクライアントのパス構成要求</td>
+
+       </tr>
+
+       <tr>
+        <td><strong>コミット</strong></td>
+
+        <td>NFS サーバーとクライアントのコミット要求</td>
+
+       </tr>
+
+       <tr>
+        <td><strong>不正な呼び出し</strong></td>
+
+        <td>NFS サーバーとクライアントの失敗した呼び出し</td>
+
+       </tr>
+
+       <tr>
+        <td><strong>コール</strong></td>
+
+        <td>NFS サーバーとクライアントの要求</td>
+
+       </tr>
+
+      </tbody>
+</table></div>
+</div>
+</div>
+
+   <div>以下の NFS V4 クライアント/サーバー統計が表示されるのは、<strong>N</strong> キーを 2 回押した場合です。<div><div><table><thead>
+       <tr>
+        <th><div>項目</div></th>
+
+        <th><div>説明</div></th>
+
+       </tr>
+
+      </thead>
+<tbody>
+       <tr>
+        <td><strong>アクセス</strong></td>
+
+        <td>NFS V4 サーバーとクライアントのアクセス要求</td>
+
+       </tr>
+
+       <tr>
+        <td><strong>acl_read (acl_read)</strong></td>
+
+        <td>NFS V4 クライアントの読み取りアクセス制御リスト (ACL)</td>
+
+       </tr>
+
+       <tr>
+        <td><strong>acl_stat_l</strong></td>
+
+        <td>NFS V4 クライアントの長 ACL 情報取得</td>
+
+       </tr>
+
+       <tr>
+        <td><strong>ACL_WRITE</strong></td>
+
+        <td>NFS V4 クライアントの書き込みアクセス制御リスト (ACL)</td>
+
+       </tr>
+
+       <tr>
+        <td><strong>Clntconfirm (Clntconfirm)</strong></td>
+
+        <td>NFS V4 クライアントの確認操作</td>
+
+       </tr>
+
+       <tr>
+        <td><strong>閉じる</strong></td>
+
+        <td>NFS V4 クライアントのファイル・クローズ</td>
+
+       </tr>
+
+       <tr>
+        <td><strong>コミット</strong></td>
+
+        <td>NFS V4 サーバーとクライアントをコミット</td>
+
+       </tr>
+
+       <tr>
+        <td><strong>複合</strong></td>
+
+        <td>NFS V4 サーバーの複合呼び出し</td>
+
+       </tr>
+
+       <tr>
+        <td><strong>作成</strong></td>
+
+        <td>NFS V4 サーバーとクライアントの標準外オブジェクト作成</td>
+
+       </tr>
+
+       <tr>
+        <td><strong>代行パージ</strong></td>
+
+        <td>NFS V4 サーバーが代行待ちリカバリーを消去</td>
+
+       </tr>
+
+       <tr>
+        <td><strong>代行の戻り</strong></td>
+
+        <td>NFS V4 サーバーとクライアントの代行戻し</td>
+
+       </tr>
+
+       <tr>
+        <td><strong>フィンフォ</strong></td>
+
+        <td>ファイル情報を取得している NFS V4 クライアント</td>
+
+       </tr>
+
+       <tr>
+        <td><strong>getattr (getattr)</strong></td>
+
+        <td>NFS V4 サーバーとクライアントの属性取得</td>
+
+       </tr>
+
+       <tr>
+        <td><strong>getfh (getfh)</strong></td>
+
+        <td>NFS V4 サーバーのファイル・ハンドル取得</td>
+
+       </tr>
+
+       <tr>
+        <td><strong>リンク</strong></td>
+
+        <td>操作をリンクしている NFS V4 サーバーとクライアント</td>
+
+       </tr>
+
+       <tr>
+        <td><strong>Lock</strong></td>
+
+        <td>操作をロックしている NFS V4 サーバーとクライアント</td>
+
+       </tr>
+
+       <tr>
+        <td><strong>ロック/テスト</strong></td>
+
+        <td>指定されたロックをテストしている NFS V4 サーバー、または NFS V4 クライアント・ロック・テスト</td>
+
+       </tr>
+
+       <tr>
+        <td><strong>ロック/アンロック</strong></td>
+
+        <td>NFS V4 サーバーまたは NFS V4 クライアントのアンロック操作</td>
+
+       </tr>
+
+       <tr>
+        <td><strong>LOOKUP</strong></td>
+
+        <td>ファイル名を検索している NFS V4 サーバーとクライアント</td>
+
+       </tr>
+
+       <tr>
+        <td><strong>ルックアップ (lookupp)</strong></td>
+
+        <td>親ディレクトリーを検索している NFS V4 サーバー</td>
+
+       </tr>
+
+       <tr>
+        <td><strong>mkdir</strong></td>
+
+        <td>ディレクトリーを作成している NFS V4 クライアント</td>
+
+       </tr>
+
+       <tr>
+        <td><strong>mknod</strong></td>
+
+        <td>特殊ファイルを作成している NFS V4 クライアント</td>
+
+       </tr>
+
+       <tr>
+        <td><strong>ヌル</strong></td>
+
+        <td>NFS V4 サーバーのヌル呼び出しまたは NFS V4 クライアントのヌル呼び出し</td>
+
+       </tr>
+
+       <tr>
+        <td><strong>nverify (nverify)</strong></td>
+
+        <td>NFS V4 サーバーの属性内の相違検査</td>
+
+       </tr>
+
+       <tr>
+        <td><strong>オープン属性</strong></td>
+
+        <td>指定された属性ディレクトリーを NFS V4 サーバーがオープン</td>
+
+       </tr>
+
+       <tr>
+        <td><strong>オープン確認</strong></td>
+
+        <td>使用のためにオープンを確認している NFS V4 サーバーとクライアント</td>
+
+       </tr>
+
+       <tr>
+        <td><strong>opendowngrade (opendowngrade)</strong></td>
+
+        <td>指定ファイルのアクセス権限を格下げしている NFS V4 サーバーとクライアント</td>
+
+       </tr>
+
+       <tr>
+        <td><strong>オープン</strong></td>
+
+        <td>NFS V4 サーバーとクライアントのオープン操作</td>
+
+       </tr>
+
+       <tr>
+        <td><strong>ITオペレーションを</strong></td>
+
+        <td>NFS V4 サーバーとクライアントの操作</td>
+
+       </tr>
+
+       <tr>
+        <td><strong>pcl_read (pcl_read)</strong></td>
+
+        <td>NFS V4 クライアントが、プリンター・コントロール言語 (PCL) ファイルから数値データを抽出</td>
+
+       </tr>
+
+       <tr>
+        <td><strong>pcl_readstat_l</strong></td>
+
+        <td>NFS V4 クライアントの <strong>pcl_stat</strong> 詳細操作</td>
+
+       </tr>
+
+       <tr>
+        <td><strong>pcl_stat (pcl_stat)</strong></td>
+
+        <td>NFS V4 クライアントの <strong>pcl_stat</strong> 操作</td>
+
+       </tr>
+
+       <tr>
+        <td><strong>pcl_write</strong></td>
+
+        <td>NFS V4 クライアントの <strong>pcl_write</strong> 操作</td>
+
+       </tr>
+
+       <tr>
+        <td><strong>PUTFH</strong></td>
+
+        <td>NFS V4 サーバーの現行ファイル・ハンドル設定</td>
+
+       </tr>
+
+       <tr>
+        <td><strong>書き込み (putpubfh)</strong></td>
+
+        <td>NFS V4 サーバーの一般ファイル・ハンドル設定</td>
+
+       </tr>
+
+       <tr>
+        <td><strong>putrootfh (putrootfh)</strong></td>
+
+        <td>NFS V4 サーバーのルート・ファイル・ハンドル設定</td>
+
+       </tr>
+
+       <tr>
+        <td><strong>readdir</strong></td>
+
+        <td>NFS V4 サーバーとクライアントのディレクトリー読み取り</td>
+
+       </tr>
+
+       <tr>
+        <td><strong>readlink</strong></td>
+
+        <td>NFS V4 サーバーとクライアントのシンボリック・リンク読み取り</td>
+
+       </tr>
+
+       <tr>
+        <td><strong>READ</strong></td>
+
+        <td>NFS V4 サーバーとクライアントがファイルからデータを読み取り</td>
+
+       </tr>
+
+       <tr>
+        <td><strong>RELEASE</strong></td>
+
+        <td>NFS V4 サーバーとクライアントの <strong>release_lock</strong> 操作</td>
+
+       </tr>
+
+       <tr>
+        <td><strong>削除</strong></td>
+
+        <td>NFS V4 サーバーとクライアントがファイルシステム・オブジェクトを除去</td>
+
+       </tr>
+
+       <tr>
+        <td><strong>rename</strong></td>
+
+        <td>NFS V4 サーバーとクライアントのオブジェクト名変更</td>
+
+       </tr>
+
+       <tr>
+        <td><strong>更新</strong></td>
+
+        <td>NFS V4 サーバーとクライアントのリース更新</td>
+
+       </tr>
+
+       <tr>
+        <td><strong>複製</strong></td>
+
+        <td>NFS V4 クライアントの複製操作</td>
+
+       </tr>
+
+       <tr>
+        <td><strong>RESTREFH</strong></td>
+
+        <td>NFS V4 サーバーのファイル・ハンドル復元</td>
+
+       </tr>
+
+       <tr>
+        <td><strong>rmdir</strong></td>
+
+        <td>NFS V4 クライアントのディレクトリー除去</td>
+
+       </tr>
+
+       <tr>
+        <td><strong>savefh (savefh)</strong></td>
+
+        <td>NFS V4 サーバーのファイル・ハンドル保存</td>
+
+       </tr>
+
+       <tr>
+        <td><strong>セクション情報</strong></td>
+
+        <td>NFS V4 サーバーとクライアントがセキュリティー情報を入手</td>
+
+       </tr>
+
+       <tr>
+        <td><strong>setattr</strong></td>
+
+        <td>NFS V4 サーバーとクライアントがオブジェクト属性を設定</td>
+
+       </tr>
+
+       <tr>
+        <td><strong>セット・クライアント</strong></td>
+
+        <td>NFS V4 サーバーとクライアントの <strong>setclient</strong> 操作</td>
+
+       </tr>
+
+       <tr>
+        <td><strong>statfs</strong></td>
+
+        <td>NFS V4 クライアントのファイル統計情報要求</td>
+
+       </tr>
+
+       <tr>
+        <td><strong>symlink</strong></td>
+
+        <td>NFS V4 クライアントのシンボリック・リンク操作</td>
+
+       </tr>
+
+       <tr>
+        <td><strong>検査</strong></td>
+
+        <td>NFS V4 クライアントが同じ属性を検査</td>
+
+       </tr>
+
+       <tr>
+        <td><strong>write</strong></td>
+
+        <td>NFS V4 サーバーとクライアントのファイル書き込み</td>
+
+       </tr>
+
+      </tbody>
+</table></div>
+</div>
+</div>
+
+   <p><strong>ネットワーク・インターフェース・ビュー </strong></p>
+
+   <p>ネットワーク・インターフェース・ビューには、ネットワーク・エラー統計が表示されます。 この情報を表示するには、<strong>n</strong> キーを押します。</p>
+
+   <p>ネットワーク・エラーが発生せずに画面が 3 回更新されると、ネットワーク・インターフェース・ビューにはネットワーク・エラー統計が含まれません。</p>
+
+   <div>以下のメトリックがこのビューに表示されます。<div><div><table><thead>
+       <tr>
+        <th><div>項目</div></th>
+
+        <th><div>説明</div></th>
+
+       </tr>
+
+      </thead>
+<tbody>
+       <tr>
+        <td><strong>I/F 名</strong></td>
+
+        <td>インターフェース名</td>
+
+       </tr>
+
+       <tr>
+        <td><strong>受信バイト (KB/ 秒)</strong></td>
+
+        <td>この間隔の中で受信されたデータ (キロバイト/秒)</td>
+
+       </tr>
+
+       <tr>
+        <td><strong>トランザクション (KB/ 秒)</strong></td>
+
+        <td>この間隔の中で送信されたデータ (キロバイト/秒)</td>
+
+       </tr>
+
+       <tr>
+        <td><strong>パイン</strong></td>
+
+        <td>この間隔の中で受信されたパケット数</td>
+
+       </tr>
+
+       <tr>
+        <td><strong>パックアウト</strong></td>
+
+        <td>この間隔の中で送信されたパケット数</td>
+
+       </tr>
+
+       <tr>
+        <td><strong>insize</strong></td>
+
+        <td>この間隔の中で受信された平均パケット・サイズ</td>
+
+       </tr>
+
+       <tr>
+        <td><strong>outsize</strong></td>
+
+        <td>最後の間隔の中で送信された平均パケット・サイズ</td>
+
+       </tr>
+
+       <tr>
+        <td><strong>ピーク-&gt; 受信</strong></td>
+
+        <td>受信データのピーク値 (キロバイト/秒)</td>
+
+       </tr>
+
+       <tr>
+        <td><strong>ピーク-&gt; トランザクション</strong></td>
+
+        <td>送信データのピーク値 (キロバイト/秒)</td>
+
+       </tr>
+
+       <tr>
+        <td><strong>Total Recv (総受信数)</strong></td>
+
+        <td>合計受信データ (メガバイト/秒)</td>
+
+       </tr>
+
+       <tr>
+        <td><strong>合計送信数</strong></td>
+
+        <td>合計送信データ (メガバイト/秒)</td>
+
+       </tr>
+
+       <tr>
+        <td><strong>MTU</strong></td>
+
+        <td>トランスポート・ユニットの最大サイズ (バイト単位)</td>
+
+       </tr>
+
+       <tr>
+        <td><strong>エラー</strong></td>
+
+        <td>入力エラー数</td>
+
+       </tr>
+
+       <tr>
+        <td><strong>エラー</strong></td>
+
+        <td>出力エラー数</td>
+
+       </tr>
+
+       <tr>
+        <td><strong>衝突 (collision)</strong></td>
+
+        <td>衝突回数</td>
+
+       </tr>
+
+       <tr>
+        <td><strong>M ビット/秒</strong></td>
+
+        <td>アダプター・ビット・レート (M ビット/秒)。 ネットワーク・アダプターの転送量が 10 Gb を超える場合は、アダプター・ビット・レートは 10240 M ビット/秒で示されます。</td>
+
+       </tr>
+
+       <tr>
+        <td><strong>description</strong></td>
+
+        <td>このインターフェースの説明</td>
+
+       </tr>
+
+      </tbody>
+</table></div>
+</div>
+</div>
+
+   <p><strong>WLM ビュー </strong></p>
+
+   <p>WLM ビューにはワークロード・マネージメントに関する情報が表示されます。 このビューを開くには、<strong>W</strong> キーを押します。 サブクラス・セクションをオンにするには、WLM ビューで <strong>S</strong> キーを押します。 サブクラス・セクションをオフにするには、再度、<strong>S</strong> キーを押します。</p>
+
+   <div>以下のメトリックがこのビューに表示されます。<div><div><table><thead>
+       <tr>
+        <th><div>項目</div></th>
+
+        <th><div>説明</div></th>
+
+       </tr>
+
+      </thead>
+<tbody>
+       <tr>
+        <td><strong>CPU</strong></td>
+
+        <td>そのクラスのプロセッサー使用のパーセンテージ</td>
+
+       </tr>
+
+       <tr>
+        <td><strong>MEM</strong></td>
+
+        <td>そのクラスの物理メモリー使用のパーセンテージ</td>
+
+       </tr>
+
+       <tr>
+        <td><strong>BIO</strong></td>
+
+        <td>そのクラスに対応したディスク入出力の処理能力使用のパーセンテージ</td>
+
+       </tr>
+
+       <tr>
+        <td><strong>プロセス (Procs) (Process (Procs))</strong></td>
+
+        <td>そのクラス内のプロセス数</td>
+
+       </tr>
+
+       <tr>
+        <td><strong>層 (T)</strong></td>
+
+        <td>層番号。 この値の範囲は 0 から 9 です。</td>
+
+       </tr>
+
+       <tr>
+        <td><strong>継承 (I)</strong></td>
+
+        <td>継承属性の値。 値ゼロは「いいえ」を意味します。 値 1 は「はい」を意味します。</td>
+
+       </tr>
+
+       <tr>
+        <td><strong>location</strong></td>
+
+        <td>ロケーションの値。 1 の値の意味は、共有クラスへセグメントを転送しないことを表します。 そうでない場合、0 の値が表示されます。</td>
+
+       </tr>
+
+      </tbody>
+</table></div>
+</div>
+</div>
+
+   <p><strong>ディスク・ビジー・マップ</strong></p>
+
+   <div>ディスク・ビジー・マップにはディスク使用統計が表示されます。 このマップを表示するには、<strong>o</strong> キーを押します。 1 画面当たり、最大 100 ディスクが表示されます。 hdisk0 から hdisk100 までの範囲の名前が付いたディスクのみ表示されます。 下表には名前の範囲に対応したシンボルを記載してあります。<div><div><table><thead>
+       <tr>
+        <th><div>シンボル</div></th>
+
+        <th><div>名前</div></th>
+
+       </tr>
+
+      </thead>
+<tbody>
+       <tr>
+        <td><strong>_</strong></td>
+
+        <td>5 未満</td>
+
+       </tr>
+
+       <tr>
+        <td><strong>.</strong></td>
+
+        <td>10 未満</td>
+
+       </tr>
+
+       <tr>
+        <td><strong>-</strong></td>
+
+        <td>20 未満</td>
+
+       </tr>
+
+       <tr>
+        <td><strong>+</strong></td>
+
+        <td>30 未満</td>
+
+       </tr>
+
+       <tr>
+        <td><strong>O</strong></td>
+
+        <td>40 未満</td>
+
+       </tr>
+
+       <tr>
+        <td><strong>0</strong></td>
+
+        <td>50 未満</td>
+
+       </tr>
+
+       <tr>
+        <td><strong>O</strong></td>
+
+        <td>60 未満</td>
+
+       </tr>
+
+       <tr>
+        <td><strong>8</strong></td>
+
+        <td>70 未満</td>
+
+       </tr>
+
+       <tr>
+        <td><strong>x</strong></td>
+
+        <td>80 未満</td>
+
+       </tr>
+
+       <tr>
+        <td><strong>#</strong></td>
+
+        <td>90 未満</td>
+
+       </tr>
+
+       <tr>
+        <td><strong>@</strong></td>
+
+        <td>100 以下</td>
+
+       </tr>
+
+      </tbody>
+</table></div>
+</div>
+</div>
+
+   <p><strong>ディスク・グループ </strong></p>
+
+   <p>複数のディスクをモニターするには、そのディスクをグループに入れます。 このビューを表示するには、<strong>g</strong> キーを押します。</p>
+
+   <div>以下の例に記載した行を含むグループ構成ファイルを作成する必要があります。<div><div><pre><code>&lt;Group_name1&gt; &lt;disk_name1&gt; &lt;disk_name2&gt; ....
+&lt;Group_name2&gt; &lt;disk_nameA&gt; &lt;disk_nameB&gt; ... </code></pre></div><div></div></div></div>
+
+   <p>例えば、<code>&lt;Group_name1&gt;</code> はグループの最初のディスクの名前であり、<code>&lt;disk_name1&gt;</code> と <code>&lt;disk_name2&gt;</code> はグループ内の 1 番目と 2 番目のディスクです。</p>
+
+   <div>ディスクグループのI/Oを確認するには、 <strong>-g</strong> フラグとグループファイルを指定 <span>nmon</span> してコマンドを実行し、 <strong>g</strong> キーを押します。 以下のメトリックがこのビューに表示されます。<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><strong>Name</strong></td>
+
+<td>ディスク・グループ名。 最大 64 グループを指定できます。 1 つのディスクが複数のグループにあっても構いません。</td>
+
+</tr>
+
+<tr>
+<td><strong>ディスク</strong></td>
+
+<td>グループにあるディスク数。</td>
+
+</tr>
+
+<tr>
+<td><strong>読み取り/書き込み (KB/ 秒)</strong></td>
+
+<td>この間隔の中での読み取りと書き込みのデータ転送速度 (キロバイト/秒)</td>
+
+</tr>
+
+<tr>
+<td><strong>TotalMB/s</strong></td>
+
+<td>この間隔の中での読み取りと書き込みの合計データ (メガバイト/秒)</td>
+
+</tr>
+
+<tr>
+<td><strong>Xfers/秒</strong></td>
+
+<td>この間隔の中での読み取りと書き込みのデータ転送回数</td>
+
+</tr>
+
+<tr>
+<td><strong>BlockSizeKB</strong></td>
+
+<td>1 転送操作当たりの読み取りまたは書き込みのブロック・サイズ (キロバイト単位)</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+
+   <p><strong>ESS Vpath 統計ビュー</strong></p>
+
+   <div>このビューでは ESS Vpath 統計を表示します。 このビューを表示するには、<strong>e</strong> キーを押します。 このビューには以下のメトリックが含まれています。<div><div><table><thead>
+       <tr>
+        <th><div>項目</div></th>
+
+        <th><div>説明</div></th>
+
+       </tr>
+
+      </thead>
+<tbody>
+       <tr>
+        <td><strong>Name</strong></td>
+
+        <td>仮想パスの名前。</td>
+
+       </tr>
+
+       <tr>
+        <td><strong>Size</strong></td>
+
+        <td>ESS パスのサイズ。</td>
+
+       </tr>
+
+       <tr>
+        <td><strong>AvgBusy</strong></td>
+
+        <td>このディスクの平均のビジー使用。</td>
+
+       </tr>
+
+       <tr>
+        <td><strong>書き込み KB/ 秒</strong></td>
+
+        <td>この間隔の中での書き込みデータ転送率 (キロバイト/秒)</td>
+
+       </tr>
+
+       <tr>
+        <td><strong>読み取り KB/ 秒</strong></td>
+
+        <td>この間隔の中での読み取りデータ転送率 (キロバイト/秒)</td>
+
+       </tr>
+
+       <tr>
+        <td><strong>Xfers/秒</strong></td>
+
+        <td>読み取りおよび書き込みの転送回数/秒</td>
+
+       </tr>
+
+       <tr>
+        <td><strong>合計 vpath 数</strong></td>
+
+        <td>仮想パス数。</td>
+
+       </tr>
+
+      </tbody>
+</table></div>
+</div>
+</div>
+
+   <p><strong>JFS ビュー </strong></p>
+
+   <div>このビューには、ジャーナル・ファイルシステム (JFS) 統計が表示されます。 このビューを表示するには、<strong>j</strong> キーを押します。 以下の統計情報がこのビューに記録されます。<div><div><table><thead>
+       <tr>
+        <th><div>項目</div></th>
+
+        <th><div>説明</div></th>
+
+       </tr>
+
+      </thead>
+<tbody>
+       <tr>
+        <td><strong>FileSystem</strong></td>
+
+        <td>ファイルシステム名。</td>
+
+       </tr>
+
+       <tr>
+        <td><strong>サイズ (MB)</strong></td>
+
+        <td>ファイルシステムのサイズ (メガバイト)。</td>
+
+       </tr>
+
+       <tr>
+        <td><strong>Free (MB)</strong></td>
+
+        <td>ファイルシステム内の使用可能なフリー・スペース (メガバイト)。</td>
+
+       </tr>
+
+       <tr>
+        <td><strong>%Used</strong></td>
+
+        <td>使用済みのファイルシステムのパーセント。</td>
+
+       </tr>
+
+       <tr>
+        <td><strong>i ノード数 (%I)</strong></td>
+
+        <td>i-node で使用されているファイルシステムのパーセント。</td>
+
+       </tr>
+
+       <tr>
+        <td><strong>マウント・ポイント</strong></td>
+
+        <td>ローカル・マウント・ポイント。</td>
+
+       </tr>
+
+      </tbody>
+</table></div>
+</div>
+</div>
+
+   <p><strong>カーネル統計</strong></p>
+
+   <div>このビューにはカーネルの統計情報が表示されます。 このビューを表示するには、<strong>k</strong> キーを押します。 以下の統計情報がこのビューに表示されます。<div><div><table><thead>
+       <tr>
+        <th><div>項目</div></th>
+
+        <th><div>説明</div></th>
+
+       </tr>
+
+      </thead>
+<tbody>
+       <tr>
+        <td><strong>Runqueue</strong></td>
+
+        <td>サンプリング間隔における実行可能なカーネルスレッドの平均数。 実行可能なカーネルスレッドには、実行準備が整っているがまだ実行待ちの状態にあるスレッドと、実行中のスレッドが含まれる。</td>
+
+       </tr>
+
+       <tr>
+        <td><strong>pswitch</strong></td>
+
+        <td>この間隔の中でのプロセッサー・スイッチ回数/秒。</td>
+
+       </tr>
+
+       <tr>
+        <td><strong>fork</strong></td>
+
+        <td>この間隔の中での fork の回数/秒。</td>
+
+       </tr>
+
+       <tr>
+        <td><strong>exec</strong></td>
+
+        <td>この間隔の中での exec の回数/秒。</td>
+
+       </tr>
+
+       <tr>
+        <td><strong>msg</strong></td>
+
+        <td>この間隔の中での送信と受信のプロセス間通信 (IPC) メッセージ数/秒</td>
+
+       </tr>
+
+       <tr>
+        <td><strong>SEM</strong></td>
+
+        <td>この間隔の中でのセマフォー・オペレーション・システム呼び出し回数/秒。</td>
+
+       </tr>
+
+       <tr>
+        <td><strong>hw 概要</strong></td>
+
+        <td>この間隔の中でのデバイス割り込みの回数/秒。</td>
+
+       </tr>
+
+       <tr>
+        <td><strong>sw 概要</strong></td>
+
+        <td>この間隔の中でオフ・レベル・ハンドラーが呼び出された回数/秒。</td>
+
+       </tr>
+
+       <tr>
+        <td><strong>SWAPIN</strong></td>
+
+        <td>この間隔の中でスワップ・キュー内のプロセス数/秒。</td>
+
+       </tr>
+
+       <tr>
+        <td><strong>Syscall</strong></td>
+
+        <td>この間隔の中でのシステム呼び出し回数/秒。</td>
+
+       </tr>
+
+       <tr>
+        <td><strong>read</strong></td>
+
+        <td>この間隔の中での読み取り呼び出し回数/秒。</td>
+
+       </tr>
+
+       <tr>
+        <td><strong>write</strong></td>
+
+        <td>この間隔の中での書き込み呼び出し回数/秒。</td>
+
+       </tr>
+
+       <tr>
+        <td><strong>readch</strong></td>
+
+        <td>この間隔の中での読み取りシステム呼び出しにより転送された文字数。</td>
+
+       </tr>
+
+       <tr>
+        <td><strong>Writech</strong></td>
+
+        <td>この間隔の中での書き込みシステム呼び出しにより転送された文字数。</td>
+
+       </tr>
+
+       <tr>
+        <td><strong>R + W (MB/ 秒)</strong></td>
+
+        <td>この間隔の中での読み取りと書き込みの文字数 (メガバイト/秒)</td>
+
+       </tr>
+
+       <tr>
+        <td><strong>uptime</strong></td>
+
+        <td>このシステムが稼働状態にあった時間。</td>
+
+       </tr>
+
+       <tr>
+        <td><strong>iget</strong></td>
+
+        <td>この間隔の中での inode ルックアップ回数/秒。</td>
+
+       </tr>
+
+       <tr>
+        <td><strong>dirblk</strong></td>
+
+        <td>この間隔の中で、ファイルのエントリーを探すためにディレクトリー・サーチ・ルーチンによる 512 バイト・ブロック読み取り回数/秒。</td>
+
+       </tr>
+
+       <tr>
+        <td><strong>namei</strong></td>
+
+        <td>この間隔の中でのパス名からの vnode 検索回数/秒。</td>
+
+       </tr>
+
+       <tr>
+        <td><strong>ksched</strong></td>
+
+        <td>この間隔の中でのカーネル・プロセス作成回数/秒。</td>
+
+       </tr>
+
+       <tr>
+        <td><strong>koverf</strong></td>
+
+        <td>この間隔の中で、ユーザーが上限まで fork したかプロセスの構成限界まで達した、カーネル・プロセス作成試行回数/秒。</td>
+
+       </tr>
+
+       <tr>
+        <td><strong>kexit</strong></td>
+
+        <td>この間隔の中でゾンビになったカーネル・プロセス数/秒。</td>
+
+       </tr>
+
+      </tbody>
+</table></div>
+</div>
+</div>
+
+   <p><strong>長期間のプロセッサー平均ビュー</strong></p>
+
+   <div>このビューでは、瞬間的なシステムに関する情報を表示します。 このビューを表示するには、<strong>l</strong> キーを押します。 以下のラベルを使用して、異なるモードで消費された時間を明確化します。<ul>
+     <li><strong>s</strong>: システム・モードで消費された時間のパーセンテージを指定します。</li>
+
+     <li><strong>u</strong>: ユーザー・モードで消費された時間のパーセンテージを指定します。</li>
+
+     <li><strong>w</strong>: 待機モードで消費された時間のパーセンテージを指定します。</li>
+
+    </ul>以下のメトリックがこのビューに表示されます。<div><div><table><thead>
+       <tr>
+        <th><div>項目</div></th>
+
+        <th><div>説明</div></th>
+
+       </tr>
+
+      </thead>
+<tbody>
+       <tr>
+        <td><strong>EntitledCPU</strong></td>
+
+        <td>区画のライセンス済みキャパシティー。</td>
+
+       </tr>
+
+       <tr>
+        <td><strong>UsedCPU</strong></td>
+
+        <td>その区画で消費された物理プロセッサー数。</td>
+
+       </tr>
+
+      </tbody>
+</table></div>
+</div>
+</div>
+
+   <p><strong>ページ・ページ分析</strong></p>
+
+   <div>このビューでは、ラージ・ページの分析が表示されます。 このビューを表示するには、<strong>l</strong> キーを押します。 以下の情報が表示されます。<div><div><table><thead>
+       <tr>
+        <th><div>項目</div></th>
+
+        <th><div>説明</div></th>
+
+       </tr>
+
+      </thead>
+<tbody>
+       <tr>
+        <td><strong>カウント</strong></td>
+
+        <td>ラージ・ページ数およびその合計サイズ。</td>
+
+       </tr>
+
+       <tr>
+        <td><strong>無料</strong></td>
+
+        <td>空きのラージ・ページ数およびそのサイズのパーセンテージ。</td>
+
+       </tr>
+
+       <tr>
+        <td><strong>In Use</strong></td>
+
+        <td>使用中のラージ・ページ数およびそのサイズのパーセンテージ。</td>
+
+       </tr>
+
+       <tr>
+        <td><strong>Size</strong></td>
+
+        <td>ラージ・ページのサイズ。</td>
+
+       </tr>
+
+       <tr>
+        <td><strong>HIGH WATER MARK</strong></td>
+
+        <td>ラージ・ページの高水準点。</td>
+
+       </tr>
+
+      </tbody>
+</table></div>
+</div>
+</div>
+
+   <p><strong>ページング・スペース</strong></p>
+
+   <div>このビューではページング・スペース統計を表示します。 このビューを表示するには、<strong>p</strong> キーを押します。 このビューには以下のメトリックが表示されます。<div><div><table><thead>
+       <tr>
+        <th><div>項目</div></th>
+
+        <th><div>説明</div></th>
+
+       </tr>
+
+      </thead>
+<tbody>
+       <tr>
+        <td><strong>PagingSpace</strong></td>
+
+        <td>ページング・スペース数。</td>
+
+       </tr>
+
+       <tr>
+        <td><strong>ボリューム・グループ</strong></td>
+
+        <td>ボリューム・グループ数。</td>
+
+       </tr>
+
+       <tr>
+        <td><strong>Type</strong></td>
+
+        <td>論理ボリュームのタイプ。 このタイプとしては NFS または LV があります。</td>
+
+       </tr>
+
+       <tr>
+        <td><strong>LPs</strong></td>
+
+        <td>論理区画サイズ。</td>
+
+       </tr>
+
+       <tr>
+        <td><strong>MB（Maple Bank）</strong></td>
+
+        <td>サイズ (メガバイト単位)。</td>
+
+       </tr>
+
+       <tr>
+        <td><strong>ユーズド</strong></td>
+
+        <td>ボリューム・グループの使用パーセンテージ。</td>
+
+       </tr>
+
+       <tr>
+        <td><strong>IOpending (入出力保留)</strong></td>
+
+        <td>ページング・スペース内の保留入出力数。</td>
+
+       </tr>
+
+       <tr>
+        <td><strong>アクティブ/非アクティブ</strong></td>
+
+        <td>アクティブまたは非アクティブのページング・スペース。</td>
+
+       </tr>
+
+       <tr>
+        <td><strong>Auto/NotAuto</strong></td>
+
+        <td>ページング・スペースが自動的にロードされるかどうかを示します。</td>
+
+       </tr>
+
+      </tbody>
+</table></div>
+</div>
+</div>
+
+   <p><strong>ボリューム・グループ統計 </strong></p>
+
+   <div>このビューには、ボリューム・グループの統計が表示されます。 このビューを表示するには、<strong>V</strong> キーを押します。 このビューには以下の情報が表示されます。<div><div><table><thead>
+       <tr>
+        <th><div>項目</div></th>
+
+        <th><div>説明</div></th>
+
+       </tr>
+
+      </thead>
+<tbody>
+       <tr>
+        <td><strong>Name</strong></td>
+
+        <td>ボリューム・グループ名。</td>
+
+       </tr>
+
+       <tr>
+        <td><strong>ディスク</strong></td>
+
+        <td>グループにあるディスク数。</td>
+
+       </tr>
+
+       <tr>
+        <td><strong>AvgBusy</strong></td>
+
+        <td>ボリューム・グループにあるディスクの平均ビジー。</td>
+
+       </tr>
+
+       <tr>
+        <td><strong>読み取り/書き込み (KB/ 秒)</strong></td>
+
+        <td>この間隔の中での読み取りと書き込みのデータ転送速度 (キロバイト/秒)</td>
+
+       </tr>
+
+       <tr>
+        <td><strong>TotalMB/s</strong></td>
+
+        <td>この間隔の中での読み取りと書き込みの合計データ (メガバイト/秒)</td>
+
+       </tr>
+
+       <tr>
+        <td><strong>Xfers/秒</strong></td>
+
+        <td>この間隔の中での読み取りと書き込みの転送回数</td>
+
+       </tr>
+
+       <tr>
+        <td><strong>BlockSizeKB</strong></td>
+
+        <td>この間隔の中での読み取りまたは書き込みブロック・サイズ/転送 (キロバイト/秒)</td>
+
+       </tr>
+
+      </tbody>
+</table></div>
+</div>
+</div>
+
+   <p><strong>ディスクの統計情報 </strong></p>
+
+   <div>このビューにはディスクの統計が表示されます。 このビューを表示するには、<strong>d</strong> キーを押します。 各種メトリックを表示するには、<strong>D</strong> キーを以下の回数だけ押します。<ul>
+     <li><a href="https://www.ibm.com/docs/ja/ssw_aix_73/n_commands/nmon.html#nmon__once" target="_blank" rel="noopener noreferrer">1 回</a>: ディスク番号を表示します。</li>
+
+     <li><a href="https://www.ibm.com/docs/ja/ssw_aix_73/n_commands/nmon.html#nmon__twice" target="_blank" rel="noopener noreferrer">2 回</a>: ディスクの説明を表示します。</li>
+
+     <li><a href="https://www.ibm.com/docs/ja/ssw_aix_73/n_commands/nmon.html#nmon__three" target="_blank" rel="noopener noreferrer">3 回</a>: サービス時間を表示します。</li>
+
+     <li><a href="https://www.ibm.com/docs/ja/ssw_aix_73/n_commands/nmon.html#nmon__four" target="_blank" rel="noopener noreferrer">4 回</a>: <strong>d</strong> キーを押すと表示されるグラフに似たグラフでディスク統計を表示します。</li>
+
+    </ul>
+</div>
+
+   <p><strong>ディスク番号</strong> (<strong>D</strong> キーを 1 回押す)</p>
+
+   <div>以下のメトリックがこのビューに表示されます。<div><div><table><thead>
+       <tr>
+        <th><div>項目</div></th>
+
+        <th><div>説明</div></th>
+
+       </tr>
+
+      </thead>
+<tbody>
+       <tr>
+        <td><strong>Name</strong></td>
+
+        <td>ディスクの名前。</td>
+
+       </tr>
+
+       <tr>
+        <td><strong>ビジー</strong></td>
+
+        <td>そのディスクの平均ビジー。</td>
+
+       </tr>
+
+       <tr>
+        <td><strong>読み取り KB/ 秒</strong></td>
+
+        <td>この間隔の中での読み取りのデータ転送速度 (キロバイト/秒)</td>
+
+       </tr>
+
+       <tr>
+        <td><strong>書き込み KB/ 秒</strong></td>
+
+        <td>この間隔の中での書き込みのデータ転送速度 (キロバイト/秒)</td>
+
+       </tr>
+
+       <tr>
+        <td><strong>転送/秒</strong></td>
+
+        <td>この間隔の中での読み取りと書き込みの転送回数</td>
+
+       </tr>
+
+       <tr>
+        <td><strong>SizeKB</strong></td>
+
+        <td>この間隔の中での読み取りまたは書き込みブロック・サイズ/転送 (キロバイト/秒)</td>
+
+       </tr>
+
+       <tr>
+        <td><strong>peak</strong></td>
+
+        <td>平均ビジーのピーク・パーセンテージ。</td>
+
+       </tr>
+
+       <tr>
+        <td><strong>ピーク KB/ 秒</strong></td>
+
+        <td>データの読み取りと書き込みのピーク (キロバイト/秒)。</td>
+
+       </tr>
+
+       <tr>
+        <td><strong>qDepth</strong></td>
+
+        <td>ディスクへの送信要求数で、完了していない送信要求数。</td>
+
+       </tr>
+
+       <tr>
+        <td><strong>Totals Size (GB) (合計サイズ (GB))</strong></td>
+
+        <td>ディスクの合計サイズ (ギガバイト)。</td>
+
+       </tr>
+
+       <tr>
+        <td><strong>空き合計 (GB)</strong></td>
+
+        <td>ディスク上に残っている合計フリー・スペース (ギガバイト)。</td>
+
+       </tr>
+
+       <tr>
+        <td><strong>Totals Read (MB/s) (読み取り合計 (MB/ 秒))</strong></td>
+
+        <td>すべてのディスクから読み取られたデータの合計データ転送速度 (メガバイト/秒)</td>
+
+       </tr>
+
+       <tr>
+        <td><strong>Totals Write (MB/s) (合計書き込み (MB/ 秒))</strong></td>
+
+        <td>すべてのディスクへ書き込まれたデータの合計データ転送速度 (メガバイト/秒)</td>
+
+       </tr>
+
+      </tbody>
+</table></div>
+</div>
+</div>
+
+   <p><strong>Disk Descriptions</strong> (<strong>D</strong> キーを 2 回押す)</p>
+
+   <div>以下のメトリックがこのビューに表示されます。<div><div><table><thead>
+       <tr>
+        <th><div>項目</div></th>
+
+        <th><div>説明</div></th>
+
+       </tr>
+
+      </thead>
+<tbody>
+       <tr>
+        <td><strong>Name</strong></td>
+
+        <td>ディスク名。</td>
+
+       </tr>
+
+       <tr>
+        <td><strong>サイズ (GB)</strong></td>
+
+        <td>ディスク・サイズ (ギガバイト)。</td>
+
+       </tr>
+
+       <tr>
+        <td><strong>空き (GB)</strong></td>
+
+        <td>ディスクに残っているフリー・スペース (ギガバイト)。</td>
+
+       </tr>
+
+       <tr>
+        <td><strong>ディスク・パス</strong></td>
+
+        <td>ディスクに定義されたパス数。</td>
+
+       </tr>
+
+       <tr>
+        <td><strong>ディスク・アダプター</strong></td>
+
+        <td>ディスク・アダプター名。</td>
+
+       </tr>
+
+       <tr>
+        <td><strong>ボリューム・グループ</strong></td>
+
+        <td>ディスクが所属するボリューム・グループ。</td>
+
+       </tr>
+
+       <tr>
+        <td><strong>ディスクの説明</strong></td>
+
+        <td>ディスクの記述。</td>
+
+       </tr>
+
+       <tr>
+        <td><strong>Totals Size (GB) (合計サイズ (GB))</strong></td>
+
+        <td>ディスクの合計サイズ (ギガバイト)。</td>
+
+       </tr>
+
+       <tr>
+        <td><strong>空き合計 (GB)</strong></td>
+
+        <td>ディスク上に残っている合計フリー・スペース (ギガバイト)。</td>
+
+       </tr>
+
+       <tr>
+        <td><strong>Totals Read (MB/s) (読み取り合計 (MB/ 秒))</strong></td>
+
+        <td>すべてのディスクから読み取られたデータの合計データ転送速度 (メガバイト/秒)</td>
+
+       </tr>
+
+       <tr>
+        <td><strong>Totals Write (MB/s) (合計書き込み (MB/ 秒))</strong></td>
+
+        <td>すべてのディスクへ書き込まれたデータの合計データ転送速度 (メガバイト/秒)</td>
+
+       </tr>
+
+      </tbody>
+</table></div>
+</div>
+</div>
+
+   <p><strong>サービス時間</strong> (<strong>D</strong> キーを 3 回押す)</p>
+
+   <div>このビューには以下のメトリックが表示されます。<div><div><table><thead>
+       <tr>
+        <th><div>項目</div></th>
+
+        <th><div>説明</div></th>
+
+       </tr>
+
+      </thead>
+<tbody>
+       <tr>
+        <td><strong>ディスク</strong></td>
+
+        <td>ディスクの名前。</td>
+
+       </tr>
+
+       <tr>
+        <td><strong> Service (in msecs)</strong></td>
+
+        <td>平均サービス時間/要求 (ミリ秒)。</td>
+
+       </tr>
+
+       <tr>
+        <td><strong>待機 (ミリ秒) (Wait (in msecs))</strong></td>
+
+        <td>平均待ち時間/要求 (ミリ秒)。</td>
+
+       </tr>
+
+       <tr>
+        <td><strong>ServQ サイズ</strong></td>
+
+        <td>サービス・キュー内の平均要求数。</td>
+
+       </tr>
+
+       <tr>
+        <td><strong>WaitQ サイズ</strong></td>
+
+        <td>完了待ちになっている平均要求数。</td>
+
+       </tr>
+
+       <tr>
+        <td><strong>ServQ フル</strong></td>
+
+        <td>入ってくる要求をそのディスクが受け入れようとしない回数。</td>
+
+       </tr>
+
+       <tr>
+        <td><strong>Totals Size (GB) (合計サイズ (GB))</strong></td>
+
+        <td>ディスクの合計サイズ (ギガバイト)。</td>
+
+       </tr>
+
+       <tr>
+        <td><strong>空き合計 (GB)</strong></td>
+
+        <td>ディスク上に残っている合計フリー・スペース (ギガバイト)。</td>
+
+       </tr>
+
+       <tr>
+        <td><strong>Totals Read (MB/s) (読み取り合計 (MB/ 秒))</strong></td>
+
+        <td>すべてのディスクから読み取られたデータの合計データ転送速度 (メガバイト/秒)</td>
+
+       </tr>
+
+       <tr>
+        <td><strong>Totals Write (MB/s) (合計書き込み (MB/ 秒))</strong></td>
+
+        <td>すべてのディスクへ書き込まれたデータの合計データ転送速度 (メガバイト/秒)</td>
+
+       </tr>
+
+      </tbody>
+</table></div>
+</div>
+</div>
+
+   <p><strong>グラフ付きディスク統計</strong> (<strong>D</strong> キーを 4 回押す)</p>
+
+   <div>このビューにはグラフ付きのディスク統計が表示されます。 このビューを表示するには、<strong>d</strong> キーを押します。 以下のメトリックがこのビューに表示されます。<div><div><table><thead>
+       <tr>
+        <th><div>項目</div></th>
+
+        <th><div>説明</div></th>
+
+       </tr>
+
+      </thead>
+<tbody>
+       <tr>
+        <td><strong>Name</strong></td>
+
+        <td>ディスクの名前。</td>
+
+       </tr>
+
+       <tr>
+        <td><strong>ビジー</strong></td>
+
+        <td>このディスクの平均ビジー・パーセンテージ。</td>
+
+       </tr>
+
+       <tr>
+        <td><strong>読み取り KB/ 秒</strong></td>
+
+        <td>読み取りのデータ転送速度 (キロバイト/秒)</td>
+
+       </tr>
+
+       <tr>
+        <td><strong>書き込み KB/ 秒</strong></td>
+
+        <td>書き込みのデータ転送速度 (キロバイト/秒)</td>
+
+       </tr>
+
+      </tbody>
+</table></div>
+</div>
+</div>
+
+   <p><strong>メモリーとページング統計</strong></p>
+
+   <div>このビューにはメモリーとページング統計が表示されます。 このビューを表示するには、<strong>m</strong> キーを押します。 このビューには以下のメトリックが含まれています。<div><div><table><thead>
+       <tr>
+        <th><div>項目</div></th>
+
+        <th><div>説明</div></th>
+
+       </tr>
+
+      </thead>
+<tbody>
+       <tr>
+        <td><strong>%Used</strong></td>
+
+        <td>物理メモリーとページング・スペース内の使用済みスペースのパーセンテージ。</td>
+
+       </tr>
+
+       <tr>
+        <td><strong>空き (%)</strong></td>
+
+        <td>物理メモリーとページング・スペース内のフリー・スペースのパーセンテージ。</td>
+
+       </tr>
+
+       <tr>
+        <td><strong>使用量 (MB)</strong></td>
+
+        <td>使用状態の物理メモリーとページング・スペース (メガバイト)。</td>
+
+       </tr>
+
+       <tr>
+        <td><strong>空き MB</strong></td>
+
+        <td>空き状態の物理メモリーとページング・スペース (メガバイト)。</td>
+
+       </tr>
+
+       <tr>
+        <td><strong>ページング・スペースへのページ数/秒</strong></td>
+
+        <td>ページング・スペースとの間で転送された入出力ページ数/秒。</td>
+
+       </tr>
+
+       <tr>
+        <td><strong>ファイル・システムへの 1 秒当たりのページ数</strong></td>
+
+        <td>ファイルシステムとの間で転送された入出力ページ数/秒。</td>
+
+       </tr>
+
+       <tr>
+        <td><strong>ページ・スキャン</strong></td>
+
+        <td>クロックによるページ・スキャン回数。</td>
+
+       </tr>
+
+       <tr>
+        <td><strong>ページ・フォールト</strong></td>
+
+        <td>ページ・フォールト数。</td>
+
+       </tr>
+
+       <tr>
+        <td><strong>ページ・サイクル</strong></td>
+
+        <td>ページ置換サイクル数。</td>
+
+       </tr>
+
+       <tr>
+        <td><strong>Page Steals</strong></td>
+
+        <td>ページ・スチール数。</td>
+
+       </tr>
+
+       <tr>
+        <td><strong>数値 (Numperm)</strong></td>
+
+        <td>ファイルごとに使用されているフレーム数 (4 KB ページ単位)。</td>
+
+       </tr>
+
+       <tr>
+        <td><strong>プロセス</strong></td>
+
+        <td>プロセス・セグメントで使用された実メモリーのパーセンテージ。</td>
+
+       </tr>
+
+       <tr>
+        <td><strong>システム</strong></td>
+
+        <td>システム・セグメントで使用された実メモリーのパーセンテージ。</td>
+
+       </tr>
+
+       <tr>
+        <td><strong>無料</strong></td>
+
+        <td>空き状態の実メモリーのパーセンテージ。</td>
+
+       </tr>
+
+       <tr>
+        <td><strong>合計</strong></td>
+
+        <td>使用された合計の実メモリーのパーセンテージ。</td>
+
+       </tr>
+
+       <tr>
+        <td><strong>最小値/最大値</strong></td>
+
+        <td>ページ・スチールに対する <strong>minperm</strong> と <strong>maxperm</strong> 値。</td>
+
+       </tr>
+
+       <tr>
+        <td><strong>最小/最大フリー</strong></td>
+
+        <td><strong>minfree</strong> と <strong>maxfree</strong> のページ・フリー・リスト。</td>
+
+       </tr>
+
+       <tr>
+        <td><strong>最小/最大ガヘッド</strong></td>
+
+        <td>ページ・アヘッドのページの最小数と最大数。</td>
+
+       </tr>
+
+       <tr>
+        <td><strong>合計仮想</strong></td>
+
+        <td>合計仮想メモリー。</td>
+
+       </tr>
+
+       <tr>
+        <td><strong>アクセスされた仮想</strong></td>
+
+        <td>活動状態の仮想メモリー。</td>
+
+       </tr>
+
+       <tr>
+        <td><strong>数値クライアント</strong></td>
+
+        <td>クライアント・フレーム数。</td>
+
+       </tr>
+
+       <tr>
+        <td><strong>maxclient</strong></td>
+
+        <td>クライアント・フレームの最大数。</td>
+
+       </tr>
+
+       <tr>
+        <td><strong>User</strong></td>
+
+        <td>非システム・セグメントが使用する実メモリー。</td>
+
+       </tr>
+
+       <tr>
+        <td><strong>固定</strong></td>
+
+        <td>ピンされた実メモリー。</td>
+
+       </tr>
+
+      </tbody>
+</table></div>
+</div>
+</div>
+
+   <div>AMS 統計は、<strong>topas_nmon</strong> メモリー・パネルに表示されます。 このビューを表示するには、<strong>m</strong> キーを押します。 このビューには以下のメトリックが含まれています。<div><div><table><thead>
+       <tr>
+        <th><div>項目</div></th>
+
+        <th><div>説明</div></th>
+
+       </tr>
+
+      </thead>
+<tbody>
+       <tr>
+        <td><strong>プール</strong></td>
+
+        <td>論理区画 (LPAR) が属するプールの AMS プール ID。</td>
+
+       </tr>
+
+       <tr>
+        <td><strong>weight</strong></td>
+
+        <td>可変メモリーの重み付け。</td>
+
+       </tr>
+
+       <tr>
+        <td><strong>pMem</strong></td>
+
+        <td>論理メモリー区画を現在バックアップしている物理メモリー (MB)。</td>
+
+       </tr>
+
+       <tr>
+        <td><strong>hpi</strong></td>
+
+        <td>ハイパーバイザーのページインの回数。</td>
+
+       </tr>
+
+       <tr>
+        <td><strong>hpit</strong></td>
+
+        <td>ハイパーバイザーのページインにかかる時間 (秒単位)。</td>
+
+       </tr>
+
+      </tbody>
+</table></div>
+</div>
+</div>
+
+   <div><strong>論理装置情報</strong>:<div><div><table><thead>
+       <tr>
+        <th><div>項目</div></th>
+
+        <th><div>説明</div></th>
+
+       </tr>
+
+      </thead>
+<tbody>
+       <tr>
+        <td><strong>サイズ (MB)</strong></td>
+
+        <td>論理装置に割り当てられた合計サイズ。</td>
+
+       </tr>
+
+       <tr>
+        <td><strong>Lu Udid</strong></td>
+
+        <td>論理装置 ID。</td>
+
+       </tr>
+
+      </tbody>
+</table></div>
+</div>
+</div>
+
+   <p><strong>アダプター入出力統計ビュー</strong></p>
+
+   <p>このビューではアダプター入出力統計を表示します。 このビューを表示するには、<strong>A</strong> キーを押します。 以下のメトリックがこのビューに表示されます。</p>
+
+   <div>
+    
+<div><div><table><thead>
+       <tr>
+        <th><div>項目</div></th>
+
+        <th><div>説明</div></th>
+
+       </tr>
+
+      </thead>
+<tbody>
+       <tr>
+        <td><strong>アダプター</strong></td>
+
+        <td>アダプター名。</td>
+
+       </tr>
+
+       <tr>
+        <td><strong>Busy%</strong></td>
+
+        <td>アダプターの帯域幅使用。 これは、このアダプターに接続されたディスクの集合 <strong>Busy% </strong> です。 アダプターに複数のディスクが接続されている場合は、この値が 100% を超えることがあります。</td>
+
+       </tr>
+
+       <tr>
+        <td><strong>読み取り KB/ 秒</strong></td>
+
+        <td>読み取りのデータ転送速度 (キロバイト/秒)</td>
+
+       </tr>
+
+       <tr>
+        <td><strong>書き込み KB/ 秒</strong></td>
+
+        <td>書き込みのデータ転送速度 (キロバイト/秒)</td>
+
+       </tr>
+
+       <tr>
+        <td><strong>転送</strong></td>
+
+        <td>読み取りおよび書き込みの転送回数</td>
+
+       </tr>
+
+       <tr>
+        <td><strong>ディスク</strong></td>
+
+        <td>ディスク数。</td>
+
+       </tr>
+
+       <tr>
+        <td><strong>アダプター・タイプ</strong></td>
+
+        <td>アダプターのタイプ。</td>
+
+       </tr>
+
+      </tbody>
+</table></div>
+</div>
+
+   </div>
+
+   <p><strong>共有イーサネット・アダプター </strong></p>
+
+   <div>このビューには、仮想入出力サーバー (VIOS) 内の共有イーサネット・アダプター統計が表示されます。 このビューを表示するには、<strong>O</strong> キーを押します。 以下のメトリックがこのビューに表示されます。<div><div><table><thead>
+       <tr>
+        <th><div>項目</div></th>
+
+        <th><div>説明</div></th>
+
+       </tr>
+
+      </thead>
+<tbody>
+       <tr>
+        <td><strong>Number</strong></td>
+
+        <td>シリアル番号。</td>
+
+       </tr>
+
+       <tr>
+        <td><strong>Name</strong></td>
+
+        <td>共有イーサネット・アダプターの名前。</td>
+
+       </tr>
+
+       <tr>
+        <td><strong>受信バイト (KB/ 秒)</strong></td>
+
+        <td>受信されたデータのデータ転送速度 (キロバイト/秒)</td>
+
+       </tr>
+
+       <tr>
+        <td><strong>トランザクション (KB/ 秒)</strong></td>
+
+        <td>送信されたデータのデータ転送速度 (キロバイト/秒)</td>
+
+       </tr>
+
+       <tr>
+        <td><strong>パイン</strong></td>
+
+        <td>この間隔の中での受信パケット数/秒。</td>
+
+       </tr>
+
+       <tr>
+        <td><strong>パックアウト</strong></td>
+
+        <td>この間隔の中での送信パケット数/秒。</td>
+
+       </tr>
+
+       <tr>
+        <td><strong>insize</strong></td>
+
+        <td>この間隔の中で着信したパケットの平均サイズ/秒。</td>
+
+       </tr>
+
+       <tr>
+        <td><strong>outsize</strong></td>
+
+        <td>この間隔の中で発信したパケットの平均サイズ/秒。</td>
+
+       </tr>
+
+      </tbody>
+</table></div>
+</div>
+</div>
+
+   <p><strong>詳細検査 OK/警告/危険 </strong></p>
+
+   <p>このビューには、プロセッサー、メモリー、およびディスクの統計情報が表示されます。 また、事前定義のしきい値を超えるシステム・メトリックに基づいて、OK、警告、危険などの状況メッセージも表示されます。 このビューを表示するには、<strong>V</strong> キーを押します。</p>
+
+   <p><strong>詳細ページ統計</strong></p>
+
+   <p>このビューにはページ統計が表示されます。 このビューを表示するには、<strong>m</strong> キーを押します。</p>
+
+   <p><strong>M</strong> キーを 1 回押すと、このビューには統計情報が含まれます (ページ数単位)。 <strong>M</strong> キーを 2 回押すと、ページ統計情報が表示されます (メガバイト単位)。</p>
+
+   <div>以下のメトリックがこのビューに表示されます。<div><div><table><thead>
+       <tr>
+        <th><div>項目</div></th>
+
+        <th><div>説明</div></th>
+
+       </tr>
+
+      </thead>
+<tbody>
+       <tr>
+        <td><strong>数値フレーム</strong></td>
+
+        <td>ページ・サイズの実メモリー・フレーム数。</td>
+
+       </tr>
+
+       <tr>
+        <td><strong>数字 (Numfrb)</strong></td>
+
+        <td>フリー・リスト上のページ数。</td>
+
+       </tr>
+
+       <tr>
+        <td><strong>数値クライアント</strong></td>
+
+        <td>クライアント・フレーム数。</td>
+
+       </tr>
+
+       <tr>
+        <td><strong>数値圧縮</strong></td>
+
+        <td>圧縮セグメント内のフレーム数。</td>
+
+       </tr>
+
+       <tr>
+        <td><strong>数値 (Numperm)</strong></td>
+
+        <td>非作業用セグメント内のフレーム数。</td>
+
+       </tr>
+
+       <tr>
+        <td><strong>数字ページ</strong></td>
+
+        <td>アクセスされた仮想ページ数。</td>
+
+       </tr>
+
+       <tr>
+        <td><strong>minfree</strong></td>
+
+        <td>最小フリー・リスト。</td>
+
+       </tr>
+
+       <tr>
+        <td><strong>maxfree</strong></td>
+
+        <td>最大フリー・リスト。</td>
+
+       </tr>
+
+       <tr>
+        <td><strong>数値出力</strong></td>
+
+        <td>ページ・アウト回数。</td>
+
+       </tr>
+
+       <tr>
+        <td><strong>数値リモート</strong></td>
+
+        <td>リモート・ページ・アウト回数。</td>
+
+       </tr>
+
+       <tr>
+        <td><strong>数字セグメント化 (Numwseguse)</strong></td>
+
+        <td>作業用セグメントとして使用中のページ数。</td>
+
+       </tr>
+
+       <tr>
+        <td><strong>数字セグメント化 (Numpseguse)</strong></td>
+
+        <td>永続セグメントとして使用中のページ数。</td>
+
+       </tr>
+
+       <tr>
+        <td><strong>数値セグメント化 (Numclseguse)</strong></td>
+
+        <td>クライアント・セグメントとして使用中のページ数。</td>
+
+       </tr>
+
+       <tr>
+        <td><strong>数字セグメント・ピン</strong></td>
+
+        <td>作業用セグメントとしてピンされたページ数。</td>
+
+       </tr>
+
+       <tr>
+        <td><strong>数字セグピン</strong></td>
+
+        <td>永続セグメントとしてピンされたページ数。</td>
+
+       </tr>
+
+       <tr>
+        <td><strong>数字セグメント・ピン</strong></td>
+
+        <td>クライアント・セグメントとしてピンされたページ数。</td>
+
+       </tr>
+
+       <tr>
+        <td><strong>パッケージ数 (numpgsp_pgs)</strong></td>
+
+        <td>割り当てられたページ・スペース数。</td>
+
+       </tr>
+
+       <tr>
+        <td><strong>数値割り振り</strong></td>
+
+        <td>リモート割り当て数。</td>
+
+       </tr>
+
+       <tr>
+        <td><strong>pfrsvdblks</strong></td>
+
+        <td>システム予約済みブロック数。</td>
+
+       </tr>
+
+       <tr>
+        <td><strong>Pfavail (Pfavail)</strong></td>
+
+        <td>ピン用に使用可能なページ数。</td>
+
+       </tr>
+
+       <tr>
+        <td><strong>Pfpinavail (Pfpinavail)</strong></td>
+
+        <td>ピン用に使用可能なアプリケーション・レベル番号ページ数。</td>
+
+       </tr>
+
+       <tr>
+        <td><strong>システム・パッケージ</strong></td>
+
+        <td><strong>V_SYSTEM</strong> でマークされたセグメント制御ブロック (SCB) 上のページ数。</td>
+
+       </tr>
+
+       <tr>
+        <td><strong>非 sys_pg</strong></td>
+
+        <td><strong>V_SYSTEM</strong> でマークされていない SCB のページ数。</td>
+
+       </tr>
+
+       <tr>
+        <td><strong>数値 (Numpermio)</strong></td>
+
+        <td>非作業用記憶域内のページ・アウト数。</td>
+
+       </tr>
+
+       <tr>
+        <td><strong>Pgexct (Pgexct)</strong></td>
+
+        <td>ページ・フォールト数。</td>
+
+       </tr>
+
+       <tr>
+        <td><strong>Pgrclm (Pgrclm)</strong></td>
+
+        <td>ページ再利用数。</td>
+
+       </tr>
+
+       <tr>
+        <td><strong>ページイン</strong></td>
+
+        <td>ページインされたページ数。</td>
+
+       </tr>
+
+       <tr>
+        <td><strong>ページアウト</strong></td>
+
+        <td>ページアウトされたページ数。</td>
+
+       </tr>
+
+       <tr>
+        <td><strong>Pgspgins</strong></td>
+
+        <td>ページ・スペースからページインされたページ数。</td>
+
+       </tr>
+
+       <tr>
+        <td><strong>Pgspgouts (Pgspgouts)</strong></td>
+
+        <td>ページ・スペースからページアウトされたページ数。</td>
+
+       </tr>
+
+       <tr>
+        <td><strong>数字 (Numsios)</strong></td>
+
+        <td>開始された入出力回数。</td>
+
+       </tr>
+
+       <tr>
+        <td><strong>Numiodone (Numiodone)</strong></td>
+
+        <td>完了した入出力回数。</td>
+
+       </tr>
+
+       <tr>
+        <td><strong>ゼロ塗りつぶし (Zerofills)</strong></td>
+
+        <td>ゼロで埋め込まれたページ数。</td>
+
+       </tr>
+
+       <tr>
+        <td><strong>エクスフィルズ</strong></td>
+
+        <td>exec で埋め込まれたページ数。</td>
+
+       </tr>
+
+       <tr>
+        <td><strong>スキャン</strong></td>
+
+        <td>クロックによるページ・スキャン回数。</td>
+
+       </tr>
+
+       <tr>
+        <td><strong>cycles</strong></td>
+
+        <td>クロック・ハンド・サイクル数。</td>
+
+       </tr>
+
+       <tr>
+        <td><strong>pgsteals (pgsteals)</strong></td>
+
+        <td>ページ・スチール数。</td>
+
+       </tr>
+
+      </tbody>
+</table></div>
+</div>
+</div>
+
+   <p><strong>ファイバー・チャネル・アダプター統計</strong></p>
+
+   <div>このビューには、ファイバー・チャネル・アダプターに関する情報が表示されます。 このビューを表示するには、脱字記号 (<strong>-^</strong>) キーを押します。 このビューには以下のメトリックが含まれています。<div><div>
+        <div>
+          <div><span>注:</span> N_Port Virtualization (NPIV) が VIOS で構成されている場合は、 <span>nmon</span> コマンドで -^ オプションを使用して、NPIV 関連の統計情報を記録してください。</div>
+        </div>
+      </div></div>
+
+<div><div><table><thead>
+       <tr>
+        <th><div>項目</div></th>
+
+        <th><div>説明</div></th>
+
+       </tr>
+
+      </thead>
+<tbody>
+       <tr>
+        <td><strong>Number</strong></td>
+
+        <td>シリアル番号。</td>
+
+       </tr>
+
+       <tr>
+        <td><strong>Name</strong></td>
+
+        <td>ファイバー・チャネル・アダプターの名前。</td>
+
+       </tr>
+
+       <tr>
+        <td><strong>Receive-KB/ 秒 (Receive-KB/s)</strong></td>
+
+        <td>受信されたデータのデータ転送速度 (キロバイト/秒)</td>
+
+       </tr>
+
+       <tr>
+        <td><strong>伝送速度-KB/ 秒</strong></td>
+
+        <td>送信されたデータのデータ転送速度 (キロバイト/秒)</td>
+
+       </tr>
+
+       <tr>
+        <td><strong>次の中の要求:</strong></td>
+
+        <td>この間隔の中での受信要求数/秒。</td>
+
+       </tr>
+
+       <tr>
+        <td><strong>発信要求</strong></td>
+
+        <td>この間隔の中での送信要求数/秒。</td>
+
+       </tr>
+
+       <tr>
+        <td><strong>outsize</strong></td>
+
+        <td>この間隔の中での出力パケット平均サイズ/秒。</td>
+
+       </tr>
+
+      </tbody>
+</table></div>
+</div>
+</div>
+
+   <p><strong>スレッド・レベル統計 </strong></p>
+
+   <div>このビューには、スレッド・レベル統計に関する情報が含まれます。 このビューを表示するには、<strong>-i</strong> キーを押します。 このビューには以下のメトリックが含まれています。<div><div><table><thead>
+       <tr>
+        <th><div>項目</div></th>
+
+        <th><div>説明</div></th>
+
+       </tr>
+
+      </thead>
+<tbody>
+       <tr>
+        <td><strong>pid</strong></td>
+
+        <td>スレッドが属するプロセス ID。</td>
+
+       </tr>
+
+       <tr>
+        <td><strong>TID</strong></td>
+
+        <td>より高い CPU を使用するトップ・スレッド ID。 ソートは降順での CPU 使用率に基づいています。</td>
+
+       </tr>
+
+       <tr>
+        <td><strong>%CPU (%CPU)</strong></td>
+
+        <td>特定のスレッドによって使用される CPU のパーセンテージ。</td>
+
+       </tr>
+
+       <tr>
+        <td><strong>バインドされた CPU ID</strong></td>
+
+        <td>スレッドがプロセッサーにバインドされている場合は、バインドされた CPU ID。</td>
+
+       </tr>
+
+      </tbody>
+</table></div>
+</div>
+</div>
+
+  </section>
+
+  <section><h2>環境変数</h2>
+   
+   <p>環境変数 <strong>NMON_START</strong>、 <strong>NMON_END</strong>、 <strong>NMON_SNAP</strong>、および <strong>NMON_ONE_IN</strong> は、フォーマット <span>nmon</span> での記録中に外部データを収集するために使用されます。</p>
+
+   
+<div><div><table><thead>
+      <tr>
+       <th><div>項目</div></th>
+
+       <th><div>説明</div></th>
+
+      </tr>
+
+     </thead>
+<tbody>
+      <tr>
+       <td><strong>NMONCMD0, NMONCMD1, ..., NMONCMD63</strong></td>
+
+       <td>これらの環境変数が設定されると、これらの変数の中に設定されたプロセスだけをモニターできます。 別の方法として、<strong>-C</strong> フラグを使用して、<span>nmon</span> コマンドのプロセス・リスト中でコマンドを制限できます。 例えば、<strong>nmon -C db2:nmon:topas</strong> コマンドを実行できます。</td>
+
+      </tr>
+
+      <tr>
+       <td><strong>nmon</strong></td>
+
+       <td><span>nmon</span> コマンド開始時に表示される初期セットのパネルに対応した、キー・ストロークのセットを含みます。</td>
+
+      </tr>
+
+      <tr>
+       <td><strong>NMON_タイムスタンプ</strong></td>
+
+       <td><strong>NMON_TIMESTAMP</strong> 変数は、次の値に指定できます。<dl>
+         
+          <dt>NMON_TIMESTAMP = 0</dt>
+
+          <dd>記録された行には行 <code>nmon Tnnnn</code> 頭にタイムスタンプが含まれており、データファイル <span>nmon</span> と連携して動作します。</dd>
+
+         
+         
+          <dt>NMON_TIMESTAMP = 1</dt>
+
+          <dd>この行には、時、分、秒、日、月、年を持ったタイム・スタンプが含まれます。 分析用の nmon ファイルとデータをマージしたくない場合に、この値を使用できます。</dd>
+
+         
+        </dl>
+</td>
+
+      </tr>
+
+      <tr>
+       <td><strong>NMON_START (NMON_START)</strong></td>
+
+       <td><span>nmon</span> 記録開始時に始動される外部コマンド。</td>
+
+      </tr>
+
+      <tr>
+       <td><strong>NMON_END (NMON_END)</strong></td>
+
+       <td><span>nmon</span> 記録終了時に始動される外部コマンド。</td>
+
+      </tr>
+
+      <tr>
+       <td><strong>NMON_SNAP (NMON_SNAP)</strong></td>
+
+       <td>メトリックを記録するために定期的に始動される外部コマンド。</td>
+
+      </tr>
+
+      <tr>
+       <td><strong>NMON_ONE_IN (NMON_ONE_IN)</strong></td>
+
+       <td>以下の値に合わせて、<strong>NMON_ONE_IN</strong> 変数を指定できます。<dl>
+          <dt>NMON_ONE_IN=1</dt>
+
+          <dd>記録が行われるたびに <strong>snap</strong> コマンドを実行します。</dd>
+
+         
+          <dt><span><span>NMON_ONE_IN=n</span></span></dt>
+
+          <dd><span><span>n</span></span> パラメーターで指定された数の記録が完了した後、 <strong>snap</strong> コマンドを実行します。</dd>
+
+         </dl>
+</td>
+
+      </tr>
+
+     </tbody>
+</table></div>
+</div>
+
+  </section>
+
+  <section><h2>例</h2>
+   
+   <ol>
+    <li>30 秒ごとにデータを収集して、現行ディレクトリーに 2 時間記録する <span>nmon</span> を生成するには、以下のコマンドを入力します。<div><div><pre><code>nmon -f -s 30 -c 240</code></pre></div><div></div></div></li>
+
+    <li><span>nmon</span> コマンドの開始直後にメモリーとプロセッサーの統計を表示するには、以下のステップを行います。<ol>
+<li>次のコマンドを入力します。<div><div><pre><code>export NMON=mc</code></pre></div><div></div></div></li>
+
+<li>コマンド <span>nmon</span> を実行してください。</li>
+
+</ol>
+</li>
+
+    <li>10 秒で画面をリフレッシュしながら、<span>nmon</span> コマンドを 20 秒間実行するには、以下のコマンドを入力します。<div><div><pre><code>nmon -c 10 -s 2</code></pre></div><div></div></div></li>
+
+    <li>モノクロ・モードで nmon を実行するには、以下のコマンドを入力します。<div><div><pre><code>nmon -b</code></pre></div><div></div></div></li>
+
+    <li>プロセス情報を表示するには、以下のステップを行います。<ol>
+      <li>コマンド <span>nmon</span> を実行してください。</li>
+
+      <li><strong>t</strong> キーを押します。</li>
+
+     </ol>
+</li>
+
+    <li><span>nmon</span> 提供のビュー・リストを表示するには、<strong>h</strong> キーを押します。</li>
+
+    <li>以下の例では、外部データを収集するためのステップが説明されています。 このサンプルでは、 <code>mystart</code> ファイル、 <code>mysnap</code> ファイル、および <code>myend</code> ファイルは実行可能であり、$PATH が定義するパスにあります。<ol>
+<li>以下の例に示したとおりに、環境変数を設定します。<div><div><pre><code>$export NMON_TIMESTAMP=0
+$export NMON_START="mystart"
+$export NMON_SNAP="mysnap"
+$export NMON_END="myend"
+$export NMON_ONE_IN=1</code></pre></div><div></div></div>上記の例で、1 の値が NMON_ONE_IN 環境変数に対するデフォルト値です。 この値では、nmon 記録の各スナップショットごとに、外部的に記録されるデータを 1 セット生成します。</li>
+
+<li>以下のようにして、<code>mystart</code> ファイルの内容を変更します。<div><div><pre><code>ps -ef &gt;start_ps.xt
+echo "PROCCOUNT,Process Count, Procs" &gt;ps.csv</code></pre></div><div></div></div></li>
+
+<li>以下のようにして、<code>mysnap</code> ファイルの内容を変更します。<div><div><pre><code>echo PROCCOUNT,$1,`ps -ef | wc -l` &gt;&gt;ps.csv</code></pre></div><div></div></div></li>
+
+<li>以下のようにして、<code>myend</code> ファイルの内容を変更します。<div><div><pre><code>echo PROCCOUNT,$1,`ps -ef | wc -l` &gt;&gt;ps.csv</code></pre></div><div></div></div></li>
+
+<li>以下のようにして、<span>nmon</span> コマンドを実行します。<div><div><pre><code>nmon -f -s 2 -c 10</code></pre></div><div></div></div>20 秒で記録が終了します。</li>
+
+</ol><code>ps.csv</code> ファイルの出力は、次の例のようになります。<div><div><pre><code>PROCCOUNT,Process Count, Procs
+PROCCOUNT,T0001, 43
+PROCCOUNT,T0002, 43
+PROCCOUNT,T0003, 43
+PROCCOUNT,T0004, 43
+PROCCOUNT,T0005, 43
+PROCCOUNT,T0006, 43
+PROCCOUNT,T0007, 43
+PROCCOUNT,T0008, 43
+PROCCOUNT,T0009, 44
+PROCCOUNT,T0010, 44
+PROCCOUNT,T0010, 44</code></pre></div><div></div></div>生成された <span>nmon</span> ファイルを、外部記録処理によって生成される <code>ps.csv</code> ファイルに連結するには、以下のコマンドを入力します。<div><div><pre><code>cat  filename.nmon ps.csv &gt; c.csv</code></pre></div><div></div></div>グラフを取得するには、アナライザー <span>nmon</span> でファイル <code>c.csv</code> を開いてください。</li>
+
+    <li>hdisk の詳細を表示するには、 <code>-k</code> フラグを指定して <span>nmon</span> コマンドを入力します。<div><div><pre><code>nmon -k hdisk1,hdisk2</code></pre></div><div></div></div>このコマンドは、hdisk1 および hdisk2 のディスク詳細を表示します。 hdiskpower デバイスの場合には、以下のコマンドを入力します。<div><div><pre><code>nmon -k hdiskpower or
+nmon -k power</code></pre></div><div></div></div><div><div>
+        <div>
+          <div><span>注:</span> <code>nmon -k hdisk</code> は LPAR 上のすべての hdisk デバイスと一致し、hdiskpower デバイスとは一致しません。</div>
+        </div>
+      </div></div>hdiskpower デバイスはすべて、対話式および記録モードで power として表示されます。 例えば、<code>nmon -k hdiskpower1</code> はデバイス hdiskpower1 と一致し、<code>nmon -k hdiskpower</code> は LPAR 上のすべての  hdiskpower デバイスと一致します。<div><div>
+        <div>
+          <div><span>注:</span> <span>nmon</span> 記録ファイル内の <span>lsconf</span> コマンドおよび <span>lspv</span> コマンドの出力は、 <code><span>nmon-k</span></code> コマンドの変更の影響を受けません。</div>
+        </div>
+      </div></div>
+</li>
+
+   </ol>
+
+  </section>
+
+  <section><h2>ロケーション</h2>
+   
+   <p><span>/usr/bin/nmon</span></p>
+
+   <p><span>/usr/bin/topasrec</span></p>
+
+  </section>
+
+ </div></div>

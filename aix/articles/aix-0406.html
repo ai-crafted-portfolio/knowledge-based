@@ -1,0 +1,64 @@
+<div class="official-dom"><div>
+<section><h2>目的</h2> <p>ユーザーまたはプロセスのドメイン情報を表示します。</p>
+</section>
+
+<section><h2>構文</h2> <p><strong>domlist</strong> <a href="https://www.ibm.com/docs/ja/ssw_aix_73/d_commands/domlist.html#domlist__row-d3e43552" target="_blank" rel="noopener noreferrer"><strong>-p</strong></a> <em>pid</em></p>
+</section>
+
+<section><h2>説明</h2> <p><strong>domlist</strong> コマンドは、呼び出し側に対して現在割り当てられているドメインに関するドメイン情報を提供します。 フラグまたは引数が指定されない場合、<strong>domlist</strong> コマンドは、呼び出し側に割り当てられたドメインのリストと、ドメイン・データベースにある場合は各ドメインのテキスト記述を表示します。</p>
+ <p>また、<strong>domlist</strong> コマンドは、特権ユーザーがプロセスのドメイン情報をリストすることを許可します。 <strong>-p</strong> フラグでプロセス ID を指定すると、特権ユーザーは、プロセスに関連付けられているドメインを表示できます。</p>
+</section>
+
+<section><h2>フラグ</h2> <div> 
+<div><div><table><thead> <tr> <th><div>項目</div></th>
+ <th><div>説明</div></th>
+ </tr>
+ </thead>
+<tbody>
+<tr>
+<td><strong>-p</strong><em> ピッド</em></td>
+
+<td>指定されたプロセスのドメイン情報を表示します。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+</section>
+
+<section><h2>例</h2> <ol>
+<li>ユーザーに割り当てられたドメインのリストおよびそれらのテキスト記述を表示するには、次のコマンドを使用します。<div><div><pre><code>domlist</code></pre></div><div></div></div></li>
+
+<li>プロセスに割り当てられたドメインのリストを表示するには、次のコマンドを使用します。<div><div><pre><code>domlist -p &lt;pid&gt; </code></pre></div><div></div></div></li>
+
+</ol>
+</section>
+
+<section><h2>アクセスされるファイル</h2> 
+<div><div><table><thead> <tr> <th><div>項目</div></th>
+ <th><div>説明</div></th>
+ </tr>
+ </thead>
+<tbody>
+<tr>
+<td><strong>ファイル</strong></td>
+
+<td><strong>モード</strong></td>
+
+</tr>
+
+<tr>
+<td><strong>/etc/security/domains</strong></td>
+
+<td>r</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</section>
+
+</div></div>

@@ -1,15 +1,13 @@
 {
-  "release_id": "aix73-official-source-20260802-r1",
-  "product": "AIX 7.3",
-  "published_at": "2026-08-02",
-  "article_count": 1818,
-  "source_gap_count": 9,
-  "source_items_path": "C:\\oskb\\.codex-work\\aix_official_full_rebuild_20260728\\aix_official_full_rebuild_items_2026-07-28.json",
+  "release_id": "aix73-technical-items-20260802-r1",
+  "source_release_id": "aix-adr0158-0159-20260729-r2",
+  "article_count": 1804,
+  "source_gap_count": 12,
   "assets": {
-    "index.html": "18464fb3aea53efd9b2a804cf54fa6d357fc2d174ccb961c32ab07fe03e8da53",
-    "assets/data.js": "05c90c447b54be4e189608ad7da0a5bc66aaf501c6ce0dd6f934bc11c7bae9ef",
-    "assets/app.js": "79216f5e3f75c0ae0bfa1e80a3d7a96cce1bcfc6071fb8780fdec6f55dd70c20",
-    "assets/site.css": "2dec03fdbb59364411cabbcc9c5e58229179a527dd70d07c1ad1d007eb2b7b39",
-    "source-gaps.json": "0f44243b160d3bdc8f675457bdbe9e5b4cca8a295d83c34df397957a1794790f"
+    "index.html": "ca0e3d960641e2e66d6aab02776eff56ec8320efdcd6726434c4e0b0a99a508e",
+    "assets/site.css": "36b1b8c092dd5af59846e172e7e6f007ca1f463fe58fdce75eed2e51a5612f3e",
+    "assets/app.js": "3156b8db34caef92b69eabd877532dc6c26b0586127350a5c077f24c979aecc1",
+    "assets/data.js": "f6f96f89e134b24405bea9144426c61b01b5fd85c7c2e8bbd423baead0a3927a",
+    "source-gaps.json": "bb3be4161d334e7e2cecbd71c2950029f4fee6dbea67f5b656fa2192f4a7e014"
   }
 }

@@ -1,0 +1,122 @@
+<div class="official-dom"><div>
+<div> <p></p>
+</div>
+
+<section><h2>目的</h2> <p>スペシャル・ファイルを作成します。</p>
+</section>
+
+<section><h2>構文</h2><div>
+<dl>
+
+<dt>rootまたはシステムグループメンバーによってのみ実行される</dt>
+
+<dd><div><div><pre><code>mknod Name { b | c } Major Minor</code></pre></div><div></div></div>
+</dd>
+
+
+
+<dt>パイプまたはパイプラインとも呼ばれるFIFO（先入れ先出し）ファイルを作成します</dt>
+
+<dd><div><div><pre><code>mknod Name { p } </code></pre></div><div></div></div>
+</dd>
+
+
+</dl>
+
+</div>
+</section>
+
+<section><h2>説明</h2> <p><span>mknod</span> コマンドは、スペシャル・ファイル用のディレクトリー・エントリーとそれに対応する i ノードを作成します。 第 1 パラメーターはエントリー・デバイスの名前です。 デバイスを説明する名前を選択します。 <span>mknod</span> コマンドには異なるフラグを持つ 2 つの形式があります。</p>
+ <p>最初の形式の「<span>mknod</span>コマンドは、rootまたはシステム・グループのメンバが実行できる。 第 1 形式では、<span>b</span> または <span>c</span> フラグを使用します。 <span>b</span>フラグは、特殊ファイルがブロック指向デバイス（ディスク、ディスケット、テープ）であることを示す。 <span>c</span>フラグは、特殊ファイルが文字指向デバイス（その他のデバイス）であることを示す。</p>
+ <p>最初のフォームの最後の2つのパラメータは、メジャー・デバイスとマイナー・デバイスを指定する数字である。 メジャーデバイス番号は、オペレーティングシステムがデバイスドライバコードを見つけるのに役立ちます。 マイナー・デバイス番号は、10進数または8進数の単位ドライブ番号またはライン番号である。 デバイスのメジャー番号とマイナー番号は、デバイスのconfigureメソッドによって割り当てられ、<a href="https://www.ibm.com/docs/ja/ssw_aix_73/generalprogramming/odm.html" target="_blank" rel="noopener noreferrer">ODM</a>の <a href="https://www.ibm.com/docs/ja/ssw_aix_73/kerneltechref/Customized_DeviceDriver.html" target="_blank" rel="noopener noreferrer">CuDvDr</a>クラスに保持される。</p>
+<p>メジャー番号およびマイナー番号をこのオブジェクト・クラスに定義することは、システムを通してデバイス定義の整合性を保証するのに重要です。</p>
+ <p><span>mknod</span> コマンドの第 2 形式では、<span>p</span> フラグを使用して FIFO パイプラインを作成します。</p>
+</section>
+
+<section><h2>フラグ</h2> <div> 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><span>b</span></td>
+
+<td>特殊ファイルがブロック指向デバイス（ディスク、ディスケット、テープ）であることを示す。</td>
+
+</tr>
+
+<tr>
+<td><span>c</span></td>
+
+<td>特殊ファイルが文字指向デバイス（その他のデバイス）であることを示す。</td>
+
+</tr>
+
+<tr>
+<td><span>p</span></td>
+
+<td>FIFO (名前付きパイプライン) を作成します。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+</section>
+
+<section><h2>セキュリティー</h2> <div><div><div>
+        <div>
+          <div><span>RBAC ユーザーへの注意:</span> このコマンドは特権命令を実行できます。 特権命令を実行できるのは特権ユーザーのみです。 権限と特権の詳細については、<span>セキュリティ</span>の <a href="https://www.ibm.com/docs/ja/ssw_aix_73/security/rbac_priv_cmd_db.html" target="_blank" rel="noopener noreferrer">特権コマンドデータベース</a>を参照してください。 このコマンドに関連する特権と権限のリストについては、'<a href="https://www.ibm.com/docs/ja/ssw_aix_73/l_commands/lssecattr.html" target="_blank" rel="noopener noreferrer"><span>lssecattr</span></a>コマンドまたは'<a href="https://www.ibm.com/docs/ja/ssw_aix_73/g_bostechref/getcmdattr.html" target="_blank" rel="noopener noreferrer"><span>getcmdattr</span></a>サブコマンドを参照のこと。</div>
+        </div>
+      </div></div>
+</div>
+</section>
+
+<section><h2>例</h2>
+<ol>
+<li>新しいディスケット・ドライブのスペシャル・ファイルを作成するには、次のコマンドを入力します。<div><div><pre><code>mknod /dev/fd2  b 1 2</code></pre></div><div></div></div><p>このコマンドによって <span>/dev/fd2</span> スペシャル・ファイルが作成されます。
+このスペシャル・ファイルは、メジャー・デバイス番号が 1、マイナー・デバイス番号が 2 の特殊ブロック・ファイルです。</p>
+</li>
+
+<li>新しいキャラクター・ドライブのスペシャル・ファイルを作成するには、次のコマンドを入力します。<div><div><pre><code>mknod /dev/fc1  c 1 2</code></pre></div><div></div></div><p>このコマンドによって <span>/dev/fc1</span> スペシャル・ファイルが作成されます。
+このスペシャル・ファイルは、メジャー・デバイス番号が 1、マイナー・デバイス番号が 2 の特殊キャラクター・ファイルです。</p>
+</li>
+
+<li>FIFO パイプ・ファイルを作成するには、次のコマンドを入力します。<div><div><pre><code>mknod fifo1 p</code></pre></div><div></div></div><p>このコマンドは、名前が fifo1 の FIFO パイプ・ファイルを作成します。</p>
+</li>
+
+</ol>
+</section>
+
+<section><h2>ファイル</h2> <div> 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><span>/usr/sbin/mknod</span></td>
+
+<td><span>mknod</span>コマンドを含む。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+</section>
+
+</div></div>

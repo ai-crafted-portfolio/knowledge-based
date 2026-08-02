@@ -1,0 +1,176 @@
+<div class="official-dom"><div>
+<section><h2>目的</h2> <p>エラー・ログ・デーモン (<strong>errdemon</strong>) を始動して、エラー・ログにエントリーを書き込みます。</p>
+</section>
+
+<section><h2>構文</h2>
+
+<p><strong>エルデモン</strong> [ [  <a href="https://www.ibm.com/docs/ja/ssw_aix_73/e_commands/errdemon.html#errdemon__row-d3e88332" target="_blank" rel="noopener noreferrer"><strong>-B </strong></a><em>BufferSize </em>]  [  <a href="https://www.ibm.com/docs/ja/ssw_aix_73/e_commands/errdemon.html#errdemon__row-d3e88354" target="_blank" rel="noopener noreferrer"><strong>-d 年</strong></a>  |  <a href="https://www.ibm.com/docs/ja/ssw_aix_73/e_commands/errdemon.html#errdemon__row-d3e88363" target="_blank" rel="noopener noreferrer"><strong>-D</strong></a> ] [  <a href="https://www.ibm.com/docs/ja/ssw_aix_73/e_commands/errdemon.html#errdemon__row-d3e88369" target="_blank" rel="noopener noreferrer"><strong>I</strong></a><em> ファイル </em>]  [  <a href="https://www.ibm.com/docs/ja/ssw_aix_73/e_commands/errdemon.html#errdemon__row-d3e88400" target="_blank" rel="noopener noreferrer"><strong>-s</strong></a><em> LogSize </em>]  [  <a href="https://www.ibm.com/docs/ja/ssw_aix_73/e_commands/errdemon.html#errdemon__row-d3e88422" target="_blank" rel="noopener noreferrer"><strong>T</strong></a> <em>時刻</em> ] [  <a href="https://www.ibm.com/docs/ja/ssw_aix_73/e_commands/errdemon.html#errdemon__smallm" target="_blank" rel="noopener noreferrer"><strong>-m (M)</strong></a> <em>MaxDups</em> ] |  <a href="https://www.ibm.com/docs/ja/ssw_aix_73/e_commands/errdemon.html#errdemon__row-d3e88380" target="_blank" rel="noopener noreferrer"><strong>- </strong></a>] [<a href="https://www.ibm.com/docs/ja/ssw_aix_73/e_commands/errdemon.html#errdemon__bigR" target="_blank" rel="noopener noreferrer"><strong>-R</strong></a> <em>有効化</em> | <em>無効化</em>]</p>
+
+</section>
+
+<section><h2>説明</h2> <p>エラー・ログ・デーモンは、<strong>/dev/error</strong> フィールドからエラー・レコードを読み込んで、システム・エラー・ログ内にエラー・ログ・エントリーを作成します。 このデーモンは、エラーが記録されるたびにシステム・エラー・ログにエントリーを書き込む一方、エラー・ログ・デーモンは、エラー通知データベース内で指定したとおりにエラー通知を実行します。 <strong>/etc/objrepos/errnotify</strong> ファイルは、エラー通知データベースです。 デフォルトのシステム・エラー・ログは、<strong>/var/adm/ras/errlog</strong> ファイル内で保守されます。 最後のエラー・エントリーは、不揮発性ランダム・アクセス・メモリー (NVRAM) に書き込まれます。 システム始動中には、エラー・ログ・デーモンが始動したときに、この最後のエラー・エントリーは NVRAM から読み取られ、エラー・ログに追加されます。</p>
+ <p>エラー・レコード・テンプレートで指定されている場合、エラー・ロギング・デーモンは、ログに記録されたエラーのエラー・ログ・エントリーを作成しません。Log=FALSE.</p>
+ <p>フラグなしでエラー・ロギング・デーモンを使用すると、システムは <a href="https://www.ibm.com/docs/ja/ssw_aix_73/e_commands/errdemon.html#errdemon__row-d3e88507" target="_blank" rel="noopener noreferrer">エラー・ログ構成データベース</a>に保管されている構成値を使用してエラー・ロギング・デーモンを再始動します。 デフォルトでは、<strong>errdemon</strong> デーモンは、
+重複するエラー・ログ・エントリーの記録速度が非常に高速である場合、それらを除去します。 これによって、
+暴走するエラー・ロギングがシステム・パフォーマンスに悪影響を与えるのを防ぐことができます。 重複するエントリーの数は、詳細エラー・レポートで参照することができます。</p>
+ <p><span>PowerHA pureScale</span>エラーロギングが有効になっている場合、エラーログエントリはローカルシステムエラーログに加えて<span>PowerHA pureScale</span>ログストリームにも送信されます。 <span>PowerHA pureScale</span> エラー・ロギング状況およびログ・ストリーム名は、 <a href="https://www.ibm.com/docs/ja/ssw_aix_73/e_commands/errdemon.html#errdemon__row-d3e88507" target="_blank" rel="noopener noreferrer">エラー・ログ構成データベース</a>の <strong>errlg_pscale_enabled</strong> 値および <strong>errlg_pscale_logstream</strong> 値で指定されます。 <span>PowerHA pureScale</span>クライアントファイルセットをシステムにインストールし、<strong>CentralizedLogService</strong>というサービスのバインディング情報を設定する必要があります。 <span>PowerHA pureScale</span> ログ・ストリームとして指定されたログ・スペースおよびログ・ストリーム・オブジェクトが存在している必要があります。</p>
+ <p>システム・エラー・ログからエントリーを除去するには、<strong>errclear</strong> コマンドを使います。</p>
+ <div><div>
+        <div>
+          <div><span>注意:</span> エラー・ロギング・デーモンは通常、システムの初期化中に開始されます。 エラー・ログ・デーモンを停止すると、内部バッファーに一時的に格納されているエラー・データが、エラー・ログ・ファイルに記録される前に上書きされることがあります。</div>
+        </div>
+      </div></div>
+</section>
+
+<section><h2>フラグ</h2> <div> 
+<div><div><table><thead> <tr> <th><div>項目</div></th>
+ <th><div>説明</div></th>
+ </tr>
+ </thead>
+<tbody>
+<tr>
+<td><strong>-B</strong><em> BufferSize</em></td>
+
+<td>エラー・ログ・デバイスのメモリー内バッファーに、<em>BufferSize</em> パラメーターで指定したバイト数を使用します。 指定したバッファー・サイズは、エラー・ログ構成データベースに保存されます。 <em>BufferSize</em> パラメーターが現在使用中のバッファー・サイズよりも大きければ、メモリー内のバッファーのサイズが即座に増加されます。 <em>BufferSize</em> パラメーターが現在使用中のバッファー・サイズよりも小さければ、システムがリブートされた後で次回にエラー・ログ・デーモンが始動されると、新しいサイズが有効になります。 バッファーのサイズとして、ハードコーディングされたデフォルト値の 8KB よりも小さい値を指定することはできません。<p>このパラメーターを指定しないと、エラー・ログ・デーモンはエラー・ログ構成データベースに入っているバッファー・サイズを使用します。</p>
+  <p>指定したサイズは、メモリー・ページ・サイズ (4KB) の倍数の次の整数に繰り上げられます。 エラー・ログ・デバイス・ドライバーのメモリー内バッファーに使用されているメモリーは、他のプロセスでは使用できません。 (バッファーは固定されています。) バッファーを大きくしすぎて、システムのパフォーマンスに影響を与えないように注意してください。 また、バッファーを小さくしすぎると、エラー・エントリーが高速で着信した場合にバッファーから読み込んでログに入れられなくなると、バッファーがいっぱいになることがあります。 バッファーがいっぱいになると、バッファー内のスペースが使用可能になるまで新しいエントリーが破棄されます。 この状況が発生すると、エラー・ログ・デーモンはエラー・ログ・エントリーを作成して、問題をユーザーに通知します。 この問題は、バッファーのサイズを大きくすれば解決できます。</p>
+</td>
+
+</tr>
+
+<tr>
+<td><strong>-d</strong></td>
+
+<td>重複するエラー・ログ・エントリーを除去できないように指定します。 <strong>-D</strong> フラグによって指定されるデフォルトの動作では重複を除去します。</td>
+
+</tr>
+
+<tr>
+<td><strong>-D</strong></td>
+
+<td>重複するエントリーを除去するように指定します。 これはデフォルトです。</td>
+
+</tr>
+
+<tr>
+<td><strong>-i</strong><em> ファイル</em></td>
+
+<td><em>File</em> 変数で指定したエラー・ログ・ファイルを使用します。 指定したファイル名は、エラー・ログ構成データベースに保存され、即座に使用されます。</td>
+
+</tr>
+
+<tr>
+<td><strong>-l</strong></td>
+
+<td>エラー・ログ構成データベースから、エラー・ログ・ファイル名、ファイル・サイズ、
+バッファー・サイズ、および重複処理の値が表示されます。</td>
+
+</tr>
+
+<tr>
+<td><strong>-m</strong><em> MaxDups</em></td>
+
+<td>許可される重複エントリーの最大数を指定します。この数を超えると重複エラーが出ます。 デフォルトは 1000 です。 <em>MaxDups</em> で指定した回数だけエラーが重複すると、
+固有のエラーが記録される場合と同様に、重複エラーが書き込まれます。 <em>MaxDups</em> で許可される値は、1 から 2147483647 です。</td>
+
+</tr>
+
+<tr>
+<td><strong>-R</strong><em> 有効化</em> | <em>無効化</em></td>
+
+<td><span>errpt</span> コマンドを特権ユーザーのみに制限します。 <span><span>-R</span></span> オプションが使用不可の場合、 <span>errpt</span> コマンドはすべてのユーザーが使用できます。 デフォルト値は <span><span>disable</span></span>です。 詳しくは、以下を参照してください。Security<a href="https://www.ibm.com/docs/ja/ssw_aix_73/e_commands/errpt.html" target="_blank" rel="noopener noreferrer"><span>errpt</span></a> コマンドのセクションを参照してください。</td>
+
+</tr>
+
+<tr>
+<td><strong>-s</strong><em> LogSize</em></td>
+
+<td>エラー・ログ・ファイルの最大サイズとして、<em>LogSize</em> 変数で指定したサイズを使用します。 指定したログ・ファイルのサイズ制限は、エラー・ログ構成データベースに保存され、即座に使用されます。 ログ・ファイルのサイズ制限が現在使用中のログ・ファイルのサイズよりも小さければ、エラー・ログ・デーモンはファイル名に <strong>.old</strong> を追加して、現行ログ・ファイルの名前を変更します。 エラー・ログ・デーモンは、指定したサイズ制限を使用して新しいログ・ファイルを作成します。 <strong>errpt</strong> コマンドの <strong>-i</strong> フラグを使用して、
+旧ログ・ファイルからレポートを生成してください。<p>このパラメーターを指定しないと、エラー・ログ・デーモンは、エラー・ログ構成データベースからのログ・ファイル・サイズを使用します。</p>
+</td>
+
+</tr>
+
+<tr>
+<td><strong>T</strong><em> 時刻</em></td>
+
+<td>直前のエラーと同じエラーが発生した場合に、
+それが重複と見なされる時間間隔 (ミリ秒) の概数を指定します。 この時間間隔が経過した後に発生したエラーは、
+直前のエラーと同じであっても重複とは見なされません。 デフォルトの間隔は 10000 または 10 秒です。 Time に使用できる値は 1 から 2147483647 です。<div>
+<div><div>
+        <div>
+          <div><span>注:</span> このフラグは、
+エラー・ロガーが高速で同じエラーを記録する場合は、重複するエントリーを除去します。
+この状態は、通常は、ループ状態に陥っていることを示しています。 エラー通知オブジェクトがある可能性のある重複エラーを、
+すべてキャッチするようにはなっていません。 この値を十分大きくしておくと、エラーが多すぎるときには除去することによって、
+エラー通知を少なくすることができます。 エラー・レポートで重複エラーを除去する方法については、 <a href="https://www.ibm.com/docs/ja/ssw_aix_73/e_commands/errpt.html#errpt" target="_blank" rel="noopener noreferrer"><strong>エラー</strong></a> コマンドを参照してください。</div>
+        </div>
+      </div></div>
+
+</div>
+</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+</section>
+
+<section><h2>例</h2> <ol>
+<li>エラー・ログ・デーモンを始動するには、次のように入力します。<div> <div><div><pre><code>/usr/lib/errdemon</code></pre></div><div></div></div></div>
+</li>
+
+<li>現行の最大エラー・ログ・サイズを表示するには、次のように入力します。<div> <div><div><pre><code>/usr/lib/errdemon -l</code></pre></div><div></div></div></div>
+</li>
+
+<li>現行の最大エラー・ログ・サイズを 1MB から 64KB に変更するには、次のように入力します。<div> <div><div><pre><code>/usr/lib/errdemon -s 65536</code></pre></div><div></div></div></div>
+</li>
+
+<li>ここ 10 ミリ秒以内に記録されるエラーだけを重複と見なすには、次のように入力します。<div> <div><div><pre><code>/usr/lib/errdemon -t 10</code></pre></div><div></div></div></div>
+</li>
+
+</ol>
+</section>
+
+<section><h2>ファイル</h2> <div> 
+<div><div><table><thead> <tr> <th><div>項目</div></th>
+ <th><div>説明</div></th>
+ </tr>
+ </thead>
+<tbody>
+<tr>
+<td><strong>/dev/error</strong></td>
+
+<td>エラー・レコードのソース。</td>
+
+</tr>
+
+<tr>
+<td><strong>/var/adm/ras/errtmplt</strong></td>
+
+<td>エラー・テンプレート・リポジトリーが入っています。</td>
+
+</tr>
+
+<tr>
+<td><strong>/usr/lib/errdemon</strong></td>
+
+<td><strong>errdemon</strong> デーモンが入っています。</td>
+
+</tr>
+
+<tr>
+<td><strong>/etc/objrepos/SWservAt</strong></td>
+
+<td>エラー・ログ構成データベースであるソフトウェア保守援助プログラム属性オブジェクト・クラスが入っています。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+</section>
+
+</div></div>

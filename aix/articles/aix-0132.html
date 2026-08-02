@@ -1,0 +1,356 @@
+<div class="official-dom"><div>
+<section><h2>目的</h2> <p>ブート・イメージを作成します。</p>
+</section>
+
+<section><h2>構文</h2><p><strong>一般使用の場合:</strong></p>
+ <p><strong>bosboot-</strong><em>アクション</em> [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/b_commands/bosboot.html#bosboot__row-d3e59073" target="_blank" rel="noopener noreferrer"><strong>-d </strong></a><em>Device</em> ] [ <strong>-</strong><em> オプション</em> ...]</p>
+<p><strong>デバイス・ブート・イメージを作成する場合</strong></p>
+ <p><strong>ボスブート</strong> {<a href="https://www.ibm.com/docs/ja/ssw_aix_73/b_commands/bosboot.html#bosboot__row-d3e59088" target="_blank" rel="noopener noreferrer"><strong>-a 値</strong></a> <a href="https://www.ibm.com/docs/ja/ssw_aix_73/b_commands/bosboot.html#bosboot__row-d3e59094" target="_blank" rel="noopener noreferrer"><strong>-v (V)</strong></a>} [<a href="https://www.ibm.com/docs/ja/ssw_aix_73/b_commands/bosboot.html#bosboot__row-d3e59073" target="_blank" rel="noopener noreferrer"><strong>-d 年 </strong></a><em>装置</em>] [<a href="https://www.ibm.com/docs/ja/ssw_aix_73/b_commands/bosboot.html#bosboot__row-d3e59187" target="_blank" rel="noopener noreferrer"><strong>P- </strong></a><em>プロトタイプ</em>] [<a href="https://www.ibm.com/docs/ja/ssw_aix_73/b_commands/bosboot.html#bosboot__row-d3e59128" target="_blank" rel="noopener noreferrer"><strong>-k (K) </strong></a><em>カーネル</em>] [<a href="https://www.ibm.com/docs/ja/ssw_aix_73/b_commands/bosboot.html#bosboot__row-d3e59121" target="_blank" rel="noopener noreferrer"><strong>-I (I)</strong></a>|<a href="https://www.ibm.com/docs/ja/ssw_aix_73/b_commands/bosboot.html#bosboot__row-d3e59115" target="_blank" rel="noopener noreferrer"><strong>-D</strong></a>] [<a href="https://www.ibm.com/docs/ja/ssw_aix_73/b_commands/bosboot.html#bosboot__row-d3e59145" target="_blank" rel="noopener noreferrer"><strong>- </strong></a><em>LVDEV</em>] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/b_commands/bosboot.html#bosboot__row-d3e59139" target="_blank" rel="noopener noreferrer"><strong>-L (L)</strong></a>] [<a href="https://www.ibm.com/docs/ja/ssw_aix_73/b_commands/bosboot.html#bosboot__row-d3e59154" target="_blank" rel="noopener noreferrer"><strong>-M (M) </strong></a>{ <em>1 次</em>| <em>スタンバイ</em>|<em>両方</em> }] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/b_commands/bosboot.html#bosboot__row-d3e59201" target="_blank" rel="noopener noreferrer"><strong>-T (T)</strong></a><em> タイプ</em>] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/b_commands/bosboot.html#bosboot__row-d3e59107" target="_blank" rel="noopener noreferrer"><strong>-b (B) </strong></a><em>FileName</em> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/b_commands/bosboot.html#bosboot__row-d3e59195" target="_blank" rel="noopener noreferrer"><strong>-q (Q)</strong></a>]</p>
+</section>
+
+<section><h2>説明</h2> <p><strong>bosboot</strong> コマンドは、マシン・ブートの ROS (読み取り専用記憶機構) EPROM (消去可能プログラマブル読み取り専用メモリー) とインターフェースをとるブート・イメージを作成します。</p>
+ <p><strong>bosboot</strong> コマンドは、
+RAM (ランダム・アクセス・メモリー) ディスク・ファイルシステムとカーネルから、
+ブート・ファイル (ブート・イメージ) を作成します。 作成されたブート・イメージは、ROS ブート・コードが認識する特定のメディアに転送されます。 マシンの電源を入れるかリブートすると、
+ROS ブート・コードはそのメディアのブート・イメージをメモリーにロードします。 ROS は次に、ロードしたイメージのカーネルに制御を移します。</p>
+ <p>関連する RAM ディスク・ファイルシステムには、マシンのデバイスやファイルシステムを使用可能にするデバイス構成ルーチンが入っています。 RAM ディスク・ファイルシステムには、ブート・デバイスに応じて異なる構成ファイルが入っています。 デバイスのタイプごとに <strong>mkfs</strong> プロトタイプ・ファイルが用意されています (注 6 を参照)。 (下記の注 6 を参照してください。) 現在サポートされているデバイスは次のとおりです。</p>
+ <ul>
+<li>CD-ROM</li>
+
+<li>ディスク</li>
+
+<li>テープ</li>
+
+<li>ネットワーク</li>
+
+</ul>
+ <p>ローカル・エリア・ネットワーク (LAN) を介して、
+ネットワーク・ブート・サーバーからブートするには、ネットワーク・デバイスとしてトークンリング、
+イーサネット、またはファイバー分散データ・インターフェース (FDDI) を使用できます。</p>
+ <p>ブート・イメージは、ブートされるデバイスのタイプごとに異なり、
+メディアに適合させるためと実メモリーの必要量を減らすために圧縮されます。 ブート論理ボリュームは、ブート・イメージが入る大きさでなければなりません。</p>
+ <p><strong>bosboot</strong> コマンドは、ブート・イメージを作成するだけでなく、
+常にディスクのデバイス構成データを保存します。 このコマンドは、NVRAM (不揮発性ランダム・アクセス・メモリー) 内のブート・デバイスのリストは更新しません。 <strong>bootlist</strong> コマンドを使用すると、このリストを変更できます。</p>
+ <p><strong>bosboot</strong> コマンドは通常、
+基本オペレーティング・システムのインストール時に呼び出され、また、
+オペレーティング・システムのアップグレード時に <strong>updatep</strong> コマンドによって呼び出されます。</p>
+ <div><div>
+        <div>
+          <div><span>注:</span><ol>
+<li><strong>bosboot</strong> コマンドを使用するには、
+root ユーザー権限が必要です。</li>
+
+<li>ブート・ディスクの作成中に <strong>bosboot</strong> コマンドが失敗し、
+マシンをリブートしないようにというメッセージが表示された場合は、
+マシンをリブートしないでください。 問題を解決してから、<strong>bosboot</strong> コマンドを正常終了させる必要があります。</li>
+
+<li><strong>bosboot</strong> コマンドは、
+<strong>/tmp</strong> ファイルシステム内にある程度のスペースを必要とします。
+また、ターゲット・イメージが存在する場合は、
+ターゲット・イメージを格納するファイルシステム内にもスペースを必要とします。</li>
+
+<li><strong>bosboot</strong> コマンドでは、
+指定した物理ディスクにブート論理ボリュームが入っている必要があります。 指定するディスク・デバイスを決定するには、次のコマンドを入力します。<div> <div><div><pre><code>lsvg -M rootvg</code></pre></div><div></div></div>このコマンドを実行すると、すべての論理ボリュームのマップが表示されます。 デフォルトのブート論理ボリュームは <strong>hd5</strong> です。 ブート論理ボリュームが入っているディスク・デバイスを使用してください。</div>
+</li>
+
+<li><strong>-d</strong> フラグでデバイスを指定しないと、
+<strong>bosboot</strong> コマンドは、システムのブート元のディスクがデフォルト・デバイスであると見なします。 ただし、<strong>-p</strong> フラグでプロトタイプ・ファイルを指定する場合は、<strong>-d</strong> フラグでデバイスも指定する必要があります。</li>
+
+<li>RAM ディスク・ファイルシステムを構築するために <strong>bosboot</strong> コマンドが使用するプロトタイプ・ファイルは、
+ブート・デバイスと、ブート・イメージを実行するマシンのハードウェア・プラットフォーム (<strong>sys0</strong>) タイプによって決まります。<p>ハードウェア・プラットフォーム・タイプは、プロセッサーの数や入出力バス構造 (または、その両方)
+などの基本構成上の特性に従ってマシンをグループ分けするための抽象概念です。 マシンのハードウェア・プラットフォーム・タイプが異なると、ブート時にデバイスを動的に設定する方法が基本的に異なります。 <span>AIX 5.1</span>およびそれ以前のハードウェア・プラットフォーム・タイプ<strong>rs6k</strong>は、<span>AIX 5.1</span>までのすべてのマイクロ・チャネル・ベースのユニ・プロセッサ・モデルのみに適用されます。 タイプ <strong>rs6ksmp</strong> は、 <span>AIX 5.1</span> を介したすべての Micro Channel ベースの対称マルチプロセッサー・モデルにのみ適用されます。 <span>AIX 5.1</span> 以前のタイプ <strong>rspc</strong> は、すべての ISA バス・モデルに適用されます。 新しいモデルが開発されると、そのハードウェア・プラットフォーム・タイプは上記のタイプのいずれかが、基本構成に相違がある場合は新しいタイプが定義されます。 マシンのハードウェア・プラットフォーム・タイプが異なると、一般に、個々のデバイス・タイプのブート・イメージが異なります。</p>
+ <div><strong>bosboot</strong> が使用するプロトタイプ・ファイルは、
+該当するプラットフォーム・タイプおよびブート・デバイス用の基本プロトタイプ・ファイル (例えば
+<strong>/usr/lib/boot/chrp.disk.proto</strong>) のコピーを使って始動することによって作成されます。 <strong>bosboot</strong> コマンドは次に、使用しているプラットフォーム・タイプの
+<strong>pcfg</strong> ファイル (例えば、<strong>/usr/lib/boot/chrp.pcfg</strong>) を調べます。 <strong>pcfg</strong> ファイルには、bosboot が proto 拡張ファイルを検索するためにテンプレート内で使用するエントリーが入っています。 これらの拡張ファイルは、ディレクトリー <strong>/usr/lib/boot/protoext</strong> 内にあり、作成中のプロトタイプ・ファイルに拡張機能を提供します。 例えば、プラットフォーム・タイプが <strong>chrp</strong> でブート・デバイスが<strong>ディスク
+</strong>の場合、ファイル <strong>/usr/lib/boot/protoext/chrp.pcfg</strong> には次のエントリーが入ります。<div><div><pre><code>scsi.
+chrp.
+chrp_lpar.
+fcp.
+graphics.
+ide.
+isa_sio.
+pci.
+ssa.
+sys.pci.
+tty.
+usbif.</code></pre></div><div></div></div><strong>bosboot</strong> コマンドは、始動時に基本プロトタイプ・ファイル
+<strong>/usr/lib/boot/chrp.disk.proto</strong> を使用し、ディレクトリー
+<strong>/usr/lib/boot/protoext</strong> を検索してテンプレート
+<strong>disk.proto.ext.scsi.*</strong> と一致するファイルを探します。 見つかったファイルの内容が、作成中のプロトタイプ・ファイルに追加されます。 次に、テンプレート <strong>/usr/lib/boot/protoext/disk.proto.ext.scsi.*</strong> に一致するファイルの内容 作成中のプロトタイプ・ファイルに追加されます。 この動作が、<strong>pcfg</strong> ファイル内のすべての行を処理し終えるまで続けられます。 すべての行の処理が終わった時点で、作成中のプロトタイプ・ファイルは完成します。 <strong>bosboot</strong> コマンドはこのプロトタイプ・ファイルを <strong>mkfs</strong> コマンドに渡し、そこで RAM ディスク・ファイルシステムが構築されます。</div>
+ </li>
+
+<li>ブート・イメージを作成するために BOSBOOT コマンドが使用するプロトタイプ・ファイルは、
+ブート・デバイスに依存します。 さらに、プロトタイプ・ファイルはブート・イメージを作成するマシンのシステム・デバイス・タイプ (sys0) にも依存します。<p>これは、次のように、プロトタイプ・ファイルの名前に反映されます。</p>
+  <p><strong>/usr/lib/boot/chrp.disk.proto</strong></p>
+  <p><strong>/usr/lib/boot/chrp.cd.proto</strong></p>
+  <p><strong>/usr/lib/boot/chrp.tape.proto</strong></p>
+  <p><strong>/usr/lib/boot/network/chrp.ent.proto</strong></p>
+  <p><strong>/usr/lib/boot/network/chrp.tok.proto</strong></p>
+  <p><strong>/usr/lib/boot/network/chrp.atm.proto</strong></p>
+  <p><strong>/usr/lib/boot/network/chrp.fddi.proto</strong></p>
+  <p>システム・デバイス・タイプは、プロセッサーの数や入出力バス構造 (または、その両方) などの基本的な設定上の特性に従ってマシンをグループ分けするための抽象概念です。 システム・デバイスは、システム・ノード内の最上位のデバイスで、システム内の全物理デバイスで構成されます。</p>
+ <p>マシンのシステム・デバイス・タイプが異なると、ブート時にデバイスを動的に設定する方法が基本的に異なります。</p>
+ <p><strong>bosboot</strong> コマンドは、デフォルトでは、コマンドを実行するマシンのシステム装置タイプと一致するプロトタイプ・ファイルを使用します。 -p オプションを使用すると、プロトタイプ・ファイルのシステム・デバイス・タイプを指定できます。</p>
+</li>
+
+<li>実行中のシステムからブート・ディスクが削除され、そのディスクの代替コピーからシステム操作を行う状態のままにした場合、<strong>bosboot</strong> コマンドを実行するときにエラー・メッセージが表示されることがあります。 エラー・メッセージには、ブート論理ボリュームがディスク上に存在していないと表示されます。 これは、<strong> bosboot</strong> コマンドが <em>-d</em> 引数を指定せずに呼び出されると、システムが最後にブートしたディスクがデフォルトになるためです。 このシナリオでは、そのディスクが使用可能でないので、<strong>bosboot</strong> コマンドを <em>-d</em> 引数付きで呼び出して、ブート論理ボリュームのディスク名が存在するようにしておく必要があります。 これにより、ブート・イメージの新しい位置を識別するのに必要な情報が <strong>bosboot</strong> コマンドに提供されます。</li>
+
+</ol>
+ </div>
+        </div>
+      </div></div>
+</section>
+
+<section><h2>フラグ</h2> <div> 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><strong>-d</strong><em> デバイス</em></td>
+
+<td>ブート・デバイスを指定します。 このフラグは、ハード・ディスクの場合はオプションです。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+ <p>次に示すフラグはアクション・フラグです。 必ず 1 つだけフラグを指定してください。</p>
+ 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><strong>-a</strong></td>
+
+<td>完全なブート・イメージおよびデバイスを作成します。</td>
+
+</tr>
+
+<tr>
+<td><strong>-v</strong></td>
+
+<td>検査しますが、ブート・イメージは作成しません。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+ <p>次に示すフラグはオプション・フラグです。</p>
+ 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><strong>-b</strong><em> FileName</em></td>
+
+<td>指定されたファイル名をブート・イメージ名として使用します。 このフラグはオプションです。</td>
+
+</tr>
+
+<tr>
+<td><strong>-D</strong></td>
+
+<td>ロー・レベル・デバッガーをロードします。 このフラグはオプションです。</td>
+
+</tr>
+
+<tr>
+<td><strong>-I</strong> (大文字の i)</td>
+
+<td>低レベル・デバッガーをロードし、起動します。 このフラグはオプションです。</td>
+
+</tr>
+
+<tr>
+<td><strong>-k</strong><em> カーネル</em></td>
+
+<td>指定されたカーネル・ファイルをブート・イメージ用に使用します。 このフラグはオプションで、
+指定されていない場合、<strong>/unix</strong> がデフォルトです。</td>
+
+</tr>
+
+<tr>
+<td><strong>-L</strong></td>
+
+<td>MP システム用のロック機能を有効にします。 MP カーネルを使用していないシステムでは、このフラグを指定しても効果はありません。</td>
+
+</tr>
+
+<tr>
+<td><strong>-l</strong> (小文字の L) <em>LVDev</em></td>
+
+<td>ブート・イメージにターゲット・ブート論理ボリュームを使用します。 このフラグはオプションです。</td>
+
+</tr>
+
+<tr>
+<td><strong>-M </strong><em>1 次</em>|<em>スタンバイ</em>|<em>両方</em></td>
+
+<td>更新するブート・ポインター・テーブル・エントリーを指定します。 オプションは以下のとおりです。<dl>
+<dt><strong>1 次</strong></dt>
+
+<dd>最後に使用したテーブル・エントリーを指定します。</dd>
+
+
+<dt><strong>スタンバイ</strong></dt>
+
+<dd>最後に使用したのではないテーブル・エントリーを指定します。</dd>
+
+
+<dt><strong>両方</strong></dt>
+
+<dd>両方のブート・ポインター・テーブル・エントリーを指定します。</dd>
+
+</dl>
+</td>
+
+</tr>
+
+<tr>
+<td><strong>-p</strong><em> プロト</em></td>
+
+<td>指定されたプロトタイプ・ファイルを RAM ディスク・ファイルシステムに使用します。 このフラグはオプションです。</td>
+
+</tr>
+
+<tr>
+<td><strong>-q</strong></td>
+
+<td>ファイルシステムがブート・イメージを作成するために必要とするディスク・スペースの大きさを判別します。 ブート・イメージは作成されません。 このフラグはオプションです。</td>
+
+</tr>
+
+<tr>
+<td><strong>-T</strong><em> タイプ</em></td>
+
+<td>ハードウェア・プラットフォーム・タイプ (注 6 を参照) を指定します。 このフラグを指定すると、<strong>bosboot</strong> コマンドは、指定されたハードウェア・プラットフォーム・タイプ用のブート・イメージを作成します。 タイプを指定しないと、<strong>bosboot</strong> コマンドは、現在実行中のマシンと同じハードウェア・プラットフォーム・タイプのブート・イメージを作成します。 このフラグはオプションです。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</section>
+
+<section><h2>セキュリティー</h2> <p>アクセス制御: root ユーザーだけがこのコマンドを読み取り、実行できます。</p>
+</section>
+
+<section><h2>例</h2> <ol>
+<li>システムのブート元の固定ディスク上のデフォルトのブート論理ボリュームにブート・イメージを作成するには、
+次のように入力します。<div> <div><div><pre><code>bosboot -a</code></pre></div><div></div></div></div>
+</li>
+
+<li>テープ・デバイス用に <strong>/tmp/tape.bootimage</strong> というブート可能なイメージを作成するには、
+次のように入力します。<div> <div><div><pre><code>bosboot -ad /dev/rmt0 -b /tmp/tape.bootimage</code></pre></div><div></div></div></div>
+</li>
+
+<li>イーサネットをブートするためのブート・イメージ・ファイルを作成するには、次のように入力します。<div> <div><div><pre><code>bosboot -ad /dev/ent0</code></pre></div><div></div></div></div>
+</li>
+
+<li>ハードウェア・プラットフォーム・タイプが <strong>chrp</strong> のマシンで実行中に、
+ハードウェア・プラットフォーム・タイプが <strong>chrp</strong> のマシン用のトークンリング・ブート・イメージを作成するには、
+次のように入力します。<div> <div><div><pre><code>bosboot -ad /dev/tok -T chrp</code></pre></div><div></div></div></div>
+</li>
+
+</ol>
+</section>
+
+<section><h2>ファイル</h2> <div> 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><strong>/usr/sbin/mkboot</strong></td>
+
+<td>ブート作成ルーチンを指定します。</td>
+
+</tr>
+
+<tr>
+<td><strong>/usr/lib/boot/chrp.disk.proto</strong></td>
+
+<td>ディスク RAM ファイルシステムのテンプレートを指定します。</td>
+
+</tr>
+
+<tr>
+<td><strong>/usr/lib/boot/chrp.cd.proto</strong></td>
+
+<td>CD-ROM RAM ファイルシステムのテンプレートを指定します。</td>
+
+</tr>
+
+<tr>
+<td><strong>/usr/lib/boot/chrp.tape.proto</strong></td>
+
+<td>テープ RAM ファイルシステムのテンプレートを指定します。</td>
+
+</tr>
+
+<tr>
+<td><strong>/usr/lib/boot/network/chrp.ent.proto</strong></td>
+
+<td>イーサネット RAM ファイルシステムのテンプレートを指定します。</td>
+
+</tr>
+
+<tr>
+<td><strong>/usr/lib/boot/network/chrp.tok.proto</strong></td>
+
+<td>トークンリング RAM ファイルシステムのテンプレートを指定します。</td>
+
+</tr>
+
+<tr>
+<td><strong>/usr/lib/boot/network/chrp.atm.proto</strong></td>
+
+<td>ATM ファイルシステムのテンプレートを指定します。</td>
+
+</tr>
+
+<tr>
+<td><strong>/usr/lib/boot/network/chrp.fddi.proto</strong></td>
+
+<td>FDDI RAM ファイルシステムのテンプレートを指定します。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+ </div>
+</section>
+
+</div></div>

@@ -1,0 +1,98 @@
+<div class="official-dom"><div>
+<section><h2>目的</h2> <p><strong>/etc/vfs</strong> ファイル内のエントリーを変更します。</p>
+</section>
+
+<section><h2>構文</h2> <p><strong>chvfs</strong><em> VFSEntry</em></p>
+</section>
+
+<section><h2>説明</h2> <p><strong>chvfs</strong> コマンドは、 <em>VFSEntry</em> パラメーター内に以下のフィールドを指定することによって、 <strong>/etc/vfs</strong> ファイル・エントリーを変更します。 <em>VFSEntry</em>パラメーターは以下のフィールドで構成される： '<em>VFS名</em>'<strong>:</strong>'<em>VFS番号</em>'<strong>:</strong>'<em>マウントヘルパー</em>'<strong>:</strong>'<em>ファイルシステムヘルパー</em>.</p>
+ <p><em>VFSEntry</em> 内のエントリーは、<em>VFSName</em> フィールドを除き、
+いずれも null (空) でかまいません。また、対応する値は変更されません。 引数がすべて適正であれば、<strong>/etc/vfs</strong> ファイルのエントリーが変更されます。</p>
+</section>
+
+<section><h2>パラメーター</h2> <div> 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><em>VFSEntry (VFSEntry)</em></td>
+
+<td>以下のフォーマットの文字列です。<em>VFSName</em><strong>:</strong><em>VFSNumber</em><strong>:</strong><em>MountHelper</em><strong>:</strong><em>FileSystemHelper</em></td>
+
+</tr>
+
+<tr>
+<td><em>VFSName (VFSName)</em></td>
+
+<td>仮想ファイルシステムのタイプ名を指定します。</td>
+
+</tr>
+
+<tr>
+<td><em>vfsNumber</em></td>
+
+<td>カーネルにより認識される仮想ファイルシステム・タイプの内部番号を指定します。</td>
+
+</tr>
+
+<tr>
+<td><em>MountHelper</em></td>
+
+<td>指定したタイプのファイルシステムをマウントする時に使用するバックエンド名を指定します。</td>
+
+</tr>
+
+<tr>
+<td><em>FileSystemHelper</em></td>
+
+<td>指定したタイプのファイルシステム上で操作を実行するために、
+ファイルシステム特有のコマンドによって使用されるバックエンド名を指定します。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+</section>
+
+<section><h2>セキュリティー</h2> <p><strong>RBAC ユーザーへの注意</strong>: このコマンドは特権命令を実行できます。 特権命令を実行できるのは特権ユーザーのみです。 権限および特権について詳しくは、「<em>セキュリティー</em>」の『特権コマンド・データベース』を参照してください。 このコマンドに関連した特権および権限のリストについては、<strong>lssecattr</strong> コマンドまたは <strong>getcmdattr</strong> サブコマンドの項を参照してください。</p>
+</section>
+
+<section><h2>例</h2> <p>というvfsエントリーの<em>FileSystemHelper</em>を変更するnewvfs次のように入力します。</p>
+ <div> <div><div><pre><code>chvfs "newvfs:::/etc/helper/testhelper"</code></pre></div><div></div></div></div>
+ <p>指定のないパラメーターは変更されないままです。</p>
+</section>
+
+<section><h2>ファイル</h2> <div> 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><strong>/etc/vfs</strong></td>
+
+<td>仮想ファイルシステムのタイプに関する記述が入っています。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+</section>
+
+</div></div>

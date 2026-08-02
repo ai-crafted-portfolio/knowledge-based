@@ -1,0 +1,231 @@
+<div class="official-dom"><div>
+<section><h2>目的</h2> <p>トンネル定義を変更します。</p>
+</section>
+
+<section><h2>構文</h2> <p><strong>チューン</strong> <a href="https://www.ibm.com/docs/ja/ssw_aix_73/c_commands/chtun.html#chtun__row-d3e112407" target="_blank" rel="noopener noreferrer"><strong>T</strong></a> <em>トンネル ID (tunnel_ID)</em> <a href="https://www.ibm.com/docs/ja/ssw_aix_73/c_commands/chtun.html#chtun__row-d3e112438" target="_blank" rel="noopener noreferrer"><strong>-v (V)</strong></a> <strong>{4|6}</strong> [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/c_commands/chtun.html#chtun__row-d3e112399" target="_blank" rel="noopener noreferrer"><strong>-s</strong></a> <em>src_host_IP_address (ソース・ホスト IP_address)</em>] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/c_commands/chtun.html#chtun__row-d3e112207" target="_blank" rel="noopener noreferrer"><strong>-d 年</strong></a> <em>dst_host_IP_address</em>] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/c_commands/chtun.html#chtun__row-d3e112320" target="_blank" rel="noopener noreferrer"><strong>-m (M)</strong></a> <em>パッケージ・モード</em>] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/c_commands/chtun.html#chtun__row-d3e112246" target="_blank" rel="noopener noreferrer"><strong>「-f」</strong></a> <em>FW アドレス</em> [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/c_commands/chtun.html#chtun__row-d3e112450" target="_blank" rel="noopener noreferrer"><strong>-x (X)</strong></a> <em>標準マスク</em>]] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/c_commands/chtun.html#chtun__row-d3e112232" target="_blank" rel="noopener noreferrer"><strong>-e (E)</strong></a> <em>ソース・スペースの期間</em>] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/c_commands/chtun.html#chtun__row-d3e112137" target="_blank" rel="noopener noreferrer"><strong>-a 値</strong></a> <em>src_ah_algo]</em>] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/c_commands/chtun.html#chtun__row-d3e112379" target="_blank" rel="noopener noreferrer"><strong>P-</strong></a> <em>ソース・ポリシー</em>] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/c_commands/chtun.html#chtun__row-d3e112215" target="_blank" rel="noopener noreferrer"><strong>-E (E)</strong></a> <em>dst_esp_algo</em>] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/c_commands/chtun.html#chtun__row-d3e112120" target="_blank" rel="noopener noreferrer"><strong>-A</strong></a> <em>dst_ah_algo]</em>] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/c_commands/chtun.html#chtun__row-d3e112356" target="_blank" rel="noopener noreferrer"><strong>-P</strong></a> <em>標準ポリシー</em>] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/c_commands/chtun.html#chtun__row-d3e112298" target="_blank" rel="noopener noreferrer"><strong>-</strong></a> <em>存続時間</em>] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/c_commands/chtun.html#chtun__row-d3e112290" target="_blank" rel="noopener noreferrer"><strong>-k (K)</strong></a> <em>ソース・スペース・キー</em>] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/c_commands/chtun.html#chtun__row-d3e112274" target="_blank" rel="noopener noreferrer"><strong>-h</strong></a> <em>ソース・キー (src_ah_key)</em>] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/c_commands/chtun.html#chtun__row-d3e112282" target="_blank" rel="noopener noreferrer"><strong>-K (K)</strong></a> <em>DST 期間キー</em>] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/c_commands/chtun.html#chtun__row-d3e112265" target="_blank" rel="noopener noreferrer"><strong>-H</strong></a> <em>DST HHK</em>] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/c_commands/chtun.html#chtun__row-d3e112345" target="_blank" rel="noopener noreferrer"><strong>N</strong></a> <em>ソース・スペース・スペース</em>] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/c_commands/chtun.html#chtun__row-d3e112427" target="_blank" rel="noopener noreferrer"><strong>-ウー</strong></a> <em>SRC_H_SPI</em>] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/c_commands/chtun.html#chtun__row-d3e112334" target="_blank" rel="noopener noreferrer"><strong>-N (N)</strong></a> <em>dst_esp_spi</em>] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/c_commands/chtun.html#chtun__row-d3e112416" target="_blank" rel="noopener noreferrer"><strong>-U (U)</strong></a> <em>DST の HI</em>] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/c_commands/chtun.html#chtun__row-d3e112168" target="_blank" rel="noopener noreferrer"><strong>-b</strong></a> <em>ソース・エンコード・マクロ・アルゴリズム</em>] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/c_commands/chtun.html#chtun__row-d3e112196" target="_blank" rel="noopener noreferrer"><strong>「-c」</strong></a> <em>ソース・エンコード・キー</em>] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/c_commands/chtun.html#chtun__row-d3e112151" target="_blank" rel="noopener noreferrer"><strong>-B</strong></a> <em>dst_enc_mac_algo</em>] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/c_commands/chtun.html#chtun__row-d3e112185" target="_blank" rel="noopener noreferrer"><strong>-C</strong></a> <em>dst_enc_mac_key</em>]</p>
+</section>
+
+<section><h2>説明</h2> <p><strong>chtun</strong> コマンドを使用して、ローカル・ホストとトンネル・パートナー・ホストとの間のトンネルの定義を変更します。 フラグが指定されなければ、<strong>gentun</strong> コマンドで指定した値がそのフィールドの値として使われます。 このコマンドは、<strong>gentun</strong> コマンドによってトンネルのために作成された、自動生成されたフィルター・ルールも変更します。</p>
+</section>
+
+<section><h2>フラグ</h2> <div> 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><strong>-A</strong> <em>dst_ah_algo]</em></td>
+
+<td>(<strong>手動</strong>トンネルのみ) IP パケット暗号化用に宛先によって使用される認証アルゴリズム。 <strong>-a</strong> の有効な値は、ホストにインストールされている認証アルゴリズムによって異なります。 <strong>ipsecstat -A</strong> コマンドを出せば、すべての認証アルゴリズムのリストを表示することができます。</td>
+
+</tr>
+
+<tr>
+<td><strong>-a</strong><em> src_ah_algo】。］</em></td>
+
+<td>IP パケット確認のために送信元ホストが使用する認証アルゴリズム。 <strong>-a</strong> の有効な値は、ホストにインストールされている認証アルゴリズムによって異なります。 <strong>ipsecstat -A</strong> コマンドを出せば、すべての認証アルゴリズムのリストを表示することができます。</td>
+
+</tr>
+
+<tr>
+<td><strong>-B</strong><em> dst_enc_mac_algo</em></td>
+
+<td>(<strong>manual</strong> トンネルのみ) 宛先 ESP の認証アルゴリズムです (新しいヘッダー・フォーマットのみ)。 <strong>-b</strong> の有効な値は、ホストにインストールされている認証アルゴリズムによって異なります。 <strong>ipsecstat -A</strong> コマンドを出せば、すべての認証アルゴリズムのリストを表示することができます。</td>
+
+</tr>
+
+<tr>
+<td><strong>-b</strong><em> src_enc_mac_algo</em></td>
+
+<td>(<strong>manual</strong> トンネルのみ) 送信元 ESP の認証アルゴリズムです (新しいヘッダー・フォーマットのみ)。 <strong>-b</strong> の有効な値は、ホストにインストールされている認証アルゴリズムによって異なります。 <strong>ipsecstat -A</strong> コマンドを出せば、すべての認証アルゴリズムのリストを表示することができます。</td>
+
+</tr>
+
+<tr>
+<td><strong>-C</strong><em> dst_enc_mac_key</em></td>
+
+<td>(<strong>manual</strong> トンネルのみ) 宛先 ESP の認証キーです (新しいヘッダー・フォーマットのみ)。 「0x」で始まる 16 進数文字列でなければなりません。</td>
+
+</tr>
+
+<tr>
+<td><strong>-c</strong><em> src_enc_mac_key</em></td>
+
+<td>(<strong>manual</strong> トンネルのみ) 送信元 ESP の認証キーです (新しいヘッダー・フォーマットのみ)。 この値は「0x」で始まる 16 進文字列でなければなりません。</td>
+
+</tr>
+
+<tr>
+<td><strong>-d</strong><em> dst_host_IPアドレス</em></td>
+
+<td>宛先ホストの IP アドレス。 ホスト間トンネルの場合には、この値は、トンネルが使用する宛先ホスト・インターフェースの IP アドレスです。 ホスト、ファイアウォールおよびホストの間のトンネルの場合には、これは、ファイアウォールの後ろにある宛先ホストの IP アドレスです。 ホスト名も有効であり、そのホスト名に対してネームサーバーが最初に返す IP アドレスが使用されます。</td>
+
+</tr>
+
+<tr>
+<td><strong>-E</strong><em> dst_esp_algo</em></td>
+
+<td>(<strong>手動</strong>トンネルのみ) IP パケット暗号化のために宛先によって使用される暗号化アルゴリズム。 <strong>-e</strong> の有効な値は、ホストにインストールされている暗号化アルゴリズムによって異なります。 すべての暗号化アルゴリズムのリストを表示するには、<strong>ipsecstat -E</strong> コマンドを発行します。</td>
+
+</tr>
+
+<tr>
+<td><strong>-e</strong><em> src_esp_algo</em></td>
+
+<td>IP パケット暗号化のために送信元ホストが使用する暗号化アルゴリズム。 <strong>-e</strong> の有効な値は、ホストにインストールされている暗号化アルゴリズムによって異なります。 <strong>ipsescstat -E</strong> コマンドを出せば、すべての暗号化アルゴリズムのリストを表示することができます。</td>
+
+</tr>
+
+<tr>
+<td><strong>-f</strong><em> fw_address</em></td>
+
+<td>送信元ホストと宛先ホスト間にあるファイアウォールの IP アドレス。 送信元とファイアウォールとの間にトンネルが確立されます。 そのため、ファイアウォール・ホストで対応するトンネル定義を作成する必要があります。 このフラグによってホスト名を指定することもでき、そのホスト名に対してネームサーバーが最初に返す IP アドレスが使用されます。<p><strong>-f</strong> を指定した場合には、<strong>-m</strong> フラグは強制的にデフォルトの値 (<strong>tunnel</strong>) を使用することになります。</p>
+</td>
+
+</tr>
+
+<tr>
+<td><strong>-H</strong><em> dst_ah_key</em></td>
+
+<td>宛先 AH のキー文字列。 この入力は「0x」で始まる 16 進文字列でなければなりません。</td>
+
+</tr>
+
+<tr>
+<td><strong>-h</strong><em> src_ah_key</em></td>
+
+<td>送信元 AH のキー文字列。 この入力は「0x」で始まる 16 進文字列でなければなりません。</td>
+
+</tr>
+
+<tr>
+<td><strong>-K</strong><em> dst_esp_key</em></td>
+
+<td>宛先 ESP のキー文字列。 この入力は「0x」で始まる 16 進文字列でなければなりません。</td>
+
+</tr>
+
+<tr>
+<td><strong>-k</strong><em> src_esp_key</em></td>
+
+<td>送信元 ESP のキー文字列。 これは、送信元がトンネルを作成するのに使用します。 この入力は「0x」で始まる 16 進文字列でなければなりません。</td>
+
+</tr>
+
+<tr>
+<td><strong>-l</strong><em> 存続時間</em></td>
+
+<td>分単位で指定されるキー・ライフタイムです。<p><strong>手動</strong>トンネルの場合には、このフラグの値は、トンネルの有効期限が切れるまでの運用可能な時間を表します。</p>
+  <p><strong>manual</strong> トンネルの有効な値は 0 から 44640 です。 値 0 は、<strong>manual</strong> トンネルが満了になることがないことを示します。</p>
+</td>
+
+</tr>
+
+<tr>
+<td><strong>-m</strong><em> pkt_mode</em></td>
+
+<td>セキュア・パケット・モード。 この値は、<strong>tunnel</strong> または <strong>transport</strong> として指定する必要があります。</td>
+
+</tr>
+
+<tr>
+<td><strong>-N</strong><em> dst_esp_spi</em></td>
+
+<td>(<strong>manual</strong> トンネルのみ) 宛先 ESP のセキュリティー・パラメーター索引です。</td>
+
+</tr>
+
+<tr>
+<td><strong>-n</strong><em> 「src_esp_spi」</em></td>
+
+<td>(<strong>manual</strong> トンネルのみ) 送信元 ESP のセキュリティー・パラメーター索引です。 この SPI および宛先 IP アドレスを使用して、ESP に使用するセキュリティー・アソシエーションを決定します。</td>
+
+</tr>
+
+<tr>
+<td><strong>-P</strong><em> dst_policy</em></td>
+
+<td>(<strong>manual</strong> トンネルのみ) 宛先ポリシー。宛先が IP パケット認証または暗号化 (あるいはその両方) をどのように使用するかを識別します。 このフラグの値を <strong>ea</strong> と指定すると、IP パケットは認証の前に暗号化されます。 これを <strong>ae</strong> と指定すると、認証後に暗号化されます。ただし、<strong>e</strong> または <strong>a</strong> と単独に指定した場合には、暗号化のみ、または、認証のみが IP パケットに対して行われます。</td>
+
+</tr>
+
+<tr>
+<td><strong>-p</strong><em> src_policy</em></td>
+
+<td>送信元のポリシー。送信元による IP パケット認証または暗号化、あるいはその両方の使用方法を識別します。 このフラグの値を <strong>ea</strong> と指定すると、IP パケットは認証の前に暗号化されます。 これを <strong>ae</strong> と指定すると、認証後に暗号化されます。ただし、<strong>e</strong> または <strong>a</strong> と単独に指定した場合には、暗号化のみ、または、認証のみが IP パケットに対して行われます。</td>
+
+</tr>
+
+<tr>
+<td><strong>-s</strong> <em>src_host_IP_address</em></td>
+
+<td>送信元ホスト IP アドレス。トンネルが使用するローカル・ホスト・インターフェースの IP アドレスです。 ホスト名も有効であり、そのホスト名のネーム・サーバーによって戻される最初の IP アドレスが使用されます。</td>
+
+</tr>
+
+<tr>
+<td><strong>-t</strong><em> トンネルID</em></td>
+
+<td>トンネル ID。特定のトンネル定義のローカルで固有の数値 ID。 この値は、既存のトンネル ID に一致する必要があります。</td>
+
+</tr>
+
+<tr>
+<td><strong>-U</strong><em> dst_ah_spi</em></td>
+
+<td>(<strong>manual</strong> トンネルのみ) 宛先 AH のセキュリティー・パラメーター索引です。</td>
+
+</tr>
+
+<tr>
+<td><strong>-u</strong><em> 「src_ah_spi」</em></td>
+
+<td>(<strong>manual</strong> トンネルのみ) 送信元 AH のセキュリティー・パラメーター索引です。 この SPI および宛先 IP アドレスを使用して、AH に使用するセキュリティー・アソシエーションを決定します。</td>
+
+</tr>
+
+<tr>
+<td><strong>-v</strong></td>
+
+<td>トンネルを作成する場合の IP のバージョンです。 IP バージョン 4 トンネルの場合は、値 <strong>4</strong>を使用します。 IP バージョン 6 トンネルの場合は、値 <strong>6</strong>を使用します。</td>
+
+</tr>
+
+<tr>
+<td><strong>-x</strong><em> dst_mask</em></td>
+
+<td>このフラグは、ホスト、ファイアウォールおよびホストの間のトンネルに使用します。 この値は、ファイアウォールの後ろにあるセキュア・ネットワークのためのネットワーク・マスクです。 <strong>-d</strong> フラグによって指定された宛先ホストは、セキュア・ネットワークのメンバーです。 <strong>-d</strong> フラグと <strong>-x</strong> フラグを組み合わせて使用すると、送信元ホストは、送信元とファイアウォールとの間のトンネルを通じて、トンネル・モードでなければならないセキュア・ネットワーク内の複数のホストと通信することができます。<p>このフラグは、<strong>-f</strong> が指定されている場合にのみ有効です。</p>
+</td>
+
+</tr>
+
+<tr>
+<td><strong>-y</strong></td>
+
+<td>(<strong>manual</strong> トンネルのみ) 再生防止フラグです。 再生防止は、ESP または AH ヘッダーが新しいヘッダー・フォーマットを使用している場合に限り有効です (<strong>-z</strong> フラグを参照)。 <strong>-y</strong> フラグの有効な値は、Y (はい) および N (いいえ) です。</td>
+
+</tr>
+
+<tr>
+<td><strong>-Z</strong></td>
+
+<td>(<strong>manual</strong> トンネルのみ) 新しいヘッダー・フォーマット・フラグです。 新しいヘッダー・フォーマットは、再生防止のために ESP または AH ヘッダーにフィールドを確保します。また、ESP 認証も可能にします。 再生フィールドは、再生フラグ (<strong>-y</strong>) が Y に設定されている場合にのみ使用されます。 有効な値は Y (はい) および N (いいえ) です。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+</section>
+
+<section><h2>セキュリティー</h2> <p><strong>RBAC ユーザーへの注意</strong>: このコマンドは特権命令を実行できます。 特権命令を実行できるのは特権ユーザーのみです。 権限および特権について詳しくは、「<em>セキュリティー</em>」の『特権コマンド・データベース』を参照してください。 このコマンドに関連した特権および権限のリストについては、<strong>lssecattr</strong> コマンドまたは <strong>getcmdattr</strong> サブコマンドの項を参照してください。</p>
+</section>
+
+</div></div>

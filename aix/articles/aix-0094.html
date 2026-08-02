@@ -1,0 +1,79 @@
+<div class="official-dom"><div>
+<section><h2>目的</h2> <p>複数の監査証跡を単一の証跡に統合します。</p>
+</section>
+
+<section><h2>構文</h2> <p><strong>/usr/sbin/auditmerge</strong> [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/a_commands/auditmerge.html#auditmerge__row-d3e41401" target="_blank" rel="noopener noreferrer"><strong>-q</strong></a> ] <em>ファイル</em> [ <em>ファイル</em>... ]</p>
+</section>
+
+<section><h2>説明</h2> <p><strong>auditmerge</strong> コマンドは、複数のマシンからの可能性のある複数の監査証跡ファイルを、単一の監査証跡ファイルにまとめます。 レコードの残っている各ファイルについて、最も古いタイム・スタンプのあるレコードが出力に追加されます。 負の時間変更を持つレコードが検出されると、オプションの警告メッセージが出力されます。 処理は続行され、このようなレコードはすべて、時間値を変更することなく出力されます。</p>
+ <p><strong>auditmerge</strong> コマンドは、CPU ID 値をビン・ヘッダーから各出力レコードに追加することもできます。 CPU ID 値は、ビン・ヘッダーおよびビン・トレーラー内でエンコードされます。</p>
+ <p><strong>-q</strong> フラグは、警告メッセージの出力を制御するために使用されます。 負の時間変更のレコードを最初に検出したときに、単一の警告メッセージが出力されます。 このメッセージには、そのレコードを含んでいるファイル名と時間の差が入っています。 これらのメッセージは、<strong>-q</strong> フラグがコマンド・ラインで入力されるときは、抑制されます。</p>
+</section>
+
+<section><h2>フラグ</h2> <div> 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><strong>-q</strong></td>
+
+<td>警告メッセージの出力を制御するために使用されます。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+</section>
+
+<section><h2>セキュリティー</h2> <p>アクセス制御: このコマンドに対する実行 (x) アクセス権は、root ユーザーと監査グループのメンバーにのみ与えてください。 コマンドは、setuid で root ユーザーに設定され、<strong>trusted computing base</strong> 属性を持っていなければなりません。</p>
+</section>
+
+<section><h2>例</h2> <ol>
+<li>異なるホストから 2 つの既存の監査証跡ファイルをマージするには、
+次のように入力します。<div> <div><div><pre><code>/usr/bin/auditmerge /audit/trail.calvin /audit/trail.hobbes &gt; /audit/trail.merge</code></pre></div><div></div></div></div>
+</li>
+
+<li>異なるユーザー名で事前選択された 2 つの既存のデータ・ファイルをマージするには、
+次のように入力します。<div> <div><div><pre><code>/usr/bin/auditmerge /audit/trail.jim /audit/trail.julie &gt; /audit/trail.both</code></pre></div><div></div></div></div>
+</li>
+
+<li>正しくない時間についての警告を出すことなく、2 つのデータ・ファイルをマージするには、次のように入力します。<div> <div><div><pre><code>/usr/bin/auditmerge -q /audit/jumbled.1 /audit/jumbled.2 &gt; /audit/jumbled.output</code></pre></div><div></div></div></div>
+</li>
+
+</ol>
+</section>
+
+<section><h2>ファイル</h2> <div> 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><strong>/etc/security/audit/hosts</strong></td>
+
+<td>CPU ID からホスト名へのマッピングが含まれています。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+</section>
+
+</div></div>

@@ -1,0 +1,195 @@
+<div class="official-dom"><div>
+<section><h2>目的</h2> <p>カーネルにシステム・セキュリティー・フラグ設定値をロードします。</p>
+</section>
+
+<section><h2>構文</h2> <p><strong>セカフ</strong> { <a href="https://www.ibm.com/docs/ja/ssw_aix_73/s_commands/setsecconf.html#setsecconf__row-d3e19383" target="_blank" rel="noopener noreferrer"><strong>「-c」</strong></a> | <a href="https://www.ibm.com/docs/ja/ssw_aix_73/s_commands/setsecconf.html#setsecconf__row-d3e19390" target="_blank" rel="noopener noreferrer"><strong>-</strong></a> } [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/s_commands/setsecconf.html#setsecconf__row-d3e19407" target="_blank" rel="noopener noreferrer"><em>属性</em></a> = <a href="https://www.ibm.com/docs/ja/ssw_aix_73/s_commands/setsecconf.html#setsecconf__row-d3e19452" target="_blank" rel="noopener noreferrer"><em>値</em></a> ... ]</p>
+</section>
+
+<section><h2>説明</h2> <p><strong>setsecconf</strong> コマンドは、カーネルにシステム・セキュリティー・フラグ設定値をロードします。 何らかの属性を指定すると、これらの属性の値が保管され、システム再起動時に使用されます。 このコマンドは、システムの CONFIGURATION および OPERATIONAL モードのフラグの設定値を変更できますが、これらのフラグを変更できるのは、システムが CONFIGURATION モードにあるときに限られます。</p>
+</section>
+
+<section><h2>フラグ</h2> 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><strong>-c</strong></td>
+
+<td>CONFIGURATION モードを指定します。</td>
+
+</tr>
+
+<tr>
+<td><strong> -o</strong></td>
+
+<td>OPERATIONAL モードを指定します。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</section>
+
+<section><h2>パラメーター</h2> 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><em>属性</em></td>
+
+<td>以下の属性を指定できます。<dl>
+<dt>ルート</dt>
+
+<dd>root ユーザーがシステムにログインできるかどうかを指定します。 これを使用可能にすると、root ユーザーはシステムにログインできます。 これを使用不可にすると、root ユーザーはシステムにログオンできません。 詳しくは、『root ユーザーを使用不可にする』のトピックを参照してください。</dd>
+
+
+<dt>tnet</dt>
+
+<dd>拡張セキュリティー・ネットワークを指定します。 データ・パケットが使用可能になると、そのすべてにラベルが付けられます。</dd>
+
+
+<dt>tlwrite</dt>
+
+<dd>保全性ラベル  (TL) について書き込みアクセス検査を実施するかどうかを指定します。 TL は、使用可能になると、書き込み、除去、および名前変更操作について検査されます。 TL は、使用不可になると、設定できますが、書き込みアクセス検査については無視されます。</dd>
+
+
+<dt>tlread</dt>
+
+<dd>保全性ラベル  (TL) について読み取りアクセス検査を実施するかどうかを指定します。 使用可能にすると、TL は読み取り操作について検査されます。 使用不可にすると、TL の設定はできますが、読み取りアクセス検査については無視されます。</dd>
+
+
+<dt>traceauth</dt>
+
+<dd>許可トレースを使用可能にするか指定します。 これを使用可能にすると、
+プロセスで使用された許可はトレースされ、プロセス資格情報のログに記録されます。 <strong>lssecattr</strong> コマンドは、使用された許可を表示するのに使用されます。 これを使用不可にすると、許可はシステム内でトレースされません。 デフォルトでは、このフラグは使用不可です。 このフラグは、
+動作モードでのみ重要です。</dd>
+
+
+<dt>sl</dt>
+
+<dd>必須アクセス制御 (MAC) フラグを実施するかどうかを指定します。 使用可能にすると、MAC は実施されます。 使用可能にしない場合、機密ラベル (SL) は構成できますが、ファイルおよびその他のオブジェクトへのアクセスの判別には使用されません。</dd>
+
+
+<dt>tlib</dt>
+
+<dd>トラステッド・コンピューティング・ベース (TCB) を認識し実施するかどうかを指定します。 使用可能にすると、ファイルシステム・オブジェクト上の TCB フラグは、認識され、実施されます。 使用不可にすると、オブジェクト上の TCB フラグは、無視され、すべてのオブジェクトは、TCB オブジェクトでないものとして扱われます。</dd>
+
+</dl>
+</td>
+
+</tr>
+
+<tr>
+<td><em>VALUE</em></td>
+
+<td><strong>使用可能</strong>または<strong>使用不可</strong>のいずれかの値を指定します。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</section>
+
+<section><h2>セキュリティー</h2> <p><strong>setsecconf</strong> コマンドは特権コマンドです。 以下の許可を持つユーザーのみが、コマンドを正常に実行できます。</p>
+ 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><strong>aix.mls.system.config.write</strong></td>
+
+<td>システム構成フラグを設定する場合に必要です。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</section>
+
+<section><h2>終了状況</h2> <p><strong>setsecconf</strong> コマンドは、以下の終了値を戻します。</p>
+ 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><strong>0</strong></td>
+
+<td>正常終了。</td>
+
+</tr>
+
+<tr>
+<td><strong>&gt;0</strong></td>
+
+<td>エラーが発生しました。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</section>
+
+<section><h2>例</h2> <ol>
+<li>トラステッド・ネットワークをオンにし、CONFIGURATION モード実行の保全性読み取りシステム・フラグをオフにするには、以下のコマンドを入力します。<div><div><pre><code>setsecconf -c tnet=enable tlread=disable</code></pre></div><div></div></div></li>
+
+<li>OPERATIONAL モード実行の保全性書き込みシステム・フラグをオンにするには、以下のコマンドを入力します。<div><div><pre><code>setsecconf -o tlwrite=enable</code></pre></div><div></div></div></li>
+
+</ol>
+</section>
+
+<section><h2>ファイル</h2> 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><strong>/usr/sbin/setsecconf</strong></td>
+
+<td><strong>setsecconf</strong> コマンドが入っています。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</section>
+
+</div></div>

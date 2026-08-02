@@ -1,0 +1,62 @@
+<div class="official-dom"><div>
+<section><h2>目的</h2> <p><span>DOS</span> ファイルを削除します。</p>
+</section>
+
+<section><h2>構文</h2> <p><strong>dosdel</strong> [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/d_commands/dosdel.html#dosdel__row-d3e43752" target="_blank" rel="noopener noreferrer"><strong>-v </strong></a>] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/d_commands/dosdel.html#dosdel__row-d3e43734" target="_blank" rel="noopener noreferrer"><strong>-D</strong></a> <em>Device</em> ] <em>ファイル ...</em></p>
+</section>
+
+<section><h2>説明</h2> <p><strong>dosdel</strong> コマンドは、<em> File</em> パラメーターで指定された <span>DOS</span> ファイルを削除します。 ディスクに関するフォーマット情報を取得するには、 <a href="https://www.ibm.com/docs/ja/ssw_aix_73/d_commands/dosdel.html#dosdel__row-d3e43752" target="_blank" rel="noopener noreferrer"><strong>-v</strong></a> フラグを使用します。</p>
+ <p><span>DOS</span> のファイル命名規則は、1 つの例外を除いて使用されます。 ¥ (円記号) 文字はオペレーティング・システムにとって特別な意味を持つ可能性があるため、 <span>DOS</span> パス名でサブディレクトリー名を指定する場合は、/(スラッシュ) 文字を区切り文字として使用してください。 <strong>dosdel</strong> コマンドは、ディスクを検査する前に、ファイルまたはディレクトリー名の小文字を大文字に変換します。 ファイル名はすべて絶対パス名 (相対パス名ではない) と見なされるので、
+最初の / (スラッシュ) は付ける必要はありません。</p>
+</section>
+
+<section><h2>フラグ</h2> <div> 
+<div><div><table><thead> <tr> <th><div>項目</div></th>
+ <th><div>説明</div></th>
+ </tr>
+ </thead>
+<tbody>
+<tr>
+<td><strong>-D</strong><em>デバイス</em></td>
+
+<td><span>DOS</span> デバイスの名前を <strong>/dev/fd0</strong> または <strong>/dev/fd1</strong>として指定します。 デフォルト・デバイスは <strong>/dev/fd0 です。</strong></td>
+
+</tr>
+
+<tr>
+<td><strong>-v</strong></td>
+
+<td>ディスクのフォーマットに関する情報を、標準出力します。 デバイスが <span>DOS</span> ディスクであることを確認するには、このフラグを使用します。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+</section>
+
+<section><h2>例</h2> <p>デフォルト・デバイス上の <span>DOS</span> ファイルを削除するには、次のように入力します。</p>
+ <div> <div><div><pre><code>dosdel file.ext</code></pre></div><div></div></div></div>
+</section>
+
+<section><h2>ファイル</h2> <div> 
+<div><div><table><thead> <tr> <th><div>項目</div></th>
+ <th><div>説明</div></th>
+ </tr>
+ </thead>
+<tbody>
+<tr>
+<td><strong>/usr/bin/dosdel</strong></td>
+
+<td><strong>dosdel</strong> コマンドが入っています。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+</section>
+
+</div></div>

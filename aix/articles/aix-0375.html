@@ -1,0 +1,152 @@
+<div class="official-dom"><div>
+<section><h2>目的</h2> <p>動的ホスト構成プロトコル (DHCPv6) サーバーをインプリメントします。 アドレスおよび構成情報を DHCPv6 クライアントに提供します。</p>
+</section>
+
+<section><h2>構文</h2><p>システム・リソース・コントローラー (SRC) を使用して DHCPv6 クライアントに情報を提供する</p>
+ <p><strong>startsrc '-s'dhcpsdv6</strong> [<strong>-a</strong> 議論]</p>
+<p>SRC を使用せずに DHCP クライアントに情報を提供する</p>
+ <p><strong>dhcpsdv6</strong><a href="https://www.ibm.com/docs/ja/ssw_aix_73/d_commands/dhcpsdv6.html#dhcpsdv6__row-d3e27394" target="_blank" rel="noopener noreferrer"><strong> [-d</strong></a> ] <a href="https://www.ibm.com/docs/ja/ssw_aix_73/d_commands/dhcpsdv6.html#dhcpsdv6__row-d3e27400" target="_blank" rel="noopener noreferrer"><strong>[-f</strong></a>ConfigurationFile ] <a href="https://www.ibm.com/docs/ja/ssw_aix_73/d_commands/dhcpsdv6.html#dhcpsdv6__row-d3e27388" target="_blank" rel="noopener noreferrer"><strong>[-a</strong></a>DadminPort ] <a href="https://www.ibm.com/docs/ja/ssw_aix_73/d_commands/dhcpsdv6.html#dhcpsdv6__row-d3e27412" target="_blank" rel="noopener noreferrer"><strong>[-p</strong></a>ServerPort ]</p>
+</section>
+
+<section><h2>説明</h2> <p>DHCPv6 サーバーは動的アドレスの割り当ておよび割り当ての保守を扱います。 さらに、追加構成情報の配布も行います。 <span>dhcpsd</span> デーモンはバックグラウンドで実行され、サーバー情報のデータベースを保守します。
+そのデータベースには、ロギング・パラメーター、IP
+(インターネット・プロトコル) アドレス範囲、その他の構成情報、およびアクセシビリティー情報が入っています。 初期データベースは構成ファイルで指定されます。 構成ファイルには、DHCP クライアントの構成を開始するためのすべてのデータが入っています。</p>
+ <p>DHCPv6 サーバーは、提供したアドレスとその持ち主のデータベースを保守します。 これらのデータベースは、<span>/etc/dhcpv6/db_file.crbk</span> ファイルおよび <span>/etc/dhcpv6/db_file.cr</span> ファイルで保持されます。 始動時に、サーバーは構成ファイルを読み取って、使用可能アドレスの初期データベースをセットアップします。 サーバーは、リフレッシュ・コマンドまたは <span><span>SIGHUP</span></span> シグナルを受け入れて、構成ファイルを再読み取りします。</p>
+</section>
+
+<section><h2>フラグ</h2> 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><span>-a</span></td>
+
+<td>Dadmin ポートを指定します。デフォルトでは 942 です。</td>
+
+</tr>
+
+<tr>
+<td><span>-d</span></td>
+
+<td>デバッグ情報を表示します。</td>
+
+</tr>
+
+<tr>
+<td><span>-f</span> ConfigurationFile</td>
+
+<td>使用する構成ファイルを指定します。 デフォルトでは、構成ファイルは <span>/etc/dhcpv6/dhcpsdv6.cnf</span> です。</td>
+
+</tr>
+
+<tr>
+<td><span>-p</span></td>
+
+<td>着信要求を listen するためにサーバーが使用するポートを指定します。
+デフォルトでは 547 です。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</section>
+
+<section><h2>終了状況</h2> <p>このコマンドは、以下の終了値を戻します。</p>
+ 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td>0</td>
+
+<td>正常終了。</td>
+
+</tr>
+
+<tr>
+<td>&gt;0</td>
+
+<td>エラーが発生しました。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</section>
+
+<section><h2>セキュリティー</h2> <p>アクセス制御: このコマンドを実行するには、root 権限を持っていなければなりません。</p>
+</section>
+
+<section><h2>例</h2> <ol>
+<li><span>/usr/local</span> にある構成ファイル <span>dhcpsdv6.cnf</span> を使用して DHCPv6 サーバーを始動するには、次のように入力します。<div><div><pre><code>startsrc -s dhcpsdv6 -a "-f /usr/local/dhcpsdv6.cnf"</code></pre></div><div></div></div></li>
+
+</ol>
+</section>
+
+<section><h2>場所</h2> <p><span>/usr/sbin/dhcpsdv6</span></p>
+</section>
+
+<section><h2>ファイル</h2> 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><span>/usr/sbin/dhcpsdv6</span></td>
+
+<td><span>dhcpsdv6</span> デーモンが入っています。</td>
+
+</tr>
+
+<tr>
+<td><span>/etc/dhcpv6/db_file.cr</span></td>
+
+<td>クライアント・レコードが入っています。 このファイルはサーバー・デーモンによって作成されるものであり、
+構成可能ではありません。</td>
+
+</tr>
+
+<tr>
+<td><span>/etc/dhcpv6/db_file.crbk</span></td>
+
+<td>クライアント・レコードが入っています。 このファイルはサーバー・デーモンによって作成されるものであり、
+構成可能ではありません。</td>
+
+</tr>
+
+<tr>
+<td><span>/etc/dhcpv6/dhcpsdv6.duid</span></td>
+
+<td>サーバー ID ファイルが入っています。 このファイルはサーバー・デーモンによって作成されるものであり、
+構成可能ではありません。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</section>
+
+</div></div>

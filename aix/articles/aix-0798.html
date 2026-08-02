@@ -1,0 +1,349 @@
+<div class="official-dom"><div>
+<section><h2>目的</h2> <p>最小特権 (LP) Resource Initial ACL のアクセス制御を表示します。</p>
+ </section>
+
+<section><h2>構文</h2> <div>Resource Initial ACL のアクセス制御を表示するには:<ul>
+<li>ローカル・ノードの場合:<p><span><span>lslpriacl</span></span> [ <span><span>-l</span></span> | <span><span>-i</span></span> | <span><span>-t</span></span> | <span><span>-d</span></span> | <span><span>-D</span></span> <span><span>区切り文字</span></span> ] [<span><span>-p</span></span>] [<span><span>-E</span></span>] [<span><span>-x</span></span>] [<span><span>-h</span></span>] [<span><span>-TV</span></span>]</p>
+</li>
+
+<li>ドメイン内のすべてのノードで以下のように入力します。<p><span><span>lslpriacl</span></span> <span><span>-a</span></span> [ <span><span>-l</span></span> | <span><span>-i</span></span> | <span><span>-t</span></span> | <span><span>-d</span></span> | <span><span>-D</span></span> <span><span>区切り文字</span></span> ] [<span><span>-p</span></span>] [<span><span>-E</span></span>] [<span><span>-x</span></span>] [<span><span>-h</span></span>] [<span><span>-TV</span></span>]</p>
+</li>
+
+<li>ドメイン内の一部のノードで以下のように入力します。<p><span><span>lslpriacl</span></span> { <span><span>-n</span></span> <span><span>host1</span></span>[<span><span>,</span></span><span><span>host2</span></span><span><span>,</span></span>...] } [ <span><span>-l</span></span> | <span><span>-i</span></span> | <span><span>-t</span></span> | <span><span>-d</span></span> | <span><span>-D</span></span> <span><span>区切り文字</span></span> ] [<span><span>-p</span></span>] [<span><span>-E</span></span>] [<span><span>-x</span></span>] [<span><span>-h</span></span>] [<span><span>-TV</span></span>]</p>
+</li>
+
+</ul>
+</div>
+ </section>
+
+<section><h2>説明</h2> <p><span><span>lslpriacl</span></span> コマンドは、最小特権 (LP) Resource Initial ACL に関連付けられているアクセス制御リスト (ACL) を表示します。 ACL 項目に含まれているアクセス権限が表示されます。 Resource Initial ACL は、LP リソースが作成されるときに Resource ACL にコピーされる Initial ACL として使用されます。 デフォルトでは、このコマンドは情報をテーブル形式 (<span><span>-t</span></span>) で表示します。</p>
+ <div>このコマンドは、以下の ACL 情報を表示します。<div><div><table><thead>
+<tr>
+<th><div>フィールド</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td>ID</td>
+
+<td>ユーザーのネットワーク ID。 ネットワーク ID の説明については、 <a href="https://www.ibm.com/docs/ja/ssw_aix_73/l_commands/lpacl.html" target="_blank" rel="noopener noreferrer">lpacl 情報</a> を参照してください。</td>
+
+</tr>
+
+<tr>
+<td>Permissions</td>
+
+<td><span><span>Identity</span></span>に許可されている許可。 有効な値は以下のとおりです。<dl>
+<dt>a</dt>
+
+<dd>管理者アクセス権</dd>
+
+
+<dt>r</dt>
+
+<dd>読み取り許可 ( <span><span>e</span></span>、 <span><span>l</span></span>、 <span><span>q</span></span>、および <span><span>v</span></span> 許可で構成)</dd>
+
+
+<dt>w</dt>
+
+<dd>書き込み許可 ( <span><span>c</span></span>、 <span><span>d</span></span>、 <span><span>o</span></span>、および <span><span>s</span></span> 許可で構成)</dd>
+
+
+<dt>x</dt>
+
+<dd>実行アクセス権</dd>
+
+
+<dt>c</dt>
+
+<dd>リフレッシュ・アクセス権</dd>
+
+
+<dt>d</dt>
+
+<dd>定義および<span>定義解除</span>アクセス権</dd>
+
+
+<dt>e</dt>
+
+<dd>イベント・アクセス権</dd>
+
+
+<dt>l</dt>
+
+<dd>列挙アクセス権</dd>
+
+
+<dt>o</dt>
+
+<dd>オンライン、オフライン、およびリセット・アクセス権</dd>
+
+
+<dt>q</dt>
+
+<dd>照会アクセス権</dd>
+
+
+<dt>s</dt>
+
+<dd>設定アクセス権</dd>
+
+
+<dt>v</dt>
+
+<dd>検証アクセス権</dd>
+
+
+<dt>0</dt>
+
+<dd>アクセス権なし</dd>
+
+</dl>
+</td>
+
+</tr>
+
+<tr>
+<td>NodeName</td>
+
+<td><span><span>IBM.LPCommands</span></span> リソース・クラスのロケーション (管理ドメイン有効範囲またはピア・ドメイン有効範囲の場合)。</td>
+
+</tr>
+
+<tr>
+<td>PeerDomain</td>
+
+<td><span><span>IBM.LPCommands</span></span> リソース・クラスが定義されている RSCT ピア・ドメインの名前。 このフィールドは、 <span><span>-p</span></span> フラグが指定されている場合に表示されます。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+ <p>このコマンドはどのノードでも実行できます。 ドメイン内のすべてのノードでこのコマンドを実行する場合は、 <span><span>-a</span></span> フラグを使用します。 ドメイン内のノードのサブセットでこのコマンドを実行する場合は、 <span><span>-n</span></span> フラグを使用します。 それ以外の場合、このコマンドはローカル・ノードで実行されます。</p>
+ </section>
+
+<section><h2>フラグ</h2> <dl>
+<dt>-a</dt>
+
+<dd>ドメイン内のすべてのノードの Resource Initial ACL を表示します。 <span><span>CT_MANAGEMENT_SCOPE</span></span> 環境変数の設定によって、クラスターの有効範囲が決まります。 <span><span>CT_MANAGEMENT_SCOPE</span></span> が設定されていない場合、LP リソース・マネージャーは次の順序で有効範囲設定を使用します。<ol>
+<li>管理ドメイン (あれば)</li>
+
+<li>ピア・ドメイン (あれば)</li>
+
+<li>Local 有効範囲</li>
+
+</ol><span><span>lslpriacl</span></span> コマンドは、LP リソース・マネージャーが最初に検出した有効な有効範囲に対して 1 回実行されます。 例えば、管理ドメインとピア・ドメインが存在し、 <span><span>CT_MANAGEMENT_SCOPE</span></span> 環境変数が設定されていないとします。 この場合、 <span><span>lslpriacl
+–a</span></span> は管理ドメインで実行されます。 ピア・ドメインで <span><span>lslpriacl
+–a</span></span> を実行するには、 <span><span>CT_MANAGEMENT_SCOPE</span></span> を <span><span>2</span></span>に設定する必要があります。</dd>
+
+
+<dt>-i</dt>
+
+<dd>適切な編集後に、 <span><span>chlpriacl</span></span> コマンドへのファイル入力として使用できる形式でテンプレートを生成します。</dd>
+
+
+<dt>-l</dt>
+
+<dd>情報を別々の行に表示します (長形式)。</dd>
+
+
+<dt>-t</dt>
+
+<dd>情報を別々の列に表示します (テーブル形式)。 これはデフォルトです。</dd>
+
+
+<dt>-d</dt>
+
+<dd>区切り文字を使用して情報を表示します。 デフォルトの区切り文字は <span>パイプ記号 (<span><span>|</span></span>)</span>です。 デフォルトの区切り文字を変更する場合は、 <span><span>-D</span></span> フラグを使用します。</dd>
+
+
+<dt>-D <span><span>デリミタ</span></span></dt>
+
+<dd>指定した区切り文字を使用して情報を表示します。 例えば、表示する情報に <span>パイプ・シンボル</span>が含まれている場合、このフラグを使用して、デフォルトの <span>パイプ・シンボル (<span><span>|</span></span>)</span> 以外の区切り文字を指定します。 このフラグを使用すると、1 文字以上の区切り文字を指定できま
+す。</dd>
+
+
+<dt>-n<span><span>ホスト1</span></span> <span>[</span>, <span><span>host2</span></span>, <span>…]</span></dt>
+
+<dd>Resource Initial ACL の表示元の、ドメイン内のノードを指定します。 デフォルトでは、Resource Initial ACL はローカル・ノードに表示されます。 このフラグが有効なのは、管理ドメインまたはピア・ドメインでのみです。 <span><span>CT_MANAGEMENT_SCOPE</span></span> が設定されていない場合、最初に管理ドメイン有効範囲が選択され (存在する場合)、次にピア・ドメイン有効範囲が選択され (存在する場合)、次にローカル有効範囲が選択され (コマンドに対して有効範囲が有効になるまで) ます。 コマンドは、最初に見つかった有効な有効範囲に対して 1 回実行されます。</dd>
+
+
+<dt>-p</dt>
+
+<dd><span><span>IBM.LPCommands</span></span> リソース・クラスが定義されている RSCT ピア・ドメインの名前を表示します。</dd>
+
+
+<dt>-E</dt>
+
+<dd>読み取り許可を <span><span>r</span></span> ではなく <span><span>elqv</span></span> として表示し、書き込み許可を <span><span>w</span></span>ではなく <span><span>cdos</span></span> として表示します。</dd>
+
+
+<dt>-x</dt>
+
+<dd>ヘッダーを除外します (ヘッダーの印刷を抑止します)。</dd>
+
+
+<dt>-h</dt>
+
+<dd>コマンドの使用方法の文を標準出力に書き込みます。</dd>
+
+
+<dt>-T</dt>
+
+<dd>標準エラーにコマンドのトレース・メッセージを書き込みます。</dd>
+
+
+<dt>-V</dt>
+
+<dd>コマンドの詳細メッセージを標準出力に書き出します。</dd>
+
+</dl>
+ </section>
+
+<section><h2>環境変数</h2> <dl>
+<dt>CT_CONTACT</dt>
+
+<dd>Resource Monitoring and Control (RMC) デーモンとのセッションが発生するシステムを決定します。 <span><span>CT_CONTACT</span></span> がホスト名または IP アドレスに設定されている場合、コマンドは指定されたホスト上の RMC デーモンと連絡を取ります。 <span><span>CT_CONTACT</span></span> が設定されていない場合、コマンドは、コマンドが実行されているローカル・システム上の RMC デーモンと連絡を取ります。 RMC デーモン・セッションのターゲットおよび管理有効範囲によって、処理されるリソース・クラスまたはリソースが決定されます。</dd>
+
+
+<dt>CT_IP_AUTHENT</dt>
+
+<dd>CT_IP_AUTHENT 環境変数が存在する場合、RMC デーモンは、IP ベース・ネットワーク認証を使用して、CT_CONTACT 環境変数が設定されている IP アドレスで指定されたシステム上の RMC デーモンにアクセスします。 CT_CONTACT が IP アドレスに設定されている場合のみ、CT_IP_AUTHENT が意味を持ちます。CT_IP_AUTHENT はドメイン・ネーム・システム (DNS) サービスに依存しません。</dd>
+
+
+<dt>CT_MANAGEMENT_SCOPE</dt>
+
+<dd>最小特権 (LP) リソース・マネージャーのリソースの処理中に、RMC デーモンとのセッションに使用される管理有効範囲を決定します。 この管理有効範囲により、リソースの処理に使用可能な候補ターゲット・ノードのセットが決定します。 有効な値は以下のとおりです。<dl>
+<dt>0</dt>
+
+<dd><em>local</em> 有効範囲を指定します。</dd>
+
+
+<dt>1</dt>
+
+<dd><em>local</em> 有効範囲を指定します。</dd>
+
+
+<dt>2</dt>
+
+<dd><em>peer domain</em> (ピア・ドメイン) 有効範囲を指定します。</dd>
+
+
+<dt>3</dt>
+
+<dd><em>management domain</em> (管理ドメイン) 有効範囲を指定します。</dd>
+
+</dl>この環境変数が設定されていない場合は、 <span><span>-a</span></span> フラグまたは <span><span>-n</span></span> フラグが指定されていない限り、 <em>ローカル</em> ・スコープが使用されます。</dd>
+
+</dl>
+ </section>
+
+<section><h2>標準出力</h2> <p><span><span>-h</span></span> フラグを指定すると、このコマンド使用状況ステートメントが標準出力に書き込まれます。 <span><span>-V</span></span> フラグを指定すると、このコマンドの詳細メッセージが標準出力に書き込まれます。</p>
+ </section>
+
+<section><h2>標準エラー</h2> <p>トレース・メッセージはすべて、標準エラーに書き込まれます。</p>
+ </section>
+
+<section><h2>終了状況</h2> <div> <dl>
+<dt>0</dt>
+
+<dd>コマンドは正常に実行されました。</dd>
+
+
+<dt>1</dt>
+
+<dd>RMC 内でエラーが発生しました。</dd>
+
+
+<dt>2</dt>
+
+<dd>コマンド・ライン・インターフェース (CLI) スクリプトでエラーが発生しました。</dd>
+
+
+<dt>3</dt>
+
+<dd>コマンド・ラインに間違ったフラグが指定されました。</dd>
+
+
+<dt>4</dt>
+
+<dd>コマンド・ラインに不正なパラメーターが指定されました。</dd>
+
+
+<dt>5</dt>
+
+<dd>不正なコマンド・ライン入力に基づく RMC により、エラーが発生しました。</dd>
+
+
+<dt>6</dt>
+
+<dd>リソースが見つかりません。</dd>
+
+</dl>
+</div>
+ </section>
+
+<section><h2>セキュリティー</h2> <p><span><span>lslpriacl</span></span> コマンドを実行するには、 <span><span>IBM.LPCommands</span></span> リソース・クラスの Class ACL 内の読み取り許可が必要です。 アクセス権は、連絡先システムの <span>LP ACL</span> で指定されています。 LP ACL の一般情報については、 <a href="https://www.ibm.com/docs/ja/ssw_aix_73/l_commands/lpacl.html" target="_blank" rel="noopener noreferrer">lpacl 情報</a> を参照してください。LP ACL の変更については、「 Administering RSCT 」ガイドを参照してください。</p>
+ </section>
+
+<section><h2>実行の特性</h2> <p>このコマンドは、 AIX® および Linux® オペレーティング・システム用の Reliable Scalable Cluster Technology (RSCT) ファイルセットの一部です。</p>
+ </section>
+
+<section><h2>ロケーション</h2> <dl>
+<dt>/opt/rsct/bin/lslpriacl</dt>
+
+<dd></dd>
+
+</dl>
+ </section>
+
+<section><h2>例</h2><ol>
+<li><span><span>nodeA</span></span> 上の Resource Initial ACL を表形式でリストするには、 <span><span>nodeA</span></span>で次のコマンドを実行します。<div><div><pre><code>lslpriacl</code></pre></div><div></div></div>次の出力が表示されます。<div><div><pre><code>Resource Initial ACLs for LPRM
+Identity                        Permissions     NodeName
+joe@LOCALHOST                   rx              nodeA
+bill@0x374bdcbe384ed38a         rwx             nodeA
+jane@0x374bdcbe384ed38a         rwax            nodeA</code></pre></div><div></div></div></li>
+
+<li><span><span>nodeA</span></span> 上の Resource Initial ACL を長形式でリストするには、 <span><span>nodeA</span></span>で次のコマンドを実行します。<div><div><pre><code>lslpriacl -l</code></pre></div><div></div></div>次の出力が表示されます。<div><div><pre><code>Resource Initial ACLs for LPRM
+NodeName c175n06.ppd.pok.ibm.com
+   Identity    =     joe@LOCALHOST
+   Permissions =     rx
+         
+   Identity    =     bill@0x374bdcbe384ed38a
+   Permission  =     rwx
+
+   Identity    =     jane@0x374bdcbe384ed38a
+   Permissions =     rwax</code></pre></div><div></div></div></li>
+
+<li><span><span>nodeA</span></span> 上の Resource Initial ACL を区切り文字で区切られている形式でリストするには、 <span><span>nodeA</span></span>で次のコマンドを実行します。<div><div><pre><code>lslpriacl -d</code></pre></div><div></div></div>次の出力が表示されます。<div><div><pre><code>Resource Initial ACLs for LPRM
+Identity|Permissions|NodeName
+joe@LOCALHOST|rx|nodeA
+bill@0x374bdcbe384ed38a|rwx|nodeA
+jane@0x374bdcbe384ed38a|rwax|nodeA</code></pre></div><div></div></div></li>
+
+<li>アクティブ・ドメイン内の Resource Initial ACL をリストするには、このコマンドを次のように実行します。<div><div><pre><code>lslpriacl -a</code></pre></div><div></div></div>次の出力が表示されます。<div><div><pre><code>Resource Initial ACLs for LPRM
+Identity                        Permissions     NodeName
+joe@LOCALHOST                   rx              nodeA.pok.ibm.com
+bill@0x374bdcbe384ed38a         rwx             nodeA.pok.ibm.com
+jane@0x374bdcbe384ed38a         rwax            nodeA.pok.ibm.com
+joe@LOCALHOST                   rx              nodeB.pok.ibm.com
+jane@0x374bdcbe384ed38a         rwax            nodeB.pok.ibm.com</code></pre></div><div></div></div></li>
+
+<li>アクティブ・ドメイン内の Resource Initial ACL をリストし、ピア・ドメイン名をリストするには、このコマンドを次のように実行します。<div><div><pre><code>lslpriacl -ap</code></pre></div><div></div></div>次の出力が表示されます。<div><div><pre><code>Resource Initial ACLs for LPRM
+Identity                        Permissions     NodeName                PeerDomain
+joe@LOCALHOST                   rx              nodeA.pok.ibm.com       PD1
+bill@0x374bdcbe384ed38a         rwx             nodeA.pok.ibm.com       PD1
+jane@0x374bdcbe384ed38a         rwax            nodeA.pok.ibm.com       PD1
+joe@LOCALHOST                   rx              nodeB.pok.ibm.com       PD1
+jane@0x374bdcbe384ed38a         rwax            nodeB.pok.ibm.com       PD1</code></pre></div><div></div></div></li>
+
+</ol>
+</section>
+
+</div></div>

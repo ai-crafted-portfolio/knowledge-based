@@ -1,0 +1,134 @@
+<div class="official-dom"><div>
+<section><h2>目的</h2> <p>サブサーバー・オブジェクト・クラス内のサブサーバー定義を変更します。</p>
+</section>
+
+<section><h2>構文</h2> <p><strong>chserver</strong> <a href="https://www.ibm.com/docs/ja/ssw_aix_73/c_commands/chserver.html#chserver__row-d3e108534" target="_blank" rel="noopener noreferrer"><strong>-t</strong></a> <em>OldSubserver</em> [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/c_commands/chserver.html#chserver__row-d3e108443" target="_blank" rel="noopener noreferrer"><strong>-c</strong></a> <em>CodePoint</em> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/c_commands/chserver.html#chserver__row-d3e108470" target="_blank" rel="noopener noreferrer"><strong>-s</strong></a> <em>NewSubsystem</em> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/c_commands/chserver.html#chserver__row-d3e108517" target="_blank" rel="noopener noreferrer"><strong>-t</strong></a> <em>NewSubserver</em> ]</p>
+</section>
+
+<section><h2>説明</h2> <p><strong>chserver</strong> コマンドは、サブサーバー・オブジェクト・クラス内の既存のサブサーバー定義を変更します。 このコマンドは、サブサーバーのタイプ、所有サブシステム、またはサブサーバー・コード・ポイントを変更します。</p>
+</section>
+
+<section><h2>フラグ</h2> <div> 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><strong>-c</strong><em> CodePoint</em></td>
+
+<td>サブサーバーを識別する <em>CodePoint</em> 整数を指定します。 これは、サブシステムがサブサーバーを認識するときに使用する値です。 <strong>chserver</strong> コマンドは、既存のサブシステム名の <em>CodePoint</em> が存在していても、新しいサブシステム名が入力されないかぎり正しく実行されません。 また、<em>NewSubsystem</em> 名とサブサーバー <em>CodePoint</em> がサブサーバー・オブジェクト・クラスにあると、やはり正しく実行されません。 <em>CodePoint</em> ストレージの限度は、short 型整数 (1 から 32,768) と同じです。</td>
+
+</tr>
+
+<tr>
+<td><strong>-s</strong><em> NewSubsystem</em></td>
+
+<td><em>NewSubsystem</em> を一意的に識別する名前を、それが属するサブサーバーに対して指定します。 <strong>chserver</strong> コマンドは、次のいずれかの場合には正しく実行されません。<ul>
+<li><em>NewSubsystem</em> 名がサブシステム・オブジェクト・クラス内で認識されていない場合。</li>
+
+<li><em>NewSubsystem</em> 名がサブシステム・オブジェクト・クラス内では認識されていても、通信手段としてシグナルを使用している場合。</li>
+
+<li><em>NewSubsystem</em> 名が、既にサブサーバー <em>CodePoint</em> でサブサーバー・タイプ・オブジェクト・クラスに存在しており、サブサーバー <em>CodePoint</em> 値が入力されていない場合。</li>
+
+<li>既にサブサーバー・タイプ・オブジェクト・クラスに存在する <em>NewSubsystem</em> 名とサブサーバー <em>CodePoint</em> で、新しいサブサーバー <em>CodePoint</em> が入力された場合。</li>
+
+</ul>
+</td>
+
+</tr>
+
+<tr>
+<td><strong>-t</strong><em> NewSubserver</em></td>
+
+<td><em>NewSubserver</em> を一意的に識別する名前を指定します。 <strong>chserver</strong> コマンドは <em>NewSubserver</em> のタイプがサブサーバー・オブジェクト・クラスで既に認識されている場合は正しく実行されません。</td>
+
+</tr>
+
+<tr>
+<td><strong>-t</strong><em> OldSubserver</em></td>
+
+<td>既存のサブサーバーを一意的に識別する名前を指定します。 <strong>chserver</strong> コマンドは <em>OldSubserver</em> のタイプがサブサーバー・オブジェクト・クラスで認識されていない場合は正しく実行されません。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+</section>
+
+<section><h2>セキュリティー</h2><p><strong>イベントの監査</strong></p>
+ <p>監査サブシステムが適切に構成されており、かつ使用可能である場合、<strong>chserver</strong> コマンドを実行するたびに、
+次の監査レコード (イベント) が生成されます。</p>
+ 
+<div><div><table><thead>
+<tr>
+<th><div>イベント</div></th>
+
+<th><div>情報</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><strong>SRC_Chserver</strong></td>
+
+<td>サブシステム名と変更されたフィールドを監査ログに記録します。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+ <p><strong>RBAC ユーザーへの注意</strong>: このコマンドは特権命令を実行できます。 特権命令を実行できるのは特権ユーザーのみです。 権限および特権について詳しくは、「<em>セキュリティー</em>」の『特権コマンド・データベース』を参照してください。 このコマンドに関連した特権および権限のリストについては、<strong>lssecattr</strong> コマンドまたは <strong>getcmdattr</strong> サブコマンドの項を参照してください。</p>
+</section>
+
+<section><h2>例</h2> <ol>
+<li><span></span>サブサーバー・タイプを変更するには、次のように入力します。<div>chserver  <a href="https://www.ibm.com/docs/ja/ssw_aix_73/c_commands/chserver.html#chserver__row-d3e108534" target="_blank" rel="noopener noreferrer">-t</a> old  <a href="https://www.ibm.com/docs/ja/ssw_aix_73/c_commands/chserver.html#chserver__row-d3e108517" target="_blank" rel="noopener noreferrer">-t</a> new</div>これにより、サブサーバー・タイプが以下のように変更されます。oldサブサーバー・タイプをnewサブサーバー・タイプ。</li>
+
+<li><span></span>所有サブシステムを変更するには、次のように入力します。<div>chserver  <a href="https://www.ibm.com/docs/ja/ssw_aix_73/c_commands/chserver.html#chserver__row-d3e108534" target="_blank" rel="noopener noreferrer">-t</a> old  <a href="https://www.ibm.com/docs/ja/ssw_aix_73/c_commands/chserver.html#chserver__row-d3e108470" target="_blank" rel="noopener noreferrer">-s</a> srctest</div>これにより、所有サブシステムが以下に変更されますsrctest.</li>
+
+<li><span></span>サブサーバー・タイプ、サブシステム、およびサブサーバー・コード・ポイントを変更するには、次のように入力します。<div>chserver  <a href="https://www.ibm.com/docs/ja/ssw_aix_73/c_commands/chserver.html#chserver__row-d3e108534" target="_blank" rel="noopener noreferrer">-t</a> old  <a href="https://www.ibm.com/docs/ja/ssw_aix_73/c_commands/chserver.html#chserver__row-d3e108517" target="_blank" rel="noopener noreferrer">-t</a> new  <a href="https://www.ibm.com/docs/ja/ssw_aix_73/c_commands/chserver.html#chserver__row-d3e108470" target="_blank" rel="noopener noreferrer">-s</a> srctest  <a href="https://www.ibm.com/docs/ja/ssw_aix_73/c_commands/chserver.html#chserver__row-d3e108443" target="_blank" rel="noopener noreferrer">-c</a> 1234</div>これにより、サブサーバー・タイプが以下のように変更されます。old:NONE.newサブサーバー・タイプ、所有サブシステムsrctest、およびサブサーバー・コード・ポイント1234.</li>
+
+</ol>
+</section>
+
+<section><h2>ファイル</h2> <div> 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><strong>/etc/objrepos/SRCsubsys</strong></td>
+
+<td>SRC サブシステム構成オブジェクト・クラスを指定します。</td>
+
+</tr>
+
+<tr>
+<td><strong>/etc/objrepos/SRCsubsvr</strong></td>
+
+<td>SRC サブサーバー構成オブジェクト・クラスを指定します。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+</section>
+
+</div></div>

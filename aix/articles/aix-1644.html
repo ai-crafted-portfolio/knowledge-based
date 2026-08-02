@@ -1,0 +1,175 @@
+<div class="official-dom"><div>
+<section><h2>目的</h2>
+
+<p>ファイル内の Unicode パターンを検索します。</p>
+
+</section>
+
+<section><h2>構文</h2>
+
+<div><div><pre><code>ugrep unicode_hex_notation_pattern [ -i loose_match_unicode_hex_notation_pattern ] File..</code></pre></div><div></div></div>
+</section>
+
+<section><h2>説明</h2>
+
+<p><span>ugrep</span>コマンドは、ある文字のUnicodeで定義されたコードポイントの指定された16進数表現にマッチする文字を入力ファイルから検索します。</p>
+
+<p>正規表現ライターは、検索するパターンを指定するのにユニコード文字セットを使わないかもしれない。 また、ユニコードで定義されたコードポイントを、主要な文字言語のすべての文字についてキーボードで入力することは不可能かもしれない。 したがって、検索に指定するUnicodeパターンは、Unicodeで定義された文字のコードポイントの16進表現でなければなりません。</p>
+
+<div><div>
+        <div>
+          <div><span>注意:</span> <span>ugrep</span>コマンドの機能は、<span>-U</span>フラグを付けた<span>grep</span>コマンドの機能と同じです。</div>
+        </div>
+      </div></div>
+
+</section>
+
+<section><h2>フラグ</h2>
+
+<div>
+
+<div><div><table><caption><span>表 1. フラグ</span></caption><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td>ユニコードヘックス表記パターン</td>
+
+<td>文字の Unicode 定義コードポイントの 16 進表現を指定します。 たとえば、Unicodeで定義されたコードポイントが<code>U+1D11E</code>である<code>𝄞</code>文字を表すには、unicode_hex_notation_pattern パターンの値は、<code>\U0001D11E</code>、<code>\x{1D11E}</code>、<code>\u{1D11E}</code>のように16進数で表現することができます。</td>
+
+</tr>
+
+<tr>
+<td><span>-i</span> ユニコードヘックス表記パターン</td>
+
+<td>指定された Unicode 16 進表記パターンの緩やかな一致に基づく検索を指定します。 ほとんどの正規表現エンジンは、大文字小文字を区別しないマッチングを唯一の緩やかなマッチングとして提供している。 式エンジンが大文字小文字を区別しないマッチングを唯一の緩やかなマッチングとして提供する場合、式エンジンはASCII文字以外の大文字小文字を区別するUnicode文字の大きな範囲を考慮しなければなりません。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+
+</div>
+
+</section>
+
+<section><h2>終了状況</h2>
+
+<p>このコマンドは、以下の終了値を戻します。</p>
+
+
+<div><div><table><caption><span>表2. 終了状況</span></caption><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><span>0</span></td>
+
+<td>一致が見つかりました。</td>
+
+</tr>
+
+<tr>
+<td><span>1</span></td>
+
+<td>一致が見つかりませんでした。</td>
+
+</tr>
+
+<tr>
+<td><span>&gt;1</span></td>
+
+<td>構文エラーが見つかったか、(一致が見つかったとしても) ファイルにアクセスできませんでした。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+
+</section>
+
+<section><h2>例</h2>
+
+</section>
+
+<div>
+<ol>
+<li>ユニコードで定義されたコードポイントが U+6211 で、16進数表現が <code>\u6211</code> である文字 <code>我</code> を <span>regex_test.txt</span> ファイルから検索するには、次のコマンドを入力します：<div><div><pre><code>ugrep "\u6211" regex_test.txt</code></pre></div><div></div></div><div>複数の文字を検索するには、ユニコードで定義されたコードポイントの16進表現のリストをスペースなしで追加することができます。 たとえば、<span>regex_test.txt</span>ファイル内の<code>घ</code>と<code>र</code>を検索するには、次のコマンドを入力する：<div><div><pre><code>ugrep “\u0918\u0930" regex_test.txt</code></pre></div><div></div></div></div>
+</li>
+
+<li><div><code>U+6200</code>と<code>U+6300</code>のコードポイント間の文字の範囲を指定して<span>regex_test.txt</span>ファイルを検索するには、次のコマンドを入力する：<div><div><pre><code>ugrep "[\u6200-\u6300]" regex_test.txt</code></pre></div><div></div></div></div>
+
+<div>コードポイント<code>U+6200</code>と<code>U+6300</code>の間で、<span>regex_test.txt</span>ファイル内でも大文字の文字を検索する範囲を指定するには、次のコマンドを入力する：<div><div><pre><code>ugrep "[\u0000-\U0010FFFF--\p{Lu}]" regex_test.txt</code></pre></div><div></div></div></div>
+
+</li>
+
+<li>ユニコードで定義されたコードポイントが U+10425 で、16進数表現が <code>\U00010425</code> である文字 <code>𐐥</code> の緩やかな一致検索を行うには、次のコマンドを入力します：<div><div><pre><code>ugrep -i "\U00010425" regex_test.txt</code></pre></div><div></div></div></li>
+
+<li><span>regex_test.txt</span>ファイルで小数点以下の数字を検索するには、次のコマンドを入力する：<div><div><pre><code>ugrep "\p{Nd}" regex_test.txt</code></pre></div><div></div></div>ここで、<code>Nd</code>は、10進数の数字用のUnicode文字プロパティです。</li>
+
+<li>日本語のひらがなを<span>regex_test.txt</span>ファイルで検索するには、次のコードを入力する：<div><div><pre><code>ugrep "\p{Hiragana}" regex_test.txt</code></pre></div><div></div></div></li>
+
+<li><span>regex_test.txt</span>ファイルの大文字、小文字、数字をUnicodeプロパティを使って検索するには、次のコマンドを入力します：<ul>
+<li><div><div><pre><code>ugrep "\p{Ll}" regex_test.txt</code></pre></div><div></div></div>ここで、<code>Ll</code>プロパティはUnicodeの小文字にマッチし、すべての言語の小文字を含みます。</li>
+
+<li><div><div><pre><code>ugrep "\p{Lu}" regex_test.txt</code></pre></div><div></div></div>ここで、<code>Lu</code>プロパティはUnicodeの大文字にマッチし、すべての言語の大文字を含みます。</li>
+
+<li><div><div><pre><code>ugrep "\p{L}" regex_test.txt</code></pre></div><div></div></div><p>それとも</p>
+<div><div><pre><code>ugrep "\p{letter}" regex_test.txt</code></pre></div><div></div></div>ここで、<code>L</code>と<code>letter</code>のプロパティはUnicodeのすべての文字にマッチします。 <code>Lu</code>プロパティによる検索には、大文字、小文字、コネクタ文字が含まれます。 しかし、<code>letter</code>プロパティを使った検索では、大文字と小文字しか含まれません。</li>
+
+<li><div><div><pre><code>ugrep "[\p{L}||\p{Nd}]" regex_test.txt</code></pre></div><div></div></div>ここで、<code>Nd</code>プロパティはUnicodeの数字にマッチし、すべての言語の数字を含みます。</li>
+
+</ul>
+</li>
+
+<li><code>script</code>プロパティを使ってラテン語の文字を検索するには、次のコマンドを入力します：<div><div><pre><code>ugrep "\p{script=Latin}" regex_test.txt</code></pre></div><div></div></div><p><code>script</code>プロパティの値を特定の言語に設定することで、あらゆる言語の文字を検索できます。</p>
+</li>
+
+</ol>
+
+</div>
+
+<section><h2>ファイル</h2>
+
+<div>
+
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><span>/usr/bin/ugrep</span></td>
+
+<td><span>ugrep</span>コマンドを含む。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+
+</div>
+
+</section>
+
+</div></div>

@@ -1,0 +1,275 @@
+<div class="official-dom"><div>
+<section><h2>目的</h2> <p>コマンドを別の UNIX ベースのシステムで実行します。</p>
+</section>
+
+<section><h2>構文</h2> <p><strong>ユクス </strong>[ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/u_commands/uux.html#uux__row-d3e163527" target="_blank" rel="noopener noreferrer"><strong>-c</strong></a> | <a href="https://www.ibm.com/docs/ja/ssw_aix_73/u_commands/uux.html#uux__row-d3e163536" target="_blank" rel="noopener noreferrer"><strong>-C</strong></a> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/u_commands/uux.html#uux__row-d3e163595" target="_blank" rel="noopener noreferrer"><strong>-n</strong></a> | <a href="https://www.ibm.com/docs/ja/ssw_aix_73/u_commands/uux.html#uux__row-d3e163648" target="_blank" rel="noopener noreferrer"><strong>-z</strong></a> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/u_commands/uux.html#uux__row-d3e163498" target="_blank" rel="noopener noreferrer"><strong>-</strong></a> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/u_commands/uux.html#uux__row-d3e163510" target="_blank" rel="noopener noreferrer"><strong>-a</strong></a><em>名称 </em>] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/u_commands/uux.html#uux__row-d3e163521" target="_blank" rel="noopener noreferrer"><strong>-b </strong></a>] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/u_commands/uux.html#uux__row-d3e163567" target="_blank" rel="noopener noreferrer"><strong>-g</strong></a><em>グレード </em>] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/u_commands/uux.html#uux__row-d3e163581" target="_blank" rel="noopener noreferrer"><strong>-j </strong></a>] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/u_commands/uux.html#uux__row-d3e163605" target="_blank" rel="noopener noreferrer"><strong>-p </strong></a>] [ <strong>-e </strong>] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/u_commands/uux.html#uux__row-d3e163620" target="_blank" rel="noopener noreferrer"><strong>-r </strong></a>] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/u_commands/uux.html#uux__row-d3e163626" target="_blank" rel="noopener noreferrer"><strong>-s</strong></a><em>ファイル </em>] [  <a href="https://www.ibm.com/docs/ja/ssw_aix_73/u_commands/uux.html#uux__row-d3e163637" target="_blank" rel="noopener noreferrer"><strong>-x</strong></a><em>デバッグレベル </em>] <em>CommandString</em></p>
+</section>
+
+<section><h2>説明</h2> <p><strong>uux</strong> コマンドは、ローカル・システム上でのユーザーの作業は継続しながら、
+指定された UNIX ベースのシステム上で指定コマンドを実行する基本ネットワーク・ユーティリティー (BNU) コマンドです。 要求されたコマンドを実行する前に、
+<strong>uux</strong> コマンドは指定されたシステムから必要なファイルを収集します。 コマンドの出力データは、特定システム上の特定ファイルに送信することができます。 セキュリティーのために、ほとんどのインストール・システムでは、
+<strong>uux</strong> コマンドは <strong>rmail</strong> コマンドしか実行できないようになっています。</p>
+ <p>他のシステム上の <strong>uux</strong> コマンドは実行されます (<strong>X.*</strong>)。 ローカル・システムでコマンドを実行するファイル。 さらに、ローカル・システム上の <strong>uux</strong> コマンドは両方のコマンド (<strong>C. *</strong>) を作成します。 ファイルおよびデータ (<strong>D. *</strong>) ファイルを他のシステムに転送します。 実行ファイルには指定されたシステムで実行されるコマンド・ストリングが入ります。 コマンド・ファイルには <strong>uucp</strong> コマンドで作成するのと同じ情報が入ります。 データ・ファイルには、リモート・コマンド実行用のデータが含まれているか、または<strong> X.*</strong> になります。 リモート・コマンド実行のためのリモート・システム上のファイル。</p>
+ <p>実行ファイルの絶対パス名の形式は、以下のとおりです。</p>
+ <div> <div><div><pre><code>/var/spool/uucp/System/X.SystemNxxxx</code></pre></div><div></div></div></div>
+ <p>スプール・ディレクトリー内にファイルを作成すると、
+<strong>uux</strong> コマンドは <strong>uucico</strong> デーモンを呼び出して、
+それらのファイルをローカル・システム上のスプール・ディレクトリーから指定されたリモート・システムに転送します。 ファイルが転送されると、リモート・システム上の <strong>uuxqt</strong> デーモンは、
+指定したシステム上で <em>CommandString</em> を実行し、
+コマンドのすべての出力データを元の <strong>uux</strong> コマンド要求に指定されたファイルに入れます。</p>
+ <p><em>CommandString</em> 引数は、
+オペレーティング・システムのコマンド・ラインと同じような 1 つ以上の引数から構成されます。
+ただし、<em>CommandString</em> の前には、
+<em>System</em><strong>!</strong> という形式でリモート・システムの名前が接頭部として付けられます。 デフォルトの <em>System</em> はローカル・システムです。 <strong>uux</strong> コマンドを入力するユーザーが <a href="https://www.ibm.com/docs/ja/ssw_aix_73/u_commands/uux.html#uux__row-d3e163595" target="_blank" rel="noopener noreferrer"><strong>-n</strong></a> フラグを指定しない限り、リモート・システムがコマンドを実行しない場合、コマンドはそのユーザーに通知します。 この応答はリモート・システムからメールで送信されます。</p>
+<p><strong>ソース・ファイル名と宛先ファイル名</strong></p>
+ <ul>
+<li><span></span>コマンドの出力の宛先を指定する場合、<strong> uux</strong> コマンドは以下のいずれかの形式で入力できます。<ul>
+<li><span></span><strong>uux</strong><em>[Options</em>]<em>"CommandString&gt;</em> <em>Destination</em>"</li>
+
+<li><span></span><strong>uux</strong><em>[Options</em>]<em>CommandString</em> <em>{Destination}</em>.</li>
+
+</ul>
+</li>
+
+<li><span></span>宛先名は、以下のいずれかにすることができます。<ul>
+<li><span></span>絶対パス名</li>
+
+<li><span></span>前に <strong>~</strong><em>User</em>が付いた絶対パス名。ここで、 <em>User</em> は指定されたシステム上のログイン名です。 <strong>uux</strong> コマンドは、このパス名をユーザーのログイン・ディレクトリーに置き換えます。</li>
+
+</ul>
+</li>
+
+<li><span></span>シェル・パターン・マッチング文字? (疑問符)、* (アスタリスク)、および [...] (大括弧) は、ソース・ファイル ( <strong>diff</strong> コマンドによって比較されるファイルなど) のパス名に使用できます。該当するシステムがそれらを展開します。 しかし、* 文字を使用すると、予想外の結果になることがあります。 したがって宛先ファイルのパス名にはシェル・パターン・マッチング文字を使用しないでください。</li>
+
+<li><span></span>円記号を 2 つ (¥.) にします。 \) または引用符のペア (".... 「) ローカル・シェルが <strong>uux</strong> コマンドが指定されたシステムにコマンドを送信する前にパターン・マッチング文字を解釈できないようにするために、パス名の中でパターン・マッチング文字を囲みます。</li>
+
+<li><span></span>パス名に特殊シェル文字&gt; (より大)、&lt; (より小)、; (セミコロン)、または | (垂直バー) を使用している場合は、いずれかを ¥. ¥ または "..." 個々の文字を囲むか、コマンド・ストリング全体を囲むかを指定します。</li>
+
+<li><span></span>パス名にシェル・リダイレクト文字 &lt; &lt; または&gt;&gt; を使用しないでください。</li>
+
+<li><span></span> <strong>uux</strong> コマンドは、コマンド行に指定されたすべてのファイルを指定されたシステムに移動しようとします。 出力ファイルはすべて括弧で囲み、
+<strong>uux</strong> コマンドで転送されないようにしてください。</li>
+
+<li><span></span> <em>System</em>を指定する場合は、常にエントリー内の <em>CommandString</em> 引数の前に配置してください。 システム名には ASCII 文字以外は使用できません。</li>
+
+<li><span></span>! コマンド内でローカル・システムの名前の前にある (感嘆符) はオプションです。 「!」を含めることを選択した場合は、 2 つの異なるリモート・システムからのファイルを使用してローカル・システムでコマンドを実行するには、! <em>System</em>の代わりに ローカル・システムを表し、 <em>System</em>を追加します。 リモート・システム上の任意のパス名の最初の項目として使用することができます。</li>
+
+<li><span></span>BNU 構文のシステムを表す感嘆符は、C シェルでは異なる意味を持ちます。 <strong>uux</strong> コマンドを C シェルで実行するときには、
+システム名の感嘆符の前に &amp;#xa5; (円記号) を入れてください。<p></p><blockquote><span>“</span><strong>注 :</strong> ~ (ティルド) は公開スプール・ディレクトリー <strong>/var/spool/uucppublic</strong> を指定する短縮形です。<span>”</span></blockquote>
+<p></p>
+</li>
+
+</ul>
+</section>
+
+<section><h2>フラグ</h2> <div> 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><strong>-</strong></td>
+
+<td><strong>uux</strong> コマンドへの標準入力を <em>CommandString</em> 引数への標準入力にします。</td>
+
+</tr>
+
+<tr>
+<td><strong>-a</strong><em>名前</em></td>
+
+<td>コマンドを発行するユーザーのユーザー ID を <em>Name</em> 変数に指定されたユーザー ID に置換します。</td>
+
+</tr>
+
+<tr>
+<td><strong>-b</strong></td>
+
+<td>終了状態が 0 でないとき、標準入力をコマンドへ戻します。</td>
+
+</tr>
+
+<tr>
+<td><strong>-c</strong></td>
+
+<td>指定されたシステム上の宛先にソース・ファイルを転送します。 ソース・ファイルをスプール・ディレクトリーにコピーし、
+直後に <strong>uucico</strong> デーモンを呼び出します。 このフラグはデフォルトです。</td>
+
+</tr>
+
+<tr>
+<td><strong>-C</strong></td>
+
+<td>ソース・ファイルをスプール・ディレクトリーに転送します。 設定時間 (<strong>uusched</strong> プログラムで指定する) が経過すると、
+<strong>uucico</strong> デーモンはファイルを指定コンピューターの宛先に転送します。<p>ソース・ファイルの転送で問題が起きることがあります。
+例えば、リモート・マシンが稼働していなかったり、ログインができない場合などです。 このような場合は、ファイルは正しく転送されるまで、
+または <strong>uucleanup</strong> コマンドで除去されるまで、
+スプール・ディレクトリーに残ります。</p>
+</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+  
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><strong>-e</strong></td>
+
+<td>ファイルの拡張を可能にします。</td>
+
+</tr>
+
+<tr>
+<td><strong>-g</strong><em>グレード</em></td>
+
+<td>指定の接続の際に、ファイルを転送する時期を指定します。 <em>Grade</em> 変数には、
+1 桁の数値 (0 から 9 まで) または文字 (A から Z まで、a から z まで) を指定します。
+下位の ASCII シーケンス文字を使用すると、
+上位のシーケンス番号の場合よりも早いファイルが転送されます。 数値 0 はグレードとしては最上位 (最も早い) であり、z は最下位 (最も遅い) となります。 デフォルトは <strong>N</strong>です。</td>
+
+</tr>
+
+<tr>
+<td><strong>-j</strong></td>
+
+<td>指定システムでコマンドを実行しているプロセスのジョブ識別番号を表示します。 このジョブIDをBNU<a href="https://www.ibm.com/docs/ja/ssw_aix_73/u_commands/uustat.html#uustat" target="_blank" rel="noopener noreferrer"><strong>uustat</strong></a>コマンドで使用してコマンドのステータスをチェックするか、<a href="https://www.ibm.com/docs/ja/ssw_aix_73/u_commands/uustat.html#uustat__row-d3e162082" target="_blank" rel="noopener noreferrer"><strong>uustat-k</strong></a>フラグでプロセスを終了する。</td>
+
+</tr>
+
+<tr>
+<td><strong>-n</strong></td>
+
+<td>コマンドの成功または失敗が、
+<strong>mail</strong> コマンドによってユーザーに通知されるのを抑制します。 デフォルトではコマンドが失敗したかどうかが、ユーザーに通知されます。</td>
+
+</tr>
+
+<tr>
+<td><strong>-p</strong></td>
+
+<td><strong>uux</strong> コマンドへの標準入力を <em>CommandString</em> 引数への標準入力として使用します。 <strong>-</strong> (マイナス) を指定しても同じ働きとなります。</td>
+
+</tr>
+
+<tr>
+<td><strong>-r</strong></td>
+
+<td>システム間でファイルを転送するスプール・プログラムの始動を抑制します。 デフォルトではスプール・プログラムが始動されます。</td>
+
+</tr>
+
+<tr>
+<td><strong>-s</strong><em>ファイル</em></td>
+
+<td>指定システム上にある、<em>File</em> 変数に指定されたファイル内の転送状況を通知します。 ファイル名には ASCII 文字以外は使用できません。</td>
+
+</tr>
+
+<tr>
+<td><strong>-x</strong><em>デバッグレベル</em></td>
+
+<td>デバッグ情報をローカル・システムの画面に表示します。 <em>DebugLevel</em> 変数は、0 から 9 までの数値でなければなりません。 数値が大きいほど、より詳細なレポートが作成されます。</td>
+
+</tr>
+
+<tr>
+<td><strong>-Z</strong></td>
+
+<td>コマンドが正しく実行されたかどうかをユーザーに通知します。 このフラグは、エラー・イベントだけを通知するシステム・デフォルトとは反対の動作をします。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+</section>
+
+<section><h2>例</h2> <ol>
+<li><span></span>リモート・システムで <strong>qprt</strong> コマンドを実行するには、次のように入力します。<div> <div><div><pre><code>uux merlin!qprt /reports/memos/lance</code></pre></div><div></div></div>この例では、リモート・ファイル /reports/memos/lanceリモート・システムで印刷されるmerlin... <a href="https://www.ibm.com/docs/ja/ssw_aix_73/u_commands/uux.html#uux__row-d3e163595" target="_blank" rel="noopener noreferrer"><strong>-n</strong></a> フラグも <a href="https://www.ibm.com/docs/ja/ssw_aix_73/u_commands/uux.html#uux__row-d3e163648" target="_blank" rel="noopener noreferrer"><strong>-z</strong></a> フラグも指定されていないため、 <strong>uux</strong> コマンドがユーザーに通知するのは、リモート・システムがコマンドの実行に失敗した場合だけです。 リモート・システムからの応答は <strong>mail</strong> コマンドによって通知されます。</div>
+</li>
+
+<li><span></span>2 つのリモート・システムでコマンドを実行するには、以下のように別々のコマンド行に情報を入力します。<div> <div><div><pre><code>uux merlin!qprt /reports/memos/lance
+uux zeus!qprt /test/examples/examp1</code></pre></div><div></div></div>この例では、/reports/memos/lanceファイルはリモート・システムで印刷されますmerlin、およびリモート/test/examples/examp1ファイルはリモート・システムで印刷されますzeus... <a href="https://www.ibm.com/docs/ja/ssw_aix_73/u_commands/uux.html#uux__row-d3e163595" target="_blank" rel="noopener noreferrer"><strong>-n</strong></a> フラグも <a href="https://www.ibm.com/docs/ja/ssw_aix_73/u_commands/uux.html#uux__row-d3e163648" target="_blank" rel="noopener noreferrer"><strong>-z</strong></a> フラグも指定されていないため、 <strong>uux</strong> コマンドがユーザーに通知するのは、リモート・システムがコマンドの実行に失敗した場合だけです。 リモート・システムからの応答は <strong>mail</strong> コマンドによって通知されます。</div>
+</li>
+
+<li><span></span>ローカル・システム上のファイルとリモート・システム上のファイルを比較するジョブを、ローカル・システム上の <strong>diff</strong> コマンドを使用してキューに入れ、ジョブのジョブ ID を取得するには、次のように入力します。<div>uux  <a href="https://www.ibm.com/docs/ja/ssw_aix_73/u_commands/uux.html#uux__row-d3e163581" target="_blank" rel="noopener noreferrer">-j </a>"/usr/bin/diff /usr/amy/f1 hera!/home/amy/f2 &gt; ~/f1.diff"</div>この例では、/usr/amy/f1ローカル・システム上のファイルと比較されます。/home/amy/f2リモート・システム上のファイルhera出力は次の場所に置かれます。f1.diffローカル・パブリック・ディレクトリー内のファイル (このファイルの絶対パス名は以下のとおりです。/var/spool/uucppublic/f1.diff)。 宛先名は、&gt; の前にコマンド・ストリング全体を <strong>""</strong> (引用符) で囲んで入力するか、または <strong>¥ { </strong><em>DestinationName</em><strong> ¥}</strong>のように中括弧と円記号で囲んで入力する必要があります。 <strong>-j</strong> フラグを指定すると、
+<strong>uux</strong> コマンドはそのジョブの BNU ジョブ ID を戻します。</li>
+
+<li><span></span>ローカル・システムで <strong>diff</strong> コマンドを使用して、2 つの異なるリモート・システムにあるファイルを比較するには、次のように入力します。<div> <div><div><pre><code>uux "!/usr/bin/diff hera!/usr/amy/f1 venus!/home/amy/f2 &gt; \ !f1.diff"</code></pre></div><div></div></div>この例では、/usr/amy/f1リモート・システムからのファイルhera以下と比較されます。/home/amy/f2リモート・システムからのファイルvenus出力はファイルに入れられます。f1.diffローカル・システム上の現行作業ディレクトリーにあります。</div>
+  <p>出力ファイルは書き込み可能でなければなりません。 特定の目標出力ファイルの許可状況がわからない場合には、
+出力結果の宛先は公開ディレクトリーにしてください。 ローカル・システムを表す感嘆符はオプショナルです。 宛先名は、&gt; の前にコマンド・ストリング全体を <strong>""</strong> (引用符) で囲んで入力するか、または <strong>¥ { </strong><em>DestinationName </em><strong>¥}</strong>のように中括弧と円記号で囲んで入力する必要があります。</p>
+</li>
+
+<li><span></span>異なるシステムの 2 つの別個のファイルで <strong>diff</strong> コマンドを実行するには、次のように入力します。<div> <div><div><pre><code>uux "hera!/usr/bin/diff /tmp/out1 zeus/tmp/out2 &gt; ~/DF"</code></pre></div><div></div></div>この例では、diffファイルがリモート・システム上にあるhera最初のソース・ファイルはリモート・システム上にあります。hera2 次ファイルはシステム上にあります。zeus. (zeusローカル・システムまたは別のリモート・システムである可能性があります。) 出力はローカル・システム上の公開ディレクトリーのファイル DF に入ります。</div>
+</li>
+
+<li><span></span>別のリモート・システム上の出力ファイルを指定するには、次のように入力します。<div> <div><div><pre><code>uux hera!uucp venus!/home/amy/f1 \{merlin!/home/geo/test\}</code></pre></div><div></div></div>この例では、 <strong>uucp</strong><a href="https://www.ibm.com/docs/ja/ssw_aix_73/u_commands/uucp.html#uucp" target="_blank" rel="noopener noreferrer">uucp Command</a> コマンドがリモート・システム上で実行されます。hera、および/home/amy/f1ファイル、システムに保管されるvenusはユーザーに送信されますgeoシステム上merlinとしてtest宛先名は、中括弧と円記号で囲んで入力します。</div>
+</li>
+
+<li><span></span>リモート・システム上のファイルから選択したフィールドを取得し、それらをローカル・システム上のファイルに入れるには、次のように入力します。<div> <div><div><pre><code>uux "cut -f1 -d: hera\!/etc/passwd &gt; ~/passw.cut"</code></pre></div><div></div></div><strong>cut</strong> コマンドはローカル・システムで実行されます。 システム上のパスワード・ファイルの各行の最初のフィールドheraが次の場所に配置されるpassw.cutローカル・システム上の公開ディレクトリー内のファイル。 <strong>uux</strong> コマンドは C シェルで実行されているので、\(円記号) は、リモート・システムの名前の感嘆符の前になければなりません。</div>
+</li>
+
+<li><span></span> <strong>uux</strong> パイプ・オプションを使用してリモート・コピーを指定するには、次のようにします。/tmp/exampleファイルから/tmp/examplecopyシステム上mercury使用する構文は、次のとおりです。<div> <div><div><pre><code>uux -p mercury!
+cp /tmp/example /tmp/examplecopy
+  </code></pre></div><div></div></div>コマンド入力を終了するには、Ctrl-D を入力しなければなりません。 Ctrl-D を押すと、コマンドはシステム上でリモート実行のためにスプールされます。 mercury.</div>
+</li>
+
+</ol>
+</section>
+
+<section><h2>ファイル</h2> <div> 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><strong>/usr/bin/uux</strong></td>
+
+<td><strong>uux</strong> コマンドのパス名です。</td>
+
+</tr>
+
+<tr>
+<td><strong>/var/spool/uucp</strong></td>
+
+<td>スプール・ディレクトリー。</td>
+
+</tr>
+
+<tr>
+<td><strong>/var/spool/uucppublic</strong></td>
+
+<td>公開ディレクトリー。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+</section>
+
+</div></div>

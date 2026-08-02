@@ -1,0 +1,754 @@
+<div class="official-dom"><div>
+<section><h2>目的</h2> <p>Simple Performance Lock Analysis Tool (splat)。 カーネル
+および <strong>pthread</strong> ロック使用率レポートを提供します。</p>
+</section>
+
+<section><h2>構文</h2> <p><strong>スプラット</strong> <a href="https://www.ibm.com/docs/ja/ssw_aix_73/s_commands/splat.html#splat__row-d3e42691" target="_blank" rel="noopener noreferrer"><strong>I</strong></a> <em>ファイル</em> [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/s_commands/splat.html#splat__row-d3e42701" target="_blank" rel="noopener noreferrer"><strong>N</strong></a> <em>ファイル</em> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/s_commands/splat.html#splat__row-d3e42713" target="_blank" rel="noopener noreferrer"><strong>-</strong></a> <em>ファイル</em> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/s_commands/splat.html#splat__row-d3e42725" target="_blank" rel="noopener noreferrer"><strong>-d 年</strong></a> [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/s_commands/splat.html#splat__row-d3e42725" target="_blank" rel="noopener noreferrer">BFTA</a> ] ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/s_commands/splat.html#splat__row-d3e42767" target="_blank" rel="noopener noreferrer"><strong>-</strong></a> <em>アドレス</em> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/s_commands/splat.html#splat__row-d3e42755" target="_blank" rel="noopener noreferrer"><strong>「-c」</strong></a> <em>クラス</em>] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/s_commands/splat.html#splat__row-d3e42782" target="_blank" rel="noopener noreferrer"><strong>-s</strong></a> [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/s_commands/splat.html#splat__row-d3e42782" target="_blank" rel="noopener noreferrer">acelmsS</a> ] ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/s_commands/splat.html#splat__row-d3e42837" target="_blank" rel="noopener noreferrer"><strong>-C</strong></a> <em>CPU</em> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/s_commands/splat.html#splat__row-d3e42846" target="_blank" rel="noopener noreferrer"><strong>-S (S)</strong></a> <em>カウント</em> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/s_commands/splat.html#splat__row-d3e42855" target="_blank" rel="noopener noreferrer"><strong>T</strong></a> <em>開始</em>] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/s_commands/splat.html#splat__row-d3e42864" target="_blank" rel="noopener noreferrer"><strong>-T (T)</strong></a> <em>停止</em>] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/s_commands/splat.html#splat__row-d3e42903" target="_blank" rel="noopener noreferrer"><strong>P-</strong></a> ]</p>
+ <p><strong>splat</strong> <a href="https://www.ibm.com/docs/ja/ssw_aix_73/s_commands/splat.html#splat__row-d3e42874" target="_blank" rel="noopener noreferrer"><strong>-h</strong></a> [<em>トピック</em>]</p>
+ <p><strong>スプラット </strong><a href="https://www.ibm.com/docs/ja/ssw_aix_73/s_commands/splat.html#splat__row-d3e42897" target="_blank" rel="noopener noreferrer"><strong>-j</strong></a></p>
+</section>
+
+<section><h2>説明</h2> <p><strong>splat</strong>(Simple Performance Lock Analysis Tool) は、<span>AIX</span>トレースファイルを後処理して、カーネルの単純ロックと複雑ロックの使用レポートを作成するソフトウェアツールです。 <strong>pthread
+</strong> mutex 読み取り/書き込みロック、および条件変数使用率レポートも生成します。</p>
+</section>
+
+<section><h2>フラグ</h2> 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><strong>-i</strong> <em>入力ファイル</em></td>
+
+<td><span>AIX</span> トレース・ファイル (REQUIRED)。</td>
+
+</tr>
+
+<tr>
+<td><strong>-n</strong> <em>名前ファイル</em></td>
+
+<td><strong>gensyms</strong> コマンドの出力が入っているファイル。</td>
+
+</tr>
+
+<tr>
+<td><strong>-o</strong> <em>出力ファイル</em></td>
+
+<td>レポートを書き込むファイル (デフォルト: <strong>
+stdout</strong>)。</td>
+
+</tr>
+
+<tr>
+<td><strong>-d</strong> <em>詳細</em></td>
+
+<td>Detail には、次の項目を使用できます。[<strong>b</strong>]asic: 要約とロックの詳細 (デフォルト) [<strong>f</strong>]unction: 基本 + 関数の詳細 [<strong>t</strong>]hread: 基本 + スレッドの詳細 [<strong>a</strong>]ll: 基本 + 関数 + スレッドの詳細</td>
+
+</tr>
+
+<tr>
+<td><strong>-c</strong> <em>クラス</em></td>
+
+<td>ユーザーが 10 進数のロック・クラス・インデックスを提供する
+と、<strong>splat</strong> は、そのクラスのロックに関するアクテ
+ィビティーだけを報告します。</td>
+
+</tr>
+
+<tr>
+<td><strong>-l</strong> <em>アドレス</em></td>
+
+<td>ユーザーが 16 進数ロック・アドレスを提供する
+と、<strong>splat</strong> はそのアドレスのロックに関するアクテ
+ィビティーだけを報告します。 <strong>splat</strong> は、そのロック・アドレス
+が入っているロック・フックを検索するためにトレース・ファイルをフィルターに掛け、
+そのロックについてのみレポートを生成します。</td>
+
+</tr>
+
+<tr>
+<td><strong>-s</strong> <em>基準</em></td>
+
+<td>次の基準を使用して、ロック、関数、およびスレッドに関するレポートをソートします。<dl>
+<dt>a</dt>
+
+<dd>収集</dd>
+
+
+<dt>c</dt>
+
+<dd>プロセッサー保持時間パーセント</dd>
+
+
+<dt>e</dt>
+
+<dd>経過保持時間パーセント</dd>
+
+
+<dt>l</dt>
+
+<dd>ロック・アドレス、関数アドレス、またはスレッド ID</dd>
+
+
+<dt>m</dt>
+
+<dd>ミス率</dd>
+
+
+<dt>s</dt>
+
+<dd>スピン・カウント</dd>
+
+
+<dt>S</dt>
+
+<dd>プロセッサー・スピン保持時間パーセント (デフォルト)</dd>
+
+
+<dt>w</dt>
+
+<dd>実待ち時間パーセント</dd>
+
+
+<dt>W</dt>
+
+<dd>平均 waitq 深さ</dd>
+
+</dl>
+</td>
+
+</tr>
+
+<tr>
+<td><strong>-C</strong> <em>CPU</em></td>
+
+<td>このトレースに存在するプロセッサーの台数を指定します。</td>
+
+</tr>
+
+<tr>
+<td><strong>-S</strong> <em>カウント</em></td>
+
+<td>各レポートのエントリー最大数 (デフォルト:
+10)。</td>
+
+</tr>
+
+<tr>
+<td><strong>-t</strong> <em>開始時刻</em></td>
+
+<td>トレース開始からの時間オフセット (秒数)。</td>
+
+</tr>
+
+<tr>
+<td><strong>-T</strong> <em>停止時間</em></td>
+
+<td>トレース開始からトレース・データ解析停止までの時間オフセット (秒数)。 (デフォルト: トレース終了時)</td>
+
+</tr>
+
+<tr>
+<td><strong>-h</strong> [<em>トピック</em>]</td>
+
+<td>使用方法または特定のトピックに関するヘルプ。 次のトピックが有効です。<ul>
+<li>すべて</li>
+
+<li>overview</li>
+
+<li>入力</li>
+
+<li>名前</li>
+
+<li>reports</li>
+
+<li>ソート</li>
+
+</ul>
+</td>
+
+</tr>
+
+<tr>
+<td><strong>-j</strong></td>
+
+<td>splat が使用するトレース・フックのリストを出力します。</td>
+
+</tr>
+
+<tr>
+<td><strong>-p</strong></td>
+
+<td>プロセッサー時間の計算のために PURR レジスターの使用を指定します。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</section>
+
+<section><h2>ヘルプ</h2> <p>以下は、使用可能なヘルプ・トピックとそれぞれの内容の要約です。</p>
+ 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td>OVERVIEW</td>
+
+<td>このテキスト</td>
+
+</tr>
+
+<tr>
+<td>INPUT</td>
+
+<td><strong>splat</strong>から有用な出力を得るために必要な <span>AIX</span> トレース・フック。</td>
+
+</tr>
+
+<tr>
+<td>NAMES</td>
+
+<td><strong>splat</strong> の原因となり、
+人間が解読可能なシンボルにアドレスをマップするネーム・ユーティリティー。</td>
+
+</tr>
+
+<tr>
+<td>REPORTS</td>
+
+<td>splat が生成するレポートの説明、および報告する値の計算に使用する数式。</td>
+
+</tr>
+
+<tr>
+<td>SORTING</td>
+
+<td>使用可能なすべてのソート・オプション、およびそのオプション
+を <strong>splat</strong> の出力に適用する方法。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</section>
+
+<section><h2>Splat のトレース</h2> <div><strong>Splat</strong> は、 <span>AIX</span> トレース・コマンドで収集された <span>AIX</span> トレース・ファイルを 1 次入力として受け取ります。 <strong>splat</strong> を使用して
+トレースを分析する前に、トレースの収集に次の内容も含めて、十分なフックが
+使用されていることを確認する必要があります。<div><div><pre><code>106 DISPATCH
+10C DISPATCH IDLE PROCESS
+10E RELOCK
+112 LOCK
+113 UNLOCK
+134 HKWD_SYSC_EXECVE
+139 HKWD_SYSC_FORK
+419 CPU PREEMPT
+465 HKWD_SYSC_CRTHREAD
+46D WAIT LOCK
+46E WAKEUP LOCK
+606 HKWD_PTHREAD_COND
+607 HKWD_PTHREAD_MUTEX
+608 HKWD_PTHREAD_RWLOCK
+609 HKWD_PTHREAD_GENERAL
+</code></pre></div><div></div></div>このようなロックおよびアンロックのトレース・イベントを取り込むと、
+マルチプロセッサー環境でロックが使用される頻度のために、重大なパフォーマンスの低
+下が起こります。 そこで、通常は、ロック・トレース・イベントの報告を使用不可に
+しておきます。 ロック・トレース・イベントの報告を使用可能にするには、splat に
+必要なロック・トレース・イベントを含むトレースの収集を開始する前に、
+次のステップを実行する必要があります (KornShell 構文)。<div><div><pre><code>  1. bosboot -ad /dev/hdisk0 -L
+
+  2. shutdown -Fr
+
+  3. (reboot the machine)
+
+  4. locktrace -S
+
+  5. mkdir temp.lib; cd temp.lib
+
+  6. ln -s /usr/ccs/lib/perf/libpthreads.a
+
+  7. export LIBPATH=$PWD:$LIBPATH
+</code></pre></div><div></div></div>ステップ 1 から 3 はオプショナルです。 これらのステップにより、
+アドレスの代わりにカーネル・ロック・クラス名を表示することができます。 <strong>bosboot</strong>
+およびそのフラグの詳細については、<strong>bosboot(1)</strong>
+を参照してください。 ステップ 5 から 7 は、
+ユーザーの <strong>pthread</strong> ロック・インスツルメンテーションをアクティブにするのに必要なステップです。
+<strong>temp.lib</strong> サブディレクトリーは、任意の場所に設定できます。 ステップ 1 から 7 は、レポートの完了に必要なステップです。</div>
+</section>
+
+<section><h2>Splat の名前</h2> <p><strong>splat</strong> は、<strong>gensyms</strong> コマンドの出力をオプションの入力として使用し、ロック・アドレスおよび関数アドレスを人間が理解できるシンボルにマップすることができます。</p>
+ <p><strong>
+Lock classes</strong> および <strong>offsets</strong> を使用して、
+ロックをおおよそ識別することはできますが、実際のシンボルとして特定することは
+できません。</p>
+</section>
+
+<section><h2>Splat のレポート</h2> <div><strong>splat</strong> が生成するレポートには、レポートの要約、
+ロックのサマリー・レポート・セクション、およびロック詳細レポート・リストが含まれます。
+それぞれに関連関数の詳細またはスレッド詳細レポート (またはその両方) が付きます。<div><div><pre><code>Report Summary
+^^^^^^^^^^^^^^
+ The report summary consists of the following elements:
+
+ - The trace command used to collect the trace.
+ - The host that the trace was taken on.
+ - The date that the trace was taken on.
+ - The duration of the trace in seconds.
+ - The estimated number of CPUs
+ - The combined elapsed duration of the trace in seconds;
+   ( the duration of the trace multiplied by the number of
+     CPUs identified during the trace ).
+ - Start time, which is the offset in seconds from the beginning of the
+   trace that trace statistics begin to be gathered.
+ - Stop time, which is the offset in seconds from the beginning of the
+   trace that trace statistics stop being gathered.
+ - Total number of acquisitions during the trace.
+ - Acquisitions per second, which is computed by dividing
+   the total number of lock acquisitions by the real-time
+   duration of the trace.
+ - % of Total Spin Time, this is the summation of all lock spin hold
+   times, divided by the combined trace duration in seconds, divided by 100.
+   The current goal is to have this value be less than 10% of the total
+   trace duration.
+
+
+ Lock Summary
+ ^^^^^^^^^^^^
+
+ The lock summary report has the following fields:
+
+Lock		         The name, lockclass or address of the lock.
+
+
+Type              The type of the lock, identified by one of the following letters: 
+                      Q    A RunQ lock 
+                      S    A simple kernel lock 
+                      D    A disabled simple kernel lock
+                      C    A complex kernel lock 
+                      M    A PThread mutex 
+                      V    A PThread condition-variable 
+                      L    A PThread read/write lock
+Acquisitions     The number of successful lock attempts for this lock, minus
+                  the number of times a thread was preempted while holding
+                  this lock.
+
+Spins            The number of unsuccessful lock attempts for this lock,
+                  minus the number of times a thread was undispatched while
+                  spinning.
+
+Wait             The number of unsuccessful lock attempts that
+ or               resulted in the attempting thread going to
+Transform         sleep to wait for the lock to become available,
+                  or allocating a krlock.
+
+%Miss            Spins divided by Acquisitions plus Spins, multiplied by 100.
+
+%Total           Acquisitions divided by the total number of all
+                  lock acquisitions, multiplied by 100.
+
+Locks/CSec       Acquisitions divided by the combined elapsed
+ 	               duration in seconds.
+
+Percent HoldTime 
+Real CPU          The percent of combined elapsed trace time that
+                  threads held the lock in question while dispatched.
+                  DISPATCHED_HOLDTIME_IN_SECONDS divided by combined
+                  trace duration, multiplied by 100.
+
+Real Elaps(ed)    The percent of combined elapsed trace time that
+                  threads held the lock while dispatched or sleeping.
+                  UNDISPATCHED_AND_DISPATCHED_HOLDTIME_IN_SECONDS divided
+                  by combined trace duration, multiplied by 100.
+
+Comb Spin         The percent of combined elapsed trace time that
+                  threads spun while waiting to acquire this lock.
+                  SPIN_HOLDTIME_IN_SECONDS divided by combined trace
+                  duration, multiplied by 100.
+
+</code></pre></div><div></div></div>ロック・サマリー・レポートは、デフォルトでは 10 のロック項目が表示されます。
+この内容は、percent spin hold time (10 番目のフィールド) 別に降順で保存されています。 サマリー・レポートの長さは、<strong>-S</strong> スイッチを使用すると
+調整できます。 サマリー・レポート (およびその他のレポート) の保管順序を設定
+するには <strong>-s</strong> スイッチを使用します。
+このスイッチのオプションについては、<strong>splat -h</strong> ソート
+の SORTING ヘルプ・セクションに説明があります。<div><div><pre><code>Lock Detail
+^^^^^^^^^^^
+
+ The lock detail report consists of the following fields:
+
+ LOCK             The address (in hexadecimal) of the lock.
+
+ NAME             The symbol mapping for that address (if available)
+
+ CLASS            The lockclass name (if available) and hexadecimal offset,
+                  used to allocate this lock ( lock_alloc() kernel service ).
+
+Parent Thread    Thread id of the parent thread. This field only exists for Mutex, 
+                  Read/Write lock and Conditional Variable report. 
+
+ creation time    Elapsed time in seconds after the first event recorded in trace, 
+                  if available. This field only exists for Mutex, Read/Write lock
+                  and Conditional Variable report.
+ deletion time    Elapsed time in seconds after the first event recorded in trace, 
+                  if available. Tthis field only exists for Mutex, Read/Write lock
+                  and Conditional Variable report. 
+
+ Pid              Pid number associated to the lock (this field only exists for Mutex, 
+                  Read/Write lock and Conditional Variable report). 
+
+ Process Name    Process name associated to the lock (this field only exists for Mutex, 
+                 Read/Write lock and Conditional Variable report). 
+
+ Call-Chain      Stack of called methods (if possible to have them, this field only 
+                 exists for Mutex, Read/Write lock and Conditional Variable report). 
+
+
+ Acquisitions     The number of successful lock attempts for this lock.
+                  This field is named Passes for the conditional variable lock report.
+
+ Miss Rate        The number of unsuccessful lock attempts divided by
+                  Acquisitions plus unsuccessful lock attempts, multiplied
+                  by 100.
+
+ Spin Count       The number of unsuccessful lock attempts.
+
+ Wait Count       The number of unsuccessful lock attempts that resulted in
+                  the attempting thread going to sleep to wait for the lock
+                  to become available.
+
+ Transform Count  The number of krlock allocated and deallocated by the simple lock. 
+
+ Busy Count	      The number of simple_lock_try() calls that returned busy.
+
+ Seconds Held
+ CPU              The total time in seconds that this lock was held by
+                  dispatched threads.
+
+ Elapsed	         The total time in seconds that this lock was held by
+                  both dispatched and undispatched threads.
+
+NOTE: neither of these two values should exceed the
+      total real elapsed duration of the trace.
+
+ Percent Held
+ Real CPU         The percent of combined elapsed trace time that
+                  threads held the lock in question while dispatched.
+                  DISPATCHED_HOLDTIME_IN_SECONDS divided by trace
+                  duration, multiplied by 100.
+
+ Real Elaps(ed)   The percent of combined elapsed trace time that
+                  threads held the lock while dispatched or sleeping.
+                  UNDISPATCHED_AND_DISPATCHED_HOLDTIME_IN_SECONDS divided
+                  by trace duration, multiplied by 100.
+
+ Comb Spin        The percent of combined elapsed trace time that
+                  threads spun while waiting to acquire this lock.
+                  SPIN_HOLDTIME_IN_SECONDS divided by trace duration,
+                  multiplied by 100. 
+
+ Wait             The percentage of combined elapsed trace time that 
+                  threads unsuccessfully tried to acquire this lock.
+
+ SpinQ            Splat keeps track of the minimum, maximum and average
+                  depth of the spin queue (the threads spinning, waiting
+                  for a lock to become available).
+
+ WaitQ            As with the spin queue, splat also tracks the minimum,
+                  maximum and average depth of the queue of threads waited
+                  waiting for a lock to become available).
+
+PROD              The associated krlocks prod calls count.
+
+CONFER SELF       The confer to self calls count for the simple lock and the 
+                  associated krlocks.
+
+CONFER TARGET     The confer to target calls count for the simple lock and the 
+                  associated krlocks. w/ preemption reports the successfull calls 
+                  count, resulting in a preemption.
+
+CONFER ALL        The confer to all calls count for the simple lock and the 
+                  associated krlocks. w/ preemption reports the successfull calls 
+                  count, resulting in a preemption.
+
+HANDOFF           The associated krlocks handoff calls count.
+
+Lock Activity w/Interrupts Enabled (mSecs)
+
+</code></pre></div><div></div></div>ロック明細報告のこのセクションは、splat が各ロックについて収集したロー・データのダンプであり、時間はミリ秒で表されます。 LOCK、SPIN、WAIT、UNDISP(atched)、および PREEMPT の 5 つの状態は、<strong>splat</strong> の使用可能な <strong>simple_lock</strong> 有限状態マシンの基本的な 5 つの状態です。 それぞれの状態に対するカウント
+は、スレッドのアクションにより状態が変化した回数を示します。 ミリ秒による
+時間は、ロック要求がその状態になっていた時間について、最低時間、最大時間、
+平均時間、および合計時間を表示します。<div><div><pre><code>   LOCK:    this state represents a thread successfully acquiring a lock.
+
+   SPIN:    this state represents a thread unsuccessfully trying to acquire
+            a lock.
+
+   WAIT:    this state represents a spinning thread (in SPIN) going to sleep
+            (voluntarily) after exceeding the thread's spin threshold.
+
+   UNDISP:  this state represents a spinning thread (in SPIN) becoming
+            undispatched (involuntarily) before exceeding the thread's
+            spin threshold.
+
+   PREEMPT: this state represents when a thread holding a lock is
+            undispatched.
+
+
+Lock Activity w/Interrupts Disabled (mSecs)
+</code></pre></div><div></div></div>ロック明細報告のこのセクションは、splat が各ロックについて収集したロー・データのダンプであり、時間はミリ秒で表されます。 LOCK、SPIN、LOCK with KRLOCK、KRLOCK LOCK、KRLOCK SPIN、および TRANSFORM の 6 つの状態は、<strong>splat</strong> の使用不可な <strong>simple_lock</strong> 有限状態マシンの基本的な 6 つの状態です。 それぞれの状態に対するカウント
+は、スレッドのアクションにより状態が変化した回数を示します。 ミリ秒による
+時間は、ロック要求がその状態になっていた時間について、最低時間、最大時間、
+平均時間、および合計時間を表示します。<div><div><pre><code>LOCK:        This state represents a thread successfully acquiring a lock.
+
+SPIN:        This state represents a thread unsuccessfully trying to acquire
+             a lock.
+
+LOCK with    The thread has successfully acquired the lock, while holding 
+ KRLOCK:     the associated krlock, and is currently executing.
+
+KRLOCK LOCK: The thread has successfully acquired the associated krlock, 
+             and is currently executing.
+
+KRLOCK SPIN: The thread is executing and unsuccessfully attempting to acquire
+             the associated krlock. 
+
+TRANSFORM:   The thread has successfully allocated a krlock it associates to, 
+             and is executing.
+
+
+Function Detail
+^^^^^^^^^^^^^^^
+
+ The function detail report consists of the following fields:
+
+ Function Name   The name or return address of the function which
+                 used the lock.
+
+ Acquisitions	   The number of successful lock attempts for this lock.
+                 For complex lock and read/write lock there is a 
+                 distinction between acquisition for writing 
+                 (Acquisition Write) and for reading 
+                 (Acquisition Read).
+
+
+ Miss Rate      The number of unsuccessful lock attempts divided by
+                Acquisitions, multiplied by 100.
+
+ Spin Count     The number of unsuccessful lock attempts.
+                For complex lock and read/write lock there is a 
+                distinction between spin count for writing 
+                (Spin Count Write) and for reading 
+                (Spin Count Read).
+
+ Wait Count     The number of unsuccessful lock attempts that resulted in
+                the attempting thread going to sleep to wait for the lock
+                to become available.
+                For complex lock and read/write lock there is a 
+                distinction between wait count for writing 
+                (Wait Count Write) and for reading 
+                (Wait Count Read).
+
+Transform Count The number of times that a simple lock has allocated a krlock,
+                while the thread was trying to acquire the simple lock.
+
+ Busy Count	     The number of simple_lock_try() calls that returned busy.
+
+ Percent Held of Total Time 
+ CPU              The percent of combined elapsed trace time that
+                  threads held the lock in question while dispatched.
+                  DISPATCHED_HOLDTIME_IN_SECONDS divided by trace
+                  duration, multiplied by 100.
+
+ Elaps(ed)	      The percent of combined elapsed trace time that
+                  threads held the lock while dispatched or sleeping.
+                  UNDISPATCHED_AND_DISPATCHED_HOLDTIME_IN_SECONDS divided
+                  by trace duration, multiplied by 100.
+
+ Spin             The percent of combined elapsed trace time that
+                  threads spun while waiting to acquire this lock.
+                  SPIN_HOLDTIME_IN_SECONDS divided by combined trace
+                  duration, multiplied by 100.
+
+ Wait             The percentage of combined elapsed trace time that 
+                  threads unsuccessfully tried to acquire this lock. 
+
+ Return Address   The calling function's return address in hexadecimal.
+
+ Start Address	   The start address of the calling function in hexadecimal.
+
+ Offset           The offset from the function start address in hexadecimal.
+
+
+Thread Detail
+^^^^^^^^^^^^^
+
+The thread detail report consists of the following fields:
+
+ ThreadID        Thread identifier.
+
+ Acquisitions    The number of successful lock attempts for this lock.
+
+ Miss Rate       The number of unsuccessful lock attempts divided by
+                 Acquisitions, multiplied by 100.
+
+ Spin Count      The number of unsuccessful lock attempts.
+
+ Wait Count      The number of unsuccessful lock attempts that resulted in
+                 the attempting thread going to sleep to wait for the lock
+                 to become available.
+
+Transform Count The number of times that a simple lock has allocated a krlock,
+                while the thread was trying to acquire the simple lock.
+
+Busy Count      The number of simple_lock_try() calls that returned busy.
+
+ Percent Held of Total Time 
+ CPU              The percent of combined elapsed trace time that
+                  threads held the lock in question while dispatched.
+                  DISPATCHED_HOLDTIME_IN_SECONDS divided by trace
+                  duration, multiplied by 100.
+
+ Elaps(ed)        The percent of combined elapsed trace time that
+                  threads held the lock while dispatched or sleeping.
+                  UNDISPATCHED_AND_DISPATCHED_HOLDTIME_IN_SECONDS divided
+                  by trace duration, multiplied by 100.
+
+ Spin             The percent of combined elapsed trace time that
+                  threads spun while waiting to acquire this lock.
+                  SPIN_HOLDTIME_IN_SECONDS divided by combined trace
+                  duration, multiplied by 100. 
+
+ Wait             The percent of combined elapsed trace time that 
+                  threads unsuccessfully tried to acquire this lock. 
+
+ ProcessID        Process identifier (only for SIMPLE and COMPLEX Lock report). 
+
+ Process Name     Name of the process (only for SIMPLE and COMPLEX Lock report).</code></pre></div><div></div></div></div>
+</section>
+
+<section><h2>Splat のソート</h2> <div><strong>splat</strong> では、<strong>-s</strong> オプションを使用して、
+サマリーとロック明細報告書のソートに使用する基準をユーザーが指定できます。 デフォルトのソート基準では、トレース合計時間に対してスレッドがロックのスピンに使
+用した時間の割合を示す percent spin hold time (スピン保持時間の比率) 別にソートを行います。 <strong>-s</strong> を使用すると、ソート基準を次のように変更できます。<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><strong>a</strong></td>
+
+<td>Acquisitions: スレッドがロックを正常に獲得した回数。</td>
+
+</tr>
+
+<tr>
+<td><strong>C</strong></td>
+
+<td>Percent processor hold time: トレース合計時間に対するプロセッサー保持時間の比率。</td>
+
+</tr>
+
+<tr>
+<td><strong>e</strong></td>
+
+<td>Percent Elapsed hold time: トレース合計時間に対する経過保持時間の比率。</td>
+
+</tr>
+
+<tr>
+<td><strong>l</strong></td>
+
+<td>location: ロックまたは関数のアドレス、またはスレッドの ID。</td>
+
+</tr>
+
+<tr>
+<td><strong>m</strong></td>
+
+<td>Miss rate: 獲得回数によるロック失敗率。</td>
+
+</tr>
+
+<tr>
+<td><strong>s</strong></td>
+
+<td>Spin count: ロックの待機でスレッドがスピンしたロック失敗回数。</td>
+
+</tr>
+
+<tr>
+<td><strong>S</strong></td>
+
+<td>プロセッサー・スピン保持時間パーセント (デフォルト)。</td>
+
+</tr>
+
+<tr>
+<td><strong>w</strong></td>
+
+<td>Percent elapsed wait time: ゼロ以外のスレッドがロック上で待機した合計時間のパーセント割合。</td>
+
+</tr>
+
+<tr>
+<td><strong>W</strong></td>
+
+<td>Average <strong>waitq
+</strong> depth: ロック上で待機したスレッドの平均数。
+待機中の各スレッドがこの状態を維持した平均時間と同じ。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+ <p><strong>splat</strong> は、指定された基準を使用して、
+ロック・レポートを降順にソートします。</p>
+</section>
+
+<section><h2>制約事項</h2> <p>VMM、XMAP、および特定の Java 指定ロックなど、その他のタイプのロックは
+分析されません。</p>
+</section>
+
+<section><h2>ファイル</h2> 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><strong>/etc/bin/splat</strong></td>
+
+<td>Simple Performance Lock Analysis Tool (<strong>
+splat</strong>)。 カーネルおよび pthread ロック使用率レポートを提供します。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</section>
+
+</div></div>

@@ -1,0 +1,309 @@
+<div class="official-dom"><div>
+<div> <p></p>
+</div>
+
+<section><h2>目的</h2> <p>インストール可能なソフトウェア・プロダクトのファイルを検査します。</p>
+</section>
+
+<section><h2>構文</h2> <p><strong>LPPCHK</strong> [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/l_commands/lppchk.html#lppchk__row-d3e67020" target="_blank" rel="noopener noreferrer"><strong>-R</strong></a> { <strong>パス</strong> | <strong>すべて</strong> } ] { <a href="https://www.ibm.com/docs/ja/ssw_aix_73/l_commands/lppchk.html#lppchk__row-d3e66917" target="_blank" rel="noopener noreferrer"><strong>「-c」</strong></a>[ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/l_commands/lppchk.html#lppchk__row-d3e67033" target="_blank" rel="noopener noreferrer"><strong>U </strong></a>] | <a href="https://www.ibm.com/docs/ja/ssw_aix_73/l_commands/lppchk.html#lppchk__row-d3e66926" target="_blank" rel="noopener noreferrer"><strong>「-f」</strong></a> | <a href="https://www.ibm.com/docs/ja/ssw_aix_73/l_commands/lppchk.html#lppchk__row-d3e66935" target="_blank" rel="noopener noreferrer"><strong>- </strong></a>[ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/l_commands/lppchk.html#lppchk__row-d3e67033" target="_blank" rel="noopener noreferrer"><strong>U</strong></a> ] | <a href="https://www.ibm.com/docs/ja/ssw_aix_73/l_commands/lppchk.html#lppchk__row-d3e67045" target="_blank" rel="noopener noreferrer"><strong>-v (V)</strong></a> } [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/l_commands/lppchk.html#lppchk__row-d3e66941" target="_blank" rel="noopener noreferrer"><strong>-m (M) </strong></a>[ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/l_commands/lppchk.html#lppchk__a151f12" target="_blank" rel="noopener noreferrer"><strong>1 </strong></a>| <a href="https://www.ibm.com/docs/ja/ssw_aix_73/l_commands/lppchk.html#lppchk__a151f13" target="_blank" rel="noopener noreferrer"><strong>2 </strong></a>| <a href="https://www.ibm.com/docs/ja/ssw_aix_73/l_commands/lppchk.html#lppchk__a151f14" target="_blank" rel="noopener noreferrer"><strong>3 </strong></a>] ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/l_commands/lppchk.html#lppchk__row-d3e66976" target="_blank" rel="noopener noreferrer"><strong>-O (O) </strong></a>{ [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/l_commands/lppchk.html#lppchk__tsla0tayl" target="_blank" rel="noopener noreferrer"><strong>R </strong></a>] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/l_commands/lppchk.html#lppchk__ctl280tayl" target="_blank" rel="noopener noreferrer"><strong>S </strong></a>] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/l_commands/lppchk.html#lppchk__utl280tayl" target="_blank" rel="noopener noreferrer"><strong>U </strong></a>] } ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/l_commands/lppchk.html#lppchk__row-d3e67123" target="_blank" rel="noopener noreferrer"><em>ProductName </em></a>[ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/l_commands/lppchk.html#lppchk__row-d3e67106" target="_blank" rel="noopener noreferrer"><em>FileList </em></a>... ] ]</p>
+</section>
+
+<section><h2>説明</h2> <p><strong>lppchk</strong> コマンドは、
+インストール可能なソフトウェア・プロダクト (ファイルセット) のファイルが、
+ファイル・サイズ、チェックサム値、シンボリック・リンクに関して、
+ソフトウェア重要プロダクト・データ (SWVPD) データベース情報と一致するかどうかを確認します。 ファイルセットは、
+個別にインストール可能なソフトウェア・パッケージのオプションです。</p>
+</section>
+
+<section><h2>フラグ</h2> <div> 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><strong>-c</strong></td>
+
+<td><em>FileList</em> 項目についてチェックサム操作を行い、
+チェックサムとファイル・サイズが SWVPD データベースと整合していることを確認します。</td>
+
+</tr>
+
+<tr>
+<td><strong>-f</strong></td>
+
+<td><em>FileList</em> 項目が存在し、
+ファイル・サイズが SWVPD データベースと一致しているかどうかを検査します。</td>
+
+</tr>
+
+<tr>
+<td><strong>-l</strong></td>
+
+<td>SWVPD データベースで指定されたファイルのシンボリック・リンクを検査します。</td>
+
+</tr>
+
+<tr>
+<td><strong>-m</strong> [ <strong>1</strong> | <strong>2</strong> | <strong>3</strong> ]</td>
+
+<td>情報を 3 つのレベルで表示します。 レベルは次のとおりです。<dl>
+<dt><strong>1</strong></dt>
+
+<dd>エラー・メッセージのみ (デフォルト)</dd>
+
+
+<dt><strong>※2</strong></dt>
+
+<dd>エラー・メッセージおよび警告</dd>
+
+
+<dt><strong>3</strong></dt>
+
+<dd>エラー・メッセージ、警告および情報メッセージ</dd>
+
+</dl>
+</td>
+
+</tr>
+
+<tr>
+<td><strong>-O</strong> {[<strong>r</strong>] [<strong>s</strong>] [<strong>u</strong>]}</td>
+
+<td>プログラムの指定された部分を検査します。 スタンドアロン・システムの場合はこのフラグは不要です。その理由は、
+このオプションを指定しないと、デフォルトですべての部分が確認されるからです。 各フラグによって、次の部分が指定されます。<dl>
+<dt><strong>r</strong></dt>
+
+<dd><strong>/</strong> (ルート) 部分が検査されることを示します。</dd>
+
+
+<dt><strong>s</strong></dt>
+
+<dd><strong>/usr/share</strong> 部分が検査されることを示します。</dd>
+
+
+<dt><strong>u</strong></dt>
+
+<dd><strong>/usr</strong> 部分が検査されることを示します。</dd>
+
+</dl>
+</td>
+
+</tr>
+
+<tr>
+<td><strong>-R</strong> { <strong>パス</strong>|<strong>ALL</strong> }</td>
+
+<td>ユーザー指定のインストール・ロケーションを示します。</td>
+
+</tr>
+
+<tr>
+<td><strong>-u</strong></td>
+
+<td>システムの情報が SWVPD と一致しない場合、
+システムからの新しいチェックサムまたはサイズの情報で SWVPD を更新します。 このフラグは、欠落が判明したシンボリック・リンクを設定します。 このフラグは、<strong>-c</strong> フラグまたは <strong>-l</strong> フラグと共に設定する場合にのみ有効です。</td>
+
+</tr>
+
+<tr>
+<td><strong>-v</strong></td>
+
+<td>システムの<strong> /</strong> (ルート)、<strong>/usr</strong>、
+<strong>/usr/share</strong> 部が相互に有効であることを検査します。 また、このフラグは、<strong>/</strong> (ルート) ファイルシステム上にインストールされたすべてのソフトウェア・プロダクトは、
+<strong>/usr</strong> ファイルシステム上にもインストールされていること、
+また反対に、<strong>/usr</strong> ファイルシステム上にインストールされたすべてのソフトウェア・プロダクトは、
+<strong>/</strong> (ルート) ファイルシステム上にもインストールされていることを検査します。 このフラグと共に
+<em>FileList</em> 項目を指定することはできません。 このフラグはまた、必要条件を満たしているかどうかも検査します。<div><div>
+        <div>
+          <div><span>注意:</span> <strong>lppchk</strong> コマンドを使用するたびに、 <strong>-c</strong>、 <strong>-f</strong>、 <strong>-l</strong>、 <strong>-v</strong> フラグのうち 1 つだけを指定できます。</div>
+        </div>
+      </div></div>
+</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+</section>
+
+<section><h2>パラメーター</h2> <div> 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><em>FileList</em></td>
+
+<td>検査する 1 つ以上のファイルを指定します。 このパラメーターは、スペースで区切られたファイル名のリストです。 ファイル名は、単一の名前か、またはコロンで区切られた一対の名前で指定できます。 前者の形式は単一のファイルを指定する場合に、
+後者の形式はアーカイブ・ファイルのメンバーを指定する場合に使用します。
+後者の形式では、最初の名前はメンバーを指定し、
+2 番目の名前はそのメンバーを含むアーカイブ・ファイルを指定します。 ファイルは絶対パス名で指定してください。 複数のファイルを指定する場合、
+パターン・マッチング文字である <strong>*</strong> (アスタリスク) と <strong>?</strong> (疑問符) を使用できます。
+ただし、Korn シェルがそれらを展開しないように、
+一対の <strong>'</strong> (単一引用符) で囲む必要があります。 Korn シェルのワイルドカード拡張を防ぐため、
+単一引用符の使用をお勧めします。<p>このパラメーターを省略すると、
+ソフトウェア・プロダクトのすべてのファイルが検査されます。 このパラメーターを指定する場合、
+前にソフトウェア・プロダクト名を付ける必要があります。</p>
+</td>
+
+</tr>
+
+<tr>
+<td><em>ProductName</em></td>
+
+<td>ファイルを検査するソフトウェア・プロダクトの名前を指定します。 このパラメーターを省略すると、SWVPD のすべてのソフトウェア・プロダクトが検査されます。 複数のソフトウェア・プロダクトを指定する場合、
+パターン・マッチング文字である <strong>*</strong> (アスタリスク) と <strong>?</strong> (疑問符) を使用できますが、
+シェルがそれらを展開しないように、一対の <strong>'</strong> (単一引用符) で囲む必要があります。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+</section>
+
+<section><h2>終了状況</h2> 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><strong>0 (ゼロ)</strong></td>
+
+<td>コマンドは正常に完了しました。</td>
+
+</tr>
+
+<tr>
+<td><strong>nonzero</strong></td>
+
+<td>エラーが検出されました。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+ <p><strong>lppchk</strong> コマンドは、エラーが検出されないと、ゼロを戻します。 ゼロ以外の戻り値はすべて、エラーが検出されたことを示します。</p>
+<div><div>
+        <div>
+          <div><span>注:</span> <strong>lppchk -f</strong> (サイズ) または <strong>lppchk -c</strong> (チェックサム) がファイルのそれぞれのサイズまたはチェックサムの不一致を検出した場合、そのファイルが以下の中間修正によって変更されている場合は、そのファイルのエラーを報告しません。 <strong>/usr/emgrdata/DBS/files.db</strong>.</div>
+        </div>
+      </div></div>
+</section>
+
+<section><h2>例</h2> <ol>
+<li><span></span> <strong>X11.fnt</strong> パッケージを構成するすべてのファイルを検査するには、次のように入力します。<div> <div><div><pre><code>lppchk -c X11.fnt</code></pre></div><div></div></div></div>
+</li>
+
+<li><span></span>名前が <strong>X11</strong>で始まるすべてのソフトウェア・プロダクトのシンボリック・リンクを検査するには、次のように入力します。<div> <div><div><pre><code>lppchk -l 'X11*'</code></pre></div><div></div></div></div>
+</li>
+
+<li><span></span>すべてのファイルセットに必要な必要条件がすべてあり、完全にインストールされていることを確認するには、次のように入力します。<div> <div><div><pre><code>lppchk -v</code></pre></div><div></div></div></div>
+</li>
+
+</ol>
+</section>
+
+<section><h2>ファイル</h2> <div> 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><strong>/etc/objrepos/lpp</strong></td>
+
+<td>ルート上のすべてのソフトウェア・プロダクトのインストール情報を指定します。</td>
+
+</tr>
+
+<tr>
+<td><strong>/usr/lib/objrepos/lpp</strong></td>
+
+<td><strong>/usr</strong> ファイルシステム上のすべてのソフトウェア・プロダクトのインストール情報を指定します。</td>
+
+</tr>
+
+<tr>
+<td><strong>/usr/share/lib/objrepos/lpp</strong></td>
+
+<td><strong>/usr/share</strong> ファイルシステム上のすべてのソフトウェア・プロダクトのインストール情報を指定します。</td>
+
+</tr>
+
+<tr>
+<td><strong>/etc/objrepos/product</strong></td>
+
+<td>ルート上のすべてのソフトウェア・プロダクトのインストールと更新の情報を指定します。</td>
+
+</tr>
+
+<tr>
+<td><strong>/usr/lib/objrepos/product</strong></td>
+
+<td><strong>/usr</strong> ファイルシステム上のすべてのソフトウェア・プロダクトのインストールと更新の情報を指定します。</td>
+
+</tr>
+
+<tr>
+<td><strong>/usr/share/lib/objrepos/product</strong></td>
+
+<td><strong>/usr/share</strong> ファイルシステム上のすべてのソフトウェア・プロダクトのインストールと更新の情報を指定します。</td>
+
+</tr>
+
+<tr>
+<td><strong>/etc/objrepos/inventory</strong></td>
+
+<td>ルート上のソフトウェア・プロダクト内のファイルの名前と位置を指定します。</td>
+
+</tr>
+
+<tr>
+<td><strong>/usr/lib/objrepos/inventory</strong></td>
+
+<td><strong>/usr</strong> ファイルシステム上のソフトウェア・プロダクトの中のファイルの名前および位置を指定します。</td>
+
+</tr>
+
+<tr>
+<td><strong>/usr/share/lib/objrepos/inventory</strong></td>
+
+<td><strong>/usr/share</strong> ファイルシステム上のソフトウェア・プロダクトの中のファイルの名前および位置を指定します。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+</section>
+
+</div></div>

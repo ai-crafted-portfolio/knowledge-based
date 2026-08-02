@@ -1,0 +1,61 @@
+<div class="official-dom"><div>
+<section><h2>目的</h2> <p>ローカル NFS ドメインを表示または変更します。</p>
+</section>
+
+<section><h2>構文</h2> <p><span><span>chnfsdom</span></span> [<span><span>LocalDomain</span></span>]</p>
+</section>
+
+<section><h2>説明</h2> <p><span><span>chnfsdom</span></span> コマンドは、システムのローカル NFS ドメインを変更します。 ローカル NFS ドメインは、 <span><span>/etc/nfs/local_domain</span></span> ファイルに保管されます。 引数が指定されない場合、このコマンドは現在のローカル NFS ドメインを表示します。</p>
+</section>
+
+<section><h2>パラメーター</h2> 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><span><span>LocalDomain</span></span></td>
+
+<td>新しいドメイン名</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</section>
+
+<section><h2>セキュリティー</h2> <p>ユーザーは root 権限が必要です。</p>
+ <p><strong>RBAC ユーザーへの注意</strong>: このコマンドは特権命令を実行できます。 特権命令を実行できるのは特権ユーザーのみです。 権限および特権について詳しくは、「<em>セキュリティー</em>」の『特権コマンド・データベース』を参照してください。 このコマンドに関連した特権および権限のリストについては、<strong>lssecattr</strong> コマンドまたは <strong>getcmdattr</strong> サブコマンドの項を参照してください。</p>
+</section>
+
+<section><h2>ファイル</h2> 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><span><span>/etc/nfs/local_domain</span></span></td>
+
+<td>ローカル NFS ドメイン名を保管します。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</section>
+
+</div></div>

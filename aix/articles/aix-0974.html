@@ -1,0 +1,85 @@
+<div class="official-dom"><div>
+<div></div>
+
+<section><h2>目的</h2> <p><strong>savewpar</strong> コマンドおよび <strong>restwpar</strong> コマンドで使用する <span>ワークロード・パーティション</span> に関する情報を含むファイルを作成します。</p>
+</section>
+
+<section><h2>構文</h2> <p><strong>mkwpardata</strong> [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/m_commands/mkwpardata.html#mkwpardata__row-d3e168163" target="_blank" rel="noopener noreferrer"><strong>-X</strong></a> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/m_commands/mkwpardata.html#mkwpardata__row-d3e168121" target="_blank" rel="noopener noreferrer"><strong>-m］ </strong></a><a href="https://www.ibm.com/docs/ja/ssw_aix_73/m_commands/mkwpardata.html#mkwpardata__row-d3e168183" target="_blank" rel="noopener noreferrer"><em>WparName</em></a></p>
+</section>
+
+<section><h2>説明</h2> <p><strong>mkwpardata</strong> コマンドは、 <strong>サヴワル</strong> コマンドおよび <strong>レスウパー</strong> コマンドで使用する <span>ワークロード・パーティション</span> (<span>WPAR</span>) に関する情報を含むファイルを作成します。 この情報には、論理ボリュームのリスト、ファイルシステムとそのサイズ、ボリューム・グループのリスト、および <span>WPAR</span> 名が含まれます。 以下のファイルが作成されます。<strong>savewpar</strong> コマンドを発行する前にファイル内の情報を編集することができます。</p>
+</section>
+
+<section><h2>フラグ</h2> 
+<div><div><table><thead> <tr> <th><div>項目</div></th>
+ <th><div>説明</div></th>
+ </tr>
+ </thead>
+<tbody>
+<tr>
+<td><strong>-m</strong></td>
+
+<td><span>WPAR</span>内の論理ボリュームごとに、論理区画から物理区画へのマッピングを指定するマップ・ファイルを作成します。 このマッピングを使用して、
+イメージの復元時に同じ論理対物理マッピングを割り当てることができます。 マップ・ファイルの位置は、
+論理ボリュームごとに <strong>
+image.data</strong> ファイルの MAPFILE フィールドに保管されます。<p>例えば、<strong>hd7</strong> 論理ボリュームの場合、
+マップ・ファイルの位置は <strong>/tmp/wpardata/</strong><em>WparName</em><strong>
+/hd7.map</strong> です。 <strong>hd7</strong> 論理ボリュームに関する <strong>/image.data</strong> ファイルの MAPFILE フィールドは、
+エントリー <strong>
+MAPFILE=/tmp/wpardata/</strong><em>WparName</em><strong>
+/hd7.map</strong> の下にあります。</p>
+ <p>バックアップ・イメージ内のマップ・ファイルは、<strong>image.data</strong> ファイルの後ろにコピーされます。</p>
+</td>
+
+</tr>
+
+<tr>
+<td><strong>-X</strong></td>
+
+<td>必要に応じて <strong>/tmp</strong> ファイルシステムを拡張します。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</section>
+
+<section><h2>パラメーター</h2> 
+<div><div><table><thead> <tr> <th><div>項目</div></th>
+ <th><div>説明</div></th>
+ </tr>
+ </thead>
+<tbody>
+<tr>
+<td><em>WparName</em></td>
+
+<td>バックアップする <span>ワークロード・パーティション</span> の名前を指定します。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</section>
+
+<section><h2>ファイル</h2> 
+<div><div><table><thead> <tr> <th><div>項目</div></th>
+ <th><div>説明</div></th>
+ </tr>
+ </thead>
+<tbody>
+<tr>
+<td><strong>/tmp/wpardata/</strong><em>
+WparName</em><strong>/image.data</strong></td>
+
+<td><span>WPAR</span>に関する一般情報およびストレージ情報用に作成されます。 <em>WparName</em> 変数は、 <span>WPAR</span>の名前を反映します。 <strong>savewpar</strong> コマンドは、このファイルを使用して、 <span>WPAR</span>を再インストールするために <strong>restwpar</strong> コマンドで使用できるバックアップ・イメージを作成します。 このファイルが既に存在している場合、<strong>mkwpardata</strong> コマンドはこのファイルを上書きします。 <strong>image.data</strong> ファイルは、 <strong>/tmp/wpardata/</strong><em>WparName</em> ディレクトリーにあります。ここで、 <em>WparName</em> は <span>ワークロード・パーティション</span> 名です。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</section>
+
+</div></div>

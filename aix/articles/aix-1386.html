@@ -1,0 +1,120 @@
+<div class="official-dom"><div>
+<section><h2>目的</h2> <p>ネットワーク上の全ユーザーにメッセージを送信します。</p>
+</section>
+
+<section><h2>構文</h2>
+
+<dl>
+
+<dt>指定されたホストにメッセージを送信するには</dt>
+
+<dd><span>/usr/sbin/rwall</span> HostName ...</dd>
+
+
+
+<dt>指定したネットワークにメッセージを送信するには</dt>
+
+<dd><span>/usr/sbin/rwall</span> <a href="https://www.ibm.com/docs/ja/ssw_aix_73/r_commands/rwall.html#rwall__row-d3e183709" target="_blank" rel="noopener noreferrer"><span>-n</span></a> NetworkGroup ...</dd>
+
+
+
+<dt>ネットワーク上の指定されたホストにメッセージを送信するには</dt>
+
+<dd><span>/usr/sbin/rwall</span> <a href="https://www.ibm.com/docs/ja/ssw_aix_73/r_commands/rwall.html#rwall__row-d3e183700" target="_blank" rel="noopener noreferrer"><span>-h</span></a> HostName ... <a href="https://www.ibm.com/docs/ja/ssw_aix_73/r_commands/rwall.html#rwall__row-d3e183709" target="_blank" rel="noopener noreferrer"><span>-n</span></a> NetworkGroup</dd>
+
+
+</dl>
+
+</section>
+
+<section><h2>説明</h2>
+
+<p><strong>rwall</strong> コマンドは、ネットワーク上の全ユーザーにメッセージを送信します。 メッセージを送信するために、<strong>rwall</strong> コマンドは、ファイル終わり文字を検出するまで、標準入力からメッセージを読み取り続けます。 <strong>rwall</strong> コマンドは、次の行で始まるこのメッセージを受け取ります。Broadcast
+Message...指定されたホスト・マシンにログインしているすべてのユーザーにブロードキャストします。 ユーザーがメッセージを受信するのは、
+<strong>rwalld</strong> デーモンを実行している場合に限ります。このデーモンは、
+<strong>inetd</strong> デーモンから開始されます。</p>
+
+
+<div><div>
+        <div>
+          <div><span>注:</span> <span></span>タイムアウトはかなり短くなっています。 これにより、<strong>rwall</strong> コマンドは、大きなコンピューターのグループ (一部のコンピューターがダウンしている可能性のあるグループ) に、合理的な時間内にメッセージを送信することができます。 したがって、ロード過多のコンピューターには、メッセージが送信されないこともあります。</div>
+        </div>
+      </div></div>
+
+</section>
+
+<section><h2>フラグ</h2> <div> 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><strong>-h</strong></td>
+
+<td><em>HostName</em> パラメーターに指定されたコンピューターにメッセージを送信します。</td>
+
+</tr>
+
+<tr>
+<td><strong>-n</strong></td>
+
+<td>特定のネットワーク・グループのみにメッセージを送信します。 ネットワーク・グループは、<strong>netgroup</strong> ファイルに定義されています。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+</section>
+
+<section><h2>例</h2> <ol>
+<li><span></span>次の名前のホストにメッセージを送信するには、次のようにします。neptune次のように入力します。<div> <div><div><pre><code>/usr/sbin/rwall neptune</code></pre></div><div></div></div>メッセージをキー入力してください。 メッセージの入力が終わったら、
+以下のように入力します。<div><div><pre><code>Ctrl D</code></pre></div><div></div></div></div>
+</li>
+
+<li><span></span>次の名前のホストにメッセージを送信するには、次のようにします。neptuneすべてのホストがcosmosネットグループ、入力:<div>rwall  <a href="https://www.ibm.com/docs/ja/ssw_aix_73/r_commands/rwall.html#rwall__row-d3e183709" target="_blank" rel="noopener noreferrer">-n </a>cosmos  <a href="https://www.ibm.com/docs/ja/ssw_aix_73/r_commands/rwall.html#rwall__row-d3e183700" target="_blank" rel="noopener noreferrer">-h </a>neptune</div>メッセージをキー入力してください。 メッセージの入力が終わったら、
+以下のように入力します。<div> <div><div><pre><code>Ctrl D</code></pre></div><div></div></div></div>
+</li>
+
+</ol>
+</section>
+
+<section><h2>ファイル</h2> <div> 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><strong>/etc/inetd.conf</strong></td>
+
+<td>RPC デーモンと他の TCP/IP デーモンを始動する TCP/IP 構成ファイル。</td>
+
+</tr>
+
+<tr>
+<td><strong>/etc/netgroup</strong></td>
+
+<td>ネットワーク上の各ユーザー・グループに関する情報が入っています。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+</section>
+
+</div></div>

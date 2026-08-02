@@ -1,0 +1,137 @@
+<div class="official-dom"><div>
+<section><h2>目的</h2> <p>ファイルの最後の数行を表示します。</p>
+</section>
+
+<section><h2>構文</h2><p><strong>標準構文</strong></p>
+ <p><strong>テール</strong> [  <a href="https://www.ibm.com/docs/ja/ssw_aix_73/t_commands/tail.html#tail__row-d3e73690" target="_blank" rel="noopener noreferrer"><strong>「-f」 </strong></a>] [  <a href="https://www.ibm.com/docs/ja/ssw_aix_73/t_commands/tail.html#tail__row-d3e73679" target="_blank" rel="noopener noreferrer"><strong>「-c」 </strong></a><em>数値 </em>|  <a href="https://www.ibm.com/docs/ja/ssw_aix_73/t_commands/tail.html#tail__row-d3e73733" target="_blank" rel="noopener noreferrer"><strong>N </strong></a><em>数値 </em>|  <a href="https://www.ibm.com/docs/ja/ssw_aix_73/t_commands/tail.html#tail__row-d3e73722" target="_blank" rel="noopener noreferrer"><strong>-m (M)</strong></a> <em>数値 </em>|  <a href="https://www.ibm.com/docs/ja/ssw_aix_73/t_commands/tail.html#tail__row-d3e73668" target="_blank" rel="noopener noreferrer"><strong>-b </strong></a><em>数値 </em>|  <a href="https://www.ibm.com/docs/ja/ssw_aix_73/t_commands/tail.html#tail__row-d3e73711" target="_blank" rel="noopener noreferrer"><strong>-k (K) </strong></a><em>数値 </em>] [ <em>ファイル </em>]</p>
+<p><strong>逆の順序で行を表示する場合</strong></p>
+ <p><strong>tail</strong> [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/t_commands/tail.html#tail__row-d3e73747" target="_blank" rel="noopener noreferrer"><strong>-r </strong></a>] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/t_commands/tail.html#tail__row-d3e73733" target="_blank" rel="noopener noreferrer"><strong>-n </strong></a><em>番号 </em>] [<em> ファイル </em>]</p>
+</section>
+
+<section><h2>説明</h2> <p><strong>tail</strong> コマンドは、<em>File</em> パラメーターで指定されたファイルの指定されたポイントから始まる部分を標準出力に書き出します。 ファイルが指定されない場合は、標準入力が使用されます。 <em>Number</em> 変数の値は、標準出力に書き出す単位の数を指定します。 <em>Number</em> 変数の値は、正または負の整数を使用することができます。 値の前に以下があるとします。+(正符号)。ファイルは、ファイルの先頭から、指定された単位数から始まる標準出力に書き込まれます。 値の前に以下があるとします。-(負符号)。ファイルは、ファイルの終わりから指定された単位数だけ標準出力に書き込まれます。 値の前に以下がない場合+(正符号) または-(負符号 (-)) の場合、ファイルは、ファイルの終わりから指定された単位数だけ読み取られます。</p>
+ <p>カウントの開始位置を決定する <em>Number</em> 変数に使用する単位のタイプは、<strong>-b</strong>、<strong> -c</strong>、<strong>-k</strong>、<strong>-m</strong>、または <strong>-n</strong> フラグによって決まります。 これらのフラグを指定しなければ、<strong>tail</strong> コマンドは指定されたファイルの最後の 10 行を読み取って、標準出力に書き出します。 これは、コマンド・ラインに <strong>-n 10</strong> と入力した場合と同じ動作です。</p>
+ <p><strong>-m</strong> フラグは、1 バイトおよび 2 バイト文字環境のいずれでも、整合性のある結果を提供します。 - 入力がマルチバイト文字を含むテキスト・ファイルの場合は、文字境界から始まらない出力が生成されることがあるので、<strong>-c</strong> フラグを慎重に使用しなければなりません。</p>
+</section>
+
+<section><h2>フラグ</h2> <div> 
+<div><div><table><thead> <tr> <th><div>項目</div></th>
+ <th><div>説明</div></th>
+ </tr>
+ </thead>
+<tbody>
+<tr>
+<td><strong>-b</strong><em> 数値</em></td>
+
+<td>指定されたファイルを <em>Number</em> 変数で示された 512 バイトのブロック位置から読み取りを開始します。</td>
+
+</tr>
+
+<tr>
+<td><strong>-c</strong><em> 数値</em></td>
+
+<td>指定されたファイルを <em>Number</em> 変数で示されたバイト位置から読み取りを開始します。</td>
+
+</tr>
+
+<tr>
+<td><strong>-f</strong></td>
+
+<td>入力ファイルが通常のファイルの場合、または <em>File</em> パラメーターで FIFO (先入れ先出し) を指定している場合には、<strong>tail</strong> コマンドは、入力ファイルの最後の指定単位がコピーされた後も終了せず、追加の単位が入力可能になるとさらに入力ファイルから単位を読み取り、コピーを続けます。 <em>File</em> パラメーターが指定されず、標準入力がパイプの場合には、<strong>-f</strong> フラグは無視されます。 <strong>tail -f</strong> コマンドを使用すると、別のプロセスによって書き込み中のファイルの状態をモニターすることができます。</td>
+
+</tr>
+
+<tr>
+<td><strong>-k</strong><em> 数値</em></td>
+
+<td>指定されたファイルを <em>Number</em> 変数で示された 1KB ブロック単位の位置から読み取りを開始します。</td>
+
+</tr>
+
+<tr>
+<td><strong>-m </strong><em>数値</em></td>
+
+<td>指定されたファイルを <em>Number</em> 変数で示されたマルチバイト文字位置から読み取りを開始します。 このフラグを使用することにより、1 バイト文字コード・セット環境でも 2 バイト文字コード・セット環境でも整合性のある結果が得られます。</td>
+
+</tr>
+
+<tr>
+<td><strong>-n </strong><em>Number</em></td>
+
+<td>指定されたファイルを、<em>Number</em> 変数の符号 (+ または - またはなし) で示された最初の行または最後の行の位置から <em>Number</em> 行だけオフセットをとって読み取ります。</td>
+
+</tr>
+
+<tr>
+<td><strong>-r</strong></td>
+
+<td>ファイルの最後から逆順に出力を表示します。 <strong>-r</strong> フラグのデフォルトは、ファイル全体を逆順に出力します。 ファイルが 20,480 バイトより大きい場合は、<strong>-r</strong> フラグは最後の 20,480 バイトのみを表示します。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+</section>
+
+<section><h2>終了状況</h2> <p>このコマンドは、以下の終了値を戻します。</p>
+ 
+<div><div><table><thead> <tr> <th><div>項目</div></th>
+ <th><div>説明</div></th>
+ </tr>
+ </thead>
+<tbody>
+<tr>
+<td><strong>0</strong></td>
+
+<td>正常終了。</td>
+
+</tr>
+
+<tr>
+<td><strong>&gt;0</strong></td>
+
+<td>エラーが発生しました。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</section>
+
+<section><h2>例</h2> <ol>
+<li><span></span>以下の最後の 10 行を表示します。notesファイル、入力:<div> <div><div><pre><code>tail notes</code></pre></div><div></div></div></div>
+</li>
+
+<li><span></span>読み取りを開始する行数を指定するには、以下のようにします。 notesファイル、入力:<div>tail  <a href="https://www.ibm.com/docs/ja/ssw_aix_73/t_commands/tail.html#tail__row-d3e73733" target="_blank" rel="noopener noreferrer">-n</a> 20 notes</div>
+</li>
+
+<li><span></span>表示するには、notesファイルを1ページずつ、200バイト目から入力する：<div>tail  <a href="https://www.ibm.com/docs/ja/ssw_aix_73/t_commands/tail.html#tail__row-d3e73679" target="_blank" rel="noopener noreferrer">-c </a>+200 notes | pg</div>
+</li>
+
+<li><span></span>ファイルの増加に従うには、次のように入力します。<div>tail  <a href="https://www.ibm.com/docs/ja/ssw_aix_73/t_commands/tail.html#tail__row-d3e73690" target="_blank" rel="noopener noreferrer">-f </a>accounts</div>これにより、以下の最後の 10 行が表示されます。accountsを適用します。 <strong>tail</strong> コマンドは、行が追加されると、行の表示を続行します。accountsを適用します。 Ctrl-C キー・シーケンスを押して停止するまで、表示を継続します。</li>
+
+</ol>
+</section>
+
+<section><h2>ファイル</h2> <div> 
+<div><div><table><thead> <tr> <th><div>項目</div></th>
+ <th><div>説明</div></th>
+ </tr>
+ </thead>
+<tbody>
+<tr>
+<td><strong>/usr/bin/tail</strong></td>
+
+<td><strong>tail</strong> コマンドが入っています。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+</section>
+
+</div></div>

@@ -1,0 +1,349 @@
+<div class="official-dom"><div>
+<section><h2>目的</h2> <p>マルチパス入出力 (MPIO) 可能デバイスへのパスについての情報を表示します。</p>
+</section>
+
+<section><h2>構文</h2> <p><strong>LSPATH</strong> [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/l_commands/lspath.html#lspath__row-d3e91471" target="_blank" rel="noopener noreferrer"><strong>-F (R)</strong></a> <em>フォーマット</em> | <a href="https://www.ibm.com/docs/ja/ssw_aix_73/l_commands/lspath.html#lspath__row-d3e91772" target="_blank" rel="noopener noreferrer"><strong>T</strong></a> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/l_commands/lspath.html#lspath__row-d3e91514" target="_blank" rel="noopener noreferrer"><strong>-H</strong></a> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/l_commands/lspath.html#lspath__row-d3e91548" target="_blank" rel="noopener noreferrer"><strong>-</strong></a> <em>名前</em> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/l_commands/lspath.html#lspath__row-d3e91576" target="_blank" rel="noopener noreferrer"><strong>P-</strong></a> <em>親</em> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/l_commands/lspath.html#lspath__row-d3e91616" target="_blank" rel="noopener noreferrer"><strong>-s</strong></a> <em>状況</em> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/l_commands/lspath.html#lspath__row-d3e91787" target="_blank" rel="noopener noreferrer"><strong>-w (W)</strong></a> <em>接続</em> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/l_commands/lspath.html#lspath__row-d3e91539" target="_blank" rel="noopener noreferrer"><strong>I</strong></a> <em>PathID</em> ]</p>
+ <p><strong>lspath</strong> <a href="https://www.ibm.com/docs/ja/ssw_aix_73/l_commands/lspath.html#lspath__row-d3e91375" target="_blank" rel="noopener noreferrer"><strong>-A</strong></a> <a href="https://www.ibm.com/docs/ja/ssw_aix_73/l_commands/lspath.html#lspath__row-d3e91548" target="_blank" rel="noopener noreferrer"><strong>-l</strong></a> <em>Name</em> <a href="https://www.ibm.com/docs/ja/ssw_aix_73/l_commands/lspath.html#lspath__row-d3e91576" target="_blank" rel="noopener noreferrer"><strong>-p</strong></a> <em>Parent</em> [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/l_commands/lspath.html#lspath__row-d3e91787" target="_blank" rel="noopener noreferrer"><strong>-w</strong></a> <em>Connection</em> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/l_commands/lspath.html#lspath__row-d3e91539" target="_blank" rel="noopener noreferrer"><strong>-i</strong></a> <em>PathID</em> ] {<a href="https://www.ibm.com/docs/ja/ssw_aix_73/l_commands/lspath.html#lspath__row-d3e91409" target="_blank" rel="noopener noreferrer"><strong>-D</strong></a> [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/l_commands/lspath.html#lspath__row-d3e91557" target="_blank" rel="noopener noreferrer"><strong>-O</strong></a> ] | <a href="https://www.ibm.com/docs/ja/ssw_aix_73/l_commands/lspath.html#lspath__row-d3e91434" target="_blank" rel="noopener noreferrer"><strong>-E</strong></a> [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/l_commands/lspath.html#lspath__row-d3e91557" target="_blank" rel="noopener noreferrer"><strong>-O</strong></a> <a href="https://www.ibm.com/docs/ja/ssw_aix_73/l_commands/lspath.html#lspath__row-d3e91471" target="_blank" rel="noopener noreferrer"><strong>-F</strong></a> <em>フォーマット</em> [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/l_commands/lspath.html#lspath__row-d3e91796" target="_blank" rel="noopener noreferrer"><strong>-Z</strong></a> <em>character</em> ]} [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/l_commands/lspath.html#lspath__row-d3e91363" target="_blank" rel="noopener noreferrer"><strong>-a</strong></a> <em>Attribute</em> ] ... [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/l_commands/lspath.html#lspath__row-d3e91459" target="_blank" rel="noopener noreferrer"><strong>-f</strong></a> <em>File</em> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/l_commands/lspath.html#lspath__row-d3e91514" target="_blank" rel="noopener noreferrer"><strong>-H</strong></a> ]</p>
+ <p><strong>lspath</strong> <a href="https://www.ibm.com/docs/ja/ssw_aix_73/l_commands/lspath.html#lspath__row-d3e91375" target="_blank" rel="noopener noreferrer"><strong>-A</strong></a> <a href="https://www.ibm.com/docs/ja/ssw_aix_73/l_commands/lspath.html#lspath__row-d3e91548" target="_blank" rel="noopener noreferrer"><strong>-l</strong></a> <em>Name</em> <a href="https://www.ibm.com/docs/ja/ssw_aix_73/l_commands/lspath.html#lspath__row-d3e91576" target="_blank" rel="noopener noreferrer"><strong>-p</strong></a> <em>Parent</em> [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/l_commands/lspath.html#lspath__row-d3e91787" target="_blank" rel="noopener noreferrer"><strong>-w</strong></a> <em>Connection</em> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/l_commands/lspath.html#lspath__row-d3e91539" target="_blank" rel="noopener noreferrer"><strong>-i</strong></a> <em>PathID</em> ]<a href="https://www.ibm.com/docs/ja/ssw_aix_73/l_commands/lspath.html#lspath__row-d3e91585" target="_blank" rel="noopener noreferrer"><strong>-R</strong></a> <a href="https://www.ibm.com/docs/ja/ssw_aix_73/l_commands/lspath.html#lspath__row-d3e91363" target="_blank" rel="noopener noreferrer"><strong>-a</strong></a> <em>属性</em> [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/l_commands/lspath.html#lspath__row-d3e91459" target="_blank" rel="noopener noreferrer"><strong>-f</strong></a> <em>File</em> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/l_commands/lspath.html#lspath__row-d3e91514" target="_blank" rel="noopener noreferrer"><strong>-H</strong></a> ]</p>
+ <p><strong>lspath</strong> <a href="https://www.ibm.com/docs/ja/ssw_aix_73/l_commands/lspath.html#lspath__row-d3e91508" target="_blank" rel="noopener noreferrer"><strong>-h</strong></a></p>
+</section>
+
+<section><h2>説明</h2> <p><strong>lspath</strong> コマンドは、MPIO 可能デバイスへのパスについての 2 つのタイプの情報のうち、
+どちらかを表示します。 単一デバイスへの 1 つ以上のパスの操作可能状況を表示するか、
+単一 MPIO 可能デバイスへの単一パスの属性を 1 つ以上表示するかのどちらかです。 上記の 1 番目の構文では、特定の MPIO 可能デバイスへの 1 つ以上のパスの操作可能状況が表示されます。 このインスタンスでは、<strong>lspath</strong> コマンドは <strong>lsdev</strong> コマンドに似ています。 2 番目の構文 (<strong>-A</strong> フラグの存在が重要です) では、
+特定の MPIO 可能デバイスへの単一パスの属性が 1 つ以上表示されます。 このインスタンスでは、lspath コマンドは <strong>lsattr</strong> コマンドに似ています。 実際には、パスの属性を表示する際、
+<strong>lsattr</strong> コマンドのすべてのフラグは <strong>lspath</strong> コマンドでサポートされています。</p>
+<p><strong>lspath コマンドを使用してパスの状況を表示する</strong></p>
+ <div>パスの状況を表示する場合、表示するパスのセットは、
+デバイス構成データベースで次の基準に一致するパスを検索して取得されます。<ul>
+<li>ターゲット・デバイス名が <strong>-l</strong> フラグで指定されたデバイスと一致する。 <strong>-l</strong> フラグが存在しない場合、ターゲット・デバイスはこの基準で使用されません。</li>
+
+<li>親デバイス名が <strong>-p</strong> フラグで指定されたデバイスと一致する。 <strong>-p</strong> フラグが存在しない場合、親はこの基準で使用されません。</li>
+
+<li>接続が <strong>-w</strong> フラグで指定された接続と一致する。 <strong>-w</strong> フラグが存在しない場合、接続はこの基準で使用されません。</li>
+
+<li>パスの状況が <strong>-s</strong> フラグで指定された状況と一致する。 <strong>-s</strong> フラグが存在しない場合、パスの状況はこの基準で使用されません。</li>
+
+</ul>
+</div>
+ <p><strong>-l</strong>、<strong>-p</strong>、<strong>-w</strong>、
+および <strong>-s</strong> フラグをいずれも指定しない場合、システムが認識するパスはすべて表示されます。</p>
+ <div>デフォルトによって、このコマンドでは、縦欄の形式で情報が表示されます。 表示するパスを限定するフラグが指定されない場合、出力の形式は次のようになります。<div><div><pre><code>status device  parent</code></pre></div><div></div></div><strong>-F</strong> <em>Format</em> フラグを使用すると、
+デフォルトの表示フォーマットをオーバーライドすることができます。 <strong>-F</strong> <em>Format</em> フラグは、ユーザー指定フォーマットで出力を表示します。
+この場合 <em>Format</em> パラメーターは、
+フィールド名を非英数字または空白文字で区切った、あるいは終了させた、引用符付きリストです。 フィールド名は <strong>CuPath</strong> クラスで定義されたフィールドか、
+あるいは上記で定義された列見出しの 1 つです。<div><div>
+        <div>
+          <div><span>注:</span> 上記の列名は、他の言語に変換されません (列見出しとして出力する場合、または <strong>-F</strong> フラグの <em>Format</em> の一部として入力する場合)。</div>
+        </div>
+      </div></div>
+</div>
+ <div>status 列に現れる可能性のある値は、次のとおりです。<dl>
+<dt>有効</dt>
+
+<dd>パスが構成済みで操作可能であることを示します。 この値は、入出力のためにパスを選択する際に考慮します。<div><div>
+        <div>
+          <div><span>注:</span> AIX® MPIO は最後のパスで失敗することはありません。 ストレージへのパスがすべて失われた場合でも、最後のパスの状況は <strong>enabled</strong> として表示されます。 この場合、入出力エラーにはディスクへの最後のパスが実際に失われたことが示されます。</div>
+        </div>
+      </div></div>
+</dd>
+
+
+<dt>disabled</dt>
+
+<dd>パスは構成済みですが、現在操作可能でないことを示します。 この値は手動で disabled になっており、入出力のためにパスを選択する際には考慮しません。</dd>
+
+
+<dt>失敗</dt>
+
+<dd>パスは構成済みですが、パスを使用できないようにした入出力の失敗が発生していることを示します。 この値は、入出力のためにパスを選択する際には考慮しません。</dd>
+
+
+<dt>defined</dt>
+
+<dd>パスがデバイス・ドライバーに対して構成されていないことを示します。</dd>
+
+
+<dt>missing</dt>
+
+<dd>パスは以前のブートで定義されましたが、システムの最新のブートで検出されなかったことを示します。</dd>
+
+
+<dt>detected</dt>
+
+<dd>パスはシステムの最新のブートで検出されましたが、なんらかの理由で構成されなかったことを示します。 パスがこの状況になるのはブート中のみで、
+<strong>lspath</strong> コマンドの結果でこの状況になることは決してありません。</dd>
+
+</dl>
+</div>
+<p><strong>lspath コマンドを使用してパスの属性を表示する</strong></p>
+ <div>パスの属性を表示する場合、パスは完全修飾でなければなりません。 <strong>lspath</strong> コマンドを一度だけ起動して、1 つのパスの属性を複数表示することはできますが、
+複数のパスに属する属性を表示することはできません。 したがって単一のパスを一意的に識別するためには、<strong>-A</strong> フラグの他に、
+<strong>-l</strong>、<strong>-p</strong>、または <strong>-w</strong> フラグが必須です。 次に例を示します。<ul>
+<li>デバイスに対してパスが 1 つしか存在しない場合は、<strong>-l</strong> フラグが必須</li>
+
+<li>デバイスと特定の親との間にパスが 1 つしかない場合は、
+<strong>-l</strong> および <strong>-p</strong> フラグが必須</li>
+
+<li>デバイスと特定の親との間に複数のパスがある場合は、<strong>-l</strong>、<strong>-p</strong>、
+および <strong>-w</strong> フラグが必須</li>
+
+</ul>また、<strong>-s</strong> フラグは許可されません。</div>
+ <p><strong>lsattr</strong> コマンドでデバイスの属性を表示する場合に使用されるのと同じ規則が、
+<strong>lspath</strong> コマンドでパスの属性を表示する場合に適用されます。</p>
+ <div>デフォルトによって、このコマンドでは、縦欄の形式で情報が表示されます。 出力のフォーマットは <strong>lsattr</strong> コマンドと同じです。<div><div><pre><code>attribute   value    description         user_settable</code></pre></div><div></div></div></div>
+ <div>デフォルトではすべてのフィールドが表示されます。 <strong>-F</strong> <em>Format</em> フラグを使用すると、
+デフォルトの表示フォーマットをオーバーライドすることができます。 <strong>-F</strong> <em>Format</em> フラグは、ユーザー指定フォーマットで出力を表示します。
+この場合、<em>Format</em> パラメーターは、列名を非英数字または空白文字で区切った、
+あるいは終了させた、引用符付きリストです。 許可される列名は、<strong>CuPathAt</strong>、<strong>PdPathAt</strong>
+および <strong>PdAtXtd</strong>
+オブジェクト・クラスのフィールド名に、上記にリストされた列を加えたものです。<div><div>
+        <div>
+          <div><span>注:</span> 上記の列名は、他の言語に変換されません (列見出しとして出力する場合、または <strong>-F</strong> フラグの <em>Format</em> の一部として入力する場合)。</div>
+        </div>
+      </div></div>
+</div>
+</section>
+
+<section><h2>フラグ</h2> 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><strong>-a</strong> <em>属性</em></td>
+
+<td>リストする特定の属性を識別します。 '<em>Attribute</em>' は属性に固有のパス名です。 このフラグを指定すると、識別された属性のみが表示されます。 このフラグの複数インスタンスを使用して、
+複数の属性をリストできます。 このフラグをまったく指定しない場合は、識別されたパスに関連付けられた属性すべてがリストされます。</td>
+
+</tr>
+
+<tr>
+<td><strong>-A</strong></td>
+
+<td>特定のパスに対応する属性が表示されるように指示します。 <strong>-A</strong> フラグが存在すると、<strong>-s</strong> <em>Status</em> フラグは許可されません。 しかし、<strong>-l</strong> <em>Name</em>、
+<strong>-p</strong> <em>Parent</em>、
+および <strong>-w</strong> <em>Connection</em> のフラグを指定して、
+パスを完全に修飾しなければなりません。</td>
+
+</tr>
+
+<tr>
+<td><strong>-D</strong></td>
+
+<td><strong>-O</strong>
+フラグと共に使用されなければ、特定のパスの属性名、デフォルト値、説明およびユーザーが設定可能なフラグの値を表示します。 <strong>-D</strong> フラグは、
+<strong>-O</strong> フラグと共に使うと、
+属性名およびデフォルト値だけをコロン・フォーマットで表示します。 このフラグはパスの属性を表示する場合にのみ有効で、<strong>-E</strong>、<strong>-F</strong>、
+または <strong>-R</strong> の各フラグと共に使用することはできません。</td>
+
+</tr>
+
+<tr>
+<td><strong>-E</strong></td>
+
+<td><strong>-O</strong>
+フラグと共に使用されなければ、特定のパスの属性名、現在値、説明およびユーザーが設定可能なフラグの値を表示します。 <strong>-E</strong> フラグは、
+<strong>-O</strong> フラグと共に使うと、
+属性名と現行値だけをコロン・フォーマットで表示します。 このフラグはパスの属性を表示する場合にのみ有効で、<strong>-D</strong>、<strong>-F</strong>、
+または <strong>-R</strong> の各フラグと共に使用することはできません。</td>
+
+</tr>
+
+<tr>
+<td><strong>-f</strong> <em>ファイル</em></td>
+
+<td><em>File</em> パラメーターから必要なフラグを読み取ります。</td>
+
+</tr>
+
+<tr>
+<td><strong>-F</strong> <em>format</em></td>
+
+<td>ユーザー指定のフォーマットで出力を表示します。
+<em>Format</em> パラメーターは、
+欄名を非英数字または空白文字で区切った引用符付きリストです。 セパレーターとして空白文字を使用すると、
+lspath コマンドは位置合わせされた列に出力を表示します。 有効な欄名は要求される情報のタイプによって異なります。 パスを表示する場合は、
+<strong>CuPath</strong> オブジェクト・クラスの欄名を指定できます。 パスの属性を表示する場合 (<strong>-A</strong> フラグを指定する場合) は、
+<strong>PdPathAt</strong> および <strong>CuPathAt</strong> オブジェクト・クラスの欄名を指定できます。 欄名の他に、
+2 つの特殊目的名が使えます。 名前 description を使うと属性の説明を表示でき、
+user-settable を使うと、
+属性を変更できるかどうかを表示できます。 このフラグを  <strong>-E</strong>、
+<strong>-D</strong>、
+<strong>-O</strong>、
+<strong>-R</strong> の各フラグと共に使用することはできません。</td>
+
+</tr>
+
+<tr>
+<td><strong>-h</strong></td>
+
+<td>コマンドの使用メッセージを表示します。</td>
+
+</tr>
+
+<tr>
+<td><strong>-H</strong></td>
+
+<td>出力される列の上にヘッダーを表示します。 また、<strong>-H</strong> フラグを <strong>-O</strong> フラグと共に使っても意味を持たず、
+<strong>-O</strong> フラグのみが有効となります。 また、<strong>-H</strong> フラグを <strong>-R</strong> フラグと共に使っても意味を持たず、
+<strong>-R</strong> フラグのみが有効となります。</td>
+
+</tr>
+
+<tr>
+<td><strong>-i</strong> <em>PathID</em></td>
+
+<td>表示されるパスに関連付けられているパス ID を示します。</td>
+
+</tr>
+
+<tr>
+<td><strong>-l</strong> <em>名前</em></td>
+
+<td>パスの情報が表示されるターゲット・デバイスの論理デバイス名を指定します。 このフラグはパスの状況を表示する場合のオプションですが、パスの属性を表示する場合は必須です。</td>
+
+</tr>
+
+<tr>
+<td><strong>-O</strong></td>
+
+<td>すべての属性名をコロンで区切って表示し、
+2 行目に対応するすべての属性値をコロンで区切って表示します。 共に <strong>-E</strong> フラグが指定されている場合は、属性値として現在の値が表示され、
+<strong>-D</strong> フラグが指定されている場合は、デフォルト値が表示されます。 このフラグはパスの属性を表示する場合にのみ有効で、
+<strong>-F</strong> および <strong>-R</strong> フラグと共に使用することはできません。</td>
+
+</tr>
+
+<tr>
+<td><strong>-p</strong> <em>親</em></td>
+
+<td>パスが表示される親デバイスの論理デバイス名を示します。 このフラグはパス状況を表示する場合はオプションですが、パス属性を表示する場合は必須です。</td>
+
+</tr>
+
+<tr>
+<td><strong>-R</strong></td>
+
+<td>属性名の正しい値を表示します。 <strong>-R</strong> フラグは、<strong>-D</strong>、<strong>-E</strong>、<strong>-F</strong> および <strong>-O</strong> フラグと同時には使用できません。 <strong>-R</strong> フラグは、
+次のような属性値のリストを縦の欄で表示します。<div><div><pre><code>Value1
+Value2
+.
+.
+ValueN</code></pre></div><div></div></div><strong>-R</strong> フラグは、
+x...n(+i) のような属性値の範囲を表示します。
+この場合、x は範囲の始まり、n は範囲の終わり、i は増分です。</td>
+
+</tr>
+
+<tr>
+<td><strong>-s</strong> <em>状況</em></td>
+
+<td><strong>-s</strong> <em>Status</em> フラグは、
+表示されるパスを限定するために使用される状況を指示します。 パスの情報を表示する場合、このフラグでは次の値が許可されます。<dl>
+<dt>有効</dt>
+
+<dd>MPIO パス選択にとって <strong>enabled</strong> (使用可能) であるパスを表示します。</dd>
+
+
+<dt>disabled</dt>
+
+<dd>MPIO パス選択から <strong>disabled</strong> (使用不可) であるパスを表示します。</dd>
+
+
+<dt>失敗</dt>
+
+<dd>入出力エラーのために <strong>failed</strong> (障害が発生した) であるパスを表示します。</dd>
+
+
+<dt>可用性</dt>
+
+<dd><strong>path_status</strong> が <strong>PATH_AVAILABLE</strong>
+であるパス (つまり、<strong>enabled</strong> パス、<strong>disabled</strong> パスおよび <strong>
+failed</strong> パスを含むシステムで構成されているパス) を表示します。</dd>
+
+
+<dt>defined</dt>
+
+<dd><strong>path_status</strong> が <strong>PATH_DEFINED</strong> であるパスを表示します。</dd>
+
+
+<dt>missing</dt>
+
+<dd><strong>path_status</strong> が <strong>PATH_MISSING</strong> であるパスを表示します。</dd>
+
+</dl>これらの値の代替形式を使用することができます。 <strong>0</strong>、<strong>d</strong>、または <strong>D</strong> で始まる文字列は、<strong>defined</strong> と同様に扱われます。 唯一の例外は、<strong>di</strong>、<strong>
+Di</strong>、<strong>dI</strong>、または <strong>DI</strong> で始まる文字列が <strong>disabled</strong> と同様に扱われるという点です。 <strong>1</strong>、<strong>a</strong>、または <strong>A</strong> で始まる文字列は、<strong>available</strong> と同様に扱われます。 <strong>3</strong>、<strong>m</strong>、または <strong>M</strong> で始まる文字列は、<strong>missing</strong> と同様に扱われます。 <strong>e</strong> または <strong>E</strong> で始まる文字列は、<strong>enabled</strong> と同様に扱われます。 <strong>f</strong> または <strong>F</strong> で始まる文字列は、<strong>failed</strong> と同様に扱われます。</td>
+
+</tr>
+
+<tr>
+<td><strong>-t</strong></td>
+
+<td>現行のデフォルト出力に加えて、パス ID を表示します。 <strong>-t</strong> フラグは、<strong>-F</strong> または <strong>-A</strong> フラグと共に使用することはできません。</td>
+
+</tr>
+
+<tr>
+<td><strong>-w</strong> <em>接続</em></td>
+
+<td>表示されるパスを限定するために使用される接続情報を指定します。 このフラグはパスの状況を表示する場合のオプションですが、パスの属性を表示する場合は必須です。</td>
+
+</tr>
+
+<tr>
+<td><strong>-Z</strong> <em>文字</em></td>
+
+<td><strong>-Z</strong> <em>Character</em> フラグは、
+改行文字が組み込まれている可能性がある ODM フィールドを処理するプログラムで使用されます。 <strong>-Z</strong> <em>Character</em>
+フラグは、生成された出力のそれぞれのレコード (行) のレコード分離文字の変更に使用されます。 新規のレコード分離文字は、このフラグの「<em>Character</em>」引数です。 <strong>-Z</strong> <em>Character</em> フラグは、<strong>-A</strong>
+および <strong>-F</strong> <em>Format</em>
+フラグが指定された場合のみ有効です。 <strong>-Z</strong> <em>Character</em> フラグは、<strong>-D</strong>、<strong>-E</strong>、<strong>-O</strong> または <strong>-R</strong> フラグと併用することはできません。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</section>
+
+<section><h2>セキュリティー</h2> <p><em>特権制御</em>: すべてのユーザーがこのコマンドを使用できます。</p>
+ <p><em>監査イベント</em>: なし。</p>
+</section>
+
+<section><h2>例</h2> <p>パス状況の表示例は次のとおりです。</p>
+ <ol>
+<li>hdisk1 へのすべてのパスの状況を列見出しで表示するには、次のコマンドを入力します。<div><div><pre><code>lspath -H -l hdisk1</code></pre></div><div></div></div>システムは、次のようなメッセージを表示します。<div><div><pre><code>status    device   parent
+enabled   hdisk1   scsi0
+disabled  hdisk1   scsi1
+missing   hdisk1   scsi2</code></pre></div><div></div></div></li>
+
+<li>操作可能状況が disabled であるパスのセットを列見出しなしで表示するには、次のコマンドを入力します。<div><div><pre><code>lspath -s disabled</code></pre></div><div></div></div>システムは、次のようなメッセージを表示します。<div><div><pre><code>disabled  hdisk1   scsi1
+disabled  hdisk2   scsi1
+disabled  hdisk23  scsi8
+disabled  hdisk25  scsi8</code></pre></div><div></div></div></li>
+
+<li>操作可能状況が <code>failed</code> であるパスのセットを表示するには、次のコマンドを入力します。<div><div><pre><code>lspath -s failed</code></pre></div><div></div></div>システムは、次のようなメッセージを表示します。<div><div><pre><code>failed  hdisk1   scsi1
+failed  hdisk2   scsi1
+failed  hdisk23  scsi8
+failed  hdisk25  scsi8</code></pre></div><div></div></div></li>
+
+<li>パス状況が available である hdisk1 へのパスのセットを、ユーザー指定のフォーマットで、列ヘッダーなしで表示するには、次のコマンドを入力します。<div><div><pre><code>lspath -l hdisk1 -s available -F"connection:parent:path_status:status"</code></pre></div><div></div></div>システムは、次のようなメッセージを表示します。<div><div><pre><code>5,0:scsi0:available:enabled
+6,0:scsi1:available:disabled</code></pre></div><div></div></div>この出力がデバイスのパス状況および操作可能状況の両方を表示していることに注意してください。 パス状況はパスが構成されているかどうかを示すだけです。 操作可能状況は、デバイス・ドライバーのパス選択処理についてパスがどのように使用されているかを示します。 パス状況が <code>available</code> であるパスにのみ、操作可能状況も示します。 パスが現在デバイス・ドライバーに向けて構成されていない場合、このパスには操作可能状況はありません。</li>
+
+</ol>
+ <div>パスの属性の表示例は次のとおりです。<ol>
+<li>ターゲット・デバイスが SCSI ディスクである場合、接続 5,0 における親 scsi0 へのパスの属性すべてを表示するには、次のコマンドを入力します。<div><div><pre><code>lspath -AHE -l hdisk10 -p scsi0 -w "5,0"</code></pre></div><div></div></div>システムは、次のようなメッセージを表示します。<div><div><pre><code>attribute  value  description                       user_settable
+weight     1      Order of path failover selection  true</code></pre></div><div></div></div></li>
+
+</ol>
+</div>
+</section>
+
+</div></div>

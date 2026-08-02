@@ -1,0 +1,109 @@
+<div class="official-dom"><div>
+<section><h2>目的</h2> <p><strong>restart-secldapclntd</strong> スクリプトは、
+現在実行中の <strong>secldapclntd</strong> デーモン・プロセスを停止してから、
+再始動するために使用されます。</p>
+</section>
+
+<section><h2>構文</h2> <p><strong>/usr/sbin/restart-secldapclntd</strong> [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/r_commands/restart-secldapclntd.html#restart-secldapclntd__row-d3e144158" target="_blank" rel="noopener noreferrer"><strong>-C</strong></a><em>CacheSize</em> ][ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/r_commands/restart-secldapclntd.html#restart-secldapclntd__row-d3e144178" target="_blank" rel="noopener noreferrer"><strong>-p</strong></a><em>NumOfThread</em> ][ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/r_commands/restart-secldapclntd.html#restart-secldapclntd__row-d3e144193" target="_blank" rel="noopener noreferrer"><strong>-t</strong></a><em>CacheTimeOut</em> ][ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/r_commands/restart-secldapclntd.html#restart-secldapclntd__row-d3e144202" target="_blank" rel="noopener noreferrer"><strong>-T</strong></a><em>HeartBeatIntv</em> ][ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/r_commands/restart-secldapclntd.html#restart-secldapclntd__row-d3e144170" target="_blank" rel="noopener noreferrer"><strong>-o</strong></a><em>ldapTimeOut</em> ]</p>
+</section>
+
+<section><h2>説明</h2> <p><strong>restart-secldapclntd</strong> スクリプトは、
+<strong>secldapclntd</strong> デーモンが実行中であればこれを停止してから、再始動します。 <strong>secldapclntd</strong> デーモンが実行中でない場合は、単にこれを開始します。</p>
+</section>
+
+<section><h2>フラグ</h2> <p>デフォルトでは、<strong>/etc/security/ldap/ldap.cfg</strong> ファ
+イルに指定されている構成情報を <strong>secldapclntd</strong> デーモン
+が起動時に読み取ります。 <strong>secldapclntd</strong> プロセスを
+開始するときに、コマンド・ラインに次のオプションを使用すると、コマンド・ラインのオプション
+が <strong>/etc/security/ldap/ldap.cfg</strong> ファイルの値を上書きします。</p>
+ 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><strong>-C</strong> <em>CacheSize</em></td>
+
+<td><strong>secldapclntd</strong> デーモンが使用するキャッシュ・エントリーの
+最大数を、CacheSize に指定された数に設定します。 ユーザー・キャッシュの有効なエントリー数の範囲は 100 から 10,000 です。 デフォルトは 1000 です。 グループ・キャッシュのエントリー数は、ユーザー・キャッシュ・エントリー数の 10% です。</td>
+
+</tr>
+
+<tr>
+<td><strong>-o </strong><em>ldapTimeOut</em></td>
+
+<td>LDAP クライアントからサーバーへの要求のタイムアウト期間 (秒)。 この値は、クライアントが LDAP サーバーからの応答を待つ時間の長さを決定します。 有効範囲は 0 から 3600 (1 時間) です。 デフォルトは 60 秒です。 この値を 0 に設定すると、タイムアウトが使用不可になり、クライアントは無期限に待つことを強制されます。</td>
+
+</tr>
+
+<tr>
+<td><strong>-p</strong> <em>NumOfThread</em></td>
+
+<td><strong>secldapclntd</strong> デーモンが使用するスレッド
+の数を、<strong>NumOfThread</strong> に設定します。 有効範囲は 1 から 1000 です。 デフォルトは 10 です。</td>
+
+</tr>
+
+<tr>
+<td><strong>-t</strong> <em>CacheTimeout</em></td>
+
+<td>キャッシュが CacheTimeout 秒で期限切れになるように設
+定します。 有効範囲は 60 から 3600 秒です。 デフォルトは 300 秒です。</td>
+
+</tr>
+
+<tr>
+<td><strong>-T</strong> <em>HeartBeatIntv</em></td>
+
+<td>このクライアントと LDAP サーバーの間の
+ハートビートの時間間隔を設定します。 有効な値は 60 から 3,600 秒です。 デフォルト値は 300 です。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</section>
+
+<section><h2>セキュリティー</h2> <p><strong>aix.security.ldap</strong> 権限のあるユーザーがこのコマンドの使用を許可されます。</p>
+</section>
+
+<section><h2>例</h2> <ol>
+<li><strong>secldapclntd</strong> デーモンを再始動するには、次のように入力します。<div><div><pre><code>/usr/sbin/restart-secldapclntd</code></pre></div><div></div></div></li>
+
+<li>30 スレッドを使用し、500 秒のキャッシュ・タイムアウト値を使用して、
+<strong>secldapclntd</strong> を再始動するには、次のように入力します。<div><div><pre><code>/usr/sbin/restart-secldapclntd -p 30 -t 500</code></pre></div><div></div></div></li>
+
+</ol>
+</section>
+
+<section><h2>ファイル</h2> 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><strong>/etc/security/ldap/ldap.cfg</strong></td>
+
+<td>サーバーに接続するために <strong>secldapclntd</strong> デーモンが必要とする情報が入っています。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</section>
+
+</div></div>

@@ -1,0 +1,41 @@
+<div class="official-dom"><div>
+<section><h2>目的</h2> <p>プログラム・ファイルの位置 (別名とパスを含めて) を見つけます。</p>
+</section>
+
+<section><h2>構文</h2> <p><strong>which</strong> [ <em>名前 </em>...]</p>
+</section>
+
+<section><h2>説明</h2> <p><strong>which</strong> コマンドはプログラム名のリストを入力として受け取り、その名前をコマンドとして入力すると実行されるファイルを検索します。 <strong>which</strong> コマンドは、引数が別名の場合は拡張し、ユーザーのパスに従って検索します。 別名とパスは、ユーザーのホーム・ディレクトリーにある <strong>.cshrc</strong> ファイルから取り出されます。 <strong>.cshrc</strong> ファイルが存在しない場合、またはパスが <strong>.cshrc</strong> ファイルに定義されていない場合、<strong>which</strong> コマンドはユーザーの環境に定義されたパスを使用します。</p>
+ <p>名前が複数の単語の別名であったり、引数名に関連する実行可能ファイルがパスに見つからなかった場合、診断が戻ります。</p>
+ <p>Korn シェルの場合、<strong>whence</strong> コマンドを使えばより詳細な報告が得られます。</p>
+</section>
+
+<section><h2>例</h2> <p>コマンド名に関連付けられた実行可能ファイルを検索するには、次のようにします。lookup:</p>
+ <div> <div><div><pre><code>which lookup</code></pre></div><div></div></div></div>
+</section>
+
+<section><h2>ファイル</h2> <div> 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><strong>$HOME/.cshrc</strong></td>
+
+<td>別名とパス値のソースが入っています。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+</section>
+
+</div></div>

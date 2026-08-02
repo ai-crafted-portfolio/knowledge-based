@@ -1,0 +1,118 @@
+<div class="official-dom"><div>
+<section><h2>目的</h2> <p>Internet Storage Name Service (iSNS) デーモンを管理します。</p>
+</section>
+
+<section><h2>構文</h2> <p><strong>isnstgtd</strong> -t <em>ターゲット名 </em>[-dデバッグ・レベル ]</p>
+ <p><strong>ISSTGTD</strong> -s</p>
+ <p><strong>isstgtd</strong> -h</p>
+</section>
+
+<section><h2>説明</h2> <p><strong>isnstgtd</strong> コマンドは iSNS デーモンを管理します。 iSNS デーモンは、iSNS 構成スタンザ・ファイル <strong>/etc/tmiscsi/isns_servers</strong> に設定された期間で iSNS 登録をリフレッシュします。 また始動時に、新規 iSNS サーバーによって送信されたハートビート・メッセージに応答します。</p>
+ <div>iSNS デーモンを開始するには、-f フラグを指定して <strong>isnstgtd</strong> コマンドを使用します。 また、次のコマンドを使用しても SRC を開始できます。<div><div><pre><code>startsrc -s isnstgtd -a '-t targetname'.</code></pre></div><div></div></div> </div>
+ <p>デーモンを強制終了するには、プロセスを強制終了するか、SRC によって停止する必要があります。</p>
+ <div> <dl>
+
+<dt>制約事項</dt>
+
+<dd>同一マシン上で複数の isnstgtd デーモンを実行しないでください。</dd>
+
+
+<dt>要件</dt>
+
+<dd>-t または -s フラグは必須です。</dd>
+
+</dl>
+</div>
+ <p>isnstgtd iSNS デーモンは、iSCSI ターゲット・モードのターゲットが ODM データベースに定義されている場合にのみ使用できます。 このターゲットを考慮に入れるためには、reg_policy 属性が isns または slp&amp;isns に設定されている必要があります。</p>
+ <div> <div><div>
+        <div>
+          <div><span>注記：</span>コマンドがデバッグ・モード（isnstgtd-ttargetname-ddebuglevel）でゼロより大きいデバッグ・レベルを指定してデーモンを起動する場合、コマンドはデーモンとして実行されない。</div>
+        </div>
+      </div></div>
+</div>
+</section>
+
+<section><h2>フラグ</h2> <div> 
+<div><div><table><thead> <tr> <th><div>項目</div></th>
+ <th><div>説明</div></th>
+ </tr>
+ </thead>
+<tbody>
+<tr>
+<td><strong><em>ターゲット名</em></strong></td>
+
+<td>iSNS 通信に、ODM 定義の iSCSI ターゲット・モードのターゲットの使用を指定します。</td>
+
+</tr>
+
+<tr>
+<td><strong>-d <em>レベル</em> (-d)</strong></td>
+
+<td>isnstgtd によって使用されるデバッグ・レベルを指定します。 デバッグ・レベルは、0 (重要) から 7 (デバッグ) の間です。</td>
+
+</tr>
+
+<tr>
+<td><strong>-s</strong></td>
+
+<td>(iSNS 構成スタンザ・ファイル <strong>/etc/tmiscsi/isns_servers</strong> に定義されている) iSNS サーバー構成を、SMIT メニュー形式で標準出力にプリントします。</td>
+
+</tr>
+
+<tr>
+<td><strong>-h</strong><em></em></td>
+
+<td>help コマンドの使用法を表示します。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+</section>
+
+<section><h2>例</h2> <ol>
+<li>定義されている iSCSI ターゲットのターゲットに対してデーモンとしてコマンドを実行するには、次のコマンドを入力してください。<div> <div><div><pre><code>isnstgtd -t tgt</code></pre></div><div></div></div></div>
+</li>
+
+<li>すべてのデバッグ・トレースを指定してデバッグ・モードでコマンドを実行するには、次のコマンドを入力してください。<div><div><pre><code>isnstgtd -t target -d 7 &amp;</code></pre></div><div></div></div></li>
+
+</ol>
+</section>
+
+<section><h2>システム・リソース・コントローラー (SRC)</h2> <p>isnstgtd デーモンは、SRC によって管理することもできます。</p>
+ <div> 
+<div><div><table><thead> <tr> <th><div>項目</div></th>
+ <th><div>説明</div></th>
+ </tr>
+ </thead>
+<tbody>
+<tr>
+<td><strong>startsrc</strong> -s <strong>isnstgtd</strong> -a '-t <em>targetname</em>[-d <em>debuglevel</em>]'</td>
+
+<td>SRC の制御下で iSNS デーモンを開始するために使用されます。</td>
+
+</tr>
+
+<tr>
+<td><strong>stopsrc</strong> -s <strong>isnstgtd</strong></td>
+
+<td>SRC によって開始された iSNS デーモンを停止するために使用されます。</td>
+
+</tr>
+
+<tr>
+<td><strong>リフレッシュ</strong> -s <strong>isnstgtd</strong></td>
+
+<td>SRC 制御下の iSNS デーモンに、iSNS 構成スタンザ・ファイル <strong>/etc/tmiscsi/isns_servers</strong> に設定されているその iSNS 登録リフレッシュ期間をリフレッシュするように要求します。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+</section>
+
+</div></div>

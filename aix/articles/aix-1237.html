@@ -1,0 +1,319 @@
+<div class="official-dom"><div>
+<section><h2>目的</h2> <p>ローカル・ホストとリモート・ホスト間または 2 つのリモート・ホスト間でファイルを転送します。</p>
+</section>
+
+<section><h2>構文</h2> <p><span></span></p>
+ <p><strong>rcp</strong> [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/r_commands/rcp.html#rcp__row-d3e131055" target="_blank" rel="noopener noreferrer"><strong>-p</strong></a>] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/r_commands/rcp.html#rcp__row-d3e131079" target="_blank" rel="noopener noreferrer"><strong>-F</strong></a>] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/r_commands/rcp.html#rcp__row-d3e131085" target="_blank" rel="noopener noreferrer"><strong>-k</strong></a> <em>realm</em> ] [<a href="https://www.ibm.com/docs/ja/ssw_aix_73/r_commands/rcp.html#rcp__row-d3e131093" target="_blank" rel="noopener noreferrer"><strong>-m</strong></a>] {{ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/r_commands/rcp.html#rcp__row-d3e131133" target="_blank" rel="noopener noreferrer"><em>User</em><strong>@</strong><em>Host</em><strong>:</strong><em>File</em></a> | <a href="https://www.ibm.com/docs/ja/ssw_aix_73/r_commands/rcp.html#rcp__row-d3e131111" target="_blank" rel="noopener noreferrer"><em>Host</em><strong>:</strong><em>ファイル</em></a> | <a href="https://www.ibm.com/docs/ja/ssw_aix_73/r_commands/rcp.html#rcp__row-d3e131164" target="_blank" rel="noopener noreferrer"><em>ファイル </em></a>} { <em>ユーザー</em><strong>@</strong><em>ホスト</em><strong>:</strong><em>ファイル</em> | <em>ホスト</em><strong>:</strong><em>ファイル</em> | <em>ファイル</em> | <a href="https://www.ibm.com/docs/ja/ssw_aix_73/r_commands/rcp.html#rcp__row-d3e131192" target="_blank" rel="noopener noreferrer"><em>ユーザー</em><strong>@</strong><em>ホスト</em><strong>:</strong><em>ディレクトリー</em></a> | <a href="https://www.ibm.com/docs/ja/ssw_aix_73/r_commands/rcp.html#rcp__row-d3e131170" target="_blank" rel="noopener noreferrer"><em>ホスト</em><strong>:</strong><em>ディレクトリー</em></a> | <a href="https://www.ibm.com/docs/ja/ssw_aix_73/r_commands/rcp.html#rcp__row-d3e131223" target="_blank" rel="noopener noreferrer"><em>Directory</em></a> } | [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/r_commands/rcp.html#rcp__row-d3e131073" target="_blank" rel="noopener noreferrer"><strong>-r</strong></a>] { <em>User</em><strong>@</strong><em>Host</em><strong>:</strong><em>Directory</em> | <em>Host</em><strong>:</strong><em>Directory</em> |<em>Directory</em> } { <em>User</em><strong>@</strong><em>Host</em><strong>:</strong><em>Directory</em> | <em>Host</em><strong>:</strong><em>ディレクトリー</em> | <em>ディレクトリー</em> }}</p>
+</section>
+
+<section><h2>説明</h2>
+
+<p><strong>/usr/bin/rcp</strong> コマンドは、ローカル・ホストとリモート・ホスト間、2 つのリモート・ホスト間、または同じリモート・ホスト上のファイル間で、単一または複数のファイルをコピーするときに使用します。</p>
+
+<div>リモート宛先ファイルとディレクトリーについては、<em>Host</em><strong>:</strong> パラメーターを指定する必要があります。 ソースまたは宛先のどちらにもリモート・ホスト名を指定しない場合は、<strong>rcp</strong> コマンドは <strong>cp</strong> コマンドと等価になります。 ローカル・ファイル名およびディレクトリー名に <em>Host</em><strong>:</strong> パラメーターを指定する必要はありません。<div><div>
+        <div>
+          <div><span>注:</span> <strong>RCP</strong> コマンドは、: (コロン) がホスト名を終了することを想定しています。 ファイル名に : を使用する場合には、ファイル名の前に / (スラッシュ) を付けるか、または / を含む絶対パス名で使用してください。</div>
+        </div>
+      </div></div>
+</div>
+
+
+<p><em>Host</em> の前に接頭部として <em>User</em><strong>@</strong> パラメーターを付けないと、リモート・ホストではローカル・ユーザー名が使用されます。 <em>User</em><strong>@</strong> パラメーターを入力すると、その名前が使われます。</p>
+
+<p>リモート・ホスト上のファイルまたはディレクトリーに対してパスを指定しないか、完全に修飾しなければ、パスがリモート・ユーザー・アカウント用のホーム・ディレクトリーから開始すると解釈されます。 また、リモート・ホストで解釈される必要があるメタキャラクターは、\(円記号)、a"(二重引用符)、または'(単一引用符)。</p>
+
+<dl>
+
+<dt>ファイルの許可と所有権</dt>
+
+<dd><p>デフォルトでは、既存の宛先ファイルの許可モードと所有権は保存されます。 通常、宛先ファイルが存在しなければ、宛先ファイルの許可モードは宛先ホスト側で <strong>umask</strong> コマンド (Korn シェルの特殊コマンド) によって修正されるソース・ファイルの許可モードに等しくなります。 <strong>RCP</strong> command <a href="https://www.ibm.com/docs/ja/ssw_aix_73/r_commands/rcp.html#rcp__row-d3e131055" target="_blank" rel="noopener noreferrer"><strong>P-</strong></a> フラグが設定されている場合、ソース・ファイルの変更時刻とモードは宛先ホストに保持されます。</p>
+
+<p>リモート・ホスト用に入力するユーザー名によって、<strong>rcp</strong> コマンドがそのホストで使用するファイル・アクセス特権が決まります。 また、宛先ホストに与えられたユーザー名によって、結果的に生成される宛先ファイルの所有権とアクセス・
+モードが決まります。</p>
+
+</dd>
+
+
+
+<dt><strong>標準認証の使用</strong></dt>
+
+<dd><p>リモート・ホストには、以下の条件のいずれかが満たされるとアクセスできます。</p>
+
+<ul>
+<li><span></span>ローカル・ホストはリモート・ホスト <strong>/etc/hosts.equiv</strong> ファイルに含まれており、リモート・ユーザーは root ユーザーではありません。</li>
+
+<li><span></span>ローカル・ホストとユーザー名は、リモート・ユーザー・アカウントの <strong>$HOME/.rhosts</strong> ファイルに含まれています。</li>
+
+</ul>
+
+<p>ユーザーは <strong>$HOME/.rhosts</strong> ファイルに対して、許可を任意に設定できますが、.rhosts ファイルの許可は 600 (オーナーだけが読み取りおよび書き込み可能) に設定することをお勧めします。</p>
+
+<p>上記の条件のほかに、リモート・ユーザーのアカウントにパスワードが定義されていなければ、<strong>rcp</strong> コマンドを使用してリモート・ホストにアクセスすることができます。 ただし、セキュリティー上の理由で、すべてのユーザー・アカウント上でパスワードを使用することをお勧めします。</p>
+
+</dd>
+
+
+
+<dt><strong>Kerberos 5 認証の場合</strong></dt>
+
+<dd><p>次の条件のすべてが満たされた場合にのみ、リモート・ホストへのアクセスが可能になります。</p>
+
+<ul>
+<li>ローカル・ユーザーに現在の DCE 証明書が与えられている。</li>
+
+<li>ローカル・システムとリモート・システムが、Kerberos 5 認証に対して構成されている (一部のリモート・システムの場合、これは不要のことがある。 デーモンが klogin ポートを listen していることが必要)。</li>
+
+<li>リモート・システムが DCE 証明書をリモート・アカウントへのアクセスに充分であるとして受け入れる。 追加情報については、
+<strong>kvalid_user</strong> 関数を参照のこと。</li>
+
+</ul>
+
+</dd>
+
+
+
+<dt><strong>rcp および名前付きパイプライン</strong></dt>
+
+<dd><p>名前付きパイプライン、または FIFO (<strong>mknod -p</strong> コマンドで作成するスペシャル・ファイル) をコピーするときには、<strong>rcp</strong> コマンドを使用しないでください。 <strong>rcp</strong> コマンドは、コピーの対象となるファイルに <strong>open</strong> サブルーチンを使用しますが、このサブルーチンは FIFO パイプ接続のようなブロック化デバイスはブロックします。</p>
+
+</dd>
+
+
+</dl>
+
+</section>
+
+<section><h2>制約事項</h2> <p>SP Kerberos V4 rcp 実行パスは、 Kerberos が資格情報の転送をサポートしていないため、リモートからリモートへのコピーをサポートしません。 このような状況で表示されるメッセージは、チケットがなく、 <strong>キニit</strong> を使用してログインする必要があることを示しています。 メッセージを出すのは、
+リモート・ソース・マシンです。 Kerberos を使用してリモートからリモートへのコピーを実行する場合の例のセクションを参照してください。</p>
+</section>
+
+<section><h2>フラグ</h2> <div> 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><strong>-p</strong></td>
+
+<td>ユーザーが root 権限を持っているか、または宛先のオーナーである場合に限り、宛先に送るコピー内にソース・ファイルの修正時刻とモードを保存します。 このフラグを使用しないと、宛先側の <strong>umask</strong> コマンドが宛先ファイルのモードを修正し、宛先ファイルの修正時刻はそのファイルが受け取られた時刻に設定されます。<p>このフラグを使用しないと、有効な umask 値が適切なデータベースに保存されます。 この値は <strong>umask</strong>  コマンドを発行することによって設定される値とは異なります。 <strong>umask</strong> コマンドで指定された許可と所有権の値は、データベース内に保存された値には影響しません。</p>
+</td>
+
+</tr>
+
+<tr>
+<td><strong>-r</strong></td>
+
+<td>ソース・ディレクトリー内の各ファイルとサブディレクトリーを、宛先ディレクトリーに再帰コピーします。</td>
+
+</tr>
+
+<tr>
+<td><strong>-F</strong></td>
+
+<td>これを指定すると、証明書が転送されます。 さらに、リモート・システムの証明書に転送可能のマークが付けられます (これによって、
+別のリモート・システムにそれらの証明書を渡すことができるようになります)。 このフラグは、Kerberos 5 が現在の認証メソッドでない場合は無視されます。 認証は、現在の DCE 証明書に転送可能のマークが付けられていない場合には無視されます。</td>
+
+</tr>
+
+<tr>
+<td><strong>-k (K)</strong><em> レルム</em></td>
+
+<td>これを使用することで、ユーザーは、リモート端末のレルムを指定できます。 このような目的では、レルムは DCE セルと同義です。 このフラグは、Kerberos 5 が現在の認証メソッドでない場合は無視されます。</td>
+
+</tr>
+
+<tr>
+<td><strong>-m</strong></td>
+
+<td>ファイル名のメタキャラクターのサポート。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+</section>
+
+<section><h2>パラメーター</h2> <div> 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><em>ホスト</em><strong>:</strong><em>ファイル</em></td>
+
+<td>: (コロン) で区切られたリモート宛先ファイルのホスト名 (<em>Host</em>) およびファイル名 (<em>File</em>) です。<div><div>
+        <div>
+          <div><span>注:</span> <strong>RCP</strong> コマンドは、: (コロン) がホスト名を終了することを想定しているため、ローカル・ファイル名およびディレクトリー名に組み込まれているコロンの前に ¥ (円記号) を挿入する必要があります。</div>
+        </div>
+      </div></div>
+</td>
+
+</tr>
+
+<tr>
+<td><em>ユーザー</em><strong>@</strong><em>ホスト</em><strong>:</strong><em>ファイル</em></td>
+
+<td><strong>RCP</strong> コマンドが、転送されるファイルの所有権、ホスト名 (<em>ホスト</em>)、およびリモート宛先ファイルのファイル名 (<em>ファイル</em>) を設定するために使用するユーザー名 (<em>ユーザー</em><strong>@</strong>) を指定します。 リモート・ホスト用に入力するユーザー名によって、<strong>rcp</strong> コマンドがそのホストで使用するファイル・アクセス特権が決まります。</td>
+
+</tr>
+
+<tr>
+<td><em>File</em></td>
+
+<td>ローカル宛先ファイルのファイル名を指定します。</td>
+
+</tr>
+
+<tr>
+<td><em>ホスト</em><strong>:</strong><em>ディレクトリー</em></td>
+
+<td>リモート宛先ディレクトリーのホスト名 (<em>Host</em>) およびディレクトリー名 (<em>Directory</em>) を指定します。<div><div>
+        <div>
+          <div><span>注:</span> <strong>RCP</strong> コマンドは、: (コロン) がホスト名を終了することを想定しているため、ローカル・ファイル名およびディレクトリー名に組み込まれているコロンの前に ¥ (円記号) を挿入する必要があります。</div>
+        </div>
+      </div></div>
+</td>
+
+</tr>
+
+<tr>
+<td><em>ユーザー</em><strong>@</strong><em>ホスト</em><strong>:</strong><em>ディレクトリー</em></td>
+
+<td><strong>RCP</strong> コマンドが、転送されるファイルの所有権、ホスト名 (<em>ホスト</em>)、およびリモート宛先ディレクトリーのディレクトリー名 (<em>ディレクトリー</em>) を設定するために使用するユーザー名 (<em>ユーザー</em><strong>@</strong>) を指定します。 リモート・ホスト用に入力するユーザー名によって、<strong>rcp</strong> コマンドがそのホストで使用するファイル・アクセス特権が決まります。</td>
+
+</tr>
+
+<tr>
+<td><em>directory</em></td>
+
+<td>ローカル宛先ディレクトリーのディレクトリー名。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+</section>
+
+<section><h2>終了状況</h2> <p>このコマンドは、以下の終了値を戻します。</p>
+ 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><strong>0</strong></td>
+
+<td>正常終了。</td>
+
+</tr>
+
+<tr>
+<td><strong>&gt;0</strong></td>
+
+<td>エラーが発生しました。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</section>
+
+<section><h2>セキュリティー</h2> <div>次の条件のうち、少なくとも 1 つが満たされた場合にのみ、リモート・ホストへのアクセスが可能になります。<ul>
+<li>ローカル・ユーザー ID が認証データベース内でプリンシパルとしてリストされ、
+<strong>kinit</strong> を実行してチケットを獲得していた場合。</li>
+
+<li><strong>$HOME/.klogin</strong> ファイルがある場合は、そのファイルがターゲット・システム上のローカル・ユーザーの
+<strong>$HOME</strong> ディレクトリーにある場合。 ローカル・ユーザーは、さらにこのアカウントに <strong>rsh</strong>
+を許可されたユーザーまたはサービスとしてリストされなければなりません。 このファイルは、
+ローカル .<strong>rhosts</strong> ファイルと同等の機能を実行します。 このファイル内の各行には、"principal.instance@realm"
+形式のプリンシパルがなければなりません。 親ユーザーが .<strong>klogin</strong> 内で命名されたプリンシパルの
+1 つとして認証されている場合は、アカウントへのアクセスが認可されます。 アカウントのオーナーは .<strong>klogin</strong>
+ファイルがない場合にアクセスが認可されます。</li>
+
+</ul>
+</div>
+ <p>セキュリティ上の理由から、<strong>$HOME/HOME/.klogin</strong>ファイルはすべてリモート・ユーザーが所有し、<span>AIX</span>所有者IDのみが<strong>.klogin</strong>への読み取りおよび書き込みアクセス権（パーミッション=600）を持つ必要がある。</p>
+ <p><strong>アテンション RBAC ユーザー</strong>: このコマンドは特権操作を実行できます。 特権命令を実行できるのは特権ユーザーのみです。 権限および特権について詳しくは、「<em>セキュリティー</em>」の『特権コマンド・データベース』を参照してください。 このコマンドに関連した特権および権限のリストについては、<strong>lssecattr</strong> コマンドまたは <strong>getcmdattr</strong> サブコマンドの項を参照してください。</p>
+</section>
+
+<section><h2>例</h2> <p>以下の例では、ローカル・ホストはリモート・ホストにある <strong>/etc/hosts.equiv</strong> ファイルでリストされます。</p>
+ <ol>
+<li><span></span>ローカル・ファイルをリモート・ホストにコピーするには、次のように入力します。<div> <div><div><pre><code>rcp localfile host2:/home/eng/jane</code></pre></div><div></div></div>ファイルlocalfileローカル・ホストからリモート・ホストにコピーされます。host2.</div>
+</li>
+
+<li><span></span>あるリモート・ホストから別のリモート・ホストにリモート・ファイルをコピーするには、次のように入力します。   <div> <div><div><pre><code>rcp host1:/home/eng/jane/newplan host2:/home/eng/mary</code></pre></div><div></div></div>ファイル/home/eng/jane/newplanリモート・ホストからコピーされるhost1リモート・ホストへhost2.</div>
+</li>
+
+<li><span></span>ディレクトリー・サブツリーをローカル・ホストからリモート・ホストに送信し、変更時刻とモードを保持するには、次のように入力します。<div>rcp  <a href="https://www.ibm.com/docs/ja/ssw_aix_73/r_commands/rcp.html#rcp__row-d3e131055" target="_blank" rel="noopener noreferrer">-p </a> <a href="https://www.ibm.com/docs/ja/ssw_aix_73/r_commands/rcp.html#rcp__row-d3e131073" target="_blank" rel="noopener noreferrer">-r </a>report jane@host2:report</div>ディレクトリー・サブツリーreport ローカル・ホストからユーザーのホーム・ディレクトリーにコピーされます。janeリモート・ホストhost2すべてのモードおよび変更時刻が保持されます。 リモート・ファイル <strong>/home/jane/.rhosts</strong> には、ローカル・ホストおよびユーザー名を指定するエントリーが含まれます。</li>
+
+<li>この例は、ターゲットとサーバーの両方で認証が Kerberos 4
+の場合に、root ユーザーがリモート・ホスト上で <strong>rcp
+</strong> を出す方法を示してます。 root ユーザーは認証データベースに登録され、
+ローカル・ホスト上に <strong>kinit</strong> を出しておく必要があります。 このコマンドは、SP 上のノード r05n07 からノード r05n05 にファイルをコピーするために、ローカル・ホストで発行されます。<div><div><pre><code>/usr/lpp/ssp/rcmd/bin/rsh r05n07 'export KRBTKTFILE=/tmp/rcmdtkt$$; \ 
+/usr/lpp/ssp/rcmd/bin/rcmdtgt; \ 
+/usr/lpp/ssp/rcmd/bin/rcp /tmp/stuff r05n05:/tmp/stuff;' </code></pre></div><div></div></div>root ユーザーは、KRBTKTFILE 環境変数を一時チケット・キャッシュ・ファイル名に設定してから、<strong>rcmdtgt</strong> コマンドを出してサービス・チケットを獲得します。 <strong>rcp</strong>
+はサービス・チケットを使用して、ホスト r05n07 からホスト r05n05 へ認証します。</li>
+
+</ol>
+</section>
+
+<section><h2>ファイル</h2> 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><strong>$HOME/.klogin</strong></td>
+
+<td>ローカル・ユーザー・アカウントを使用できるリモート・ユーザーを指定します。</td>
+
+</tr>
+
+<tr>
+<td><strong>/usr/lpp/ssp/rcmd/bin/rcp</strong></td>
+
+<td>SP Kerberos 4 <strong>rcp</strong> ルーチンを呼び出す <span>AIX</span> Secure <strong>/usr/bin/rsh</strong> へのリンク (該当する場合)。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</section>
+
+<section><h2>前提条件情報</h2> <p>概要については、『<span>IBM</span> Parallel System Support Programs for<span>AIX</span>: Administration Guide』のセキュリティの章を参照してください。 この資料には、Web サイト
+  http://www.rs6000.ibm.com/resource/aix_resource でアクセスできます。</p>
+ <p>Kerberosに関する追加情報については、『<span>IBM</span>Parallel System Support Programs for<span>AIX</span>: Command and Technical Reference』の<span>RS/6000</span>SP ファイルとその他の技術情報」を参照してください。 この資料には、Web サイト
+  http://www.rs6000.ibm.com/resource/aix_resource でアクセスできます。</p>
+</section>
+
+</div></div>

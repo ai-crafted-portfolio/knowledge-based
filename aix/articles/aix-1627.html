@@ -1,0 +1,222 @@
+<div class="official-dom"><div>
+<section><h2>目的</h2> <p>チューナブル・パラメーターが入っているファイルを検証します。</p>
+</section>
+
+<section><h2>構文</h2> <p><strong>チューンチェック</strong> [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/t_commands/tuncheck.html#tuncheck__row-d3e138371" target="_blank" rel="noopener noreferrer"><strong>-</strong></a> [<a href="https://www.ibm.com/docs/ja/ssw_aix_73/t_commands/tuncheck.html#tuncheck__tuncheck-rowK" target="_blank" rel="noopener noreferrer"><strong>-K (K)</strong></a>] | <a href="https://www.ibm.com/docs/ja/ssw_aix_73/t_commands/tuncheck.html#tuncheck__row-d3e138356" target="_blank" rel="noopener noreferrer"><strong>P-</strong></a> ] <a href="https://www.ibm.com/docs/ja/ssw_aix_73/t_commands/tuncheck.html#tuncheck__row-d3e138341" target="_blank" rel="noopener noreferrer"><strong>「-f」</strong></a> <em>ファイル名 </em></p>
+</section>
+
+<section><h2>説明</h2> <p><strong>tuncheck</strong> コマンドは、チューナブル・パラメーターが入っているファイルを検証します。 指定ファイル内にリストされたすべてのチューナブル・パラメーターは、範囲と依存関係について検査されます。 問題が検出されると、警告が発行されます。</p>
+ <div><strong>tuncheck</strong> コマンドは、以下の項目を検証します。<dl>
+
+<dt>現行コンテキストに対する検証</dt>
+
+<dd>指定されたファイルにあるチューナブル・パラメーターが、すぐに適用可能であるかどうかを検査します。 <em>Filename</em> にリストされていないチューナブル・パラメーターは、現行値として解釈されます。 タイプが <strong>Incremental</strong> の
+チューナブルに現行値よりも小さな値が表示されていると、検査は失敗します。
+さらに、タイプが <strong>Bosboot</strong> また
+は <strong>Reboot</strong> のチューナブルに現行値よりも大きな
+値が表示されている場合も失敗します。</dd>
+
+
+
+<dt>次のブート・コンテキストに対する検証</dt>
+
+<dd>指定されたファイルにあるチューナブル・パラメーターが、リブートの間に適用可能であるかどうか
+(つまり、そのファイルが有効な <span>nextboot</span> ファイルであるかどうか) を検査します。 タイプが <strong>Incremental</strong> のチューナブル・パラメーターに現行値よりも小さな値が指定されていると、ファイル検証は失敗しません。 タイプが <strong>Bosboot</strong> また
+は <strong>Reboot</strong> のチューナブルに現行値よりも大きな
+値が表示されている場合は、警告が発行されますが、検査は失敗しません。</dd>
+
+
+
+<dt>次のライブ・アップデート・コンテキストに対する検証</dt>
+
+<dd>指定されたファイルにあるチューナブル・パラメーターが、ライブ・アップデート操作の間に適用可能であるかどうか
+(つまり、そのファイルが有効な <span>nextliveupdate</span> ファイルであるかどうか) を検査します。 タイプが <strong>Incremental</strong> のチューナブル・パラメーターに現行値よりも小さな値が指定されていると、検証は失敗しません。 タイプが <strong>Bosboot</strong> または <strong>Reboot</strong> のチューナブル・パラメーターに、指定されたファイルで現行値よりも大きな値が表示されている場合は、警告が表示されますが、ファイル検証は失敗しません。</dd>
+
+
+</dl>
+</div>
+ <p>さらに、<strong><em>Filename</em></strong> に不明なスタンザ、既知のスタンザ
+内に不明なチューナブルがあると、警告が発行されます。 ただし、検査は
+失敗しません。</p>
+ <p>正常終了すると、検査したファイルの情報スタンザに
+ある <strong>AIX_level, Kernel_type</strong> およ
+び <strong>Last_validation</strong> の各フィールドが更新されます。</p>
+</section>
+
+<section><h2>フラグ</h2> 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><strong>-f</strong> <em>ファイル名</em></td>
+
+<td>検査するチューナブル・ファイルの名前を指定します。 この名前に「<strong>/</strong>」(スラッシュ) 文字が含まれていない場合は、
+この名前は <strong>/etc/tunables</strong> に関連しています。</td>
+
+</tr>
+
+<tr>
+<td><strong>-K</strong></td>
+
+<td>ブート・コンテキストおよびライブ・アップデート・コンテキストに指定されたファイルを検査します。</td>
+
+</tr>
+
+<tr>
+<td><strong>-p</strong></td>
+
+<td>現行コンテキストとブート・コンテキストの両方に
+ついて <em>Filename</em> を検査します。 この操作
+は、<strong>tuncheck</strong> を 2 回実行し、1 回目はフラグ
+なし、2 回目は <strong>-r</strong> フラグを使用するのと同じことです。</td>
+
+</tr>
+
+<tr>
+<td><strong>-r</strong></td>
+
+<td>ブート・コンテキストで <em>Filename</em> を検査します。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+ <p><strong>-p</strong> または <strong>-r</strong> が指定されていない
+場合は、<em>Filename</em> は、現行コンテキストに従って検査されます。</p>
+</section>
+
+<section><h2>パラメーター・タイプの調整</h2> 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td>Dynamic</td>
+
+<td>任意の時点で変更できます。</td>
+
+</tr>
+
+<tr>
+<td>Static</td>
+
+<td>変更できません。</td>
+
+</tr>
+
+<tr>
+<td>Reboot</td>
+
+<td>リブート・シーケンス時にのみ変更できます。</td>
+
+</tr>
+
+<tr>
+<td>Bosboot</td>
+
+<td>bosboot を実行してマシンをリブートした場合にのみ変更できます。</td>
+
+</tr>
+
+<tr>
+<td>Mount</td>
+
+<td>変更内容は、今後マウントされるファイルシステムまたはディレクトリーについてのみ
+有効です。</td>
+
+</tr>
+
+<tr>
+<td>Incremental</td>
+
+<td>ブート時を除いて、増分できます。</td>
+
+</tr>
+
+<tr>
+<td>Connect</td>
+
+<td>変更内容は、将来のソケット接続についてのみ有効です。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</section>
+
+<section><h2>終了状況</h2> <dl>
+<dt>0</dt>
+
+<dd><em>Filename</em> は有効です。</dd>
+
+
+<dt>&gt;0</dt>
+
+<dd><em>Filename</em> が無効で、メッセージが表示されています。</dd>
+
+</dl>
+</section>
+
+<section><h2>例</h2> <ol>
+<li><span>mytunable</span> を即時適用できるかどうか
+を確認するには、次のように入力します。<div><div><pre><code> tuncheck -f ./mytunable</code></pre></div><div></div></div>
+</li>
+
+<li><span>/etc/tunables/nextboot</span> をリブート時に適用
+できるかどうかを確認するには、次のように入力します。<div><div><pre><code> tuncheck -r -f nextboot </code></pre></div><div></div></div>
+</li>
+
+<li><span>/etc/tunables/nextboot</span> を即時およびリブート後に
+適用できるかどうかを確認するには、次のように入力します。<div><div><pre><code>tuncheck -p -f nextboot</code></pre></div><div></div></div></li>
+
+<li><span>mytunables</span> ファイルにあるチューナブル・パラメーターが、リブート操作およびライブ・アップデート操作の間に適用可能であるかどうかを確認するには、次のコマンドを入力します。<div><div><pre><code>tuncheck -r -K -f ./mytunable</code></pre></div><div></div></div></li>
+
+</ol>
+</section>
+
+<section><h2>ファイル</h2> 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><strong>/usr/sbin/tuncheck</strong></td>
+
+<td><strong>tuncheck</strong> コマンドが入っています。</td>
+
+</tr>
+
+<tr>
+<td><strong>/etc/tunables</strong></td>
+
+<td>すべてのチューナブル・ファイルを含みます。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</section>
+
+</div></div>

@@ -1,0 +1,82 @@
+<div class="official-dom"><div>
+<div> <p></p>
+</div>
+
+<section><h2>目的</h2> <p><strong>/etc/rc.nfs</strong> ファイル内の
+<strong>keyserv</strong> デーモンに関するエントリーのコメントを外し、<strong>startsrc</strong> コマンドを使用してこのデーモンを起動します。</p>
+</section>
+
+<section><h2>構文</h2> <p><strong>/usr/sbin/mkkeyserv</strong> [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/m_commands/mkkeyserv.html#mkkeyserv__row-d3e139826" target="_blank" rel="noopener noreferrer"><strong>-I (I)</strong></a> | <a href="https://www.ibm.com/docs/ja/ssw_aix_73/m_commands/mkkeyserv.html#mkkeyserv__row-d3e139838" target="_blank" rel="noopener noreferrer"><strong>-B</strong></a> | <a href="https://www.ibm.com/docs/ja/ssw_aix_73/m_commands/mkkeyserv.html#mkkeyserv__row-d3e139856" target="_blank" rel="noopener noreferrer"><strong>-N (N)</strong></a> ]</p>
+</section>
+
+<section><h2>説明</h2> <p><strong>mkkeyserv</strong> コマンドは、<strong>keyserv</strong> デーモンに使用する <strong>/etc/rc.nfs</strong> ファイル内のエントリーからコメント文字を除去します。 <strong>mkkeyserv</strong> コマンドは <strong>startsrc</strong> コマンドを使用してデーモンを始動します。</p>
+ <p>このコマンドは、System Management Interface Tool (SMIT) <strong>smit mkkeyserv</strong> 高速パスを使用して実行することができます。</p>
+</section>
+
+<section><h2>フラグ</h2> <div> 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><strong>-I</strong></td>
+
+<td>次回のシステム再始動時に <strong>keyserv</strong> デーモンを始動するために <strong>/etc/rc.nfs</strong> ファイル内のエントリーからコメント文字を除去します。</td>
+
+</tr>
+
+<tr>
+<td><strong>-B</strong></td>
+
+<td><strong>keyserv</strong> デーモンを始動するために <strong>/etc/rc.nfs</strong> ファイル内のエントリーからコメント文字を除去し、<strong>keyserv</strong> デーモンを始動するために <strong>startsrc</strong> コマンドを使用します。 このフラグはデフォルトです。</td>
+
+</tr>
+
+<tr>
+<td><strong>-N</strong></td>
+
+<td><strong>keyserv</strong> デーモンを始動するために <strong>startsrc</strong> コマンドを使用します。 このフラグは <strong>/etc/rc.nfs</strong> ファイルを変更しません。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+</section>
+
+<section><h2>例</h2> <p>次のシステムを再始動時に <strong>keyserv</strong> デーモンを呼び出すように <strong>/etc/rc.nfs</strong> ファイルを変更するには、次のように入力します。</p>
+ <div> <div><div><pre><code>mkkeyserv -I</code></pre></div><div></div></div></div>
+</section>
+
+<section><h2>ファイル</h2> <div> 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><strong>/etc/rc.nfs</strong></td>
+
+<td>NFS および <span>NIS</span> デーモンの始動スクリプトが入っています。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+</section>
+
+</div></div>

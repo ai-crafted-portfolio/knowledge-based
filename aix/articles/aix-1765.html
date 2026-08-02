@@ -1,0 +1,224 @@
+<div class="official-dom"><div>
+<section><h2>目的</h2> <p>X サーバーへの接続で使用される権限情報を編集および表示します。</p>
+</section>
+
+<section><h2>構文</h2> <p><strong>xauth</strong> [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/x_commands/xauth.html#xauth__row-d3e32112" target="_blank" rel="noopener noreferrer"><strong>-f</strong></a><em> AuthFile </em>] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/x_commands/xauth.html#xauth__row-d3e32126" target="_blank" rel="noopener noreferrer"><strong>-v</strong></a><strong> </strong>|<strong> </strong> <a href="https://www.ibm.com/docs/ja/ssw_aix_73/x_commands/xauth.html#xauth__row-d3e32138" target="_blank" rel="noopener noreferrer"><strong>-q</strong></a><strong> </strong>] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/x_commands/xauth.html#xauth__row-d3e32150" target="_blank" rel="noopener noreferrer"><strong>-i</strong></a><strong> </strong>] [<strong> </strong> <a href="https://www.ibm.com/docs/ja/ssw_aix_73/x_commands/xauth.html#xauth__row-d3e32168" target="_blank" rel="noopener noreferrer"><strong>-b </strong></a>] [ <em>CommandArgument ... </em>]</p>
+</section>
+
+<section><h2>説明</h2> <p><strong>xauth</strong> コマンドは通常、X サーバーへの接続に使用される権限情報を編集および表示する際に使用します。 このプログラムは、1 つのコンピューターから許可レコードを抽出し、他のコンピューターのレコードと組み合わせます (例えば、リモート・ログインを使用するときや、他のユーザーへのアクセスを認可するとき)。</p>
+ <p>下記のコマンドを、<strong>xauth</strong> コマンド・ライン上、またはスクリプト中に、対話形式で入力することができます。 このプログラムは、X サーバーには接続しないことに注意してください。</p>
+ 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><strong>追加</strong><em> DisplayName ProtocolName Hexkey</em></td>
+
+<td>所定のプロトコルおよびキー・データを使用する指定されたディスプレイのための許可エントリーが、許可ファイルに追加されます。 データは、16 進数字の等しい長さの文字列として指定され、おのおのの組は、1 つの 8 進数を表します。 おのおのの組の第 1 桁は、8 進数の上位 4 ビットを与え、第 2 桁は、下位 4 ビットを与えます。 例えば、32 文字の 16 進キーは、128 ビットの値を表します。 単一のピリオドのみで構成されているプロトコル名は、<strong>MIT-MAGIC-COOKIE-1</strong> の省略語として扱われます。</td>
+
+</tr>
+
+<tr>
+<td><strong>抜粋</strong><em> FileName DisplayName</em>...</td>
+
+<td>指定された各ディスプレイの許可エントリーは、指定のファイルに書き込まれます。 抽出されたエントリーは、<strong>merge</strong> および <strong>nmerge</strong> コマンドを使用して読み返すことができます。 ファイル名に単一のハイフンのみを指定した場合、エントリーはバイナリー出力に書き込まれます。</td>
+
+</tr>
+
+<tr>
+<td><strong>generate</strong><em> DisplayName ProtocolName</em> [<em>trusted</em> | <em>untrusted</em>] [<em>タイムアウト秒数</em>] [<em>group group-id</em>] [<em>data hexdata</em>]</td>
+
+<td>このコマンドは <strong>add</strong> と類似しています。 主な違いは、ユーザーにキー・データの提供を要求する代わりに、 <em>displayname</em> で指定されたサーバーに接続し、以下を使用することです。SECURITY許可ファイルに保管するキー・データを取得するための拡張子。 サーバーに接続できない場合、またはサーバーがサポートしていない場合は、SECURITYextension の場合、コマンドは失敗します。 そうでない場合は、所定のプロトコルを使用して指定されたディスプレイのための権限エントリーが、
+権限ファイルに追加されます。 単一のピリオドのみで構成されるプロトコル名は、以下の省略形として扱われます。MIT-MAGIC-COOKIE-1.<p>トラステッド・オプションを使用すると、
+この権限を使用して接続するクライアントは、通常どおりすべて表示されます。 非トラステッドを使用する場合は、この権限を使用して接続するクライアントは、非トラステッドと見なされ、
+トラステッド・クライアントに属するデータの盗用や悪用が防止されます。 以下SECURITY非トラステッド・クライアントに課される制約事項の詳細については、拡張仕様を参照してください。 デフォルトは非トラステッドです。</p>
+  <p>タイムアウト・オプションは、この権限が有効となる期間を秒単位で指定します。 権限がこの期間よりも長く使用されないままになっている (クライアントが接続されない) 場合、
+サーバーがこの権限を除去するので、このあとこれを使用して接続しようとしても失敗します。 サーバーが行う除去では、権限エントリーは権限ファイルから削除されないことに注意してください。 デフォルトのタイムアウトは 60 秒です。</p>
+  <p>グループ・オプションは、
+この権限に接続中のクライアントが属すべきアプリケーション・グループを指定します。 詳細については、アプリケーション・グループ拡張機能の仕様を参照してください。 デフォルトは「アプリケーション・グループに属していない」です。</p>
+  <p>データ・オプションは、権限を生成するためにサーバーが使用するデータを指定します。 これは、権限ファイルに書き込まれたデータと同じデータではないことに注意してください。 このデータの変換処理は、権限プロトコルによって決まります。 <em>hexdata</em> は、 <strong>add</strong> コマンドで説明されている <em>hexkey</em> と同じフォーマットです。 デフォルトは「データを送信しない」です。</p>
+</td>
+
+</tr>
+
+<tr>
+<td><strong>リスト </strong><em>DisplayName</em>...]</td>
+
+<td>指定された各ディスプレイ (ディスプレイが指定されていない場合には、すべてのディスプレイ) の許可エントリーを、標準出力上にテキスト・フォーマットで出力します。 キー・データは常に、<strong>add</strong> コマンドの記述の中で与えられた 16 進数フォーマットで表示されます。</td>
+
+</tr>
+
+<tr>
+<td><strong>マージ</strong> [<em>FileName</em>...]</td>
+
+<td>指定されたファイルから許可エントリーが読み取られ、許可データベースの中に組み込まれます。このとき、既存のエントリーと一致するものをすべて置き換えます。 ファイル名に単一のハイフンだけを指定した場合、まだ読み取られていなければ、バイナリー入力が読み取られます。</td>
+
+</tr>
+
+<tr>
+<td><strong>[n]extract</strong><em>Filename DisplayName</em>...</td>
+
+<td>指定された各ディスプレイの許可エントリーは、指定のファイルに書き込まれます。 エントリーは、(セキュア電子メールなどの) 非バイナリー転送に適した数値フォーマットで書き込まれます。 抽出されたエントリーは、<strong>merge</strong> および <strong>nmerge</strong> コマンドを使用して読み返すことができます。 ファイル名に単一のハイフンのみを指定した場合、エントリーは標準出力に書き出されます。</td>
+
+</tr>
+
+<tr>
+<td><strong>[n] リスト</strong> [<em>DisplayName</em>...]</td>
+
+<td>指定された各ディスプレイ (ディスプレイが指定されていない場合には、すべてのディスプレイ) の許可エントリーを <strong>nextract</strong> コマンドで使用される数値フォーマットで標準出力上に出力します。 キー・データは常に、<strong>add</strong> コマンドの記述の中で与えられた 16 進数フォーマットで表示されます。</td>
+
+</tr>
+
+<tr>
+<td><strong>[n] マージ</strong> [<em>FileName</em>...]</td>
+
+<td>指定されたファイルから許可エントリーが読み取られ、許可データベースの中に組み込まれます。このとき、既存のエントリーと一致するものをすべて置き換えます。 <strong>extract</strong> コマンドの記述の中で与えられた数値フォーマットが使用されます。 ファイル名に単一ハイフンのみを指定した場合、まだ読み取られていなければ、標準入力が読み取られます。</td>
+
+</tr>
+
+<tr>
+<td><strong>削除</strong><em> DisplayName</em>...</td>
+
+<td>指定されたディスプレイと一致する許可エントリーは、許可ファイルから除去されます。</td>
+
+</tr>
+
+<tr>
+<td><strong>ソース</strong><em> FileName</em></td>
+
+<td>指定されたファイルは、実行する <strong>xauth</strong> コマンドを含むスクリプトとして取り扱われます。 ブランク行および # 文字 (ポンド記号) で始まる行は無視されます。 単一のハイフンは、まだ読み取られていなければ、標準入力を指定するのに使用できます。</td>
+
+</tr>
+
+<tr>
+<td><strong>情報</strong></td>
+
+<td>許可ファイル、変更の有無、および <strong>xauth</strong> コマンドが読み取られている場所についての記述情報を、標準出力上に出力します。</td>
+
+</tr>
+
+<tr>
+<td><strong>exit</strong></td>
+
+<td>変更が起きた場合、(許可されれば) 許可ファイルに書き込まれ、プログラムは終了します。 ファイルの終わりは、暗黙的に終了コマンドとして処理されます。</td>
+
+</tr>
+
+<tr>
+<td><strong>quit</strong></td>
+
+<td>どのような変更も無視して、プログラムを終了します。 割り込み文字を押すことによっても、プログラムを終了することができます。</td>
+
+</tr>
+
+<tr>
+<td><strong>help</strong> [<em>ストリング</em>]</td>
+
+<td>指定された文字列で始まるコマンドすべての (文字列が指定されていない場合にはすべてのコマンドの) 説明を、標準出力上に出力します。</td>
+
+</tr>
+
+<tr>
+<td><strong>?</strong></td>
+
+<td>有効コマンドの簡潔なリストを標準出力上に出力します。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+ <p><strong>add</strong>、[<strong>n</strong>]<strong>extract</strong>、
+[<strong>n</strong>]<strong>list</strong>、[<strong>n</strong>]<strong>merge</strong>、<strong>remove</strong> コマンドのディスプレイ名は、<strong>DISPLAY</strong> 環境変数および共通<em>ディスプレイ・</em>コマンド・ライン引数と同じフォーマットを使用します。 (画面番号などの) ディスプレイに固有な情報は必要とされず、無視されます。 同一マシン接続 (ローカル・ホスト・ソケット、共用メモリー、および Internet Protocol <em>HostName LocalHost</em>など) は、次のように参照されます。HostName/unix:DisplayNumberこれにより、異なるマシンのローカル項目を 1 つの権限ファイルに保管することができます。</p>
+ <p></p><blockquote><span>“</span><strong>注:</strong> 安全とはいえないネットワークを持っているユーザーは、コンピューター間の許可エントリーをコピーするために暗号化されたファイル転送機構を使用するときは、注意が必要です。 同様に、MIT-MAGIC-COOKIE-1 プロトコルは、セキュリティーのない環境では、あまり役立つものではありません。 よりセキュリティーを重視するなら、そのようなサイトでは、Kerberos などの暗号化された許可機構を使用する必要があります。 現在のところ、スペースをプロトコル名に入れることはできません。 引用符を加えることはできます。<span>”</span></blockquote>
+<p></p>
+</section>
+
+<section><h2>フラグ</h2> <p>下記のようなオプションは、<strong>xauth</strong> コマンドとともに使用します。 これらは、個別に (例えば<strong> -q</strong><strong> -i</strong> のように) 指定することも、または結合して (例えば <strong>-qi</strong>) のように) 指定することもできます。</p>
+ 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><strong>-f</strong><em> AuthFile</em></td>
+
+<td>使用する許可ファイルの名前を指定します。 デフォルトでは、<strong>xauth</strong> は <strong>XAUTHORITY</strong> 環境変数、あるいはユーザーのホーム・ディレクトリーにある .xauthority が指定するファイルを使用します。</td>
+
+</tr>
+
+<tr>
+<td><strong>-v</strong></td>
+
+<td><strong>xauth</strong> が詳細モードで動作し、さまざまな操作の結果 (例えば、読み取りまたは書き込みされたレコードの数) を示す状況メッセージを出力することを示します。 <strong>xauth</strong> コマンドが標準入力からコマンドを読み取り、標準出力を端末に送信する場合には、これがデフォルトとなります。</td>
+
+</tr>
+
+<tr>
+<td><strong>-q</strong></td>
+
+<td><strong>xauth</strong> が抑制モードで動作し、不必要な状況メッセージを出力しないことを示します。 コマンド・ラインに <strong>xauth</strong> コマンドが指定された場合、または標準出力を端末に送信しない場合は、これがデフォルトとなります。</td>
+
+</tr>
+
+<tr>
+<td><strong> -i</strong></td>
+
+<td><strong>xauth</strong> がどのような許可ファイル・ロックも無視しなければならないことを示します。 通常、<strong>xauth</strong> は、他のプログラム (一般には <strong>xdm</strong> または他の <strong>xauth</strong>) によってロックされた許可ファイルの読み取り、または編集は、どのようなものでも拒否します。</td>
+
+</tr>
+
+<tr>
+<td><strong> -b</strong></td>
+
+<td><strong>xauth</strong> がどのような許可ファイル・ロックにも、その処理を行う前に中断を試行しなければならないことを示します。 古くなったロックをクリーンアップする場合にのみ使用します。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</section>
+
+<section><h2>例</h2> <p>下記のように、現行ディスプレイ用のエントリーを抽出して別のコンピューターへコピーし、リモート・マシン上でユーザーの許可ファイルと組み合わせるのが、<strong>xauth</strong> コマンドの最も一般的な使用方法です。</p>
+ <div> <div><div><pre><code>% xauth extract \- $DISPLAY | rsh otherhost xauth merge \- </code></pre></div><div></div></div></div>
+</section>
+
+<section><h2>ファイル</h2> <div> 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><strong>$HOME/.Xauthority</strong></td>
+
+<td><strong>XAUTHORITY</strong> 環境変数が定義されていない場合のデフォルトの許可ファイルが入っています。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+</section>
+
+</div></div>

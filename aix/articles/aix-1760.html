@@ -1,0 +1,882 @@
+<div class="official-dom"><div>
+<section><h2>目的</h2><p>X サーバーを始動させます。</p>
+</section>
+
+<section><h2>構文</h2> <p><strong>X</strong> [  <a href="https://www.ibm.com/docs/ja/ssw_aix_73/x_commands/X.html#X__row-d3e28654" target="_blank" rel="noopener noreferrer"><strong>-a</strong></a><em>番号 </em>] [  <a href="https://www.ibm.com/docs/ja/ssw_aix_73/x_commands/X.html#X__row-d3e28662" target="_blank" rel="noopener noreferrer"><strong>-オーサー</strong></a><em> FileName </em>] [  <a href="https://www.ibm.com/docs/ja/ssw_aix_73/x_commands/X.html#X__row-d3e28670" target="_blank" rel="noopener noreferrer"><strong>-ベーシー </strong></a>|  <a href="https://www.ibm.com/docs/ja/ssw_aix_73/x_commands/X.html#X__row-d3e28678" target="_blank" rel="noopener noreferrer"><strong>+プラス・マイナス </strong></a>] [  <a href="https://www.ibm.com/docs/ja/ssw_aix_73/x_commands/X.html#X__row-d3e28686" target="_blank" rel="noopener noreferrer"><strong>-bp</strong></a><em>カラー </em>] [  <a href="https://www.ibm.com/docs/ja/ssw_aix_73/x_commands/X.html#X__row-d3e29404" target="_blank" rel="noopener noreferrer"><strong>-ブロードキャスト </strong></a>] [  <a href="https://www.ibm.com/docs/ja/ssw_aix_73/x_commands/X.html#X__row-d3e28694" target="_blank" rel="noopener noreferrer"><strong>-bs </strong></a>|  <a href="https://www.ibm.com/docs/ja/ssw_aix_73/x_commands/X.html#X__row-d3e29001" target="_blank" rel="noopener noreferrer"><strong>-ノーブス </strong></a>] [  <a href="https://www.ibm.com/docs/ja/ssw_aix_73/x_commands/X.html#X__row-d3e28700" target="_blank" rel="noopener noreferrer"><strong>-c</strong></a><em>ボリューム </em>] [  <a href="https://www.ibm.com/docs/ja/ssw_aix_73/x_commands/X.html#X__row-d3e28708" target="_blank" rel="noopener noreferrer"><strong>-シーシー</strong></a><em> VisualType </em>[ <strong>:</strong><em>ディスプレイ </em>] ] [  <a href="https://www.ibm.com/docs/ja/ssw_aix_73/x_commands/X.html#X__row-d3e29475" target="_blank" rel="noopener noreferrer"><strong>-クラス</strong></a><em> DisplayClass </em>] [  <a href="https://www.ibm.com/docs/ja/ssw_aix_73/x_commands/X.html#X__row-d3e28778" target="_blank" rel="noopener noreferrer"><strong>-コ</strong></a><em>ファイル </em>] [  <a href="https://www.ibm.com/docs/ja/ssw_aix_73/x_commands/X.html#X__row-d3e29495" target="_blank" rel="noopener noreferrer"><strong>-クッキー </strong></a><em>XDMAuthenticationBit </em>] [  <a href="https://www.ibm.com/docs/ja/ssw_aix_73/x_commands/X.html#X__row-d3e28786" target="_blank" rel="noopener noreferrer"><strong>-D</strong></a><em>ファイル </em>] [  <a href="https://www.ibm.com/docs/ja/ssw_aix_73/x_commands/X.html#X__row-d3e28797" target="_blank" rel="noopener noreferrer"><strong>-d</strong></a><em>深さ </em>[ <strong>:</strong><em>ディスプレイ </em>] ]<em> </em> <a href="https://www.ibm.com/docs/ja/ssw_aix_73/x_commands/X.html#X__row-d3e29511" target="_blank" rel="noopener noreferrer"><strong>-displayID</strong></a><em> DisplayID </em>] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/x_commands/X.html#X__x_flags_minus_damage" target="_blank" rel="noopener noreferrer"><strong>-ダメージ</strong></a> | <a href="https://www.ibm.com/docs/ja/ssw_aix_73/x_commands/X.html#X__x_flags_plus_damage" target="_blank" rel="noopener noreferrer"><strong>+ダメージ</strong></a> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/x_commands/X.html#X__x_flags_minus_evie" target="_blank" rel="noopener noreferrer"><strong>-イヴィー</strong></a> | <a href="https://www.ibm.com/docs/ja/ssw_aix_73/x_commands/X.html#X__x_flags_plus_evie" target="_blank" rel="noopener noreferrer"><strong>+イービー</strong></a> ] [  <a href="https://www.ibm.com/docs/ja/ssw_aix_73/x_commands/X.html#X__row-d3e28863" target="_blank" rel="noopener noreferrer"><strong>-f</strong></a><em>番号 </em>] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/x_commands/X.html#X__row-d3e28891" target="_blank" rel="noopener noreferrer"><strong>-エフシー</strong></a><em>フォント </em>] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/x_commands/X.html#X__row-d3e28899" target="_blank" rel="noopener noreferrer"><strong>-フィックス</strong></a> | <a href="https://www.ibm.com/docs/ja/ssw_aix_73/x_commands/X.html#X__row-d3e28905" target="_blank" rel="noopener noreferrer"><strong>+修正</strong></a> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/x_commands/X.html#X__row-d3e28911" target="_blank" rel="noopener noreferrer"><strong>-fn</strong></a><em>フォント </em>] [  <a href="https://www.ibm.com/docs/ja/ssw_aix_73/x_commands/X.html#X__row-d3e28919" target="_blank" rel="noopener noreferrer"><strong>-エフピー</strong></a><em>フォント </em>] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/x_commands/X.html#X__row-d3e28934" target="_blank" rel="noopener noreferrer"><strong>-ヘルプ </strong></a>] [  <a href="https://www.ibm.com/docs/ja/ssw_aix_73/x_commands/X.html#X__row-d3e28927" target="_blank" rel="noopener noreferrer"><strong>-I </strong></a>] [  <a href="https://www.ibm.com/docs/ja/ssw_aix_73/x_commands/X.html#X__row-d3e29425" target="_blank" rel="noopener noreferrer"><strong>-間接的</strong></a><em> HostName</em>] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/x_commands/X.html#X__row-d3e28940" target="_blank" rel="noopener noreferrer"><strong>-層</strong></a><em> # </em>[ <strong>:</strong><em>ディスプレイ </em>] ] [  <a href="https://www.ibm.com/docs/ja/ssw_aix_73/x_commands/X.html#X__row-d3e28971" target="_blank" rel="noopener noreferrer"><strong>-ロゴ </strong></a>|  <a href="https://www.ibm.com/docs/ja/ssw_aix_73/x_commands/X.html#X__row-d3e29007" target="_blank" rel="noopener noreferrer"><strong>ノロゴ </strong></a>] [  <a href="https://www.ibm.com/docs/ja/ssw_aix_73/x_commands/X.html#X__row-d3e28978" target="_blank" rel="noopener noreferrer"><strong>-n</strong></a><strong> :</strong><em>番号 </em>] [  <a href="https://www.ibm.com/docs/ja/ssw_aix_73/x_commands/X.html#X__row-d3e29013" target="_blank" rel="noopener noreferrer"><strong>-かつて </strong></a>] [  <a href="https://www.ibm.com/docs/ja/ssw_aix_73/x_commands/X.html#X__row-d3e29019" target="_blank" rel="noopener noreferrer"><strong>-P </strong></a><em>RowColumn </em> <em>ディスプレイ </em>} ] [  <a href="https://www.ibm.com/docs/ja/ssw_aix_73/x_commands/X.html#X__row-d3e29056" target="_blank" rel="noopener noreferrer"><strong>-バッファ</strong></a> <em>レベル</em> [<strong>ディスプレイ</strong><em> 名称</em> | <strong>ディスプレイ</strong><em> 番号</em>] ] [  <a href="https://www.ibm.com/docs/ja/ssw_aix_73/x_commands/X.html#X__row-d3e29108" target="_blank" rel="noopener noreferrer"><strong>-p</strong></a><em>番号 </em>] [  <a href="https://www.ibm.com/docs/ja/ssw_aix_73/x_commands/X.html#X__row-d3e29447" target="_blank" rel="noopener noreferrer"><strong>-ポート</strong></a><em> PortNumber </em>] [  <a href="https://www.ibm.com/docs/ja/ssw_aix_73/x_commands/X.html#X__row-d3e29379" target="_blank" rel="noopener noreferrer"><strong>-クエリー</strong></a><em> HostName </em>] [  <a href="https://www.ibm.com/docs/ja/ssw_aix_73/x_commands/X.html#X__row-d3e29120" target="_blank" rel="noopener noreferrer"><strong>-r </strong></a>|  <a href="https://www.ibm.com/docs/ja/ssw_aix_73/x_commands/X.html#X__row-d3e29127" target="_blank" rel="noopener noreferrer"><strong>r</strong></a> ] <span>[ <strong><a href="https://www.ibm.com/docs/ja/ssw_aix_73/x_commands/X.html#X__x_flag_plusrender" target="_blank" rel="noopener noreferrer">+レンダー</a></strong> | <strong><a href="https://www.ibm.com/docs/ja/ssw_aix_73/x_commands/X.html#X__x_flag_minurender" target="_blank" rel="noopener noreferrer">-レンダー</a></strong> ]</span>[  <a href="https://www.ibm.com/docs/ja/ssw_aix_73/x_commands/X.html#X__row-d3e29157" target="_blank" rel="noopener noreferrer"><strong>-s</strong></a><em>番号 </em>] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/x_commands/X.html#X__row-d3e29165" target="_blank" rel="noopener noreferrer"><strong>-secIP </strong></a>[<em>PermissionCode</em>]] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/x_commands/X.html#X__row-d3e29181" target="_blank" rel="noopener noreferrer"><strong>-secLocal</strong></a> [<em>PermissionCode</em>]] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/x_commands/X.html#X__row-d3e29197" target="_blank" rel="noopener noreferrer"><strong>-secSMT </strong></a>[<em>PermissionCode</em>]] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/x_commands/X.html#X__row-d3e29213" target="_blank" rel="noopener noreferrer"><strong>-ステレオ </strong></a>[<strong>:</strong><em>ディスプレイ</em>]] [  <a href="https://www.ibm.com/docs/ja/ssw_aix_73/x_commands/X.html#X__row-d3e29251" target="_blank" rel="noopener noreferrer"><strong>-ス </strong></a>] [  <a href="https://www.ibm.com/docs/ja/ssw_aix_73/x_commands/X.html#X__row-d3e29257" target="_blank" rel="noopener noreferrer"><strong>-T </strong></a>] [  <a href="https://www.ibm.com/docs/ja/ssw_aix_73/x_commands/X.html#X__row-d3e29265" target="_blank" rel="noopener noreferrer"><strong>-t</strong></a><em>番号 </em>] [  <a href="https://www.ibm.com/docs/ja/ssw_aix_73/x_commands/X.html#X__row-d3e29274" target="_blank" rel="noopener noreferrer"><strong>-への</strong></a><em>番号 </em>] [  <a href="https://www.ibm.com/docs/ja/ssw_aix_73/x_commands/X.html#X__row-d3e29282" target="_blank" rel="noopener noreferrer"><strong>-v </strong></a>] <span>[ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/x_commands/X.html#X__x_flag_vfb" target="_blank" rel="noopener noreferrer"><strong>-ブイエフビー</strong></a> ]</span>[  <a href="https://www.ibm.com/docs/ja/ssw_aix_73/x_commands/X.html#X__row-d3e29303" target="_blank" rel="noopener noreferrer"><strong>-wm </strong></a>] [  <a href="https://www.ibm.com/docs/ja/ssw_aix_73/x_commands/X.html#X__row-d3e29312" target="_blank" rel="noopener noreferrer"><strong>-wp</strong></a><em>カラー </em>] [  <a href="https://www.ibm.com/docs/ja/ssw_aix_73/x_commands/X.html#X__row-d3e29320" target="_blank" rel="noopener noreferrer"><strong>-ラップ </strong></a>| [  <a href="https://www.ibm.com/docs/ja/ssw_aix_73/x_commands/X.html#X__row-d3e29340" target="_blank" rel="noopener noreferrer"><strong>-ラップエックス </strong></a>] [  <a href="https://www.ibm.com/docs/ja/ssw_aix_73/x_commands/X.html#X__row-d3e29351" target="_blank" rel="noopener noreferrer"><strong>-ワラピー </strong></a>] ] [  <a href="https://www.ibm.com/docs/ja/ssw_aix_73/x_commands/X.html#X__row-d3e29364" target="_blank" rel="noopener noreferrer"><strong>-x</strong></a><em> ExtensionName </em>] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/x_commands/X.html#X__row-d3e29546" target="_blank" rel="noopener noreferrer"><strong>-xkbdir</strong></a> <em>ディレクトリ</em> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/x_commands/X.html#X__row-d3e29554" target="_blank" rel="noopener noreferrer"><strong>-エックスキービーマップ</strong></a> <em>FileName</em> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/x_commands/X.html#X__row-d3e29562" target="_blank" rel="noopener noreferrer">[<strong>+</strong>|<strong>-</strong>]<strong>アクセスエックス</strong></a> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/x_commands/X.html#X__row-d3e29582" target="_blank" rel="noopener noreferrer"><strong>-ar1</strong></a> <em>ミリ秒</em> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/x_commands/X.html#X__row-d3e29590" target="_blank" rel="noopener noreferrer"><strong>-ar2</strong></a> <em>ミリ秒</em> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/x_commands/X.html#X__row-d3e29607" target="_blank" rel="noopener noreferrer"><strong>-sp</strong></a> <em>FileName</em> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/x_commands/X.html#X__row-d3e29531" target="_blank" rel="noopener noreferrer"><strong>+/- キシネラマ</strong></a> <em>FileName</em> ]</p>
+</section>
+
+<section><h2>説明</h2> <p><strong>X</strong> コマンドは X サーバーを始動します。X サーバーとは、ビットマップ端末上で実行されるディスプレイ・サーバーのことです。 X サーバーは、ホスト・システムまたはネットワークでホスト・システムに接続されたシステム上にあるプログラムとの間で相互に入出力要求を配布します。</p>
+ <p>Ctrl+Alt+Backspaceキーで<span>拡張X-Windows</span>セッションを終了する。</p>
+ <p>ディスプレイ・デバイスは、1 つでも複数でも指定できます。 ディスプレイ・デバイスを指定しなければ、デフォルトですべてのディスプレイ・デバイスが対象になります。 デフォルトの構成順は、アダプター・スロットの順序によって決まります。 最初のスロット内のアダプターが左端の画面として初期化され、第 2 のスロット内のアダプターが右隣の画面となります。 画面レイアウトを変更するには、<strong>-P</strong> フラグを使用します。 <strong>-P</strong> フラグを使用すると、デバイスの行と桁がデバイス名に関連付けられます。 <a href="https://www.ibm.com/docs/ja/ssw_aix_73/l_commands/lsdisp.html" target="_blank" rel="noopener noreferrer"><strong>lsdisp</strong></a> コマンドを使用して、装置名を判別することができます。</p>
+ <p>2 台のディスプレイは縦または横に配列されます。 以下の例は、横方向の配列を指定する <strong>-P</strong> フラグを示しています。</p>
+ <div> <div><div><pre><code>-P11 ppr0 -P12 ppr1</code></pre></div><div></div></div></div>
+ <p>この22 番目の <strong>-P</strong> フラグの右側の位置は、2 番目のモニター・ビューが X 軸に沿っていることを示します。 これにより、横方向の配列が生成されます。</p>
+ <div> <div><div><pre><code>         Display                        Display
+                  1                                  2</code></pre></div><div></div></div></div>
+ <p>2 台のモニターを縦方向の配列で表示するには、<strong>-P</strong> フラグを以下のように使用する必要があります。</p>
+ <div> <div><div><pre><code>-P11 ppr0 -P21 ppr1</code></pre></div><div></div></div></div>
+ <p>この2最初の位置は、モニターが Y 軸に沿って垂直方向に構成されていることを示しています。</p>
+ <div> <div><div><pre><code>         Display
+                  1
+         Display
+                  2</code></pre></div><div></div></div></div>
+ <p>横方向の構成では、マウスはディスプレイ 1 内で左から右へ移動し、ディスプレイ 1 とディスプレイ 2 のボーダーに達すると、カーソルはそのままディスプレイ 2 の同じ y 軸の位置に移動します。 カーソルがディスプレイ 2 の端に達したときに、<strong>-wrapx</strong> フラグが設定されていると、カーソルはディスプレイ 1 の左端の同じ y 軸の位置に表示されます。 <strong>-wrapx</strong> フラグを設定していなければ、マウスはディスプレイ 2 の右端で停止します。</p>
+ <p>縦方向の構成では、マウスはディスプレイ 1 内で上から下に移動し、ディスプレイ 1 とディスプレイ 2 のボーダーに達すると、カーソルはそのままディスプレイ 2 の同じ x 軸位置に移動します。 カーソルがディスプレイ 2 の最下部に達したときに、<strong>-wrapy</strong> フラグが設定されていると、カーソルはディスプレイ 1 内の上端の同じ x 軸位置に表示されます。 <strong>-wrapy</strong> フラグを設定していなければ、マウスはディスプレイ 2 の最下部で停止します。</p>
+ <p>そのほかに、情報およびエラー・メッセージ (例えば、拡張子をロードできないことを知らせるメッセージ) が <strong>/tmp/xlogfile
+</strong> ファイルにリストされています。 このファイルは、X Server が問題を検出した場合に役立つ情報を
+提供することができます。 このファイルは、X Server がインスタンスを生成するたびに再書き込みされます。 このファイルは追加のエラー情報およびエラー以外の情報を提供しますが、X Server についての
+完全なエラー・ログではありません。</p>
+ <p>X Server は、始動時には、デフォルトのカラー・クラスを使用してる状態で立ち上がります。 ドライバーによっては、X Server はデフォルトで疑似カラーまたはトゥルー・カラー
+のクラスがデフォルトになっている場合もあります。</p>
+ <p>疑似カラー・クラスは、画面上のカラー表示にカラー・マップを使用します。 多くの
+グラフィックス・アダプターは、1 つのハードウェア・カラー・マップしかサポートしません。 そのような場合、デフォルトのカラー・クラスが疑似カラーであって、
+アプリケーションがデフォルトのカラー・マップとは異なるカラー・マップを使用していると、画面に誤った色が表示されることもあります。 フォーカスを持つウィンドウのみが、正しい色を表示します。 画面上に誤った色が表示されないようにするには、X Server をトゥルー・カラー・モードで実行することをお勧めします。</p>
+ <p><strong>-cc
+X-Server</strong> コマンド・フラグを使用して、トゥルー・カラー・クラスを使用した状態で X Server を始動させることができます。 <strong>/usr/lpp/X11/defaults/xserverrc</strong> ファイル
+を以下の例に示すように変更すれば、これが可能になります。</p>
+ <p><strong>/usr/lpp/X11/defaults/xserverrc</strong> ファイルを、root ユーザーとして編集します。 <strong>EXTENSIONS=""</strong> 変数を、以下の例に示すように更新します。</p>
+ <pre><code>#-------------------------------------------------------------------------
+# Start the X server in True Color mode
+#-------------------------------------------------------------------------
+EXTENSIONS="$EXTENSIONS -cc 4"</code></pre>
+ <p>CDE からログアウトしてリセットをクリックすることにより、X Server を
+リスタートします。</p>
+ <div><div>
+        <div>
+          <div><span>注:</span> <strong>xdpyinfo</strong> コマンドを使用して、デフォルトのカラー・クラスを確認できます。</div>
+        </div>
+      </div></div>
+</section>
+
+<section><h2>フラグ</h2> <div> 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><strong>-a</strong><em> 数値</em></td>
+
+<td>マウスの移動の加速率を指定します。 例えば、5 という値を指定すると、カーソルは、マウスの 5 倍の速度で移動します。 デフォルトは 4 ピクセルです。この値には、0 より大きい正の数を指定しなければなりません。</td>
+
+</tr>
+
+<tr>
+<td><strong>-オーサー</strong><em> FileName</em></td>
+
+<td>MIT (マサチューセッツ工科大学) magic cookie を読み取るファイルに X を指定します。</td>
+
+</tr>
+
+<tr>
+<td><strong>-ベーシー</strong></td>
+
+<td><span>拡張 X-Windows</span> バージョン 1.1との後方互換性をオフにします。</td>
+
+</tr>
+
+<tr>
+<td><strong>+ bc</strong></td>
+
+<td><span>拡張 X-Windows</span> バージョン 1.1との後方互換性をオンにします。 これはデフォルトです。</td>
+
+</tr>
+
+<tr>
+<td><strong>-bp</strong><em> 色</em></td>
+
+<td>ディスプレイのブラック・ピクセル・カラーを指定します。 デフォルトは、ディスプレイによって異なります。</td>
+
+</tr>
+
+<tr>
+<td><strong>-bs</strong></td>
+
+<td>すべての画面上でバッキング・ストア機能のサポートを使用できるようにします。 デフォルトでは、バッキング・ストア機能のサポートは使用不可になっています。</td>
+
+</tr>
+
+<tr>
+<td><strong>-c</strong><em> ボリューム</em></td>
+
+<td>キー・クリックのボリュームを指定します。</td>
+
+</tr>
+
+<tr>
+<td><strong>-cc</strong><em> VisualType</em> [<strong>:</strong><em>表示</em>]<em></em></td>
+
+<td>ディスプレイ名で指定した画面のルート・ウィンドウに使用する表示タイプを指定します。 すべての表示タイプが、すべてのアダプター上のすべての奥行きで使用できるわけではありません。 <strong>:</strong><em>Display</em> パラメーターは任意指定ですが、マルチヘッド・オプションを使用する場合に便利です。 <strong>:</strong><em>Display</em> パラメーターは、
+<strong>lsdisp</strong> コマンドで表示されるディスプレイ名です。 ディスプレイ番号もディスプレイ名も指定しない場合、すべての画面に対して、指定した表示タイプが選択されます。<p>デフォルト表示に対し表示タイプを指定するには <strong>-cc</strong> フラグを、奥行きを指定するには <strong>-d</strong> フラグをそれぞれ使用します。</p>
+  <p><em>VisualType</em> パラメーターに対する値は、以下の文字列か数値で指定します。</p>
+  <div> <div><div><pre><code>String  Numeric equivalent
+StaticGray		0
+GrayScale		1
+StaticColor		2
+PseudoColor		3		
+TrueColor		4
+DirectColor		5	</code></pre></div><div></div></div></div>
+</td>
+
+</tr>
+
+<tr>
+<td><strong>-co</strong><em> ファイル</em></td>
+
+<td>赤、緑、青 (RGB) カラー・データベースの名前を設定します。 これは、カラー・データベースのデフォルトのフラグです。</td>
+
+</tr>
+
+<tr>
+<td><strong>-D</strong><em> ファイル</em></td>
+
+<td>カラー定義データベース・ファイルの絶対パス名を指定します。 デフォルトは <strong>/usr/lib/X11/rgb</strong> です。</td>
+
+</tr>
+
+<tr>
+<td><strong>-d</strong><em> Depth</em>[<strong>:</strong><em>表示</em>]</td>
+
+<td>ディスプレイ名で指定した画面のルート奥行きを指定します。 すべての表示タイプを、すべてのアダプター上のすべての奥行きで使用できるわけではありません。<p><strong>:</strong><em>Display</em> パラメーターは任意指定ですが、
+マルチヘッド・オプションを使用する場合に便利です。
+このパラメーターは、<strong>-P</strong> フラグで渡される値に対応しなければなりません。 <strong>:</strong><em>Display</em> パラメーターは、
+<strong>lsdisp</strong> コマンドで表示されるディスプレイ名です。 <strong>:</strong><em>Display</em> パラメーターを指定しない場合、
+マルチヘッド・オプション (<strong>-P</strong> フラグを参照) で選択したすべてのディスプレイに対して、
+指定した奥行きが選択されます。</p>
+</td>
+
+</tr>
+
+<tr>
+<td><strong>損傷</strong></td>
+
+<td>X Damage 拡張機能を使用不可にします。</td>
+
+</tr>
+
+<tr>
+<td><strong>+ 損傷</strong></td>
+
+<td>X Damage 拡張機能を使用可能にします。</td>
+
+</tr>
+
+<tr>
+<td><strong>-エビエ</strong></td>
+
+<td>X Event Interception 拡張機能を使用不可にします。</td>
+
+</tr>
+
+<tr>
+<td><strong>+ エヴィー</strong></td>
+
+<td>X Event Interception 拡張機能を使用可能にします。</td>
+
+</tr>
+
+<tr>
+<td><strong>-f</strong><em> 数値</em></td>
+
+<td>ビープ音のボリュームを指定します。 デフォルトは、-1 (中) です。 以下の値を指定できます。<div> <div><div><pre><code>Value           Setting
+0               Off
+1-33            Low
+-1 or 34-66     Medium
+67-100          High</code></pre></div><div></div></div></div>
+</td>
+
+</tr>
+
+<tr>
+<td><strong>-fc</strong><em> フォント</em></td>
+
+<td>カーソル・グリフおよびカーソル・マスク用のカーソル・フォントを指定します。 デフォルトは、オペレーティング・システムとディスプレイによって異なります。</td>
+
+</tr>
+
+<tr>
+<td><strong>修正</strong></td>
+
+<td>X Fixes 拡張機能を使用不可にします。</td>
+
+</tr>
+
+<tr>
+<td><strong>+ フィックス</strong></td>
+
+<td>X Fixes 拡張機能を使用可能にします。</td>
+
+</tr>
+
+<tr>
+<td><strong>-fn</strong><em> フォント</em></td>
+
+<td>デフォルトのテキスト・フォントを指定します。 デフォルトは、オペレーティング・システムとディスプレイによって異なります。</td>
+
+</tr>
+
+<tr>
+<td><strong>-fp</strong><em> フォント</em></td>
+
+<td>フォント・パスを指定します。</td>
+
+</tr>
+
+<tr>
+<td><strong>-I</strong></td>
+
+<td>残りのコマンド行引数がすべて無視されるようにします。 (大文字の i)。</td>
+
+</tr>
+
+<tr>
+<td><strong>-help</strong></td>
+
+<td>使用方法メッセージを出力します。</td>
+
+</tr>
+
+<tr>
+<td><strong>-layer</strong><em> #</em>[<strong>:</strong><em>表示</em>]</td>
+
+<td>デフォルトの表示が <em>#</em> 層にあることを指定します。 <strong>:</strong><em>Display</em> パラメーターは、
+<strong>lsdisp</strong> コマンドで表示されるディスプレイ名です。 オーバーレイを持たない、または 8 ビットより小さなオーバーレイを持つアダプターに対しては、
+このフラグを指定しても無効になります。 サポートする層より大きな番号の <em>#</em> をこのフラグに指定すると、
+スクリーンのデフォルトの層にあるデフォルトの表示を指定したことになります (つまり、
+<strong>-layer</strong> フラグを指定しないのと同じ)。</td>
+
+</tr>
+
+<tr>
+<td><strong>-ロゴ</strong><em></em></td>
+
+<td>スクリーンセーバーへの X Window System のロゴ表示をオンにします。 現在、クライアントがこの状態を変更する方法はありません。</td>
+
+</tr>
+
+<tr>
+<td><strong>-n:</strong><em>数値</em></td>
+
+<td>接続番号を指定します。 <em>Number</em> パラメーターに有効な値は、0 から 255 までの整数です。 デフォルトは、次に使用できる番号です。 <em>Number</em> パラメーターは、プログラムが特定の X サーバーと接続するときに使用されます。 例えば、次のコマンド<div> <div><div><pre><code>X -n :18</code></pre></div><div></div></div></div>
+  <p>アクティブ化された X サーバーへの通信が、unix:18 か <em>Hostname</em>:18 によって発生することを指定します。</p>
+</td>
+
+</tr>
+
+<tr>
+<td><strong>-ノーブス</strong></td>
+
+<td>すべての画面上でバッキング・ストア機能のサポートを使用不可にします。 これはデフォルトです。</td>
+
+</tr>
+
+<tr>
+<td><strong>ノロゴ</strong></td>
+
+<td>スクリーンセーバーへの X Window System のロゴ表示をオフにします。 現在、クライアントがこの状態を変更する方法はありません。</td>
+
+</tr>
+
+<tr>
+<td><strong>-かつて</strong></td>
+
+<td>最初のセッションが終了した後、サーバーが終了することを指定します。 通常、サーバーは自動的にセッションを開始します。</td>
+
+</tr>
+
+<tr>
+<td><strong>-P</strong><em>行コラム</em><em> ディスプレイ</em></td>
+
+<td>マルチヘッド構成の中でディスプレイの物理配置を指定します。 <em>Row</em> パラメーターは、ディスプレイの行数を示します。 <em>Column</em> パラメーターは、ディスプレイの桁数を示します。<p><em>Display</em> パラメーターは、<strong>Isdisp</strong> コマンドの出力の最初の桁で表示されるディスプレイのデバイス名です。 コマンド・ラインに出現する最初の <strong>-P</strong><em>RowColumn</em><em> Display</em> は画面 0 を X サーバーに示し、2 番目は画面 1 を示し、というようになります。</p>
+  <p><strong>-P</strong> フラグは、マルチヘッド・サポートとともに使用するフラグです。</p>
+</td>
+
+</tr>
+
+<tr>
+<td><strong>-pbuffer</strong><em> レベル</em> [ <strong>: 表示</strong><em> 名前</em> | <strong>: 表示</strong><em> 数値</em> ]</td>
+
+<td><strong>:display</strong> により指定された画面の、<strong>pbuffer</strong> メモリー割り当てレベルを指定します。 このフラグは、GLX 拡張子と結合して使用した場合にのみ有効です。<p><em>level</em> パラメーターは、フレーム・バッファー・メモリーの相対的な量を pbuffer 用に予約するよう指示します。 指定値は、0 から 2 までの範囲でなければなりません。 0 の値は、pbuffer 用にメモリーを予約しないよう指示します。 1 の値は、少量のメモリーを予約するよう指示します。 2 の値は、多量のメモリーを予約するよう指示します。 すべてのアダプターが pbuffer をサポートするわけではありません。 サポートしているアダプターでも、すべての画面構成が pbuffer をサポートするわけではありません。 pbuffer 用に予約されるフレーム・バッファー・メモリーの実際の量は、デバイスによって決まり、
+画面解像度やデフォルトのピクセルの密度のような、他の要素の影響を受ける場合があります。</p>
+  <p><strong>:display</strong> パラメーターは任意指定ですが、マルチヘッド・オプションを使用する場合に便利です。 <strong>:display</strong> パラメーターは、<strong>lsdisp</strong> コマンドで表示されるディスプレイ名です。 ディスプレイの <em>number</em> も <em>name</em> も指定しない場合、
+指定の <strong>pbuffer</strong> 幅がすべての画面に対して選択されます。</p>
+</td>
+
+</tr>
+
+<tr>
+<td><strong>-p</strong> <em>数値</em></td>
+
+<td>X Window System のロゴの位置が変わる間隔を分単位で指定します。 このフラグは、<strong>-s</strong> (スクリーンセーバー・タイムアウト) フラグと併用して、スクリーンのブランキングを制御します。</td>
+
+</tr>
+
+<tr>
+<td><strong>-r</strong></td>
+
+<td>オートリピートを使用不可にします。 デフォルトでは、オートリピートは使用可能です。</td>
+
+</tr>
+
+<tr>
+<td><strong>r</strong></td>
+
+<td>オートリピートを使用可能にします。</td>
+
+</tr>
+
+<tr>
+<td><strong>+ レンダリング</strong></td>
+
+<td>X レンダー拡張機能を使用可能にします。 デフォルトでは、X レンダー拡張機能は使用不可です。<div><div>
+        <div>
+          <div><span>注:</span> X Render Extension は、 GXT135P、 GXT145、 GXT4500P、および GXT6500P グラフィックス・アダプターを使用する場合にのみ X サーバー上でアクティブにすることができます。 システム上で使用可能なアダプターを確認するには、<strong>lsdisp</strong> コマンドを実行してください。 <strong>+render</strong> フラグと共に <strong>-vfb</strong> フラグを指定して、仮想フレーム・バッファーを使用します。</div>
+        </div>
+      </div></div>
+</td>
+
+</tr>
+
+<tr>
+<td><strong>-レンダリング</strong></td>
+
+<td>X レンダー拡張機能を使用不可にします。</td>
+
+</tr>
+
+<tr>
+<td><strong>-s</strong><em> 数値</em></td>
+
+<td>スクリーンがブランキングするまで待機する時間を分単位で指定します。 デフォルトは 10 分です。 この値に 0 を設定した場合、スクリーンセーバーは使用不可になります。</td>
+
+</tr>
+
+<tr>
+<td><strong>-secIP</strong> [<em>PermissionCode</em>]</td>
+
+<td>インターネット・ソケットでローカル・アクセス制御を設定します。 <em>PermissionCode</em> は 3 桁の 8 進数字であり、読み取り、書き込み、および実行のビットを設定することができます。 セキュリティー・フラグの後に <em>PermissionCode</em> が指定されていないと、そのソケットに対して、アクセス権はデフォルトで 0 になります。</td>
+
+</tr>
+
+<tr>
+<td><strong>-secLocal</strong> [<em>PermissionCode</em>]</td>
+
+<td>UNIX ソケットでアクセス制御を設定します。 <em>PermissionCode</em> は 3 桁の 8 進数字であり、読み取り、書き込み、および実行のビットを設定することができます。 セキュリティー・フラグの後に <em>PermissionCode</em> が指定されていないと、そのソケットに対して、アクセス権はデフォルトで 0 になります。</td>
+
+</tr>
+
+<tr>
+<td><strong>-secSMT</strong> [<em>PermissionCode</em>]</td>
+
+<td>共有メモリー・トランスポート・ソケットでアクセス制御を設定します。 <em>PermissionCode</em> は 3 桁の 8 進数字であり、読み取り、書き込み、および実行のビットを設定することができます。 セキュリティー・フラグの後に <em>PermissionCode</em> が指定されていないと、そのソケットに対して、アクセス権はデフォルトで 0 になります。</td>
+
+</tr>
+
+<tr>
+<td><strong>-stereo</strong> [<strong>:</strong><em>表示</em>]</td>
+
+<td><em>Display</em> によって指定された画面用の、
+最適のステレオ・サポートのためのグラフィックス・アダプターを構成します。<p>サポートされる画面は、ステレオを最良にサポートするようにアダプターを構成します。 これにより、テクスチャー・メモリーのような他のリソースが減少することがあります。 影響を受ける実際のメモリーの量はデバイスによって決まり、
+画面解像度やデフォルトのピクセルの密度のような、他の要素の影響を受ける場合があります。</p>
+  <p><em>Display</em> パラメーターは任意指定ですが、マルチヘッド・オプションを使用する場合に便利です。 <em>Display</em> パラメーターは、<strong>lsdisp</strong> コマンドで表示されるディスプレイ名です。 ディスプレイ番号もディスプレイ名も指定しない場合、
+<strong>-stereo</strong> フラグがサポートされるすべてのスクリーンに対して適用されます。</p>
+  <p>サポートされない画面は、<strong>-stereo</strong> フラグを無視します。</p>
+</td>
+
+</tr>
+
+<tr>
+<td><strong>-su</strong></td>
+
+<td>すべての画面上でサポート付き保存を使用不可にします。</td>
+
+</tr>
+
+<tr>
+<td><strong>-T</strong></td>
+
+<td>Ctrl + Alt + Backspace キー・シーケンスを使用不可にします。デフォルトでは、 <span>AIXwindows</span> セッションとそのセッションから開かれたすべてのウィンドウが終了します。</td>
+
+</tr>
+
+<tr>
+<td><strong>-t</strong><em> 数値</em></td>
+
+<td>マウスしきい値を指定します。 デフォルトは 2 ピクセルです。 一定の時間の間にマウスが移動した距離がこのマウスのしきい値を超えたとき、加速が行われます。また、加速は、しきい値を超えた距離にしか適用されません。</td>
+
+</tr>
+
+<tr>
+<td><strong>-to</strong><em> 数値</em></td>
+
+<td>接続検査の経過時間を分単位で指定します。 デフォルトは 60 分です。 指定した値は 0 より大きな値でなければなりません。</td>
+
+</tr>
+
+<tr>
+<td><strong>-v</strong></td>
+
+<td><strong>-s</strong> フラグで指定した時間後に、表示が現在のバックグラウンド・カラーに置き換えられることを指定します。 デフォルトでは、<strong>-v</strong> フラグが使用されていなければ、<strong>-s</strong> フラグで指定した時間後に、ディスプレイ全体がバックグラウンド・タイルでペイントされます。</td>
+
+</tr>
+
+<tr>
+<td><strong>-ブイエフビー</strong></td>
+
+<td>グラフィックス・アダプターを初期化せず、仮想フレーム・バッファー (VFB) を使用して X サーバーを始動します。</td>
+
+</tr>
+
+<tr>
+<td><strong>-wm</strong></td>
+
+<td>すべてのウィンドウのデフォルトのバッキング・ストアに <strong>WhenMapped</strong> 値を強制設定します。 このフラグは、すべてのウィンドウにバッキング・ストアを適用するときに便利です。</td>
+
+</tr>
+
+<tr>
+<td><strong>-wp</strong><em> 色</em></td>
+
+<td>ホワイト・ピクセル・ディスプレイ・カラーを指定します。 デフォルトは、ディスプレイによって異なります。</td>
+
+</tr>
+
+<tr>
+<td><strong>-折り返し</strong></td>
+
+<td>マウスのホット・スポットがルート・ウィンドウの上下左右いずれかのボーダーに達したときのマウスの動作を指定します。 このフラグが設定されている場合、マウスのホット・スポットが一番左にあるルート・ウィンドウの左端に達したとき、マウスは自動的に、一番右にあるルート・ウィンドウの右端 (y 座標は同じ) に移動します。<p>また逆に、このフラグが設定されていれば、マウスのホット・スポットが一番右にあるルート・ウィンドウの右端に達したとき、マウスは自動的に、一番左にあるルート・ウィンドウの左端 (y 座標は同じ) に移動します。 このフラグが設定されていなければ、どのルート・ウィンドウでもマウスは左右どちらかの端で止まります。</p>
+  <p>このフラグが設定されている場合、マウスのホット・スポットが一番上にあるルート・ウィンドウの上端に達したとき、
+マウスは自動的に、一番下にあるルート・ウィンドウの下端 (x 座標は同じ) に移動します。</p>
+  <p>また逆に、このフラグがセットされて、マウスのホット・スポットが一番下にあるルート・ウィンドウの下端に達したとき、
+マウスは自動的に、一番上にあるルート・ウィンドウの上端 (x 座標は同じ) に移動します。</p>
+  <p><strong>-wrap</strong> フラグは、マルチヘッド・サポートとともに使用するフラグです。</p>
+</td>
+
+</tr>
+
+<tr>
+<td><strong>-ラップエックス</strong></td>
+
+<td>マウスのホット・スポットがルート・ウィンドウの左右いずれかのボーダーに達したときのマウスの動作を指定します。 このフラグが設定されている場合、マウスのホット・スポットが一番左にあるルート・ウィンドウの左端に達したとき、
+マウスは自動的に、一番右にあるルート・ウィンドウの右端 (y 座標は同じ) に移動します。 また逆に、このフラグが設定されていると、マウスのホット・スポットが一番右にあるルート・ウィンドウの右端に達したとき、
+マウスは自動的に、一番左にあるルート・ウィンドウの左端 (y 座標は同じ) に移動します。 このフラグが設定されていなければ、どのルート・ウィンドウでもマウスは左右どちらかの端で止まります。<p><strong>-wrapx</strong> フラグは、マルチヘッド・サポートとともに使用するフラグです。</p>
+</td>
+
+</tr>
+
+<tr>
+<td><strong>-ラップ</strong></td>
+
+<td>マウスのホット・スポットがルート・ウィンドウの上下いずれかのボーダーに達したときのマウスの動作を指定します。 このフラグが設定されている場合、マウスのホット・スポットが一番上にあるルート・ウィンドウの上端に達したとき、
+マウスは自動的に、一番下にあるルート・ウィンドウの下端 (x 座標は同じ) に移動します。<p>また逆に、このフラグがセットされて、マウスのホット・スポットが一番下にあるルート・ウィンドウの下端に達したとき、
+マウスは自動的に、一番上にあるルート・ウィンドウの上端 (x 座標は同じ) に移動します。 このフラグが設定されていなければ、マウスはどのルート・ウィンドウでも上下どちらかの端で止まります。</p>
+ <p><strong>-wrapy</strong> フラグは、マルチヘッド・サポートとともに使用するフラグです。</p>
+</td>
+
+</tr>
+
+<tr>
+<td><strong>-x</strong><em> ExtensionName</em><strong></strong></td>
+
+<td>サーバーが初期化されるときにロードする拡張名を指定します。 これは、DisplayPostScriptLevel 2<strong>(dps)</strong>のような大規模な拡張に特に有効である。 複数の拡張名を指定するときは、このフラグを複数指定することができます。</td>
+
+</tr>
+
+<tr>
+<td><strong>-クエリー</strong><em> HostName</em><strong></strong></td>
+
+<td><span>拡張 X-Windows</span> ディスプレイ・マネージャー制御プロトコル (<strong>XDMCP</strong>) を使用可能にし、指定されたホストに <strong>Query</strong> パケットを送信します。<p><strong>-query</strong> フラグは、<strong>XDMCP</strong> とともに使用するフラグです。</p>
+</td>
+
+</tr>
+
+<tr>
+<td><strong>ブロードキャスト</strong></td>
+
+<td><strong>XDMCP</strong> を使用可能にし、<strong>BroadcastQuery</strong> パケットをネットワークにブロードキャストします。 最初に応答した Display Manager がセッション用に選択されます。<p><strong>-broadcast</strong> フラグは、<strong>XDMCP</strong> とともに使用するフラグです。</p>
+</td>
+
+</tr>
+
+<tr>
+<td><strong>-間接的</strong><em> HostName</em></td>
+
+<td><strong>XDMCP</strong> を使用可能にし、<strong>IndirectQuery</strong> パケットを指定したホストに送信します。<p><strong>-indirect</strong> フラグは、<strong>XDMCP</strong> とともに使用するフラグです。</p>
+</td>
+
+</tr>
+
+<tr>
+<td><strong>-ポート</strong><em> PortNumber</em></td>
+
+<td><strong>XDMCP</strong> 用の代替ポート番号を指定します。 このフラグは、<strong>-query</strong> フラグ、<strong>-broadcast</strong> フラグ、<strong>-indirect</strong> フラグのどれよりも先に指定しなければなりません。 通常、サーバーは 1 つずつセッションを始動します。 このフラグを指定すると、最初のセッションが終了した後、サーバーが終了します。<p><strong>-port</strong> フラグは、<strong>XDMCP</strong> とともに使用するフラグです。</p>
+</td>
+
+</tr>
+
+<tr>
+<td><strong>-クラス</strong><em> DisplayClass</em><strong></strong></td>
+
+<td><strong>XDMCP</strong>  がディスプレイ固有オプションのリソース索引で使用する追加のディスプレイ修飾子に値を設定します。<p><strong>-class</strong> フラグは、<strong>XDMCP</strong> とともに使用するフラグです。</p>
+</td>
+
+</tr>
+
+<tr>
+<td><strong>-クッキー</strong><em> XDMAuthenticationBits</em></td>
+
+<td>XDM-AUTHENTICATION-1 を検査するときに、サーバーとマネージャーとの間で共有される秘密鍵を指定します。<p><strong>-cookie</strong> フラグは、<strong>XDMCP</strong> とともに使用するフラグです。</p>
+</td>
+
+</tr>
+
+<tr>
+<td><strong>-displayID</strong><em> DisplayID</em><strong></strong></td>
+
+<td>Display Manager が <strong>-cookie</strong> フラグで指定した共有キーを配置できるディスプレイを識別するためのディスプレイ識別コードを指定します。<p><strong>-displayID</strong> フラグは、<strong>XDMCP</strong> とともに使用するフラグです。</p>
+</td>
+
+</tr>
+
+<tr>
+<td><strong>+/-キネラマ (+/-xinerama)</strong></td>
+
+<td>パノラマ・スクリーンまたは仮想ラージ・スクリーン (VLS) を使用可能または使用不可にします。 ユーザーは、すべてのマルチヘッド環境のすべてのヘッドをラージ・スクリーンとして扱うことができます。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+ <p><strong>Xkeyboard フラグ</strong></p>
+ <div> 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><strong>-xkbdir</strong><em> ディレクトリー</em></td>
+
+<td>キーボード・レイアウト・ファイルの基本ディレクトリーを指定します。</td>
+
+</tr>
+
+<tr>
+<td><strong>-エックスキービーマップ</strong><em> FileName</em></td>
+
+<td>始動時にロードするキーボード説明を指定します。</td>
+
+</tr>
+
+<tr>
+<td><strong>[</strong><strong> +|-</strong><strong> ]アクセス・エックス</strong></td>
+
+<td>AccessX キー・シーケンスを使用可能 (<strong>+</strong>) または使用不可 (<strong>-</strong>) にします。</td>
+
+</tr>
+
+<tr>
+<td><strong>-ar1</strong><em> ミリ秒</em></td>
+
+<td>オートリピートを開始するまでにキーを押し続ける時間の長さ (ミリ秒単位) を設定します。</td>
+
+</tr>
+
+<tr>
+<td><strong>-ar2</strong><em> ミリ秒</em></td>
+
+<td>オートリピートを生成するキー・ストロークとキー・ストロークの間で、
+経過させる時間の長さ (ミリ秒単位) を設定します。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+ <p><strong>セキュリティー拡張フラグ</strong></p>
+ <div> 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><strong>-sp</strong><em> FileName</em></td>
+
+<td>サーバーが <em>FileName</em> を読み取り、
+下記のフォーマットでセキュリティー・ポリシー・ファイルとして解釈するようにします。 ファイルはサーバー始動時に読み取られ、サーバーのリセットごとに再読み取りされます。<p>セキュリティー・ポリシー・ファイルの構文は下記のとおりです。 表記法: "*" は先行するエレメントのゼロ以上のオカレンスを意味し、
+"+" は 1 つ以上のオカレンスを意味します。 <em>foo</em><strong>/</strong><em>bar</em> の解釈では、/以降のテキストを無視します。
+これは、次のセクションの <em>foo</em> のインスタンスを区別するために使用されています。</p>
+
+<div><div><pre><code>policy file ::= version line other line*
+version line ::= string/v '\n'
+other line  ::= comment | access rule | site policy | blank line
+comment ::= # not newline* '\n'
+blank line ::= space '\n'
+site policy ::= sitepolicy string/sp '\n'
+access rule ::= property property/ar window perms '\n'
+property ::= string
+window ::= any | root | required property
+required property ::= property/rp | property with value
+property with value ::= property/rpv = string/rv
+perms ::= [ operation | action | space ]*
+operation ::= r | w | d
+action ::= a | i | e
+string ::= dbl quoted string | single quoted string | unquoted string
+dbl quoted string ::= space " not dqoute* " space
+single quoted string ::= space ' not squote* ' space
+unquoted string ::= space not space+ space
+space ::= [ ' ' | '\t' ]*</code></pre></div><div></div></div>
+<p>文字セット:</p>
+
+<div><div><pre><code>not newline ::= any character except '\n'
+not dqoute  ::= any character except "
+not squote  ::= any character except '
+not space   ::= any character except those in space</code></pre></div><div></div></div></td>
+
+</tr>
+
+<tr>
+<td> </td>
+
+<td><p>前述の構文に関連したセマンティクスは、下記のとおりです。</p>
+  <dl>
+<dt><em>バージョン行</em></dt>
+
+<dd>ファイルのこの最初の行は、ファイル・フォーマットのバージョンを示します。 サーバーは、バージョン <em>string</em><strong>/v</strong> を認識しない場合、残りのファイルを無視します。 ここで説明するファイル・フォーマットのバージョン・ストリングは、以下のとおりです。version-1.<p><em>version line</em> から先は、上記の構文に一致しない行は無視されます。</p>
+</dd>
+
+
+<dt><em>コメント</em></dt>
+
+<dd>行は無視されます。</dd>
+
+
+<dt><em>サイト・ポリシー (sitepolicy)</em></dt>
+
+<dd>現在の行は無視されます。 これらは、XC-QUERY-SECURITY-1 許可メソッドによって使用されるサイト・ポリシーを指定するためのものです。</dd>
+
+
+<dt><em>アクセス規則</em></dt>
+
+<dd>この行は、<em>property</em><strong>/ar</strong> という名前の X Window 属性に影響を与える、
+非トラステッド・クライアントの要求にサーバーが反応する方法を指定します。 このセクションの残りの部分は、<em>access rule</em> の解釈を説明します。<p><em>アクセス規則</em> が <em>プロパティー</em><strong>/ar</strong>の特定のインスタンスに適用される場合、 <em>プロパティー</em><strong>/ar</strong> は、 <em>window</em>で指定されたウィンドウのセット内にあるウィンドウ上になければなりません。 <em>window</em> が <strong>any</strong> の場合、この規則はすべてのウィンドウ上の <em>property</em><strong>/ar</strong> に適用されます。 <em>window</em> が <strong>root</strong> の場合、この規則はルート・ウィンドウ上の <em>property</em><strong>/ar</strong> に適用されます。</p>
+  <p><em>window</em> が <em>required property</em> の場合、下記が適用されます。 <em>required property</em> が <em>property</em><strong>/rp</strong> の場合、
+値に関係なく、この規則はウィンドウに <em>property</em><strong>/rp</strong> もある場合に適用されます。 <em>required property</em> が <em>property with value</em> の場合、
+<em>property</em><strong>/rpv</strong> は、<em>string</em><strong>/rv</strong> によって指定された値も持たなければなりません。 この場合、属性は STRING のタイプで、フォーマットは 8 にする必要があり、
+1 つ以上の null で終了する文字列を含める必要があります。 いずれかの文字列が <em>string</em><strong>/rv</strong> に一致する場合、この規則が適用されます。</p>
+  <p>文字列突き合わせの定義は、単純な大/小文字を区別する文字列比較です。
+<em>string</em><strong>/rv</strong> で文字 '*' のオカレンスは、「任意の文字列」を意味するワイルドカードです。 <em>string</em><strong>/rv</strong> には、文字列の任意の場所に複数のワイルドカードを含めることができます。 例:x*<strong>x</strong>で始まるストリングに一致します。*x<strong>x</strong>で終わるストリングに一致します。*x*<strong>x</strong>を含むストリングと一致します。x*y*<strong>x</strong> で始まり、その後に <strong>y</strong>を含むストリングに一致します。</p>
+  <p>1 つの <em>プロパティー</em><strong>/ar</strong>に対して複数の <em>アクセス規則</em> 行が存在する場合があります。 規則は、ファイル内の順序でテストされます。 一致する最初の規則が使用されます。</p>
+</dd>
+
+</dl>
+</td>
+
+</tr>
+
+<tr>
+<td> </td>
+
+<td><dl>
+<dt><em>perms</em></dt>
+
+<dd>非トラステッド・クライアントが試行できる操作と、
+それらの操作に応じてサーバーが取るアクションを指定します。</dd>
+
+
+<dt><em>operation</em></dt>
+
+<dd><strong>r</strong> (読み取り)、<strong>w</strong> (書き込み)、または <strong>d</strong> (削除) のいずれかにできます。 下記の情報は、X プロトコル属性要求が、
+X コンソーシアム・サーバー・インプリメンテーションでの操作にどのようにマップするかを示しています。<dl>
+
+<dt>GetProperty</dt>
+
+<dd><strong>r</strong>、または delete = True の場合は <strong>r</strong> および <strong>d</strong></dd>
+
+
+<dt>ChangeProperty</dt>
+
+<dd><strong>w</strong></dd>
+
+
+<dt>RotateProperties</dt>
+
+<dd><strong>r</strong> および <strong>w</strong></dd>
+
+
+<dt>DeleteProperty</dt>
+
+<dd><strong>d</strong></dd>
+
+
+<dt>ListProperties</dt>
+
+<dd><strong>none</strong>、非トラステッド・クライアントは常にすべての属性をリストできます。</dd>
+
+</dl>
+</dd>
+
+
+<dt><em>Action</em></dt>
+
+<dd><strong>a</strong> (許可)、<strong>i</strong> (無視)、または <strong>e</strong> (エラー) のいずれかにできます。<dl>
+<dt><strong>許可</strong></dt>
+
+<dd>要求を、トラステッド・クライアントが発行したもののように実行します。</dd>
+
+
+<dt><strong>無視</strong></dt>
+
+<dd>要求をノーオペレーションとして扱います。 GetProperty の場合、ignore は、その実際の値に関係なく、
+属性が存在する場合は空の属性値を戻すことを意味します。</dd>
+
+
+<dt><strong>ERROR</strong></dt>
+
+<dd>要求を実行しないこと、および要求を返すことを指定します。BadAtomエラーatomプロパティー名に設定します。 エラーは、セキュリティー・ポリシー・ファイルにリストされていないものも含め、
+すべての属性のデフォルトのアクションです。</dd>
+
+</dl>
+  <p><em>アクション</em> は、次の <em>アクション</em>&gt; が検出されるまで、後続のすべての <em>操作</em>に適用されます。 したがって、次の例は、irwad読み取りと書き込みを無視し、削除を許可することを意味します。</p>
+  <p>GetProperty および RotateProperties は、
+複数の操作を実行する場合があります (<strong>r</strong> および <strong>d</strong>、または <strong>r</strong> および <strong>w</strong>)。 さまざまなアクションが操作に適用される場合、最も重大なアクションが要求全体に適用されます。
+部分的な要求の実行はありません。 重大度の順序は、allow (許可) &lt; ignore (無視) &lt; error (エラー) です。 したがって、プロパティーの <em>perms</em> が次のようになっているとします。ired(読み取り、エラー削除を無視)。信頼できないクライアントがそのプロパティーに対して GetProperty を試行します。delete = Trueエラーが返されますが、プロパティー値は返されません。 同様に、RotateProperties のいずれかの属性が、
+読み取りおよび書き込みの両方を許可しない場合、
+エラーは属性値を変更せずに戻されます。</p>
+</dd>
+
+</dl>
+</td>
+
+</tr>
+
+<tr>
+<td> </td>
+
+<td><dl>
+<dt></dt>
+
+<dd><div>以下はセキュリティー・ポリシー・ファイルの例です。<div><div><pre><code>version-1
+
+# Allow reading of application resources, but not writing.
+property RESOURCE_MANAGER     root      ar iw
+property SCREEN_RESOURCES     root      ar iw
+
+# Ignore attempts to use cut buffers.  Giving errors causes apps to crash,
+# and allowing access may give away too much information.
+property CUT_BUFFER0          root      irw
+property CUT_BUFFER1          root      irw
+property CUT_BUFFER2          root      irw
+property CUT_BUFFER3          root      irw
+property CUT_BUFFER4          root      irw
+property CUT_BUFFER5          root      irw
+property CUT_BUFFER6          root      irw
+property CUT_BUFFER7          root      irw
+
+# If you are using Motif, you probably want these.
+
+property _MOTIF_DEFAULT_BINDINGS        rootar iw
+property _MOTIF_DRAG_WINDOW   root      ar iw
+property _MOTIF_DRAG_TARGETS  any       ar iw
+property _MOTIF_DRAG_ATOMS    any       ar iw
+property _MOTIF_DRAG_ATOM_PAIRS         any ar iw
+
+# The next two rules let xwininfo -tree work when untrusted.
+property WM_NAME              any       ar</code></pre></div><div></div></div></div>
+</dd>
+
+</dl>
+</td>
+
+</tr>
+
+<tr>
+<td></td>
+
+<td><dl>
+<dt></dt>
+
+<dd><div> <div><div><pre><code># Allow read of WM_CLASS, but only for windows with WM_NAME.
+# This might be more restrictive than necessary, but demonstrates
+# the required property facility, and is also an attempt to
+# say "top level windows only."
+property WM_CLASS             WM_NAME   ar
+
+# These next three let xlsclients work untrusted.  Think carefully
+# before including these; giving away the client machine name and command
+# may be exposing too much.
+property WM_STATE             WM_NAME   ar
+property WM_CLIENT_MACHINE    WM_NAME   ar
+property WM_COMMAND           WM_NAME   ar
+
+# To let untrusted clients use the standard colormaps created by
+# xstdcmap, include these lines.
+property RGB_DEFAULT_MAP      root      ar
+property RGB_BEST_MAP         root      ar
+property RGB_RED_MAP          root      ar
+property RGB_GREEN_MAP        root      ar
+property RGB_BLUE_MAP         root      ar
+property RGB_GRAY_MAP         root      ar</code></pre></div><div></div></div></div>
+</dd>
+
+</dl>
+</td>
+
+</tr>
+
+<tr>
+<td></td>
+
+<td><dl>
+<dt></dt>
+
+<dd><div> <div><div><pre><code># To let untrusted clients use the color management database created
+# by xcmsdb, include these lines.
+property XDCCC_LINEAR_RGB_CORRECTION    rootar
+property XDCCC_LINEAR_RGB_MATRICES      rootar
+property XDCCC_GRAY_SCREENWHITEPOINT    rootar
+property XDCCC_GRAY_CORRECTION          rootar
+
+
+# oddball property names and explicit specification of error conditions
+property "property with spaces"         'property with "'aw er ed
+
+# Allow deletion of Woo-Hoo if window also has property OhBoy with value
+# ending in "son".  Reads and writes will cause an error.
+property Woo-Hoo              OhBoy = "*son"ad</code></pre></div><div></div></div></div>
+</dd>
+
+</dl>
+</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+</section>
+
+<section><h2>例</h2> <div>X レンダー拡張機能を使用して X サーバーを始動するには、以下のコマンドを入力してください。<div><div><pre><code>$X -T -force :0 -vfb -d 32 +render</code></pre></div><div></div></div>この例では、X サーバーは、レンダリング用に物理的なグラフィックス・アダプターを使用する代わりに、仮想フレーム・バッファー (VFB) を使用します。</div>
+</section>
+
+</div></div>

@@ -1,0 +1,221 @@
+<div class="official-dom"><div>
+<section><h2>目的</h2> <p>インストール可能パッケージを作成します。</p>
+</section>
+
+<section><h2>構文</h2> <p><strong>パッケージ (pkgmk)</strong> [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/p_commands/pkgmk.html#pkgmk__row-d3e89456" target="_blank" rel="noopener noreferrer"><strong>「-c」</strong></a> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/p_commands/pkgmk.html#pkgmk__row-d3e89546" target="_blank" rel="noopener noreferrer"><strong>-</strong></a> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/p_commands/pkgmk.html#pkgmk__row-d3e89429" target="_blank" rel="noopener noreferrer"><strong>-a 値</strong></a> <em>アーチ</em> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/p_commands/pkgmk.html#pkgmk__row-d3e89444" target="_blank" rel="noopener noreferrer"><strong>-b (B)</strong></a> <em>BaseDir</em> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/p_commands/pkgmk.html#pkgmk__row-d3e89481" target="_blank" rel="noopener noreferrer"><strong>-d 年</strong></a> <em>ディレクトリー</em> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/p_commands/pkgmk.html#pkgmk__row-d3e89493" target="_blank" rel="noopener noreferrer"><strong>「-f」</strong></a> <em>プロトタイプ</em> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/p_commands/pkgmk.html#pkgmk__row-d3e89525" target="_blank" rel="noopener noreferrer"><strong>-</strong></a> <em>限界</em> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/p_commands/pkgmk.html#pkgmk__row-d3e89552" target="_blank" rel="noopener noreferrer"><strong>P-</strong></a> <em>PStamp (P)</em> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/p_commands/pkgmk.html#pkgmk__row-d3e89567" target="_blank" rel="noopener noreferrer"><strong>-</strong></a> <em>RootPath</em> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/p_commands/pkgmk.html#pkgmk__row-d3e89582" target="_blank" rel="noopener noreferrer"><strong>-v (V)</strong></a> <em>バージョン</em> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/p_commands/pkgmk.html#pkgmk__row-d3e89597" target="_blank" rel="noopener noreferrer"><em>変数</em></a>=<em>値</em> ... ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/p_commands/pkgmk.html#pkgmk__row-d3e89607" target="_blank" rel="noopener noreferrer"><em>PkgInst</em></a> ]</p>
+</section>
+
+<section><h2>説明</h2> <p><strong>pkgmk</strong> は、<strong>pkgadd</strong> コマンドへの入力として使用されるインストール可能パッケージを作成します。 パッケージは、個別にインストールできる、関連するファイルおよび実行可能ファイルの集合です。 パッケージの内容は、ディレクトリー構造形式になっています。</p>
+ <p><strong>pkgmk</strong> コマンドは、パッケージ・プロトタイプ・ファイルを入力として
+使用し、<strong>pkgmap</strong> ファイルを作成します。 プロトタイプ・ファイル内の各エントリーの内容は、該当の出力ロケーションにコピーされます。 内容に関する情報 (チェックサム、ファイル・サイズ、変更日付) は、
+計算され、プロトタイプ・ファイルに指定された属性情報と一緒に
+<strong>pkgmap</strong> ファイルに保管されます。</p>
+</section>
+
+<section><h2>フラグ</h2> 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><strong>-a</strong> <em>アーク</em></td>
+
+<td><strong>パッケージ情報</strong> ファイルに指定されているアーキテクチャー情報を <em>アーチ</em>でオーバーライドします。</td>
+
+</tr>
+
+<tr>
+<td><strong>-b</strong> <em>BaseDir</em></td>
+
+<td>指定された <em>BaseDir</em> を前に付加して、
+ソース・マシン上に再配置可能オブジェクトを配置します。</td>
+
+</tr>
+
+<tr>
+<td><strong>-c</strong></td>
+
+<td>情報でないファイルを圧縮します。 <strong>-c</strong> を使用する場合は <strong>-r</strong> オプションも指定する必要があります。 <em>RootPath</em> 指定より上の相対パスを参照する
+<em>Prototype</em> ファイル内のエントリーは、圧縮されません。 <strong>pkgmk</strong> により処理される前に既に圧縮されているファイルは (つまり、".Z" 形式のみ)、
+<strong>pkgadd</strong> コマンドにより圧縮解除されません。</td>
+
+</tr>
+
+<tr>
+<td><strong>-d</strong> <em>ディレクトリー</em></td>
+
+<td><em>Directory</em> にパッケージを作成します。 指定するディレクトリーは存在するものでなければなりません。</td>
+
+</tr>
+
+<tr>
+<td><strong>-f</strong> <em>プロトタイプ</em></td>
+
+<td>ファイル <em>Prototype</em> をコマンドへの入力として使用します。 このファイルのデフォルト名は <strong>Prototype</strong> または <strong>prototype</strong> です。<p><strong>pkgproto</strong> を使用して <em>Prototype</em> ファイルを作成することができます。 この場合、パッケージ内で使用するすべてのインストール・スクリプトとファイルの
+エントリーを手作業で追加する必要があります。 使用するファイルとスクリプトのエントリーだけが必要です。 ただし、パッケージには必ず <strong>pkginfo</strong> ファイル用のエントリーを追加する必要があります。 詳細は、<strong>pkgproto</strong> を参照してください。</p>
+</td>
+
+</tr>
+
+<tr>
+<td><strong>-l</strong> <em>制限</em></td>
+
+<td><em>Limit</em> として、出力デバイスの最大サイズを 512 バイトのブロック単位で指定します。 デフォルトでは、出力ファイルがディレクトリーまたはマウント可能なデバイスの場合、
+<strong>pkgmk</strong> は <strong>df</strong> コマンドを使用して、
+出力デバイス上で使用可能なスペースを動的に計算します。 <strong>pkgtrans</strong> と組み合わせて、データ・ストリーム・フォーマットでパッケージを作成するのに便利です。</td>
+
+</tr>
+
+<tr>
+<td><strong> -o</strong></td>
+
+<td>同じインスタンスを上書きします。 パッケージ・インスタンスが既に存在している場合には、上書きされます。</td>
+
+</tr>
+
+<tr>
+<td><strong>-p</strong> <em>Pスタンプ</em></td>
+
+<td><strong>pkginfo</strong> ファイル内の実動スタンプ定義を <em>PStamp</em> を使用してオーバーライドします。</td>
+
+</tr>
+
+<tr>
+<td><strong>-r</strong> <em>RootPath</em></td>
+
+<td>ソース・マシン上のオブジェクトを探すために指定された <em>RootPath</em> に、
+<em>Prototype</em> ファイル内のソース・パス名を付加します。</td>
+
+</tr>
+
+<tr>
+<td><strong>-V</strong> <em>version</em></td>
+
+<td><strong>パッケージ情報</strong> ファイルに指定されているバージョン情報を <em>バージョン</em>でオーバーライドします。</td>
+
+</tr>
+
+<tr>
+<td><em>変数</em>=<em>値</em></td>
+
+<td>指定された変数をパッケージ環境に入れます。</td>
+
+</tr>
+
+<tr>
+<td><em>PkgInst</em></td>
+
+<td>パッケージ名の省略形を指定するために使用する短文字列。 <strong>pkgmk</strong> はバージョンまたはアーキテクチャー (またはその両方) が異なる場合、自動的に新しいインスタンスを作成します。 ユーザーは
+パッケージの省略形のみを指定すべきであり、ユーザーが上書きする場合を除き、
+特定のインスタンスを指定すべきではありません。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</section>
+
+<section><h2>例</h2> <ol>
+<li><strong>lsps</strong> および <strong>lsuser</strong> コマンドを含む <code>mypkgA</code> という名前のパッケージを作成する場合は、まずパッケージの内容を作成する必要があります。 次に例を示します。<div><div><pre><code>mkdir -p /home/myuser/example/pkgmk/sbin
+cp /usr/sbin/lsps /home/myuser/example/pkgmk/sbin
+cp /usr/sbin/lsuser /home/myuser/example/pkgmk/sbin</code></pre></div><div></div></div>次に、<strong>pkginfo</strong> ファイルを作成します。 この例では、<strong>pkginfo
+</strong> ファイルは <code>/home/myuser/example/pkgmk/pkginfo</code> であり、
+これは以下の内容を含みます。<div><div><pre><code>PKG="mypkgA"
+NAME="My Package A"
+ARCH="PPC"
+RELEASE="1.0"
+VERSION="2"
+CATEGORY="Application"
+PSTAMP="AIX  2001/02/05"
+</code></pre></div><div></div></div>次に、以下を含む <em>プロトタイプ</em> ・ファイル <code>/home/myuser/example/pkgmk/prototype</code> を作成します。<div><div><pre><code>!search /home/myuser/example/pkgmk/sbin
+i pkginfo=/home/myuser/example/pkgmk/pkginfo
+d example /example 1777 bin bin
+d example /example/pkgmk 1777 bin bin
+d example /example/pkgmk/sbin 1777 bin bin
+f example /example/pkgmk/sbin/lsps 555 bin bin
+f example /example/pkgmk/sbin/lsuser 555 bin bin
+</code></pre></div><div></div></div>次に、上の <em>Prototype</em> および <strong>pkginfo</strong> ファイルを使用して、
+<strong>pkgmk</strong> コマンドによりパッケージを作成します。<div><div><pre><code>pkgmk -d /tmp -f /home/myuser/example/pkgmk/prototype</code></pre></div><div></div></div>以下の出力が作成されます。<div><div><pre><code>Building pkgmap from package prototype file
+## Processing pkginfo file
+    WARNING:parameter &lt;CLASSES&gt; set to "example"
+
+## Attempting to volumize 5 entries in pkgmap
+Part  1 -- 218 blocks, 10 entries
+/tmp/mypkgA/pkgmap
+/tmp/mypkgA/pkginfo
+/tmp/mypkgA/root/example/pkgmk/sbin/lsps
+/tmp/mypkgA/root/example/pkgmk/sbin/lsuser
+## Packaging complete
+</code></pre></div><div></div></div>新しく作成された <code>mypkgA</code> という名前のパッケージが <code>/tmp/mypkgA</code>に存在するようになります。</li>
+
+</ol>
+</section>
+
+<section><h2>終了状況</h2> 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><strong>0</strong></td>
+
+<td>スクリプトの正常終了です。</td>
+
+</tr>
+
+<tr>
+<td><strong>1</strong></td>
+
+<td>致命的なエラーです。 この時点でインストール・プロセスが終了します。</td>
+
+</tr>
+
+<tr>
+<td><strong>99</strong></td>
+
+<td>内部エラー。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</section>
+
+<section><h2>ファイル</h2> 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><strong> /usr/sbin/pkgmk</strong></td>
+
+<td><strong>pkgmk</strong> コマンドが入っています。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</section>
+
+</div></div>

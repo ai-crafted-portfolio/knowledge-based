@@ -1,0 +1,346 @@
+<div class="official-dom"><div>
+<section><h2>目的</h2> <p>システム内の各デバイスの属性の特性とその属性に指定できる値を表示します。</p>
+ <p></p>
+</section>
+
+<section><h2>構文</h2> <p><strong>lsattr</strong> { <a href="https://www.ibm.com/docs/ja/ssw_aix_73/l_commands/lsattr.html#lsattr__row-d3e75409" target="_blank" rel="noopener noreferrer"><strong>-D</strong></a> [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/l_commands/lsattr.html#lsattr__row-d3e75626" target="_blank" rel="noopener noreferrer"><strong>-O (O)</strong></a> ] | <a href="https://www.ibm.com/docs/ja/ssw_aix_73/l_commands/lsattr.html#lsattr__row-d3e75455" target="_blank" rel="noopener noreferrer"><strong>-E (E)</strong></a> [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/l_commands/lsattr.html#lsattr__row-d3e75626" target="_blank" rel="noopener noreferrer"><strong>-O (O)</strong></a> ] | <a href="https://www.ibm.com/docs/ja/ssw_aix_73/l_commands/lsattr.html#lsattr__row-lsattrcmndup" target="_blank" rel="noopener noreferrer"><strong>-P</strong></a> [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/l_commands/lsattr.html#lsattr__row-d3e75626" target="_blank" rel="noopener noreferrer"><strong>-O (O)</strong></a> ] | <a href="https://www.ibm.com/docs/ja/ssw_aix_73/l_commands/lsattr.html#lsattr__row-d3e75508" target="_blank" rel="noopener noreferrer"><strong>-F (R)</strong></a> <em>フォーマット</em> [<a href="https://www.ibm.com/docs/ja/ssw_aix_73/l_commands/lsattr.html#lsattr__row-d3e75748" target="_blank" rel="noopener noreferrer"><strong> -Z</strong></a> <em>キャラクター </em>] } <a href="https://www.ibm.com/docs/ja/ssw_aix_73/l_commands/lsattr.html#lsattr__row-d3e75577" target="_blank" rel="noopener noreferrer"><strong>-</strong></a> <em>名前</em> [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/l_commands/lsattr.html#lsattr__row-d3e75345" target="_blank" rel="noopener noreferrer"><strong>-a 値 </strong></a> <em>属性</em> ] ...[ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/l_commands/lsattr.html#lsattr__row-d3e75497" target="_blank" rel="noopener noreferrer"><strong>「-f」 </strong></a> <em>ファイル</em> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/l_commands/lsattr.html#lsattr__row-d3e75571" target="_blank" rel="noopener noreferrer"><strong>-h</strong></a> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/l_commands/lsattr.html#lsattr__row-d3e75554" target="_blank" rel="noopener noreferrer"><strong>-H </strong></a>]</p>
+ <p><strong>lsattr</strong> { <a href="https://www.ibm.com/docs/ja/ssw_aix_73/l_commands/lsattr.html#lsattr__row-d3e75409" target="_blank" rel="noopener noreferrer"><strong>-D</strong></a> [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/l_commands/lsattr.html#lsattr__row-d3e75626" target="_blank" rel="noopener noreferrer"><strong>-O (O)</strong></a> ] | <a href="https://www.ibm.com/docs/ja/ssw_aix_73/l_commands/lsattr.html#lsattr__row-d3e75508" target="_blank" rel="noopener noreferrer"><strong>-F (R) </strong></a> <em>フォーマット</em> [<a href="https://www.ibm.com/docs/ja/ssw_aix_73/l_commands/lsattr.html#lsattr__row-d3e75748" target="_blank" rel="noopener noreferrer"><strong> -Z</strong></a> <em>キャラクター </em>] } { [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/l_commands/lsattr.html#lsattr__row-d3e75393" target="_blank" rel="noopener noreferrer"><strong>「-c」 </strong></a> <em>クラス</em> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/l_commands/lsattr.html#lsattr__row-d3e75716" target="_blank" rel="noopener noreferrer"><strong>-s</strong></a> <em>サブクラス</em> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/l_commands/lsattr.html#lsattr__row-d3e75732" target="_blank" rel="noopener noreferrer"><strong>T</strong></a> <em>タイプ</em> ] } [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/l_commands/lsattr.html#lsattr__row-d3e75345" target="_blank" rel="noopener noreferrer"><strong>-a 値 </strong></a> <em>属性</em> ] ... [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/l_commands/lsattr.html#lsattr__row-d3e75497" target="_blank" rel="noopener noreferrer"><strong>「-f」 </strong></a> <em>ファイル</em> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/l_commands/lsattr.html#lsattr__row-d3e75571" target="_blank" rel="noopener noreferrer"><strong>-h</strong></a> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/l_commands/lsattr.html#lsattr__row-d3e75554" target="_blank" rel="noopener noreferrer"><strong>-H</strong></a> ]</p>
+ <p><strong>lsattr</strong> <a href="https://www.ibm.com/docs/ja/ssw_aix_73/l_commands/lsattr.html#lsattr__row-d3e75649" target="_blank" rel="noopener noreferrer"><strong>-R</strong></a> { <a href="https://www.ibm.com/docs/ja/ssw_aix_73/l_commands/lsattr.html#lsattr__row-d3e75577" target="_blank" rel="noopener noreferrer"><strong>-</strong></a> <em>名前</em> | [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/l_commands/lsattr.html#lsattr__row-d3e75393" target="_blank" rel="noopener noreferrer"><strong>「-c」</strong></a> <em>クラス</em> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/l_commands/lsattr.html#lsattr__row-d3e75716" target="_blank" rel="noopener noreferrer"><strong>-s</strong></a> <em>サブクラス</em> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/l_commands/lsattr.html#lsattr__row-d3e75732" target="_blank" rel="noopener noreferrer"><strong>T</strong></a> <em>タイプ</em> ] } <a href="https://www.ibm.com/docs/ja/ssw_aix_73/l_commands/lsattr.html#lsattr__row-d3e75345" target="_blank" rel="noopener noreferrer"><strong>-a 値</strong></a> <em>属性</em> [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/l_commands/lsattr.html#lsattr__row-d3e75497" target="_blank" rel="noopener noreferrer"><strong>「-f」</strong></a> <em>ファイル</em> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/l_commands/lsattr.html#lsattr__row-d3e75571" target="_blank" rel="noopener noreferrer"><strong>-h </strong></a>] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/l_commands/lsattr.html#lsattr__row-d3e75554" target="_blank" rel="noopener noreferrer"><strong>-H </strong></a>]</p>
+ <p><strong>lsattr</strong> <a href="https://www.ibm.com/docs/ja/ssw_aix_73/l_commands/lsattr.html#lsattr__row-d3e75577" target="_blank" rel="noopener noreferrer"><strong>-</strong></a> <em>名前</em> { <a href="https://www.ibm.com/docs/ja/ssw_aix_73/l_commands/lsattr.html#lsattr__row-d3e75585" target="_blank" rel="noopener noreferrer"><strong>-</strong></a> <em>操作</em> [ ... ] } <a href="https://www.ibm.com/docs/ja/ssw_aix_73/l_commands/lsattr.html#lsattr__row-d3e75508" target="_blank" rel="noopener noreferrer"><strong>-F (R) </strong></a> <em>フォーマット</em> [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/l_commands/lsattr.html#lsattr__row-d3e75748" target="_blank" rel="noopener noreferrer"><strong>-Z</strong></a> <em>キャラクター</em> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/l_commands/lsattr.html#lsattr__row-d3e75497" target="_blank" rel="noopener noreferrer"><strong>「-f」 </strong></a> <em>ファイル</em> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/l_commands/lsattr.html#lsattr__row-d3e75571" target="_blank" rel="noopener noreferrer"><strong>-h </strong></a> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/l_commands/lsattr.html#lsattr__row-d3e75554" target="_blank" rel="noopener noreferrer"><strong>-H </strong></a> ]</p>
+ <p><strong>lsattr</strong> { [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/l_commands/lsattr.html#lsattr__row-d3e75393" target="_blank" rel="noopener noreferrer"><strong>「-c」</strong></a> <em>クラス</em> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/l_commands/lsattr.html#lsattr__row-d3e75716" target="_blank" rel="noopener noreferrer"><strong>-s</strong></a> <em>サブクラス</em> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/l_commands/lsattr.html#lsattr__row-d3e75732" target="_blank" rel="noopener noreferrer"><strong>T</strong></a> <em>タイプ</em> ] } { <a href="https://www.ibm.com/docs/ja/ssw_aix_73/l_commands/lsattr.html#lsattr__row-d3e75585" target="_blank" rel="noopener noreferrer"><strong>-</strong></a> <em>操作</em> [ ... ] } <a href="https://www.ibm.com/docs/ja/ssw_aix_73/l_commands/lsattr.html#lsattr__row-d3e75508" target="_blank" rel="noopener noreferrer"><strong>-F (R) </strong></a> <em>フォーマット</em> [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/l_commands/lsattr.html#lsattr__row-d3e75748" target="_blank" rel="noopener noreferrer"><strong>-Z</strong></a> <em>キャラクター</em> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/l_commands/lsattr.html#lsattr__row-d3e75497" target="_blank" rel="noopener noreferrer"><strong>「-f」 </strong></a> <em>ファイル</em> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/l_commands/lsattr.html#lsattr__row-d3e75571" target="_blank" rel="noopener noreferrer"><strong>-h </strong></a> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/l_commands/lsattr.html#lsattr__row-d3e75554" target="_blank" rel="noopener noreferrer"><strong>-H </strong></a> ]</p>
+</section>
+
+<section><h2>説明</h2> <p><strong>lsattr</strong> コマンドは、指定されたデバイスまたはデバイス・タイプの属性についての情報を表示します。 デバイスの論理名を <strong>-l</strong><em> Name</em> フラグを使用して指定しない場合は、<strong>-c</strong><em> Class</em>、<strong>-s</strong><em> Subclass</em>、および <strong>-t</strong><em> Type</em> フラグの 1 つまたはすべての組み合わせを使用して、事前に定義されたデバイスを一意的に識別しなければなりません。</p>
+ <p><strong>lsattr</strong> コマンドには次に示すフラグの中から 1 つを指定しなければなりません。</p>
+ 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><strong>-D</strong></td>
+
+<td>デフォルトの値を表示します。</td>
+
+</tr>
+
+<tr>
+<td><strong>-E</strong></td>
+
+<td>有効値を表示します (<strong>-l</strong> フラグで指定した、カスタマイズ・デバイスにのみ有効)。</td>
+
+</tr>
+
+<tr>
+<td><strong>-F</strong><em> フォーマット</em></td>
+
+<td>ユーザー定義のフォーマットを指定します。</td>
+
+</tr>
+
+<tr>
+<td><strong>-P</strong></td>
+
+<td>デバイスが最後に構成されたときのデバイス値を表示します。</td>
+
+</tr>
+
+<tr>
+<td><strong>-R</strong></td>
+
+<td>正しい値の範囲を表示します。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+ <p>カスタマイズされたデバイスの属性の有効値を表示すると、
+情報はそのデバイスからではなく構成データベースから取り出されます。 <strong>-P</strong> または <strong>-T</strong> フラグを使って <strong>chdev</strong> コマンドでデータベース値を再構成していなければ、そのデータベース値は、デバイスがどのように構成されているかを反映します。 再構成が発生した場合、<strong>lsattr</strong> コマンドによって表示されている情報は、次のシステム・ブートの後になるまで、現在のデバイス構成を正確に示していない場合があります。</p>
+ <p><strong>-D</strong> または <strong>-E</strong> フラグを使用すると、出力はデフォルトで属性の名前<em>、</em> value<em>、</em> description<em>の値になります。</em> およびユーザー設定可能ストリング ( <strong>-O</strong> フラグと一緒に使用される場合を除く)。</p>
+<p><strong>-P</strong> フラグは、デバイスが最後に構成されたときの、あるいは <strong>chdev</strong> コマンドを <strong>-P</strong> フラグまたは <strong>-T</strong> フラグと一緒に使用することによっていずれかの属性を変更する前の、属性値を表示します。</p>
+<p><strong>-O</strong> フラグは、指定されたすべての属性の名前をコロンで区切って表示します。 次の行に <strong>-O</strong> フラグは、
+対応する属性値のすべてをコロンで区切って表示します。 <strong>-H</strong> フラグを <strong>-D</strong>、
+<strong>-E</strong>、
+<strong>-F</strong> フラグのどれかと共に使うと、
+欄名の上にヘッダーを表示できます。 ユーザーは、<strong>-F</strong><em> Format</em> フラグを使用して、ユーザー指定のフォーマットで出力のフォーマットを定義できます。ここで、<em>Format</em> パラメーターは、非英数字または空白文字で区切られ、引用符で囲まれた列名のリストです。 <strong>-F</strong> <em>Format</em> フラグが指定されている場合は、次のようになります。 <strong>-Z</strong> <em>Character</em> フラグを指定して、デフォルトのレコード分離文字を <code>newline</code> 文字から示されている <em>Character</em>に変更することもできます。</p>
+ <p><strong>lsattr</strong>コマンドは、Extended Predefined Attribute<strong>PdAtXtd</strong>)オブジェクト・クラスの<em>"operation "</em>情報を表示することができる。 操作情報は <strong>-o</strong> <em>operation</em>
+フラグを経由してアクセスされます。 <strong>-o</strong> <em>operation</em>
+フラグおよび <strong>-a</strong> <em>attribute</em>
+フラグは、<strong>lsattr</strong> コマンドの同一の呼び出し内では指定できません。 <strong>-o</strong> <em>operation</em> フラグは、<strong>-R</strong> フラグとの併用も無効になります。 <strong>-o</strong> <em>operation</em> フラグを指定したときには、<strong>PdAtXtd </strong>
+オブジェクト・クラスからのフィールドのみが <strong>-F</strong> <em>Format</em>
+フラグで指定できます。</p>
+ <p>フラグは、コマンド・ラインで指定するか、指定した <strong>-f </strong><em>File</em> フラグを使用して指定することができます。</p>
+</section>
+
+<section><h2>フラグ</h2> <div> 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><strong>-a</strong><em> 属性</em></td>
+
+<td>特定のデバイスまたはデバイス・タイプについて、
+指定された属性に関する情報を表示します。 <strong>-a</strong> フラグは、
+属性名ごとに 1 つ、または複数の属性名に対して 1 つ使えます。 複数の属性名に対して 1 つの <strong>-a</strong> フラグを使う場合、属性名のリストは引用符で囲み、名前の間をスペースで区切らなければなりません。 <a href="https://www.ibm.com/docs/ja/ssw_aix_73/l_commands/lsattr.html#lsattr__row-d3e75649" target="_blank" rel="noopener noreferrer"><strong>-R</strong></a> フラグを使用する場合は、属性名が 1 つだけの <strong>-a</strong> フラグを 1 つだけ指定する必要があります。 <strong>-a</strong> フラグも <a href="https://www.ibm.com/docs/ja/ssw_aix_73/l_commands/lsattr.html#lsattr__row-d3e75649" target="_blank" rel="noopener noreferrer"><strong>-R</strong></a> フラグも指定しないと、 <strong>lsattr</strong> コマンドは指定されたデバイスのすべての属性に関するすべての情報を表示します。 <strong>-a</strong> <em>Attribute</em> フラグは <strong>-o</strong> <em>Operation</em> フラグと共に使用することはできません。 フラグのこの組み合わせは、<strong>lsattr</strong>
+コマンドがエラー・メッセージを出して終了する原因となります。</td>
+
+</tr>
+
+<tr>
+<td><strong>-c</strong><em> クラス</em></td>
+
+<td>デバイスのクラス名を指定します。 このフラグを使うと、
+出力を、指定したクラスのデバイスに制限できます。 このフラグは、 <a href="https://www.ibm.com/docs/ja/ssw_aix_73/l_commands/lsattr.html#lsattr__row-d3e75455" target="_blank" rel="noopener noreferrer"><strong>-E</strong></a> または <a href="https://www.ibm.com/docs/ja/ssw_aix_73/l_commands/lsattr.html#lsattr__row-d3e75577" target="_blank" rel="noopener noreferrer"><strong>-l</strong></a> フラグと一緒には使用できません。</td>
+
+</tr>
+
+<tr>
+<td><strong>-D</strong></td>
+
+<td>特定のデバイスが <a href="https://www.ibm.com/docs/ja/ssw_aix_73/l_commands/lsattr.html#lsattr__row-d3e75626" target="_blank" rel="noopener noreferrer"><strong>-O</strong></a> フラグと一緒に使用されない場合に、そのデバイスの属性名、デフォルト値、説明、およびユーザー設定可能フラグ値を表示します。 <strong>-D</strong> フラグを <a href="https://www.ibm.com/docs/ja/ssw_aix_73/l_commands/lsattr.html#lsattr__row-d3e75626" target="_blank" rel="noopener noreferrer"><strong>-O</strong></a> フラグと一緒に使用すると、属性名とデフォルト値だけがコロン・フォーマットで表示されます。 このフラグは、 <a href="https://www.ibm.com/docs/ja/ssw_aix_73/l_commands/lsattr.html#lsattr__row-d3e75393" target="_blank" rel="noopener noreferrer"><strong>-c</strong></a>、 <a href="https://www.ibm.com/docs/ja/ssw_aix_73/l_commands/lsattr.html#lsattr__row-d3e75716" target="_blank" rel="noopener noreferrer"><strong>-s</strong></a>の任意の組み合わせで使用できます。 および <a href="https://www.ibm.com/docs/ja/ssw_aix_73/l_commands/lsattr.html#lsattr__row-d3e75732" target="_blank" rel="noopener noreferrer"><strong>-t</strong></a> フラグは、事前定義デバイス・オブジェクト・クラスから、または <a href="https://www.ibm.com/docs/ja/ssw_aix_73/l_commands/lsattr.html#lsattr__row-d3e75577" target="_blank" rel="noopener noreferrer"><strong>-l </strong></a> フラグを使用して、デバイスを一意的に識別します。 このフラグは、 <a href="https://www.ibm.com/docs/ja/ssw_aix_73/l_commands/lsattr.html#lsattr__row-d3e75455" target="_blank" rel="noopener noreferrer"><strong>-E</strong></a>、 <a href="https://www.ibm.com/docs/ja/ssw_aix_73/l_commands/lsattr.html#lsattr__row-d3e75508" target="_blank" rel="noopener noreferrer"><strong>-F</strong></a>と一緒には使用できません。 または <a href="https://www.ibm.com/docs/ja/ssw_aix_73/l_commands/lsattr.html#lsattr__row-d3e75649" target="_blank" rel="noopener noreferrer"><strong>-R</strong></a> フラグ。</td>
+
+</tr>
+
+<tr>
+<td><strong>-E</strong></td>
+
+<td>特定のデバイスが <a href="https://www.ibm.com/docs/ja/ssw_aix_73/l_commands/lsattr.html#lsattr__row-d3e75626" target="_blank" rel="noopener noreferrer"><strong>-O</strong></a> フラグと一緒に使用されない場合に、そのデバイスの属性名、現行値、説明、およびユーザー設定可能フラグ値を表示します。 <strong>-E</strong> フラグを <a href="https://www.ibm.com/docs/ja/ssw_aix_73/l_commands/lsattr.html#lsattr__row-d3e75626" target="_blank" rel="noopener noreferrer"><strong>-O</strong></a> フラグと一緒に使用すると、属性名と現行値のみがコロン形式で表示されます。 このフラグは、 <a href="https://www.ibm.com/docs/ja/ssw_aix_73/l_commands/lsattr.html#lsattr__row-d3e75393" target="_blank" rel="noopener noreferrer"><strong>-c</strong></a>、 <a href="https://www.ibm.com/docs/ja/ssw_aix_73/l_commands/lsattr.html#lsattr__row-d3e75409" target="_blank" rel="noopener noreferrer"><strong>-D</strong></a>と一緒には使用できません。 <a href="https://www.ibm.com/docs/ja/ssw_aix_73/l_commands/lsattr.html#lsattr__row-d3e75508" target="_blank" rel="noopener noreferrer"><strong>-F</strong></a>、 <a href="https://www.ibm.com/docs/ja/ssw_aix_73/l_commands/lsattr.html#lsattr__row-d3e75649" target="_blank" rel="noopener noreferrer"><strong>-R</strong></a>、 <a href="https://www.ibm.com/docs/ja/ssw_aix_73/l_commands/lsattr.html#lsattr__row-d3e75716" target="_blank" rel="noopener noreferrer"><strong>-s</strong></a>、 または <a href="https://www.ibm.com/docs/ja/ssw_aix_73/l_commands/lsattr.html#lsattr__row-d3e75732" target="_blank" rel="noopener noreferrer"><strong>-t</strong></a> フラグ。</td>
+
+</tr>
+
+<tr>
+<td><strong>-f</strong><em> ファイル</em></td>
+
+<td><em>File</em> パラメーターから必要なフラグを読み取ります。</td>
+
+</tr>
+
+<tr>
+<td><strong>-F</strong><em> フォーマット</em></td>
+
+<td>ユーザー指定のフォーマットで出力を表示します。
+<em>Format</em> パラメーターは、
+欄名を非英数字または空白文字で区切った引用符付きリストです。 セパレーターとして空白文字を使うと、
+<strong>lsattr</strong> コマンドは位置合わせされた列に出力を表示します。 事前定義属性 (<strong>PdAt</strong>)、カスタマイズ属性 (<strong>CuAt</strong>)、
+および拡張事前定義属性 (<strong>PdAtXtd</strong>) オブジェクト・クラスからのカラム名だけを指定できます。 カラム名のほかに、使用できる特別目的の名前が 2 つあります。名前 <em>description</em> を使うと属性の説明を表示でき、<em>user_settable</em> を使うと属性を変更できるかどうかを判別できます。 このフラグは、 <a href="https://www.ibm.com/docs/ja/ssw_aix_73/l_commands/lsattr.html#lsattr__row-d3e75455" target="_blank" rel="noopener noreferrer"><strong>-E</strong></a>、 <a href="https://www.ibm.com/docs/ja/ssw_aix_73/l_commands/lsattr.html#lsattr__row-d3e75409" target="_blank" rel="noopener noreferrer"><strong>-D</strong></a>と一緒には使用できません。 <a href="https://www.ibm.com/docs/ja/ssw_aix_73/l_commands/lsattr.html#lsattr__row-d3e75626" target="_blank" rel="noopener noreferrer"><strong>-O</strong></a>、または <a href="https://www.ibm.com/docs/ja/ssw_aix_73/l_commands/lsattr.html#lsattr__row-d3e75649" target="_blank" rel="noopener noreferrer"><strong>-R</strong></a> フラグ。</td>
+
+</tr>
+
+<tr>
+<td><strong>-H</strong></td>
+
+<td>出力される列の上にヘッダーを表示します。 <a href="https://www.ibm.com/docs/ja/ssw_aix_73/l_commands/lsattr.html#lsattr__row-d3e75626" target="_blank" rel="noopener noreferrer"><strong>-O</strong></a> および <a href="https://www.ibm.com/docs/ja/ssw_aix_73/l_commands/lsattr.html#lsattr__row-d3e75649" target="_blank" rel="noopener noreferrer"><strong>-R</strong></a> フラグは、 <strong>-H</strong> フラグよりも優先されます。</td>
+
+</tr>
+
+<tr>
+<td><strong>-h</strong></td>
+
+<td>コマンドの使用メッセージを表示します。</td>
+
+</tr>
+
+<tr>
+<td><strong>-l</strong><em> 名前</em></td>
+
+<td>カスタマイズ・デバイス・オブジェクト・クラスにある、
+属性名または属性値を表示したいデバイスの論理名を指定します。</td>
+
+</tr>
+
+<tr>
+<td><strong>-o</strong> <em>操作</em></td>
+
+<td>特定のデバイスまたはデバイス・タイプについて、
+指定された操作に関する情報を表示します。 それぞれの操作名または複数の操作名に対して 1 つの <strong>-o</strong> フラグが使用できます。<p>複数の操作名に対して 1 つの <strong>-o</strong> フラグを使用する場合、操作名のリストは引用符で囲み、名前の間をスペースで区切る必要があります。</p>ワイルドカード文字は、操作名にも使用できます。 ワイルドカード文字の有効なセットは、 <a href="https://www.ibm.com/docs/ja/ssw_aix_73/o_commands/odmget.html" target="_blank" rel="noopener noreferrer"><strong>odmget</strong></a> コマンドで使用されるセットと同じです。 特定のデバイスまたはデバイス・タイプに関連したすべての操作は、操作値 <code>"?*"</code> を使用して表示できます。 <strong>-o</strong> <em>Operation</em> フラグは、<strong>-a</strong> <em>attribute</em> フラグとも、<strong>-R</strong> フラグとも一緒に使用することはできません。 これらのフラグをどのように組み合わせても、<strong>lsattr</strong>
+コマンドがエラー・メッセージを出して終了する原因となります。</td>
+
+</tr>
+
+<tr>
+<td><strong>-O</strong></td>
+
+<td>すべての属性名をコロンで区切って表示し、2 行目に対応するすべての属性値をコロンで区切って表示します。 属性値は、 <a href="https://www.ibm.com/docs/ja/ssw_aix_73/l_commands/lsattr.html#lsattr__row-d3e75455" target="_blank" rel="noopener noreferrer"><strong>-E</strong></a> フラグが指定されている場合は現行値、 <a href="https://www.ibm.com/docs/ja/ssw_aix_73/l_commands/lsattr.html#lsattr__row-d3e75409" target="_blank" rel="noopener noreferrer"><strong>-D</strong></a> フラグが指定されている場合はデフォルト値です。 このフラグは、 <a href="https://www.ibm.com/docs/ja/ssw_aix_73/l_commands/lsattr.html#lsattr__row-d3e75508" target="_blank" rel="noopener noreferrer"><strong>-F</strong></a> および <a href="https://www.ibm.com/docs/ja/ssw_aix_73/l_commands/lsattr.html#lsattr__row-d3e75649" target="_blank" rel="noopener noreferrer"><strong>-R</strong></a> フラグと一緒に使用することはできません。</td>
+
+</tr>
+
+<tr>
+<td><strong>-P</strong></td>
+
+<td>特定のデバイスが <a href="https://www.ibm.com/docs/ja/ssw_aix_73/l_commands/lsattr.html#lsattr__row-d3e75626" target="_blank" rel="noopener noreferrer"><strong>-O</strong></a> フラグと一緒に使用されない場合に、そのデバイスの属性名、値、説明、およびユーザー設定可能フラグ値を表示します。 表示される値は、<strong>chdev</strong> コマンドを <strong>-P</strong> フラグまたは <strong>-T</strong> フラグと共に使用することによってデバイス属性のいずれかが変更される前に、デバイス構成で使用された値です。 <strong>-P</strong> フラグを <a href="https://www.ibm.com/docs/ja/ssw_aix_73/l_commands/lsattr.html#lsattr__row-d3e75626" target="_blank" rel="noopener noreferrer"><strong>-O</strong></a> フラグと一緒に使用すると、 <strong>-P</strong> フラグは属性名と値だけをコロン区切り形式で表示します。 このフラグは、 <a href="https://www.ibm.com/docs/ja/ssw_aix_73/l_commands/lsattr.html#lsattr__row-d3e75393" target="_blank" rel="noopener noreferrer"><strong>-c</strong></a>、 <a href="https://www.ibm.com/docs/ja/ssw_aix_73/l_commands/lsattr.html#lsattr__row-d3e75716" target="_blank" rel="noopener noreferrer"><strong>-s</strong></a>の任意の組み合わせで使用できます。 および <a href="https://www.ibm.com/docs/ja/ssw_aix_73/l_commands/lsattr.html#lsattr__row-d3e75732" target="_blank" rel="noopener noreferrer"><strong>-t</strong></a> フラグは、事前定義デバイス・オブジェクト・クラスから、または <a href="https://www.ibm.com/docs/ja/ssw_aix_73/l_commands/lsattr.html#lsattr__row-d3e75577" target="_blank" rel="noopener noreferrer"><strong>-l</strong></a> フラグを使用して、デバイスを一意的に識別します。 このフラグは、 <a href="https://www.ibm.com/docs/ja/ssw_aix_73/l_commands/lsattr.html#lsattr__row-d3e75409" target="_blank" rel="noopener noreferrer"><strong>-D</strong></a>、 <a href="https://www.ibm.com/docs/ja/ssw_aix_73/l_commands/lsattr.html#lsattr__row-d3e75455" target="_blank" rel="noopener noreferrer"><strong>-E</strong></a>と一緒には使用できません。 <a href="https://www.ibm.com/docs/ja/ssw_aix_73/l_commands/lsattr.html#lsattr__row-d3e75626" target="_blank" rel="noopener noreferrer"><strong>-O</strong></a>、または <a href="https://www.ibm.com/docs/ja/ssw_aix_73/l_commands/lsattr.html#lsattr__row-d3e75649" target="_blank" rel="noopener noreferrer"><strong>-R</strong></a> フラグ。</td>
+
+</tr>
+
+<tr>
+<td><strong>-R</strong></td>
+
+<td>属性名の正しい値を表示します。 <strong>-R</strong> フラグは、 <a href="https://www.ibm.com/docs/ja/ssw_aix_73/l_commands/lsattr.html#lsattr__row-d3e75409" target="_blank" rel="noopener noreferrer"><strong>-D</strong></a>, <a href="https://www.ibm.com/docs/ja/ssw_aix_73/l_commands/lsattr.html#lsattr__row-d3e75455" target="_blank" rel="noopener noreferrer"><strong>-E</strong></a>と一緒には使用できません。 <a href="https://www.ibm.com/docs/ja/ssw_aix_73/l_commands/lsattr.html#lsattr__row-d3e75508" target="_blank" rel="noopener noreferrer"><strong>-F</strong></a> および <a href="https://www.ibm.com/docs/ja/ssw_aix_73/l_commands/lsattr.html#lsattr__row-d3e75626" target="_blank" rel="noopener noreferrer"><strong>-O</strong></a> フラグ ただし、 <a href="https://www.ibm.com/docs/ja/ssw_aix_73/l_commands/lsattr.html#lsattr__row-d3e75393" target="_blank" rel="noopener noreferrer"><strong>-c</strong></a>、 <a href="https://www.ibm.com/docs/ja/ssw_aix_73/l_commands/lsattr.html#lsattr__row-d3e75716" target="_blank" rel="noopener noreferrer"><strong>-s</strong></a>の任意の組み合わせで使用できます。 および <a href="https://www.ibm.com/docs/ja/ssw_aix_73/l_commands/lsattr.html#lsattr__row-d3e75732" target="_blank" rel="noopener noreferrer"><strong>-t</strong></a> フラグは、事前定義デバイス・オブジェクト・クラスから、または <a href="https://www.ibm.com/docs/ja/ssw_aix_73/l_commands/lsattr.html#lsattr__row-d3e75577" target="_blank" rel="noopener noreferrer"><strong>-l</strong></a> フラグを使用して、デバイスを一意的に識別します。 <strong>-R</strong> フラグは、
+次のような属性値のリストを縦の欄で表示します。<div> <div><div><pre><code>Value1
+Value2
+.
+.
+ValueN</code></pre></div><div></div></div></div>
+  <p><strong>-R</strong> フラグは、範囲属性値を次のように表示します。x...n(+i)各項の説明は次のとおりです。x範囲の開始を指定します。n範囲の終わりであり、かつ、i増分です。</p>
+</td>
+
+</tr>
+
+<tr>
+<td><strong>-s</strong><em> サブクラス</em></td>
+
+<td>デバイスのサブクラス名を指定します。 このフラグを使うと、
+指定されたサブクラスのデバイスについての出力だけに限定できます。 このフラグは、 <a href="https://www.ibm.com/docs/ja/ssw_aix_73/l_commands/lsattr.html#lsattr__row-d3e75455" target="_blank" rel="noopener noreferrer"><strong>-E</strong></a> または <a href="https://www.ibm.com/docs/ja/ssw_aix_73/l_commands/lsattr.html#lsattr__row-d3e75577" target="_blank" rel="noopener noreferrer"><strong>-l</strong></a> フラグと一緒には使用できません。</td>
+
+</tr>
+
+<tr>
+<td><strong>-t</strong><em> タイプ</em></td>
+
+<td>デバイスのタイプ名を指定します。 このフラグを使うと、
+指定されたクラスのデバイスについての出力だけに限定できます。 このフラグは、 <a href="https://www.ibm.com/docs/ja/ssw_aix_73/l_commands/lsattr.html#lsattr__row-d3e75455" target="_blank" rel="noopener noreferrer"><strong>-E</strong></a> または <a href="https://www.ibm.com/docs/ja/ssw_aix_73/l_commands/lsattr.html#lsattr__row-d3e75577" target="_blank" rel="noopener noreferrer"><strong>-l</strong></a> フラグと一緒には使用できません。</td>
+
+</tr>
+
+<tr>
+<td><strong>-Z</strong> <em>文字</em></td>
+
+<td><strong>-Z</strong> <em>Character</em> フラグは、
+改行文字が組み込まれている場合がある ODM フィールドを処理するプログラムで使用されます。 <strong>-Z</strong> <em>Character</em> フラグは、
+生成された出力のそれぞれのレコードまたは行のレコード分離文字を変更するために使用されます。 新規のレコード分離文字は、このフラグの <em>Character</em> 引数を使用して指定されます。 <strong>-Z</strong> <em>Character</em> フラグは、<strong>-F</strong> <em>Format</em> フラグが指定された場合のみ有効となります。 <strong>-Z</strong> <em>Character</em> フラグは、<strong>-D</strong>、<strong>-E</strong>、<strong>-O</strong>、または <strong>-R</strong> フラグと併用することはできません。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+</section>
+
+<section><h2>セキュリティー</h2> <div><div><div>
+        <div>
+          <div><span>RBAC ユーザーへの注意:</span> このコマンドは特権命令を実行できます。 特権命令を実行できるのは特権ユーザーのみです。 権限と特権の詳細については、<span>セキュリティ</span>の <a href="https://www.ibm.com/docs/ja/ssw_aix_73/security/rbac_priv_cmd_db.html" target="_blank" rel="noopener noreferrer">特権コマンドデータベース</a>を参照してください。 このコマンドに関連する特権と権限のリストについては、'<a href="https://www.ibm.com/docs/ja/ssw_aix_73/l_commands/lssecattr.html" target="_blank" rel="noopener noreferrer"><span>lssecattr</span></a>コマンドまたは'<a href="https://www.ibm.com/docs/ja/ssw_aix_73/g_bostechref/getcmdattr.html" target="_blank" rel="noopener noreferrer"><span>getcmdattr</span></a>サブコマンドを参照のこと。</div>
+        </div>
+      </div></div>
+</div>
+</section>
+
+<section><h2>例</h2> <ol>
+<li>テープ装置 <code>rmt0</code> の現行属性値をリストするには、次のコマンドを入力します。<div><div><pre><code>lsattr -l rmt0 -E</code></pre></div><div></div></div>システムは次の出力のようなメッセージを表示します。<div><div><pre><code>mode          yes   Use DEVICE BUFFERS during writes     True
+block_size    1024  BLOCK size (0=variable length)       True
+extfm         yes   Use EXTENDED file marks              True
+ret           no    RETENSION on tape change or reset    True
+density_set_1 37    DENSITY setting #1                   True
+density_set_2 36    DENSITY setting #2                   True
+compress      yes   Use data COMPRESSION                 True
+size_in_mb    12000 Size in Megabytes                    False
+ret_error     no    RETURN error on tape change or reset True</code></pre></div><div></div></div></li>
+
+<li><code>rmt0</code> テープ・デバイスのデフォルト属性値をリストするには、次のコマンドを入力します。<div><div><pre><code>lsattr -l rmt0 -D</code></pre></div><div></div></div>システムは次の出力のようなメッセージを表示します。<div><div><pre><code>mode          yes   Use DEVICE BUFFERS during writes     True
+block_size    1024  BLOCK size (0=variable length)       True
+extfm         yes   Use EXTENDED file marks              True
+ret           no    RETENSION on tape change or reset    True
+density_set_1 37    DENSITY setting #1                   True
+density_set_2 36    DENSITY setting #2                   True
+compress      yes   Use data COMPRESSION                 True
+size_in_mb    12000 Size in Megabytes                    False
+ret_error     no    RETURN error on tape change or reset True</code></pre></div><div></div></div></li>
+
+<li><code>scsi0</code> SCSI アダプターの <strong>bus_intr_lvl</strong> 属性の現行値をリストするには、次のコマンドを入力します。<div><div><pre><code>lsattr -l scsi0 -a bus_intr_lvl -E</code></pre></div><div></div></div>システムは次の出力のようなメッセージを表示します。<div><div><pre><code>bus_intr_lvl 1 Bus interrupt level False</code></pre></div><div></div></div></li>
+
+<li>tty デバイス <code>tty0</code> の login 属性の可能な値をリストするには、次のコマンドを入力します。<div><div><pre><code>lsattr -l tty0 -a login -R</code></pre></div><div></div></div>システムは次の出力のようなメッセージを表示します。<div><div><pre><code>enable
+disable
+share
+delay</code></pre></div><div></div></div></li>
+
+<li><span>IBM</span>4340パラレルプリンターのデフォルト属性値を一覧表示するには、以下のコマンドを入力します：<div><div><pre><code>lsattr -c printer -s parallel -t ibm4340 -D</code></pre></div><div></div></div>システムは次の出力のようなメッセージを表示します。<div><div><pre><code>ptop       600       Printer TIME OUT period                    True
+line       60        Number of LINES per page                   True
+col        80        Number of COLUMNS per page                 True
+ind        0         Number of columns to INDENT                True
+plot       no        Send all characters to printer UNMODIFIED  True
+backspace  yes       Send BACKSPACES                            True
+cr         yes       Send CARRIAGE RETURNS                      True
+form       yes       Send FORM FEEDS                            True
+lf         yes       Send LINE FEEDS                            True
+addcr      yes       Add CARRIAGE RETURNS to LINE FEEDS         True
+case       no        Convert lowercase to UPPERCASE             True
+tabs       yes       EXPAND TABS on eight position boundaries   True
+wrap       no        WRAP CHARACTERS beyond the specified width True
+mode       no        Return on ERROR                            True
+interface  standard  Type of PARALLEL INTERFACE                 True
+autoconfig available STATE to be configured at boot time        True
+busy_delay 0         Microseconds to delay between characters   True</code></pre></div><div></div></div></li>
+
+<li><span>IBM</span> 4340 パラレル・プリンターの <strong>ptop</strong> 属性の可能な値をリストするには、次のコマンドを入力します。<div><div><pre><code>lsattr -c printer -s parallel -t ibm4340  -a ptop -R</code></pre></div><div></div></div>システムは次の出力のようなメッセージを表示します。<div><div><pre><code>1...1000 (+1)</code></pre></div><div></div></div></li>
+
+<li>テープ装置 <code>rmt0</code> の現行属性値をコロンで区切ったフォーマットでリストするには、次のコマンドを入力します。<div><div><pre><code>lsattr -l rmt0 -E -O</code></pre></div><div></div></div>システムは次の出力のようなメッセージを表示します。<div><div><pre><code>#mode:block_size:extfm:ret:density_set_1:density_set_2:compress:size_in_mb:ret_error
+yes:1024:yes:no:37:36:yes:12000:no</code></pre></div><div></div></div></li>
+
+<li>システム属性を表示するには、次のコマンドを入力します。<div><div><pre><code>lsattr -E -l sys0</code></pre></div><div></div></div>システムは、以下の出力のような出力を表示します。<div><div><pre><code>keylock      normal        State of system keylock at boot time              False
+maxbuf       20            Maximum number of pages in block I/O BUFFER CACHE True
+maxmbuf      0             Maximum Kbytes of real memory allowed for MBUFS   True
+maxuproc     128           Maximum number of PROCESSES allowed per user      True
+autorestart  false         Automatically REBOOT system after a crash         True
+iostat       false         Continuously maintain DISK I/O history            True
+realmem      4194304       Amount of usable physical memory in Kbytes        False
+conslogin    enable        System Console Login                              False
+fwversion    IBM,SPH00221  Firmware version and revision levels              False
+maxpout      0             HIGH water mark for pending write I/Os per file   True
+minpout      0             LOW water mark for pending write I/Os per file    True
+fullcore     false         Enable full CORE dump                             True
+pre430core   false         Use pre-430 style CORE dump                       True
+ncargs       256           ARG/ENV list size in 4K byte blocks               True
+rtasversion  1             Open Firmware RTAS version                        False
+modelname    IBM,7044-270  Machine name                                      False
+systemid     IBM,011037D1F Hardware system identifier                        False
+boottype     disk          N/A                                               False
+SW_dist_intr false         Enable SW distribution of interrupts              True
+cpuguard     disable       CPU Guard                                         True
+frequency    93750000      System Bus Frequency                              False</code></pre></div><div></div></div> <div><div>
+        <div>
+          <div><span>注:</span> SMIT を使用すると、同じ情報をより読みやすい形式で入手できます。 この情報を表示するには、 <strong>「システム環境」</strong> -&gt; <strong>「オペレーティング・システムの特性の変更/表示」</strong> オプションを選択します。</div>
+        </div>
+      </div></div>
+</li>
+
+</ol>
+</section>
+
+<section><h2>ファイル</h2> <div> 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><strong>/usr/sbin/lsattr</strong></td>
+
+<td><strong>lsattr</strong> コマンドが入っています。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+</section>
+
+</div></div>

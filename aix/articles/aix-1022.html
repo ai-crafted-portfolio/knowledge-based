@@ -1,0 +1,269 @@
+<div class="official-dom"><div>
+<section><h2>目的</h2> <p>現行の NFSv4 統計情報およびプロパティーを表示または変更します。</p>
+</section>
+
+<section><h2>構文</h2> <p><strong>/usr/sbin/nfs4cl</strong> [<em>サブコマンド</em>] [<em>path</em>] [<em>引数</em>]</p>
+</section>
+
+<section><h2>説明</h2> <p><strong>nfs4cl</strong> コマンドを使用して、クライアントに関するすべての fsid 情報を
+表示するか、fsid のファイルシステム・オプションを変更します。</p>
+ <div><div>
+        <div>
+          <div><span>注:</span> <strong>nfs4cl</strong> 更新は、ファイル・システム内の新しくアクセスされるファイルに影響します。 以前にアクセスされたすべてのファイルに影響を及ぼすには、アンマウントおよび
+再マウントが必要です。</div>
+        </div>
+      </div></div>
+</section>
+
+<section><h2>サブコマンド</h2><p><strong>resetfsoptions サブコマンド</strong></p>
+ <p>このサブコマンドは、fsid のすべてのオプションをリセットしてデフォルト・オプションに戻します。</p>
+ <div><div>
+        <div>
+          <div><span>注:</span> <strong>cio</strong> および <strong>dio</strong> オプションは、 <strong>resetfsoptions</strong> サブコマンドを使用してリセットできますが、 NFS ファイル・システムがアンマウントされてから再マウントされるまで、 <strong>cio</strong> および <strong>dio</strong> の動作は実際にはオフになりません。</div>
+        </div>
+      </div></div>
+<p><strong>setfsoptions サブコマンド</strong></p>
+ <div>このサブコマンドは、パスおよび引数を取得します。 パスはターゲットの fsid 構造を指定し、引数はファイルシステム・オプションです。 これにより、引数によって指定されたオプションを使用するための、内部 fsid が設定されます。 指定できる引数のリストを以下に示します。<div><div><table><thead> <tr> <th><div>項目</div></th>
+ <th><div>説明</div></th>
+ </tr>
+ </thead>
+<tbody>
+<tr>
+<td><strong>rw</strong></td>
+
+<td>このパス (fsid) にバインドするファイルまたはディレクトリーが、読み取り可能かつ書き込み可能であることを示します。</td>
+
+</tr>
+
+<tr>
+<td><strong>ro</strong></td>
+
+<td>このパス (fsid) にバインドするファイルまたはディレクトリーが、読み取り専用であることを示します。</td>
+
+</tr>
+
+<tr>
+<td><strong>acdirmax</strong></td>
+
+<td>ディレクトリー属性キャッシュ・タイムアウト値の上限を指定します。</td>
+
+</tr>
+
+<tr>
+<td><strong>acdirmin</strong></td>
+
+<td>ディレクトリー属性キャッシュ・タイムアウト値の下限を指定します。</td>
+
+</tr>
+
+<tr>
+<td><strong>acregmax</strong></td>
+
+<td>ファイル属性キャッシュ・タイムアウト値の上限を指定します。</td>
+
+</tr>
+
+<tr>
+<td><strong>acregmin</strong></td>
+
+<td>ファイル属性キャッシュ・タイムアウト値の下限を指定します。</td>
+
+</tr>
+
+<tr>
+<td><strong>cio</strong></td>
+
+<td>並行リーダーおよびライターにマウントされるファイルシステムを指定します。 このファイルシステム内のファイル上での入出力は、ファイルが <strong>open()</strong>
+システム・コール内で指定された <strong>O_CIO</strong> でオープンされたかのように動作します。</td>
+
+</tr>
+
+<tr>
+<td><strong>cior</strong></td>
+
+<td>ファイルシステムで読み取り専用ファイルがオープンするのを許可するよう指定します。 このファイルシステムにあるファイルの入出力は、そのファイルが <strong>open()</strong> システム・コール内に指定された <strong>O_CIO | O_CIOR</strong> でオープンされたかのように動作します。</td>
+
+</tr>
+
+<tr>
+<td><strong>dio</strong></td>
+
+<td>ファイルシステムにおける入出力が、すべてのファイルが <strong>open()</strong> システム・コールで
+指定された <strong>O_DIRECT</strong> でオープンされたかのように動作することを指定します。</td>
+
+</tr>
+
+<tr>
+<td><strong>hard</strong></td>
+
+<td>この fsid がハード・マウント・セマンティクスを使用することを指定します。</td>
+
+</tr>
+
+<tr>
+<td><strong>intr</strong></td>
+
+<td>fsid 操作が割り込み可能であることを指定します。</td>
+
+</tr>
+
+<tr>
+<td><strong>maxpout=</strong><em>値</em></td>
+
+<td>このファイルシステム上のファイルの、スレッドをスリープにすべきページアウト・レベルを指定します。 <strong>maxpout</strong> を指定した場合は、<strong>minpout</strong> も指定する必要があります。 この値は負数であってはならず、
+<strong>minpout</strong> より大でなければなりません。 デフォルトは、カーネル <strong>maxpout</strong> レベルです。</td>
+
+</tr>
+
+<tr>
+<td><strong>minpout=</strong><em>値</em></td>
+
+<td>このファイルシステム上のファイルの、スレッドを作動可能にすべきページアウト・レベルを指定します。 <strong>minpout</strong> を指定した場合は、<strong>maxpout</strong> も指定する必要があります。 この値は負数であってはなりません。 デフォルトは、カーネル <strong>minpout</strong> レベルです。</td>
+
+</tr>
+
+<tr>
+<td><strong>NOAC</strong></td>
+
+<td>属性キャッシュを使用しません。</td>
+
+</tr>
+
+<tr>
+<td><strong>NOCTO</strong></td>
+
+<td>クローズとオープン間の整合性を指定しません。</td>
+
+</tr>
+
+<tr>
+<td><strong>非表示</strong></td>
+
+<td>fsid 中断不可能であることを指定します。</td>
+
+</tr>
+
+<tr>
+<td><span><span>prefer=</span></span><em>サーバー名</em></td>
+
+<td>データが複数のサーバー位置に存在する場合に使用する優先サーバーを、管理上設定します。 サーバー名はショート・ネーム、ロング・ネーム、 IPv4、または IPv6 形式にすることができますが、クライアントは <span><span>nfs4cl</span></span> コマンドの実行時にサーバー名を解決できなければなりません。</td>
+
+</tr>
+
+<tr>
+<td><strong>rbr</strong></td>
+
+<td>読み取り時に後で解放する (release-behind-when-reading) 機能を使用します。 この
+ファイルシステムでファイルの順次読み取りが検出される場合、実メモリー・ページが内部バッファーにコピーされると、
+ファイルに使用されたこのページが解放されます。</td>
+
+</tr>
+
+<tr>
+<td><strong>rsize</strong></td>
+
+<td>サーバーに対する RPC 呼び出しの読み取りサイズを指定します。</td>
+
+</tr>
+
+<tr>
+<td><strong>retrans</strong></td>
+
+<td>ソフト・セマンティクスと共に試行する RPC 再送回数を指定します。</td>
+
+</tr>
+
+<tr>
+<td><strong>soft</strong></td>
+
+<td>ソフト・マウント・セマンティクスを使用する、fsid 操作を指定します。</td>
+
+</tr>
+
+<tr>
+<td><strong>timeo</strong></td>
+
+<td>サーバーに対する RPC 呼び出しのタイムアウト値を指定します。</td>
+
+</tr>
+
+<tr>
+<td><strong>wsize</strong></td>
+
+<td>サーバーに対する RPC 呼び出しの書き込みサイズを指定します。</td>
+
+</tr>
+
+<tr>
+<td><strong>ノード・キャッシュ</strong></td>
+
+<td>ディレクトリー・キャッシュを使用しません。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+<p><strong>showfs サブコマンド</strong></p>
+ <p>このサブコマンドは、クライアントが現在アクセスしているサーバーに関する
+ファイルシステム固有情報を表示します。 情報には、サーバー・アドレス、
+リモート・パス、「fsid」、およびローカル・パスが含まれます。 パスが提供される場合は、fs_locations オプションおよび fsid オプションなどの
+追加情報が表示されます。</p>
+<p><strong>showstat サブコマンド</strong></p>
+ <p>このサブコマンドは、クライアント上にある各 fsid ごとに <strong>df</strong> コマンドが印刷する
+内容と同じ情報を表示します。 この情報には、「Filesystem」、「512-blocks」、「Free」、「%Used」、「Iused」、
+「%Iused」、および「Mounted on」などのフィールドが含まれます。</p>
+<p><strong>delegreturn サブコマンド</strong></p>
+ <p>このサブコマンドは、その入力引数としてファイル・パスを受け入れます。 このサブコマンドを使用すると、
+システム管理者は NFS v4 クライアントに指示して、入力パス名で指定したファイルの委任を戻します。</p>
+<p><strong>help サブコマンド</strong></p>
+ <p>このサブコマンドを使用して、使用方法を印刷します。</p>
+</section>
+
+<section><h2>終了状況</h2> 
+<div><div><table><thead> <tr> <th><div>項目</div></th>
+ <th><div>説明</div></th>
+ </tr>
+ </thead>
+<tbody>
+<tr>
+<td><strong>0</strong></td>
+
+<td>コマンドは正常に完了しました。</td>
+
+</tr>
+
+<tr>
+<td><strong>&gt;0</strong></td>
+
+<td>エラーが発生しました。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</section>
+
+<section><h2>例</h2> <ol>
+<li>クライアント上のすべての fsid 構造を表示するには、次のように入力します。<div><div><pre><code>nfs4cl showfs</code></pre></div><div></div></div></li>
+
+<li><strong>/mnt/usr/sbin</strong> のファイルシステム・オプションを、「<code>retrans=3</code>」のみを
+含むように設定するには、次のように入力します。<div><div><pre><code>nfs4cl setfsoptions /mnt/usr/sbin retrns=3</code></pre></div><div></div></div></li>
+
+<li><strong>/mnt/use/sbin</strong> のファイルシステム・オプションをリセットするには、
+次のように入力します。<div><div><pre><code>nfs4cl resetfsoptions /mnt/user/sbin</code></pre></div><div></div></div></li>
+
+<li><strong>/mnt/usr/sbin</strong> の <strong>df</strong> コマンド出力を
+表示するには、次のように入力します。<div><div><pre><code>nfs4cl showstat /mnt/usr/sbin</code></pre></div><div></div></div></li>
+
+<li><strong>/mnt/usr/sbin</strong>で複製が行われたときに、クライアントがサーバー <code>boo</code> にフェイルオーバーするようにするには、次のように入力します。<div><div><pre><code>nfs4cl setfsoptions /mnt/usr/sbin prefer=boo</code></pre></div><div></div></div></li>
+
+</ol>
+</section>
+
+<section><h2>ロケーション</h2> <p><strong>/usr/sbin/nfs4cl</strong></p>
+</section>
+
+</div></div>

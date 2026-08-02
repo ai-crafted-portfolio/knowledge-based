@@ -1,0 +1,48 @@
+<div class="official-dom"><div>
+<section><h2>目的</h2> <p>セキュア通信チャネルをインプリメントするためのパスワードを設定します。</p>
+</section>
+
+<section><h2>構文</h2> <p><strong>enroll</strong></p>
+</section>
+
+<section><h2>説明</h2> <p><strong>enroll</strong> コマンドは、パスワードを設定し、通信チャネルを確保するために使われます。この通信チャネルでは意図された受信者だけがメッセージを読み込むことができます。 パスワードは、秘密メールを受信時に使用されます。</p>
+ <p><strong>enroll</strong> コマンドは、<strong>xsend</strong> および <strong>xget</strong> コマンドと一緒に使用され、秘密メールの送受信を行います。 <strong>xsend</strong> コマンドは秘密メールを送信するのに使用されます。 <strong>xget</strong> コマンドは受信者のパスワードを求め、それから秘密メールを渡します。</p>
+</section>
+
+<section><h2>例</h2> <p>パスワードを設定するには、次のように入力します。</p>
+ <div> <div><div><pre><code>enroll</code></pre></div><div></div></div></div>
+ <p>プロンプトが表示されたら、受信者は自分のパスワードを入力します。 これでシステム上の他のユーザーが秘密メールを送信できるようになります。 受信者は、<strong>xget</strong> コマンドを使ってその秘密メールを読むことができます。</p>
+</section>
+
+<section><h2>ファイル</h2> <div> 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><strong>/var/spool/secretmail/User.key</strong></td>
+
+<td>ユーザー用に暗号化されたキーが入っています。</td>
+
+</tr>
+
+<tr>
+<td><strong>/usr/bin/enroll</strong></td>
+
+<td><strong>enroll</strong> コマンドが入っています。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+</section>
+
+</div></div>

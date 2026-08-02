@@ -1,0 +1,176 @@
+<div class="official-dom"><div>
+<section><h2>目的</h2> <p><strong>uuto</strong> コマンドで送信されたファイルの転送を完了させ、ファイルを処理します。</p>
+</section>
+
+<section><h2>構文</h2> <p><strong>uupick</strong> [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/u_commands/uupick.html#uupick__row-d3e159976" target="_blank" rel="noopener noreferrer"><strong>-s</strong></a><em>システム</em> ]</p>
+</section>
+
+<section><h2>説明</h2> <p><strong>uupick</strong> コマンドは、基本ネットワーク・ユーティリティー (BNU) コマンドで、
+指定されたユーザー ID あてに BNU の <strong>uuto</strong> コマンドが送信したファイルの転送を完了して処理します。</p>
+ <p>コピーされたファイルが受信ディレクトリーに到着すると、
+<strong>rmail</strong> コマンドが受信ユーザーにファイルの到着を知らせます。 受信ユーザーは <strong>uupick</strong> コマンドを発行します。
+このコマンドはローカル・システム上の共通ディレクトリー内で、以下の名前の形式で送信されたファイルを探します。</p>
+ <p><strong>/var/spool/uucppublic/receive/</strong><em>ユーザー</em><strong>/</strong><em>システム</em><strong>/</strong><em>ファイル</em></p>
+ <p>見つかったファイルやディレクトリーごとに、
+<strong>uupick</strong> コマンドはローカル・システムの画面上に以下のメッセージを表示します。</p>
+ <div> <div><div><pre><code>from System: [file File] [dir Directory]
+?</code></pre></div><div></div></div></div>
+ <p>疑問符 (?) プロンプト(?)メッセージの後に、 <a href="https://www.ibm.com/docs/ja/ssw_aix_73/u_commands/uupick.html#uupick__file" target="_blank" rel="noopener noreferrer">ファイル処理オプション</a>のいずれかを入力できることが示されます。</p>
+</section>
+
+<section><h2>フラグ</h2> <div> 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><strong>-s</strong><em> システム</em></td>
+
+<td><strong>/var/spool/uucppublic/receive/</strong><em>User</em><strong>/</strong><em>System</em> を検索して、
+指定されたシステムから送信されたファイルを見付けます。 システム名には ASCII 文字以外は使用できません。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+</section>
+
+<section><h2>ファイル処理オプション</h2> <p>疑問符のプロンプト (?) メッセージの後に、以下のいずれかのファイル処理オプションを入力する必要があることを示します。</p>
+ 
+<div><div><table><thead>
+<tr>
+<th><div>オプション</div></th>
+
+<th><div>アクション</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><strong>!</strong><em>コマンド</em></td>
+
+<td>シェルにエスケープして指定されたコマンドを実行します。 コマンドが終了すると、ユーザーは自動的に <strong>uupick</strong> コマンドに戻ります。</td>
+
+</tr>
+
+<tr>
+<td><strong>*</strong></td>
+
+<td>すべてのファイル処理オプションを表示します。</td>
+
+</tr>
+
+<tr>
+<td><strong>a</strong> [<em>ディレクトリー</em>]</td>
+
+<td>現在 <strong>receive</strong> ディレクトリーにあるすべての <strong>uuto</strong> ファイルを、
+ローカル・システムの指定ディレクトリーに転送します。 デフォルトは、現在の作業ディレクトリーです。 宛先ディレクトリーを指定するときは、絶対パス名か相対パス名を使用します。</td>
+
+</tr>
+
+<tr>
+<td><strong>Ctrl-D</strong></td>
+
+<td>処理を停止し、<strong>uupick</strong> コマンドを終了します。</td>
+
+</tr>
+
+<tr>
+<td><strong>d</strong></td>
+
+<td>指定したファイルを削除します。</td>
+
+</tr>
+
+<tr>
+<td><strong>m</strong> [<em>ディレクトリー</em>]</td>
+
+<td>指定したディレクトリーにファイルを移動します。 <em>Directory</em> 変数に絶対パス名を指定しなかった場合には、
+現行ディレクトリーに対応する宛先が使用されます。 宛先を指定しなかった場合、デフォルトはローカル・システム上の現在の作業ディレクトリーとなります。</td>
+
+</tr>
+
+<tr>
+<td><strong>改行</strong></td>
+
+<td>Enter キーを押したとき、受信ディレクトリーの次のエントリーに移動します。</td>
+
+</tr>
+
+<tr>
+<td><strong>p</strong></td>
+
+<td>ワークステーションの画面にファイルの内容を表示します。</td>
+
+</tr>
+
+<tr>
+<td><strong>q</strong></td>
+
+<td>処理を停止し、<strong>uupick</strong> コマンドを終了します。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</section>
+
+<section><h2>例</h2> <ol>
+<li><span></span> <strong>uuto</strong> コマンドで送信されたファイルを受信し、それを現行作業ディレクトリーに追加するには、次のように入力します。<div> <div><div><pre><code>uupick</code></pre></div><div></div></div>システムは以下のようなメッセージを表示します。<div><div><pre><code>from system anchor: file file1
+?</code></pre></div><div></div></div>次のように入力します。<div> <a href="https://www.ibm.com/docs/ja/ssw_aix_73/u_commands/uupick.html#uupick__row-d3e160032" target="_blank" rel="noopener noreferrer">a</a></div>この例では、/usr/bin/file1システムから <strong>uuto</strong> コマンドで送信されたファイルanchorが現行作業ディレクトリーに追加されます。</div>
+</li>
+
+<li><span></span> <strong>uuto</strong> コマンドで送信されたファイルを受信し、それをローカル・システム上の指定されたディレクトリーに追加するには、次のように入力します。<div> <div><div><pre><code>uupick</code></pre></div><div></div></div>システムは以下のようなメッセージを表示します。<div><div><pre><code>from system anchor: file file2
+?</code></pre></div><div></div></div>次のように入力します。<div> <a href="https://www.ibm.com/docs/ja/ssw_aix_73/u_commands/uupick.html#uupick__row-d3e160032" target="_blank" rel="noopener noreferrer">a </a>/usr/bin1</div>この例では、/usr/bin/file2システムから <strong>uuto</strong>コマンドで送信されたファイルanchorが追加されます。/usr/bin1ローカル・システム上のディレクトリー。</div>
+  <p></p><blockquote><span>“</span><strong>注:</strong>a /usr/bin1命令は、1 つだけでなく <em>すべての</em> ファイルを移動することを意味します。 したがって、他のファイルが以下の場所にあるとします。~/anchor/...これらのディレクトリーも移動されます。<span>”</span></blockquote>
+<p></p>
+</li>
+
+<li><span></span>システムから送信されたファイルを検索するにはanchor次のように入力します。<div>uupick  <a href="https://www.ibm.com/docs/ja/ssw_aix_73/u_commands/uupick.html#uupick__row-d3e159976" target="_blank" rel="noopener noreferrer">-s </a>anchor</div>システムは以下のようなメッセージを表示します。<div> <div><div><pre><code>from system anchor: file file1</code></pre></div><div></div></div></div>
+</li>
+
+</ol>
+</section>
+
+<section><h2>ファイル</h2> <div> 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><strong>/usr/bin/uupick</strong></td>
+
+<td><strong>uupick</strong> コマンドのパス名です。</td>
+
+</tr>
+
+<tr>
+<td><strong>/var/spool/uucppublic</strong></td>
+
+<td>BNU 公開ディレクトリーが入っています。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+</section>
+
+</div></div>

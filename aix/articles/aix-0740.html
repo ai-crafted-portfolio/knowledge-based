@@ -1,0 +1,304 @@
+<div class="official-dom"><div>
+<div> <p></p><blockquote><span>“</span><strong>注:</strong> これは System V Print Subsystem コマンドです。<span>”</span></blockquote>
+<p></p>
+</div>
+
+<section><h2>目的</h2> <p>インターフェース・プログラムで使用するデフォルト・プリンター・フィルター。</p>
+</section>
+
+<section><h2>構文</h2> <p><strong>/usr/lib/lp/bin/lp.cat</strong> [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/l_commands/lp.cat.html#lp.cat__row-d3e58981" target="_blank" rel="noopener noreferrer"><strong>-r</strong></a> ] [ <em>レート］</em></p>
+ <p><strong>/usr/lib/lp/bin/lp.set</strong><em> H_ピッチV_ピッチ幅の長さの文字セット</em></p>
+ <p><strong>/usr/lib/lp/bin/lp.tell</strong><em> プリンター</em></p>
+</section>
+
+<section><h2>説明</h2> <p><strong>lp.cat</strong> コマンドは、
+インターフェース・プログラムによって呼び出されるデフォルト・プリンター・フィルターです。 <strong>lp.cat</strong> は、標準入力に印刷されるファイルを読み取り、
+印刷先のデバイスに書き込みます。</p>
+ <p><strong>lp.cat</strong> は次のシグナルを処理します。</p>
+ <ul>
+<li>正常終了 (<strong>SIGTERM</strong>)</li>
+
+<li>シリアル・ライン停止 (<strong>SIGHUP</strong>、データ・キャリア検出 (DCD) 廃棄による)</li>
+
+<li>割り込み (<strong>SIGINT</strong> および <strong>SIGQUIT</strong>)</li>
+
+<li>早期パイプ終了 (<strong>SIGPIPE</strong>)</li>
+
+</ul>
+ <p><strong>lp.cat</strong> コマンドは、
+印刷ジョブの出力待ちの時間が長くなると異常終了します。 デフォルトの最大待ち時間は、出力バッファー・サイズを 2 倍して (2 * 1024 バイト)、
+送信速度、印刷速度、または <em>Rate</em> の指定値 (いずれの速度も字/秒 (CPS)) のうち最小の値で除算すると求められます。 <em>Rate</em> パラメーターにより新しく最大遅延時間を定義できます (このパラメーターで定義した遅延時間の方が長い場合)。 <em>Rate</em> が 0 の場合は、
+遅延できる時間は実際上無期限になります。</p>
+ <p><strong>-r</strong> フラグを指定すると、
+<strong>lp.cat</strong> は字/秒単位で有効スループットを報告します。 この統計は、
+1024 バイト送信されるたびに標準エラー出力に印刷されます。</p>
+ <p>インターフェース・プログラムで <strong>lp.set</strong> コマンドを呼び出して、
+プリンター上の文字ピッチ (<em>H_pitch</em>)、
+行ピッチ (<em>V_pitch</em>)、
+ページ幅 (<em>Width</em>)、
+ページ長 (<em>Length</em>)、
+および文字セット (<em>Charset</em>) を設定できます。</p>
+ <p>デフォルトの単位は、文字と行ピッチの場合は字/インチ、幅の場合は列数、
+長さの場合は行数です。 センチメートルの場合は <strong>c</strong>、インチの場合は <strong>i</strong> を値に付加すると、
+単位を明示的に指定できます。</p>
+ <p>特定の特性を設定できない場合は、
+<strong>lp.set</strong> は値 1 で終了し、
+1 文字の文字コードの後で改行して標準エラー出力に印刷します。 次の表に文字コードを示します。</p>
+ <div> 
+<div><div><table><thead>
+<tr>
+<th><div>文字コード</div></th>
+
+<th><div>設定されていないプリンター特性</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td>H</td>
+
+<td>文字ピッチ</td>
+
+</tr>
+
+<tr>
+<td>L</td>
+
+<td>ページ長</td>
+
+</tr>
+
+<tr>
+<td>S</td>
+
+<td>文字セット</td>
+
+</tr>
+
+<tr>
+<td>V</td>
+
+<td>行ピッチ</td>
+
+</tr>
+
+<tr>
+<td>W</td>
+
+<td>ページ幅</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+ <p>インターフェース・スクリプトでは、
+<strong>lp.tell</strong> を使用して、
+プリンター障害の説明を印刷サービスに送信します。 <strong>lp.tell</strong> は、
+標準入力上で読み取ったものをすべて印刷サービスに送ります。 印刷サービスは、印刷管理者に対するアラートとしてメッセージを送信します。</p>
+</section>
+
+<section><h2>フラグ</h2> <div> 
+<div><div><table><thead> <tr> <th><div>項目</div></th>
+ <th><div>説明</div></th>
+ </tr>
+ </thead>
+<tbody>
+<tr>
+<td><strong>-r</strong></td>
+
+<td><strong>lp.cat</strong> コマンドの場合に、有効スループット (字/秒単位) の報告を指定します。 この統計は、
+1024 バイト送信されるたびに標準エラー出力に印刷されます。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+</section>
+
+<section><h2>終了状況</h2> <div><strong>lp.cat</strong> の場合の有効な終了値を次の表に示します。<div><div><table><thead> <tr> <th><div>項目</div></th>
+ <th><div>説明</div></th>
+ </tr>
+ </thead>
+<tbody>
+<tr>
+<td><strong>0</strong></td>
+
+<td>標準終了; エラーなし</td>
+
+</tr>
+
+<tr>
+<td><strong>1</strong></td>
+
+<td>標準入力が定義されていない</td>
+
+</tr>
+
+<tr>
+<td><strong>※2</strong></td>
+
+<td>標準出力が定義されていない</td>
+
+</tr>
+
+<tr>
+<td><strong>3</strong></td>
+
+<td>プリンター・タイプ (TERM) が定義されていないか terminfo データベース中にない</td>
+
+</tr>
+
+<tr>
+<td><strong>4</strong></td>
+
+<td>標準入力と出力が同一</td>
+
+</tr>
+
+<tr>
+<td><strong>5</strong></td>
+
+<td>書き込みの失敗; プリンターがオフラインの可能性あり</td>
+
+</tr>
+
+<tr>
+<td><strong>6</strong></td>
+
+<td>長時間遅延によるタイムアウト; プリンターがオフラインの可能性あり</td>
+
+</tr>
+
+<tr>
+<td><strong>7</strong></td>
+
+<td>停止 (SIGHUP) 検出; キャリアが消失</td>
+
+</tr>
+
+<tr>
+<td><strong>8</strong></td>
+
+<td>終了 (SIGINT または SIGQUIT) またはパイプの早期クローズ (SIGPIPE)</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+ <p><strong>lp.set</strong> は正常実行された場合は 0 を戻し、
+正常実行されなかった場合はエラーとして 1 を戻します。</p>
+ <div><strong>lp.tell</strong> は次の数値を戻します。<div><div><table><thead> <tr> <th><div>項目</div></th>
+ <th><div>説明</div></th>
+ </tr>
+ </thead>
+<tbody>
+<tr>
+<td><strong>0</strong></td>
+
+<td>標準終了; エラーなし</td>
+
+</tr>
+
+<tr>
+<td><strong>1</strong></td>
+
+<td>表示するサービスに対するメッセージ・キューをオープンできない</td>
+
+</tr>
+
+<tr>
+<td><strong>90</strong></td>
+
+<td>以前のサービスからプリンター名かキーを取得できない</td>
+
+</tr>
+
+<tr>
+<td><strong>91</strong></td>
+
+<td>表示するサービスにメッセージを送信できない</td>
+
+</tr>
+
+<tr>
+<td><strong>92</strong></td>
+
+<td>以前のサービスから肯定応答を受信できない</td>
+
+</tr>
+
+<tr>
+<td><strong>93</strong></td>
+
+<td>以前のサービスから破壊された肯定応答を受信した</td>
+
+</tr>
+
+<tr>
+<td><strong>94</strong></td>
+
+<td>印刷サービスが送信中に破壊されたメッセージを報告した</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+</section>
+
+<section><h2>ファイル</h2> <div> 
+<div><div><table><thead> <tr> <th><div>項目</div></th>
+ <th><div>説明</div></th>
+ </tr>
+ </thead>
+<tbody>
+<tr>
+<td><strong>/usr/lib/lp/bin/lp.cat</strong></td>
+
+<td><strong>lp.cat</strong> の絶対パス名</td>
+
+</tr>
+
+<tr>
+<td><strong>/usr/lib/lp/bin/lp.set</strong></td>
+
+<td><strong>lp.set</strong> の絶対パス名</td>
+
+</tr>
+
+<tr>
+<td><strong>/usr/lib/lp/bin/lp.tell</strong></td>
+
+<td><strong>lp.tell</strong> の絶対パス名</td>
+
+</tr>
+
+<tr>
+<td><strong>/etc/lp/model</strong></td>
+
+<td>プリンター・インターフェース・プログラム・ディレクトリー</td>
+
+</tr>
+
+<tr>
+<td><strong>/etc/lp/interfaces</strong></td>
+
+<td>プリンター・インターフェース・プログラム・ディレクトリー</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+</section>
+
+</div></div>

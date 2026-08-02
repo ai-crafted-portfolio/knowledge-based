@@ -1,0 +1,41 @@
+<div class="official-dom"><div>
+<section><h2>目的</h2> <p>現行プロセスに関連付けられた認証情報をリストします。</p>
+</section>
+
+<section><h2>構文</h2> <p><strong>ページ・リスト</strong> [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/p_commands/paglist.html#paglist__row-d3e70291" target="_blank" rel="noopener noreferrer"><strong>-R</strong></a> <em>モジュール名</em> ]</p>
+</section>
+
+<section><h2>説明</h2> <p><strong>paglist</strong> コマンドは現行プロセスのクレデンシャルを照会し、
+その認証証明書を表示します。</p>
+ <p><strong>-R</strong> オプションを指定しないと、
+<strong>paglist</strong> はユーザーのレジストリー属性を照会し、
+その値を <strong> module_name</strong> に使用します。</p>
+</section>
+
+<section><h2>フラグ</h2> 
+<div><div><table><thead> <tr> <th><div>項目</div></th>
+ <th><div>説明</div></th>
+ </tr>
+ </thead>
+<tbody>
+<tr>
+<td><strong>-R</strong> <em>モジュール名</em></td>
+
+<td>ロード・モジュール <em>module_name
+</em> が現行プロセスに関連付けられた認証証明をリストすることを指定します。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</section>
+
+<section><h2>セキュリティー</h2> <p>アクセス制御: このコマンドは、このコマンドを呼び出したユーザーの ID を
+使用して実行され、それ以上の特権は必要ありません。 これは <code>root</code> が所有すべきですが、誰もが実行できるべきものです。</p>
+</section>
+
+<section><h2>例</h2> <div> <div><div><pre><code>paglist -R FPKI </code></pre></div><div></div></div>この例は、FPKI レジストリー内の現行プロセスに関連付けられた PAG をリストします。</div>
+</section>
+
+</div></div>

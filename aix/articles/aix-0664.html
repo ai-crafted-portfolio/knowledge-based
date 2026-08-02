@@ -1,0 +1,61 @@
+<div class="official-dom"><div>
+<section><h2>目的</h2> <p>IP セキュリティー・デバイスの状況、IP セキュリティー暗号アルゴリズム、および IP セキュリティー・パケットの統計情報をリストします。</p>
+</section>
+
+<section><h2>構文</h2> <p><strong>IP 統計</strong> [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/i_commands/ipsecstat.html#ipsecstat__row-d3e28022" target="_blank" rel="noopener noreferrer"><strong>「-c」</strong></a> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/i_commands/ipsecstat.html#ipsecstat__row-d3e28031" target="_blank" rel="noopener noreferrer"><strong>-d 年</strong></a> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/i_commands/ipsecstat.html#ipsecstat__row-d3e28040" target="_blank" rel="noopener noreferrer"><strong>-A</strong></a> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/i_commands/ipsecstat.html#ipsecstat__row-d3e28049" target="_blank" rel="noopener noreferrer"><strong>-E (E)</strong></a> ]</p>
+</section>
+
+<section><h2>説明</h2> <p><strong>ipsecstat</strong> コマンドはフラグなしで使用し、
+IP セキュリティー・デバイスの状況、IP セキュリティー用にインストールされた暗号アルゴリズム、および IP セキュリティー・パケットの統計情報を表示します。</p>
+ <p>コマンドにはフラグを使用することもでき、IP セキュリティー・デバイスの状況だけをリストしたり、インストールされたアルゴリズムだけをリストしたり、統計情報カウンターを (ゼロに) リセットすることができます。</p>
+</section>
+
+<section><h2>フラグ</h2> <div> 
+<div><div><table><thead> <tr> <th><div>項目</div></th>
+ <th><div>説明</div></th>
+ </tr>
+ </thead>
+<tbody>
+<tr>
+<td><strong>-c</strong></td>
+
+<td>統計情報カウンターをリセットします (現在の値を表示した後で)。 <strong>-c</strong> フラグは他のフラグと共に使用することはできません。</td>
+
+</tr>
+
+<tr>
+<td><strong>-d</strong></td>
+
+<td>IP セキュリティー・デバイスの状況だけをリストします。 <strong>-d</strong> フラグは他のフラグと共に使用することはできません。</td>
+
+</tr>
+
+<tr>
+<td><strong>-A</strong></td>
+
+<td>インストールされた認証アルゴリズムだけをリストします。 <strong>-A</strong> フラグは他のフラグと共に使用することはできません。</td>
+
+</tr>
+
+<tr>
+<td><strong>-E</strong></td>
+
+<td>インストールされた暗号化アルゴリズムだけをリストします。 <strong>-E</strong> フラグは他のフラグと共に使用することはできません。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+</section>
+
+<section><h2>セキュリティー</h2> <div><div><div>
+        <div>
+          <div><span>RBAC ユーザーの注意:</span> このコマンドは特権操作を実行できます。 特権命令を実行できるのは特権ユーザーのみです。 権限と特権の詳細については、<span>セキュリティ</span>の <a href="https://www.ibm.com/docs/ja/ssw_aix_73/security/rbac_priv_cmd_db.html" target="_blank" rel="noopener noreferrer">特権コマンドデータベース</a>を参照してください。 このコマンドに関連する特権と権限のリストについては、'<a href="https://www.ibm.com/docs/ja/ssw_aix_73/l_commands/lssecattr.html" target="_blank" rel="noopener noreferrer"><span>lssecattr</span></a>コマンドまたは'<a href="https://www.ibm.com/docs/ja/ssw_aix_73/g_bostechref/getcmdattr.html" target="_blank" rel="noopener noreferrer"><span>getcmdattr</span></a>サブコマンドを参照のこと。</div>
+        </div>
+      </div></div>
+</div>
+</section>
+
+</div></div>

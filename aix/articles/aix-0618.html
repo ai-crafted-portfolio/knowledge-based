@@ -1,0 +1,120 @@
+<div class="official-dom"><div>
+<section><h2>目的</h2> <p><span>IBM</span>3816 ページプリンタの<strong>troff</strong>コマンド出力を後処理します。</p>
+</section>
+
+<section><h2>構文</h2> <p><strong>ibm3816</strong> [<strong></strong> <a href="https://www.ibm.com/docs/ja/ssw_aix_73/i_commands/ibm3816.html#ibm3816__row-d3e2490" target="_blank" rel="noopener noreferrer"><strong>-アルトペーパー</strong></a>] [<strong></strong> <a href="https://www.ibm.com/docs/ja/ssw_aix_73/i_commands/ibm3816.html#ibm3816__row-d3e2499" target="_blank" rel="noopener noreferrer"><strong>-横長</strong></a>] [<strong></strong> <a href="https://www.ibm.com/docs/ja/ssw_aix_73/i_commands/ibm3816.html#ibm3816__row-d3e2508" target="_blank" rel="noopener noreferrer"><strong>-静かに。</strong></a>] [<strong></strong> <a href="https://www.ibm.com/docs/ja/ssw_aix_73/i_commands/ibm3816.html#ibm3816__row-d3e2514" target="_blank" rel="noopener noreferrer"><strong>-F (R)</strong></a><em>ディレクトリー</em>] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/i_commands/ibm3816.html#ibm3816__row-d3e2528" target="_blank" rel="noopener noreferrer"><strong>I</strong></a>] [<em>ファイル</em>...]</p>
+</section>
+
+<section><h2>説明</h2> <p><strong>ibm3816</strong> コマンドは、<strong>troff</strong> コマンドが作成した中間出力に使用することができるポストプロセッサーです。</p>
+ <div><div>
+        <div>
+          <div><span>注:</span> ページ全体は、印刷される前にメモリー内に配置されます。</div>
+        </div>
+      </div></div>
+ <p>オプションとして 1 つ以上のファイル名を指定すると、<strong>ibm3816</strong> コマンドはそのファイルを処理します。 ファイル名を指定しなければ、このコマンドは標準入力を解釈するフィルターとして機能します。</p>
+ <p><strong>ibm3816</strong> コマンドのフォント・ファイルを使うと、ポストプロセッサーは複数バイトの文字をプリンターに送信できます。 これらの文字は、コード・ページやポイントなどの、表現に複数バイトを必要とする文字、すなわち、複数のグリフが連結されて合成された文字です。</p>
+ <p>例えば、以下の文字コードは、\(ib(不適切なサブセット) 特殊文字は次のとおりです。</p>
+ <div> <div><div><pre><code>"\001\125\xe2\xff\xe8\xe3%\x00\x16\001\074\xe3\xff\xea"</code></pre></div><div></div></div></div>
+ <p>プリンターは、これらのバイトが送信されるとページ・マップ・プリミティブ (PMP) モードになるため、以下を使用する必要があります。001文字を導入するためのディレクティブ。 単一バイト・コードの場合、この一般フォント・パターン・コマンドはポストプロセッサーによって自動的に処理されます。 ゼロが入っているバイトは本来はコード・シーケンスを終了させますが、% (パーセント) 文字は 0 (ゼロ) が入っているバイトをエスケープします。 リテラル% 文字を取得するには、% 記号が次のように表示されるように、別の% 文字でエスケープします。%%. 1 バイト% コードはリテラルのパーセント記号であると想定されるため、1 バイト% 文字はフォント・ファイル内で特別な処理を必要としません。</p>
+ <div><div>
+        <div>
+          <div><span>注:</span><ol>
+<li><span></span> <strong>ibm3816</strong> コマンドは、 <strong>/usr/lib/font/devibm3816</strong> ディレクトリー内の <strong>. 出力</strong> で終わる名前のファイルに依存します。 これらのファイルが正しく設定されていなければ、コマンドは使用可能な出力を作成しません。</li>
+
+<li><span></span>ポストプロセッサーでは、追加のフォント情報を <strong>/usr/lib/font/devibm3816/fonts</strong> ファイルに保管する必要があります。 このファイルに新しいフォントを追加する場合は、追加されたフォントと特殊文字を反映するように <strong>DESC</strong> ファイルも更新します。</li>
+
+</ol>
+</div>
+        </div>
+      </div></div>
+ <p>ファイルのフォーマットを保存します。 ファイルには、次の 4 つのフィールドが入っています。</p>
+ <ul>
+<li><span></span>フォントの 1 文字または 2 文字の名前</li>
+
+<li><span></span>プリンター・フォント・ディスケット上のフォントのフルネーム</li>
+
+<li><span></span>置換フォントの 1 文字または 2 文字の名前</li>
+
+<li><span></span>5 つの使用可能なサイズの配列。</li>
+
+</ul>
+</section>
+
+<section><h2>フラグ</h2> <div> 
+<div><div><table><thead> <tr> <th><div>項目</div></th>
+ <th><div>説明</div></th>
+ </tr>
+ </thead>
+<tbody>
+<tr>
+<td><strong>-アルトペーパー</strong></td>
+
+<td>ファイルを代替用紙入れの用紙に印刷するよう指定します。 デフォルトでは、<strong>ibm3816</strong> コマンドは、1 次用紙入れの用紙に印刷します。</td>
+
+</tr>
+
+<tr>
+<td><strong>-横長</strong></td>
+
+<td>ファイルを用紙の横長の方向 (用紙の長い方の辺が横になる方向) に印刷するよう指定します。 -landscape フラグは、ページを右に 90 度回転させます。 デフォルトでは、<strong>ibm3816</strong> コマンドは用紙に縦長で印刷します。</td>
+
+</tr>
+
+<tr>
+<td><strong>-静かに。</strong></td>
+
+<td>致命的でないエラー・メッセージはすべて表示されないようにします。</td>
+
+</tr>
+
+<tr>
+<td><strong>-F (R)</strong><em>ディレクトリー</em></td>
+
+<td>フォント・ファイルが入っているディレクトリーを指定します。 デフォルトのファイルは <strong>devibm3816</strong> です。 デフォルトでは、このコマンドは <strong>/usr/lib/font</strong> ディレクトリー内でフォント・ファイルを検索します。</td>
+
+</tr>
+
+<tr>
+<td><strong>-i</strong></td>
+
+<td>ジョブの印刷後に、PMP.init マクロによるプリンターの初期化を抑制します。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+</section>
+
+<section><h2>例</h2> <p><strong>ibm3816</strong> コマンドを <strong>troff</strong> コマンドと組み合わせて使用する例を次に示します。</p>
+ <div> <div><div><pre><code>troff file|ibm3816|qprt-dp</code></pre></div><div></div></div></div>
+</section>
+
+<section><h2>ファイル</h2> <div> 
+<div><div><table><thead> <tr> <th><div>項目</div></th>
+ <th><div>説明</div></th>
+ </tr>
+ </thead>
+<tbody>
+<tr>
+<td><strong>/usr/lib/font/devibm3816/*.out</strong></td>
+
+<td><strong>ibm3816</strong> コマンド用のフォント・ファイルが入っています。</td>
+
+</tr>
+
+<tr>
+<td><strong>/usr/lib/font/devibm3816/fonts</strong></td>
+
+<td><strong>ibm3816</strong> コマンドで使用可能なフォントの情報が入っています。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+</section>
+
+</div></div>

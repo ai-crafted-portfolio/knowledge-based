@@ -1,0 +1,168 @@
+<div class="official-dom"><div>
+<section><h2>目的</h2><p>ピア・ドメイン全体にわたって、仮想共有ディスク・サブシステムが使用するディスク・リソースを表示する出力結果を生成します。</p>
+</section>
+
+<section><h2>構文</h2> <p><strong>vsdsklst</strong> [<strong>-v</strong>] [<strong>-d</strong>] {<strong>-a</strong> | <strong> -n</strong> <span><span> node_number</span></span>[, node_number2, ...]}</p>
+</section>
+
+<section><h2>説明</h2> <p>ピア・ドメイン全体に渡るディスク使用状況を検査するにはこのコマンドを使用します。</p>
+</section>
+
+<section><h2>フラグ</h2> <div> <dl>
+<dt>-v</dt>
+
+<dd>ボリューム・グループおよびそれに関連付けられた仮想共有ディスクの
+ディスク使用状況のみを表示します。</dd>
+
+
+<dt>-d</dt>
+
+<dd>ボリューム・グループおよびそれに関連付けられた実際のディスクの
+ディスク使用状況のみを表示します。</dd>
+
+
+<dt>-a</dt>
+
+<dd>システムまたはシステム区画内のすべてのノードについて、指定された情報を
+表示します。</dd>
+
+
+<dt>-<span><span>ノード番号</span></span></dt>
+
+<dd>情報が表示される 1 つ以上のノード番号をリストします。</dd>
+
+</dl>
+</div>
+</section>
+
+<section><h2>パラメーター</h2> <div> <dl>
+<dt><span><span>ノード番号</span></span></dt>
+
+<dd>仮想共有ディスク情報を設定するノードまたは一連のノードを指定します。 <span><span>node_number</span></span> に対して指定する値は、有効な RSCT リモート・ピア・ドメイン・ノード番号と一致させなければなりません。</dd>
+
+
+<dt><span><span>アダプター名</span></span></dt>
+
+<dd>指定されたノードの仮想共有ディスク通信に使用されるアダプター名を指定します。 この
+アダプター名はノードに定義されていなければなりません。 仮想共有ディスク・サポートに
+関係するノードは、正しく通信できるように完全に接続する必要がありますので、
+注意してください。 <strong>ml0</strong> を使用して、仮想共用ディスク・デバイス・ドライバーが SP スイッチを介してデータ要求を送信することを指定します。 この <strong>
+ml0</strong> アダプターは、仮想共有ディスクのデバイス・ドライバーが次にロードされる時点で使用されます。</dd>
+
+
+<dt><span><span>最小バディバッファサイズ</span></span></dt>
+
+<dd>仮想共有ディスクへのリモート要求を満たすためにサーバーが使用する
+最小のバディ・バッファーを指定します。 この値は 2 の累乗で、4096 以上でなければ
+なりません。 推奨値は 4096 (4 KB) です。 512 バイト要求の場合、4 KB は多すぎます。 ただし、
+そのサーバー・ノードでリモート要求がプロセスされる間の短い時間にだけ、バディ・バッファーが
+使用されるように再呼び出しします。</dd>
+
+
+<dt><span><span>「max_buddy_buffer_size」</span></span></dt>
+
+<dd>キャッシュ化されていないリモート要求を満たすためにサーバーが使用する
+最大のバディ・バッファーを指定します。 この値は 2 の累乗で、<span><span>min_buddy_buffer_size</span></span> 以上でなければ
+なりません。 推奨値は 262144 (256 KB) です。 この値は、仮想共有ディスクで
+使用中のアプリケーションの I/O 要求サイズ、および仮想共有ディスク・ソフトウェアで
+使用されるネットワークに依存します。</dd>
+
+
+<dt><span><span>最大メンバー数のバッファー</span></span></dt>
+
+<dd>割り当てる <span><span>max_buddy_buffer_size</span></span> バッファーの数を指定します。 仮想共有ディスクのデバイス・ドライバーは最初にロードされると 1 つの初期サイズが与えられ、
+その後、必要に応じて追加スペースを動的に割り当てたり再利用します。 推奨値は、2000 256 KB
+バッファーです。<p>バディ・バッファーはサーバー上でのみ使用されます。 クライアント・ノード上で <span><span>
+max_buddy_buffers</span></span> を 1 に設定することができます。</p>
+ <div><div>
+        <div>
+          <div><span>注:</span> <span><span>statvsd</span></span> コマンドは、リモート要求がバディ・バッファーを待機しているかどうかを示します。</div>
+        </div>
+      </div></div>
+</dd>
+
+
+<dt><span><span>vsd_max_ip_msg_size</span></span></dt>
+
+<dd>仮想共有ディスクに対する最大メッセージ・サイズを、バイト単位で指定します。 <span>この値は、ネットワークの最大<span>伝送単位 (MTU) サイズ</span>より大きくてはなりません。 推奨値は次のとおりです。</span><ul>
+<li>61440 (60 KB) (スイッチの場合)</li>
+
+<li>8192 (8 KB) (ジャンボ・フレームの<span>イーサネット</span>の場合)</li>
+
+<li>1024 (1 KB) (1500 バイト MTU の<span>イーサネット</span>の場合)</li>
+
+</ul>
+ </dd>
+
+
+<dt><span><span>クラスター名</span></span></dt>
+
+<dd>同時にアクセスされた共有ディスクにサービスしているサーバー・ノードに対し、
+クラスター名を指定する必要があります。 クラスター名にはユーザーが提供する任意の名前を
+使用できます。 1 つのノードは 1 つのクラスターにのみ属します。 例えば、同時アクセス環境に
+おいて、CVSD 用の 2 つのサーバーには、両方ともに同一のクラスター名を指定しなければなりません。<div><div>
+        <div>
+          <div><span>注:</span> <span><span>cluster_name</span></span> は、SSA (Serial Storage Architecture) ディスクにのみ必要です。</div>
+        </div>
+      </div></div>
+</dd>
+
+</dl>
+</div>
+</section>
+
+<section><h2>セキュリティー</h2> <p>このコマンドを実行するには、 <span><span>root</span></span> 権限が必要です。</p>
+</section>
+
+<section><h2>制約事項</h2> <p>このコマンドは、ピア・ドメインでオンラインのノードから実行する必要があります。 オンラインのピア・ドメインに移動するには <strong>startrpdomain</strong> コマンドを使用します。 既存のピア・ドメイン内で、オンラインの特定ノードに移動するには <strong>startrpnode</strong>
+コマンドを使用します。 RSCT ピア・ドメインの作成と管理の詳細については、「<em>RSCT Administration
+Guide</em>」を参照してください。</p>
+</section>
+
+<section><h2>例</h2> <div>次のコマンドの場合:<div><div><pre><code>vsdsklst -dv -a</code></pre></div><div></div></div></div>
+ <p>ノード 1 もしくは 2 で定義されたボリューム・グループおよび仮想共有ディスクを持つ
+システムで以下の情報を表示します。</p>
+ <div><div><pre><code>c164n12.ppd.pok.ibm.com: Node Number:2; Node Name:c164n12.ppd.pok.ibm.com
+c164n12.ppd.pok.ibm.com: Volume group:rootvg; Partition Size:32; Total:271; Free:168
+c164n12.ppd.pok.ibm.com:         Physical Disk:hdisk0; Total:271; Free:168
+c164n12.ppd.pok.ibm.com:     Volume group:testvg is not varied on.
+c164n12.ppd.pok.ibm.com:         Physical Disk:hdisk5;
+c164n12.ppd.pok.ibm.com: Volume group:test1vg; Partition Size:4; Total:537; Free:534
+c164n12.ppd.pok.ibm.com:         Physical Disk:hdisk2; Total:537; Free:534
+c164n12.ppd.pok.ibm.com:         VSD Name:vsd1n2[testnewlv21n2]; Size:1
+c164n12.ppd.pok.ibm.com:         VSD Name:vsd2n2[testlv1n2]; Size:346112.25
+c164n12.ppd.pok.ibm.com:         VSD Name:vsd3n2[testlv2n2]; Size:346112.25
+c164n12.ppd.pok.ibm.com:     Volume group:vg1 is not varied on.
+c164n12.ppd.pok.ibm.com:         Physical Disk:hdisk9;
+c164n12.ppd.pok.ibm.com:     Volume group:sharkvg is not varied on.
+c164n12.ppd.pok.ibm.com:         Physical Disk:hdisk7;
+c164n12.ppd.pok.ibm.com:         Physical Disk:hdisk10;
+c164n12.ppd.pok.ibm.com: Volume group:bdhclvg; Partition Size:32; Total:134; Free:102
+c164n12.ppd.pok.ibm.com:         Physical Disk:hdisk13; Total:134; Free:102
+c164n12.ppd.pok.ibm.com: Volume group:gpfs0vg; Partition Size:8; Total:536; Free:0
+c164n12.ppd.pok.ibm.com:         Physical Disk:hdisk12; Total:536; Free:0
+c164n12.ppd.pok.ibm.com:         VSD Name:gpfs0vsd[gpfs0lv]; Size:352256.75
+c164n12.ppd.pok.ibm.com:     Not allocated physical disks:
+c164n12.ppd.pok.ibm.com:         Physical disk:hdisk1
+c164n12.ppd.pok.ibm.com:         Physical disk:hdisk3
+c164n12.ppd.pok.ibm.com:         Physical disk:hdisk4
+c164n12.ppd.pok.ibm.com:         Physical disk:hdisk6
+c164n12.ppd.pok.ibm.com:         Physical disk:hdisk11
+c164n12.ppd.pok.ibm.com:         Physical disk:hdisk15
+c164n11.ppd.pok.ibm.com: Node Number:1; Node Name:c164n11.ppd.pok.ibm.com
+c164n11.ppd.pok.ibm.com: Volume group:rootvg; Partition Size:32; Total:271; Free:172
+c164n11.ppd.pok.ibm.com:         Physical Disk:hdisk0; Total:271; Free:172
+c164n11.ppd.pok.ibm.com: Volume group:bdhclvg; Partition Size:32; Total:134; Free:102
+c164n11.ppd.pok.ibm.com:         Physical Disk:hdisk9; Total:134; Free:102
+c164n11.ppd.pok.ibm.com:         VSD Name:bdhcvsd1n1[lvbdhcvsd1n1]; Size:45056
+c164n11.ppd.pok.ibm.com: Volume group:testvg; Partition Size:16; Total:134; Free:70
+c164n11.ppd.pok.ibm.com:         Physical Disk:hdisk13; Total:134; Free:70
+c164n11.ppd.pok.ibm.com:     Not allocated physical disks:
+c164n11.ppd.pok.ibm.com:         Physical disk:hdisk1
+c164n11.ppd.pok.ibm.com:         Physical disk:hdisk2
+c164n11.ppd.pok.ibm.com:         Physical disk:hdisk3</code></pre></div><div></div></div></section>
+
+<section><h2>ロケーション</h2> <p><span><span>/opt/rsct/vsd/bin/vsdsklst</span></span></p>
+</section>
+
+</div></div>

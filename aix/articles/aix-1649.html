@@ -1,0 +1,125 @@
+<div class="official-dom"><div>
+<section><h2>目的</h2> <p>ファイル・モード作成マスクを表示または設定します。</p>
+</section>
+
+<section><h2>構文</h2> <p><strong>Umask</strong> [  <a href="https://www.ibm.com/docs/ja/ssw_aix_73/u_commands/umask.html#umask__row-d3e143791" target="_blank" rel="noopener noreferrer"><strong>-S (S) </strong></a>] [ <em>マスク </em>]</p>
+</section>
+
+<section><h2>説明</h2> <p><em>Mask</em> パラメーターを指定しなければ、<strong>umask</strong> コマンドは、
+現在のシェル環境のファイル・モード作成マスクを標準出力に表示します。 3 桁の 8 進数またはシンボリック・コードを使用して <em>Mask</em> パラメーターを指定すると、
+<strong>umask</strong> コマンドは現在のシェル実行環境のファイル作成マスクを設定します。 ファイル作成マスクに設定されたビットは、ファイルの作成時に、
+アプリケーションまたはコマンドによって要求された対応するビットをクリアするために使用されます。</p>
+ <p><strong>chmod</strong> コマンドは、
+シンボリック・コードおよび数字コードを使用して権限を設定する方法を説明します。</p>
+ <p><strong>-S</strong> フラグを指定すると、シンボル出力が生成されます。 このフラグを指定しなければ、デフォルトの出力フォーマットは 8 進です。</p>
+ <p><strong>/usr/bin/umask</strong> コマンドは、サブシェルまたは分離コマンド実行環境で呼び出されると、
+呼び出し側の環境のファイル・モード作成マスクには影響を及ぼしません。 以下の例がこの場合にあてはまります。</p>
+ <div> <div><div><pre><code>(umask 002)</code></pre></div><div></div></div>  <div><div><pre><code>nohup umask ...</code></pre></div><div></div></div>  <div><div><pre><code>find . -exec umask ... \;</code></pre></div><div></div></div></div>
+</section>
+
+<section><h2>フラグ</h2> <div> 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><strong>-S</strong></td>
+
+<td>シンボル出力を生成します。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+</section>
+
+<section><h2>終了状況</h2> <p>次のような終了値が戻されます。</p>
+ 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><strong>0</strong></td>
+
+<td>ファイル・モード作成マスクが正常に変更されました。
+または、<em>Mask</em> パラメーターが指定されません。</td>
+
+</tr>
+
+<tr>
+<td><strong>&gt;0</strong></td>
+
+<td>エラーが発生しました。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</section>
+
+<section><h2>例</h2> <ol>
+<li><span></span>後で作成されるファイルの <strong>IWOTH</strong> ビットがクリアされるようにモード・マスクを設定するには、以下のいずれかを入力します。<div> <div><div><pre><code>umask a=rx,ug+w</code></pre></div><div></div></div>または<div><div><pre><code>umask 002</code></pre></div><div></div></div>モード・マスクの設定後にモード・マスクの現在の値を表示するには、以下のように入力します。<div><div><pre><code>umask</code></pre></div><div></div></div>画面には以下の値が表示されます。<div><div><pre><code>02</code></pre></div><div></div></div></div>
+</li>
+
+<li><span></span>シンボリック出力を作成するには、次のように入力します。<div> <div><div><pre><code>umask -S</code></pre></div><div></div></div>画面には以下の値が表示されます。<div><div><pre><code>u=rwx,g=rwx,o=rx</code></pre></div><div></div></div></div>
+</li>
+
+<li><span></span>数値またはシンボルの出力は、 <strong>Umask</strong> コマンドの後続の呼び出しの <em>マスク</em> パラメーターとして使用できます。 例 2 に示すように、モード・マスクが設定されているとします。 後で作成されるファイルの <strong>IWGRP</strong> ビットと <strong>IWOTH</strong> ビットがクリアされるようにモード・マスクを設定するには、次のように入力します。<div> <div><div><pre><code>umask g-w</code></pre></div><div></div></div></div>
+</li>
+
+<li><span></span>後で作成されるファイルのすべての書き込みビットがクリアされるようにモード・マスクを設定するには、次のように入力します。<div> <div><div><pre><code>umask -- -w</code></pre></div><div></div></div></div>
+  <p></p><blockquote><span>“</span><strong>注 :</strong> <strong>-r</strong>、<strong>-w</strong>、および <strong>-x</strong> <em>Mask</em> の各パラメーター値 (またはハイフンで始まる指定値) の前には、必ず — (二重ハイフン、間にスペースを入れない) を入力し、オプションと解釈されないようにします。<span>”</span></blockquote>
+<p></p>
+</li>
+
+</ol>
+</section>
+
+<section><h2>ファイル</h2> <div> 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><strong>/usr/bin/ksh</strong></td>
+
+<td>Korn シェルの <strong>umask</strong> 組み込みコマンドが入っています。</td>
+
+</tr>
+
+<tr>
+<td><strong>/usr/bin/umask</strong></td>
+
+<td><strong>umask</strong> コマンドが入っています。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+</section>
+
+</div></div>

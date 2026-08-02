@@ -1,0 +1,149 @@
+<div class="official-dom"><div>
+<section><h2>目的</h2>
+
+<p>ワークロードのダウンタイムなしに、指定されたプロセスのライブ・ライブラリ・アップデート（LLU）操作を実行します。</p>
+
+</section>
+
+<section><h2>構文</h2>
+
+<dl>
+
+<dt>プレビュー・モード</dt>
+
+<dd><div><div><pre><code>llvupdate -P -l &lt;logfile&gt;</code></pre></div><div></div></div>
+</dd>
+
+
+
+<dt>実行モード</dt>
+
+<dd><div><div><pre><code>llvupdate -p '&lt;pid1&gt; &lt;pid2&gt;...'  [ -n &lt;retries&gt; ] [ -t &lt;timeout&gt; ] [ -l &lt;logfile&gt; ]</code></pre></div><div></div></div>
+<div><div><pre><code>llvupdate -a -l &lt;logfile&gt; -t &lt;timeout&gt; -n &lt;retries&gt;</code></pre></div><div></div></div>
+<div><div><pre><code>llvupdate -a -e '&lt;pid1&gt; &lt;pid2&gt;...'  [ -n &lt;retries&gt; ] [ -t &lt;timeout&gt; ] [ -l &lt;logfile&gt; ]</code></pre></div><div></div></div>
+</dd>
+
+
+</dl>
+
+</section>
+
+<section><h2>説明</h2>
+
+<p><span>llvupdate</span> コマンドは、AIX オペレーティング・システムの更新時にワークロードのダウンタイムをなくす LLU 操作を実行します。</p>
+
+<p>ライブラリの更新を始める前に、プレビューモードで<span>llvupdate</span>コマンドを実行することができます。 プレビュー・モードでのコマンド出力は、プロセスで使用されているライブラリよりも新しいLLU対応ライブラリを少なくとも1つ持つLLU対応プロセスのリストを提供する。</p>
+
+<div><span>llvupdate</span>コマンドは次のような場合に実行できる：<ul>
+<li>ライブアップデートの操作後。 <span>llvupdate</span>コマンドを使って、ワークロードがサロゲート論理パーティション上で実行されている間に、実行中のプロセスのライブラリを更新することができます。</li>
+
+<li>独立したオペレーションとして。 LLU 対応ライブラリの更新版がサービスアップデートや暫定的な修正という形で利用可能な場合、<span>llvupdate</span> コマンドを実行することで、ダウンタイムなしにライブラリを更新することができます。</li>
+
+</ul>
+</div>
+
+<div><div>
+        <div>
+          <div><span>注:</span><ul>
+<li><span>llvupdate</span>コマンドを実行できるのはrootユーザーだけです。</li>
+
+<li>ライブアップデートの実行中は、<span>llvupdate</span>コマンドを個別に実行することはできません。 すべての制限についての詳細は、<a href="https://www.ibm.com/docs/ja/ssw_aix_73/install/live_library_update_install.html#live_library_update_install/restriction_llvupdate" target="_blank" rel="noopener noreferrer">LLU操作のための<span>llvupdate</span>コマンドの使用に関する制限</a>を参照してください。</li>
+
+</ul>
+
+</div>
+        </div>
+      </div></div>
+
+</section>
+
+<section><h2>フラグ</h2>
+
+<dl>
+
+<dt><span>-h</span></dt>
+
+<dd><p>コマンド、各種フラグ、使用可能なオプションに関するヘルプ情報を表示する。</p>
+
+</dd>
+
+
+
+<dt><span>-P</span></dt>
+
+<dd><p>プレビューモードを指定する。</p>
+
+<p>このコマンドは、システム上で実行中のすべてのプロセスをスキャンする。 システムによって現在ロードされているライブラリをチェックし、現在インストールされているライブラリと比較する。 このコマンドは、LLUに対応しているプロセスを表示し、LLU操作が進行中のプロセスも報告します。</p>
+
+</dd>
+
+
+
+<dt><span>-p</span> '&lt;pid1&gt; &lt;pid2&gt; ...'</dt>
+
+<dd><p>指定したプロセスのライブ・ライブラリ・アップデートを開始します。 <span>-p</span> フラグを使用すると、<span>llvupdate</span> コマンドは各プロセスの LLU 操作の進行状況を監視し、タイムアウト時間内に更新操作を完了しなかったプロセスについては操作を停止します。</p>
+
+</dd>
+
+
+
+<dt><span>-a</span></dt>
+
+<dd><p><span>-p</span> フラグと同じ働きをしますが、このフラグはすべてのプロセスをスキャンし、タイムアウトポリシーに従ってすべての LLU 対応プロセスに対してライブライブラリアップデート操作を開始します。</p>
+
+</dd>
+
+
+
+<dt><span>-e</span> '&lt;pid1&gt; &lt;pid2&gt; ...'</dt>
+
+<dd><p><span>-p</span> フラグと同じ働きをしますが、このフラグは指定されたプロセスをライブライブラリの更新操作から除外します。</p>
+
+</dd>
+
+
+
+<dt><span>-l</span> &lt;ログファイル&gt;</dt>
+
+<dd><p>使用するログファイルを指定します。 デフォルトでは、ログファイルは<span>/var/adm/ras/liveupdate/logs/llvupdlog.&lt;date.time&gt;</span>です。</p>
+
+</dd>
+
+
+
+<dt><span>-n</span> &lt;リトライ&gt;</dt>
+
+<dd><p>ライブ・ライブラリ更新操作を試行する回数を指定します。 デフォルト値は 3 です。</p>
+
+</dd>
+
+
+
+<dt><span>-t</span> &lt;タイムアウト&gt;</dt>
+
+<dd><p>プロセス内のすべてのスレッドが、LLU操作を実行できる状態に到達するまでの時間を指定する。 このタイムアウト時間内にLLU操作が開始できなかった場合、そのプロセスの操作はキャンセルされ、10秒後に<code><span>-n</span> &lt;retries&gt;</code>フラグで指定された回数まで再試行されます。 デフォルトのタイムアウト時間は30秒である。 タイムアウトの最大値は300秒。</p>
+
+</dd>
+
+
+</dl>
+
+</section>
+
+<section><h2>例</h2>
+
+<ol>
+<li>LLU 操作を開始する前に、LLU 対応プロセスと進行中の LLU 操作を識別し、特定のログ・ファイルを指定するには、次のコマンドを入力します：<div><div><pre><code>llvupdate -a -t 25 -n 5 -l /tmp/foo</code></pre></div><div></div></div><p>先の例では、<span>llvupdate</span>コマンドのログ情報は<span>/tmp/foo</span>ファイルに保存される。 デフォルトのログファイルは<span>/var/adm/ras/liveupdate/logs/llvupdlog</span>です。</p>
+</li>
+
+<li>特定のプロセスに対してLLU操作を実行し、タイムアウト時間を2分として再試行する回数として5を指定するには、以下のコマンドを入力する：<div><div><pre><code>llvupdate -p 'p1 p2 p3' -t 120 -n 5</code></pre></div><div></div></div></li>
+
+<li>すべてのLLU対応プロセスに対してLLU操作を実行するには、以下のコマンドを入力する：<div><div><pre><code>llvupdate -a </code></pre></div><div></div></div></li>
+
+<li>指定したプロセス以外のLLU対応プロセスに対してLLU操作を実行し、タイムアウト時間を2分として再試行する回数に5を指定するには、次のコマンドを入力します：<div><div><pre><code>llvupdate -a -e 'p1 p2 p3' -t 120 -n 5</code></pre></div><div></div></div></li>
+
+</ol>
+
+</section>
+
+</div></div>

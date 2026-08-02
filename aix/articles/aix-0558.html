@@ -1,0 +1,75 @@
+<div class="official-dom"><div>
+<section><h2>目的</h2> <p><strong>lconv</strong> ライブラリーで使用するコード・セット変換テーブルを生成します。</p>
+</section>
+
+<section><h2>構文</h2> <p><strong>genxlt</strong> [ OutputFile ]</p>
+</section>
+
+<section><h2>説明</h2> <p><strong>genxlt</strong> コマンドでは、標準入力からソース・コード・セット変換テーブル・ファイルが読み取られて、コンパイル済みバージョンが <em>OutputFile</em> パラメーターで指定したファイルに書き込まれます。 <em>OutputFile</em> パラメーターに値を指定しないと、標準出力が使用されます。 ソース・コード・セット変換テーブル・ファイルには、<strong>genxlt</strong> コマンドによって作動する、コンパイル済みバージョンを生成するための指示が入っています。</p>
+ <p>コード・セット変換テーブル・ソース・ファイルのフォーマットは次のとおりです。</p>
+ <ul>
+<li><span></span>先頭の非空白文字が # (ポンド記号) である行は、コメント行として扱われます。</li>
+
+<li><span></span>ヌル行、および空白文字のみで構成される行は、コメント行として扱われます。</li>
+
+<li><span></span>非コメント行は、以下の形式でなければなりません。<div> <div><div><pre><code>%token &lt;blank&gt;   # &lt;tab&gt; and &lt;space&gt;
+%token &lt;hex&gt;     # &lt;zero&gt;, &lt;one&gt;, &lt;two&gt;, &lt;three&gt;, &lt;four&gt;,
+               # &lt;five&gt;, &lt;six&gt;, &lt;seven&gt;, &lt;eight&gt;, &lt;nine&gt;,
+               # &lt;a&gt;, &lt;b&gt;, &lt;c&gt;, &lt;d&gt;, &lt;e&gt;, &lt;f&gt;,
+               #  &lt;A&gt;, &lt;B&gt;, &lt;C&gt;, &lt;D&gt;, &lt;E&gt;, &lt;F&gt;,
+%token &lt;any&gt;     # any character but '\n'
+line    :  offset  blank  value  blank  comment  '\n'
+        | 'SUB'  blank  value  blank  comment  '\n'
+        ;
+
+blank    : &lt;blank&gt;
+        | blank &lt;blank&gt;
+        ;
+
+offset   :  '0x'  &lt;hex&gt;
+        |  offset  &lt;hex&gt;
+        ;
+ 
+
+value    :  offset
+        |  'invalid'
+        |  'substitution'
+        ;
+   
+
+comment  :  '#'  &lt;any&gt;
+        |  comment  &lt;any&gt;
+        ;</code></pre></div><div></div></div></div>
+</li>
+
+</ul>
+ <p>オフセットが以下のような行'SUB'デフォルトの置換文字を指定するために使用されます。</p>
+ <p>表が以下のように設定されているとします。'substitution'このテーブルを使用する<strong> iconv</strong> コンバーターは、SUBこのオフセットの値。</p>
+ <p>値が以下のように設定されているとします。'invalid'このテーブルを使用する<strong> iconv</strong> コンバーターは、そのオフセットについてエラーを戻します。</p>
+ <p>オフセットがソース・コード・セット変換テーブル・ファイル内で何度も検出されると、変換テーブルのコンパイルで最後のエントリーが使用されます。</p>
+ <p>オフセットと値は、0x00 から 0xff の範囲内に限定されます。</p>
+ <p>次に、コード・セット変換テーブルから一部抜粋したものを紹介します。</p>
+ <div> <div><div><pre><code>SUB     0x1a     substitute character
+0x80    0xc7     C  cedilla
+0x81    0xfc     u  diaeresis
+0x82    0xe9     e  acute
+0x83    0xe2     a  circumflex
+0x84    0xe4     a  diaeresis
+0x85    0x40     a  grave
+0x9F            substitution
+0xff            invalid</code></pre></div><div></div></div></div>
+ <p>正常に実行された場合、 <strong>genxlt</strong> コマンドは値 0 で終了します。 出力ファイルを開くことができない場合、 <strong>genxlt</strong> コマンドは失敗し、値 1 で終了します。 入力ストリームで構文エラーが検出されると、 <strong>genxlt</strong> コマンドは即時に値 2 で終了し、構文エラーが発生した行番号を標準エラーに書き込みます。</p>
+ <p><strong>genxlt</strong> コマンドによって作成されるファイルの名前は、<strong>iconv</strong> サブシステムがそのファイルを変換ファイルとして認識できるように、次の命名規則に準じたものでなければなりません。</p>
+ <div> <div><div><pre><code>fromcode: "IBM-850"
+tocode: "ISO8859-1"
+conversion table file: "IBM-850_ISO8859-1"</code></pre></div><div></div></div></div>
+ <p>変換テーブル・ファイル名は、次のものを連結することによって形成されます。tocodeファイル名をfromcodeファイル名。2 つの間に下線が付きます。</p>
+</section>
+
+<section><h2>例</h2> <p>英語以外の言語によるユーザー定義のコード・セット変換テーブルを生成するには、次のように入力します。</p>
+ <div> <div><div><pre><code>cp  /usr/lib/nls/loc/iconvTable/ISO8859-1_IBM-850_src  $HOME
+vi  $HOME/ISO8859-1_IBM-850_src
+genxlt  &lt;  $HOME/ISO8859-1_IBM-850_src  &gt;  cs1_cs2</code></pre></div><div></div></div></div>
+</section>
+
+</div></div>

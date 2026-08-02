@@ -1,0 +1,115 @@
+<div class="official-dom"><div>
+<section><h2>目的</h2> <p>集中 RAS データを収集します。</p>
+</section>
+
+<section><h2>構文</h2> <p><strong>psrasc</strong> <a href="https://www.ibm.com/docs/ja/ssw_aix_73/p_commands/psrasc.html#psrasc__psrasc_flags_type" target="_blank" rel="noopener noreferrer"><strong>type</strong></a>[<a href="https://www.ibm.com/docs/ja/ssw_aix_73/p_commands/psrasc.html#psrasc__psrasc_flags_d" target="_blank" rel="noopener noreferrer"><strong> -d] </strong></a>[<a href="https://www.ibm.com/docs/ja/ssw_aix_73/p_commands/psrasc.html#psrasc__psrasc_flags_n" target="_blank" rel="noopener noreferrer"><strong> -n</strong></a> <em>number</em>]<a href="https://www.ibm.com/docs/ja/ssw_aix_73/p_commands/psrasc.html#psrasc__psrasc_flags_o" target="_blank" rel="noopener noreferrer"><strong>-o</strong></a> <em>outputFile</em> <a href="https://www.ibm.com/docs/ja/ssw_aix_73/p_commands/psrasc.html#psrasc__psrasc_flags_log" target="_blank" rel="noopener noreferrer"><strong>logSpace/logStream</strong></a></p>
+</section>
+
+<section><h2>説明</h2> <p><strong>psrasc</strong>コマンドは、<span>PowerHA pureScale</span>ログストリームに集中管理されている RAS (Reliability/Availability/Serviceability) データログレコードを抽出し、RAS データAIX®フォーマットのファイルを作成します。 PowerHA® pureScale®のサービス名は<strong>CentralizedLogService</strong> です。 このサービス名のバインディング情報は、<strong>psrasc</strong> コマンドを使用する前にセットアップする必要があります。</p>
+ </section>
+
+<section><h2>RAS データ型</h2> <p>指定された型が <strong>syslog</strong> の場合は、ログ・レコードには、メッセージ・イニシエーター・ホスト名を含むシステム・ログ・メッセージが含まれます。 生成されたファイルのフォーマットは、システム・ログ宛先ファイルに類似しています。 指定された型が <strong>errlog</strong> の場合は、ログ・レコードにはエラー・ログ・エントリーが含まれます。 生成されたファイルは、あとで <strong>errpt</strong> コマンドによって活用できるエラー・ログ・ファイルです。</p>
+</section>
+
+<section><h2>フラグ</h2> <div> 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><strong>type</strong></td>
+
+<td>ログ・レコードに含まれる RAS データの型を指定します。 このパラメーターは、最初に指定する必要があります。 サポートされる RAS データ型は、<strong>syslog</strong> と <strong>errlog</strong> です。 この型に応じて、出力ファイルのフォーマットが決まります。</td>
+
+</tr>
+
+<tr>
+<td><strong>-d</strong></td>
+
+<td>収集されたログ・レコードが削除されることを指定します。</td>
+
+</tr>
+
+<tr>
+<td><strong>-n </strong><em>Number</em></td>
+
+<td>収集するログ・レコードの数を指定します。 最も古いログ・レコードが収集されます。 このパラメーターを指定しない場合は、すべてのログ・レコードが収集されます。</td>
+
+</tr>
+
+<tr>
+<td><strong>-o</strong> <em>
+OutputFile</em></td>
+
+<td>出力ファイルの相対パス名または絶対パス名を指定します。 その名前のファイルが既に存在する場合は上書きされます。</td>
+
+</tr>
+
+<tr>
+<td><strong>ログ_スペース/ログ_ストリーム</strong></td>
+
+<td>システム・ログ・メッセージの収集元のログ・ストリームのフルネームを指定します。 フルネームは、<strong>/</strong> (スラッシュ) で区切られた親ログ・スペース名とログ・ストリーム名で構成されます。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+</section>
+
+<section><h2>終了状況</h2> <div>このコマンドは、以下の終了値を戻します。<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><code>0</code></td>
+
+<td>正常終了。</td>
+
+</tr>
+
+<tr>
+<td><code>&gt; 0</code></td>
+
+<td>エラーが発生しました。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+</section>
+
+<section><h2>例</h2> <ol>
+<li><strong>CentralizedRAS/Syslog</strong>という名前のログストリームのログレコードを、'<strong>syslog.out</strong>ファイル上の<p></p><strong>CentralizedLogService</strong>サービス名で識別される<span>PowerHA pureScale</span>サーバーを入力します：<div><code>psrasc syslog -o syslog.out CentralizedRAS/Syslog</code></div>
+</li>
+
+<li><strong>CentralizedRAS/Syslog</strong>という名前のログストリームの最も古いログレコード 100 件を<span>PowerHA pureScale</span>サーバーの<strong>/var/adm/ras/cluster_syslog</strong>ファイルに収集するには、次の手順に従います<p><strong>CentralizedLogService</strong>サービス名で識別し、それらを削除するには、次のように入力します：</p>
+ <div><code>psrasc syslog -d -n 100 -o /var/adm/ras/cluster_syslog CentralizedRAS/Syslog</code></div>
+</li>
+
+<li><strong>CentralizedRAS/Errlog</strong>という名前のログストリームのログレコードを、CentralizedLogServiceサービス名で識別される<span>PowerHA pureScale</span>サーバー<strong>上centralizedRAS_errlog </strong>のファイルに収集するには、次のように入力します：<div><code>psrasc errlog -o centralizedRAS_errlog CentralizedRAS/Errlog</code></div>
+</li>
+
+<li>の<strong>/var/adm/ras/cluster_errlog</strong>エラーログファイルに、<strong>CentralizedRAS/Errlog</strong>というログストリームの最も古いログレコード100件を収集し、削除するには、以下の手順に従います<p><strong>centralizedRAS_error</strong>サービスによって識別される'<span>PowerHApureScale</span>サーバーを入力する：</p>
+ <div><code>psrasc errlog -d -n 100 -o /var/adm/ras/cluster_errlog CentralizedRAS/Errlog</code></div>
+</li>
+
+</ol>
+</section>
+
+</div></div>

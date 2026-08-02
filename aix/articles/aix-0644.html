@@ -1,0 +1,259 @@
+<div class="official-dom"><div>
+<section><h2>目的</h2> <p>キーワードまたは修正プログラムに関連するファイルセットをインストールします。</p>
+</section>
+
+<section><h2>構文</h2> <p><strong>本能</strong> [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/i_commands/instfix.html#instfix__row-d3e17158" target="_blank" rel="noopener noreferrer"><strong>-T (T)</strong></a> [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/i_commands/instfix.html#instfix__row-d3e17073" target="_blank" rel="noopener noreferrer"><strong>-M (M)</strong></a> <em>プラットフォーム</em> ] ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/i_commands/instfix.html#instfix__row-d3e17141" target="_blank" rel="noopener noreferrer"><strong>-s</strong> </a> <em>ストリング</em> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/i_commands/instfix.html#instfix__row-d3e17149" target="_blank" rel="noopener noreferrer"><strong>-S (S)</strong></a> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/i_commands/instfix.html#instfix__row-d3e17061" target="_blank" rel="noopener noreferrer"><strong>-k (K)</strong></a> <em>キーワード</em> | <a href="https://www.ibm.com/docs/ja/ssw_aix_73/i_commands/instfix.html#instfix__row-d3e17022" target="_blank" rel="noopener noreferrer"><strong>「-f」</strong></a> <em>ファイル</em> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/i_commands/instfix.html#instfix__row-d3e17107" target="_blank" rel="noopener noreferrer"><strong>P-</strong></a> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/i_commands/instfix.html#instfix__row-d3e17001" target="_blank" rel="noopener noreferrer"><strong>-d 年</strong></a> <em>装置</em> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/i_commands/instfix.html#instfix__row-d3e17040" target="_blank" rel="noopener noreferrer"><strong>I</strong></a> [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/i_commands/instfix.html#instfix__row-d3e16968" target="_blank" rel="noopener noreferrer"><strong>「-c」</strong></a> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/i_commands/instfix.html#instfix__row-d3e17122" target="_blank" rel="noopener noreferrer"><strong>-Q (Q)</strong></a> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/i_commands/instfix.html#instfix__row-d3e17164" target="_blank" rel="noopener noreferrer"><strong>T</strong> <em>タイプ</em></a> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/i_commands/instfix.html#instfix__row-d3e17188" target="_blank" rel="noopener noreferrer"><strong>-v (V)</strong></a> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/i_commands/instfix.html#instfix__row-d3e17016" target="_blank" rel="noopener noreferrer"><strong>-F (R)</strong> </a> ] ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/i_commands/instfix.html#instfix__row-d3e16953" target="_blank" rel="noopener noreferrer"><strong>-a 値</strong></a> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/i_commands/instfix.html#instfix__row-d3e17134" target="_blank" rel="noopener noreferrer"><strong>-R</strong></a> ]</p>
+</section>
+
+<section><h2>説明</h2> <p><strong>instfix</strong> コマンドによって、プログラム診断依頼書 (APAR) 番号や修正プログラムを識別するその他の固有のキーワード以外の情報が分からない場合でも、
+修正プログラムやそのセットをインストールできます。</p>
+ <p>修正プログラムのコードは 1 つ以上のファイルセットに格納されています。 修正情報は、インストール・メディア上の目次 (TOC) として編成されています。 修正プログラムをインストールすると、修正情報はシステムの修正データベースで保管されます。</p>
+ <p>また <strong>instfix</strong> コマンドを使用して、使用システムに修正プログラムがインストールされているかどうかを判定することもできます。</p>
+
+<div><div>
+        <div>
+          <div><span>注:</span><ul>
+<li><span>instfix</span> コマンドの戻りコードは、<span>/usr/include/inuerr.h</span> ファイルに文書化されています。このファイルは、<span>bos.adt.include</span> ファイルセットと共に出荷されます。 また、一般的な障害コード 1 および <span>/usr/include/errno.h</span> ファイルから EACCES (13) への単一参照もあります。</li>
+
+<li>暫定修正情報をリストできるのは、<span>-f</span>、<span>-i</span>、<span>-k</span>、<span>-q</span>、<span>-r</span>、<span>-t</span>、および<span>-v</span> の各フラグを使用する場合だけです。 <span>instfix</span> コマンドを使用して暫定修正をインストールすることはできません。</li>
+
+</ul>
+
+</div>
+        </div>
+      </div></div>
+</section>
+
+<section><h2>フラグ</h2> <div> 
+<div><div><table><thead> <tr> <th><div>項目</div></th>
+ <th><div>説明</div></th>
+ </tr>
+ </thead>
+<tbody>
+<tr>
+<td><strong>-a</strong></td>
+
+<td>修正プログラムに関連する症状テキストを表示します。 <strong>-i</strong>、<strong>-k</strong>、または <strong>-f</strong> フラグと組み合わせることができます。</td>
+
+</tr>
+
+<tr>
+<td><strong>-c</strong></td>
+
+<td><strong>-i</strong> フラグと共に使用するために、コロンで区切られた出力を表示します。 出力には、キーワード名、ファイルセット名、必要なレベル、インストールされているレベル、状況、および要約が含まれます。 インストールされていないファイルセットを表示するには、 <span><span>-v</span></span> フラグも使用する必要があります。 状況の値を以下に示します。<dl>
+<dt>-</dt>
+
+<dd>無効レベル</dd>
+
+
+<dt>=</dt>
+
+<dd>正しいレベル</dd>
+
+
+<dt>+</dt>
+
+<dd>置き換えられた状態</dd>
+
+
+<dt>!</dt>
+
+<dd>インストールされていない状態</dd>
+
+</dl>
+</td>
+
+</tr>
+
+<tr>
+<td><strong>-d</strong><em> デバイス</em><strong></strong></td>
+
+<td>入力デバイスを指定します。 <strong>-i</strong> フラグおよび <strong>-a</strong> フラグを使用する場合は無効です。</td>
+
+</tr>
+
+<tr>
+<td><strong>-F</strong></td>
+
+<td>修正プログラムに関連するすべてのファイルセットがインストールされていない場合、障害を戻します。</td>
+
+</tr>
+
+<tr>
+<td><strong>-f</strong><em> ファイル</em><strong></strong></td>
+
+<td>キーワードまたは修正プログラムを含む入力ファイルを指定します。 標準入力の場合は <strong>-</strong> (ダッシュ) です。 <strong>-T</strong> フラグは、<strong>-f</strong> に適した入力ファイルの形式を作成します。</td>
+
+</tr>
+
+<tr>
+<td><strong>-i</strong></td>
+
+<td>修正プログラムまたはキーワードがインストールされているかどうかを表示します。 このフラグは、<strong>-k</strong> フラグまたは <strong>-f</strong> フラグのどちらかと共に使用します。 <strong>-i</strong> フラグを指定した場合、インストールは行われません。 <strong>-k</strong> または <strong>-f</strong> フラグを指定していない場合、既知のすべての修正プログラムが表示されます。</td>
+
+</tr>
+
+<tr>
+<td><strong>-k (K)</strong><em> キーワード</em><strong></strong></td>
+
+<td>インストールする APAR 番号またはキーワードを指定します。 複数のキーワードを入力できます。 <strong>-k</strong> フラグと共に入力されるキーワードのリストは、引用符で囲まれ、スペースで区切られなければなりません。</td>
+
+</tr>
+
+<tr>
+<td><strong>-M (M)</strong><em> プラットフォーム</em></td>
+
+<td>特定のプラットフォームのための修正プログラムのリストを入手するため、以下に示すプラットフォーム (<em>Platform</em>) の値のいずれかを使うことを指定します。<dl>
+<dt><strong>R</strong></dt>
+
+<dd><span>POWER プロセッサベース</span>のプラットフォームの修正のみを指定する。</dd>
+
+
+<dt><strong>N</strong></dt>
+
+<dd>中立のフィックス、つまり、 <span>POWER プロセッサー・ベース</span> プラットフォームに限定されないフィックスを指定します。</dd>
+
+
+<dt><strong>A</strong></dt>
+
+<dd>すべての修正プログラムを指定します。</dd>
+
+</dl>
+</td>
+
+</tr>
+
+<tr>
+<td><strong>-p</strong></td>
+
+<td>キーワードに関連するファイルセットを表示します。 このフラグは、<strong>-k</strong> または <strong>-f</strong> フラグのどちらかと共に使用します。 <strong>-p</strong> フラグを指定した場合、インストールは行われません。</td>
+
+</tr>
+
+<tr>
+<td><strong>-q</strong></td>
+
+<td>抑止モードを指定します。 このフラグは <strong>-i</strong> フラグと共に使用します。 <strong>-c</strong> フラグを指定した場合、見出しは表示されません。-c フラグを指定しない場合、何も出力されません。</td>
+
+</tr>
+
+<tr>
+<td><strong>-R</strong></td>
+
+<td>ユーザー指定インストール・ロケーション (USIL) を指定します。</td>
+
+</tr>
+
+<tr>
+<td><strong>-s</strong><em> ストリング</em></td>
+
+<td>メディアから特定の文字列を含む修正プログラムを検索して表示します。</td>
+
+</tr>
+
+<tr>
+<td><strong>-S</strong></td>
+
+<td>インストール・デバイスが CD-ROM の場合、マルチボリュームの処理を抑制します。 CD-ROM からのインストールは、CD-ROM がマルチボリュームの CD セットの情報を含む場合でも、常に単一ボリュームとして扱われます。 <strong>INU_SINGLE_CD</strong> 環境を設定した場合も、これと同じマルチボリューム処理の抑制が行われます。</td>
+
+</tr>
+
+<tr>
+<td><strong>-T</strong></td>
+
+<td>メディア上の修正プログラム全体のリストを表示します。</td>
+
+</tr>
+
+<tr>
+<td><strong>-t</strong><em>タイプ</em></td>
+
+<td><strong>-i</strong> フラグを指定して使用した場合、指定された型に検索操作を制限します。 有効な値は次のとおりです。<dl>
+
+<dt><strong>F</strong></dt>
+
+<dd>修正プログラム</dd>
+
+
+
+<dt><strong>p</strong></dt>
+
+<dd>予防保守</dd>
+
+
+
+<dt>i</dt>
+
+<dd>暫定修正</dd>
+
+
+</dl>
+</td>
+
+</tr>
+
+<tr>
+<td><strong>-v</strong></td>
+
+<td><strong>-i</strong> フラグと共に使用した場合、詳細モードを指定します。 修正またはキーワードに関連する各ファイルセットについての情報を表示します。 インストールされていないファイルセットを表示するには、このフラグを <span><span>-i</span></span> フラグと一緒に使用します。 未インストールのファイルセットは <code>!</code> (感嘆符) で示されます。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+</section>
+
+<section><h2>セキュリティー</h2> <p>特権制御: <strong>instfix</strong> コマンドを使用してインストールするには root ユーザー
+でなければなりません。それ以外のユーザーは、修正データベースを照会する場合に <strong>
+instfix</strong> コマンドを実行することができます。</p>
+</section>
+
+<section><h2>例</h2> <ol>
+<li><span></span>修正に関連したすべてのファイルセットをインストールします。IX38794取り付けられたテープから/dev/rmt0.1、タイプ:<div>instfix  <a href="https://www.ibm.com/docs/ja/ssw_aix_73/i_commands/instfix.html#instfix__row-d3e17061" target="_blank" rel="noopener noreferrer">-k</a> IX38794  <a href="https://www.ibm.com/docs/ja/ssw_aix_73/i_commands/instfix.html#instfix__row-d3e17001" target="_blank" rel="noopener noreferrer">-d</a> /dev/rmt0.1</div>
+</li>
+
+<li><span></span>磁気テープ・ドライブのメディアにすべての修正をインストールするには、次のように入力します。<div>instfix  <a href="https://www.ibm.com/docs/ja/ssw_aix_73/i_commands/instfix.html#instfix__row-d3e17158" target="_blank" rel="noopener noreferrer">-T</a>  <a href="https://www.ibm.com/docs/ja/ssw_aix_73/i_commands/instfix.html#instfix__row-d3e17001" target="_blank" rel="noopener noreferrer">-d</a> /dev/rmt0.1 | instfix  <a href="https://www.ibm.com/docs/ja/ssw_aix_73/i_commands/instfix.html#instfix__row-d3e17001" target="_blank" rel="noopener noreferrer">-d</a> /dev/rmt0.1  <a href="https://www.ibm.com/docs/ja/ssw_aix_73/i_commands/instfix.html#instfix__row-d3e17022" target="_blank" rel="noopener noreferrer">-f-</a></div>このコマンドの最初の実行ではメディア上の修正プログラムのリストを入手し、このコマンドの第 2 の実行でそのリストを入力として使用しています。</li>
+
+<li><span></span>ストリングが入っているテープ上のすべてのキーワード項目をリストします。SCSI、タイプ:<div>instfix  <a href="https://www.ibm.com/docs/ja/ssw_aix_73/i_commands/instfix.html#instfix__row-d3e17141" target="_blank" rel="noopener noreferrer">-s</a> SCSI  <a href="https://www.ibm.com/docs/ja/ssw_aix_73/i_commands/instfix.html#instfix__row-d3e17001" target="_blank" rel="noopener noreferrer">-d</a> /dev/rmt0.1</div>
+</li>
+
+<li><span></span>修正の有無をユーザーに通知するIX38794およびIX48523インストール済み、タイプ:<div>instfix  <a href="https://www.ibm.com/docs/ja/ssw_aix_73/i_commands/instfix.html#instfix__row-d3e17040" target="_blank" rel="noopener noreferrer">-i</a>  <a href="https://www.ibm.com/docs/ja/ssw_aix_73/i_commands/instfix.html#instfix__row-d3e17061" target="_blank" rel="noopener noreferrer">-k</a> "IX38794 IX48523"</div>
+</li>
+
+<li><span></span>フィックスに関連付けられたファイルセットのリストを作成するには、以下のようにします。IX12345の場合bffs合計の/bffsディレクトリー、タイプ:<div>instfix  <a href="https://www.ibm.com/docs/ja/ssw_aix_73/i_commands/instfix.html#instfix__row-d3e17107" target="_blank" rel="noopener noreferrer">-p</a>  <a href="https://www.ibm.com/docs/ja/ssw_aix_73/i_commands/instfix.html#instfix__row-d3e17061" target="_blank" rel="noopener noreferrer">-k</a> IX12345  <a href="https://www.ibm.com/docs/ja/ssw_aix_73/i_commands/instfix.html#instfix__row-d3e17001" target="_blank" rel="noopener noreferrer">-d</a> /bffs | installp -acgX -f- -d /bffs</div>このシーケンスは、修正プログラムのリストを <strong>installp</strong> コマンドに渡して、修正プログラムが適用およびコミットされるようにします。 <strong>installp</strong> コマンドは、指定されたフラグに応じてファイルシステムを拡張します。 この例は、他の <strong>installp</strong> フラグを選択できることを示しています。 <strong>-p</strong> フラグを指定しない場合、<strong>instfix</strong> コマンドは <strong>installp</strong> を呼び出します。</li>
+
+<li><span></span> <span>POWER プロセッサー・ベース</span> プラットフォームに制限されていないすべてのフィックスをリストするには、次のように入力します。<div>instfix  <a href="https://www.ibm.com/docs/ja/ssw_aix_73/i_commands/instfix.html#instfix__row-d3e17158" target="_blank" rel="noopener noreferrer">-T</a>  <a href="https://www.ibm.com/docs/ja/ssw_aix_73/i_commands/installp.html#installp__row-d3e16175" target="_blank" rel="noopener noreferrer">-MN</a>  <a href="https://www.ibm.com/docs/ja/ssw_aix_73/i_commands/instfix.html#instfix__row-d3e17001" target="_blank" rel="noopener noreferrer">-d</a> /dev/cd0</div>
+</li>
+
+</ol>
+</section>
+
+<section><h2>ファイル</h2> <div> 
+<div><div><table><thead> <tr> <th><div>項目</div></th>
+ <th><div>説明</div></th>
+ </tr>
+ </thead>
+<tbody>
+<tr>
+<td><strong>/usr/sbin/instfix</strong></td>
+
+<td><strong>instfix</strong> コマンドが入っています。</td>
+
+</tr>
+
+<tr>
+<td><strong>/usr/lib/objrepos/fix</strong></td>
+
+<td>オブジェクト・データ管理データベースへのパスを指定します。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+</section>
+
+</div></div>

@@ -1,0 +1,314 @@
+<div class="official-dom"><div>
+<section><h2>目的</h2> <p>ファイル・タイプを判別します。</p>
+</section>
+
+<section><h2>構文</h2>
+<dl>
+
+<dt>ファイル・タイプを分類するには</dt>
+
+<dd><div><div><pre><code>file [ -m MagicFile ] [ -d ] [ -h ] [ -i ] [ -M MagicFile ] [ -f FileList] [File...]</code></pre></div><div></div></div>
+</dd>
+
+
+
+<dt>マジック・ファイルのフォーマット・エラーを確認するには</dt>
+
+<dd><div><div><pre><code>file -c [ -m MagicFile ] </code></pre></div><div></div></div>
+</dd>
+
+
+</dl>
+</section>
+
+<section><h2>説明</h2> <p><span>file</span> コマンドは、<em>File</em> パラメーターまたは <em>FileList</em> 変数で指定したファイルを読み取り、各ファイルで一連のテストを行い、各ファイルをタイプ別に分類します。 次に、そのファイル・タイプを標準出力に書き出します。 ファイル・タイプは、通常ファイル、ディレクトリー、FIFO (名前付きパイプ)、
+ブロック・スペシャル、文字スペシャル、シンボリック・リンク、ソケットのいずれかです。</p>
+ <ul>
+<li>通常ファイルで長さがゼロの場合は、空のファイルと見なされます。</li>
+
+<li>シンボリック・リンクの場合は、デフォルトでは、
+そのシンボリック・リンクが参照するファイルがそのリンクの後に続きます。</li>
+
+</ul>
+ <p>ファイルが ASCII フォーマットと見なされる場合は、
+<span>file</span> コマンドで最初の 1024 バイトを検査して、
+そのファイルのタイプを判別します。 ファイルが ASCII フォーマットでなければ、<strong>file</strong> コマンドは拡張文字が入っているテキスト・ファイルとバイナリー・データ・ファイルとを区別します。</p>
+ <p><em>File</em> パラメーターで実行可能ファイルまたはオブジェクト・モジュール・ファイルを指定している場合、バージョン番号が 0 より大きいと、
+<strong>file</strong> コマンドはバージョン・スタンプを表示します。 <strong>ld</strong> コマンドのセクションに、<strong>a.out</strong> ファイルの使用方法が説明されています。</p>
+ <p>言語環境が C プログラミング言語である場合、<span>file</span> コマンドは、<strong>/etc/magic</strong> ファイルを使用してマジック・ナンバーのような番号を持つファイル、つまり、タイプを示す数値または文字列定数が入っているファイルを識別します。</p>
+ <p>ただし、言語環境が C プログラミング言語以外の言語である場合、 <strong>file</strong> コマンドは <strong>/usr/lib/nls/msg/ &lt;<em>language_env.</em>&gt; /magic.cat</strong> ファイルを使用して、マジック・ナンバーを持つファイルを識別します。</p>
+ <p>そのファイルが存在しない場合、読み取りができない場合、
+あるいはファイル状況がその時点で判別できなかった場合、
+それは、終了状況に影響を与えるエラーとは見なされません。 出力から、ファイルは処理されたがタイプの判別はできなかったということが分かります。</p>
+ <div><strong>-i</strong> フラグを使用すると、
+<em>file</em> を指定した各オペランドの識別に次の形式が使用されます。<div><div><pre><code>"%s: %s\n", file, type</code></pre></div><div></div></div><em>type</em> の値は指定されていません。ただし、
+POSIX ロケールでは、<em>file</em> が次の表にリストされているいずれかのタイプとして識別される場合は、
+<em>type</em> には対応する文字列が含まれます
+(しかし、対応する文字列に限定されません)。 文字列内に示される各スペースは、
+正確に 1 つの <em>space</em> になります。</div>
+ 
+<div><div><table><caption><span>表 1. ファイル・ユーティリティー出力文字列</span></caption><thead>
+<tr>
+<th><div><em>file</em> が以下の場合、</div></th>
+
+<th><div><em>type</em> には次の文字列が含まれます</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td>ディレクトリー</td>
+
+<td>ディレクトリー</td>
+
+</tr>
+
+<tr>
+<td>FIFO</td>
+
+<td>fifo</td>
+
+</tr>
+
+<tr>
+<td>ソケット</td>
+
+<td>ソケット</td>
+
+</tr>
+
+<tr>
+<td>ブロック・スペシャル</td>
+
+<td>block special</td>
+
+</tr>
+
+<tr>
+<td>キャラクター・スペシャル</td>
+
+<td>character special</td>
+
+</tr>
+
+<tr>
+<td>実行可能バイナリー</td>
+
+<td>executable</td>
+
+</tr>
+
+<tr>
+<td>空の通常ファイル</td>
+
+<td>empty</td>
+
+</tr>
+
+<tr>
+<td>シンボリック・リンク</td>
+
+<td>symbolic link to</td>
+
+</tr>
+
+<tr>
+<td><em>ar</em> アーカイブ・ライブラリー</td>
+
+<td>アーカイブ</td>
+
+</tr>
+
+<tr>
+<td>拡張 <em>cpio</em> フォーマット</td>
+
+<td>cpio archive</td>
+
+</tr>
+
+<tr>
+<td>拡張 <em>tar</em> フォーマット</td>
+
+<td>tar archive</td>
+
+</tr>
+
+<tr>
+<td>シェル・スクリプト</td>
+
+<td>commands text</td>
+
+</tr>
+
+<tr>
+<td>C 言語ソース</td>
+
+<td>c program text</td>
+
+</tr>
+
+<tr>
+<td>FORTRAN ソース</td>
+
+<td>fortran program text</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+ <div><em>file</em> がシンボリック・リンクとして識別される場合は、
+次の代替出力形式が使用されます。<div><div><pre><code>"%s: %s %s\n", file, type, contents of link"</code></pre></div><div></div></div><em>file</em> オペランドで指定されたファイルが存在しないかまたは読み取ることができない場合は、
+文字列 <code>cannot open</code> が <em>type</em> フィールドの一部として組み込まれますが、
+これは終了状況に影響を及ぼすエラーとは見なされません。 <em>file</em> オペランドで指定されたファイルのタイプが判別できない場合は、
+文字列 <code>data</code> が、<em>type</em> フィールドの一部として組み込まれますが、
+これは終了状況に影響を及ぼすエラーとは見なされません。</div>
+</section>
+
+<section><h2>フラグ</h2> <div> 
+<div><div><table><caption><span>表 2. フラグ</span></caption><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><strong>-c</strong></td>
+
+<td>指定されたマジック・ファイル (デフォルトでは <strong>/etc/magic</strong> ファイル) に形式エラーがないかどうか検査します。 この妥当性検査は、通常は行われません。 このフラグを使うと、ファイルの分類は行われません。</td>
+
+</tr>
+
+<tr>
+<td><strong>-d</strong></td>
+
+<td>任意のデフォルトのシステム・テストをファイルに適用します。</td>
+
+</tr>
+
+<tr>
+<td><strong>-f</strong><em> FileList</em></td>
+
+<td>指定されたファイル・リストを読み取ります。 ファイルは、1 行に 1 つずつ表示し、先行スペースまたは後書きスペースが入っていてはなりません。</td>
+
+</tr>
+
+<tr>
+<td><strong>-h</strong></td>
+
+<td>シンボリック・リンクが検出されると、そのファイルをシンボリック・リンクとして識別します。 <strong>-h</strong> フラグが指定されないで、かつ
+<em>file</em> が、存在しないファイルを参照するシンボリック・リンクである場合は、
+<em>file</em> は、<strong>-h</strong> フラグが指定されている場合と同様に、
+そのファイルをシンボリック・リンクとして識別します。</td>
+
+</tr>
+
+<tr>
+<td><strong>-i</strong></td>
+
+<td>ファイルが通常のファイルである場合は、ファイルのタイプをそれ以上分類しませんが、 <a href="https://www.ibm.com/docs/ja/ssw_aix_73/f_commands/file.html#file__a133z915ad" target="_blank" rel="noopener noreferrer">「説明」</a>で指定されているようにファイルを識別します。</td>
+
+</tr>
+
+<tr>
+<td><strong>-m</strong><em> MagicFile</em></td>
+
+<td>マジック・ファイル (デフォルトでは <strong>/etc/magic</strong> ファイル) のファイル名を指定します。</td>
+
+</tr>
+
+<tr>
+<td><strong>-M</strong> <em>MagicFile</em></td>
+
+<td>ファイルを分類するためにファイルに適用されるテストを含むファイルの名前を指定します。 デフォルトのシステム・テストは適用されません。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+</section>
+
+<section><h2>終了状況</h2> <p>このコマンドは、以下の終了値を戻します。</p>
+ 
+<div><div><table><caption><span>表 3. 終了状況</span></caption><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><strong>0</strong></td>
+
+<td>正常終了。</td>
+
+</tr>
+
+<tr>
+<td><strong>&gt;0</strong></td>
+
+<td>エラーが発生しました。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</section>
+
+<section><h2>例</h2> <ol>
+<li><span></span>ファイルに含まれる情報のタイプを表示するには、次のように入力します。<div> <div><div><pre><code>file myfile</code></pre></div><div></div></div>このコマンドにより、<em>myfile</em> のタイプのファイル (ディレクトリー、データ、ASCII テキスト、C プログラム・ソース、アーカイブなど) が表示されます。</div>
+</li>
+
+<li><span></span>ファイル名のリストで指定された各ファイルのタイプを表示するには、次のように入力します。<div>file <a href="https://www.ibm.com/docs/ja/ssw_aix_73/f_commands/file.html#file__row-d3e106657" target="_blank" rel="noopener noreferrer">-f</a> filenames</div>ここには, システムで指定された各ファイルのタイプが表示されます。filenamesリストを作ると非常に役に立ちます。 ファイル名は、それぞれ 1 行につき 1 つでなければなりません。</li>
+
+</ol>
+ <div><div>
+        <div>
+          <div><span>注:</span> カスタマイズされたメッセージを <span>file</span> コマンドから取得するには、 <strong>-m</strong> オプションを指定して別のマジック・ファイルを使用してください。 読み取り専用の <strong>/etc/magic</strong> ファイルを編集することはお勧めできません。</div>
+        </div>
+      </div></div>
+</section>
+
+<section><h2>ファイル</h2> <div> 
+<div><div><table><caption><span>表 4. ファイル</span></caption><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><strong>/usr/bin/file</strong></td>
+
+<td><span>file</span> コマンドが入っています。</td>
+
+</tr>
+
+<tr>
+<td><strong>/etc/magic</strong></td>
+
+<td>ファイル・タイプ・データベースが入っています。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+</section>
+
+</div></div>

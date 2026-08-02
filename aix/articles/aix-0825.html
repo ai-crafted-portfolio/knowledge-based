@@ -1,0 +1,387 @@
+<div class="official-dom"><div>
+<section><h2>目的</h2> <p>リソースまたはリソース・クラスの定義情報を表示します。</p>
+</section>
+
+<section><h2>構文</h2> <p><em>リソース</em>の場合</p>
+ <p>定義を表示するには、次のようにします。</p>
+ <p><span><span>lsrsrcdef</span></span> [<span><span>-p</span></span> <span><span>property</span></span>] [<span><span>-e</span></span>] [<span><span>-s</span></span>] [ <span><span>-l</span></span> | <span><span>-i</span></span> | <span><span>-t</span></span> | <span><span>-d</span></span> | <span><span>-D</span></span> <span><span>delimiter</span></span> ] [<span><span>-x</span></span>] [<span><span>-h</span></span>] [<span><span>-TV</span></span>] <span><span>resource_class</span></span> [<span><span>attr</span></span>...]</p>
+ <p>永続属性の定義を表示するには、次のようにします。</p>
+ <p><span><span>lsrsrcdef</span></span> <span><span>-A
+p</span></span> [<span><span>-p</span></span> <span><span>プロパティー</span></span>] [<span><span>-e</span></span>] [<span><span>-s</span></span>] [ <span><span>-l</span></span> | <span><span>-i</span></span> | <span><span>-t</span></span> | <span><span>-d</span></span> | <span><span>-D</span></span> <span><span>delimiter</span></span> ] [<span><span>-x</span></span>] [<span><span>-h</span></span>] [<span><span>-TV</span></span>] <span><span>resource_class</span></span> [<span><span>attr</span></span>...]</p>
+ <p>動的属性の定義を表示するには、次のようにします。</p>
+ <p><span><span>lsrsrcdef</span></span> <span><span>-A
+d</span></span> [<span><span>-p</span></span> <span><span>プロパティー</span></span>] [<span><span>-e</span></span>] [<span><span>-s</span></span>] [ <span><span>-l</span></span> | <span><span>-i</span></span> | <span><span>-t</span></span> | <span><span>-d</span></span> | <span><span>-D</span></span> <span><span>delimiter</span></span> ] [<span><span>-x</span></span>] [<span><span>-h</span></span>] [<span><span>-TV</span></span>] <span><span>resource_class</span></span> [<span><span>attr</span></span>...]</p>
+ <p><em>リソース・クラス</em>の場合</p>
+ <p>定義を表示するには、次のようにします。</p>
+ <p><span><span>lsrsrcdef</span></span> <span><span>-c</span></span> [<span><span>-p</span></span> <span><span>プロパティー</span></span>] [<span><span>-e</span></span>] [<span><span>-s</span></span>] [ <span><span>-l</span></span> | <span><span>-i</span></span> | <span><span>-t</span></span> | <span><span>-d</span></span> | <span><span>-D</span></span> <span><span>delimiter</span></span> ] [<span><span>-x</span></span>] [<span><span>-h</span></span>] [<span><span>-TV</span></span>] <span><span>resource_class</span></span> [<span><span>attr</span></span>...]</p>
+ <p>永続属性の定義を表示するには、次のようにします。</p>
+ <p><span><span>lsrsrcdef</span></span> <span><span>-c</span></span> <span><span>-A
+p</span></span> [<span><span>-p</span></span> <span><span>property</span></span>] [<span><span>-e</span></span>] [<span><span>-s</span></span>] [ <span><span>-l</span></span> | <span><span>-i</span></span> | <span><span>-t</span></span> | <span><span>-d</span></span> | <span><span>-D</span></span> <span><span>delimiter</span></span> ] [<span><span>-x</span></span>] [<span><span>-h</span></span>] [<span><span>-TV</span></span>] <span><span>resource_class</span></span> [<span><span>attr</span></span>...]</p>
+ <p>動的属性の定義を表示するには、次のようにします。</p>
+ <p><span><span>lsrsrcdef</span></span> <span><span>-c</span></span> <span><span>-A
+d</span></span> [<span><span>-p</span></span> <span><span>property</span></span>] [<span><span>-e</span></span>] [<span><span>-s</span></span>] [ <span><span>-l</span></span> | <span><span>-i</span></span> | <span><span>-t</span></span> | <span><span>-d</span></span> | <span><span>-D</span></span> <span><span>delimiter</span></span> ] [<span><span>-x</span></span>] [<span><span>-h</span></span>] [<span><span>-TV</span></span>] <span><span>resource_class</span></span> [<span><span>attr</span></span>...]</p>
+ <p>すべてのリソース・クラス名のリストを表示するには、次のようにします。</p>
+ <p><span><span>lsrsrcdef</span></span></p>
+</section>
+
+<section><h2>説明</h2> <div><span><span>lsrsrcdef</span></span> コマンドは、リソースまたはリソース・クラスの定義、あるいはリソースまたはリソース・クラスの永続属性定義または動的属性定義を表示します。 デフォルトでは、<ul>
+<li>コマンド行に <span><span>attr</span></span> パラメーターが指定されていない場合、このコマンドは <span><span>public</span></span> 属性の定義を表示します。 このデフォルトをオーバーライドするには、 <span><span>-p</span></span> フラグを使用するか、表示する属性の名前を指定します。</li>
+
+<li>このコマンドは、属性の記述を表示しません。 属性の定義と説明を表示するには、 <span><span>-e</span></span> フラグを指定します。</li>
+
+</ul>
+</div>
+</section>
+
+<section><h2>フラグ</h2> <dl>
+<dt>-<span>p｜d</span></dt>
+
+<dd>属性タイプを指定します。 永続属性の定義または動的属性の定義を表示できます。 リソース・クラスの永続属性定義または動的属性定義を表示するには、このフラグを <span><span>-c</span></span> フラグと一緒に使用します。<dl>
+<dt>p</dt>
+
+<dd>永続属性のみを表示します。</dd>
+
+
+<dt>d</dt>
+
+<dd>動的属性のみを表示します。</dd>
+
+</dl>
+</dd>
+
+
+<dt>-c</dt>
+
+<dd>リソース・クラス定義を表示します。 リソース・クラスの永続属性定義を表示するには、このフラグを <span><span>-A p</span></span> フラグと一緒に指定します。 リソース・クラスの動的属性定義を表示するには、このフラグを <span><span>-A d</span></span> フラグと一緒に指定します。</dd>
+
+
+<dt>-d</dt>
+
+<dd>区切り文字により書式設定された出力を指定します。 デフォルトの区切り文字はコロン (:) です。 デフォルトの区切り文字を変更するには、 <span><span>-D</span></span> フラグを使用します。</dd>
+
+
+<dt>--D <span><span>デリミタ</span></span></dt>
+
+<dd>指定した区切り文字により書式設定された出力を指定します。 このフラグを使用して、デフォルトのコロン (:) 以外のものを指定します。 例えば、表示されるデータにコロンが含まれている場合です。 このフラグを使用して、1 つ以上の文字からなる区切り文字を指定します。</dd>
+
+
+<dt>-e</dt>
+
+<dd>拡張形式を指定します。 デフォルトでは、定義の記述は表示されません。 定義と記述の両方を表示するには、このフラグを指定します。</dd>
+
+
+<dt>-i</dt>
+
+<dd><span><span>resource_data_input_file</span></span> のテンプレートを生成します。このテンプレートは、適切な編集を行った後、 <span><span>mkrsrc</span></span> コマンドへの入力として使用できます。 出力は長い (スタンザ) フォーマットで表示されます。 リソースの定義に使用できるすべての必須およびオプションの属性が表示されます。 属性のデータ・タイプは、<span><span>attr=value</span></span> ペアとなった値として表示されます。 このフラグを使用する場合は、 <span><span>lsrsrcdef</span></span> コマンドの出力をファイルに送ることをお勧めします。 このフラグは、 <span><span>-s</span></span> および <span><span>-A
+d</span></span> フラグをオーバーライドします。</dd>
+
+
+<dt>-l</dt>
+
+<dd>「長い」フォーマット (1 行ごとに 1 つのエントリー) を指定します。 これは、デフォルトの表示形式です。 <span><span>lsrsrcdef -l</span></span> コマンドがリソース・クラス名を指定せずに発行された場合、コマンドが定義済みリソース・クラス名のリストを返すときに、このフラグは無視されます。</dd>
+
+
+<dt>--p <span><span>プロパティ</span></span></dt>
+
+<dd>指定された <span><span>property</span></span> を持つ属性の属性定義を表示します。 デフォルトでは、 <span><span>public</span></span> 属性の定義のみが表示されます。 プロパティーに関係なくすべての属性定義を表示するには、 <span><span>-p 0</span></span> フラグを使用します。<div><strong><em>永続属性:
+</em></strong><dl>
+<dt>0x0001</dt>
+
+<dd><span><span>read_only</span></span></dd>
+
+
+<dt>0x0002</dt>
+
+<dd><span><span>reqd_for_define</span></span> (必須)</dd>
+
+
+<dt>0x0004</dt>
+
+<dd><span><span>inval_for_define</span></span> (無効)</dd>
+
+
+<dt>0x0008</dt>
+
+<dd><span><span>option_for_define</span></span> (オプション)</dd>
+
+
+<dt>0x0010</dt>
+
+<dd><span><span>selectable</span></span></dd>
+
+
+<dt>0x0020</dt>
+
+<dd><span><span>public</span></span></dd>
+
+</dl>
+</div>
+ <div><strong><em>動的属性:
+</em></strong><dl>
+
+<dt>0x0020</dt>
+
+<dd><span><span>public</span></span></dd>
+
+</dl>
+</div>
+ <div>属性に 10 進値または 16 進値を指定することができます。 1 つ以上のプロパティーを持つすべての属性の属性定義を要求するには、対象のプロパティーを一緒に「OR」してから、 <span><span>-p</span></span> フラグで「OR」演算された値を指定します。 例えば、 <span><span>reqd_for_define</span></span> または <span><span>option_for_define</span></span>のいずれかであるすべての永続属性の属性定義を要求するには、次のように入力します。<div><div><pre><code>lsrsrcdef -p 0x0a</code></pre></div><div></div></div></div>
+</dd>
+
+
+<dt>-s</dt>
+
+<dd>構造化データ定義を表示します。 構造化データ定義を展開して、構造化データ属性の各エレメント
+の定義が表示されるようにするには、このフラグを指定します。</dd>
+
+
+<dt>-t</dt>
+
+<dd>表形式を指定します。 属性ごとにそれぞれ別個の列に表示され、1 行に 1 個のリソースが表示されます。</dd>
+
+
+<dt>-x</dt>
+
+<dd>ヘッダー印刷を抑制します。</dd>
+
+
+<dt>-h</dt>
+
+<dd>コマンドの使用ステートメント (使用法) を標準出力に書き込みます。</dd>
+
+
+<dt>-T</dt>
+
+<dd>コマンドのトレース・メッセージを標準エラーに書き込みます。 ソフトウェア・サービスの編成の使用の場合のみです。</dd>
+
+
+<dt>-V</dt>
+
+<dd>コマンドの詳細メッセージを標準出力に書き込みます。</dd>
+
+</dl>
+</section>
+
+<section><h2>パラメーター</h2> <dl>
+<dt><span><span>リソース・クラス</span></span></dt>
+
+<dd>表示したい属性定義があるリソース・クラスの名前を指定します。</dd>
+
+
+<dt><span><span>attr</span></span></dt>
+
+<dd><span><span>resource_class</span></span> パラメーターが指定されている場合、0 以上の属性名を指定できます。 <span><span>attr</span></span> パラメーターが指定されない場合、リソースのすべての属性の定義が表示されます。 どの属性をどんな順序で表示するか制御するには、個々の属性名を指定します。 <span><span>-A p</span></span> フラグを使用する場合は、永続属性名のみを指定してください。 <span><span>-A d</span></span> フラグを使用する場合は、動的属性名のみを指定してください。 属性はスペースで区切る必要があります。</dd>
+
+</dl>
+</section>
+
+<section><h2>セキュリティー</h2> <p>ユーザーが <span><span>lsrsrcdef</span></span>を実行するには、 <span><span>lsrsrcdef</span></span> で指定された <span><span>resource_class</span></span> に対する書き込み権限が必要です。 権限は、相手のシステムのアクセス制御リスト (ACL) ファイルに指定します。 ACL ファイルとその変更方法については、「<em>RSCT: Administration Guide</em>」を参照してください。</p>
+</section>
+
+<section><h2>終了状況</h2> <dl>
+<dt>0</dt>
+
+<dd>コマンドが正常に実行されました。</dd>
+
+
+<dt>1</dt>
+
+<dd>RMC 内でエラーが発生しました。</dd>
+
+
+<dt>2</dt>
+
+<dd>コマンド・ライン・インターフェース (CLI) スクリプトでエラーが発生しました。</dd>
+
+
+<dt>3</dt>
+
+<dd>コマンド・ラインに間違ったフラグが指定されました。</dd>
+
+
+<dt>4</dt>
+
+<dd>コマンド・ラインに不正なパラメーターが指定されました。</dd>
+
+
+<dt>5</dt>
+
+<dd>不正なコマンド・ライン入力に基づく RMC により、エラーが発生しました。</dd>
+
+</dl>
+</section>
+
+<section><h2>環境変数</h2> <dl>
+<dt>CT_CONTACT</dt>
+
+<dd>CT_CONTACT 環境変数をホスト名または IP アドレスに設定すると、
+コマンドは指定されたホストの RMC (Resource Monitoring and Control) デーモンにアクセスします。 この環境変数を設定しないと、コマンドは、そのコマンドが実行されているローカル・システムの RMC デーモンにアクセスします。 コマンドにより表示または変更されるリソースまたはリソース・クラスは、
+接続が確立されたシステム上で探されます。</dd>
+
+
+<dt>CT_IP_AUTHENT</dt>
+
+<dd>CT_IP_AUTHENT 環境変数が存在する場合、RMC デーモンは、IP ベース・ネットワーク認証を使用して、CT_CONTACT 環境変数が設定されている IP アドレスで指定されたシステム上の RMC デーモンにアクセスします。 CT_IP_AUTHENT は、CT_CONTACT が IP アドレスに設定されている場合にのみ意味を持ちます。ドメイン・ネーム・システム (DNS) サービスには依存しません。</dd>
+
+
+<dt>CT_MANAGEMENT_SCOPE</dt>
+
+<dd>RMC デーモンがリソースおよびリソース・クラスをモニターし、制御するための
+セッションに使用する管理有効範囲を指定します。 この管理有効範囲により、リソースおよびリソース・クラスをモニターおよび制御できる候補ターゲット・ノードのセットが決定します。 有効な値は以下のとおりです。<dl>
+<dt>0</dt>
+
+<dd><em>local</em> 有効範囲を指定します。</dd>
+
+
+<dt>1</dt>
+
+<dd><em>local</em> 有効範囲を指定します。</dd>
+
+
+<dt>2</dt>
+
+<dd><em>peer domain</em> (ピア・ドメイン) 有効範囲を指定します。</dd>
+
+
+<dt>3</dt>
+
+<dd><em>management domain</em> (管理ドメイン) 有効範囲を指定します。</dd>
+
+</dl>
+  <p>この環境変数が<em>設定されていない</em> 場合は、<em>local</em> 有効範囲が使用されます。</p>
+</dd>
+
+</dl>
+</section>
+
+<section><h2>実行の特性</h2> <p>このコマンドは<span>AIX</span>用のReliable Scalable Cluster Technology(RSCT)ファイルセットの一部です。</p>
+</section>
+
+<section><h2>標準出力</h2> <p><span><span>-h</span></span> フラグを指定すると、このコマンドの使用状況ステートメントが標準出力に書き込まれます。 詳細メッセージはすべて、標準出力に書き込まれます。</p>
+</section>
+
+<section><h2>標準エラー</h2> <p>トレース・メッセージはすべて、標準エラーに書き込まれます。</p>
+</section>
+
+<section><h2>例</h2> <div> <ol>
+<li>システム上に定義されているすべてのリソース・クラスの名前を表示するには、次のように入力します。<div><div><pre><code>lsrsrcdef</code></pre></div><div></div></div>出力は次のようになります。<div><div><pre><code>class_name
+"IBM.ATMDevice"       
+"IBM.Association"     
+"IBM.AuditLog"        
+"IBM.AuditLogTemplate"
+"IBM.Condition"       
+"IBM.EthernetDevice"  
+"IBM.EventResponse"   
+... </code></pre></div><div></div></div></li>
+
+<li>リソース IBM®のリソース・クラス定義を表示します。ホスト、次のように入力します。<div><div><pre><code>lsrsrcdef -c IBM.Host</code></pre></div><div></div></div>出力は次のようになります。<div><div><pre><code>Resource Class Definition for: IBM.Host                       
+resource class 1:                                             
+        class_name         = "IBM.Host"                       
+        class_id           = 8                                
+        properties         = {"has_rsrc_insts","mtype_subdivided"}
+        display_name       = ""                               
+        description        = ""                               
+        locator            = "NodeList"                       
+        class_pattr_count  = 1                                
+        class_dattr_count  = 3                                
+        class_action_count = 0                                
+        pattr_count        = 6                                
+        dattr_count        = 47                               
+        action_count       = 0                                
+        error_count        = 0                                
+        rsrc_mgr_count     = 1                                
+rsrc_mgrs 1:                                                  
+        mgr_name  = "IBM.HostRM"                              
+        first_key = 1                                         
+        last_key  = 1              </code></pre></div><div></div></div></li>
+
+<li>リソース IBM.Host、次のように入力します。<div><div><pre><code>lsrsrcdef -c -A p -p 0 IBM.Host </code></pre></div><div></div></div>出力は次のようになります。<div><div><pre><code>Resource Class Persistent Attribute Definitions for: IBM.Host
+attribute 1:                                                 
+        program_name              = "Variety"                            
+        display_name              = ""                                   
+        group_name                = ""                                   
+        properties                = {"read_only","inval_for_define"}   
+        description               = ""                                   
+        attribute_id              = 0                                    
+        group_id                  = 255                                  
+        data_type                 = "uint32"                             
+        variety_list              = {{1..1}}                             
+        variety_count             = 1                                    
+        default_value             = 0            </code></pre></div><div></div></div></li>
+
+<li>リソース IBM.Host、次のように入力します。<div><div><pre><code>lsrsrcdef -A p -p 0 -e IBM.Host</code></pre></div><div></div></div>出力は次のようになります。<div><div><pre><code>Resource Persistent Attribute Definitions for: IBM.Host                         
+attribute 1:                                                                    
+        program_name       = "Name"                                             
+        display_name       = "Name"                                             
+        group_name         = "General"                                          
+        properties         = {"reqd_for_define","public","selectable"}        
+        description        = "Identifies the current name of the host           
+                              as returned by command."
+        attribute_id       = 0                                                  
+        group_id           = 0                                                  
+        data_type          = "char_ptr"                                         
+        variety_list       = {{1..1}}                                           
+        variety_count      = 1                                                  
+        default_value      = ""                                                 
+attribute 2:                                                                    
+        program_name       = "ResourceHandle"                                   
+        display_name       = "Resource Handle"                                  
+        group_name         = "Internal"                                         
+        properties         = {"read_only","inval_for_define","selectable"}    
+        description        = "A globally unique handle that identifies the host. 
+                              Every resource is assigned a resource handle, 
+                              which is used internally for identifying and
+                              locating each resource.  The resource handle 
+                              is fixed in size and avoids the problems of 
+                              name space collisions across different types 
+                              of resources."  
+        attribute_id       = 1                                                       
+        group_id           = 255                                                     
+        data_type          = "rsrc_handle_ptr"                                       
+        variety_list       = {{1..1}}                                                
+        variety_count      = 1 
+        default_value      = "0x0000 0x0000 0x00000000 0x00000000 0x00000000 0x00000000"
+attribute 3:                                                                    
+        program_name       = "Variety"                                                 
+        display_name       = "Variety"                                                 
+        group_name         = "Internal"                                                
+	...                 </code></pre></div><div></div></div></li>
+
+<li>リソース IBM.Host、次のように入力します。<div><div><pre><code>lsrsrcdef -A d IBM.Host</code></pre></div><div></div></div>出力は次のようになります。<div><div><pre><code>Resource Dynamic Attribute Definitions for: IBM.Host 
+attribute 1:                                   
+        program_name           = "ProcRunQueue"                                      
+        display_name           = ""                                                  
+        group_name             = ""                                                  
+        properties             = {"public"}                                            
+        description            = ""                                                  
+        attribute_id           = 1                                                   
+        group_id               = 1                                                   
+        data_type              = "float64"                                             
+        variable_type          = 0                                                   
+        variety_list           = {{1..1}}                                            
+        variety_count          = 1                                                   
+        init_value             = 0                                                   
+        min_value              = 0                                                   
+        max_value              = 100                                                 
+        expression             = "(ProcRunQueue - ProcRunQueue@P) &gt;= (ProcRunQueue@P * 0.5)"
+        expression_description = ""                                              
+        rearm_expression       = "ProcRunQueue &lt; 50"                              
+        rearm_description      = ""                                                  
+        PTX_name               = ""                                                  
+attribute 2:                                                                         
+...
+                  </code></pre></div><div></div></div></li>
+
+</ol>
+</div>
+</section>
+
+<section><h2>ロケーション</h2> <dl>
+<dt>/opt/rsct/bin/lsrsrcdef</dt>
+
+<dd></dd>
+
+</dl>
+</section>
+
+</div></div>

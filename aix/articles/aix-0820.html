@@ -1,0 +1,229 @@
+<div class="official-dom"><div>
+<div></div>
+
+<section><h2>目的</h2> <p>ノードのピア・ドメイン情報を表示します。</p>
+</section>
+
+<section><h2>構文</h2> <p><span><span>lsrpdomain</span></span> [<span><span>-o</span></span> | <span><span>-O</span></span>] [<span><span>-l</span></span> | <span><span>-t</span></span> | <span><span>-d</span></span> | <span><span>-D</span></span> <span><span>区切り文字</span></span>] [<span><span>-x</span></span>] [<span><span>-h</span></span>] [<span><span>-TV</span></span>] [<span><span>peer_domain</span></span>]</p>
+</section>
+
+<section><h2>説明</h2> <p><span><span>lsrpdomain</span></span> コマンドは、コマンドが実行されるノードが属するピア・ドメインに関する情報を表示します。 このコマンドのフラグおよびパラメーターを使用して、表示する情報とその表示方法を指定します。 ピア・ドメインの名前を指定すると、コマンドはそのピア・ドメインだけについての情報を表示します。 <span><span>-o</span></span> および <span><span>-O</span></span> フラグも、このコマンドが表示する情報を制限します。 <span><span>-o</span></span> フラグは、オンライン・ピア・ドメインに関する情報のみを表示します。 <span><span>-O</span></span> フラグは、オフラインのピア・ドメインに関する情報のみを表示します。</p>
+ <p>デフォルトでは、 <span><span>lsrpdomain</span></span> コマンドは情報を表形式 (<span><span>-t</span></span>) で表示します。</p>
+ <div>表示されるピア・ドメイン情報の一部を次に示します。<div><div><table><thead>
+<tr>
+<th><div>フィールド</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td>名前</td>
+
+<td>ピア・ドメインの名前。</td>
+
+</tr>
+
+<tr>
+<td>RSCTActiveVersion</td>
+
+<td>ピア・ドメインでアクティブな RSCT のバージョン。</td>
+
+</tr>
+
+<tr>
+<td>MixedVersions</td>
+
+<td>ピア・ドメインで RSCT の複数のバージョンがアクティブかどうかを示します。</td>
+
+</tr>
+
+<tr>
+<td>TSPort</td>
+
+<td>トポロジー・サービスのポート番号。</td>
+
+</tr>
+
+<tr>
+<td>GSPort</td>
+
+<td>グループ・サービスのポート番号。</td>
+
+</tr>
+
+<tr>
+<td>OpState</td>
+
+<td>ピア・ドメインの現在の状態。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+</section>
+
+<section><h2>フラグ</h2> <dl>
+<dt>-o</dt>
+
+<dd>ノードのオンライン・ピア・ドメインの情報を表示します。</dd>
+
+
+<dt>-O</dt>
+
+<dd>当該ノードに対するオフライン・ピア・ドメインについての情報を表示します。</dd>
+
+
+<dt>-l</dt>
+
+<dd>情報を別々の行に表示します (長形式)。</dd>
+
+
+<dt>-t</dt>
+
+<dd>情報を別々の列に表示します (テーブル形式)。 これはデフォルトです。</dd>
+
+
+<dt>-d</dt>
+
+<dd>区切り文字を使用して情報を表示します。 デフォルトの区切り文字はコロン (<span><span>:</span></span>) です。 デフォルトの区切り文字を変更する場合は、 <span><span>-D</span></span> フラグを使用します。</dd>
+
+
+<dt>-D <span><span>デリミタ</span></span></dt>
+
+<dd>指定した区切り文字を使用して情報を表示します。 このフラグを使用して、デフォルトのコロン (<span><span>:</span></span>) 以外の区切り文字を指定します。例えば、表示する情報にコロンが含まれている場合などです。 このフラグを使用すると、1 文字以上の区切り文字を指定できま
+す。</dd>
+
+
+<dt>-x</dt>
+
+<dd>ヘッダーを除外します (ヘッダーの印刷を抑止します)。</dd>
+
+
+<dt>-h</dt>
+
+<dd>コマンドの使用ステートメント (使用法) を標準出力に書き込みます。</dd>
+
+
+<dt>-T</dt>
+
+<dd>コマンドのトレース・メッセージを標準エラーに書き込みます。 これは、ソフトウェア保守部門専用の機能です。</dd>
+
+
+<dt>-V</dt>
+
+<dd>コマンドの詳細メッセージを標準出力に書き込みます。</dd>
+
+</dl>
+</section>
+
+<section><h2>パラメーター</h2> <dl>
+<dt><span><span>ピア・ドメイン</span></span></dt>
+
+<dd>情報を表示する対象のピア・ドメインの名前を指定します。 このパラメーターには、ピア・ドメイン名またはピア・ドメイン名のサブストリングを指定できます。 サブストリングを指定した場合、コマンドは、そのサブストリングを含む名前を持つすべての定義済みのピア・ドメインの情報を表示します。</dd>
+
+</dl>
+</section>
+
+<section><h2>セキュリティー</h2> <p><span><span>lsrpdomain</span></span> コマンドのユーザーには、コマンドが実行されるノード上の <span><span>IBM.PeerDomain</span></span> リソース・クラスに対する読み取り権限が必要です。 デフォルトでは、ピア・ドメイン内のすべてのノードの <span><span>root</span></span> には、構成リソース・マネージャーを介してこのリソース・クラスに対する読み取りおよび書き込みアクセス権があります。</p>
+</section>
+
+<section><h2>終了状況</h2> <dl>
+<dt>0</dt>
+
+<dd>コマンドは正常に実行されました。</dd>
+
+
+<dt>1</dt>
+
+<dd>RMC 内でエラーが発生しました。</dd>
+
+
+<dt>2</dt>
+
+<dd>コマンド・ライン・インターフェース・スクリプトでエラーが発生しました。</dd>
+
+
+<dt>3</dt>
+
+<dd>コマンド・ラインに指定されたフラグが正しくありません。</dd>
+
+
+<dt>4</dt>
+
+<dd>コマンド・ラインに指定されたパラメーターが正しくありません。</dd>
+
+
+<dt>5</dt>
+
+<dd>コマンド・ライン入力の間違いが原因のエラーが発生しました。</dd>
+
+
+<dt>6</dt>
+
+<dd>ピア・ドメイン定義が存在しません。</dd>
+
+</dl>
+</section>
+
+<section><h2>環境変数</h2> <dl>
+<dt>CT_CONTACT</dt>
+
+<dd>Resource Monitoring and Control (RMC) デーモンとのセッションが発生するシステムを決定します。 CT_CONTACT をホスト名または IP アドレスに設定すると、コマンドは指定されたホストの RMC デーモンにアクセスします。 CT_CONTACT を設定しないと、コマンドは、そのコマンドが実行されているローカル・システムの RMC デーモンにアクセスします。 RMC デーモン・セッションのターゲットおよび管理有効範囲によって、処理されるリソース・クラスまたはリソースが決定されます。</dd>
+
+
+<dt>CT_IP_AUTHENT</dt>
+
+<dd>CT_IP_AUTHENT 環境変数が存在する場合、RMC デーモンは、IP ベース・ネットワーク認証を使用して、CT_CONTACT 環境変数が設定されている IP アドレスで指定されたシステム上の RMC デーモンにアクセスします。 CT_IP_AUTHENT は、CT_CONTACT が IP アドレスに設定されている場合にのみ意味を持ちます。ドメイン・ネーム・システム (DNS) サービスには依存しません。</dd>
+
+</dl>
+</section>
+
+<section><h2>制約事項</h2> <p>このコマンドは、ピア・ドメイン情報を要求されているノードで実行する必要があります。</p>
+</section>
+
+<section><h2>実行の特性</h2> <p>このコマンドは、AIX® オペレーティング・システム用の <strong>rsct.basic.rte</strong> ファイルセットの一部です。</p>
+</section>
+
+<section><h2>標準入力</h2> <p><span><span>-f
+"-"</span></span> または <span><span>-F "-"</span></span> フラグを指定すると、このコマンドは標準入力から 1 つ以上のノード名を読み取ります。</p>
+</section>
+
+<section><h2>標準出力</h2> <p><span><span>-h</span></span> フラグを指定すると、このコマンドの使用状況ステートメントが標準出力に書き込まれます。 詳細メッセージはすべて、標準出力に書き込まれます。</p>
+</section>
+
+<section><h2>標準エラー</h2> <p>トレース・メッセージはすべて、標準エラーに書き込まれます。</p>
+</section>
+
+<section><h2>例</h2> <ol>
+<li><span><span>nodeA</span></span> が属するピア・ドメインに関する一般情報を表示するには、 <span><span>nodeA</span></span>で次のコマンドを実行します。<div><div><pre><code>lsrpdomain</code></pre></div><div></div></div>出力は次のようになります。<div><div><pre><code>Name            OpState         RSCTActiveVersion       MixedVersions   TSPort  GSPort 
+ApplDomain      Online          2.5.0.0                  No              12347   12348
+
+</code></pre></div><div></div></div>  </li>
+
+<li><span><span>nodeA</span></span> が属するピア・ドメインに関する一般情報を、デフォルトの区切り文字 (見出しなし) で表示するには、 <span><span>nodeA</span></span>で次のコマンドを実行します。<div><div><pre><code>lsrpdomain -xd</code></pre></div><div></div></div>出力は次のようになります。<div><div><pre><code>ApplDomain:Online:2.5.0.0:No:12347:12348:</code></pre></div><div></div></div> 
+  </li>
+
+<li><span><span>nodeA</span></span> が属するピア・ドメインに関する一般情報を長形式で表示するには、 <span><span>nodeA</span></span>で次のコマンドを実行します。<div><div><pre><code>lsrpdomain -l</code></pre></div><div></div></div>出力は次のようになります。<div><div><pre><code>Name              = ApplDomain 
+OpState           = Online 
+RSCTActiveVersion = 2.5.0.0
+MixedVersions     = No 
+TSPort            = 12347 
+GSPort            = 12348</code></pre></div><div></div></div></li>
+
+</ol>
+</section>
+
+<section><h2>ロケーション</h2> <dl>
+<dt>/opt/rsct/bin/lsrpdomain</dt>
+
+<dd></dd>
+
+</dl>
+</section>
+
+</div></div>

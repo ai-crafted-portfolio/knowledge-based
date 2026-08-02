@@ -1,0 +1,496 @@
+<div class="official-dom"><div>
+<section><h2>目的</h2> <p><code>ECHO_REQUEST</code> をネットワークホストに送信する。</p>
+</section>
+
+<section><h2>構文</h2> <div>
+<div><div><pre><code>ping [ -d ] [ -D ] [ -F ] [ -n ] [ -q ] [ -r ] [ -v] [  -R ] [ -a addr_family ] [ -c Count ] [ -w timeout ] [ -u ] [ -f | -i Wait ] [ -l Preload ] [ -p Pattern  ] [ -s PacketSize  ] [ -S hostname/IP addr ] [ -L ] [ -I a.b.c.d. ] [ -o interface ] [ -T ttl ] [ -E Interface_name | Source_Hostname | Source_IP_address ] Host [ PacketSize ] [ Count ]
+</code></pre></div><div></div></div>
+</div>
+</section>
+
+<section><h2>説明</h2>
+
+<p><span>ping</span> コマンドは Internet Control Message Protocol (ICMP) <code>ECHO_REQUEST</code> を送信し、ホストまたはゲートウェイから <code>ICMP ECHO_RESPONSE</code> を受信する。 <span>ping</span> コマンドには以下の機能がある：</p>
+
+<ul>
+<li>ネットワークの状態と外部ホストの状態のみを決定する。</li>
+
+<li>ハードウェアとソフトウェアの問題を追跡し、切り分ける。</li>
+
+<li>ネットワークのテスト、測定、管理を行う。</li>
+
+</ul>
+
+<p>ホストが動作可能でネットワーク上にあれば、ホストはエコーに応答する。 各エコー要求は、 Internet Protocol (IP)、ICMPヘッダ、pingプロセスID (PID)、 <code>timeval</code> 構造体、およびパケットを完了するために必要なバイトを含む。</p>
+
+<p><span>ping</span> コマンドは、毎秒1個のデータグラムを送信し、ネットワークホストから受信した応答ごとに1行の出力を表示する。 <span>ping</span> コマンドは、ラウンドトリップタイム、パケットロスの統計を計算し、完了時にサマリーを表示する。 <span>ping</span> コマンドは、プログラムがタイムアウトするか、 <code>SIGINT</code> 信号を受信した時点で完了する。 Host パラメータには、有効なホスト名またはIPアドレスを指定する。</p>
+
+<p><span>ping</span> コマンドは、デフォルトでは、割り込みが入るまで、ディスプレイにエコー要求を送り続けます <code>(Ctrl-C)</code>。 <span>stty</span> コマンドを使えば、 <code>Interrupt</code> キーを変更できる。</p>
+
+
+<p>エコー要求が繰り返されると、システムに過負荷がかかる可能性がある。 したがって、繰り返されるエコーリクエストは、主に問題の切り分けのために使用されなければならない。</p>
+
+</section>
+
+<section><h2>フラグ</h2> <div> 
+<div><div><table><caption><span>表 1. フラグ</span></caption><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><span>-c</span>
+ Count
+</td>
+
+<td>送受信しなければならないエコー要求の数を Count 変数で指定する。</td>
+
+</tr>
+
+<tr>
+<td><span>-w</span> タイムアウト</td>
+
+<td>pingは最後のパケットを送信した後、最大タイムアウト秒数だけ応答を待つ。 <span>-w</span> フラグは、 <span>-c</span> フラグでのみ機能する。</td>
+
+</tr>
+
+<tr>
+<td><span>-d</span></td>
+
+<td>ソケットレベルでデバッグを開始する。</td>
+
+</tr>
+
+<tr>
+<td><span>-D</span></td>
+
+<td><code>ICMP ECHO_REPLY</code> パケットを標準出力に16進ダンプする。</td>
+
+</tr>
+
+<tr>
+<td><span>-E</span> インターフェース名 ｜ 送信元ホスト名 ｜ 送信元IPアドレス</td>
+
+<td>インターネットプロトコルバージョン4( IPv4 )およびインターネットプロトコルバージョン6( IPv6 )の特定のインターフェイス上でpingパケットを送受信する。 マシンのインターフェース・アドレスではないインターフェース名、送信元ホスト名、送信元IPアドレスを指定すると、エラーが返され、pingパケットは送信されない。 <span>-E</span> フラグを使用してインターフェース名を指定した場合、デフォルトでは、エコー要求の数 (<span>-c</span> Count) は値 5 に設定されます。<div><div>
+        <div>
+          <div><span>注:</span><ul>
+<li><span>-E</span> フラグは、特定のインターフェイス上でpingパケットを送受信するようにする。</li>
+
+<li><span>-E</span> フラグは、宛先のメディアアクセス制御（MAC）アドレスに対してのみ働き、保存されたルートに対しては働かない。 したがって、 <span>-E</span> フラグは、アドレス解決プロトコル (ARP) が解決された場合にのみ、 IPv4 プロトコルで機能します。 <span>-E</span> フラグは、隣接者探索プロトコル (NDP) が IPv6 アドレスを MAC アドレスに解決する場合にのみ、 IPv6 プロトコルで機能します。</li>
+
+<li><span>-E</span> フラグは保存されたルートでは機能しないため、 <span>-E</span> フラグと一緒に <span>-R</span> フラグを実行することはできません。</li>
+
+</ul>
+
+</div>
+        </div>
+      </div></div>
+</td>
+
+</tr>
+
+<tr>
+<td><span>-F</span></td>
+
+<td><span>ping</span> コマンドのレイテンシーを浮動小数点精度で表示。</td>
+
+</tr>
+
+<tr>
+<td><span>-f</span></td>
+
+<td>flood-ping オプションを指定する。 <span>-f</span> フラグは、パケットが戻ってくるのと同じ速さか、毎秒100回のどちらか多いほうでパケットをフラッディングまたは出力する。 <code>ECHO_REQUEST</code> を送信するごとにピリオド (.) が印字され、 <code>ECHO_REPLY</code> を受信するごとにバックスペース (/) が印字される。 この操作により、ドロップされたパケット数が迅速に表示される。 <span>-f</span> フラグはrootユーザーのみが使用する。<div><div>
+        <div>
+          <div><span>注：</span> <span>-f</span> フラグの使用には注意が必要。 flood で ping するには、root ユーザーしか使用できません。 <span>-f</span> フラグと <span>-i</span> Wait フラグには互換性がありません。</div>
+        </div>
+      </div></div>
+</td>
+
+</tr>
+
+<tr>
+<td><span>-I</span> a.b.c.d</td>
+
+<td>変数で指定されたインターフェイスが、発信 マルチキャストに使われなければならないことを指定する。 a.b.c.d 変数で指定されたインターフェイスが IPv4 マルチキャストの発信に使われなければならないことを指定する。</td>
+
+</tr>
+
+<tr>
+<td><span>-o</span> インターフェース</td>
+
+<td>IPv6 マルチキャストの発信にインターフェイス変数を使わなければならないことを指定する。 インターフェースは、 <code>en0</code>、 <code>tr0</code> などの形式で指定する。</td>
+
+</tr>
+
+<tr>
+<td><span>-i</span> 待機</td>
+
+<td>各パケット送信の間に Wait 変数で指定された秒数を待つ。 デフォルトでは、各パケット間で 1 秒待ちます。 <span>-i</span> フラグは <span>-f</span> フラグと互換性がない。 <span> <span>-u</span> フラグを指定した場合、 フラグに渡される間隔はマイクロ秒単位で考慮される。 <span>-i</span>  <span>-u</span> フラグの有効な間隔は、50マイクロ秒以上1000000マイクロ秒以下である。 1000000マイクロ秒は1秒に相当する。 <span>-i</span> フラグと <span>-D</span> フラグを併用しないこと。</span></td>
+
+</tr>
+
+<tr>
+<td><span>-L</span></td>
+
+<td>マルチキャストPingのローカルループバックを無効にする。</td>
+
+</tr>
+
+<tr>
+<td><span>-l</span> プリロード</td>
+
+<td>通常の動作に入る前に、 Preload 変数で指定された数のパケットを可能な限り高速に送信する。 通常の動作モードは1秒に1回。</td>
+
+</tr>
+
+<tr>
+<td><span>-n</span></td>
+
+<td>数値出力のみを指定する。 ホストアドレスのシンボリック名の検索は試みられない。</td>
+
+</tr>
+
+<tr>
+<td><span>-p</span> パターン</td>
+
+<td>送信するパケットを完成させるためのパッド・バイトを最大16個指定する。 <span>-p</span> ネットワークにおけるデータ依存の問題を診断するフラグ。 例えば、 <code>-p ff</code> はパケットをすべて1で埋める。</td>
+
+</tr>
+
+<tr>
+<td><span>-q</span></td>
+
+<td>クワイエット出力を指定する。 開始時刻と終了時刻のサマリー行のみが表示される。</td>
+
+</tr>
+
+<tr>
+<td><span>-r</span></td>
+
+<td>ルーティングテーブルをスキップし、接続されたネットワーク上のホストに直接送信する。 Host が直接ネットワークに接続されていない場合、<span>ping</span> コマンドがエラー・メッセージを出します。 <span>-r</span> フラグは、もはやそのインターフェイスを通るルートがないインターフェイスを通してローカルホストにpingを打つために使うことができる。</td>
+
+</tr>
+
+<tr>
+<td><span>-R</span></td>
+
+<td><code>RECORD_ROUTE</code> オプションを指定する。 <span>-R</span> フラグは、 <code>ECHO_REQUEST</code> パケットに <code>RECORD_ROUTE</code> オプションを含み、返されたパケットにルートバッファを表示する。<div><div>
+        <div>
+          <div><span>注：</span> IPヘッダーは、このような9つのルートに対して十分な大きさがある。 多くのホストやゲートウェイは <span>-R</span> フラグを無視する。</div>
+        </div>
+      </div></div>
+</td>
+
+</tr>
+
+<tr>
+<td><span>-a</span> 
+addr_family</td>
+
+<td>addr_family が <code>inet6</code> と等しい場合、ICMP パケットの宛先アドレスを IPv6 フォーマットにマップする。</td>
+
+</tr>
+
+<tr>
+<td><span>-s</span> PacketSize</td>
+
+<td>送信しなければならないデータ・バイト数を指定する。 デフォルトのデータバイトは56であり、ICMPデータヘッダの8バイトと組み合わせると、64ICMPデータバイトに変換される。</td>
+
+</tr>
+
+<tr>
+<td><span>-S</span> 
+hostname/IP addr</td>
+
+<td>発信pingパケットの送信元アドレスとしてIPアドレスを使用する。 複数のIPアドレスを持つホストでは、 <span>-S</span> フラグを使って、特定の送信元IPアドレスを使ってpingパケットを送受信することができる。 IPアドレスがマシンのインターフェース・アドレスの1つでない場合、エラーが返され、何も送信されない。<div><div>
+        <div>
+          <div><span>注：</span> <span>-S</span> フラグを使用すると、特定の送信元IPアドレスを使用してpingパケットを送受信することができますが、 <span>-S</span> フラグは、特定のインターフェイス上でpingパケットを送受信することを保証するものではありません。 代わりに、特定のインターフェイス上でpingパケットを送受信することを保証する <span>-E</span> フラグを使う。</div>
+        </div>
+      </div></div>
+</td>
+
+</tr>
+
+<tr>
+<td><span>-T</span> TTL</td>
+
+<td>マルチキャスト・パケットの存続時間が ttl 秒であることを指定します。</td>
+
+</tr>
+
+<tr>
+<td><span>-u</span></td>
+
+<td><span>-u</span> フラグと <span>-i</span> フラグを併用する。 <span>-u</span> フラグを指定した場合、 <span>-i</span> フラグに渡される間隔はマイクロ秒単位で考慮される。 <span>-u</span> フラグの有効な間隔は、50マイクロ秒以上1000000マイクロ秒以下である。 1000000マイクロ秒は1秒に相当する。 <span>-u</span> フラグと <span>-D</span> フラグを併用しないこと。</td>
+
+</tr>
+
+<tr>
+<td><span>-v</span></td>
+
+<td>エコー応答に加えて、受信したICMPパケットをリストする冗長出力を要求する。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+</section>
+
+<section><h2>パラメーター</h2> <div> 
+<div><div><table><caption><span>表 2. パラメーター</span></caption><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td>PacketSize</td>
+
+<td>送信しなければならないデータ・バイト数を指定する。 デフォルトのデータ・バイトは56であり、ICMPヘッダー・データの8バイトと組み合わせると、64ICMPデータ・バイトに変換される。 このパラメータは、 <span>ping</span> コマンドの旧バージョンとの互換性のために含まれている。</td>
+
+</tr>
+
+<tr>
+<td>カウント</td>
+
+<td>送受信するエコー要求の数を指定します。 このパラメーターは、<span>ping</span> コマンドの前のバージョンと互換性を持たせるために組み込まれています。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+</section>
+
+<section><h2>セキュリティー</h2> <div>
+<dl>
+
+<dt>アテンション RBAC ユーザー</dt>
+
+<dd><div><div>
+        <div>
+          <div><span>RBAC ユーザーへの注意:</span> このコマンドは特権操作を実行できます。 特権命令を実行できるのは特権ユーザーのみです。 権限と特権の詳細については、<span>セキュリティ</span>の <a href="https://www.ibm.com/docs/ja/ssw_aix_73/security/rbac_priv_cmd_db.html" target="_blank" rel="noopener noreferrer">特権コマンドデータベース</a>を参照してください。 このコマンドに関連する特権と権限のリストについては、'<a href="https://www.ibm.com/docs/ja/ssw_aix_73/l_commands/lssecattr.html" target="_blank" rel="noopener noreferrer"><span>lssecattr</span></a>コマンドまたは'<a href="https://www.ibm.com/docs/ja/ssw_aix_73/g_bostechref/getcmdattr.html" target="_blank" rel="noopener noreferrer"><span>getcmdattr</span></a>サブコマンドを参照のこと。</div>
+        </div>
+      </div></div>
+
+</dd>
+
+
+</dl>
+
+</div>
+</section>
+
+<section><h2>例</h2> <ol>
+<li><code>canopus</code> として知られているホストのネットワーク接続をチェックし、送信しなければならないエコー要求の数を指定するには、以下のコマンドを入力する：<div><div><pre><code>ping  -c 5 canopus</code></pre></div><div></div></div>または<div><div><pre><code>ping canopus  56  5</code></pre></div><div></div></div>次の例に示すような出力が表示されます。<div>
+<div><div><pre><code>PING canopus.austin.century.com: (128.116.1.5): 56 data bytes
+64 bytes from 128.116.1.5: icmp_seq=0 ttl=255 time=2 ms
+64 bytes from 128.116.1.5: icmp_seq=1 ttl=255 time=2 ms
+64 bytes from 128.116.1.5: icmp_seq=2 ttl=255 time=3 ms
+64 bytes from 128.116.1.5: icmp_seq=3 ttl=255 time=2 ms
+64 bytes from 128.116.1.5: icmp_seq=4 ttl=255 time=2 ms
+
+----canopus.austin.century.com PING Statistics----
+5 packets transmitted, 5 packets received, 0% packet loss
+round-trip min/avg/max = 2/2/3 ms</code></pre></div><div></div></div>
+</div>
+</li>
+
+<li><code>lear</code> として知られているホストに関する情報を取得し、ソケット・レベルのデバッグを開始するには、以下のコマンドを入力する：<div><div><pre><code>ping  -d  lear</code></pre></div><div></div></div>次の例に示すような出力が表示されます。<div><div><pre><code>PING lear.austin.century.com: (128.114.4.18) 56 data bytes
+64 bytes from 128.114.4.18: icmp_seq=0 ttl=255 time=6 ms
+64 bytes from 128.114.4.18: icmp_seq=1 ttl=255 time=17 ms
+64 bytes from 128.114.4.18: icmp_seq=2 ttl=255 time=6 ms
+64 bytes from 128.114.4.18: icmp_seq=3 ttl=255 time=6 ms
+64 bytes from 128.114.4.18: icmp_seq=4 ttl=255 time=6 ms
+^C
+----lear.austin.century.com PING Statistics ----
+5 packets transmitted, 5 packets received, 0% packet loss
+round-trip min/avg/max = 6/8/17 ms</code></pre></div><div></div></div><div><div>
+        <div>
+          <div><span>注：</span> 割り込み(Ctrl-C)を受信するまで出力は繰り返される。</div>
+        </div>
+      </div></div>
+</li>
+
+<li><code>opus</code> として知られているホストに関する情報を取得し、送信しなければならないデータ・バイト数を指定するには、以下のコマンドを入力する：<div><div><pre><code>ping  -s 2000 opus</code></pre></div><div></div></div>または<div><div><pre><code>ping opus  2000</code></pre></div><div></div></div>次の例に示すような出力が表示されます。<div><div><pre><code>PING opus.austin.century.com: (129.35.34.234): 2000 data bytes
+2008 bytes from 129.35.34.234: icmp_seq=0 ttl=255 time=20 ms
+2008 bytes from 129.35.34.234: icmp_seq=1 ttl=255 time=19 ms
+2008 bytes from 129.35.34.234: icmp_seq=2 ttl=255 time=20 ms
+2008 bytes from 129.35.34.234: icmp_seq=3 ttl=255 time=20 ms
+2008 bytes from 129.35.34.234: icmp_seq=4 ttl=255 time=20 ms
+2008 bytes from 129.35.34.234: icmp_seq=5 ttl=255 time=19 ms
+2008 bytes from 129.35.34.234: icmp_seq=6 ttl=255 time=19 ms
+^C
+----opus.austin.century.com PING Statistics----
+7 packets transmitted, 7 packets received, 0% packet loss
+round-trip min/avg/max = 19/19/20 ms</code></pre></div><div></div></div><div><div>
+        <div>
+          <div><span>注:</span> 出力は、割り込み (Ctrl-C) を受信するまで繰り返されます。</div>
+        </div>
+      </div></div>
+</li>
+
+<li>ホスト <code>stlopnor</code> に対するflood-pingオプションを開始するには、以下のコマンドを入力する：<div><div><pre><code>ping  -f stlopnor</code></pre></div><div></div></div>次の例に示すような出力が表示されます。<div><div><pre><code>Ping stlopnor.austin.century.com: (129.35.34.234): 56 data bytes
+.^C
+----stlopnor.austin.century.com PING Statistics ----
+1098 packets transmitted, 1097 packets received, 0% packet loss
+round-trip min/avg/max = 4/4/11</code></pre></div><div></div></div>
+<div><div>
+        <div>
+          <div><span>注:</span> 出力は、割り込み (Ctrl-C) を受信するまで繰り返されます。</div>
+        </div>
+      </div></div>
+</li>
+
+<li>ホストに送信されるパケットの間隔を5秒に指定するには、 <code>opus</code>、以下のコマンドを入力する：<div><div><pre><code>ping  -i5 opus</code></pre></div><div></div></div>次の例に示すような出力が表示されます。<div><div><pre><code>PING opus.austin.century.com: (129.35.34.234): 56 data bytes
+64 bytes from 129.35.34.234: icmp_seq=0 ttl=255 time=5 ms
+64 bytes from 129.35.34.234: icmp_seq=1 ttl=255 time=5 ms
+64 bytes from 129.35.34.234: icmp_seq=2 ttl=255 time=6 ms
+^C
+----opus.austin.century.com PING Statistics----
+3 packets transmitted, 3 packets received, 0% packet loss
+round-trip min/avg/max = 5/5/6 ms</code></pre></div><div></div></div><div><div>
+        <div>
+          <div><span>注:</span> 出力は、割り込み (Ctrl-C) を受信するまで繰り返されます。</div>
+        </div>
+      </div></div>
+</li>
+
+<li>通常の動作モードに入る前に、 Preload 変数で指定された数のパケットをホスト <code>opus</code> に送るには、以下のコマンドを入力する：<div><div><pre><code>ping  -l 10 opus</code></pre></div><div></div></div>次の例に示すような出力が表示されます。<pre><code>PING opus.austin.century.com: (129.35.34.234): 56 data bytes
+64 bytes from 129.35.34.234: icmp_seq=0 ttl=255 time=9 ms
+64 bytes from 129.35.34.234: icmp_seq=1 ttl=255 time=11 ms
+64 bytes from 129.35.34.234: icmp_seq=2 ttl=255 time=16 ms
+64 bytes from 129.35.34.234: icmp_seq=3 ttl=255 time=22 ms
+64 bytes from 129.35.34.234: icmp_seq=4 ttl=255 time=26 ms
+64 bytes from 129.35.34.234: icmp_seq=5 ttl=255 time=27 ms
+64 bytes from 129.35.34.234: icmp_seq=6 ttl=255 time=30 ms
+64 bytes from 129.35.34.234: icmp_seq=7 ttl=255 time=31 ms
+64 bytes from 129.35.34.234: icmp_seq=8 ttl=255 time=33 ms
+64 bytes from 129.35.34.234: icmp_seq=9 ttl=255 time=35 ms
+64 bytes from 129.35.34.234: icmp_seq=10 ttl=255 time=36 ms
+64 bytes from 129.35.34.234: icmp_seq=11 ttl=255 time=6 ms
+64 bytes from 129.35.34.234: icmp_seq=12 ttl=255 time=6 ms
+64 bytes from 129.35.34.234: icmp_seq=13 ttl=255 time=6 ms
+64 bytes from 129.35.34.234: icmp_seq=14 ttl=255 time=7 ms
+64 bytes from 129.35.34.234: icmp_seq=15 ttl=255 time=6 ms
+^C
+----opus.austin.century.com PING Statistics----
+16 packets transmitted, 16 packets received, 0% packet loss
+round-trip min/avg/max = 6/19/36 ms</code></pre>
+<div><div>
+        <div>
+          <div><span>注:</span> 出力は、割り込み (Ctrl-C) を受信するまで繰り返されます。</div>
+        </div>
+      </div></div>
+</li>
+
+<li>ネットワークのデータ依存問題を診断するには、以下のコマンドを入力する：<div><div><pre><code>ping -p ff opus</code></pre></div><div></div></div>このコマンドは、パッドパターンがすべて1のパケットをホスト <code>opus</code> に送る。 次の例に示すような出力が表示されます。<div><div><pre><code>PATTERN: 0xff
+PING opus.austin.century.com: (129.35.34.234): 56 data bytes
+64 bytes from 129.35.34.234: icmp_seq=0 ttl=255 time=5 ms
+64 bytes from 129.35.34.234: icmp_seq=1 ttl=255 time=5 ms
+64 bytes from 129.35.34.234: icmp_seq=2 ttl=255 time=5 ms
+64 bytes from 129.35.34.234: icmp_seq=3 ttl=255 time=6 ms
+64 bytes from 129.35.34.234: icmp_seq=4 ttl=255 time=5 ms
+^C
+----opus.austin.century.com PING Statistics----
+5 packets transmitted, 5 packets received, 0% packet loss
+round-trip min/avg/max = 5/5/6 ms</code></pre></div><div></div></div>
+<div><div>
+        <div>
+          <div><span>注:</span> 出力は、割り込み (Ctrl-C) を受信するまで繰り返されます。</div>
+        </div>
+      </div></div>
+</li>
+
+<li>静かな出力を指定するには、以下のコマンドを入力する：<div><div><pre><code>ping  -q bach</code></pre></div><div></div></div>以下のサンプルのような概要情報が表示されます：<div><div><pre><code>PING bach.austin.century.com: (129.35.34.234): 56 data bytes
+^C
+----bach.austin.century.com PING Statistics----
+5 packets transmitted, 5 packets received, 0% packet loss
+round-trip min/avg/max = 5/5/8 ms</code></pre></div><div></div></div><div><div>
+        <div>
+          <div><span>注:</span> 出力は、割り込み (Ctrl-C) を受信するまで繰り返されます。</div>
+        </div>
+      </div></div>
+</li>
+
+<li>特定のインターフェイス上でpingパケットを送受信するには、以下のコマンドを入力する：<div><div><pre><code>ping -E en1 2020:1234:5678:9122:2c6f:57ff:fe6b:8b02</code></pre></div><div></div></div>次の例に示すような出力が表示されます。<div><div><pre><code>Using Source Address 2020:1234:5678:9122:2c6f:57ff:3e6b:58
+PING 2020:1234:5678:9122:2c6f:57ff:fe6b:8b02: (2020:1234:5678:9122:2c6f:57ff:fe6b:8b02): 56 data bytes
+64 bytes from 2020:1234:5678:9122:2c6f:57ff:fe6b:8b02: icmp_seq=0 ttl=64 time=1.462 ms
+64 bytes from 2020:1234:5678:9122:2c6f:57ff:fe6b:8b02: icmp_seq=1 ttl=64 time=0.917 ms
+64 bytes from 2020:1234:5678:9122:2c6f:57ff:fe6b:8b02: icmp_seq=2 ttl=64 time=1.187 ms
+64 bytes from 2020:1234:5678:9122:2c6f:57ff:fe6b:8b02: icmp_seq=3 ttl=64 time=1.105 ms
+64 bytes from 2020:1234:5678:9122:2c6f:57ff:fe6b:8b02: icmp_seq=4 ttl=64 time=1.114 ms
+
+--- 2020:1234:5678:9122:2c6f:57ff:fe6b:8b02 ping statistics ---
+5 packets transmitted, 5 packets received, 0% packet loss
+round-trip min/avg/max = 0/0/1 ms</code></pre></div><div></div></div></li>
+
+<li> <code>commodev2</code> として知られているホストpingサーバーのネットワーク接続をチェックし、レイテンシが浮動小数点精度でなければならないことを指定するには、以下のコマンドを入力する：<div><div><pre><code>ping -F commodev2</code></pre></div><div></div></div>次の例に示すような出力が表示されます。<div><div><pre><code># ping -F commodev2
+PING commodev2.pok.stglabs.ibm.com: (9.114.250.236): 56 data bytes
+64 bytes from 9.114.250.236: icmp_seq=0 ttl=255 time=0.315 ms
+64 bytes from 9.114.250.236: icmp_seq=1 ttl=255 time=0.100 ms
+64 bytes from 9.114.250.236: icmp_seq=2 ttl=255 time=0.088 ms
+64 bytes from 9.114.250.236: icmp_seq=3 ttl=255 time=0.090 ms
+--- commodev2.pok.stglabs.ibm.com ping statistics ---
+4 packets transmitted, 4 packets received, 0% packet loss
+round-trip min/avg/max = 0.088/0.148/0.315 ms</code></pre></div><div></div></div></li>
+
+<li>ホスト <code>commodev6</code> （pingサーバー）に送信するパケットの間隔を1000マイクロ秒に指定するには、以下のコマンドを入力する：<ul>
+<li><p>次の例では、ホストpingサーバー <code>commodev6</code> が4秒と2秒連続してダウンしている。</p>
+
+<div><div><pre><code># ping -ui 1000 commodev6
+PING commodev6.pok.stglabs.ibm.com: (9.114.248.17): 56 data bytes
+Packets from icmp_seq 1507 (time:14:20:09.283540) to 5464 (time:14:20:13.287128) missed
+Packets from icmp_seq 10415 (time:14:20:18.295048) to 12396 (time:14:20:20.299296) missed
+--- commodev6.pok.stglabs.ibm.com ping statistics ---
+19438 packets transmitted, 13497 packets received, 30% packet lost
+round-trip min/avg/max = 0.050/0.058/0.124 ms</code></pre></div><div></div></div>
+</li>
+
+<li><p>以下の例では、pingクライアントとpingサーバー間の距離が長いため、ping応答が遅れ、順番が狂ってしまう。</p>
+
+<div><div><pre><code># ping -ui 1000 aixbase.aus.stglabs.ibm.com
+PING aixbase.aus.stglabs.ibm.com: (9.3.199.113): 56 data bytes
+Packets from icmp_seq 179 (time:14:24:17.106403) to 181 (time:14:24:17.340580) missed
+icmp_seq=181 received out of order
+icmp_seq=179 received out of order
+icmp_seq=180 received out of order
+…</code></pre></div><div></div></div>
+</li>
+
+<li><p>以下の例では、 <code>commodev6</code> pingサーバーから応答を受信していない。</p>
+
+<div><div><pre><code># ping -ui 1000 commodev6
+PING commodev6.pok.stglabs.ibm.com: (9.114.248.17): 56 data bytes
+--- commodev6.pok.stglabs.ibm.com ping statistics ---
+3609 packets transmitted, 0 packets received, 100% packet loss</code></pre></div><div></div></div>
+</li>
+
+<li><p>以下の例では、pingサーバーは常に稼働しており、すべてのpingリクエストに対する応答がpingクライアントに届いている。</p>
+
+<div><div><pre><code># ping -ui 1000 commodev6
+PING commodev6.pok.stglabs.ibm.com: (9.114.248.17): 56 data bytes
+
+--- commodev6.pok.stglabs.ibm.com ping statistics ---
+1989 packets transmitted, 1989 packets received, 0% packet loss
+round-trip min/avg/max = 0.050/0.056/0.322 ms</code></pre></div><div></div></div>
+</li>
+
+</ul></li>
+
+</ol>
+</section>
+
+</div></div>

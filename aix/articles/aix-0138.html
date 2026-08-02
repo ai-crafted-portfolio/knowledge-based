@@ -1,0 +1,243 @@
+<div class="official-dom"><div>
+<section><h2>目的</h2> <p>メッセージを個別の新しいメッセージに分割します。</p>
+</section>
+
+<section><h2>構文</h2> <p><strong>バースト</strong> [  <a href="https://www.ibm.com/docs/ja/ssw_aix_73/b_commands/burst.html#burst__row-d3e63517" target="_blank" rel="noopener noreferrer"><strong>+</strong></a><em>フォルダー </em>] [  <a href="https://www.ibm.com/docs/ja/ssw_aix_73/b_commands/burst.html#burst__row-d3e63559" target="_blank" rel="noopener noreferrer"><em>メッセージ </em></a>] [  <a href="https://www.ibm.com/docs/ja/ssw_aix_73/b_commands/burst.html#burst__row-d3e63536" target="_blank" rel="noopener noreferrer"><strong>-inplace (インプレース) </strong></a>] [  <a href="https://www.ibm.com/docs/ja/ssw_aix_73/b_commands/burst.html#burst__row-d3e63623" target="_blank" rel="noopener noreferrer"><strong>-ノインプレース </strong></a>] [  <a href="https://www.ibm.com/docs/ja/ssw_aix_73/b_commands/burst.html#burst__row-d3e63644" target="_blank" rel="noopener noreferrer"><strong>-静かに </strong></a>] [  <a href="https://www.ibm.com/docs/ja/ssw_aix_73/b_commands/burst.html#burst__row-d3e63629" target="_blank" rel="noopener noreferrer"><strong>-静かに </strong></a>] [  <a href="https://www.ibm.com/docs/ja/ssw_aix_73/b_commands/burst.html#burst__row-d3e63650" target="_blank" rel="noopener noreferrer"><strong>-詳細 </strong></a>] [  <a href="https://www.ibm.com/docs/ja/ssw_aix_73/b_commands/burst.html#burst__row-d3e63635" target="_blank" rel="noopener noreferrer"><strong>-noverbose </strong></a>]</p>
+</section>
+
+<section><h2>説明</h2> <p><strong>burst</strong> コマンドを使うと、メッセージを複数の新しいメッセージに分割できます。 <strong>burst</strong> コマンドは、ダイジェスト、<strong>forw</strong> コマンドで転送されたメッセージ、
+および <strong>forw</strong> コマンドと <strong>send</strong> コマンドによって送信された、
+宛名人に知らせずに第三者に送信されるメールの写しを処理します。 <strong>burst</strong> コマンドを使って作成したメッセージには、指定したフォルダー内の 2 番目に大きい番号から順に、
+連続した番号が付けられます。</p>
+ <p><strong>burst</strong> コマンドでは、1 つのメッセージから約 1000 のメッセージを作成できます。 しかし、<strong>burst</strong> コマンドは通常、バースト終了後のフォルダー内のメッセージの数に対して制限は設けません。</p>
+ <p>カプセル化されたメッセージを分離する位置を決定するとき、
+<strong>burst</strong> コマンドはカプセル化境界を使用します。 カプセル化された境界がメッセージ内にあれば、<strong>burst</strong> コマンドはそのメッセージを複数のメッセージに分割できます。</p>
+ <p>デフォルトでは、最初のダイジェストから取り出された最初のメッセージが現行メッセージになります。 <strong>-inplace</strong> フラグを指定すると、最初の新しいメッセージが現行メッセージになります。</p>
+</section>
+
+<section><h2>フラグ</h2> <div> 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><strong>+</strong><em>フォルダー</em></td>
+
+<td>分割するメッセージが入っているフォルダーを指定します。 デフォルトでは、システムは現行フォルダーを使用します。</td>
+
+</tr>
+
+<tr>
+<td><strong>-help</strong></td>
+
+<td>これは、コマンド構文、使用可能なスイッチ (トグル)、およびバージョン情報をリストします。<p></p><blockquote><span>“</span><strong>注:</strong> メッセージ・ハンドラー (MH) の場合、このフラグ名は完全な形で指定しなければなりません。<span>”</span></blockquote>
+<p></p>
+</td>
+
+</tr>
+
+<tr>
+<td><strong>-inplace</strong></td>
+
+<td>各ダイジェストをそのダイジェストの目次で置き換え、各ダイジェストに含まれているメッセージをそのダイジェストの目次の直後に配置し、フォルダー内の後続の全メッセージの番号を付け直して、分割されたダイジェストのメッセージ用のスペースを作ります。<p></p><blockquote><span>“</span><strong>注意:</strong> <strong>burst</strong> コマンドでは、最後のカプセル化メッセージの後ろに表示されたテキストは、独立したメッセージには入りません。 <strong>-inplace</strong> フラグを指定すると、この後続テキストは、<strong>burst</strong> コマンドによって除去されます。 ダイジェスト内では、このテキストは通常、「ダイジェストの終わり」文字列です。 ただし、送信側が最後のカプセル化メッセージの後ろに注釈を追加した場合、これらの注釈は、<strong>burst</strong> コマンドによって除去されます。<span>”</span></blockquote>
+<p></p>
+</td>
+
+</tr>
+
+<tr>
+<td><em>メッセージ</em></td>
+
+<td>分割するメッセージを指定します。 このパラメーターには、複数のメッセージ、メッセージの範囲、
+または 1 つのメッセージを指定できます。 以下の参照を使ってメッセージを指定します。<dl>
+<dt><em>Number</em></dt>
+
+<dd>メッセージ番号。 複数のメッセージを指定するときは、各番号をコンマで区切ります。 メッセージの範囲を指定するときは、その範囲の最初と最後の番号をハイフンで区切って入力します。</dd>
+
+
+<dt><em>sequence</em></dt>
+
+<dd>ユーザーが指定するメッセージ・グループ。 認識される値には以下のものが含まれます。<dl>
+<dt><strong>all</strong></dt>
+
+<dd>フォルダー内のすべてのメッセージ。</dd>
+
+
+<dt><strong>cur</strong> または <strong>。</strong> (ピリオド)</dt>
+
+<dd>現行メッセージ。 これはデフォルトです。</dd>
+
+
+<dt><strong>first</strong></dt>
+
+<dd>フォルダー内の最初のメッセージ</dd>
+
+
+<dt><strong>last</strong></dt>
+
+<dd>フォルダー内の最後のメッセージ</dd>
+
+
+<dt><strong>次へ</strong></dt>
+
+<dd>現行メッセージの次のメッセージ</dd>
+
+
+<dt><strong>prev</strong></dt>
+
+<dd>現行メッセージの直前のメッセージ。</dd>
+
+</dl>
+</dd>
+
+
+<dt> </dt>
+
+<dd></dd>
+
+</dl>
+</td>
+
+</tr>
+
+<tr>
+<td><strong>-ノーインプレース</strong></td>
+
+<td>各ダイジェストを保存します。 これはデフォルトです。</td>
+
+</tr>
+
+<tr>
+<td><strong>-noquiet (非静止)</strong></td>
+
+<td>ダイジェスト・フォーマットでないメッセージに関する情報を通知します。 このフラグはデフォルトです。</td>
+
+</tr>
+
+<tr>
+<td><strong>-ノーヴァーボーズ</strong></td>
+
+<td>ダイジェストの分割時に <strong>burst</strong> コマンドが実行するアクションを報告しません。 このフラグはデフォルトです。</td>
+
+</tr>
+
+<tr>
+<td><strong>-quiet</strong></td>
+
+<td>ダイジェスト・フォーマットでないメッセージに関する情報を通知しません。</td>
+
+</tr>
+
+<tr>
+<td><strong>-verbose</strong></td>
+
+<td>ダイジェストの分割時に <strong>burst</strong> コマンドが実行するアクションを報告します。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+</section>
+
+<section><h2>セキュリティー</h2> <p><strong>RBAC ユーザーへの注意</strong>: このコマンドは特権命令を実行できます。 特権命令を実行できるのは特権ユーザーのみです。 権限および特権について詳しくは、「<em>セキュリティー</em>」の『特権コマンド・データベース』を参照してください。 このコマンドに関連した特権および権限のリストについては、<strong>lssecattr</strong> コマンドまたは <strong>getcmdattr</strong> サブコマンドの項を参照してください。</p>
+</section>
+
+<section><h2>プロファイル・エントリー</h2> <p>以下のエントリーが <em>UserMhDirectory</em><strong>/.mh_profile</strong> ファイルに入力されます。</p>
+ 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td>Current-Folder:</td>
+
+<td>デフォルトの現行フォルダーを設定します。</td>
+
+</tr>
+
+<tr>
+<td>Msg-Protect:</td>
+
+<td>新しいメッセージ・ファイルの保護レベルを設定します。</td>
+
+</tr>
+
+<tr>
+<td>Path:</td>
+
+<td>ユーザーの MH ディレクトリーを指定します。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</section>
+
+<section><h2>例</h2> <ol>
+<li><span></span>ユーザーがメッセージを受信する5からmickey@mouseいくつかのメッセージをダイジェスト形式で含んでいます。<div> <div><div><pre><code>5+ 03/02 mickey@mouse
+6+ 03/02 disney@world</code></pre></div><div></div></div>メッセージをバーストする5複数の別々のメッセージに分けて、次のように入力します。<div><div><pre><code>burst 5
+5+ 03/02 mickey@mouse
+6 03/02 disney@world
+7 first message in digest
+8 second message in digest
+9 third message in digest</code></pre></div><div></div></div>結果として作成された新しいメッセージは、フォルダーの終わりに追加されます。 メッセージ5変更されず、4 つのメッセージがすべて含まれています。</div>
+</li>
+
+<li><span></span>メッセージをバーストする5<strong>-inplace</strong> フラグを使用して、次のように入力します。<div> <div><div><pre><code>burst 5 -inplace
+5+ 03/02 mickey@mouse
+6 first message in digest
+7 second message in digest
+8 third message in digest
+9 03/02 disney@world</code></pre></div><div></div></div>結果として作成された新しいメッセージはダイジェストの直後に配置され、そのあとに続くすべてのメッセージには <strong>burst</strong> コマンドによって番号が付け直されます。 メッセージ5現在は、転送されたメッセージのヘッダーとテキストのみが含まれています。</div>
+</li>
+
+</ol>
+</section>
+
+<section><h2>ファイル</h2> <div> 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><strong>$HOME/.mh_profile</strong></td>
+
+<td>MH ユーザー・プロファイルが入っています。</td>
+
+</tr>
+
+<tr>
+<td><strong>/usr/bin/burst</strong></td>
+
+<td><strong>burst</strong>  コマンドの実行可能なフォーマットが入っています。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+</section>
+
+</div></div>

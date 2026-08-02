@@ -1,0 +1,2643 @@
+<div class="official-dom"><div>
+<section><h2>目的</h2>
+
+<p>プロセスの状況を表示します。 このドキュメントでは、標準の<span>AIX</span>'<span>ps</span>コマンドと<a href="https://www.ibm.com/docs/ja/ssw_aix_73/p_commands/ps.html#ps__systemvps" target="_blank" rel="noopener noreferrer">System V バージョンの '<span>ps</span></a>コマンドについて説明する。</p>
+
+</section>
+
+<section><h2>構文</h2>
+
+<dl>
+
+<dt>X/Open 標準</dt>
+
+<dd><div>
+<div><div><pre><code>ps [ -A ] [ -M ] [ -N ] [ -Z ] [ -a ] [ -d ] [ -e ] [ -f ] [ -k ] [ -l ] [ -F format] [ -o Format ] [ -c Clist ] [ -G Glist ] [ -g Glist ] [ -m ] [ -n NameList ] [ -p Plist ] [ -P ] [ -t Tlist ] [ -U Ulist ] [ -u Ulist ] [ -T pid ] [ -L pidlist ] [ -X ] [ -@ [ WparName ] ]</code></pre></div><div></div></div>
+</div>
+
+</dd>
+
+
+
+<dt>バークレー標準</dt>
+
+<dd><div>
+<div><div><pre><code>ps [ a ] [ c ] [ e ] [ ew ] [ eww ] [ ewww ] [ g ] [ n ] [ w ] [ x ] [ l | s | u | v ] [ t tty ] [ X ] [ ProcessNumber ]</code></pre></div><div></div></div>
+</div>
+
+</dd>
+
+
+</dl>
+
+</section>
+
+<section><h2>説明</h2>
+
+<p><span>ps</span> コマンドは、アクティブ・プロセスの状況、
+および <span>-m</span> フラグが指定されていれば、それに関連するカーネル・スレッドを、
+標準出力に書き出します。 <span>-m</span> フラグは、追加の行を使用してプロセスに関連付けられたスレッドを表示しますが、追加のスレッド関連の列を表示するには、 <code>THREAD</code> フィールド指定子を指定した <span>-o</span> フラグを使用する必要があります。</p>
+
+<p>フラグが指定されていなければ、<span>ps</span> コマンドは現行端末に関する情報を表示します。 フラグ <span>-f</span>、
+<span>-o</span>、<span>l</span>、<span>-l</span>、<span>s</span>、<span>u</span>、および <span>v</span> は、
+プロセスに関して表示する情報量のみを決定し、どのプロセスをリストするかを決定するわけではありません。 フラグ <span>l</span>、<span>s</span>、<span>u</span>、および <span>v</span> は相互に排他的です。</p>
+
+<p><span>-o</span> フラグでは、
+<span>ps</span> コマンドはメモリーまたはページング域を調べて、
+プロセスが作成されたときのコマンド名およびパラメーターを判別します。 <span>ps</span> コマンドがこの情報を検出できない場合は、カーネルに保管されているコマンド名が大括弧で囲まれて表示されます。</p>
+
+<p><code>COLUMNS</code> 環境変数は、システムで選択された横方向の画面サイズをオーバーライドします。</p>
+
+<p>パラメーター・リストを受け入れるコマンド・ライン・フラグ (<span>-o</span>、<span>-G</span>、<span>-g</span>、<span>-p</span>、<span>-t</span>、<span>-U</span>、および <span>-u</span> フラグ) は、128 エントリーまでに制限されています。 例えば、<span>-u</span> Ulist フラグに指定できるユーザー数は 128 以内です。</p>
+
+<p><span>ps</span> コマンドの出力に <span>ワークロード・パーティション</span> (<span>WPAR</span>) 名は含まれていないが、現行稼働環境でワークロード・パーティション内で実行されているプロセスに関連付けられたプロジェクト ID (<code>PROJECT</code>)、ユーザー ID (<code>UID</code> または <code>USER</code>)、またはグループ ID (<code>GID</code>) が含まれている場合、それらの ID の前に正符号 (+) が付けられ、 <span>ワークロード・パーティション</span>との関連付けが示されます。 各 <span>ワークロード区画</span> には、グローバル環境用に定義された ID とは異なるユーザー、グループ、およびプロジェクト ID の独自の定義が含まれています。 <span>-@</span> オプションを指定して、 <span>ワークロード区画</span> 名を出力に含めることができます。</p>
+
+<div>
+<div><div>
+        <div>
+          <div><span>注:</span> <span>ps</span> コマンドは、アプリケーションがメモリーを解放したときにメモリー使用量カウントの減少を表示しません。 メモリーがアプリケーションから解放されると、そのメモリーは、プロセスごとのメモリー・フリー・リストに割り当てられます。 <span>ps</span> コマンドは、解放されたメモリーを、アプリケーションに割り当てられたメモリーとして見なします。</div>
+        </div>
+      </div></div>
+
+</div>
+
+<p><span>ps</span> コマンドで使用されるフラグに応じて、標準出力に表示される情報の上に列見出しが表示されます。 見出しは以下のリストに定義されており、これらの見出しが表示される原因となるフラグが括弧内に示されています。</p>
+
+<dl>
+
+<dt>ADDR</dt>
+
+<dd>(<span>-l</span> および <span>l</span> フラグ) 通常の場合は、プロセス・スタックのセグメント番号が入っています。カーネル・プロセスの場合は、プリプロセス・データ領域のアドレスです。</dd>
+
+
+
+<dt>BND</dt>
+
+<dd>(<span>-o THREAD</span> フラグ) カーネル・スレッドがバインドされる論理プロセッサー番号 (バインドされる場合)。 プロセスの場合は、そのすべてのスレッドが同じプロセッサーにバインドされたときに、
+このフィールドが表示されます。</dd>
+
+
+
+<dt>C</dt>
+
+<dd>(<span>-f</span>、 <span>l</span>、および <span>-l</span> フラグ) プロセスまたはスレッドの CPU 使用率。これは、システム・クロック・ティックおよびプロセスまたはスレッドが実行中であることが検出されるたびに増加します。 スケジューラーは、毎秒一度ずつ 2 で除算してこの値を減分させます。 <code>sched_other</code>
+ポリシーでは、CPU 使用率はプロセスのスケジューリング優先順位を決定する際に使用されます。 値が大きい場合は、CPU 負荷の高いプロセスを示し、プロセスの優先順位が低くなります。値が小さい場合は、入出力負荷の高いプロセスを示し、優先順位が高くなります。</dd>
+
+
+
+<dt>CMD</dt>
+
+<dd>(<span>-f</span>、<span>-l</span>、および <span>l</span> フラグ) コマンド名が入っています。 <span>-f</span> フラグを指定すると、 <span>ps</span> コマンドは、現在のコマンド名と引数を判別しようとします。どちらも、プロセスによって非同期に変更される可能性があります。 この後そのコマンド名と引数が表示されます。 この表示に失敗すると、<span>-f</span> オプションなしにコマンド名が表示されるように、大括弧の中にそのコマンド名が書き込まれます。</dd>
+
+
+
+<dt>COMMAND</dt>
+
+<dd>(<span>s</span>、<span>u</span>、および <span>v</span>) コマンド名が入っています。 完全なコマンド名およびそのパラメーターは、<span>-f</span> フラグで表示されます。<div>
+
+<div><span>F フィールドの表</span><div><table><thead>
+<tr>
+<th><div>フラグ</div></th>
+
+<th><div>16 進数</div></th>
+
+<th><div>定義</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><code>SLOAD</code></td>
+
+<td>0x00000001</td>
+
+<td>プロセスがコア・メモリーで動作中であることを示す。</td>
+
+</tr>
+
+<tr>
+<td><code>SNOSWAP</code></td>
+
+<td>0x00000002</td>
+
+<td>プロセスをスワップアウトできないことを示す。</td>
+
+</tr>
+
+<tr>
+<td><code>STRC</code></td>
+
+<td>0x00000008</td>
+
+<td>プロセスがトレースされていることを示す。</td>
+
+</tr>
+
+<tr>
+<td><code>SWTED</code></td>
+
+<td>0x00000010</td>
+
+<td>トレース中に、プロセスが停止したことを示す。</td>
+
+</tr>
+
+<tr>
+<td><code>SFWTED</code></td>
+
+<td>0x00000020</td>
+
+<td>トレース中に、<code>fork</code> サブルーチンのコール後でプロセスが停止したことを示す。</td>
+
+</tr>
+
+<tr>
+<td><code>SEWTED</code></td>
+
+<td>0x00000040</td>
+
+<td>トレース中に、<code>exec</code> サブルーチンのコール後でプロセスが停止したことを示す。</td>
+
+</tr>
+
+<tr>
+<td><code>SLWTED</code></td>
+
+<td>0x00000080</td>
+
+<td>トレース中に、<code>load</code> または <code>unload</code> サブルーチンのコール後でプロセスが停止したことを示す。</td>
+
+</tr>
+
+<tr>
+<td><code>SFIXPRI</code></td>
+
+<td>0x00000100</td>
+
+<td><code>pcpu</code> フィールド・ディスクリプターを無視し、プロセスが固定優先順位を持つことを示す。</td>
+
+</tr>
+
+<tr>
+<td><code>SKPROC</code></td>
+
+<td>0x00000200</td>
+
+<td>カーネル・プロセスを示す。</td>
+
+</tr>
+
+<tr>
+<td><code>SOMASK</code></td>
+
+<td>0x00000400</td>
+
+<td>シグナルを受信した後で、古いマスクの復元を示す。</td>
+
+</tr>
+
+<tr>
+<td><code>SWAKEONSIG</code></td>
+
+<td>0x00000800</td>
+
+<td>シグナルが <code>sleep</code> サブルーチンを打ち切ることを示します。 内容は、 <code>PCATCH</code> フラグの内容と同じであっては なりません 。 <code>PCATCH</code> および <code>SWAKEONSIG</code> の両方の内容が、<code>PMASK</code> の内容よりも大きくなければならない。</td>
+
+</tr>
+
+<tr>
+<td><code>SUSER</code></td>
+
+<td>0x00001000</td>
+
+<td>プロセスがユーザー・モードにあることを示す。</td>
+
+</tr>
+
+<tr>
+<td><code>SLKDONE</code></td>
+
+<td>0x00002000</td>
+
+<td>プロセスがロックされていることを示します。</td>
+
+</tr>
+
+<tr>
+<td><code>STRACING</code></td>
+
+<td>0x00004000</td>
+
+<td>プロセスがデバッグ・プロセスであることを示す。</td>
+
+</tr>
+
+<tr>
+<td><code>SMPTRACE</code></td>
+
+<td>0x00008000</td>
+
+<td>マルチプロセス・デバッグを示す。</td>
+
+</tr>
+
+<tr>
+<td><code>SEXIT</code></td>
+
+<td>0x00010000</td>
+
+<td>プロセスが終了していることを示す。</td>
+
+</tr>
+
+<tr>
+<td><code>SSEL</code></td>
+
+<td>0x00020000</td>
+
+<td>プロセッサーが「makeup」または「waiting danger」を選択していることを示します。</td>
+
+</tr>
+
+<tr>
+<td><code>SORPHANPGRP</code></td>
+
+<td>0x00040000</td>
+
+<td>孤立プロセス・グループを示す。</td>
+
+</tr>
+
+<tr>
+<td><code>SNOCNTLPROC</code></td>
+
+<td>0x00080000</td>
+
+<td>セッション・リーダーを制御端末から解放したことを示す。</td>
+
+</tr>
+
+<tr>
+<td><code>SPPNOCLDSTOP</code></td>
+
+<td>0x00100000</td>
+
+<td>子プロセスが停止するときに親プロセスへ <code>SIGHLD</code> シグナルが送信されない ことを示す。</td>
+
+</tr>
+
+<tr>
+<td><code>SEXECED</code></td>
+
+<td>0x00200000</td>
+
+<td>プロセスにあることを示します。</td>
+
+</tr>
+
+<tr>
+<td><code>SJOBSESS</code></td>
+
+<td>0x00400000</td>
+
+<td>現行セッションでジョブ制御が使われたことを示す。</td>
+
+</tr>
+
+<tr>
+<td><code>SJOBOFF</code></td>
+
+<td>0x00800000</td>
+
+<td>プロセスがジョブ制御を受けていないことを示す。</td>
+
+</tr>
+
+<tr>
+<td><code>PSIGDELIVERY</code></td>
+
+<td>0x01000000</td>
+
+<td>プロセスがプログラム・チェック・ハンドラーによって使用されることを示す。</td>
+
+</tr>
+
+<tr>
+<td><code>SRMSHM</code></td>
+
+<td>0x02000000</td>
+
+<td><code>exit</code> サブルーチンのコール中、プロセスが共有メモリーを除去したことを示す。</td>
+
+</tr>
+
+<tr>
+<td><code>SSLOTFREE</code></td>
+
+<td>0x04000000</td>
+
+<td>プロセスのスロットが空いていることを示す。</td>
+
+</tr>
+
+<tr>
+<td><code>SNOMSG</code></td>
+
+<td>0x08000000</td>
+
+<td>これ以上 <code>uprintf</code> サブルーチン・メッセージがないことを示す。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+
+</div>
+</dd>
+
+
+
+<dt>WPAR</dt>
+
+<dd>(<span>-@</span> フラグ) ワークロード区画名が入っています。 <span>-@</span> フラグのを指定すると、<span>ps</span> コマンドは、プロセスが実行されているワークロード区画の名前を表示します。 プロセス情報を表示するには、<span>-@</span> フラグに wparname パラメーターを指定します。</dd>
+
+
+
+<dt>DPGSZ</dt>
+
+<dd>(<span>Z</span> フラグ) プロセスのデータ・ページ・サイズ。</dd>
+
+
+
+<dt><code>F</code></dt>
+
+<dd>(<span>-l</span> および <span>l</span> フラグ) プロセスおよびスレッドに関連付けられた、より重要な <code>F</code> フィールド・フラグ (16 進数および加算) の一部を、以下の表にリストします。<div>
+
+<div><span>F フィールドの表</span><div><table><thead>
+<tr>
+<th><div>フラグ</div></th>
+
+<th><div>16 進数</div></th>
+
+<th><div>定義</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><code>SLOAD</code></td>
+
+<td>0x00000001</td>
+
+<td>プロセスがコア・メモリーで動作中であることを示す。</td>
+
+</tr>
+
+<tr>
+<td><code>SNOSWAP</code></td>
+
+<td>0x00000002</td>
+
+<td>プロセスをスワップアウトできないことを示す。</td>
+
+</tr>
+
+<tr>
+<td><code>STRC</code></td>
+
+<td>0x00000008</td>
+
+<td>プロセスがトレースされていることを示す。</td>
+
+</tr>
+
+<tr>
+<td><code>SKPROC</code></td>
+
+<td>0x00000200</td>
+
+<td>カーネル・プロセスを示す。</td>
+
+</tr>
+
+<tr>
+<td><code>SEXIT</code></td>
+
+<td>0x00010000</td>
+
+<td>プロセスが終了していることを示す。</td>
+
+</tr>
+
+<tr>
+<td><code>SLPDATA</code></td>
+
+<td>0x00020000</td>
+
+<td>プロセスで大きなページが使用されることを示す。</td>
+
+</tr>
+
+<tr>
+<td><code>SEXECED</code></td>
+
+<td>0x00200000</td>
+
+<td>プロセスにあることを示します。</td>
+
+</tr>
+
+<tr>
+<td><code>SEXECING</code></td>
+
+<td>0x01000000</td>
+
+<td>プロセスが実行中 (exec を実行中) であることを示す。</td>
+
+</tr>
+
+<tr>
+<td><code>SPSEARLYALLOC</code></td>
+
+<td>0x04000000</td>
+
+<td>このプロセスのページング・スペースが初期に割り当てられることを示す。</td>
+
+</tr>
+
+<tr>
+<td><code>TKTHREAD</code></td>
+
+<td>0x00001000</td>
+
+<td>スレッドがカーネル専用スレッドであることを示す。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+
+</div>
+
+<div><div>
+        <div>
+          <div><span>注:</span> <span>/usr/include/sys/proc.h</span> ファイルと <span>/usr/include/sys/thread.h</span> ファイルの <code>p_flags</code> フィールドと <code>t_flags</code> フィールドをそれぞれ参照することで、すべてのプロセス・フラグとスレッド・フラグの定義を確認できます。</div>
+        </div>
+      </div></div>
+</dd>
+
+
+</dl>
+
+<dl>
+
+<dt>LIM</dt>
+
+<dd>(<span>v</span> フラグ) <code>setrlimit</code> サブルーチンのコールを介して指定され、使用されるメモリーのソフト制限。 この制限を指定しなかった場合、<code> xx</code> が表示されます。 この制限をシステム制限 (すなわち、制限なし) に設定した場合には、値 <code>UNLIM</code> が表示されます。</dd>
+
+
+
+<dt>NI</dt>
+
+<dd>(<span>-l</span> および <span>l</span> フラグ) nice の値。 <code>sched
+other</code> ポリシーの優先順位の計算に使用されます。</dd>
+
+
+
+<dt>PID</dt>
+
+<dd>(すべてのフラグ) プロセスのプロセス ID。</dd>
+
+
+
+<dt>PGIN</dt>
+
+<dd>(<span>v</span> フラグ) コアにロードされていないページへのプロセスによる参照から生じたディスク入出力回数。</dd>
+
+
+
+<dt>PPID</dt>
+
+<dd>(<span>-f</span>、<span>l</span>、および <span>-l</span> フラグ) 親プロセスのプロセス ID。</dd>
+
+
+
+<dt>PRI</dt>
+
+<dd>(<span>-l</span> および <span>l</span> フラグ) プロセスまたはカーネル・スレッドの優先順位。数値が大きいほど優先順位が低くなります。</dd>
+
+
+
+<dt>PROJECT</dt>
+
+<dd>(<span>-P</span> フラグ) プロセスに割り当てられているプロジェクト名。 現在の稼働環境では、 <code>PROJECT</code> フィールドおよび <code>USER</code> フィールドは、 <span>ワークロード・パーティション</span>内で実行されているプロセスの名前に変換されません。 <span>-U</span> と <span>-u</span> フラグだけは、現行稼働環境に適用されます。ただし、<span>-@</span> フラグが特定のワークロード区画名を指定して組み込まれている場合はその限りではありません。 <span>-@</span> フラグを使用して現行稼働環境以外のワークロード区画を指定し、かつ、<span>-U</span> と <span>-u</span> フラグが指定されている場合、ユーザー ID のリストは数値でなければなりません。</dd>
+
+
+
+<dt>RSS</dt>
+
+<dd>(<span>v</span> フラグ) プロセスの実メモリー (常駐セット) のサイズ (1
+キロバイト単位)。</dd>
+
+
+
+<dt>S</dt>
+
+<dd>(<span>-l</span> および <span>l</span> フラグ) プロセスまたはカーネル・スレッドの状態。<p>プロセスの場合:</p>
+
+<dl>
+
+<dt><code>O</code></dt>
+
+<dd>存在しない</dd>
+
+
+
+<dt><code>A</code></dt>
+
+<dd>アクティブ</dd>
+
+
+
+<dt><code>W</code></dt>
+
+<dd>スワップ済み</dd>
+
+
+
+<dt><code>I</code></dt>
+
+<dd>アイドル (始動待ちの) 状態</dd>
+
+
+
+<dt><code>Z</code></dt>
+
+<dd>取り消し</dd>
+
+
+
+<dt><code>T</code></dt>
+
+<dd>停止</dd>
+
+
+</dl>
+
+<p>カーネル・スレッドの場合:</p>
+
+<dl>
+
+<dt><code>O</code></dt>
+
+<dd>存在しない</dd>
+
+
+
+<dt><code>R</code></dt>
+
+<dd>実行中</dd>
+
+
+
+<dt><code>S</code></dt>
+
+<dd>スリープ中</dd>
+
+
+
+<dt><code>W</code></dt>
+
+<dd>スワップ済み</dd>
+
+
+
+<dt><code>Z</code></dt>
+
+<dd>取り消し</dd>
+
+
+
+<dt><code>T</code></dt>
+
+<dd>停止</dd>
+
+
+</dl>
+</dd>
+
+
+
+<dt><code>SC</code></dt>
+
+<dd>(<span>-o THREAD</span> フラグ) プロセスまたはカーネル・スレッドの中断カウント。 プロセスの場合、中断カウントはカーネル・スレッドの中断カウントの合計として定義されます。</dd>
+
+
+
+<dt><code>SCH</code></dt>
+
+<dd>(<span>-o THREAD, sched</span> フラグ) カーネル・スレッドのスケジューリング・ポリシー。 ポリシー <code>sched_other</code>、 <code>sched_fifo</code>、および <code>sched_rr</code> は、それぞれ <code>0</code>、 <code>1</code>、 <code>2</code>を使用して表示されます。 スケジューリング・ポリシーは、 <code>sched</code> フラグが指定されている場合にのみ表示されます。</dd>
+
+
+
+<dt><code>SIZE</code></dt>
+
+<dd>(<span>v</span> フラグ) プロセスのデータ・セクションの仮想サイズ (1 キロバイト単位)。</dd>
+
+
+
+<dt><code>SHMPGSZ</code></dt>
+
+<dd>(<span>Z</span> フラグ) プロセスの共有メモリー・ページ・サイズ。</dd>
+
+
+
+<dt><code>SPGSZ</code></dt>
+
+<dd>(<span>Z</span> フラグ) プロセスのスタック・ページ・サイズ。</dd>
+
+
+
+<dt><code>SSIZ</code></dt>
+
+<dd>(<span>s</span> フラグ) カーネル・スタックのサイズ。 マルチスレッド・プロセスの場合、この値は常に 0 (ゼロ) です。</dd>
+
+
+
+<dt><code>STAT</code></dt>
+
+<dd>(<span>s</span>、<span>u</span>、および <span>v</span> フラグ) プロセスの状態が入っています。<dl>
+
+<dt><code>0</code></dt>
+
+<dd>存在しない</dd>
+
+
+
+<dt><code>A</code></dt>
+
+<dd>アクティブ</dd>
+
+
+
+<dt><code>I</code></dt>
+
+<dd>中間</dd>
+
+
+
+<dt><code>Z</code></dt>
+
+<dd>取り消し</dd>
+
+
+
+<dt><code>T</code></dt>
+
+<dd>停止</dd>
+
+
+
+<dt><code>K</code></dt>
+
+<dd>使用可能なカーネル・プロセス</dd>
+
+
+</dl>
+</dd>
+
+
+
+<dt>STIME</dt>
+
+<dd>(<span>-f</span> および <span>u</span> フラグ) プロセスの始動時刻。 <code>LANG</code> 環境変数がこのフィールドの表示を制御します。</dd>
+
+
+
+<dt>SUBPROJ</dt>
+
+<dd>(<span>-P</span> フラグ) プロセスに割り当てられているサブプロジェクトの ID。</dd>
+
+
+
+<dt>SZ</dt>
+
+<dd>(<span>-l</span> および <span>l</span> フラグ) プロセスのコア・イメージの 1 キロバイト単位のサイズ。</dd>
+
+
+
+<dt>THCNT</dt>
+
+<dd>(<span>-o thcount</span> フラグ) プロセスが所有するカーネル・スレッド数。</dd>
+
+
+
+<dt>TID</dt>
+
+<dd>(<span>-o THREAD</span> フラグ) カーネル・スレッドのスレッド ID。</dd>
+
+
+
+<dt>時刻</dt>
+
+<dd>(すべてのフラグ) プロセスの合計実行時間。 時間の表示フォーマットは mm:ss または mmmm:ss (実行時間が 100 分に達した場合) です。これは <span>-o time</span> フラグを指定した場合の表示フォーマットとは異なります。</dd>
+
+
+
+<dt>TPGSZ</dt>
+
+<dd>(<span>Z</span> フラグ) プロセスのテキスト・ページ・サイズ。</dd>
+
+
+
+<dt>TRS</dt>
+
+<dd>(<span>v</span> フラグ) テキストの常駐セット (実メモリー) のサイズ。</dd>
+
+
+
+<dt>TSIZ</dt>
+
+<dd>(<span>v</span> フラグ) テキスト (共有プログラム) イメージのサイズ。</dd>
+
+
+
+<dt><code>TTY</code></dt>
+
+<dd>(すべてのフラグ) プロセスのための制御端末で、以下のとおりです。<dl>
+
+<dt><code>-</code></dt>
+
+<dd>プロセスが端末と関連付けられていない。</dd>
+
+
+
+<dt><code>?</code></dt>
+
+<dd>不明。</dd>
+
+
+
+<dt>Number</dt>
+
+<dd><code>TTY</code> 番号。 例えば、項目 <code>2</code> は <code>TTY2</code>を示します。</dd>
+
+
+</dl>
+</dd>
+
+
+
+<dt>UID</dt>
+
+<dd>(<span>-f</span>、<span>-l</span>、および <span>l</span> フラグ) プロセス・オーナーのユーザー ID。 <span>-f</span> フラグを指定すると、ログイン名が表示されます。</dd>
+
+
+
+<dt>ユーザー</dt>
+
+<dd>(<span>u</span> フラグ) プロセス・オーナーのログイン名。 現在の稼働環境では、 <code>PROJECT</code> フィールドおよび <code>USER</code> フィールドは、 <span>ワークロード・パーティション</span>内で実行されているプロセスの名前に変換されません。</dd>
+
+
+
+<dt>WCHAN</dt>
+
+<dd>(<span>-l</span> フラグ) プロセスまたはカーネル・スレッドが待機中またはスリープ中であるイベント。 カーネル・スレッドの場合、カーネル・スレッドが実行中であれば、このフィールドはブランクになります。 プロセスの場合、カーネル・スレッドが 1 つだけスリープしていると、待機チャネルはスリープ中のカーネル・スレッドの待機チャネルとして定義されます。それ以外の場合は、アスタリスクが表示されます。</dd>
+
+
+
+<dt>WCHAN</dt>
+
+<dd>(<span>l</span> フラグ) プロセスが待機中のイベント (システム内のアドレス)。 数値出力が要求されない限り、アドレスをソートする記号が選ばれます。</dd>
+
+
+
+<dt>CPU (%CPU)</dt>
+
+<dd>(<span>u</span> および <span>v</span> フラグ) プロセス始動以降、プロセスが CPU を使用した時間のパーセンテージ。 この値は、プロセスが CPU を使用した時間をプロセスの経過時間で除算することによって計算されます。 マルチプロセッサー環境では、同じプロセスにある複数のスレッドは異なる CPU 上で同時に稼働できるため、この値をさらに使用可能な CPU の数で割ります。 (このデータが計算される時間基準は異なるため、すべての <code>%CPU</code> フィールドの合計が 100% を超える可能性があります。)</dd>
+
+
+
+<dt>%MEM</dt>
+
+<dd>(<span>u</span> および <span>v</span> フラグ) このプロセスで使用されている実メモリーの割合。 <code>%MEM</code> 値は、プログラム・テキストを他のプロセスと共有しているプロセスのコストを誇張する傾向があります。 1 つのプログラムの複数のコピーが実行されていて、プログラム・テキストのコピーがすべてのインスタンスによって共有されている場合、共有による重複は考慮されていません。 そのプログラムのインスタンスごとに、テキスト・セクションのサイズが考慮されます。 これは、1 つのプログラムの複数のコピーが実行される場合、すべてのプロセスの <code>%MEM</code> 値の合計が 100% を超える可能性があることを意味します。</dd>
+
+
+</dl>
+
+<div>既に終了しており、そのプロセスの終了を待っていない親プロセスを持つプロセスは、<code>&lt;defunct&gt;</code> と記されます。 終了しようとしてブロックされているプロセスには、 <code>&lt;exiting&gt;</code>のマークが付けられます。 <span>ps</span> コマンドは、プロセスがメモリーまたはスワップ領域によって作成されたときに指定されたファイル名と引数を判別しようとします。<div><div>
+        <div>
+          <div><span>注:</span><ol>
+<li><span>ps</span> コマンドの実行中に、プロセスが変更することがあります。 機能不良プロセスについて表示されるデータの中には、無関係なものがあります。</li>
+
+<li><span>ps</span> プログラムは、メモリーを調べて、プロセスの作成時に使用されたファイル名と引数を取得します。 ただし、プロセスが情報を破壊する可能性があるので、
+このファイル名と引数の検索方法は信頼性を欠きます。</li>
+
+<li><span>ps</span> プログラムは、ローカル・リソースでユーザーおよびグループ情報を検索します。</li>
+
+</ol>
+
+</div>
+        </div>
+      </div></div>
+</div>
+
+</section>
+
+<section><h2>フラグ</h2>
+
+<p>以下のフラグの前には、<code>-</code> (マイナス符号) が付きます。</p>
+
+
+<div><div><table><caption><span>表 1. フラグ</span></caption><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><span>-A</span></td>
+
+<td>すべてのプロセスに関する情報を標準出力に書き出します。</td>
+
+</tr>
+
+<tr>
+<td><span>-a</span></td>
+
+<td>セッション・リーダー、および端末に関連しないプロセスを除くすべてのプロセスに関する情報を標準出力に書き出します。</td>
+
+</tr>
+
+<tr>
+<td><span>-c</span> リスト</td>
+
+<td>Clist 変数にリストされているワークロード管理クラスに割り当てられているプロセスに関する情報のみを表示します。 Clist 変数は、コンマで区切られたクラス名のリスト、または二重引用符 ("") で囲まれたクラス名のリストです。これは、コンマまたは 1 つ以上のスペース、あるいはその両方で区切られます。</td>
+
+</tr>
+
+<tr>
+<td><span>-d</span></td>
+
+<td>セッション・リーダーを除くすべてのプロセスに関する情報を標準出力に書き出します。</td>
+
+</tr>
+
+<tr>
+<td><span>-e</span></td>
+
+<td>カーネル・プロセス以外のすべてのプロセスに関する情報を標準出力に書き出します。</td>
+
+</tr>
+
+<tr>
+<td><span>-F</span>  Format</td>
+
+<td><span>-o</span> Format と同じ。</td>
+
+</tr>
+
+<tr>
+<td><span>-f</span></td>
+
+<td>完全なリストを生成します。</td>
+
+</tr>
+
+<tr>
+<td><span>-G</span> グリスト</td>
+
+<td>Glist 変数にリストされている有効グループ内のプロセスに関する情報のみを標準出力に書き込みます。 Glist 変数は、有効なグループ ID のコンマ区切りリスト、または二重引用符で囲まれ、 <code>(" ")</code> コンマまたは 1 つ以上のスペースで区切られた有効なグループ ID のリストのいずれかです。</td>
+
+</tr>
+
+<tr>
+<td><span>-g</span> グリスト</td>
+
+<td>Glist 変数にリストされているプロセス・グループ内のプロセスに関する情報のみを標準出力に書き込みます。 Glist 変数は、コンマで区切られたプロセス・グループ ID のリスト、または二重引用符で囲まれ、 <code>(" ")</code> コンマまたは 1 つ以上のスペースで区切られたプロセス・グループ ID のリストのいずれかです。</td>
+
+</tr>
+
+<tr>
+<td><span>-k</span></td>
+
+<td>カーネル・プロセスをリストします。</td>
+
+</tr>
+
+<tr>
+<td><span>-l</span></td>
+
+<td>詳細なリストを作成します。 <a href="https://www.ibm.com/docs/ja/ssw_aix_73/p_commands/ps.html#ps__row-d3e110434" target="_blank" rel="noopener noreferrer"><span>l</span></a> フラグも参照してください。</td>
+
+</tr>
+
+<tr>
+<td><span>-L</span> ピッド・リスト</td>
+
+<td>pidlist 変数に入れて渡されたすべての pid の子孫のリストを生成します。 pidlist 変数は、コンマで区切られたプロセス ID の
+リストです。 指定されたすべての PID からの子孫のリストが、
+プロセス・テーブルに現れた順に印刷されます。</td>
+
+</tr>
+
+<tr>
+<td><span>-M</span></td>
+
+<td>すべての 64 ビット・プロセスをリストします。</td>
+
+</tr>
+
+<tr>
+<td><span>-m</span></td>
+
+<td>カーネル・スレッドおよびプロセスをリストします。 プロセスの出力行の後には、カーネル・スレッドごとに追加の出力行が続きます。 このフラグは、適切な <a href="https://www.ibm.com/docs/ja/ssw_aix_73/p_commands/ps.html#ps__row-d3e109655" target="_blank" rel="noopener noreferrer"><span>-o</span></a> Format フラグが指定されていない限り、スレッド固有のフィールド (<code>bnd</code>、 <code>scount</code>、 <code>sched</code>、 <code>thcount</code>、および <code>tid</code>) を表示しません。</td>
+
+</tr>
+
+<tr>
+<td><span>-N</span></td>
+
+<td>スレッド統計情報の収集は行いません。 このフラグを指定すると、<span>ps</span> は、
+プロセスのスレッド・チェーンをスキャンしなくても入手できる統計情報だけをレポートします。</td>
+
+</tr>
+
+<tr>
+<td><span>-n</span> NameList</td>
+
+<td>デフォルトの代わりに代替システム名リスト・ファイルを指定します。 オペレーティング・システムでは、情報は直接カーネルに提供されるため、
+<span>-n</span> フラグは使用されません。</td>
+
+</tr>
+
+<tr>
+<td><span>-o</span>  Format</td>
+
+<td>Format 変数で指定された形式で情報を表示します。 Format 変数には、複数のフィールド指定子を指定できます。 Format 変数は、フィールド指定子のコンマ区切りリスト、または "" のセットで囲まれたフィールド指定子のリストのいずれかです。 (二重引用符) で区切られ、コンマまたは 1 つ以上のスペース、あるいはその両方で区切られます。<p>それぞれのフィールド指定子にはデフォルトのヘッダーがあります。 デフォルトのヘッダーをオーバーライドするには、<code>=</code> (等号) の後にヘッダーのユーザー定義テキストを指定します。 フィールドは、コマンド行で指定された順序で列形式で書き込まれます。 フィールド幅は、少なくともデフォルト幅かユーザー定義ヘッダー・テキストの幅になるように、
+システムによって指定されます。 ヘッダー・テキストが null の場合 (例えば、
+<span>-o</span> <code>user=</code> が指定された場合)、フィールド幅は少なくともデフォルトのヘッダー・テキストと同じ幅になります。 すべてのヘッダー・フィールドが null の場合、ヘッダー行は書き込まれません。</p>
+<p>システムが認識するフィールド指定子を以下に示します。</p>
+
+<dl>
+
+<dt><code>args</code></dt>
+
+<dd>実行中のコマンドの完全名を示します。 切り捨てが行われる可能性がありますが、すべてのコマンド行引数が組み込まれます。 このフィールドのデフォルト・ヘッダーは <code>COMMAND</code>です。</dd>
+
+
+
+<dt><code>bnd</code></dt>
+
+<dd>プロセスまたはカーネル・スレッドがバインドされているプロセッサー (もしあれば) を示します。 このフィールドのデフォルト・ヘッダーは <code>BND</code>です。</dd>
+
+
+
+<dt><code>class</code></dt>
+
+<dd>プロセスまたはスレッドに割り当てられているワークロード管理クラスを示します。 このフィールドのデフォルト・ヘッダーは <code>CLASS</code>です。</dd>
+
+
+
+<dt><code>comm</code></dt>
+
+<dd>実行中のコマンドの省略名を示します。 コマンド・ライン引数は含まれません。 このフィールドのデフォルト・ヘッダーは <code>COMMAND</code>です。</dd>
+
+
+
+<dt><code>cpu</code></dt>
+
+<dd>プロセスのスケジューリング優先順位を決定します。 プロセスまたはスレッドの CPU 使用率。これは、システム・クロック・ティックおよびプロセスまたはスレッドが実行中であることが検出されるたびに増加します。 スケジューラーは、毎秒一度ずつ 2 で除算してこの値を減分させます。 sched_other ポリシーの場合、大きい値は CPU 集中型プロセスを示し、プロセス優先順位は低くなりますが、小さい値は入出力集中型プロセスを示し、優先順位が高くなります。</dd>
+
+
+
+<dt>dpgsz</dt>
+
+<dd>プロセスのデータ・ページ・サイズを示します。</dd>
+
+
+
+<dt><code>etime</code></dt>
+
+<dd>プロセス始動後の経過時間を示します。 経過時間は以下のフォーマットで表示されます。<p>[[ dd<code>-</code> ] hh<code>:</code> ] mm<code>:</code> ss</p>
+
+<p>dd は日数を、hh は時間数を、mm は分数を、ss は秒数を指定します。 このフィールドのデフォルト・ヘッダーは <code>ELAPSED</code> です。</p>
+</dd>
+
+
+
+<dt><code>group</code></dt>
+
+<dd>プロセスの実効グループ ID を示します。 テキストによるグループ ID が表示されます。 テキストによるグループ ID を獲得できない場合には、10 進表記が使用されます。 このフィールドのデフォルト・ヘッダーは <code>GROUP</code>です。</dd>
+
+
+
+<dt><code>nice</code></dt>
+
+<dd>プロセスの nice の値の 10 進値を示します。 このフィールドのデフォルト・ヘッダーは <code>NI</code>です。</dd>
+
+
+</dl>
+</td>
+
+</tr>
+
+<tr>
+<td><span>-o</span> (続き)</td>
+
+<td><dl>
+
+<dt><code>pcpu</code></dt>
+
+<dd>使用可能な CPU 時間に対する、使用された CPU 時間の比率をパーセンテージで示します。 このフィールドのデフォルト・ヘッダーは <code>%CPU</code>です。</dd>
+
+
+
+<dt><code>pgid</code></dt>
+
+<dd>プロセスのグループ ID の 10 進値を示します。 このフィールドのデフォルト・ヘッダーは <code>PGID</code>です。</dd>
+
+
+
+<dt><code>pid</code></dt>
+
+<dd>プロセス ID の 10 進値を示します。 このフィールドのデフォルト・ヘッダーは <code>PID</code>です。</dd>
+
+
+
+<dt><code>ppid</code></dt>
+
+<dd>親プロセス ID の 10 進値を示します。 このフィールドのデフォルト・ヘッダーは <code>PPID</code>です。</dd>
+
+
+
+<dt><code>rgroup</code></dt>
+
+<dd>プロセスの実グループ ID を示します。 テキストによるグループ ID が表示されます。 テキストによるグループ ID を獲得できない場合には、10 進表記が使用されます。 このフィールドのデフォルト・ヘッダーは <code>RGROUP</code>です。</dd>
+
+
+
+<dt><code>ruser</code></dt>
+
+<dd>プロセスの実ユーザー ID を示します。 テキストによるユーザー ID が表示されます。 テキストによるユーザー ID を獲得できない場合には、10 進表記が使用されます。 このフィールドのデフォルト・ヘッダーは <code>RUSER</code>です。</dd>
+
+
+
+<dt><code>scount</code></dt>
+
+<dd>カーネル・スレッドの中断カウントを示します。 このフィールドのデフォルト・ヘッダーは <code>SC</code>です。</dd>
+
+
+
+<dt><code>sched</code></dt>
+
+<dd>カーネル・スレッドのスケジューリング・ポリシーを示します。 このフィールドのデフォルト・ヘッダーは <code>SCH</code>です。</dd>
+
+
+
+<dt><code>shmpgsz</code></dt>
+
+<dd>プロセスの共有メモリー・ページ・サイズを示します。</dd>
+
+
+
+<dt>spgsz</dt>
+
+<dd>プロセスのスタック・ページ・サイズを示します。</dd>
+
+
+
+<dt><code>tag</code></dt>
+
+<dd>ワークロード・マネージャーのアプリケーション・タグを示します。 このフィールドのデフォルト・ヘッダーは <code>TAG</code>です。 タグは、最大 30 文字の長さの文字ストリングで、 <span>ps</span>によって表示されるときに切り捨てられる可能性があります。 タグを設定しない
+プロセスの場合、このフィールドは <code>-</code> (ハイフン) として表示されます。</dd>
+
+
+
+<dt>tcpu</dt>
+
+<dd>CPU 時間の合計。 これは、単一プロセスの場合の CPU 時間の累計を示します。 このコマンドは WLM がアクティブまたはパッシブ・モードのいずれかで実行中に情報を表示し、それ以外の場合、このフィールドは - (ハイフン) として表示されます。 このフィールドのデフォルト・ヘッダーは <code>TCPU</code>です。</dd>
+
+
+
+<dt>tctime</dt>
+
+<dd>合計接続時間。 1 つのログイン・セッションがアクティブであることが可能な時間の合計を示します。 この値に意味があるのは、セッション・リーダー・プロセスの場合だけです。 このフィールドのデフォルト・ヘッダーは <code>TCTIME</code>です。</dd>
+
+
+
+<dt>tdiskio</dt>
+
+<dd>合計ディスク入出力。 単一プロセスのディスク入出力の累積ブロックの合計を示します。 このフィールドのデフォルト・ヘッダーは <code>TDISKIO</code>です。</dd>
+
+
+
+<dt>tpgsz</dt>
+
+<dd>プロセスのテキスト・ページ・サイズを示します。</dd>
+
+
+
+<dt>vmsize</dt>
+
+<dd>WLM 仮想メモリー限度を示します。 これを使用すると、新しいヘッダー <code>VMSIZ</code> が表示されます。 <code>VMSIZ</code> は、プロセスによって使用されている仮想メモリーを表示します。 この値は 1 MB 単位で表されます。</dd>
+
+
+</dl>
+
+<dl>
+
+<dt><code>thcount</code></dt>
+
+<dd>プロセスが所有するカーネル・スレッドの数を示します。 このフィールドのデフォルト・ヘッダーは <code>THCNT</code>です。</dd>
+
+
+</dl>
+
+</td>
+
+</tr>
+
+<tr>
+<td><span>-o</span> (続き)</td>
+
+<td><dl>
+
+<dt><code>THREAD</code></dt>
+
+<dd>以下のフィールドを示します。<ul>
+<li>ユーザー名 ( <a href="https://www.ibm.com/docs/ja/ssw_aix_73/p_commands/ps.html#ps__a163c117e" target="_blank" rel="noopener noreferrer"><code>uname</code></a> フィールド)</li>
+
+<li>プロセスのプロセス ID および親プロセス ID ( <a href="https://www.ibm.com/docs/ja/ssw_aix_73/p_commands/ps.html#ps__a163c1176" target="_blank" rel="noopener noreferrer"><code>pid</code></a> および <a href="https://www.ibm.com/docs/ja/ssw_aix_73/p_commands/ps.html#ps__a163c1177" target="_blank" rel="noopener noreferrer"><code>ppid</code></a> フィールド)</li>
+
+<li>スレッドのカーネル・スレッド ID ( <a href="https://www.ibm.com/docs/ja/ssw_aix_73/p_commands/ps.html#ps__cb40437220thom" target="_blank" rel="noopener noreferrer"><code>tid</code></a> フィールド)</li>
+
+<li>プロセスまたはカーネル・スレッドの状態 ( <a href="https://www.ibm.com/docs/ja/ssw_aix_73/p_commands/ps.html#ps__a163c113a" target="_blank" rel="noopener noreferrer"><span>s</span></a> フィールド)。</li>
+
+<li>プロセスまたはカーネル・スレッドの CPU 使用率 ( <a href="https://www.ibm.com/docs/ja/ssw_aix_73/p_commands/ps.html#ps__a163c1148" target="_blank" rel="noopener noreferrer"><code>C</code></a> フィールド)</li>
+
+<li>プロセスまたはカーネル・スレッドの優先順位 ( <a href="https://www.ibm.com/docs/ja/ssw_aix_73/p_commands/ps.html#ps__a163c114a" target="_blank" rel="noopener noreferrer"><code>PRI</code></a> フィールド)</li>
+
+<li>プロセスまたはカーネル・スレッドの中断状態のカウント ( <a href="https://www.ibm.com/docs/ja/ssw_aix_73/p_commands/ps.html#ps__cb40437053thom" target="_blank" rel="noopener noreferrer"><code>scount</code></a> フィールド)</li>
+
+<li>プロセスまたはカーネル・スレッドの待機チャネル ( <a href="https://www.ibm.com/docs/ja/ssw_aix_73/p_commands/ps.html#ps__a163c114e" target="_blank" rel="noopener noreferrer"><code>WCHAN</code></a> フィールド)。</li>
+
+<li>プロセスまたはカーネル・スレッドのフラグ ( <a href="https://www.ibm.com/docs/ja/ssw_aix_73/p_commands/ps.html#ps__a163c1132" target="_blank" rel="noopener noreferrer"><code>F</code></a> フィールド)。</li>
+
+<li>プロセスの制御端末 (「 <a href="https://www.ibm.com/docs/ja/ssw_aix_73/p_commands/ps.html#ps__a163c117d" target="_blank" rel="noopener noreferrer"><code>tty</code></a> 」フィールド)</li>
+
+<li>プロセスまたはカーネル・スレッドがバインドされている CPU ( <a href="https://www.ibm.com/docs/ja/ssw_aix_73/p_commands/ps.html#ps__cb40436680thom" target="_blank" rel="noopener noreferrer"><code>bnd</code></a> フィールド)</li>
+
+<li>プロセスによって実行されているコマンド ( <a href="https://www.ibm.com/docs/ja/ssw_aix_73/p_commands/ps.html#ps__a163c116e" target="_blank" rel="noopener noreferrer"><code>comm</code></a> フィールド)。</li>
+
+</ul>
+<p><span>-o THREAD</span> フラグを指定しても、<span>-m</span> フラグも指定しなければ、スレッドは表示されません。</p>
+<div><div>
+        <div>
+          <div><span>注:</span> <code>ps -o
+THREAD</code> フラグは、スケジューラー・ポリシーを出力しません。 スケジューリング・ポリシーは、<code>sched</code> フラグが指定された場合のみ表示されます。</div>
+        </div>
+      </div></div>
+</dd>
+
+
+
+<dt><code>tid</code></dt>
+
+<dd>カーネル・スレッドのスレッド ID を示します。 このフィールドのデフォルト・ヘッダーは <code>TID</code>です。</dd>
+
+
+
+<dt><code>time</code></dt>
+
+<dd>プロセス始動後の CPU の累積時間を示します。 時間は以下のフォーマットで表示されます。<p>[ dd<code>-</code> ] hh<code>:</code>んん<code>:</code>ss</p>
+<p>dd は日数を、hh は時間数を、mm は分数を、ss は秒数を指定します。 このフィールドのデフォルト・ヘッダーは <code>TIME</code> です。</p>
+</dd>
+
+
+
+<dt><code>tty</code></dt>
+
+<dd>プロセスの制御端末名を示します。 このフィールドのデフォルト・ヘッダーは <code>TT</code>です。</dd>
+
+
+
+<dt><code>user</code></dt>
+
+<dd>プロセスの実効ユーザー ID を示します。 テキストによるユーザー ID が表示されます。 テキストによるユーザー ID を獲得できない場合には、10 進表記が使用されます。 このフィールドのデフォルト・ヘッダーは <code>USER</code>です。</dd>
+
+
+
+<dt><code>vsz</code></dt>
+
+<dd>仮想メモリーでのプロセスのサイズを、キロバイト単位の 10 進整数で示します。 このフィールドのデフォルト・ヘッダーは <code>VSZ</code>です。</dd>
+
+
+</dl>
+
+<p>上記以外の場合には、フィールド・ディスクリプターも含め、複数フィールドを Format 変数による指定フォーマットで表示できます。 フォーマット 変数でフィールド記述子を使用する場合は、二重引用符 ("") で囲む必要があります。 以下の表は、フィールド記述子がフィールド指定子にどのように対応するかを示しています。</p>
+
+</td>
+
+</tr>
+
+<tr>
+<td> </td>
+
+<td><div>
+<div><div><pre><code>Field           Field           Default 
+Descriptors     Specifiers      Headers
+%a              args            COMMAND
+%c              comm            COMMAND
+%t              etime           ELAPSED
+%D              dpgsz           DPGSZ
+%G              group           GROUP
+%n              nice            NI
+%C              pcpu            %CPU
+%r              pgid            PGID
+%p              pid             PID
+%P              ppid            PPID
+%g              rgroup          RGROUP
+%u              ruser           RUSER
+%S              spgsz           SPGSZ
+%x              time            TIME
+%T              tpgsz           TPGSZ gd
+%y              tty             TTY
+%U              user            USER
+%z              vsz             VSZ</code></pre></div><div></div></div>
+</div>
+
+<p>それぞれのフィールド指定子にはデフォルトのヘッダーがあります。 デフォルトのヘッダーをオーバーライドするには、 等号 (=) の後にヘッダーのユーザー定義テキストを指定します。 フィールドは、コマンド行で指定された順序で列形式で書き込まれます。 フィールド幅は、少なくともデフォルト幅かユーザー定義ヘッダー・テキストの幅になるように、
+システムによって指定されます。 ヘッダー・テキストが NULL の場合 (例えば、 <code>-o user=</code> が指定されている場合)、フィールド幅は少なくともデフォルトのヘッダー・テキストと同じ幅になります。 すべてのヘッダー・フィールドが null の場合、ヘッダー行は書き込まれません。</p>
+
+</td>
+
+</tr>
+
+<tr>
+<td> </td>
+
+<td><div>以下は、デフォルト・ヘッダーとさまざまなフィールド指定子の間のマッピングです。 「Default Header」列の各エントリーは、
+「Field specifier」の対応するエントリーに等号 (=) を追加し、その後にヘッダーのユーザー定義テキストを指定することによってオーバーライドすることができます。<div><div><pre><code>Default Header                 Field specifier
+
+ARGS                          "args"
+COMM                          "comm"
+COMM                          "command"
+COMM                          "ucomm"
+F_ETIME                       "etime"
+GROUP                         "group"
+GROUP                         "gname"
+GID                           "gid"
+NICE                          "nice"
+PRI                           "pri"
+NICE                          "ni"
+PCPU                          "pcpu"
+PMEM                          "pmem"
+PGID                          "pgid"
+PID                           "pid"
+PPID                          "ppid"
+RGROUP                        "rgroup"
+RGROUP                        "rgname"
+RGID                          "rgid"
+RUSER                         "ruser"
+RUSER                         "runame"
+RUID                          "ruid"
+TIME                          "time"
+TIME                          "cputime"
+TTY                           "tty"
+TTY                           "tt"
+TTY                           "tname"
+TTY                           "longtname"
+USER                          "user"
+USER                          "uname"
+UID                           "uid"
+LOGNAME                       "logname"
+STIME                         "start"
+VSZ                           "vsz"
+VSZ                           "vsize"
+RSS                           "rssize"
+FLAG                          "flag"
+STATUS                        "status"
+CP                            "cp"
+PAGEIN                        "pagein"
+WCHAN                         "wchan"
+NWCHAN                        "nwchan"
+ST                            "st"
+TID                           "tid"
+SCOUNT                        "scount"
+BIND                          "bnd"
+SCHED                         "sched"
+THCOUNT                        "thcount"
+TAG                           "tag"
+CLASS                         "class"
+TCPU                          "tcpu"
+TDISKIO                       "tdiskio"
+TCTIME                        "tctime"
+MACLAB                        "mac"</code></pre></div><div></div></div></div>
+
+</td>
+
+</tr>
+
+<tr>
+<td><span>-p</span> プリスト</td>
+
+<td>Plist 変数に指定されたプロセス番号を持つプロセスに関する情報のみを表示します。 Plist 変数は、プロセス ID 番号のコンマ区切りリスト、または二重引用符 ("") で囲まれたプロセス ID 番号のリストのいずれかです。 そして、コンマまたは 1 つ以上のスペース、あるいはその両方で互いに区切ります。</td>
+
+</tr>
+
+<tr>
+<td><span>-P</span></td>
+
+<td>プロジェクトのプロジェクト名、プロジェクト・オリジン (Project origin)、およびサブプロジェクト ID を表示します。 スティッキー・ビットがプロセスに設定されている場合、プロジェクト名の前にアスタリスク (*) 文字が
+付きます。 <code>Project origin</code> フィールドは、現在ロードされているプロジェクト・リポジトリー (LOCAL または LDAP) を示します。</td>
+
+</tr>
+
+<tr>
+<td><span>-t</span> 一覧</td>
+
+<td>Tlist 変数にリストされている制御 ttys に関連付けられているプロセスに関する情報のみを表示します。 Tlist 変数は、tty ID のコンマ区切りリスト、または二重引用符 ("") で囲まれた tty ID のリストのいずれかです。 そして、コンマまたは 1 つ以上のスペース、あるいはその両方で互いに区切ります。</td>
+
+</tr>
+
+<tr>
+<td><span>-T</span> PID</td>
+
+<td>ASCII アートを使用して、指定された PID をルートとするプロセス階層をツリー形式で表示します。 このフラグは、 <span>-f</span>、 <span>-F</span>、 <span>-o</span>、および <span>-l</span> フラグと一緒に使用できます。</td>
+
+</tr>
+
+<tr>
+<td><span>-u</span> リスト</td>
+
+<td>このフラグは、 <a href="https://www.ibm.com/docs/ja/ssw_aix_73/p_commands/ps.html#ps__dt2mg2195" target="_blank" rel="noopener noreferrer"><span>-U</span> </a> Ulist フラグと同等です。 <span>-u</span> フラグは、 <span>-@</span> フラグも指定されていない限り、現在の稼働環境にのみ適用されます。 <span>-@</span> フラグを使用して現在の操作環境以外のワークロード区画を指定し、 <span>-u</span> フラグを指定する場合、ユーザー ID のリストは数値でなければなりません。</td>
+
+</tr>
+
+<tr>
+<td><span>-U</span> リスト</td>
+
+<td>Ulist 変数に指定されたユーザー ID 番号またはログイン名を持つプロセスに関する情報のみを表示します。 Ulist 変数は、コンマで区切ったユーザー ID のリストか、または二重引用符 (" ") で囲み、コンマか 1 つ以上のスペースで区切ったユーザー ID のリストです。 <span>-U</span> フラグだけは、
+現行稼働環境に適用されます。ただし、<span>-@</span> フラグも指定されている場合はその限りではありません。 <span>-@</span> フラグを使用して現行稼働環境以外のワークロード区画を指定し、かつ、<span>-U</span> フラグが指定されている場合、ユーザー ID のリストは数値でなければなりません。 リストでは、 <span>ps</span> コマンドは、 <a href="https://www.ibm.com/docs/ja/ssw_aix_73/p_commands/ps.html#ps__row-d3e109530" target="_blank" rel="noopener noreferrer"><span>-f</span></a> フラグが使用されていない限り、数値のユーザー ID を表示します。そうすると、ログイン名が表示されます。 このフラグは、 <a href="https://www.ibm.com/docs/ja/ssw_aix_73/p_commands/ps.html#ps__row_psu" target="_blank" rel="noopener noreferrer"><span>-u</span></a> Ulist フラグと同等です。 <a href="https://www.ibm.com/docs/ja/ssw_aix_73/p_commands/ps.html#ps__row_psu" target="_blank" rel="noopener noreferrer"><span>u</span></a> フラグも参照してください。</td>
+
+</tr>
+
+<tr>
+<td><span>-X</span></td>
+
+<td>各ユーザー名/グループ名の使用可能なすべての文字を、最初の 8 文字で切り捨てずに印刷します。</td>
+
+</tr>
+
+<tr>
+<td><span>-Z</span></td>
+
+<td>プロセスのページ・サイズ設定を表示します。<dl>
+
+<dt>DPGSZ</dt>
+
+<dd>プロセスのデータ・ページ・サイズを示します。</dd>
+
+
+
+<dt>SHMPGSZ</dt>
+
+<dd>プロセスが割り振る共有メモリー・ページ・サイズを示します。</dd>
+
+
+
+<dt>SPGSZ</dt>
+
+<dd>プロセスのスタック・ページ・サイズを示します。</dd>
+
+
+
+<dt>TPGSZ</dt>
+
+<dd>プロセスのテキスト・ページ・サイズを示します。</dd>
+
+
+</dl>
+</td>
+
+</tr>
+
+<tr>
+<td><span>-@</span> [ WparName ]</td>
+
+<td>ワークロード区画 WparName に関連付けられたプロセス情報を表示します。 WparName パラメーターを指定しない場合、すべてのワークロード区画のプロセス情報が表示されます。 ワークロード区画情報はすべてのプロセスについて表示されます。 どのプロセス情報を表示するかを決定するには、 <span>ps</span> コマンドに他のフラグを指定します。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+
+</section>
+
+<section><h2>オプション</h2>
+
+<p>以下のオプションの前には負符号 (-) が付きません。</p>
+
+
+<div><div><table><caption><span>表 2. オプション</span></caption><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><code>a</code></td>
+
+<td>端末を使用するすべてのプロセスに関する情報を表示します (通常はユーザー自身のプロセスのみが表示されます)。</td>
+
+</tr>
+
+<tr>
+<td><code>c</code></td>
+
+<td>プロセス・アドレス・スペースに格納されたコマンド・パラメーターではなく、
+アカウンティング用にシステムに格納されたコマンド名を表示します。</td>
+
+</tr>
+
+<tr>
+<td><code>e</code></td>
+
+<td>環境およびコマンドのパラメーターを表示します (最大 80 文字まで)。</td>
+
+</tr>
+
+<tr>
+<td><code>ew</code></td>
+
+<td><code>e</code> フラグからの表示を、1 行余分にラップします。</td>
+
+</tr>
+
+<tr>
+<td><code>eww</code></td>
+
+<td><code>e</code> フラグからの表示をラップし、<code>LINE_MAX</code> 値に到達するまで <code>ENV</code> リストを表示します。</td>
+
+</tr>
+
+<tr>
+<td><code>ewww</code></td>
+
+<td><code>e</code> フラグからの表示をラップし、<code>INT_MAX</code> 値に到達するまで <code>ENV</code> リストを表示します。</td>
+
+</tr>
+
+<tr>
+<td><code>g</code></td>
+
+<td>すべてのプロセスを表示します。</td>
+
+</tr>
+
+<tr>
+<td><span>l</span></td>
+
+<td><code>F</code>、 <span>s</span>、 <code>UID</code>、 <code>PID</code>、 <code>PPID</code>、 <code>C</code>、 <code>PRI</code>、 <code>NI</code>、 <code>ADDR</code>、 <code>SZ</code>、 <code>PSS</code>、 <code>WCHAN</code>、 <code>TTY</code>、 <code>TIME</code>、および <code>CMD</code> の各フィールドを持つ長いリストを表示します。</td>
+
+</tr>
+
+<tr>
+<td><code>n</code></td>
+
+<td>数値出力を表示します。 詳細なリストでは、<code>WCHAN</code> フィールドは記号ではなく数値で表示されます。 ユーザーのリストでは、<code>USER</code> フィールドは <code>UID</code> フィールドに置き換えられます。</td>
+
+</tr>
+
+<tr>
+<td><span>s</span></td>
+
+<td>(システム保守担当者によって使用される) 各プロセスのカーネル・スタックのサイズ (<code>SSIZ</code>)
+を、基本出力フォーマットで表示します。 マルチスレッド・プロセスの場合、この値は常に 0 (ゼロ) です。</td>
+
+</tr>
+
+<tr>
+<td><code>t</code> ティティ</td>
+
+<td>制御 tty が tty 変数の値であるプロセスを表示します。この変数は、 <span>ps</span> コマンドで出力されるように指定する必要があります。つまり、 <code>0</code> (端末の場合) <code>/dev/tty/0</code>、 <code>lft0</code> ( <code>/dev/lft0</code>の場合)、および <code>pts/2</code> (<code> /dev/pts/2</code>の場合) です。</td>
+
+</tr>
+
+<tr>
+<td><span>u</span></td>
+
+<td>ユーザー向け出力を表示します。 これには、 <code>USER</code>、 <code>PID</code>、 <code>%CPU</code>、 <code>%MEM</code>、 <code>SZ</code>、 <code>RSS</code>、 <code>TTY</code>、 <code>STAT</code>、 <code>STIME</code>、 <code>TIME</code>、および <code>COMMAND</code> の各フィールドが含まれます。</td>
+
+</tr>
+
+<tr>
+<td><span>v</span></td>
+
+<td><code>PGIN</code>、<code>SIZE</code>、<code>RSS</code>、<code>LIM</code>、<code>TSIZ</code>、<code>TRS</code>、<code>%CPU</code>、<code>%MEM</code> フィールドを表示します。</td>
+
+</tr>
+
+<tr>
+<td><code>w</code></td>
+
+<td>幅の広いフォーマットで出力します (80 ではなく 132 桁)。 繰り返される場合 (例えば、<code> ww)</code>) は、任意の幅の出力を使用します。 この情報を使って、コマンドをどれくらいの長さで表示するかが決められます。</td>
+
+</tr>
+
+<tr>
+
+<td><code>x</code></td>
+
+<td>制御する端末を持つプロセスに加えて、制御する端末を持たないプロセスも表示します。</td>
+
+</tr>
+
+<tr>
+<td><code>X</code></td>
+
+<td>フル・ユーザー名またはグループ名を出力します。 名前は切り捨てられません。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+
+</section>
+
+<section><h2>終了状況</h2>
+
+<p>このコマンドは、以下の終了値を戻します。</p>
+
+
+<div><div><table><caption><span>表 3. 終了状況</span></caption><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><span>0</span></td>
+
+<td>正常終了。</td>
+
+</tr>
+
+<tr>
+<td><span>&gt;0</span></td>
+
+<td>エラーが発生しました。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+
+</section>
+
+<section><h2>セキュリティー</h2>
+
+<p><code>Attention RBAC users</code>: このコマンドは特権操作を実行できます。 特権命令を実行できるのは特権ユーザーのみです。 権限および特権について詳しくは、「セキュリティー」の『特権コマンド・データベース』を参照してください。 このコマンドに関連した特権および権限のリストについては、<code>lssecattr</code> コマンドまたは <code>getcmdattr</code> サブコマンドの項を参照してください。</p>
+
+</section>
+
+<section><h2>例</h2>
+
+<ol>
+<li>すべてのプロセスを表示するには、以下のように入力します。<div>
+<div><div><pre><code>ps -e -f</code></pre></div><div></div></div>
+</div>拡張ユーザー名を持つすべてのプロセスを表示するには、次のように入力します。<div><div><pre><code>ps -X -e -f</code></pre></div><div></div></div></li>
+
+<li>特定のユーザーが所有するプロセスをリストするには、以下のように入力します。<div>
+<div><div><pre><code>ps -f -l -ujim,jane,su</code></pre></div><div></div></div>
+</div>
+</li>
+
+<li><code>/dev/console</code> および <code>/dev/tty1</code> ttys タイプに関連付けられているプロセスをリストするには、次のように入力します。<div>
+<div><div><pre><code>ps -t console,tty/1</code></pre></div><div></div></div>
+</div>
+</li>
+
+<li>端末と関連していないプロセスをリストするには、以下のように入力します。<div>
+<div><div><pre><code>ps -t -</code></pre></div><div></div></div>
+</div>
+</li>
+
+<li>指定フォーマットをフィールド指定子付きで表示するには、以下のように入力します。<div>
+<div><div><pre><code>ps -o ruser,pid,ppid=parent,args</code></pre></div><div></div></div>出力は以下のようになります。<div><div><pre><code>RUSER   PID     parent  COMMAND
+helene  34      12      ps -o ruser,pid,ppid=parent,args</code></pre></div><div></div></div></div>
+</li>
+
+<li>指定フォーマットをフィールド・ディスクリプター付きで表示するには、以下のように入力します。<div>
+<div><div><pre><code>ps -o "&lt; %u &gt; %p %y : %a"</code></pre></div><div></div></div>出力は以下のようになります。<div><div><pre><code>&lt; RUSER  &gt;      PID     TT :    COMMAND
+&lt; helene &gt;      34      pts/3 : ps -o &lt; %u &gt; %p %y : %a</code></pre></div><div></div></div></div>
+</li>
+
+<li>現在の端末タイプによって制御されるプロセスおよびカーネル・スレッドに関する情報を表示するには、次のようにします。<div>
+<div><div><pre><code>ps -lm</code></pre></div><div></div></div>出力は以下のようになります。<div><div><pre><code>     F S UID  PID PPID  C PRI NI ADDR  SZ WCHAN   TTY  TIME  CMD
+240003 A  26 8984 7190  1  60 20 2974 312       pts/1  0:00  -ksh
+   400 S   -    -    -  1  60  -    -   -           -     -  -
+200005 A  26 9256 8984 15  67 20 18ed 164       pts/1  0:00  ps
+     0 R   -    -    - 15  67  -    -   -           -     -  -</code></pre></div><div></div></div></div>
+</li>
+
+<li>すべてのプロセスおよびカーネル・スレッドに関する情報を表示するには、以下のように入力します。<div>
+<div><div><pre><code>ps -emo THREAD</code></pre></div><div></div></div>出力は以下のようになります。<div><div><pre><code>USER   PID  PPID  TID S  C PRI SC   WCHAN   FLAG   TTY BND  CMD
+jane  1716 19292    - A 10  60  1       * 260801 pts/7   -  biod
+   -     -     - 4863 S  0  60  0 599e9d8   8400     -   -  -
+   -     -     - 5537 R 10  60  1 5999e18   2420     -   3  -
+luke 19292 18524    - A  0  60  0 586ad84 200001 pts/7   -  -ksh
+   -     -     - 7617 S  0  60  0 586ad84    400     -   -  -
+luke 25864 31168    - A 11  65  0       - 200001 pts/7   -  -
+   -     -     - 8993 R 11  65  0       -      0     -   -  -</code></pre></div><div></div></div></div>
+</li>
+
+<li>すべての 64 ビット・プロセスをリストするには、次のように入力します。<div><div><pre><code>ps -M</code></pre></div><div></div></div></li>
+
+<li>プロセスのプロジェクト割り当ての詳細を表示するには、次のように入力します。<div><div><pre><code>ps -P</code></pre></div><div></div></div></li>
+
+<li>プロセスのページ・サイズ設定を表示するには、次のように入力します。<div><div><pre><code>ps -Z</code></pre></div><div></div></div>出力は以下のようになります。<div><div><pre><code>          PID    TTY TIME DPGSZ SPGSZ TPGSZ SHMPGSZ CMD
+        41856 pts/15 0:00    4K    4K    4K    64K    ps
+        84516 pts/15 0:00    4K    4K    4K    64K    ksh</code></pre></div><div></div></div></li>
+
+</ol>
+
+</section>
+
+<section><h2>ファイル</h2>
+
+<div>
+
+<div><div><table><caption><span>表 4. ファイル</span></caption><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td>/<code>usr</code>/<code>bin</code>/<span>ps</span></td>
+
+<td><span>ps</span> コマンドが入っています。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+
+</div>
+
+<p>「 <span><em>パフォーマンス管理</em></span>」の <span>ps</span> コマンドを使用する。</p>
+
+
+</section>
+
+<section><h2>System V ps コマンド</h2>
+
+</section>
+
+<section><h2>構文 (System V)</h2>
+
+<div>
+<div><div><pre><code>/usr/sysv/bin/ps [ -a ] [ -A ] [ -c ] [ -d ] [ -e ] [ -f ] [ -j ] [ -l ] [ -L ] [ -P ] [ -y ] [ -g pgrplist ] [ -o format ] [ -p proclist ] [ -s sidlist ] [ -t termlist ] [ { -u | -U } uidlist ] [ -G grplist ] [ -X ]</code></pre></div><div></div></div>
+</div>
+
+</section>
+
+<section><h2>説明 (System V)</h2>
+
+<p><span>ps</span> コマンドは、アクティブなプロセスについての情報を印刷します。 フラグを指定しないと、 <span>ps</span> は、制御端末に関連付けられているプロセスに関する情報を表示します。 出力には、プロセス ID、端末 ID、累積実行時間、およびコマンド名が含まれます。 フラグとともに表示される情報は、それに応じて異なります。</p>
+
+<dl>
+
+<dt>出力</dt>
+
+<dd><p><span>ps</span> コマンドで使用されるフラグにより、
+表示される情報によって列見出しは変化します。 各見出しの定義を以下にリストします (これらの見出しを表示させるフラグを括弧内に示します)。</p>
+
+<div>
+<dl>
+
+<dt>F (-l)</dt>
+
+<dd>プロセス (または、<span>-L</span> オプションを指定した場合は
+スレッド) に関連付けられたフラグ (16 進数で追加)。 プロセスおよびスレッドに関連付けられている、より重要な <code>F</code> フィールド・フラグ (16 進数および加算) のいくつかを以下に示します。<div><span>F フィールドの表</span><div><table><thead>
+<tr>
+<th><div>フラグ</div></th>
+
+<th><div>16 進数</div></th>
+
+<th><div>定義</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><code>SLOAD</code></td>
+
+<td>0x00000001</td>
+
+<td>プロセスがコア・メモリーで動作中であることを示す。</td>
+
+</tr>
+
+<tr>
+<td><code>SNOSWAP</code></td>
+
+<td>0x00000002</td>
+
+<td>プロセスをスワップアウトできないことを示す。</td>
+
+</tr>
+
+<tr>
+<td><code>STRC</code></td>
+
+<td>0x00000008</td>
+
+<td>プロセスがトレースされていることを示す。</td>
+
+</tr>
+
+<tr>
+<td><code>SKPROC</code></td>
+
+<td>0x00000200</td>
+
+<td>カーネル・プロセスを示す。</td>
+
+</tr>
+
+<tr>
+<td><code>SEXIT</code></td>
+
+<td>0x00010000</td>
+
+<td>プロセスが終了していることを示す。</td>
+
+</tr>
+
+<tr>
+<td><code>SEXECED</code></td>
+
+<td>0x00200000</td>
+
+<td>プロセスにあることを示します。</td>
+
+</tr>
+
+<tr>
+<td><code>SEXECING</code></td>
+
+<td>0x01000000</td>
+
+<td>プロセスが実行中 (exec を実行中) であることを示す。</td>
+
+</tr>
+
+<tr>
+<td><code>TKTHREAD</code></td>
+
+<td>0x00001000</td>
+
+<td>スレッドがカーネル専用スレッドであることを示す。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+
+<div><div>
+        <div>
+          <div><span>注:</span> <code>/usr/include/sys/proc.h</code> ファイルと <code>/usr/include/sys/thread.h</code> ファイルの <code>p_flags</code> フィールドと <code>t_flags</code> フィールドをそれぞれ参照することで、すべてのプロセス・フラグとスレッド・フラグの定義を確認できます。</div>
+        </div>
+      </div></div>
+</dd>
+
+
+
+<dt>S (-l)</dt>
+
+<dd>プロセスまたはカーネル・スレッドの状態。<div>プロセスの場合:<dl>
+
+<dt>O</dt>
+
+<dd>存在しない</dd>
+
+
+
+<dt>A</dt>
+
+<dd>アクティブ</dd>
+
+
+
+<dt>W</dt>
+
+<dd>スワップ済み</dd>
+
+
+
+<dt>I</dt>
+
+<dd>アイドル</dd>
+
+
+
+<dt>Z</dt>
+
+<dd>取り消し</dd>
+
+
+
+<dt>T</dt>
+
+<dd>停止</dd>
+
+
+</dl>
+
+</div>
+
+<div>カーネル・スレッドの場合:<dl>
+
+<dt>O</dt>
+
+<dd>存在しない</dd>
+
+
+
+<dt>R</dt>
+
+<dd>実行中</dd>
+
+
+
+<dt>S</dt>
+
+<dd>スリープ中</dd>
+
+
+
+<dt>W</dt>
+
+<dd>スワップ済み</dd>
+
+
+
+<dt>Z</dt>
+
+<dd>取り消し</dd>
+
+
+
+<dt>T</dt>
+
+<dd>停止</dd>
+
+
+</dl>
+</div>
+</dd>
+
+
+
+<dt><code>UID (-f,- l)</code></dt>
+
+<dd>プロセスのユーザー ID 番号 (ログイン名は <span>-f </span> オプションの下に出力されます)。</dd>
+
+
+
+<dt><code>PID (all)</code></dt>
+
+<dd>プロセスのプロセス ID。</dd>
+
+
+
+<dt><code>PPID (-f,-l)</code></dt>
+
+<dd>親プロセスのプロセス ID。</dd>
+
+
+
+<dt><code>CLS (-c)</code></dt>
+
+<dd>プロセスのスケジューリング・クラス。 <span>-c</span> フラグが使用されている場合にのみ出力されます。</dd>
+
+
+
+<dt><code>NI (-l)</code></dt>
+
+<dd><code>sched_other</code> ポリシーの優先順位の計算に使用されるプロセスの nice 値。</dd>
+
+
+
+<dt><code>PRI <span>(-c, -l)</span></code></dt>
+
+<dd>プロセスまたはカーネル・スレッドの優先順位。 数値が大きいほど優先順位が低くなります。</dd>
+
+
+
+<dt><code>ADDR (-l)</code></dt>
+
+<dd>通常の場合は、プロセス・スタックのセグメント番号が入っています。カーネル・プロセスの場合は、プリプロセス・データ領域のアドレスです。</dd>
+
+
+
+<dt><code>SZ (-l)</code></dt>
+
+<dd>プロセスのコア・イメージのサイズ (ページ数)。</dd>
+
+
+
+<dt><code>WCHAN(-l)</code></dt>
+
+<dd>プロセスまたはカーネル・スレッドが待機中またはスリープ中であるイベント。 カーネル・スレッドの場合、カーネル・スレッドが実行中であれば、このフィールドはブランクになります。 プロセスの場合、カーネル・スレッドが 1 つだけスリープしていると、待機チャネルはスリープ中のカーネル・スレッドの待機チャネルとして定義されます。それ以外の場合は、アスタリスクが表示されます。</dd>
+
+
+
+<dt><code>STIME (-f,-u)</code></dt>
+
+<dd>プロセスの始動時刻。 <code>LANG</code> 環境変数がこのフィールドの表示を制御します。</dd>
+
+
+
+<dt><code>TTY (all)</code></dt>
+
+<dd>プロセスのための制御端末で、以下のとおりです。<dl>
+
+<dt>-</dt>
+
+<dd>プロセスが端末と関連付けられていない。</dd>
+
+
+
+<dt>?</dt>
+
+<dd>不明</dd>
+
+
+</dl>
+</dd>
+
+
+
+<dt><code>TIME (all)</code></dt>
+
+<dd>プロセスの合計実行時間。 時間の表示フォーマットは mm:ss または mmmm:ss (実行時間が 100 分に達した場合) です。これは <span>-o time</span> フラグを指定した場合の表示フォーマットとは異なります。</dd>
+
+
+
+<dt><code>LTIME (-L)</code></dt>
+
+<dd>個々の LWP の実行時間。</dd>
+
+
+
+<dt><code>CMD (all)</code></dt>
+
+<dd>コマンド名を含む。 完全なコマンド名およびそのパラメーターは、<span>-f</span> フラグで表示されます。</dd>
+
+
+
+<dt><code>LWP (-L)</code></dt>
+
+<dd>カーネル・スレッドの tid。</dd>
+
+
+
+<dt><code>NLWP(-Lf)</code></dt>
+
+<dd>プロセス内のカーネル・スレッドの数。</dd>
+
+
+
+<dt><code>PSR (-P)</code></dt>
+
+<dd>カーネル・スレッドがバインドされる論理プロセッサー番号 (バインドされる場合)。 プロセスの場合は、そのすべてのスレッドが同じプロセッサーにバインドされたときに、
+このフィールドが表示されます。</dd>
+
+
+
+<dt><code>RSS (-ly)</code></dt>
+
+<dd>プロセスの実メモリー (常駐セット) サイズ (1 KB 単位で)。</dd>
+
+
+</dl>
+
+</div>
+
+</dd>
+
+
+
+<dt>Format</dt>
+
+<dd><p>以下のリストは、システムによって認識されるフィールド指定子について説明しています。 これらのフィールド指定子を <a href="https://www.ibm.com/docs/ja/ssw_aix_73/p_commands/ps.html#ps__row-d3e111723" target="_blank" rel="noopener noreferrer"><span>-o</span></a> フラグと一緒に使用して、 <span>ps</span> コマンドの出力の形式を指定することができます。</p>
+
+<div>システムによって認識されるフィールド指定子は、以下のとおりです。<dl>
+
+<dt><code>addr</code></dt>
+
+<dd>プロセス・スタックのセグメント番号を示します (正常の場合)。カーネル・プロセスの場合は、プリプロセス・データ域のアドレスを示します。 このフィールドのデフォルト・ヘッダーは <code>ADDR</code>です。</dd>
+
+
+
+<dt><code>args</code></dt>
+
+<dd>実行中のコマンドの完全名を示します。 切り捨てが行われる可能性がありますが、すべてのコマンド行引数が組み込まれます。 このフィールドのデフォルト・ヘッダーは <code>COMMAND</code>です。</dd>
+
+
+
+<dt><code>c</code></dt>
+
+<dd>プロセスまたはスレッドの CPU 使用率は、システム・クロックが刻み、プロセスまたはスレッドが実行中であることが検出されるたびに増加します。 スケジューラーは、毎秒一度ずつ 2 で除算してこの値を減分させます。 <code>sched_other</code>
+ポリシーでは、CPU 使用率はプロセスのスケジューリング優先順位を決定する際に使用されます。 値が大きい場合は、CPU 使用率の高いプロセスを示し、プロセスの優先順位が低くなります。一方、値が小さい場合は、入出力使用率の高いプロセスを示し、優先順位が高くなります。 このフィールドのデフォルト・ヘッダーは <code>C</code> です。</dd>
+
+
+
+<dt><code>class</code></dt>
+
+<dd>カーネル・スレッドのスケジューリング・ポリシーを示します。 ポリシーは、sched_other、
+sched_fifo および sched_rr です。 このフィールドのデフォルト・ヘッダーは <code>CLS</code>です。</dd>
+
+
+
+<dt><code>comm</code></dt>
+
+<dd>実行中のコマンドの省略名を示します。 コマンド・ライン引数は含まれません。 このフィールドのデフォルト・ヘッダーは <code>COMMAND</code>です。</dd>
+
+
+
+<dt><code>etime</code></dt>
+
+<dd>プロセス始動後の経過時間を示します。 経過時間は以下のフォーマットで表示されます。<div><div><pre><code>[[ dd -] hh: ]mm :ss</code></pre></div><div></div></div>dd は日数を、hh は時間数を、mm は分数を、ss は秒数を指定します。<p>このフィールドのデフォルト・ヘッダーは <code>ELAPSED</code>です。</p>
+
+</dd>
+
+
+
+<dt><code>f</code></dt>
+
+<dd>プロセスに関連付けられたフラグ (16 進数で追加) を示します。 このフィールドのデフォルト・ヘッダーは <code>COMMAND</code>です。</dd>
+
+
+
+<dt><code>fname</code></dt>
+
+<dd>プロセスの実行可能ファイルのベース名の最初の 8 バイトを示します。 このフィールドのデフォルト・ヘッダーは <code>COMMAND</code>です。</dd>
+
+
+
+<dt><code>gid</code></dt>
+
+<dd>プロセスの有効なグループ ID 番号を、10 進の整数として示します。 このフィールドのデフォルト・ヘッダーは <code>GID</code>です。 <span>-f</span> フラグを指定すると、ログイン名が出力されます。</dd>
+
+
+
+<dt><code>group</code></dt>
+
+<dd>プロセスの実効グループ ID を示します。 テキストによるグループ ID が表示されます。 テキストによるグループ ID を獲得できない場合には、10 進表記が使用されます。 このフィールドのデフォルト・ヘッダーは <code>GROUP</code>です。</dd>
+
+
+
+<dt><code>lwp</code></dt>
+
+<dd>カーネル・スレッドのスレッド ID を示します。 このフィールドのデフォルト・ヘッダーは <code>TID</code>です。</dd>
+
+
+
+<dt><code>nice</code></dt>
+
+<dd>プロセスの nice の値の 10 進値を示します。 このフィールドのデフォルト・ヘッダーは <code>NI</code>です。</dd>
+
+
+
+<dt><code>nlwp</code></dt>
+
+<dd>プロセスが所有するカーネル・スレッドの数を示します。 このフィールドのデフォルト・ヘッダーは <code>THCNT</code>です。</dd>
+
+
+
+<dt><code>pcpu</code></dt>
+
+<dd>使用可能な CPU 時間に対する、使用された CPU 時間の比率をパーセンテージで示します。 このフィールドのデフォルト・ヘッダーは <code>%CPU</code>です。</dd>
+
+
+
+<dt><code>pgid</code></dt>
+
+<dd>プロセスのグループ ID の 10 進値を示します。 このフィールドのデフォルト・ヘッダーは <code>PGID</code>です。</dd>
+
+
+
+<dt><code>pid</code></dt>
+
+<dd>プロセス ID の 10 進値を示します。 このフィールドのデフォルト・ヘッダーは <code>PID</code>です。</dd>
+
+
+
+<dt><code>pmem</code></dt>
+
+<dd>このプロセスによって使用されている実メモリーのパーセンテージを示します。 このフィールドのデフォルト・ヘッダーは <code>%MEM</code>です。</dd>
+
+
+
+<dt><code>ppid</code></dt>
+
+<dd>親プロセス ID の 10 進値を示します。 このフィールドのデフォルト・ヘッダーは <code>PPID</code>です。</dd>
+
+
+
+<dt><code>pri</code></dt>
+
+<dd>プロセスまたはカーネル・スレッドの優先順位を示します。数値が大きいほど優先順位が低くなります。 このフィールドのデフォルト・ヘッダーは <code>PRI</code>です。</dd>
+
+
+
+<dt><code>psr</code></dt>
+
+<dd>カーネル・スレッドがバインドされるプロセッサーの論理プロセッサー番号を示します (ある場合)。 このフィールドのデフォルト・ヘッダーは <code>PSR</code>です。</dd>
+
+
+
+<dt><code>rgid</code></dt>
+
+<dd>プロセスの実グループ ID 番号を、10 進の整数として示します。 このフィールドのデフォルト・ヘッダーは <code>RGID</code>です。</dd>
+
+
+
+<dt><code>rgroup</code></dt>
+
+<dd>プロセスの実グループ ID を示します。 テキストによるグループ ID が表示されます。 テキストによるグループ ID を獲得できない場合には、10 進表記が使用されます。 このフィールドのデフォルト・ヘッダーは <code>RGROUP</code>です。</dd>
+
+
+
+<dt><code>rss</code></dt>
+
+<dd>プロセスの実メモリー (常駐セット) サイズを示します (1 KB 単位で)。 このフィールドのデフォルト・ヘッダーは <code>RSS</code>です。</dd>
+
+
+
+<dt><code>ruid</code></dt>
+
+<dd>プロセスの実ユーザー ID 番号を、10 進の整数として示します。 このフィールドのデフォルト・ヘッダーは <code>RUID</code>です。</dd>
+
+
+
+<dt><code>ruser</code></dt>
+
+<dd>プロセスの実ユーザー ID を示します。 テキストによるユーザー ID が表示されます。 テキストによるユーザー ID を獲得できない場合には、10 進表記が使用されます。 このフィールドのデフォルト・ヘッダーは <code>RUSER</code>です。</dd>
+
+
+
+<dt><code>s</code></dt>
+
+<dd>プロセスの状態を示します。 このフィールドのデフォルト・ヘッダーは <span>s</span>です。</dd>
+
+
+
+<dt><code>sid</code></dt>
+
+<dd>セッション・リーダーのプロセス ID を示します。 このフィールドのデフォルト・ヘッダーは <code>SID</code>です。</dd>
+
+
+
+<dt><code>stime</code></dt>
+
+<dd>プロセスの開始時刻を示します。 LANG 環境変数がこのフィールドの表示を制御します。 このフィールドのデフォルト・ヘッダーは <code>STIME</code>です。</dd>
+
+
+
+<dt><code>time</code></dt>
+
+<dd>プロセス始動後の CPU の累積時間を示します。 時間は
+<code>etime</code> と同じフォーマットで表示されます。 このフィールドのデフォルト・ヘッダーは <code>TIME</code> です。</dd>
+
+
+
+<dt><code>tty</code></dt>
+
+<dd>プロセスの制御端末名を示します。 このフィールドのデフォルト・ヘッダーは <code>TT</code>です。</dd>
+
+
+
+<dt><code>uid</code></dt>
+
+<dd>プロセスの実効ユーザー ID 番号を 10 進の整数として示します。 このフィールドのデフォルト・ヘッダーは <code>UID</code>です。</dd>
+
+
+
+<dt><code>user</code></dt>
+
+<dd>プロセスの実効ユーザー ID を示します。 テキストによるユーザー ID が表示されます。 テキストによるユーザー ID を獲得できない場合には、10 進表記が使用されます。 このフィールドのデフォルト・ヘッダーは <code>USER</code>です。</dd>
+
+
+
+<dt><code>vsz</code></dt>
+
+<dd>プロセスのコア・イメージのサイズを、キロバイト単位の 10 進整数で示します。 このフィールドのデフォルト・ヘッダーは <code>VSZ</code>です。</dd>
+
+
+
+<dt><code>wchan</code></dt>
+
+<dd>プロセスまたはカーネル・スレッドが待機中またはスリープ中であるイベントを示します。 カーネル・スレッドの場合、カーネル・スレッドが実行中であれば、このフィールドはブランクになります。 プロセスの場合、カーネル・スレッドが 1 つだけスリープしていると、待機チャネルはスリープ中のカーネル・スレッドの待機チャネルとして定義されます。それ以外の場合は、アスタリスクが表示されます。<p>このフィールドのデフォルト・ヘッダーは <code>WCHAN</code>です。</p>
+</dd>
+
+
+</dl>
+</div>
+
+</dd>
+
+
+</dl>
+
+</section>
+
+<section><h2>フラグ (System V)</h2>
+
+<p>いくつかのフラグは引数としてリストを受け付けます。 リスト内の項目は、コンマで区切るか、または二重引用符で囲んでコンマまたはスペースで区切ることができます。 proclist と pgrplist
+ の値は数字でなければなりません。</p>
+
+
+<div><div><table><caption><span>表 5. フラグ (System V)</span></caption><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><span>-a</span></td>
+
+<td>セッション・リーダー、および端末に関連しないプロセスを除くすべてのプロセスに関する情報を標準出力に書き出します。</td>
+
+</tr>
+
+<tr>
+<td><span>-A</span></td>
+
+<td>すべてのプロセスに関する情報を標準出力に書き出します。</td>
+
+</tr>
+
+<tr>
+<td><span>-c</span></td>
+
+<td>スケジューラー属性を反映したフォーマットで情報を印刷します。 <span>-c</span> フラグは、以下で説明するように、 <span>-f</span> フラグおよび <span>-l</span> フラグの出力に影響を与えます。</td>
+
+</tr>
+
+<tr>
+<td><span>-d</span></td>
+
+<td>セッション・リーダーを除くすべてのプロセスに関する情報を、標準出力に書き込みます。</td>
+
+</tr>
+
+<tr>
+<td><span>-e</span></td>
+
+<td>カーネル・プロセスを除くすべてのプロセスに関する情報を、標準出力に書き込みます。</td>
+
+</tr>
+
+<tr>
+<td><span>-f</span></td>
+
+<td>完全なリストを生成します。</td>
+
+</tr>
+
+<tr>
+<td><span>-g</span> 
+pgrplist</td>
+
+<td>pgrplistで指定されたプロセス・グループ内にあるプロセスに関する情報のみを標準出力に書き出します。 pgrplist の値は数字でなければなりません。</td>
+
+</tr>
+
+<tr>
+<td><span>-G</span> 
+grplist</td>
+
+<td>grplistで指定されたプロセス・グループ内にあるプロセスに関する情報のみを標準出力に書き出します。 <span>-G</span> フラグはグループ名を受け付けます。</td>
+
+</tr>
+
+<tr>
+<td><span>-j</span></td>
+
+<td>セッション ID とプロセス・グループ ID を表示します。</td>
+
+</tr>
+
+<tr>
+<td><span>-l</span></td>
+
+<td>詳細なリストを作成します。</td>
+
+</tr>
+
+<tr>
+<td><span>-L</span></td>
+
+<td>プロセス内のアクティブ・スレッドの状況を出力します。</td>
+
+</tr>
+
+<tr>
+<td><span>-o</span> 
+format</td>
+
+<td>formatで指定された形式で情報を表示します。 format 変数には、複数のフィールド指定子を指定できます。 <span>-o</span> フラグと一緒に使用できるフィールド指定子については、上記の <a href="https://www.ibm.com/docs/ja/ssw_aix_73/p_commands/ps.html#ps__systemvps_description_format" target="_blank" rel="noopener noreferrer">Format</a> セクションで説明しています。</td>
+
+</tr>
+
+<tr>
+<td><span>-p</span> 
+proclist</td>
+
+<td>proclistで指定されたプロセス番号を持つプロセスに関する情報のみを表示します。 proclist の値は数字でなければなりません。</td>
+
+</tr>
+
+<tr>
+<td><span>-P</span></td>
+
+<td>プロセスの 1 次カーネル・スレッドがバインドされているプロセッサーの、論理プロセッサー番号を表示します (ある場合)。</td>
+
+</tr>
+
+<tr>
+<td><span>-s</span> 
+sidlist</td>
+
+<td>sidlist で指定されたセッション・リーダー ID を持つ、すべてのプロセスを表示します。</td>
+
+</tr>
+
+<tr>
+<td><span>-t</span> 用語リスト</td>
+
+<td>termlistで指定された端末に関連付けられているプロセスに関する情報のみを表示します。</td>
+
+</tr>
+
+<tr>
+<td><span>-u</span> ユイドリスト</td>
+
+<td>uidlistで指定されたユーザー ID 番号またはログイン名を持つプロセスに関する情報のみを表示します。</td>
+
+</tr>
+
+<tr>
+<td><span>-U</span> ユイドリスト</td>
+
+<td>uidlistで指定されたユーザー ID 番号またはログイン名を持つプロセスに関する情報のみを表示します。</td>
+
+</tr>
+
+<tr>
+<td><span>-X</span></td>
+
+<td>各ユーザー名およびグループ名の使用可能なすべての文字を、最初の 8 文字で切り捨てずに印刷します。</td>
+
+</tr>
+
+<tr>
+<td><span>-y</span></td>
+
+<td><span>-l</span> オプションと組み合わせると、 <code>RSS</code> フィールドおよび <code>SZ</code> フィールドがキロバイト単位で印刷され、 <code>F</code> フィールドおよび <code>ADDR</code>フィールドが印刷されないように、長いリストが変更されます。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+
+</section>
+
+<section><h2>終了状況 (System V)</h2>
+
+<p>このコマンドは、以下の終了値を戻します。</p>
+
+
+<div><div><table><caption><span>表 6. 終了状況 (System V)</span></caption><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><span>0</span></td>
+
+<td>正常終了。</td>
+
+</tr>
+
+<tr>
+<td><span>&gt;0</span></td>
+
+<td>エラーが発生しました。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+
+</section>
+
+<section><h2>セキュリティー (System V)</h2>
+
+<div>
+<dl>
+
+<dt>アテンション RBAC ユーザー</dt>
+
+<dd><div><div>
+        <div>
+          <div><span>RBAC ユーザーへの注意:</span> このコマンドは特権操作を実行できます。 特権命令を実行できるのは特権ユーザーのみです。 権限と特権の詳細については、<span>セキュリティ</span>の <a href="https://www.ibm.com/docs/ja/ssw_aix_73/security/rbac_priv_cmd_db.html" target="_blank" rel="noopener noreferrer">特権コマンドデータベース</a>を参照してください。 このコマンドに関連する特権と権限のリストについては、'<a href="https://www.ibm.com/docs/ja/ssw_aix_73/l_commands/lssecattr.html" target="_blank" rel="noopener noreferrer"><span>lssecattr</span></a>コマンドまたは'<a href="https://www.ibm.com/docs/ja/ssw_aix_73/g_bostechref/getcmdattr.html" target="_blank" rel="noopener noreferrer"><span>getcmdattr</span></a>サブコマンドを参照のこと。</div>
+        </div>
+      </div></div>
+
+</dd>
+
+
+</dl>
+
+</div>
+
+</section>
+
+<section><h2>例 (System V)</h2>
+
+<ol>
+<li>すべてのプロセスを表示するには、以下のように入力します。<div><div><pre><code>ps -e -f</code></pre></div><div></div></div></li>
+
+<li>ユーザー 'guest' が所有するプロセスをリストするには、次のように入力します。<div><div><pre><code>ps -f -l -u guest </code></pre></div><div></div></div></li>
+
+<li><code>/dev/pts/0</code> および <code>/dev/pts/1</code> 端末に関連したプロセスをリストするには、次のように入力します。<div><div><pre><code>ps -t pts/0,pts/1</code></pre></div><div></div></div></li>
+
+<li>端末と関連していないプロセスをリストするには、以下のように入力します。<div><div><pre><code>ps -t -</code></pre></div><div></div></div></li>
+
+<li>指定フォーマットをフィールド指定子付きで表示するには、以下のように入力します。<div><div><pre><code>ps -o ruser,pid,ppid,args</code></pre></div><div></div></div></li>
+
+<li>プロセス内のすべてのカーネル・スレッドについての情報を表示するには、次のように入力します。<div><div><pre><code>ps -L</code></pre></div><div></div></div></li>
+
+<li>すべてのプロセスのセッション ID とプロセス・グループ ID を表示するには、次のように入力します。<div><div><pre><code>ps -jA</code></pre></div><div></div></div></li>
+
+<li>プロセスのスケジューリング・クラスと優先順位を表示するには、次のように入力します。<div><div><pre><code>ps -c -l </code></pre></div><div></div></div></li>
+
+<li>カーネル・スレッドについての情報および、プロセス内のカーネル・スレッドの数を表示するには、次のように入力します。<div><div><pre><code>ps -L -f </code></pre></div><div></div></div></li>
+
+<li>プロセスまたはカーネル・スレッドがバインドされているプロセッサーを表示するには、次のように入力します。<div><div><pre><code>ps  -P</code></pre></div><div></div></div></li>
+
+<li>特定のプロセス (以下の例では<code>inetd</code> ) の ASCII アートを印刷するには、次のように入力します。<div><div><pre><code>ps -T 14220</code></pre></div><div></div></div>出力は次のようになります。<div><div><pre><code>     PID    TTY  TIME CMD
+   14220      -  0:00 inetd
+   16948      -  0:00    |\--telnetd
+   32542  pts/4  0:00    |    \--ksh
+   26504      -  0:00    |\--telnetd
+   41272  pts/5  0:00    |    \--ksh
+   26908  pts/5  0:00    |        \--vi
+   28602      -  0:00    |\--telnetd
+   24830  pts/0  0:00    |    \--ksh
+  676416  pts/0  0:00    |        \--ksh
+   29984      -  0:00    |\--telnetd
+   38546  pts/6  0:00    |    \--ksh
+   32126      -  0:00    |\--telnetd
+   11162  pts/7  0:00    |    \--ksh
+   34466      -  0:00    |\--rpc.ttdbserver
+   35750      -  0:00    |\--telnetd
+   23612  pts/3  0:00    |    \--ksh
+   36294      -  0:00    |\--telnetd
+   38096  pts/8  0:00    |    \--ksh
+   39740      -  0:00    |\--telnetd
+   42226  pts/9  0:01    |    \--ksh
+   40632      -  0:00    |\--telnetd
+   40232  pts/2  0:00    |    \--ksh
+   32910  pts/2  0:00    |        \--dbx
+  987990  pts/2  0:00    |            \--a.out
+   40722      -  0:00    |\--telnetd
+   16792 pts/10  0:00    |    \--ksh
+   37886 pts/10  0:00    |        \--ps
+  105716      -  0:00     \--telnetd
+   29508  pts/1  0:00         \--ksh
+   39478  pts/1  0:00             \--ksh
+   38392  pts/1  0:00                 \--vi</code></pre></div><div></div></div></li>
+
+<li>指定された pid をルートとするすべてのプロセスに関する情報を出力するには、次のように入力します。<div><div><pre><code>ps -fL 14220</code></pre></div><div></div></div>出力は次のようになります。<div><div><pre><code>  UID   PID  PPID   C    STIME    TTY  TIME CMD
+root 14220  8676   0   Apr 07      -  0:00 /usr/sbin/inetd
+root 16948 14220   0   Apr 06      -  0:00 telnetd -a
+root 23612 35750   0   Apr 10  pts/3  0:00 -ksh
+root 24830 28602   1 18:30:56  pts/0  0:00 -ksh
+root 28602 14220   0 18:30:55      -  0:00 telnetd -a
+root 32542 16948   0   Apr 06  pts/4  0:00 -ksh
+root 34466 14220   0   Apr 10      -  0:00 rpc.ttdbserver 100083 1
+root 35750 14220   0   Apr 10      -  0:00 telnetd -a
+root 40228 24830   8 18:36:01  pts/0  0:00 ps -fL 14220</code></pre></div><div></div></div></li>
+
+<li>すべてのプロセスを、展開されたユーザー名を使用して表示するには、以下のように入力します。<div><div><pre><code>ps -X -e -f</code></pre></div><div></div></div></li>
+
+<li>スレッドのスケジューリング・ポリシーを表示するには、以下のコマンドを入力します。<div><div><pre><code>#ps -m -o THREAD,sched
+ USER     PID    PPID      TID ST  CP PRI SC WCHAN   F     TT BND COMMAND     SCH
+suresana 1609830 4227284        - A   16  68  1   - 200001 pts/144   - ps -m  
+                                                              -o THREAD sched 0
+       -       -       -  6381739 R   16  68  1   -400000      -   - -        0
+suresana 4227284 4239476        - A    1  60  1   -200801 pts/144   - bash    0
+       -       -       -  4177981 S    1  60  1   -410400      -   - -        0
+suresana 4239476  921694        - A    0  60  1   -240001 pts/144   - -ksh    0
+       -       -       -  5554385 S    0  60  1   -10400      -   - -         0</code></pre></div><div></div></div></li>
+
+</ol>
+
+</section>
+
+<section><h2>ファイル (System V)</h2>
+
+<div>
+
+<div><div><table><caption><span>表 7. ファイル (System V)</span></caption><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><span>/usr/sysv/bin/ps</span></td>
+
+<td>System V R4 <span>ps</span> コマンドが入っています。</td>
+
+</tr>
+
+<tr>
+<td><span>/etc/passwd</span></td>
+
+<td>ユーザー ID 情報が入っています。</td>
+
+</tr>
+
+<tr>
+<td><span>/dev/pty*</span></td>
+
+<td>端末 (<code>PTY</code>) 名を示します。</td>
+
+</tr>
+
+<tr>
+<td><span>/dev/tty*</span></td>
+
+<td>端末 (<code>TTY</code>) 名を示します。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+
+</div>
+
+</section>
+
+</div></div>

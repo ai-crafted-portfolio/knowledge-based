@@ -1,0 +1,433 @@
+<div class="official-dom"><div>
+<div></div>
+
+<section><h2>目的</h2> <p><strong>mksysb</strong>、<strong>savevg</strong>、または <strong>savewpar</strong> バックアップ・イメージからマルチボリューム DVD を作成します。</p>
+</section>
+
+<section><h2>構文</h2> <p><strong>mkdvd</strong> <a href="https://www.ibm.com/docs/ja/ssw_aix_73/m_commands/mkdvd.html#mkdvd__row-d3e135173" target="_blank" rel="noopener noreferrer"><strong>-</strong></a> <em>ディレクトリー</em> | <a href="https://www.ibm.com/docs/ja/ssw_aix_73/m_commands/mkdvd.html#mkdvd__row-d3e134814" target="_blank" rel="noopener noreferrer"><strong>-d 年</strong></a> <em>dvddevice</em> | <a href="https://www.ibm.com/docs/ja/ssw_aix_73/m_commands/mkdvd.html#mkdvd__row-d3e135211" target="_blank" rel="noopener noreferrer"><strong>-S (S)</strong></a> [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/m_commands/mkdvd.html#mkdvd__row-d3e135015" target="_blank" rel="noopener noreferrer"><strong>-m (M)</strong></a> <em>mksysbimage</em> | <a href="https://www.ibm.com/docs/ja/ssw_aix_73/m_commands/mkdvd.html#mkdvd__row-d3e135042" target="_blank" rel="noopener noreferrer"><strong>-M (M)</strong></a> <em>mksysbtarget</em> | <a href="https://www.ibm.com/docs/ja/ssw_aix_73/m_commands/mkdvd.html#mkdvd__row-d3e135196" target="_blank" rel="noopener noreferrer"><strong>-s</strong></a> <em>savevgimage</em> | <a href="https://www.ibm.com/docs/ja/ssw_aix_73/m_commands/mkdvd.html#mkdvd__row-d3e135317" target="_blank" rel="noopener noreferrer"><strong>-v (V)</strong></a> <em>savevgvolumegroup</em> | <a href="https://www.ibm.com/docs/ja/ssw_aix_73/m_commands/mkdvd.html#mkdvd__row-d3e135360" target="_blank" rel="noopener noreferrer"><strong>-w (W)</strong></a> <em>WPAR イメージの保存</em> | <a href="https://www.ibm.com/docs/ja/ssw_aix_73/m_commands/mkdvd.html#mkdvd__row-d3e135372" target="_blank" rel="noopener noreferrer"><strong>-W (W)</strong></a> <em>WPAR 名</em> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/m_commands/mkdvd.html#mkdvd__row-d3e134754" target="_blank" rel="noopener noreferrer"><strong>-C</strong></a> <em>CDFS ディレクトリー</em> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/m_commands/mkdvd.html#mkdvd__row-d3e134937" target="_blank" rel="noopener noreferrer"><strong>-I (I)</strong></a> <em>Cdimagedir</em> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/m_commands/mkdvd.html#mkdvd__row-d3e135337" target="_blank" rel="noopener noreferrer"><strong>V 値</strong></a> <em>dvdfsvolumegroup</em> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/m_commands/mkdvd.html#mkdvd__row-d3e134727" target="_blank" rel="noopener noreferrer"><strong>-B</strong></a> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/m_commands/mkdvd.html#mkdvd__row-d3e135138" target="_blank" rel="noopener noreferrer"><strong>P-</strong></a> <em>パッケージ・ソース・ディレクトリー</em> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/m_commands/mkdvd.html#mkdvd__row-d3e135181" target="_blank" rel="noopener noreferrer"><strong>-R</strong></a> | <a href="https://www.ibm.com/docs/ja/ssw_aix_73/m_commands/mkdvd.html#mkdvd__row-d3e135211" target="_blank" rel="noopener noreferrer"><strong>-S (S)</strong></a> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/m_commands/mkdvd.html#mkdvd__row-d3e134888" target="_blank" rel="noopener noreferrer"><strong>I</strong></a> <em>image.data</em> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/m_commands/mkdvd.html#mkdvd__row-d3e135234" target="_blank" rel="noopener noreferrer"><strong>-ウー</strong></a> <em>bosinst.data</em> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/m_commands/mkdvd.html#mkdvd__row-d3e134851" target="_blank" rel="noopener noreferrer"><strong>「-f」 </strong></a><em>wparspecificationfile</em> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/m_commands/mkdvd.html#mkdvd__row-d3e134834" target="_blank" rel="noopener noreferrer"><strong>-e (E)</strong></a> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/m_commands/mkdvd.html#mkdvd__row-d3e135155" target="_blank" rel="noopener noreferrer"><strong>-P</strong></a> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/m_commands/mkdvd.html#mkdvd__row-d3e134995" target="_blank" rel="noopener noreferrer"><strong>-</strong></a> <em>パッケージ・リスト</em> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/m_commands/mkdvd.html#mkdvd__row-d3e134703" target="_blank" rel="noopener noreferrer"><strong>-b (B)</strong></a> <em>バンドル・ファイル</em> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/m_commands/mkdvd.html#mkdvd__row-d3e135392" target="_blank" rel="noopener noreferrer"><strong>-z</strong></a> <em>カスタム・ファイル</em> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/m_commands/mkdvd.html#mkdvd__row-d3e134828" target="_blank" rel="noopener noreferrer"><strong>-D</strong></a> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/m_commands/mkdvd.html#mkdvd__row-d3e135270" target="_blank" rel="noopener noreferrer"><strong>-U (U)</strong></a> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/m_commands/mkdvd.html#mkdvd__row-d3e135386" target="_blank" rel="noopener noreferrer"><strong>-Y (Y)</strong></a> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/m_commands/mkdvd.html#mkdvd__row-d3e135114" target="_blank" rel="noopener noreferrer"><strong>N</strong></a> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/m_commands/mkdvd.html#mkdvd__row-d3e134691" target="_blank" rel="noopener noreferrer"><strong>-a 値</strong></a> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/m_commands/mkdvd.html#mkdvd__row-d3e134697" target="_blank" rel="noopener noreferrer"><strong>-A</strong></a> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/m_commands/mkdvd.html#mkdvd__row-d3e134748" target="_blank" rel="noopener noreferrer"><strong>「-c」</strong></a> ] [<a href="https://www.ibm.com/docs/ja/ssw_aix_73/m_commands/mkdvd.html#mkdvd__mkdvd_flags_bigz" target="_blank" rel="noopener noreferrer">-Z</a>] [ <strong><a href="https://www.ibm.com/docs/ja/ssw_aix_73/m_commands/mkdvd.html#mkdvd__mkdvdG" target="_blank" rel="noopener noreferrer">-G</a></strong> | <strong><a href="https://www.ibm.com/docs/ja/ssw_aix_73/m_commands/mkdvd.html#mkdvd__row-d3e135123" target="_blank" rel="noopener noreferrer">-N (N)</a></strong> ] [<a href="https://www.ibm.com/docs/ja/ssw_aix_73/m_commands/mkdvd.html#mkdvd__mkdvd_flags_biggx" target="_blank" rel="noopener noreferrer"><strong>-x (X)</strong></a> <em>ファイル</em> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/m_commands/mkdvd.html#mkdvd__row-mkdvdcmndut" target="_blank" rel="noopener noreferrer"><strong>-T (T)</strong></a> ]</p>
+</section>
+
+<section><h2>説明</h2> <div><strong>mkdvd</strong> コマンドは、システムの <strong>rootvg</strong> から、
+または以前作成した <strong>mksysb</strong> イメージから、
+書き込み可能 DVD (DVD-R、DVD-RAM) にシステム・バックアップ・イメージ (<strong>mksysb</strong>) を作成します。 また、ユーザー指定のボリューム・グループから、
+または以前に作成した <strong>savevg</strong> イメージから、
+DVD にボリューム・グループ・バックアップ・イメージ (<strong>savevg</strong>) を作成します。 また、 <span>ワークロード・パーティション</span> (<strong>savewpar</strong>) のバックアップ・イメージを、ユーザー指定の <span>ワークロード・パーティション</span> または以前に作成した <strong>savewpar</strong> イメージから DVD に作成します。<div><div>
+        <div>
+          <div><span>注:</span> 両方のインスタンスがマウントされている <strong>multibos</strong> 環境がシステムにある場合は、 <strong>alt_disk_mksysb</strong> コマンドを使用することによってのみバックアップをリストアできます。</div>
+        </div>
+      </div></div>
+</div>
+ <p>DVD メディアの場合、<strong>mkdvd</strong> コマンドで作成されたシステム・バックアップは、メディアは片面につき 4.7 GB 以上あることを想定しているという点で制限があります。 <strong>mkdvd</strong> コマンドは、現行のボリューム上に 4 GB を超えた書き込みを行わないと次のボリュームを処理しません。したがって、小容量のメディアを使用すると、そのメディアの容量を超えた場合は破損を引きおこす結果となります。</p>
+ <p>ルート・ボリューム・グループのブート可能バックアップが作成される時、ブート・イメージは現在稼働中のカーネルを反映します。 現行カーネルが 64 ビットのカーネルの場合、バックアップ・ブート・イメージも 64 ビットであり、64 ビットのシステムのみをブートします。 現在のカーネルが 32 ビット・カーネルの場合、バックアップ・イメージもまた 32 ビットであり、それは 32 ビット・システムおよび 64 ビット・システムの両方でブートします。</p>
+ <div><strong>mkdvd</strong> コマンドを使用して、Rock Ridge
+(ISO9660) フォーマットまたは UDF
+(ユニバーサル・ディスク・フォーマット) フォーマットでブート可能およびブート不可 DVD を作成することができます。<div><div>
+        <div>
+          <div><span>注:</span> Rock Ridge フォーマット DVD イメージを作成し、DVD イメージを DVD-RAM デバイスに書き込むために必要な機能は、 <strong>mkdvd</strong> コマンドの一部ではありません。 これらのタスクを行うには、<strong>mkdvd</strong> コマンドに追加のコードを提供する必要があります。 このコードはシェル・スクリプトによって呼び出され、次に <strong>/usr/sbin/mkrr_fs</strong> (Rock Ridge フォーマットのイメージの作成用) および <strong>/usr/sbin/burn_cd</strong> (DVD デバイスへの書き込み用) にリンクされます。 どちらのリンクも <strong>mkdvd</strong> コマンドから呼び出されます。<p>異なるベンダー特定ルーチン用に、いくつかのサンプル・シェル・スクリプトが組み込まれています。 これらのスクリプトは <strong>/usr/samples/oem_cdwriters</strong> 内にあります。</p>
+</div>
+        </div>
+      </div></div>
+</div>
+ <div>コマンド・パラメーターとしてファイルシステムまたはディレクトリーを指定しない場合、<strong>mkdvd</strong> コマンドは必要なファイルシステムを作成し、コマンドの実行終了時にこれらのファイルシステムを除去します。 ユーザーが提供したファイルシステムは、スペースおよび書き込みアクセスが適切かどうか検査されます。<div><div>
+        <div>
+          <div><span>注:</span> <strong>mkdvd</strong> コマンドがバックアップ・ボリューム・グループにファイルシステムを作成すると、それらはバックアップから除外されます。</div>
+        </div>
+      </div></div>
+</div>
+ <p>ボリューム・グループ・イメージが 1 つの DVD に収まらないためにマルチボリューム DVD を作成する必要がある場合、<strong>mkdvd</strong> コマンドは、すべてのボリュームが作成されるまで DVD の置き換えと取り外しを行うよう命令を出します。</p>
+</section>
+
+<section><h2>フラグ</h2> <div> 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><strong>-a</strong></td>
+
+<td>拡張属性または NFS4 ACL をバックアップしません。</td>
+
+</tr>
+
+<tr>
+<td><strong>-A</strong></td>
+
+<td>DMAPI ファイルシステムのファイルをバックアップします。</td>
+
+</tr>
+
+<tr>
+<td><strong>-b</strong><em> バンドル・ファイル</em></td>
+
+<td><strong>mksysb</strong> の復元後にインストールすべきファイルセットのリストが入っているファイルの絶対パス名を指定します。 このファイルは DVD ファイルシステム内の <strong>./usr/sys/inst.data/user_bundles/</strong><em>bundle_file</em> に
+コピーされ、DVD がアンマウントされている場合は RAM にもコピーされます。 このファイルは、 <strong>bosinst.data</strong> ファイルに BUNDLES=<strong>/../usr/sys/inst.data/user_bundles/</strong><em>bundlefile</em> としてリストされます。</td>
+
+</tr>
+
+<tr>
+<td><strong>-B</strong></td>
+
+<td><strong>mkdvd</strong> が DVD にブート・イメージ (ブート不可能 DVD) を追加しないようにします。 ブートしない <strong>mksysb</strong> DVD を作成する場合は、このフラグを使用します。 ブート不能 <strong>mksysb</strong> DVD をインストールする前に、同じレベル (V.R.M.) の 製品メディアをブートする必要があります。 <strong>mkdvd</strong> コマンドは、デフォルトで、
+ソース・システムのマシン・タイプに合わせてブート可能 DVD を作成します。 詳しくは、「 <a href="https://www.ibm.com/docs/ja/ssw_aix_73/m_commands/mkdvd.html#mkdvd__flagnotes" target="_blank" rel="noopener noreferrer">注</a> 」セクションを参照してください。</td>
+
+</tr>
+
+<tr>
+<td><strong>-c</strong></td>
+
+<td>バックアップするときにファイルを圧縮またはパックしません。</td>
+
+</tr>
+
+<tr>
+<td><strong>-C</strong><em> cdfsdir</em></td>
+
+<td>DVD ファイルシステム構造の作成に使用するファイルシステムを指定します。これには、DVD サイズのイメージの場合、最大 4.38 GB 必要です。 DVD イメージは、すべてのデータを DVD 上に収めるために必要なだけのスペースのみを消費します。<div><strong>-C</strong> フラグを指定していない場合で <strong>/mkcd/cd_fs</strong>
+ディレクトリーが存在する場合は、<strong>mkdvd</strong> コマンドはそのディレクトリーを使用します。 <strong>-C</strong> フラグを指定していない場合で <strong>/mkcd/cd_fs</strong> ディレクトリーが存在しないと、<strong>mkdvd</strong> コマンドはファイルシステム <strong>/mkcd/cd_fs</strong> を作成し、コマンドが実行を終了したときにそのファイルシステムを除去します。 このコマンドは、<strong>-V</strong> フラグによって指示されたボリューム・グループ、
+あるいは <strong>rootvg</strong> (そのフラグが使用されない場合) においてファイルシステムを作成します。 <strong>mkdvd</strong> コマンドを呼び出すたびに、固有のサブディレクトリー (プロセス ID を使用する) が <strong>/mkcd/cd_fs</strong> ディレクトリーの下に、あるいは <strong>-C</strong> フラグによって指定されたディレクトリーに作成されます。<div><div>
+        <div>
+          <div><span>注:</span> DVD サイズのバックアップを実行する場合、ファイル・システムは <em>ラージ・ファイル・イネーブル</em>状態でなければなりません。 このタイプのバックアップでは、ファイル <strong>ulimit</strong> サイズを <em>unlimited</em> に設定する必要もあります。</div>
+        </div>
+      </div></div>
+</div>
+</td>
+
+</tr>
+
+<tr>
+<td><strong>-d</strong><em> dvddevice</em></td>
+
+<td>DVD-R または DVD-RAM 装置を示します (/dev/cd1(例えば、)。 <strong>-S</strong> フラグを使用しない限り、このフラグは必須です。</td>
+
+</tr>
+
+<tr>
+<td><strong>-D</strong></td>
+
+<td>デバッグ出力情報機能をオンにします。 デフォルトではデバッグは出力されません。</td>
+
+</tr>
+
+<tr>
+<td><strong>-e</strong></td>
+
+<td>ファイルおよびディレクトリーを、<strong>/etc/exclude.</strong><em>volume_group</em> ファイルにリストされたバックアップ・イメージから除外します。 このフラグを <strong>-m</strong> または <strong>-s</strong> フラグと共に使用することはできません。</td>
+
+</tr>
+
+<tr>
+<td><strong>-f </strong><em>wparspecificationfile</em></td>
+
+<td>ユーザー提供の <span>WPAR</span> 仕様ファイルを指定します。 <span>ワークロード・パーティション</span> のこの仕様ファイルは、 <strong>savewpar</strong> イメージの <strong>wpar.spec</strong> ファイルよりも優先されます。 <strong>-f</strong> フラグを使用しないと、<strong>mkdvd</strong> コマンドは、指定された <strong>savewpar</strong> イメージから <strong>wpar.spec</strong> ファイルを復元するか、または <strong>savewpar</strong> の作成中に新規 <strong>wpar.spec</strong> ファイルを生成します。</td>
+
+</tr>
+
+<tr>
+<td><strong>-i</strong><em> image.data</em></td>
+
+<td>ユーザー提供の <em>image.data</em> ファイルを指定します。 このデータ・ファイルは、<strong>mksysb</strong> イメージ内の <strong>image.data</strong> ファイルに優先します。 <strong>-i</strong> フラグを指定しない場合、<strong>mkdvd</strong> コマンドは、所定の <strong>mksysb</strong> イメージから <strong>image.data</strong> を復元するか、<strong>mksysb</strong> の作成時に新規 <strong>image.data</strong> ファイルを生成します。<div><div>
+        <div>
+          <div><span>注:</span> <strong>-i</strong> フラグを使用して、 <strong>savevg</strong> イメージで使用するユーザー提供の <em>vgname.data</em> ファイルを指定することはできません。</div>
+        </div>
+      </div></div>
+</td>
+
+</tr>
+
+<tr>
+<td><strong>-I</strong> <em>cdimagesdir</em></td>
+
+<td>最終 DVD イメージが DVD-R または DVD-RAM デバイスに書き込まれる前に格納されるディレクトリーまたはファイルシステムを指定します。 このフラグを使用しない場合、
+<strong>mkdvd</strong> コマンドは、
+<strong>/mkcd/</strong><strong><em>cd_images</em></strong>
+ディレクトリーが既に存在していればこのディレクトリーを使用します。 そうでない場合、このコマンドは、 <strong>-V</strong> フラグで指定されたボリューム・グループに <strong>/mkcd/</strong><strong><em>cd_images</em></strong> ファイルシステムを作成します。 このフラグが使用されていない場合は、 <strong>rootvg</strong> 内にあります。<div><strong>mkdvd</strong> コマンドがファイルシステムを作成した場合、
+<strong>-R</strong> または <strong>-S</strong> フラグが使用されていなければ、
+そのファイルシステムはコマンドの完了時に除去されます。 <strong>-R</strong> または <strong>-S</strong> フラグを使用する場合、マルチボリューム DVD の作成時には特に、ファイルシステム、ディレクトリー、またはディスク・スペースが適切かどうか考慮する必要があります。 DVD イメージは、すべてのデータを DVD 上に収めるために必要なだけのスペースのみを消費します。<div><div>
+        <div>
+          <div><span>注:</span> DVD サイズのバックアップを実行する場合、ファイル・システムは <em>ラージ・ファイル・イネーブル</em>状態でなければなりません。 このタイプのバックアップでは、ファイル <strong>ulimit</strong> サイズを <em>unlimited</em> に設定する必要もあります。</div>
+        </div>
+      </div></div>
+</div>
+</td>
+
+</tr>
+
+<tr>
+<td><strong>-l</strong><em> パッケージ・リスト</em></td>
+
+<td>DVD ファイルシステムの <strong>./usr/lpp/inst.images</strong> ディレクトリーにコピーしたい追加パッケージのリストが入っているファイルを指定します。 このイメージは、<strong>-p</strong> フラグを指定して命名されたロケーションからコピーされます。 <strong>-l</strong> フラグを使用する場合は <strong>-p</strong> フラグも使用する必要があります。</td>
+
+</tr>
+
+<tr>
+<td><strong>-m</strong><em> mksysbimage</em></td>
+
+<td>以前に作成した <strong>mksysb</strong> イメージを指定します。 <strong>-m</strong> フラグを指定しない場合、<strong>mkdvd</strong> コマンドは <strong>mksysb</strong> を呼び出します。 <strong>mksysb</strong> イメージが置かれる場所について詳しくは、<strong>-M</strong> フラグを参照してください。</td>
+
+</tr>
+
+<tr>
+<td><strong>-M</strong><em> mksysbtarget</em></td>
+
+<td>以前に作成されたバックアップが <strong>-m</strong> または <strong>-s</strong> フラグで指定されない場合に、
+<strong>mksysb</strong> または <strong>savevg</strong> イメージを格納するディレクトリーまたはファイルシステムを示します。 <strong>-M</strong> フラグが使用されておらず、<strong>mksysb</strong> または <strong>savevg image</strong> が指定されていない場合、<strong>mkdvd</strong> コマンドは、<strong>/mkcd/</strong><em>mksysbimage</em> が存在するかどうかを確認します。 このディレクトリーが存在しない場合、<strong>mkdvd</strong> コマンドは別個のファイルシステム <strong>/mkcd/</strong><em>mksysbimage</em> を作成し、そこに <strong>mksysb</strong> または <strong>savevg</strong> イメージを一時的に保存します。 このコマンドは、<strong>-V</strong> フラグで指定されたボリューム・グループ、あるいは <strong>rootvg</strong> (そのフラグが使用されない場合) においてファイルシステムを作成します。<div><div>
+        <div>
+          <div><span>注:</span> DVD サイズのバックアップを実行する場合、ファイル・システムは <em>ラージ・ファイル・イネーブル</em>状態でなければなりません。 このタイプのバックアップでは、ファイル <strong>ulimit</strong> サイズを <em>unlimited</em> に設定する必要もあります。</div>
+        </div>
+      </div></div>
+</td>
+
+</tr>
+
+<tr>
+<td><strong>-n</strong></td>
+
+<td>ユーザー・ボリューム・グループ情報と管理データ・ファイルをバックアップします。 このフラグは、<strong>/tmp/vgdata/vgname/vgname.data</strong> やマップ・ファイルがバックアップされます (存在する場合)。 このフラグは、ユーザー・データ・ファイルをバックアップしません。 このバックアップを使用して、
+ユーザー・データ・ファイルを復元しないでユーザー・ボリューム・グループを作成できます。 このアクションは、rootvg に対して行うことはできません。</td>
+
+</tr>
+
+<tr>
+<td><strong>-N</strong></td>
+
+<td>定義済み状態の <span>ワークロード・パーティション</span> (<span>WPAR</span>) に属するファイルシステムをシステム・バックアップに組み込みます。<div><div>
+        <div>
+          <div><span>注:</span> バックアップに含めるには、定義済み状態の <span>WPAR</span> に属するすべてのファイルシステムが rootvg ボリューム・グループ内になければなりません。</div>
+        </div>
+      </div></div>
+</td>
+
+</tr>
+
+<tr>
+<td><strong>-p</strong><em> pkgsourcedir</em></td>
+
+<td>デバイスおよびカーネル・パッケージ・イメージが入っているディレクトリーまたはデバイスに名前を付けます。 デバイスは CD または DVD デバイス (例えば、 <span><span>/dev/cd0</span></span>) でなければなりません。 <span><span>-d</span></span> フラグで指定したものと同じ DVD-R または DVD-RAM デバイスを使用する場合は、最初に製品メディアをドライブに挿入する必要があります。 その後、 <span><span>mkdvd</span></span> コマンドは、実際の DVD の作成前に書き込み可能 DVD を挿入するようにプロンプトを出します。</td>
+
+</tr>
+
+<tr>
+<td><strong>-P</strong></td>
+
+<td><strong>mksysb</strong> または <strong>savevg</strong> の作成時に物理区画マッピングを作成します。 このフラグを <strong>-m</strong> または <strong>-s</strong> フラグと共に使用することはできません。</td>
+
+</tr>
+
+<tr>
+<td><strong>-r</strong><em> ディレクトリー</em></td>
+
+<td>DVD に組み込まれる既存のディレクトリー構造を示します。 このフラグは、指定したディレクトリー構造のコピーである DVD イメージを作成します。</td>
+
+</tr>
+
+<tr>
+<td><strong>-R</strong></td>
+
+<td><strong>mkdvd</strong> コマンドが最終 DVD イメージを除去しないようにします。 <strong>mkdvd</strong> コマンドは、デフォルトで、実行を終了すると作成したものをすべて除去します。 <strong>-R</strong> フラグを使用すると、複数の DVD イメージ・セットを格納するか、
+または DVD の作成 (焼き付け) を別のシステムで行うことができます。 複数のボリュームが必要な場合は、プロセス ID とボリューム接尾辞を使用して、最終イメージに一意的に名前が付けられます。</td>
+
+</tr>
+
+<tr>
+<td><strong>-s</strong><em> イメージを保存する</em></td>
+
+<td>以前に作成した <strong>savevg</strong> イメージを示します。 詳しくは、 <a href="https://www.ibm.com/docs/ja/ssw_aix_73/m_commands/mkdvd.html#mkdvd__flagnotes" target="_blank" rel="noopener noreferrer">注</a> を参照してください。</td>
+
+</tr>
+
+<tr>
+<td><strong>-S</strong></td>
+
+<td><strong>mkdvd</strong> コマンドが、最終 DVD イメージを除去しないで DVD-R または DVD-RAM に書き込む前に、このコマンドを中止します。 <strong>-S</strong> フラグを使用すると、
+複数の DVD セットを作成したり、別のシステムで DVD を作成したりすることができます。 イメージは、 <strong>-I</strong> フラグでマークされたディレクトリーに残ります。 <strong>-I</strong> フラグが使用されていない場合は、 <strong>/mkcd/</strong><strong><em>cd_images</em></strong> ディレクトリーに残ります。 複数のボリュームが必要な場合は、プロセス ID とボリューム接尾辞を使用して、最終イメージに一意的に名前が付けられます。</td>
+
+</tr>
+
+<tr>
+<td><strong>-T</strong></td>
+
+<td>スナップショットを使用してバックアップを作成します。 このコマンドは、JFS2 ファイルシステムにのみ適用されます。<p><strong>-T</strong> フラグを指定して、ボリューム・グループ・バックアップの作成にスナップショットを使用すると、外部 JFS2 スナップショットが作成されます。 スナップショットによって JFS2 ファイルシステムのポイント・イン・タイム・イメージができるため、システムを一時的に非アクティブ状態にする必要はありません。 スナップショットのサイズは、ファイルシステムのサイズの 2% から 15% です。 バックアップが完了すると、スナップショットの論理ボリュームは除去されます。 ただし、ファイルシステムに既に他のスナップショットがある場合は、スナップショットは除去されません。 さらに、ファイルシステムに内部スナップショットがある場合、外部スナップショットは作成できないため、ファイルシステムのバックアップを作成するのにスナップショットは使用されません。 <strong>-T</strong> フラグの使用は、バックアップされているボリューム・グループ内に存在する JFS ファイルシステムには影響を及ぼしません。 これらのファイルシステムは、以前に行われていたのと同じ方法でバックアップされます。</p>
+</td>
+
+</tr>
+
+<tr>
+<td><strong>-u</strong><em> bosinst.data</em></td>
+
+<td>ユーザー提供の <em>bosinst.data</em> ファイルを指定します。 このデータ・ファイルは、<strong>mksysb</strong> イメージ内の <strong>bosinst.data</strong> ファイルに優先します。 <strong>-u</strong> フラグを指定しない場合、<strong>mkdvd</strong> コマンドは、指定された <strong>mksysb</strong> イメージから <strong>bosinst.data</strong> を復元するか、または <strong>mksysb</strong> の作成時に新規 <strong>bosinst.data</strong> ファイルを生成します。</td>
+
+</tr>
+
+<tr>
+<td><strong>-U</strong></td>
+
+<td>DVD-RAM メディア上で <strong>UDF</strong>
+(ユニバーサル・ディスク・フォーマット) ファイルシステムを作成します。 Rock Ridge フォーマットのバックアップを作成するためのフリー・スペースは必要ありません。 <strong>/mkcd/cd_fs</strong> および <strong>
+/mkcd/cd_images</strong> ファイルシステムは不要です。 よって、必要なのは、メディアにコピーする
+バックアップ・イメージを作成するための一時ディスク・スペースだけです。 このことは、<strong>-I</strong> および <strong>-C</strong> フラグは、<strong>
+-U</strong> フラグには適用されないことを意味します。 バックアップはメディアにコピーされるので、
+イメージを作成することはできず、後で組み込むか、または別のシステムで組み込みます。 よって、<strong>-U</strong> フラグを使用する際には、<strong>-R</strong> フラグおよび <strong>-S</strong> フラグは適用されません。 <strong>-d</strong> フラグを使用して、書き込み先デバイスを指定する必要があります。 <strong>-U</strong> フラグは、
+<strong>/usr/sbin/mkrr_fs</strong> または <strong>/usr/sbin/burn_cd
+</strong> ファイルシステムを使用しません。</td>
+
+</tr>
+
+<tr>
+<td><strong>-v</strong><em> ボリュームグループを保存する</em></td>
+
+<td><strong>savevg</strong> コマンドを使用してボリューム・グループをバックアップするよう指示します。 詳しくは、 <a href="https://www.ibm.com/docs/ja/ssw_aix_73/m_commands/mkdvd.html#mkdvd__flagnotes" target="_blank" rel="noopener noreferrer">注</a> を参照してください。 <strong>savevg</strong> イメージが置かれる場所について詳しくは、<strong>-M</strong> フラグを参照してください。</td>
+
+</tr>
+
+<tr>
+<td><strong>-V</strong><em> dvdfsボリュームグループ</em></td>
+
+<td><strong>mkdvd</strong> コマンドに必要なファイルシステムを作成するときに使用されるボリューム・グループを示します。 <strong>-V</strong> フラグが指定されておらず、ファイルシステムが必要だが存在しない (その他のフラグと共に提供されていないため) 場合は、
+<strong>rootvg</strong> がファイルシステムを作成するためのデフォルト・ボリューム・グループとなります。 <strong>mkdvd</strong> コマンドがバックアップ・ボリューム・グループ内にファイルシステムを作成した場合、
+それらのファイルシステムはバックアップ・イメージの一部としては組み込まれません。 <strong>mkdvd</strong> コマンドが作成したファイルシステムは、コマンドの完了時に除去されます。</td>
+
+</tr>
+
+<tr>
+<td><strong>-w</strong><em> イメージを保存する</em></td>
+
+<td>以前に作成した <strong>savewpar
+</strong> イメージを示します。</td>
+
+</tr>
+
+<tr>
+<td><strong>-W</strong> <em>ワーパルネーム</em></td>
+
+<td><strong>savewpar</strong> コマンドを使用してバックアップする <span>ワークロード・パーティション</span> を示します。</td>
+
+</tr>
+
+<tr>
+<td><strong>-Y</strong></td>
+
+<td>使用条件に同意します。</td>
+
+</tr>
+
+<tr>
+<td><strong>-z</strong><em> カスタム・ファイル</em></td>
+
+<td>ファイルの絶対パス名が、DVD ファイルシステムのルート・ディレクトリーにコピーされることを示します。 このファイルは、以下のような <strong>bosinst.data</strong> ファイルに指定されたカスタマイズ・スクリプトにすることができます。CUSTOMIZATION_FILE=filename.<p></p><blockquote><span>“</span>例: 次のファイルがmy_script<strong>mkdvd</strong> が実行されているマシンの <strong>/tmp</strong> にある場合には、次のように入力します。-z/tmp/my_scriptおよび指定CUSTOMIZATION_FILE=my_scriptコードは、実行前にスクリプトを RAM ファイルシステムのルート・ディレクトリーにコピーします。<span>”</span></blockquote>
+<p></p>
+</td>
+
+</tr>
+
+<tr>
+<td><strong>-Z</strong></td>
+
+<td>すべてのファイル、ディレクトリー、およびファイルシステムに関する暗号化ファイルシステム (EFS) 情報をバックアップしないように指定します。</td>
+
+</tr>
+
+<tr>
+<td><strong>-G</strong></td>
+
+<td>システム・バックアップから WPAR ファイルシステムを除外します。 このフラグは、<strong>-N</strong> フラグと共に指定した場合は無効です。</td>
+
+</tr>
+
+<tr>
+<td><strong>-x</strong><em> file</em></td>
+
+<td>ファイルでリストされたファイルシステムをシステム・バックアップから除外します。 ファイルシステムのマウント・ポイントは、1 行につき 1 つずつリストする必要があります。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+<div><div>
+        <div>
+          <div><span>注:</span> 結果としてバックアップがシステムのリストアに使用できなくなる可能性があるため、ファイル・システムを除外する場合は注意してください。</div>
+        </div>
+      </div></div>
+ <div><div>
+        <div>
+          <div><span>注:</span><ul>
+<li>ブート不可能 DVD を (<strong>-B</strong> フラグを使用して) 作成する場合、<strong>-p</strong> または <strong>-l</strong> フラグを使用することはできません。</li>
+
+<li>ブート不可能 DVD を <strong>savevg</strong> イメージにより (<strong>-s</strong> または <strong>-v</strong> フラグを使用して) 作成する場合、<strong>-p</strong>、<strong>-l</strong>、<strong>-u</strong>、<strong>-i</strong>、<strong>-z</strong>、または <strong>-b</strong> フラグを使用することはできません。</li>
+
+</ul>
+</div>
+        </div>
+      </div></div>
+</div>
+</section>
+
+<section><h2>例</h2> <ol>
+<li>次の名前の DVD-R デバイスにブート可能システム・バックアップを生成します。/dev/cd1次のコマンドを入力します。<div> <div><div><pre><code>mkdvd -d /dev/cd1</code></pre></div><div></div></div></div>
+</li>
+
+<li>次の名前の DVD-R または DVD-RAM 装置にシステム・バックアップを生成します。/dev/cd1次のコマンドを入力します。<div> <div><div><pre><code>mkdvd -d /dev/cd1</code></pre></div><div></div></div></div>
+</li>
+
+<li>ボリューム・グループのブート不能ボリューム・グループ・バックアップを生成するmyvgへ/dev/cd1次のコマンドを入力します。<div> <div><div><pre><code>mkdvd -d /dev/cd1 -v myvg</code></pre></div><div></div></div> <div><div>
+        <div>
+          <div><span>注:</span> すべての <strong>savevg</strong> バックアップ・イメージはブートできません。</div>
+        </div>
+      </div></div>
+</div>
+ </li>
+
+<li><span>ワークロード・パーティション</span> のブート不可のバックアップを生成するには、以下のようにします。mywpar/dev/cd1に対して、次のコマンドを入力します。<div><div><pre><code>mkdvd -d /dev/cd1 -W mywpar</code></pre></div><div></div></div> <div><div>
+        <div>
+          <div><span>注:</span> すべての <strong>savewpar</strong> バックアップ・イメージはブート可能ではありません。</div>
+        </div>
+      </div></div>
+</li>
+
+<li><span>ワークロード・パーティション</span> のブート不可のバックアップを生成するには、以下のようにします。mywpar前に生成された <strong>savewpar</strong> イメージ <strong>/wparbackups/mywpar.bff</strong>から<strong> /dev/cd1</strong> に変更するには、次のコマンドを入力します。<div><div><pre><code>mkdvd -d /dev/cd1 -w /wparbackups/mywpar.bff</code></pre></div><div></div></div></li>
+
+<li>DVD、または次の例のように既存のディレクトリー構造を複製する DVD を作成するには、<div><div><pre><code>/mycd/a
+/mycd/b/d
+/mycd/c/f/g</code></pre></div><div></div></div> <div>以下のコマンドを入力します。<div><div><pre><code>mkdvd -r /mycd -d /dev/cd1</code></pre></div><div></div></div></div>
+ <div>次を使用してマウントした後mount -o ro /dev/cd1 /mnt、 <strong>cd</strong> から/mnt; afind . -printコマンド表示:<div><div><pre><code>./a
+./b
+./b/d
+./c
+./c/f
+./c/f/g</code></pre></div><div></div></div></div>
+</li>
+
+</ol>
+</section>
+
+<section><h2>ファイル</h2> <div> 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><strong>/usr/bin/mkdvd</strong></td>
+
+<td><strong>mkdvd</strong> コマンドが入っています。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+</section>
+
+</div></div>

@@ -1,0 +1,132 @@
+<div class="official-dom"><div>
+<section><h2>目的</h2> <p><strong>talk</strong> コマンド用のサーバー機能を提供します。</p>
+</section>
+
+<section><h2>構文</h2> <p><strong>/usr/sbin/talkd</strong> [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/t_commands/talkd.html#talkd__row-d3e74534" target="_blank" rel="noopener noreferrer"><strong>-s</strong></a> ]</p>
+</section>
+
+<section><h2>説明</h2> <p></p><blockquote><span>“</span><span></span><strong>注:</strong> <strong>talkd</strong> デーモンは通常、 <strong>inetd</strong> デーモンによって始動されます。 これは、SRC コマンドを使用してコマンド・ラインから制御することもできます。<span>”</span></blockquote>
+<p></p>
+ <p><strong>/usr/sbin/talkd</strong> デーモンはユーザー (呼び出し側) が会話を開始しようとしていることを他のユーザー (受信者) に通知するサーバーです。 受信者が送信勧誘を受け入れると、デーモンは会話を設定します。 呼び出し側は、
+受信者を設定する <strong>talk</strong> コマンドを実行することで会話を開始します。 受信者は、呼び出し側を指定する <strong>talk</strong> コマンドを実行することで送信勧誘を受け入れます。</p>
+ <p><strong>talkd</strong> デーモンは、<strong>/etc/services</strong> ファイルで定義されるソケットを listen します。 <strong>talkd</strong> デーモンはローカルまたはリモートの <strong>talk</strong> プロセスから LOOK_UP 要求を受信すると、クライアント・プロセス (ローカルまたはリモートの <strong>talk</strong> プロセス) と呼び出し側とを対にしたエントリーを含む内部送信勧誘テーブルを、<strong>talkd</strong> デーモンがスキャンします。</p>
+ <p>送信勧誘テーブルにエントリーが存在しなければ、<strong>talkd</strong> デーモンは、クライアント・プロセスを呼び出し側と見なします。 次に、<strong>talkd</strong> デーモンはクライアント・プロセスの ANNOUNCE 要求を受信します。 <strong>talkd</strong> デーモンは、(呼び出し側が特定の tty デバイスを指定しない限り) 受信者が最初にログインしたリモート・マシン上で送信勧誘をブロードキャストします。 この端末は、通常コンソールですが、別の端末の場合もあります。</p>
+ <p>そうでない場合には、送信勧誘は受信者のユーザーが最初にログインした端末に送られます。 これは通常コンソールですが、別の端末の場合もあります。</p>
+ <p><strong>talkd</strong> デーモンの内部送信勧誘テーブルにエントリーがあれば、<strong>talkd</strong> デーモンはクライアントが受信者であると見なします。 <strong>talkd</strong> デーモンは、受信者の <strong>talk</strong> プロセスに適切な待ち合わせアドレスを戻します。 受信者のプロセスは、呼び出し側のプロセスとのストリーム接続を設定します。</p>
+ <p></p><blockquote><span>“</span><span></span><strong>注:</strong> <strong>talkd</strong> デーモンは Talk 4.3 プロトコルを使用します。 AIX® プロトコルのサブサーバー名は <strong>ntalk</strong>です。<span>”</span></blockquote>
+<p></p>
+ <p><strong>talkd</strong> デーモンの変更は、System Management Interface Tool (SMIT) またはシステム・リソース・コントローラー (SRC) を使用し、<strong>/etc/inetd.conf</strong> ファイル、または /<strong>etc</strong>/<strong>services</strong> ファイルを編集することにより行うことができます。 次のように入力します。talkdコマンド行での使用は推奨されません。 <strong>talkd</strong> デーモンは、<strong>/etc/inetd.conf</strong> ファイル内でコメント化されていないとき、デフォルトで始動されます。</p>
+ <p><strong>inetd</strong> デーモンは、/<strong>etc</strong>/<strong>inetd.conf</strong> ファイルと /<strong>etc</strong>/<strong>services</strong> ファイルから情報を取り出します。</p>
+ <p><strong>/etc/inetd.conf</strong> ファイルまたは /<strong>etc</strong>/<strong>services</strong> ファイルを変更したら、<strong>refresh</strong> <strong>-s inetd</strong> または <strong>kill</strong><strong> -1 </strong><em>InetdPID</em> コマンドを実行して、構成ファイルを変更したことを <strong>inetd</strong> デーモンに通知します。</p>
+ <p>デバッグ・メッセージは、
+<strong>syslogd</strong> デーモンに送られます。</p>
+ <p></p><blockquote><span>“</span><span></span><strong>注:</strong> <strong>talkd</strong> デーモンは、System Management Interface Tool (SMIT) を使用するか、または <strong>/etc/inetd.conf</strong> ファイルを変更することによって制御する必要があります。<span>”</span></blockquote>
+<p></p>
+<p><strong>システム・リソース・コントローラーによる talkd デーモンの操作</strong></p>
+ <p><strong>talkd</strong> デーモンは、
+システム・リソース・コントローラー (SRC) のサブシステムである <strong>inetd</strong> デーモンのサブサーバーです。 <strong>talkd</strong> デーモンは <strong>tcpip</strong> SRC サブシステム・グループのメンバーです。 このデーモンはデフォルトでは <strong>/etc/inetd.conf</strong> ファイルで使用可能になり、次の SRC コマンドで操作できます。</p>
+ 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><a href="https://www.ibm.com/docs/ja/ssw_aix_73/s_commands/startsrc.html" target="_blank" rel="noopener noreferrer"><strong>開始戻りコード</strong></a></td>
+
+<td>サブシステム、サブシステムのグループ、サブサーバーのいずれかを始動します。</td>
+
+</tr>
+
+<tr>
+<td><a href="https://www.ibm.com/docs/ja/ssw_aix_73/s_commands/stopsrc.html" target="_blank" rel="noopener noreferrer"><strong>停止ソース</strong></a></td>
+
+<td>サブシステム、サブシステムのグループ、あるいはサブサーバーを停止します。</td>
+
+</tr>
+
+<tr>
+<td><a href="https://www.ibm.com/docs/ja/ssw_aix_73/l_commands/lssrc.html" target="_blank" rel="noopener noreferrer"><strong>エルエスアールシー</strong></a></td>
+
+<td>サブシステム、サブシステムのグループ、またはサブサーバーの状況を得ます。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</section>
+
+<section><h2>フラグ</h2> <div> 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><strong>-s</strong></td>
+
+<td>ソケット・レベルのデバッグをオンにします。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+</section>
+
+<section><h2>例</h2> <ol>
+<li><span></span> <strong>talkd</strong> デーモンを始動するには、次のように入力します。<div>startsrc  <a href="https://www.ibm.com/docs/ja/ssw_aix_73/s_commands/startsrc.html#startsrc/row-d3e48117" target="_blank" rel="noopener noreferrer">-t</a> ntalk</div>このコマンドは <strong>talkd</strong> サブサーバーを始動します。</li>
+
+<li><span></span> <strong>talkd</strong> デーモンを正常に停止するには、次のように入力します。<div>stopsrc  <a href="https://www.ibm.com/docs/ja/ssw_aix_73/s_commands/stopsrc.html#stopsrc/row-d3e51682" target="_blank" rel="noopener noreferrer">-t</a> ntalk</div>このコマンドは、保留状態の接続をすべて開始し、既存の接続を完了します。しかし、新しい接続の開始は行いません。</li>
+
+<li><span></span> <strong>talkd</strong> デーモンおよびすべての <strong>talkd</strong> 接続を強制的に停止するには、次のように入力します。<div>stopsrc <a href="https://www.ibm.com/docs/ja/ssw_aix_73/s_commands/stopsrc.html#stopsrc/row-d3e51594" target="_blank" rel="noopener noreferrer">-f</a> -t ntalk</div>このコマンドによって、保留状態の接続と既存の接続がすべて即座に終了します。</li>
+
+<li><span></span> <strong>talkd</strong> デーモンに関する簡略状況報告書を表示するには、次のように入力します。<div>lssrc <a href="https://www.ibm.com/docs/ja/ssw_aix_73/l_commands/lssrc.html" target="_blank" rel="noopener noreferrer">-t</a> ntalk</div>このコマンドは、デーモンの名前、プロセス ID、および状態 (アクティブまたは非アクティブ) を返します。</li>
+
+</ol>
+</section>
+
+<section><h2>ファイル</h2> <div> 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td> </td>
+
+<td> </td>
+
+</tr>
+
+<tr>
+<td><strong>/etc/utmp</strong></td>
+
+<td>現在ログインしているユーザーに関するデータが入っています。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+</section>
+
+</div></div>

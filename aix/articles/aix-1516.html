@@ -1,0 +1,312 @@
+<div class="official-dom"><div>
+<section><h2>目的</h2> <p><strong>Portable Streams Environment</strong> (PSE) をロードし、構成します。</p>
+</section>
+
+<section><h2>構文</h2> <p><strong>ストロード</strong> [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/s_commands/strload.html#strload__row-d3e55385" target="_blank" rel="noopener noreferrer"><strong>-ウー </strong></a>| <a href="https://www.ibm.com/docs/ja/ssw_aix_73/s_commands/strload.html#strload__row-d3e55379" target="_blank" rel="noopener noreferrer"><strong>-Q (Q) </strong></a>] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/s_commands/strload.html#strload__row-d3e55351" target="_blank" rel="noopener noreferrer"><strong>「-f」</strong></a> <em>ファイル</em> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/s_commands/strload.html#strload__row-d3e55340" target="_blank" rel="noopener noreferrer"><strong>-d 年</strong></a> <em>リスト</em> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/s_commands/strload.html#strload__row-d3e55368" target="_blank" rel="noopener noreferrer"><strong>-m (M)</strong></a> <em>リスト</em> ]</p>
+</section>
+
+<section><h2>説明</h2> <p><strong>strload</strong> コマンドにより、システム管理者は、ドライバーとモジュールのロードとアンロード、ならびに PSE とそれに従属するもののロード状況の照会を実行することができます。</p>
+ <p>デフォルトでは、<strong>strload</strong> コマンドは <strong>/etc/pse.conf</strong> ファイルに従って PSE をロードします。 <strong>-f</strong> フラグにより、管理者は代替構成ファイルを使用できます。 <strong>-d</strong> フラグおよび <strong>-m</strong> フラグを使用して、構成ファイルには存在しないドライバー (新しくドライバーが開発されている場合など) やモジュールを指定します。 <strong>-q</strong> フラグは、参照されたドライバーおよびモジュールのシステム・ロード状況 (カーネルの存在) を報告します。</p>
+<p><strong>構成ファイル</strong></p>
+ <p>構成ファイルは、フラットな ASCII 形式の、行指向型データベースです。 コメントは # (ポンド記号) で始まり、その行の最後まで続きます。 ブランク行は無視されます。 各レコードの形式は以下のとおりです。</p>
+ <div> <div><div><pre><code>attributes filename [argument [node [minor ...] ] ]</code></pre></div><div></div></div></div>
+ <p>フィールドはスペース、タブ、またはその両方で区切られます。 - (ハイフン) はフィールド名として指定することができ、デフォルト値が使用されることを示します。 フィールドは以下のように定義されます。</p>
+ 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td>attributes</td>
+
+<td>ロードする拡張を記述します。 以下の値を使用できます。<dl>
+<dt><strong>d</strong></dt>
+
+<dd>ドライバーを指定します。</dd>
+
+
+<dt><strong>m</strong></dt>
+
+<dd>モジュールを指定します。</dd>
+
+
+<dt><strong>s</strong></dt>
+
+<dd>標準 (クローンではない) デバイスとしてのノードを作成します。</dd>
+
+
+<dt><strong>+</strong></dt>
+
+<dd>拡張が 1 回または複数回、構成できるように指定します。 この値は、拡張ファイル名を含むすべての行について指定しなければなりません。</dd>
+
+</dl>
+</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+ 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td>filename</td>
+
+<td>拡張を含むオブジェクト・ファイルを指定します。 ロード、アンロードまたは照会するドライバーまたはモジュールのファイル名の中に "/" (スラッシュ) を含んでコマンドが発行される場合、<strong>strload</strong> コマンドはファイル名フィールドの値を明示的に使用します。 ファイル名エントリーの中に "/" がない
+場合、<strong>strload</strong> コマンドは最初に
+現行ディレクトリー内のドライバーまたはモジュールのコピーを探します。 現行ディレクトリー内にドライバーまたはモジュールがない場合、<strong>strload</strong> は <strong>/usr/lib/drivers/pse</strong> ディレクトリー内の
+ドライバーまたはモジュールを探します。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+ <p></p><blockquote><span>“</span><span></span><strong>注:</strong> <strong>strload</strong> コマンドは、ルート・ディレクトリー (/) から発行することをお勧めします。 ロード、アンロード、および照会の <strong>strload</strong> コマンドは、常に同じディレクトリーから発行する必要があります。<span>”</span></blockquote>
+<p></p>
+ <p>カーネル・エクステンション・ローダーでは、ロード、アンロード、および照会で使用されるパス名を必ず同一にする必要があります。 これは、<strong>strload</strong> によるファイル名の決定方法とともに、問題を引き起こすことがあります。 <strong>strload</strong> コマンドで使用されるパス名内のすべてのバイトは、
+カーネル・エクステンション・ローダーで使用されるパス名内の、位置が対応するすべてのバイトと完全に一致しなければなりません。
+なぜなら、カーネルは一致するものを探すときに、ファイル名に対して <strong>strcmp()</strong> 関数を実行するからです。 <strong>strload</strong> コマンドが別のディレクトリーから発行されて
+モジュールまたはドライバーをアンロードすると、
+以下のいずれかのイベントが生じます。</p>
+ <ul>
+<li><span></span> <strong>strload</strong> コマンドが新しい現行ディレクトリーでドライバーまたはモジュールのコピーを検出しない場合は、以下のようにします。 <strong>strload</strong> は、 <strong>/usr/lib/drivers/pse</strong> ディレクトリーにあるドライバーまたはモジュールのアンロードを試みます。 しかし、
+このパス名は、ローダーがそのドライバーまたはモジュールとしてログに記録したパス名と
+同じでない場合があります。 パス名が同じでない場合、<strong>strload</strong> コマンドは失敗します。</li>
+
+<li><span></span> <strong>strload</strong> コマンドが新しい現行ディレクトリー内でモジュールまたはドライバーの別のコピーを検出した場合、パス名は同じになり、ローダーはロードされたドライバーまたはモジュールを正しくアンロードします。 したがって、<strong>strload</strong> コマンドは成功しますが、結果はユーザーが意図したとおりになるとは限りません。</li>
+
+</ul>
+ <p>次に例を示します。</p>
+ <p>以下のシナリオ (推奨ではありません) を使用すると、別名が「A」である「spx」がアンロードされます。 これは、望んだ結果ではないかもしれません。</p>
+ <div> <div><div><pre><code>mkdir /tmp/foo /tmp/bar
+cp /usr/lib/drivers/pse/spx /tmp/foo/A
+cp /bin/ls /tmp/bar/A
+cd /tmp/foo
+strload -d A      # The loader knows the path and filename as
+                  # "A" because "A" is found in the current
+                  # directory
+cd /tmp/bar
+strload -q -d A   # Reports "yes" because there is "A" in the
+                  # current directory. Note that the file "A"
+                  # in /tmp/bar is NOT the same file "A" in
+                  # /tmp/foo, but the loader does not care 
+                  # because it identifies the file by 
+                  # pathname.
+strload -u -d A   # Unloads spx (also known as "A")!</code></pre></div><div></div></div></div>
+ <p>以下はエラーのシナリオです。</p>
+ <div> <div><div><pre><code>mkdir /tmp/foo2 /tmp/bar2
+cp /usr/lib/drivers/pse/spx /tmp/foo2/A
+cd /tmp/foo2
+strload -d A     # The loader knows the path and filename as
+                 # "A"because "A" is found in the current
+                 # directory.
+cd /tmp/bar2
+strload -q -d A  # Answers "no". There is no filename 
+                 # in /tmp/bar2 that matches "A", so strload
+                 # prepends pathname "/usr/lib/drivers/pse" to
+                 # "A". "/usr/lib/drivers/pse/A" is not found,
+                 # so strload answers "no".
+strload -u -d A  # Fails - "A" does not exist.</code></pre></div><div></div></div></div>
+ <p>以下はエラーのシナリオです。</p>
+ <div> <div><div><pre><code>cd /usr/lib/drivers/pse
+strload -d spx   # The loader knows the path and filename as
+                 # "spx" because "spx" is found in the 
+                 # current directory.
+cd /
+strload -q -d spx # Answers "no". There is no filename in /
+                  # that matches "spx", so strload prepends
+                  # the pathname "/usr/lib/drivers/pse" to
+                  # "spx". "/usr/lib/drivers/pse/spx" is found
+                  # since it exists, so strload gives
+                  # "/usr/lib/drivers/pse/spx" to the loader.
+                  # The strcmp() fails since
+                  # "/usr/lib/drivers/pse/spx" and "spx" do
+                  # not match exactly.
+strload -u -d spx # Fails - "spx" does not exist.</code></pre></div><div></div></div>  
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td>argument</td>
+
+<td><strong>strload</strong> コマンドに対しては意味がありません。 このフィールドはオプションです。 構成ルーチンが呼び出されたときに拡張に渡されます。 その解釈はその拡張に固有です。 デフォルトの引数は、以下の値です。filename設定します。</td>
+
+</tr>
+
+<tr>
+<td>node</td>
+
+<td>生成するノードの名前を指定します。 このフィールドはオプションです。 ドライバーにのみ適用され、ドライバーがロードされた際、生成ノード名として使用されます。 デフォルトでは、作成されるノードは <strong>/dev/</strong> です。filename.</td>
+
+</tr>
+
+<tr>
+<td>minor</td>
+
+<td>このドライバー用に作成する、追加の非クローン・ノードを指定します。 このフィールドはオプションです。 ノード名はマイナー番号をクローン化されたドライバー・ノード名に追加することによって生成されます。 5 つ以上のマイナー番号は指定できず (0 から 4 まで)、マイナー番号ごとに 1 つずつノードが生成されます。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+ <p><strong>-d</strong> フラグおよび <strong>-m</strong> フラグを指定すると、構成ファイルは、以下のようにコマンド・ラインに明示的に指定されていない限り無視されます。</p>
+ <div> <div><div><pre><code>strload -f /tmp/my.conf -d newdriver</code></pre></div><div></div></div></div>
+ <p></p><blockquote><span>“</span><span></span><strong>注:</strong> <strong>-d</strong> および <strong>-m</strong> フラグは、構成ファイルをオーバーライドしません。 つまり、ドライバー <strong>dgb</strong> が構成ファイルを使用してロードされると、<strong>-d</strong> フラグはそれを再ロードしようとしますが失敗します。 構成ファイルは、<strong>-d</strong> フラグおよび <strong>-m</strong> フラグの前に処理されます。<span>”</span></blockquote>
+<p></p>
+ <p><strong>-d</strong> および <strong>-m</strong> フラグの <em>List</em> 変数は、ファイル名のコンマ区切りリストです。各ファイル名には、単一の PSE ドライバーまたはモジュールが含まれています。 構成プロセスは、以下の形式のうちの 1 つの行を構成ファイル内で見つけたかのように処理を続行します。</p>
+ <div> <div><div><pre><code>d filename</code></pre></div><div></div></div>  <div><div><pre><code>m filename</code></pre></div><div></div></div></div>
+</section>
+
+<section><h2>フラグ</h2> <div> 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><strong>-d</strong><em> リスト</em></td>
+
+<td>ロードまたはアンロードする PSE デバイス・ドライバーをリストします。 <em>List</em> 変数には、ドライバーのオブジェクト名をコンマで区切って指定します。</td>
+
+</tr>
+
+<tr>
+<td><strong>-f</strong><em> ファイル</em></td>
+
+<td><em>File</em> 変数によって示されるファイルに含まれる構成情報に従って <a href="https://www.ibm.com/docs/ja/ssw_aix_73/commprogramming/str_confdrivrs.html" target="_blank" rel="noopener noreferrer">PSE</a> を構成します。 デフォルトの構成ファイルは <strong>/etc/pse.conf</strong> です。</td>
+
+</tr>
+
+<tr>
+<td><strong>-m</strong><em> リスト</em></td>
+
+<td>ロードまたはアンロードする PSE モジュールをリストします。 <em>List</em> 変数には、モジュールのオブジェクト名をコンマで区切って指定します。</td>
+
+</tr>
+
+<tr>
+<td><strong>-q</strong></td>
+
+<td>拡張のロード状況を報告します。</td>
+
+</tr>
+
+<tr>
+<td><strong>-u</strong></td>
+
+<td>拡張をアンロードします。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+</section>
+
+<section><h2>セキュリティー</h2> <div><div>
+        <div>
+          <div><span>RBAC ユーザーへの注意:</span> このコマンドは特権命令を実行できます。 特権命令を実行できるのは特権ユーザーのみです。 権限と特権の詳細については、<span>セキュリティ</span>の <a href="https://www.ibm.com/docs/ja/ssw_aix_73/security/rbac_priv_cmd_db.html" target="_blank" rel="noopener noreferrer">特権コマンドデータベース</a>を参照してください。 このコマンドに関連する特権と権限のリストについては、'<a href="https://www.ibm.com/docs/ja/ssw_aix_73/l_commands/lssecattr.html" target="_blank" rel="noopener noreferrer"><span>lssecattr</span></a>コマンドまたは'<a href="https://www.ibm.com/docs/ja/ssw_aix_73/g_bostechref/getcmdattr.html" target="_blank" rel="noopener noreferrer"><span>getcmdattr</span></a>サブコマンドを参照のこと。</div>
+        </div>
+      </div></div>
+</section>
+
+<section><h2>例</h2> <ol>
+<li><span></span>次のコマンドを入力すると、PSE がロードされます (まだロードされていない場合)。dgbおよびssb<strong>/usr/lib/drivers/pse/</strong> ディレクトリーからのドライバー、およびaoot現行ディレクトリーからのモジュール。ただし、構成ファイルは使用しません。<div> <div><div><pre><code>root# strload -d dgb,ssb -m ./aoot</code></pre></div><div></div></div></div>
+</li>
+
+<li><span></span>以下をアンロードするには、aootmodule のみ、次のように入力します。<div> <div><div><pre><code>root# strload -u -m ./aoot</code></pre></div><div></div></div></div>
+</li>
+
+<li><span></span>以下のコマンドを入力すると、spxドライバーが存在する:<div> <div><div><pre><code>root# strload -q -d 
+spx</code></pre></div><div></div></div>存在しない場合は、以下のように出力されます。<div><div><pre><code>spx
+: no</code></pre></div><div></div></div></div>
+</li>
+
+<li><span></span>構成ファイルの例を以下に示します。<div> <div><div><pre><code>#example configuration file
+d       dgb                                     #line 1
+d       mux    -       -       0                #line 2
+ds      foo                                     #line 3
+d+      xtiso  tcp     /dev/xti/tcp             #line 4
+d+      xtiso  udp     /dev/xti/udp             #line 5
+m       aoot                                    #line 6</code></pre></div><div></div></div>1 行目には、dgb複製されたデバイスとしてのドライバー拡張/dev/dgb. に渡される引数dgb構成ルーチンdgb.</div>
+  <p>2 行目には、mux複製されたデバイスとしてのドライバー拡張/dev/muxまた、標準デバイス名も作成します。/dev/mux0マイナー番号は 0 (ゼロ) です。 (0 から 4 までのマイナー番号を使用して、5 つを超えるデバイス名を作成することはできません。)</p>
+  <p>3 行目には、foo標準デバイス (複製されていない) としてのドライバー拡張/dev/foo. マイナー番号は 0 です。</p>
+  <p>4 行目と 5 行目には、xtisoドライバー拡張を 2 回構成します。1 回は以下のようになります。tcpそして一度はudp. 作成される複製ノードは次の通りです。/dev/xti/tcpおよび/dev/xti/udp. 以下の構成ルーチンxtiso2 回呼び出されます。1 回は引数を使用します。tcp、および、以下のものを 1 回udp.</p>
+  <p>行 6 は、aootモジュール拡張。 ノードは作成されず、構成ルーチンに値が渡されます。aoot.</p>
+</li>
+
+<li>ストリーム <strong>dlpi</strong> ドライバーをロードするには、次のように入力します。<div><div><pre><code>strload -f /etc/dlpi.conf</code></pre></div><div></div></div></li>
+
+</ol>
+</section>
+
+<section><h2>ファイル</h2> <div> 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><strong>/usr/lib/drivers/pse/*</strong></td>
+
+<td>PSE カーネル・エクステンションが入っています。</td>
+
+</tr>
+
+<tr>
+<td><strong>/etc/pse.conf</strong></td>
+
+<td>デフォルトの PSE 構成ファイル。</td>
+
+</tr>
+
+<tr>
+<td>/ <strong>usr</strong> / <strong>sbin</strong> / <strong>strload</strong></td>
+
+<td><strong>strload</strong> コマンドが入っています。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+</section>
+
+</div></div>

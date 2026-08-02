@@ -1,0 +1,142 @@
+<div class="official-dom"><div>
+<section><h2>目的</h2> <p>テキストを Tektronix 4015 システム用の <strong>troff</strong> コマンド出力に解釈します。</p>
+</section>
+
+<section><h2>構文</h2> <p><strong>TC</strong> [<strong></strong> <a href="https://www.ibm.com/docs/ja/ssw_aix_73/t_commands/tc.html#tc__row-d3e77485" target="_blank" rel="noopener noreferrer"><strong>T </strong></a>] [<strong></strong> <a href="https://www.ibm.com/docs/ja/ssw_aix_73/t_commands/tc.html#tc__row-d3e77358" target="_blank" rel="noopener noreferrer"><strong>-e (E) </strong></a>] [<strong></strong> <a href="https://www.ibm.com/docs/ja/ssw_aix_73/t_commands/tc.html#tc__row-d3e77432" target="_blank" rel="noopener noreferrer"><strong>-a 値 </strong></a><em>数値</em> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/t_commands/tc.html#tc__row-d3e77446" target="_blank" rel="noopener noreferrer"><strong>-</strong></a><em> リスト</em> | <a href="https://www.ibm.com/docs/ja/ssw_aix_73/t_commands/tc.html#tc__row-d3e77477" target="_blank" rel="noopener noreferrer"><strong>-s</strong></a><em> 数値</em> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/t_commands/tc.html#tc__row-d3e77497" target="_blank" rel="noopener noreferrer"><strong>— </strong></a>] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/t_commands/tc.html#tc__row-d3e77411" target="_blank" rel="noopener noreferrer"><em>ファイル </em></a>| <a href="https://www.ibm.com/docs/ja/ssw_aix_73/t_commands/tc.html#tc__row-d3e77491" target="_blank" rel="noopener noreferrer"><strong>- </strong></a>]</p>
+</section>
+
+<section><h2>説明</h2> <p><strong>tc</strong> コマンドは、入力を <strong>troff</strong> コマンドからの出力として解釈します。 <strong>tc</strong> コマンドは、1 つ以上の英語ファイルを読み取ります。 ファイルを指定しないか、または <strong>-</strong> (マイナス符号) フラグを最終パラメーターとして指定すると、標準入力がデフォルトで読み取られます。 <strong>tc</strong> コマンドの標準出力は、Tektronix 4015 (ASCII および APL 文字セットを使う 4014 端末) 用です。 各種のタイプセッター・サイズが 4014 の 4 つのサイズにマップされます。 <strong>troff</strong> コマンドの文字セット全体は、必要に応じて重ね打ちを組み合わせて 4014 文字生成プログラムを使用して描かれます。</p>
+ <p>各ページの終わりで、<strong>tc</strong> コマンドは次ページに継続する前にキーボードからの改行文字を待機します。 待機している間に、以下のコマンドが認識されます。</p>
+ 
+<div><div><table><thead> <tr> <th><div>項目</div></th>
+ <th><div>説明</div></th>
+ </tr>
+ </thead>
+<tbody>
+<tr>
+<td><strong>!</strong><em>コマンド</em></td>
+
+<td><em>Command</em> 変数の値をシェルに送ります。</td>
+
+</tr>
+
+<tr>
+<td><strong>-e</strong><em></em></td>
+
+<td>各ページの前で消去しません。</td>
+
+</tr>
+
+<tr>
+<td><strong>-</strong><em>数値</em></td>
+
+<td>指定したページ数だけ逆方向にスキップします。</td>
+
+</tr>
+
+<tr>
+<td><strong>-a</strong><em>数値</em></td>
+
+<td>縦横比を <em>Number</em> 変数の値に設定します。</td>
+
+</tr>
+
+<tr>
+<td><strong>?</strong></td>
+
+<td>使用可能なオプションのリストを表示します。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+ <p></p><blockquote><span>“</span><span></span><strong>注:</strong> <strong>tc</strong> コマンドはフォントを区別しません。<span>”</span></blockquote>
+<p></p>
+</section>
+
+<section><h2>パラメーター</h2> <div> 
+<div><div><table><thead> <tr> <th><div>項目</div></th>
+ <th><div>説明</div></th>
+ </tr>
+ </thead>
+<tbody>
+<tr>
+<td><em>File</em></td>
+
+<td><strong>troff</strong> コマンドの出力として解釈される英語のテキスト・ファイルを指定します。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+</section>
+
+<section><h2>フラグ</h2> <div> 
+<div><div><table><thead> <tr> <th><div>項目</div></th>
+ <th><div>説明</div></th>
+ </tr>
+ </thead>
+<tbody>
+<tr>
+<td><strong>-a</strong><em> 数値</em></td>
+
+<td>縦横比を指定された数値に設定します。 デフォルトは 1.5 です。</td>
+
+</tr>
+
+<tr>
+<td><strong>-e</strong></td>
+
+<td>各ページの前で消去しません。</td>
+
+</tr>
+
+<tr>
+<td><strong>-o</strong><em> リスト</em></td>
+
+<td><em>List</em>変数に列挙されたページだけを印刷する<em>。</em> リストはコンマで区切られたページとページ範囲 (例 5-17) からなります。 範囲 <em>Number</em><strong>-</strong> は <em>Number</em> 変数値から終わりまでです。範囲 <strong>-</strong><em>Number</em> は先頭から <em>Number</em> 変数で指定されたページまでで、指定されたページを含みます。</td>
+
+</tr>
+
+<tr>
+<td><strong>-s</strong><em> 数値</em></td>
+
+<td>最初の指定されたページ数をスキップします。</td>
+
+</tr>
+
+<tr>
+<td><strong>-t</strong></td>
+
+<td>出力をファイルに送るときにページ間で一時停止しません。</td>
+
+</tr>
+
+<tr>
+<td><strong>-</strong></td>
+
+<td>標準入力から読み取ります。</td>
+
+</tr>
+
+<tr>
+<td><strong>—</strong></td>
+
+<td>(二重ダッシュ) フラグの終わりを示します。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+</section>
+
+<section><h2>例</h2> <p><strong>troff</strong> コマンドとのパイプラインで <strong>tc</strong> コマンドを使用するには、以下のように入力します。</p>
+ <div> <div><div><pre><code>troff [Flag...] [File...] | tc</code></pre></div><div></div></div></div>
+</section>
+
+</div></div>

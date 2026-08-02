@@ -1,0 +1,160 @@
+<div class="official-dom"><div>
+<section><h2>目的</h2> <p><strong>certcreate</strong> は、指定されたユーザー用の新規証明書を要求します。</p>
+</section>
+
+<section><h2>構文</h2> <p><strong>certcreate</strong> [<strong>-S</strong> <em>servicename</em> ] [<strong>-s</strong> <em>startdate</em> ] [<strong>-e</strong> <em>enddate</em> ] { <strong>-f</strong> <em>file</em> | [<strong>-b</strong> | <strong>-t</strong>] } [<strong>-p</strong> <em>privatekeystore</em> ] <strong>-l</strong> <em>label</em> [<strong>-a</strong> <em>subject_alt_name</em> ] <em>subject_distinguished_name</em> [<em>user-name</em>]</p>
+</section>
+
+<section><h2>説明</h2> <p><strong>certcreate</strong> コマンドは、エンド・エンティティー・サービスおよびライブラリーを呼び出して、コマンド・ラインに含まれている識別情報を使用して新規証明書を作成するよう要求します。 使用するサービスは <strong>-S</strong> オプションで指定します。 使用可能なサービスは、<strong>/usr/lib/security/pki/ca.cfg</strong> に定義されています。 <strong>-S</strong> オプションが指定されていない証明書要求の場合は、ローカル・サービスを使用して作成されます。 <strong>/usr/lib/security/pki/ca.cfg</strong> ファイルにエントリーを持たないサービス名を指定すると、エラーになります。 <strong>ca.cfg</strong> ファイル内のサービス・エントリーにより、どの CA に要求を送信するのかが指定されます。</p>
+ <p><strong>-s</strong> オプションが指定されていないと、現在の日付が使用されます。 <strong>-e</strong> オプションが指定されていないと、<strong>policy.cfg</strong> ファイルから取得される妥当性の値が使用されます。 この値が存在しない場合は、開始日から 1 年が妥当性の期間として使用されます。 <code>startdate</code> と <code>enddate</code> は両方とも、 <strong>chuser</strong> コマンドによって使用される <code>expires</code> 属性と同じフォーマットになります。 このフォーマットは、<code>MMDDhhmmyy</code> という形式の 10 文字の文字列です。ここで、<code>MM</code> は月を、<code>DD</code> は日を、<code>hh</code> は時間を、<code>mm</code> は分を、そして <code>yy</code> は 1939 から 2038 年の最後の 2 桁を表します。 文字はすべて数字です。</p>
+ <p><strong>-f</strong> オプションを指定した場合は、新規証明書は DER でエンコードされ、指定したファイルにバイナリー・フォーマットで保管されます。 指定しなかった場合は、新規証明書は DER でエンコードされ、<strong>標準出力</strong>にバイナリー・フォーマットまたは 16 進フォーマットのいずれかで出力されます。 <strong>-b</strong> オプションを指定した場合は、出力は<strong>標準出力</strong>にバイナリーで表示されます。指定しなかった場合は 16 進数になります。 <strong>-b</strong> も <strong>-t</strong> も指定されていないと、バイナリー・フォーマットが使用されます。</p>
+ <p>対応する秘密鍵は、基となるコマンドまたはライブラリーでの必要に応じて、プライベート鍵ストアまたはデバイスに保管されます。 <strong>-p</strong> オプションを指定した場合は、秘密鍵は指定したプライベート鍵ストアに保管されます。 <strong>-p</strong> オプションを指定しない場合、デフォルトは <strong>/var/pki/ security/keys/ &lt;<em>username</em>&gt;</strong>になります。</p>
+ <p><strong>-l</strong> オプションは、必ず指定しなければなりません。 ラベルは、鍵ストア内の秘密鍵の別名として使用される可変長のテキスト文字列です。</p>
+ <p><em>subject_alt_name</em> の値がインターネットの電子メール・アドレスになります (このアドレスは rfc822Name にするよう RFC2459 で定義されています)。 この値はオプショナルです。 値が指定されていないと、証明書には rfc822Name フォーマットのサブジェクト代替名エクステンションが含まれないことになります。 <em>Subject_distinguished_name</em> の値は、PKI 証明書の場合の一連の有効値に限定されます。 これは X.501 タイプ名にすることが RFC2459 によって定義されています。</p>
+ <p><strong>certcreate</strong> コマンドは、証明書を生成してユーザーのプライベート鍵ストアに保管するために、1 つ以上のプロンプトを出してパスワードを要求します。 ユーザーが既存の鍵ストアを持っている場合、パスワードを求めるプロンプトが 1 回出されます。 その鍵ストアが存在しない場合は作成され、ユーザーは確認のためにパスワードをもう一度再入力するよう求められます。 現行プロセス用の <strong>/dev/tty</strong> をオープンできないと、このコマンドは失敗します。</p>
+</section>
+
+<section><h2>フラグ</h2> 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><strong>-S</strong> <em>サービス名</em></td>
+
+<td>使用するサービス・モジュールを指定します。</td>
+
+</tr>
+
+<tr>
+<td><strong>-s</strong> <em>開始日</em></td>
+
+<td>証明書が有効になる日付を指定します。</td>
+
+</tr>
+
+<tr>
+<td><strong>-e</strong> <em>終了日</em></td>
+
+<td>証明書が無効になる日付を指定します。</td>
+
+</tr>
+
+<tr>
+<td><strong>-f</strong> <em>ファイル</em></td>
+
+<td>証明書を保管するファイルを指定します。</td>
+
+</tr>
+
+<tr>
+<td><strong>-p</strong><em> 秘密鍵ストア</em></td>
+
+<td>プライベート鍵ストアの場所を指定します。</td>
+
+</tr>
+
+<tr>
+<td><strong>-l</strong> <em>ラベル</em></td>
+
+<td>鍵ストア内の秘密鍵のラベルを指定します。</td>
+
+</tr>
+
+<tr>
+<td><strong>-a</strong> <em>主語 (名)</em></td>
+
+<td>証明書のオーナーのサブジェクト代替名を指定します。</td>
+
+</tr>
+
+<tr>
+<td><strong>-b</strong></td>
+
+<td>証明書のデータをバイナリー・フォーマットにすることを指定します。</td>
+
+</tr>
+
+<tr>
+<td><strong>-t</strong></td>
+
+<td>証明書のデータを 16 進フォーマットにすることを指定します。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</section>
+
+<section><h2>終了状況</h2> 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td>0</td>
+
+<td>コマンドは正常に完了しました。</td>
+
+</tr>
+
+<tr>
+<td>&gt;0</td>
+
+<td>エラーが発生しました。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</section>
+
+<section><h2>セキュリティー</h2> <p>これは <strong>setuid</strong> コマンドです。</p>
+ <div><code>Root</code> およびグループ・セキュリティーに属する呼び出し側は、すべてのユーザーの証明書を作成できます。 非特権ユーザーの場合は、自分用の証明書しか作成できず、プライベート鍵ストアの位置の指定時には以下のルールが適用されます。<ul>
+<li>呼び出し側は、デフォルトの秘密鍵ストア <strong>/var/pki/security/keys/ &lt;<em>user-name</em>&gt;</strong> を指定できます。</li>
+
+<li>起動者は、書き込みアクセス権を持つプライベート鍵ストアを指定できる。</li>
+
+</ul>非特権ユーザーは、他者の証明書は要求できません。</div>
+
+<dl>
+
+<dt>Audit</dt>
+
+<dd><p>このコマンドは、以下のイベント情報を記録します。</p>
+
+<p>CERT_Create &lt;<em>ユーザー名</em>&gt;</p>
+
+</dd>
+
+
+</dl>
+</section>
+
+<section><h2>例</h2> <div>
+<div><div><pre><code>$ certcreate -S local -s 0831112702 -e 1231235902 -f 
+cert.der -p file:/home/bob/bob.priv -l signcert 
+bob@ibm.com ou=finance,cn=Bob%20James bob
+</code></pre></div><div></div></div>上記の例では、証明書は 2002 年 8 月 31 日 11:27 AM から 2002 年 12 月 31 日 11:59 PM まで有効です。 この証明書はファイル <strong>cert.der</strong> に入れられ、秘密鍵は <strong>signcert</strong> という別名付きで <strong>bob.priv</strong> に入れられます。</div>
+ <div>以下の例では、開始日、終了日、およびプライベート鍵ストアにデフォルトが使用されます。<div><div><pre><code>$ certcreate -l signcert bob@ibm.com ou=finance,cn=Bob James &gt; cert.der</code></pre></div><div></div></div></div>
+</section>
+
+<section><h2>ファイル</h2> <p><span>/usr/lib/security/pki/ca.cfg </span></p>
+ <p><span>/usr/lib/security/pki/policy.cfg</span></p>
+</section>
+
+</div></div>

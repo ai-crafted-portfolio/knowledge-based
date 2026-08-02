@@ -1,0 +1,140 @@
+<div class="official-dom"><div>
+<section><h2>目的</h2> <p>カーネル・セキュリティー・テーブルのエントリーをリストします。</p>
+</section>
+
+<section><h2>構文</h2> <p><strong>LSKST</strong> <a href="https://www.ibm.com/docs/ja/ssw_aix_73/l_commands/lskst.html#lskst__row-d3e84247" target="_blank" rel="noopener noreferrer"><strong>T</strong></a> <em>テーブル</em> [<a href="https://www.ibm.com/docs/ja/ssw_aix_73/l_commands/lskst.html#lskst__row-d3e84202" target="_blank" rel="noopener noreferrer"><strong>-C</strong></a> | <a href="https://www.ibm.com/docs/ja/ssw_aix_73/l_commands/lskst.html#lskst__row-d3e84210" target="_blank" rel="noopener noreferrer"><strong>「-f」</strong></a> ] [<a href="https://www.ibm.com/docs/ja/ssw_aix_73/l_commands/lskst.html#lskst__row-d3e84300" target="_blank" rel="noopener noreferrer"><em>名前</em></a> [, <a href="https://www.ibm.com/docs/ja/ssw_aix_73/l_commands/lskst.html#lskst__row-d3e84300" target="_blank" rel="noopener noreferrer"><em>名前</em></a>]...]</p>
+
+<p><strong>lskst</strong> <a href="https://www.ibm.com/docs/ja/ssw_aix_73/l_commands/lskst.html#lskst__row-d3e84211" target="_blank" rel="noopener noreferrer"><strong>-l</strong></a></p>
+</section>
+
+<section><h2>説明</h2> <p><strong>lskst</strong> コマンドは、カーネル・セキュリティー・テーブル (KST) を読み取り、標準出力 (<strong>stdout
+</strong>) の情報を表示します。 関連するファイル・データベースが <strong>setkst</strong> コマンドを使用して KST に送られた後で変更された場合は、<strong>lskst</strong> コマンドの出力は、<strong>lsauth</strong>、<strong>lsrole</strong>、および <strong>lssecattr</strong> コマンドによって表示される出力とは異なることがあります。</p>
+ <p><strong>-t</strong> フラグを使用してこのテーブルを表示するように指定します。 デフォルトでは、指定されたテーブル内のすべての情報が表示されます。 あるいは、<em>Name</em> パラメーターを指定して、テーブル内の特定のエントリーを選択することができます。</p>
+ <p>デフォルトでは、<strong>lskst</strong> コマンドは、1 行に各エントリーの属性をリストします。 属性情報は、<em>Attribute</em> <strong>=</strong> <em>Value</em> 定義として、
+ブランク・スペースで区切って表示されます。 テーブル属性をスタンザ・フォーマットでリストするには、<strong>-f</strong> フラグを使用します。 情報をコロンで区切られたレコードとしてリストするには、<strong>-c</strong> フラグを使用します。</p>
+</section>
+
+<section><h2>フラグ</h2> 
+<div><div><table><thead> <tr> <th><div>項目</div></th>
+ <th><div>説明</div></th>
+ </tr>
+ </thead>
+<tbody>
+<tr>
+<td><strong>-C</strong></td>
+
+<td>テーブル属性を、次のように、コロンで区切られたレコードとして表示します。<div><div><pre><code>#name:attribute1:attribute2:...
+entry_name:value1:value2:...</code></pre></div><div></div></div></td>
+
+</tr>
+
+<tr>
+<td><strong>-f</strong></td>
+
+<td>それぞれのスタンザがエントリー名によって識別されたスタンザ・フォーマットで出力を表示します。 <em>Attribute</em> <strong>=</strong> <em>Value</em> のそれぞれの対は、別々の行にリストされます。<div><div><pre><code>entry_name:
+        attribute1=value
+        attribute2=value
+        attribute3=value</code></pre></div><div></div></div></td>
+
+</tr>
+
+<tr>
+<td><strong>-l</strong></td>
+
+<td><span>setkst</span> コマンドを使用してカーネルに設定されている <code>loglevel</code> 変数の現行値を表示します。</td>
+
+</tr>
+
+<tr>
+<td><strong>-t </strong><em>テーブル</em></td>
+
+<td>指定されたセキュリティー・テーブルのデータを KST から取り出します。 <strong>-t</strong> フラグのパラメーターには、次のいずれかの値を指定できます。<dl>
+<dt>auth</dt>
+
+<dd>権限テーブル</dd>
+
+
+<dt>role</dt>
+
+<dd>ロール・テーブル</dd>
+
+
+<dt>cmd</dt>
+
+<dd>特権コマンド・テーブル</dd>
+
+
+<dt>偏差</dt>
+
+<dd>特権デバイス・テーブル</dd>
+
+
+<dt>dom</dt>
+
+<dd>ドメイン</dd>
+
+
+<dt>domobj</dt>
+
+<dd>ドメイン・オブジェクト</dd>
+
+</dl>
+</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</section>
+
+<section><h2>パラメーター</h2> 
+<div><div><table><thead> <tr> <th><div>項目</div></th>
+ <th><div>説明</div></th>
+ </tr>
+ </thead>
+<tbody>
+<tr>
+<td><em>Name</em></td>
+
+<td>カーネル・テーブルの特定のエントリーを表します。 <strong>-t</strong> <em>
+table</em> フラグで指定したテーブルに応じて、権限、ロール、特権コマンド、または特権デバイスとすることができます。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</section>
+
+<section><h2>セキュリティー</h2> <div><strong>lskst</strong> コマンドは特権コマンドです。 コマンドを正常に実行するには、以下の権限をもつロールを引き受ける必要があります。<div><div><table><thead> <tr> <th><div>項目</div></th>
+ <th><div>説明</div></th>
+ </tr>
+ </thead>
+<tbody>
+<tr>
+<td><strong>aix.security.kst.list</strong></td>
+
+<td>コマンドを実行する場合に必要です。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+</section>
+
+<section><h2>例</h2> <ol>
+<li>KST からロール・テーブル内のすべてのエントリーを取り出すには、次のコマンドを使用します。<div><div><pre><code>lskst -t role</code></pre></div><div></div></div></li>
+
+<li>特権コマンド・テーブルの <strong>/usr/bin/mycmd</strong> コマンドのエントリーをスタンザ・フォーマットで表示するには、次のコマンドを使用します。<div><div><pre><code>lskst -t cmd -f /usr/bin/mycmd</code></pre></div><div></div></div></li>
+
+<li><code>aix.security</code> 権限テーブルをカーネルで表示するには、次のコマンドを使用します。<div><div><pre><code>lskst -t auth aix.security</code></pre></div><div></div></div></li>
+
+<li>KST からドメイン・オブジェクト・テーブル内のすべてのエントリーを取り出すには、次のコマンドを使用します。<div><div><pre><code>lskst -t domobj</code></pre></div><div></div></div></li>
+
+</ol>
+</section>
+
+</div></div>

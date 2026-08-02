@@ -1,0 +1,133 @@
+<div class="official-dom"><div>
+<div></div>
+
+<section><h2>目的</h2> <p>ファイル内の識別情報を表示します。</p>
+</section>
+
+<section><h2>構文</h2> <p><strong>What</strong> [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/w_commands/what.html#what__row-d3e17554" target="_blank" rel="noopener noreferrer"><strong>-s</strong></a>] <em>Pathname/File</em>。</p>
+</section>
+
+<section><h2>説明</h2> <p><strong>get</strong> コマンドが <strong>@(#)</strong> キー文字を置換する
+パターンの発生すべてを、<strong>what</strong> コマンドは指定したファイル内で検索します (識別キーワードの説明に
+ついては、<strong>get</strong> または <strong>prs
+</strong> コマンドを参照してください)。 規則では、置き換えられる値は "@ (#)" (二重引用符、アットマーク、左小括弧、ポンド記号、右小括弧、二重引用符) です。 ファイルを指定しない場合には、<strong>what</strong> コマンドは標準入力から読み取ります。</p>
+ <p><strong> what</strong> コマンドは、最初の二重引用符 (") まで (最初の二重引用符 (") は含まない) のパターンに従って標準出力に書き出します。, より大記号 (&gt;), 改行文字, 円記号 (¥), またはヌル文字。</p>
+ <p><strong>what</strong> コマンドは <strong>get</strong> コマンドと一緒に使用する必要があります。get コマンドは自動的に識別情報を挿入します。 また、情報を手作業で挿入するファイル上でも <strong>what</strong> コマンドを使用することができます。</p>
+ <p><strong>what</strong> コマンドは、コンパイラーが挿入したコマンド・ライン・オプションを
+バイナリー・ファイル内に収容します。 AIX® コンパイラーによってバイナリー・ファイルに保存されるコマンド行オプションには、円記号 (¥)、より大記号 (&gt;)、または二重引用符 (") を含めることができます。、マクロ定義内。 <strong>what</strong> コマンドは、コンパイラーにより保存されるコマンド・ライン・オプションを
+次のように作成します。</p>
+ <p>行の先頭にパターン @(#) とその後に『opt』が続く場合 (これらの間に
+ブランク・スペース (『 』) があってもなくても)、<strong>what</strong> コマンドは
+『&amp;#xa5;n』(行の末尾) まで文字を書き込みます。</p>
+ <div>例:<ul>
+<li>C および FORTRAN AIX コンパイラーの場合は、@ (#) opt (...) を使用します。</li>
+
+<li>C++ AIX コンパイラーの場合は、@ (#) opt (...) を使用します。</li>
+
+</ul>
+</div>
+ <p>行全体が『@(#)』の後に出力されます。</p>
+ <div> <div><div>
+        <div>
+          <div><span>注:</span> <strong>what</strong> コマンドは、実行可能ファイル内で SCCS 識別文字列を見つけることができない場合があります。</div>
+        </div>
+      </div></div>
+</div>
+</section>
+
+<section><h2>フラグ</h2> <div> 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><strong>-s</strong></td>
+
+<td><strong>@(#)</strong> パターンの最初に出現したもののみを検索します。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+</section>
+
+<section><h2>終了状況</h2> <p>このコマンドは、以下の終了値を戻します。</p>
+ 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><strong>0</strong></td>
+
+<td>一致が見つかりました。</td>
+
+</tr>
+
+<tr>
+<td><strong>1</strong></td>
+
+<td>それ以外の場合です。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</section>
+
+<section><h2>例</h2> <p>次のファイルがあるとします。test.cには、次の行を含む C プログラムが含まれています。</p>
+ <div> <div><div><pre><code>char ident[ ] = "@(#)Test Program";</code></pre></div><div></div></div></div>
+ <p>コンパイルする場合test.c作成するtest.o次に、以下のコマンドを実行します。</p>
+ <div> <div><div><pre><code>what test.c test.o </code></pre></div><div></div></div></div>
+ <p>これによって、下記のように表示されます。</p>
+ <div> <div><div><pre><code>test.c:
+Test Program
+test.o:
+Test Program</code></pre></div><div></div></div> <div><div>
+        <div>
+          <div><span>注:</span> ファイルの絶対パス名usr/bin/test.c およびuser/bin/test.oファイルが現行ディレクトリーにない場合は必須です。</div>
+        </div>
+      </div></div>
+</div>
+</section>
+
+<section><h2>ファイル</h2> <div> 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><strong>/usr/bin/what</strong></td>
+
+<td><strong>what</strong> コマンドが入っています。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+</section>
+
+</div></div>

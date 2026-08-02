@@ -1,0 +1,112 @@
+<div class="official-dom"><div>
+<section><h2>目的</h2> <p><strong>keyadd</strong> はオブジェクトを送信元鍵ストアから検索し、それらを宛先鍵ストアに追加します。</p>
+</section>
+
+<section><h2>構文</h2> <p><strong>keyadd</strong> [<strong>-S</strong> <em>
+servicename</em>] <strong>-l</strong> <em>label</em> <strong>-s</strong> <em>source_keystore</em> [<strong>
+-d</strong> <em>destination_keystore</em>] [<em>
+username</em>]</p>
+</section>
+
+<section><h2>説明</h2> <p><strong>keyadd</strong> コマンドは、ラベルで命名されたオブジェクトを送信元鍵ストアから検索し、
+それらを宛先鍵ストアに追加します。 ユーザーは、鍵ストアの中に秘密鍵、公開鍵、および同じラベルを使用して保管される証明書を持つことができます。 ラベルが一致するすべてのオブジェクトは、そのオブジェクト・タイプに関係なくコピーされます。 同じラベルを持つオブジェクトが宛先鍵ストアに既に存在する場合、コマンドはエラーを戻します。 そのため、ユーザーは既存のオブジェクトをむやみに破棄することなく、明示的に除去するように強制されます。</p>
+ <div><div>
+        <div>
+          <div><span>注意:</span> 通常、破棄されたオブジェクトをリカバリーする方法はありません。</div>
+        </div>
+      </div></div>
+ <p><strong>-S</strong> オプションで、
+鍵ストアからオブジェクトを追加するときに使用するエンド・エンティティー・サービスおよびライブラリーを指定します。 使用可能なサービスは、<strong>/usr/lib/security/pki/ca.cfg</strong> に定義されています。 <strong>keydelete</strong> は、<strong>-S</strong> を指定しないで起動されると、
+<strong>ローカル</strong>であるデフォルト・サービスを使用します。 <strong>/usr/lib/security/ pki/ca.cfg</strong> ファイルにエントリーを持たないサービス名を指定するとエラーになります。</p>
+ <p><strong>-l</strong> オプションは、必ず指定しなければなりません。 このラベルは、
+コピーされる鍵ストア内のオブジェクトを一意的に識別します。 <strong>-s</strong> オプションも指定する必要があります。</p>
+ <p><strong>-d</strong> オプションを指定しない場合、ユーザー名のデフォルト鍵ストア・ファイルが宛先鍵ストアとして使用されます。ユーザーのデフォルト鍵ストア・ロケーションは <strong>/var/pki/security/keys/ &lt;<em>username</em>&gt;</strong>です。</p>
+ <p><strong><em>username</em></strong> を指定しないと、現行ユーザーのユーザー名が使用されます。 ユーザーに、宛先鍵ストアおよび送信元鍵ストアのパスワードのプロンプトが出されます。 宛先鍵ストアは、存在しなければ作成され、
+ユーザーは確認のために宛先鍵ストアのパスワードを再入力するように求められます。</p>
+</section>
+
+<section><h2>フラグ</h2> 
+<div><div><table><thead> <tr> <th><div>項目</div></th>
+ <th><div>説明</div></th>
+ </tr>
+ </thead>
+<tbody>
+<tr>
+<td><strong>-S</strong> <em>サービス名</em></td>
+
+<td>使用するサービス・モジュールを指定します。</td>
+
+</tr>
+
+<tr>
+<td><strong>-l</strong> <em>ラベル</em></td>
+
+<td>追加される鍵に関連付けられたラベルを指定します。</td>
+
+</tr>
+
+<tr>
+<td><strong>-s</strong><em> ソースキーストア</em></td>
+
+<td>送信元鍵ストアのロケーションを指定します。</td>
+
+</tr>
+
+<tr>
+<td><strong>-d</strong> <em>保存先キーストア</em></td>
+
+<td>宛先鍵ストアのロケーションを指定します。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</section>
+
+<section><h2>終了状況</h2> <p></p>
+ 
+<div><div><table><thead> <tr> <th><div>項目</div></th>
+ <th><div>説明</div></th>
+ </tr>
+ </thead>
+<tbody>
+<tr>
+<td>0</td>
+
+<td>コマンドは正常に完了しました。</td>
+
+</tr>
+
+<tr>
+<td>&gt;0</td>
+
+<td>エラーが発生しました。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</section>
+
+<section><h2>セキュリティー</h2> <p>これは <strong>setuid</strong> コマンドです。 鍵ストアの内容をリストするには、
+ユーザーは秘密鍵の鍵ストアのパスワードを知っていなければなりません。</p>
+ <p><code>Root</code> およびグループ・セキュリティーに属する起動側は、
+誰の鍵ストアでもリストすることが許可されています。 ただし、鍵ストアへのパスワードを知っていなければ、この操作を正常に完了することはできません。 特権のないユーザーは、自らが所有する鍵ストアのみリストすることが許可されています。</p>
+<p><strong>AUDIT</strong></p>
+ <p>このコマンドは、以下のイベント情報を記録します。</p>
+ <p>KEY_Add &lt;<em>ユーザー名</em>&gt;</p>
+</section>
+
+<section><h2>例</h2> <div><code>label</code> というラベルが付けられた鍵ストア・オブジェクトを <strong>/var/pki/security/keys/src.keystore</strong>
+から <strong>/var/pki/security/keys/dst.keystore</strong>
+にコピーするには、次のように入力します。<div><div><pre><code>$ keyadd -s /var/pki/security/keys/src.keystore -d /var/pki/ 
+security/keys/dst.keystore -l label pkitest</code></pre></div><div></div></div></div>
+</section>
+
+<section><h2>ファイル</h2> <p><strong>/usr/lib/security/pki/policy.cfg</strong></p>
+ <p><strong>/usr/lib/security/pki/ca.cfg</strong></p>
+</section>
+
+</div></div>

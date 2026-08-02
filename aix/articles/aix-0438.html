@@ -1,0 +1,228 @@
+<div class="official-dom"><div>
+<section><h2>目的</h2> <p>ディスクの使用状況を要約します。</p>
+</section>
+
+<section><h2>構文</h2> <p><strong>デュ</strong> [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/d_commands/du.html#du__row-d3e60739" target="_blank" rel="noopener noreferrer"><strong>-a 値</strong></a> | <a href="https://www.ibm.com/docs/ja/ssw_aix_73/d_commands/du.html#du__row-d3e60796" target="_blank" rel="noopener noreferrer"><strong>-s </strong></a>] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/d_commands/du.html#du__row-d3e60763" target="_blank" rel="noopener noreferrer"><strong>-k (K) </strong></a>] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/d_commands/du.html#du__row-d3e60784" target="_blank" rel="noopener noreferrer"><strong>-m (M) </strong></a> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/d_commands/du.html#du__row-d3e60748" target="_blank" rel="noopener noreferrer"><strong>- </strong></a>][ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/d_commands/du.html#du__row-d3e60769" target="_blank" rel="noopener noreferrer"><strong>- </strong></a>] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/d_commands/du.html#du__row-d3e60790" target="_blank" rel="noopener noreferrer"><strong>- </strong></a>] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/d_commands/du.html#du__row-d3e60805" target="_blank" rel="noopener noreferrer"><strong>-x (X)</strong></a> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/d_commands/du.html#du__row-d3e60754" target="_blank" rel="noopener noreferrer"><strong>-H</strong></a> | <a href="https://www.ibm.com/docs/ja/ssw_aix_73/d_commands/du.html#du__row-d3e60775" target="_blank" rel="noopener noreferrer"><strong>-L (L)</strong></a> ][ <em>ファイル ...</em> ]</p>
+</section>
+
+<section><h2>説明</h2> <p><strong>du</strong> コマンドは、ファイルに使用されているブロック数を表示します。 指定される <em>File</em> パラメーターが実際のディレクトリーであれば、そのディレクトリー内のすべてのファイルについて報告されます。 <em>File</em> パラメーターに何も指定されない場合は、
+<strong>du</strong> コマンドは現行ディレクトリー内のファイルを使用します。</p>
+ <p><em>File</em> パラメーターがディレクトリーである場合は、報告されるブロック数は、
+そのディレクトリー内のファイルに割り当てられたブロックとそのディレクトリーそのものに割り当てられたブロックの合計です。</p>
+ <p><strong>du</strong> コマンドのオブジェクトが JFS2 スナップショット内に存在するファイルまたはディレクトリーである場合、<strong>du</strong> コマンドはスナップショットの作成時にそのポイント・イン・タイムのオブジェクトに関する情報を示します。 この情報には、スナップショット自体が削除された場合に回復するスペースの量は含まれません。</p>
+ <p><a href="https://www.ibm.com/docs/ja/ssw_aix_73/d_commands/du.html#du__row-d3e60739" target="_blank" rel="noopener noreferrer"><strong>-a</strong></a> フラグを指定すると、個々のファイル内のブロック数が報告されます。 <strong>-a</strong> フラグを使用するかどうかにかかわらず、
+<em>File</em> パラメーターで指定した個々のファイルは常にリストされます。</p>
+ <p><a href="https://www.ibm.com/docs/ja/ssw_aix_73/d_commands/du.html#du__row-d3e60796" target="_blank" rel="noopener noreferrer"><strong>-s</strong></a> フラグを指定すると、ディレクトリー内の指定されたすべてのファイルまたはすべてのファイルの合計ブロックが報告されます。</p>
+ <div>ブロック数には、各ファイルの間接ブロックが含まれます。 ブロック数は、システムが使用するクラスター・サイズに関係なく、512 バイト単位で計算されます。 <a href="https://www.ibm.com/docs/ja/ssw_aix_73/d_commands/du.html#du__row-d3e60763" target="_blank" rel="noopener noreferrer"><strong>-k</strong></a> フラグを指定すると、ブロック数が 1024 バイト単位で計算されます。<div><div>
+        <div>
+          <div><span>注:</span><ol>
+<li>複数のリンクを持つファイルは、1 つのエントリーについてのみカウントされ書き込まれます。</li>
+
+<li>ブロック・カウントはファイル・サイズにのみ基づいているため、割り当て解除されたブロックは、報告されるブロック・カウントには含まれません。</li>
+
+<li><strong>du</strong> がファイル属性を取得できないか、あるいはディレクトリーを読み取れない場合は、
+エラーを報告し、コマンドの終了状況が影響を受けます。</li>
+
+</ol>
+ </div>
+        </div>
+      </div></div>
+</div>
+</section>
+
+<section><h2>フラグ</h2> <div> 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><strong>-a</strong></td>
+
+<td>指定されたファイルごとに、ファイルのディスク使用率が表示されます。 指定されたディレクトリーごとに、ディレクトリー内 (すべてのサブディレクトリーを含む) の各個別ファイルのディスク使用率が表示されます。 このフラグと、<strong>-s</strong> フラグを対比してください。</td>
+
+</tr>
+
+<tr>
+<td><strong>-g</strong></td>
+
+<td>デフォルトの 512 バイト単位ではなく、GB 単位でブロック・カウントを計算します。 バイトでの各ユニットの値は非常に高いため、
+ディスク使用状況の出力値は、浮動小数点を使用した数になります。</td>
+
+</tr>
+
+<tr>
+<td><strong>-H</strong></td>
+
+<td>シンボリック・リンクがコマンド・ラインに指定されている場合は、<strong>du</strong> コマンドは、
+リンクによって参照されるファイルまたはファイル階層のサイズを計算します。</td>
+
+</tr>
+
+<tr>
+<td><strong>-k</strong></td>
+
+<td>デフォルトの 512 バイト単位ではなく 1024 バイト単位でブロック数の計算を行います。</td>
+
+</tr>
+
+<tr>
+<td><strong>-l</strong></td>
+
+<td>複数のリンクを持っているファイルの場合リンク間でブロックを均等に割り当てます。 デフォルトでは、2 つ以上のリンクを持つファイルは 1 回だけカウントされます。</td>
+
+</tr>
+
+<tr>
+<td><strong>-L</strong></td>
+
+<td>シンボリック・リンクが、コマンド・ラインに指定されているかまたはファイル階層のトラバース中に検出された場合は、
+<strong>du</strong> コマンドは、
+リンクによって参照されるファイルまたはファイル階層のサイズを計算します。</td>
+
+</tr>
+
+<tr>
+<td><strong>-m</strong></td>
+
+<td>デフォルトの 512 バイト単位ではなく、MB 単位でブロック・カウントを計算します。 バイトでの各ユニットの値は非常に高いため、
+ディスク使用状況の出力値は、浮動小数点を使用した数になります。</td>
+
+</tr>
+
+<tr>
+<td><strong>-r</strong></td>
+
+<td>アクセスできないファイル名とディレクトリー名を報告します。 これはデフォルトです。</td>
+
+</tr>
+
+<tr>
+<td><strong>-s</strong></td>
+
+<td>指定されたファイルごとに、ファイルのディスク使用率が表示されます。 指定されたディレクトリーごとに、ディレクトリー内 (すべてのサブディレクトリーを含む) のすべてのファイルの合計ディスク使用量が表示されます。 このフラグを、<strong>-a</strong> フラグと比較してください。</td>
+
+</tr>
+
+<tr>
+<td><strong>-x</strong></td>
+
+<td>ファイル・サイズを評価するときに、<em>File</em> パラメーターで指定したファイルまたはディレクトリーと同じデバイスにあるファイルのみを評価します。 例えば、複数のデバイス上にファイルが入っているディレクトリーを指定することができます。 この場合、<strong>-x</strong> フラグを指定すると、ディレクトリーと同じデバイス上にあるすべてのファイルのブロック・サイズが表示されます。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+ <div><div>
+        <div>
+          <div><span>注:</span><ol>
+<li><strong>-k</strong>、<strong>-m</strong>、
+および <strong>-g</strong> フラグで、すべてまたはいずれか 2 つのフラグが指定された場合は、
+最後に指定されたものが有効になります。 <strong>-m</strong> および <strong>-g</strong> フラグが指定されているディスク使用状況の出力は、
+最も近い小数第 2 位に丸められます。</li>
+
+<li>相互に排他的なオプションである <strong>-H</strong> と <strong>-L</strong> の両方を同時に指定した場合、このコマンドはエラーを報告しません。 最後に指定されたオプションにより、ユーティリティーの動作が決定します。</li>
+
+</ol>
+ </div>
+        </div>
+      </div></div>
+</div>
+</section>
+
+<section><h2>終了状況</h2> <p>このコマンドは、以下の終了値を戻します。</p>
+ 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><strong>0</strong></td>
+
+<td>正常終了。</td>
+
+</tr>
+
+<tr>
+<td><strong>&gt;0</strong></td>
+
+<td>エラーが発生しました。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</section>
+
+<section><h2>例</h2> <ol>
+<li>ディレクトリー・ツリーおよびその個々のサブツリーのディスク使用状況を要約するには、
+次のように入力します。<div> <div><div><pre><code>du /home/fran</code></pre></div><div></div></div>これにより, ディスク装置内のディスク・ブロックの数が表示されます。/home/franディレクトリーおよびそのサブディレクトリーのそれぞれについて説明します。</div>
+</li>
+
+<li>ディレクトリー・ツリーおよびその個々のサブツリーのディスク使用状況を 1024 バイト・ブロックで要約するには、
+次のように入力します。<div><div><pre><code>du -k /home/fran</code></pre></div><div></div></div>これにより、
+<strong>/home/fran</strong> ディレクトリーおよびその個々のサブディレクトリー内の 1024 バイトのディスク・ブロックの数が表示されます。</li>
+
+<li>ディレクトリー・ツリーおよびその個々のサブツリーのディスク使用状況を MB ブロックで要約するには、
+次のように入力します。<div><div><pre><code>du -m /home/fran</code></pre></div><div></div></div>これにより、
+<strong>/home/fran</strong> ディレクトリーおよびその個々のサブディレクトリー内の MB ディスク・ブロックの数が、
+最も近い小数第 2 位に丸められて表示されます。</li>
+
+<li>ディレクトリー・ツリーおよびその個々のサブツリーのディスク使用状況を GB ブロックで要約するには、
+次のように入力します。<div><div><pre><code>du -g /home/fran</code></pre></div><div></div></div>これにより、
+<strong>/home/fran</strong> ディレクトリーおよびその個々のサブディレクトリー内の GB ディスク・ブロックの数が、
+最も近い小数第 2 位に丸められて表示されます。</li>
+
+<li>各ファイルのディスク使用状況を表示するには、次のように入力します。<div><div><pre><code>du  -a /home/fran</code></pre></div><div></div></div>ここには, 各ファイルおよびサブディレクトリーに入っているディスク・ブロックの数が表示されます。/home/franディレクトリー。 ディレクトリーの横の数字は、そのディレクトリー・ツリーのディスク使用状況です。 正規ファイルの横の数字は、そのファイルだけのディスク使用状況です。</li>
+
+<li>1 つのディレクトリー・ツリーの合計ディスク使用状況のみを表示するには、次のように入力します。<div><div><pre><code>du  -s /home/fran</code></pre></div><div></div></div><strong>-s</strong> フラグは、以下の合計ディスク使用量のみを表示するように <strong>du</strong> コマンドに指示します。/home/franディレクトリーおよびそれに含まれるファイル。 デフォルトでは、<strong>du</strong> コマンドがファイルまたはディレクト
+リーを読み取れない場合、このコマンドはエラー・メッセージを表示します。</li>
+
+<li><code>/home/fran</code> ディレクトリーのトラバース中に検出された通常ファイルに加えて、
+すべてのシンボリック・リンクによって参照されるファイルおよびファイル階層のディスク使用状況を表示するには、
+次のように入力します。<div><div><pre><code>du -L /home/fran</code></pre></div><div></div></div></li>
+
+<li>シンボリック・リンク <code>mylink</code> によって参照されるファイルまたはファイル階層のディスク使用状況を報告するには、
+次のように入力します。<div><div><pre><code>du -H mylink</code></pre></div><div></div></div></li>
+
+</ol>
+</section>
+
+<section><h2>ファイル</h2> <div> 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><strong>/usr/bin/du</strong></td>
+
+<td><strong>du</strong> コマンドが入っています。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+</section>
+
+</div></div>

@@ -1,0 +1,225 @@
+<div class="official-dom"><div>
+<div> <p></p>
+</div>
+
+<section><h2>目的</h2> <p>memorandum マクロでフォーマットされた文書を印刷します。</p>
+</section>
+
+<section><h2>構文</h2> <p><strong>Mm</strong> [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/m_commands/mm.html#mm__row-d3e168504" target="_blank" rel="noopener noreferrer"><strong>-M (M)</strong></a> <em>メディア</em> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/m_commands/mm.html#mm__row-d3e168555" target="_blank" rel="noopener noreferrer"><strong>「-c」</strong></a> ] [<strong></strong> <a href="https://www.ibm.com/docs/ja/ssw_aix_73/m_commands/mm.html#mm__row-d3e168594" target="_blank" rel="noopener noreferrer"><strong>-e (E)</strong></a> ] [<strong></strong> <a href="https://www.ibm.com/docs/ja/ssw_aix_73/m_commands/mm.html#mm__row-d3e168613" target="_blank" rel="noopener noreferrer"><strong>-E (E)</strong></a> ] [<strong></strong> <a href="https://www.ibm.com/docs/ja/ssw_aix_73/m_commands/mm.html#mm__row-d3e168625" target="_blank" rel="noopener noreferrer"><strong>T </strong></a>] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/m_commands/mm.html#mm__row-d3e168634" target="_blank" rel="noopener noreferrer"><strong>-12 </strong></a>] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/m_commands/mm.html#mm__row-d3e168643" target="_blank" rel="noopener noreferrer"><strong>-T (T)</strong></a><em>名前</em> ] { <a href="https://www.ibm.com/docs/ja/ssw_aix_73/m_commands/mm.html#mm__row-d3e168693" target="_blank" rel="noopener noreferrer"><em>ファイル </em></a>... | <a href="https://www.ibm.com/docs/ja/ssw_aix_73/m_commands/mm.html#mm__row-d3e168675" target="_blank" rel="noopener noreferrer"><strong>- </strong></a>}</p>
+</section>
+
+<section><h2>説明</h2> <p><strong>mm</strong> コマンドは <strong>nroff</strong> コマンドおよび <strong>mm</strong> マクロ・パッケージを使用する文書をフォーマットします。 <strong>mm</strong> コマンドは、<strong>tbl</strong> コマンドおよび <strong>neqn</strong> コマンドによるプリプロセスを指定し、さまざまな端末向けの出力フィルターによるポストプロセスを指定するフラグを持ちます。 <strong>nroff</strong> コマンドの正しいパイプラインと必要なフラグは、選択したフラグに従って生成されます。</p>
+ <div><blockquote><span>“</span><strong>注:</strong><ol>
+<li><span></span>出力ページの範囲を指定するには、 <strong>nroff</strong> コマンドの <strong>-o</strong><em>List</em> フラグを使用します。 <strong>mm</strong>コマンドが<strong> -e</strong>、<strong>-t</strong>、<strong>-</strong>（マイナス記号）フラグと<strong>-o</strong>、 <em>リスト</em>フラグとともに呼び出された場合、また、ドキュメントの最後のページが<em>リスト</em>変数で指定されていない場合、次のようなメッセージが表示される可能性があることを覚えておいてくださいbroken pipe開くのに失敗しました。 このメッセージは問題があることを示すメッセージではないので、無視してかまいません。</li>
+
+<li><span></span> <strong>mm</strong>コマンドは、<strong> -h</strong>フラグを付けて<strong>nroff</strong>コマンドを呼び出す。 このフラグを使うと、<strong>nroff</strong> コマンドはワークステーションのタブ・セットが 8 文字ごとの位置にあると想定します。</li>
+
+<li><span></span> <strong>nroff</strong> コマンドの <strong>-s</strong> フラグを (出力のページ間で停止するために) 使用する場合は、改行 (Enter キーまたは改行文字ではなく) を使用して出力を再始動してください。 <strong> nroff</strong>コマンドの<strong>-s</strong>フラグは、<strong>mm</strong>コマンドの<strong>-c</strong>フラグや、<strong>mm</strong>コマンドが自動的に<strong>col</strong>コマンドを呼び出す場合には機能しない<strong>。</strong></li>
+
+<li><span></span>出力を印刷するワークステーションの種類に関する不正確な情報を <strong>mm</strong> コマンドに指定すると、満足できない結果になります。 ただし、出力をファイルにリダイレクトする場合は、<strong>-T37</strong> フラグを使用します。 次に、ファイルを印刷するときに適切なワークステーション・フィルターを使用します。</li>
+
+</ol>
+<span>”</span></blockquote>
+</div>
+ <p><strong>mm</strong> コマンド・フラグのリストを取得するには、パラメーターを設定せずにコマンド名を入力します。 フラグの指定順序は任意ですが、必ず <em>File</em> パラメーターの前に指定します。 その他のフラグ (例えば <strong>-r</strong><em>ANumber</em> など) はすべて、<strong>nroff</strong> コマンドに渡されます。</p>
+</section>
+
+<section><h2>フラグ</h2> <div> 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><strong>-M</strong><em> メディア</em></td>
+
+<td>用紙上のイメージ可能領域の大きさを判別するために、用紙サイズを指定します。 <em>Media</em> 変数で有効な値は以下のとおりです。<dl>
+<dt><strong>A4</strong></dt>
+
+<dd>用紙サイズ 8.27 × 11.69 インチ (210 × 297 mm) を指定します。</dd>
+
+
+<dt><strong>B5</strong></dt>
+
+<dd>用紙サイズ 6.93 × 9.84 インチ (176 × 250 mm) を指定します。</dd>
+
+
+<dt><strong>EXEC</strong></dt>
+
+<dd>用紙サイズ 7.25 × 10.5 インチ (184.2 × 266.7 mm) を指定します。</dd>
+
+
+<dt><strong>LEGAL</strong></dt>
+
+<dd>用紙サイズ 8.5 X 14 インチ (215.9 X 355.6 mm) を指定します。</dd>
+
+
+<dt><strong>LETTER</strong></dt>
+
+<dd>用紙サイズ 8.5 X 11 インチ (215.9 X 279.4 mm) を指定します。 これはデフォルト値です。</dd>
+
+</dl>
+  <p></p><blockquote><span>“</span><strong>注:</strong> <em>Media</em> 変数では大文字と小文字は区別されません。<span>”</span></blockquote>
+<p></p>
+</td>
+
+</tr>
+
+<tr>
+<td><strong>-c</strong></td>
+
+<td><a href="https://www.ibm.com/docs/ja/ssw_aix_73/c_commands/col.html" target="_blank" rel="noopener noreferrer"><strong>col</strong></a> コマンドを呼び出します。 次の端末名の場合に、<strong>col</strong> コマンドは <strong>mm</strong> コマンドによって自動的に呼び出されます。 以下のデバイスは、 <a href="https://www.ibm.com/docs/ja/ssw_aix_73/m_commands/mm.html#mm__row-d3e168643" target="_blank" rel="noopener noreferrer"><strong>-T</strong><em>Name</em></a> フラグ、 <strong>$TERM</strong> シェル変数、またはデフォルトを使用して指定できます。<ul>
+<li><strong>ppds (ppds)</strong></li>
+
+<li><strong>lp</strong></li>
+
+<li><strong>2631</strong></li>
+
+<li><strong>8510</strong></li>
+
+</ul>
+</td>
+
+</tr>
+
+<tr>
+<td><strong>-e</strong></td>
+
+<td><strong>neqn</strong> コマンドを呼び出します。また、<strong>neqn</strong> コマンドに <strong>/usr/share/lib/pub/eqnchar</strong> ファイルを読み取らせます。 <a href="https://www.ibm.com/docs/ja/ssw_aix_73/filesreference/eqnchar.html" target="_blank" rel="noopener noreferrer"><strong>eqnchar</strong></a> ファイル・フォーマットを参照してください。</td>
+
+</tr>
+
+<tr>
+<td><strong>-E</strong></td>
+
+<td><strong>nroff</strong> コマンドの <strong>-e</strong> フラグを呼び出します。</td>
+
+</tr>
+
+<tr>
+<td><strong>-t</strong></td>
+
+<td><strong>tbl</strong> コマンドを呼び出します。</td>
+
+</tr>
+
+<tr>
+<td><strong>-12</strong></td>
+
+<td>12 ピッチ・フォントを使用します。 <strong>$TERM</strong> シェル変数を 300、300s、450、1620 のいずれかに設定した場合に、
+このフラグを使用します。 (このフラグを使用する場合、DASI 300 および 300s の各ワークステーションのピッチ・スイッチは、手動操作で 12 に設定します。)</td>
+
+</tr>
+
+<tr>
+<td><strong>-T</strong><em>名前</em></td>
+
+<td><em>Name</em> 変数で指定したワークステーション・タイプを使用します。<p>デフォルトでは、<strong>mm</strong> コマンドは環境から入手する <strong>$TERM</strong> シェル変数の値を <em>Name</em> 変数の値として使用します。 <strong>$TERM</strong> シェル変数が設定されないと、<strong>mm</strong> コマンドは <strong>lp</strong> (下線とタブが可能なプリンターの汎用名) を使用します。 複数のワークステーション・タイプが指定されている場合は、リスト内の最後のものが適用されます。</p>
+</td>
+
+</tr>
+
+<tr>
+<td><strong>-</strong></td>
+
+<td>入力を標準入力から強制的に読み取ります。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+</section>
+
+<section><h2>パラメーター</h2> <div> 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><em>File</em></td>
+
+<td><strong>mm</strong> コマンドがフォーマットするファイルを指定します。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+</section>
+
+<section><h2>例</h2> <ol>
+<li><span></span>環境内で <strong>$TERM</strong> シェル変数が <strong>hplj</strong> コマンドに設定されている場合、以下の 2 つのコマンド行は同等です。<div> <div><div><pre><code>mm -t -rC3 File
+tbl File | nroff -mm -Thplj -h -rC3</code></pre></div><div></div></div></div>
+</li>
+
+<li><span></span> <em>File</em> 変数に値の代わりに <strong>-</strong> (負符号) フラグを指定すると、 <strong>mm</strong> コマンドは標準入力を読み取ります。 このオプションにより、<strong>mm</strong> コマンドを次のようにフィルターとして使用することができます。<div> <div><div><pre><code>cat File | mm -</code></pre></div><div></div></div></div>
+  <p></p><blockquote><span>“</span><strong>注:</strong> <strong>-</strong> (負符号) フラグを他のファイルと一緒に使用した場合、結果は保証されません。<span>”</span></blockquote>
+<p></p>
+</li>
+
+</ol>
+</section>
+
+<section><h2>環境変数</h2> <div> 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><strong>$TERM ($TERM)</strong></td>
+
+<td>端末名を指定します。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+</section>
+
+<section><h2>ファイル</h2> <div> 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><strong>/usr/share/lib/pub/eqnchar</strong></td>
+
+<td><strong>eqn</strong> コマンドおよび <strong>neqn</strong> コマンドの特殊文字定義を保持します。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+</section>
+
+</div></div>

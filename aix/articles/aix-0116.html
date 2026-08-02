@@ -1,0 +1,55 @@
+<div class="official-dom"><div>
+<section><h2>目的</h2> <p><strong>diff</strong> コマンドを使って、極端に大きいファイルの相違点を探します。</p>
+</section>
+
+<section><h2>構文</h2> <p><strong>BDIFF</strong> {<em> ファイル 1 </em>| <strong>- </strong>} {<em> ファイル 2 </em>| <strong>- </strong>} [ <em>数値 </em>] [  <a href="https://www.ibm.com/docs/ja/ssw_aix_73/b_commands/bdiff.html#bdiff__row-d3e53009" target="_blank" rel="noopener noreferrer"><strong>-s </strong></a>]</p>
+</section>
+
+<section><h2>説明</h2> <p><strong>bdiff</strong> コマンドは、<em>File1</em> および <em> File2</em> パラメーターで指定されたファイルを比較して、異なっている行に関する情報を標準出力に書き出します。 一方のファイル名に <strong>-</strong> (マイナス) を指定すると、<strong> bdiff</strong> コマンドは標準入力を読み取ります。 <strong>bdiff</strong> コマンドの使い方は <strong>diff</strong> コマンドと同様で、2 つのファイルを同一になるように変更する必要のある行を検出するときに使います。 このコマンドの主な目的は、<strong>diff</strong> コマンドには大きすぎるファイルを処理できるようにすることです。</p>
+ <p><strong>bdiff</strong> コマンドは、2 つのファイルの先頭に共通する行を無視し、各ファイルの残りの部分を <em>Number</em> 行のセグメントに分割し、<strong>diff</strong> コマンドを呼び出して対応するセグメント同士を比較します。 <em>Number</em> パラメーターのデフォルトである 3500 行は、<strong>diff</strong> コマンドには大きすぎる場合があります。 <strong>diff</strong> コマンドを実行できない場合は、<em>Number</em> パラメーターに指定する値を小さくしてやり直してください。</p>
+ <p><strong>bdiff</strong> コマンドの出力は、<strong>diff</strong> コマンドと同じ構文になります。 <strong>bdiff</strong> コマンドは、ファイルのセグメント化を考慮して行数を調整します。 ファイルがセグメント化されるので、<strong>bdiff</strong> コマンドが必ずしもファイルの相違点の最小セットを見つけるとは限りません。</p>
+</section>
+
+<section><h2>フラグ</h2> <div> 
+<div><div><table><thead> <tr> <th><div>項目</div></th>
+ <th><div>説明</div></th>
+ </tr>
+ </thead>
+<tbody>
+<tr>
+<td><strong>-s</strong></td>
+
+<td><strong> bdiff</strong> コマンドからのエラー・メッセージを抑止します。 <strong> -s</strong>フラグは、<strong> diff</strong>コマンドからのエラーメッセージを抑制しないことに注意）。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+</section>
+
+<section><h2>例</h2> <p>以下の間の差異を表示します。 chap1ファイルおよび chap1.bakファイル:</p>
+ <div> <div><div><pre><code>bdiff chap1 chap1.bak</code></pre></div><div></div></div></div>
+</section>
+
+<section><h2>ファイル</h2> <div> 
+<div><div><table><thead> <tr> <th><div>項目</div></th>
+ <th><div>説明</div></th>
+ </tr>
+ </thead>
+<tbody>
+<tr>
+<td><strong>/usr/bin/bdiff</strong></td>
+
+<td><strong>bdiff</strong> コマンドが入っています。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+</section>
+
+</div></div>

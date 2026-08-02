@@ -1,0 +1,471 @@
+<div class="official-dom"><div>
+<section><h2>目的</h2> <p>入力ストリームの簡単な字句解析のために、パターン・マッチングを行う C または C++ 言語プログラムを作成します。</p>
+</section>
+
+<section><h2>構文</h2> <p><strong>LEX</strong> [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/l_commands/lex.html#lex__row-d3e48293" target="_blank" rel="noopener noreferrer"><strong>-C</strong></a> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/l_commands/lex.html#lex__row-d3e48314" target="_blank" rel="noopener noreferrer"><strong>T</strong></a> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/l_commands/lex.html#lex__row-d3e48323" target="_blank" rel="noopener noreferrer"><strong>-v (V)</strong></a>| <a href="https://www.ibm.com/docs/ja/ssw_aix_73/l_commands/lex.html#lex__row-d3e48308" target="_blank" rel="noopener noreferrer"><strong>N</strong></a> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/l_commands/lex.html#lex__a1079d8" target="_blank" rel="noopener noreferrer"><em>ファイル</em></a>... ]</p>
+</section>
+
+<section><h2>説明</h2> <p><strong>lex</strong> コマンドは、 <em>File</em> または標準入力を読み取り、C 言語プログラムを生成し、それを<strong> lex.yy.c</strong>という名前のファイルに書き込みます。 このファイル <strong>lex.yy.c</strong>は、コンパイル可能な C 言語プログラムです。 C++ コンパイラーでも、<strong>lex</strong> コマンドの出力をコンパイルすることができます。 <strong>-C</strong> フラグを指定すると、出力ファイル名が C++ コンパイラー用の <strong>lex.yy.C</strong> に変更されます。</p>
+ <p><strong>lex</strong> コマンドで生成される C++ プログラムでは、STDIO または IOSTREAMS のどちらかを使用することができます。 C++ コンパイル時に cpp define _CPP_IOSTREAMS が真の場合、プログラムはすべての入出力に IOSTREAMS を使用します。 それ以外の場合は、STDIO が使用されます。</p>
+ <p><strong>lex</strong> コマンドは <em>File</em> に入っている規則やアクションを使って、プログラム<strong> lex.yy.c</strong> を生成します。
+このプログラムは <strong>cc</strong> コマンドでコンパイルすることができます。 コンパイルされた <strong>lex.yy.c</strong> は次に入力を受け取り、その入力を <em>File</em> 内の規則で定義された論理部分に分解し、<em>File</em> 内のアクションに含まれるプログラムの一部分を実行します。</p>
+ <p>生成されたプログラムは、<strong>yylex</strong> と呼ばれる C 言語関数です。 <strong> lex</strong> コマンドは、 <strong>yylex</strong> 関数を<strong> lex.yy.c</strong>という名前のファイルに保管します。 <strong>yylex</strong> 関数だけを使用して単純な 1 ワード入力を認識することも、他の C 言語プログラムと一緒に使用して、より難しい入力分析関数を実行することもできます。 例えば、<strong>lex</strong> コマンドを使ってプログラムを生成し、そのプログラムを使って入力ストリームを簡易化した後、
+入力ストリームを <strong>yacc</strong> コマンドが生成した構文解析プログラムに送らせるようにすることができます。</p>
+ <p><strong>yylex</strong> 関数は有限状態マシンと呼ばれるプログラム構造によって入力ストリームを分析します。 この構造により、プログラムが一度にとることができる状態 (または条件) は 1 つだけとなります。 許可される状態数は有限です。 <em>File</em> 内にあるこの規則は、プログラムがある状態から別の状態にどのように移るかを決定します。</p>
+ <p><em>File</em> を指定しないと、<strong>lex</strong> コマンドは標準入力を読み取ります。 複数のファイルは単一のファイルとして扱われます。</p>
+ <p></p><blockquote><span>“</span><strong>注:</strong> <strong>lex</strong> コマンドは中間ファイルと出力ファイルに対して固定名を使うので、与えられたディレクトリー内では <strong>lex</strong> によって生成されたプログラムは 1 つしか存在することができません。<span>”</span></blockquote>
+<p></p>
+<p><strong>lex 仕様ファイル</strong></p>
+ <p></p>
+ <p>入力ファイルには、<em>定義セクション</em>、<em>規則セクション</em>、<em>ユーザー・サブルーチン・セクション</em> のセクションがあります。 各セクションは、区切り文字のみを含む行によって、他のセクションと分離する必要があります。%%(2 つのパーセント記号)。 フォーマットは次のとおりです。</p>
+ <div><a href="https://www.ibm.com/docs/ja/ssw_aix_73/l_commands/lex.html#lex__a1079e0" target="_blank" rel="noopener noreferrer">definitions</a><br>
+%%<br>
+<a href="https://www.ibm.com/docs/ja/ssw_aix_73/l_commands/lex.html#lex__a1079ea" target="_blank" rel="noopener noreferrer">rules</a><br>
+%%<br>
+<a href="https://www.ibm.com/docs/ja/ssw_aix_73/l_commands/lex.html#lex__a107910f" target="_blank" rel="noopener noreferrer">user subroutines</a></div>
+ <p>次の各セクションではセクションの目的とフォーマットについて説明します。</p>
+<p><strong>定義</strong></p>
+ <p>規則内で変数を使いたいときは、それらの変数はこのセクションで定義しなければなりません。 これらの変数は左の欄に、その定義は右の欄にまとめられます。 例えば、次のように定義するとします。D数字として、次のように記述します。</p>
+ <div> <div><div><pre><code>D   [0-9]</code></pre></div><div></div></div></div>
+ <p>変数名を囲むことにより、ルール・セクションで定義済み変数を使用できます。{}(中括弧)。以下に例を示します。</p>
+ <div> <div><div><pre><code>{D}</code></pre></div><div></div></div></div>
+ <p>ブランクで始まるか、または以下で囲まれている定義セクションの行%{,
+%}区切り行は、 <strong>lex.yy.c</strong> ファイルにコピーされます。 この構成を使用すると、<strong>lex</strong> のアクション内で使用する C 言語変数を宣言するか、または次のようにヘッダー・ファイルを組み込むことができます。</p>
+ <div> <div><div><pre><code>%{
+#include &lt;math.h&gt;
+int count;
+%}</code></pre></div><div></div></div></div>
+ <p>このような行は、ルール・セクションの先頭 (最初の行の直後) にも表示されます。%%区切り文字を使用することはできませんが、ルール・セクション内の他の場所で使用することはできません。 この行が <em>File</em> の定義セクションに含まれていると、<strong>lex</strong> コマンドはこの行を <strong>lex.yy.c</strong> ファイルの外部宣言セクションにコピーします。 その行が規則セクション内の最初の規則の前にある場合、 <strong>lex</strong> コマンドはその行を <strong>lex.yy.c</strong>内の <strong>yylex</strong> サブルーチンのローカル宣言セクションにコピーします。 このような行は、最初の規則の後にあってはなりません。</p>
+ <p><strong>lex</strong> 外部のタイプである <strong>yytext</strong> は、定義セクションで次のどちらかを指定して、ヌル終了文字配列 (デフォルト) またはヌル終了文字列へのポインターに設定することもできます。</p>
+ <div> <div><div><pre><code>%array    (default)
+%pointer</code></pre></div><div></div></div></div>
+ <p>定義セクションでは、結果として生じる有限状態マシンのためにテーブルのサイズを設定することができます。 デフォルトのサイズは、小さなプログラムに十分な大きさです。 さらに複雑なプログラムのためにもっと大きなサイズを設定することもできます。</p>
+ 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><strong>%a</strong> <em>n</em></td>
+
+<td>移行の数は <em>n</em> です (デフォルトは 5000)</td>
+
+</tr>
+
+<tr>
+<td><strong>%e</strong><em> n</em></td>
+
+<td>構文解析ツリー・ノードの数は <em>n</em> です (デフォルトは 2000)</td>
+
+</tr>
+
+<tr>
+<td><strong>%h</strong> <em>n</em></td>
+
+<td>マルチバイト文字の出力スロット数 (デフォルトは 0)</td>
+
+</tr>
+
+<tr>
+<td><strong>%k</strong> <em>n</em></td>
+
+<td>パックされた文字クラスの数 (デフォルトは 1000)</td>
+
+</tr>
+
+<tr>
+<td><strong>%m</strong> <em>n</em></td>
+
+<td>マルチバイト「文字クラス」文字の出力スロット数 (デフォルトは 0)</td>
+
+</tr>
+
+<tr>
+<td><strong>%n</strong> <em>n</em></td>
+
+<td>状態の数は <em>n</em> です (デフォルトは 2500)</td>
+
+</tr>
+
+<tr>
+<td><strong>%o</strong><em> n</em></td>
+
+<td>出力スロットの数 (デフォルトは 5000、最小 257)</td>
+
+</tr>
+
+<tr>
+<td><strong>%p</strong> <em>n</em></td>
+
+<td>位置の数は <em>n</em> です (デフォルトは 5000)</td>
+
+</tr>
+
+<tr>
+<td><strong>%v</strong> <em>p</em></td>
+
+<td><strong>%h</strong> および <strong>%m</strong> によって制御されるハッシュ・テーブル内の空きスロットのパーセンテージ (デフォルトは 20、範囲は 0 &lt; = P &lt; 100)</td>
+
+</tr>
+
+<tr>
+<td><strong>%z</strong> <em>n</em></td>
+
+<td>マルチバイト文字クラスの出力スロット数 (デフォルトは 0)</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+ <p>マルチバイト文字が拡張正規表現の文字列内にあると、<strong>%o</strong> 引数を使用して出力配列サイズを (ほぼ 10,000 から 20,000 の配列サイズに) 再設定しなければならないことがあります。 この再設定は、1 バイト文字の数と比較するとかなり多い数の文字に影響します。</p>
+ <p>マルチバイト文字が拡張正規表現で表示される場合、<strong>%h</strong> と <strong>%m</strong> の引数を使って、マルチバイト・ハッシュ・テーブルのサイズを、<strong>lex</strong> ファイルに含まれるマルチバイト文字数の合計より大きいサイズに設定しなければなりません。</p>
+ <p>マルチバイト文字が拡張正規表現でなくても、 「.」を使用マルチバイト文字に一致させたい場合は、<strong>%z</strong> をゼロよりも大きい値に設定しなければなりません。 また、反転文字クラス ([^abc] など) でマルチバイト文字を一致させる場合は、<strong>%h</strong> および <strong>%m</strong> の両方をゼロよりも大きい値に設定しなければなりません。</p>
+ <p>マルチバイト文字を使用する場合は、<strong>-qmbcs</strong> コンパイラー・オプションを使用して、<strong>lex.yy.c</strong> ファイルをコンパイルしなければなりません。</p>
+<p><strong>規則 </strong></p>
+ <p></p>
+ <p>一度用語を定義すると、規則セクションを書くことができます。 このセクションには <strong>yylex</strong> サブルーチンで照合される文字列と式、および照合時に実行される C コマンドが入っています。 このセクションは必須であり、前に区切り文字を付ける必要があります。%%(2 つのパーセント記号)。定義セクションがあるかどうかを示します。 この区切り文字がないと、<strong>lex</strong> コマンドは規則を認識しません。</p>
+ <p>このセクションでは、左の欄にパターンが拡張正規表現の形式で記述され、<strong>yylex</strong> サブルーチンへの入力ファイル内で認識されます。 右の欄には、パターンが認識されるとき実行される C プログラムの一部 (<em>アクション</em> と呼ばれる) が記述されます。</p>
+ <p>字句解析プログラムは一致する拡張正規表現を見つけると、その拡張正規表現に関連付けられるアクションを実行します。</p>
+ <p>パターンには拡張文字を入れることができます。 マルチバイト・ロケールが運用システムにインストールされている場合は、インストールされたコード・セットの一部であるマルチバイト文字も、パターンに入れることができます。</p>
+ <p>欄はタブまたは空白によって区切られます。 例えば、ファイル内でキーワード <strong>KEY</strong> を検索するには、次のように書くことができます。</p>
+ <div> <div><div><pre><code>(KEY) printf ("found KEY");</code></pre></div><div></div></div></div>
+ <p>この規則を <em>File</em> に入れると、字句解析プログラム <strong>yylex</strong> はパターン <strong>KEY</strong> に一致し、<strong>printf</strong> サブルーチンを実行します。</p>
+ <p>各パターンは対応するアクション、つまり、パターンが一致する場合に実行する C コマンドを持つことができます。 各ステートメントは、以下で終了する必要があります。;(セミコロン)。 1 つのアクションで複数のステートメントを使用する場合は、すべてのステートメントを以下のように囲む必要があります。{
+}(中括弧)。 2 番目の区切り文字%%<em>ユーザー・サブルーチン</em> ・セクションがある場合は、規則セクションに従う必要があります。 パターンが一致する場合に指定されたアクションがないと、字句解析プログラムは入力パターンを変更せずに出力にコピーします。</p>
+ <p><strong>yylex</strong> 字句解析プログラムは、入力ストリーム内で文字列を照合すると、一致した文字列を外部文字配列 (または文字列を指すポインター) <strong>yytext</strong> にコピーしてから、規則セクションにあるコマンドを実行します。 同様に、外部 int 型 <strong>yyleng</strong> は、一致した文字列の長さがバイト数で設定されます (したがって、マルチバイト文字のサイズは 1 よりも大きくなります)。</p>
+ <p><strong>ユーザー・サブルーチン</strong></p>
+ <p><strong>lex</strong> ライブラリーには、<strong>lex</strong> 仕様ファイルの規則セクション使用できるマクロとして次のようなサブルーチンが定義されています。</p>
+ 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><strong>INPUT</strong></td>
+
+<td>1 バイトを <strong>yyin</strong> から読み取ります。</td>
+
+</tr>
+
+<tr>
+<td><strong>書き込み解除</strong></td>
+
+<td>読み取られた 1 バイトを置き換えます。</td>
+
+</tr>
+
+<tr>
+<td><strong>output</strong></td>
+
+<td>出力バイトを <strong>yyout</strong> に書き込みます。</td>
+
+</tr>
+
+<tr>
+<td><strong>winput (winput)</strong></td>
+
+<td><strong>yyin</strong> からマルチバイト文字を読み取ります。</td>
+
+</tr>
+
+<tr>
+<td><strong>wunput (wunput)</strong></td>
+
+<td>読み取られたマルチバイト文字を置き換えます。</td>
+
+</tr>
+
+<tr>
+<td><strong>出力</strong></td>
+
+<td>マルチバイト出力文字を <strong>yyout</strong> に書き込みます。</td>
+
+</tr>
+
+<tr>
+<td><strong>yysetlocale (yysetlocale)</strong></td>
+
+<td>現行ロケールを決定するサブルーチン <strong>setlocale (</strong><em>LC_ALL</em><strong>,</strong><em>""</em><strong>);</strong> を呼び出します。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+ <p><strong>winput</strong>、<strong>wunput</strong>、および <strong>woutput</strong> マクロは、<strong>lex.yy.c</strong> ファイルでコード化された <strong>yywinput</strong>、<strong>yywunput</strong>、<strong>yywoutput</strong> サブルーチンを使用するために定義されています。 互換性のため、これらの <strong>yy</strong> サブルーチンは、完全なマルチバイト文字で必要なバイト数の読み取り、置換、書き込みを行うために、続けて <strong>input</strong>、<strong>unput</strong>、<strong>output</strong> サブルーチンを使用します。</p>
+ <p>これらのマクロは、これらのルーチンに対するユーザーの独自のコードをユーザー・サブルーチン・セクションに書き込むことによって、オーバーライドすることができます。 しかし、ユーザー独自のコードを書く場合は、次のようにこれらのマクロを定義セクションで未定義にしなければなりません。</p>
+ <div> <div><div><pre><code>%{
+#undef input
+#undef unput
+#undef output
+#undef winput
+#undef wunput
+#undef woutput
+#undef yysetlocale
+%}</code></pre></div><div></div></div></div>
+ <p><strong> lex</strong> ライブラリーには、 <em>File</em>の終わりに <strong>yylex ()</strong> によって呼び出される <strong>yywrap</strong> サブルーチンだけでなく、<strong> yylex</strong> 字句解析プログラムを呼び出す <strong>main</strong> サブルーチンが含まれているため、 <strong>lex.yy.c</strong>には <strong>main</strong> サブルーチンはありません。 したがって、 <strong>lex.yy.c</strong>をコンパイルするときに、ユーザー・サブルーチン・セクションに <strong>main ()</strong>、 <strong>yywrap ()</strong>、またはその両方を含めない場合は、次のように入力する必要があります。cclex.yy.c-ll、ここで、ll<strong>lex</strong> ライブラリーを呼び出します。</p>
+ <p><strong>lex</strong> コマンドで生成される外部名はすべて、<strong>yyin</strong>、<strong>yyout</strong>、<strong>yylex</strong>、および <strong>yytext</strong> のように <strong>yy</strong> で始まります。</p>
+<p><strong>有限状態マシン</strong></p>
+ <p>有限状態マシンのデフォルトの骨組みは、<strong>/usr/ccs/lib/lex/ncform</strong> に定義されています。 環境変数 <strong>LEXER=</strong><em>PATH</em> を設定することによって、ユーザー自身が設定した有限状態マシンを使用することもできます。 <em>PATH</em> 変数は、ユーザー定義による有限状態マシンのパスとファイル名を指定します。 <strong>lex</strong> コマンドは環境のこの変数を確認し、この変数が設定されていれば、与えられたパスを使用します。</p>
+<p><strong>式にブランクを入れる</strong></p>
+ <p>通常、規則の終わりにはブランクまたはタブが付くので、規則を定義している式はブランクまたはタブで終了します。 ただし、ブランクまたはタブ文字は、次のように囲むことができます。" "(引用符) を使用して、それらを式に含めます。 以下のセット内にまだ含まれていない式では、すべてのブランクを引用符で囲みます。[ ](大括弧)。</p>
+<p><strong>その他の特殊文字</strong></p>
+ <p><strong>lex</strong> プログラムは多数の通常の C 言語特殊文字を認識します。 これらの文字シーケンスは次のとおりです。</p>
+ 
+<div><div><table><thead>
+<tr>
+<th><div>順序</div></th>
+
+<th><div>意味</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><strong>\a</strong></td>
+
+<td>アラート</td>
+
+</tr>
+
+<tr>
+<td><strong>\b</strong></td>
+
+<td>バックスペース</td>
+
+</tr>
+
+<tr>
+<td><strong>¥ f</strong></td>
+
+<td>用紙送り</td>
+
+</tr>
+
+<tr>
+<td><strong>¥ n</strong></td>
+
+<td>改行文字 (式では実際の改行文字を使用してはなりません)</td>
+
+</tr>
+
+<tr>
+<td><strong>\r</strong></td>
+
+<td>復帰</td>
+
+</tr>
+
+<tr>
+<td><strong>\t</strong></td>
+
+<td>タブ</td>
+
+</tr>
+
+<tr>
+<td><strong>\v</strong></td>
+
+<td>垂直タブ</td>
+
+</tr>
+
+<tr>
+<td><strong>\\</strong></td>
+
+<td>円記号</td>
+
+</tr>
+
+<tr>
+<td><strong>¥ digits</strong></td>
+
+<td><strong>digits</strong> で指定した 1 桁、2 桁、3 桁の 8 進整数で表されるエンコード文字。</td>
+
+</tr>
+
+<tr>
+<td><strong>¥ xdigits</strong></td>
+
+<td><strong>digits</strong> で指定した 16 進文字シーケンスで表されるエンコード文字。</td>
+
+</tr>
+
+<tr>
+<td><strong>\c</strong></td>
+
+<td><strong>c</strong> が上記以外の文字であれば、文字 <strong>c</strong> が変更されないことを示します。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+ <p></p><blockquote><span>“</span><span></span><strong>注:</strong> <strong>lex</strong> 規則では <strong>\0</strong> または <strong>\x0</strong> を使用しないでください。<span>”</span></blockquote>
+<p></p>
+ <p>これらの特殊文字を式で使用する場合、引用符で囲む必要はありません。 これらの特殊文字と演算子記号を除き、すべての文字は常にテキスト文字です。</p>
+<p><strong>突き合わせ規則</strong></p>
+ <p>複数の式が現行入力と一致する場合、<strong>lex</strong> コマンドは最初に最も長い一致を選択します。 複数の規則が同数の文字と一致する場合、<strong>lex</strong> コマンドは最初に発生する規則を選択します。 例えば、次の規則がこの順序で指定されます。</p>
+ <div> <div><div><pre><code>integer    keyword action...;
+[a-z]+       identifier action...;</code></pre></div><div></div></div></div>
+ <p>はこの順序で与えられます。integersは入力ワードです。<strong> lex</strong> は入力を ID として突き合わせます。[a-z]+8 文字に一致します。integer7 にのみ一致します。 ただし、入力が integer であれば、どちらの規則も 7 文字と一致します。 keyword 規則が先に発生するため、<strong>lex</strong> はこちらを選択します。 より短い入力。例えば、次のようになります。int式の整数と一致しないため、 <strong>lex</strong> は ID ルールを選択します。</p>
+<p><strong>ワイルドカードを使った文字列の一致</strong></p>
+ <p><strong>lex</strong> は最長の一致を最初に選択するので、次のような式を含む規則を使用しないでください。.*。以下に例を示します。</p>
+ <div> <div><div><pre><code>'.*'</code></pre></div><div></div></div></div>
+ <p>上記の例は、単一引用符内の文字列を認識する良い方法のように見えるかもしれません。 しかし、字句解析プログラムは長い照合を完了するために、離れた所にある単一引用符を探してさらに先を読み取ります。 このような規則を持った字句解析プログラムが、次のように入力します。</p>
+ <div> <div><div><pre><code>'first' quoted string here, 'second' here</code></pre></div><div></div></div></div>
+ <p>これは次のストリングに一致します。</p>
+ <div> <div><div><pre><code>'first' quoted string here, 'second'</code></pre></div><div></div></div></div>
+ <p>小さいストリングを見つけるには、以下のようにします。firstおよびsecond以下の規則を使用します。</p>
+ <div> <div><div><pre><code>'[^'\n]*'</code></pre></div><div></div></div></div>
+ <p>このルールは次の後に停止します'first'.</p>
+ <p>このタイプのエラーは、以下の理由により、それほど到達しません。 (ピリオド) 演算子が改行文字と一致しません。 したがって、次のような式は、.*(ピリオド・アスタリスク) 現在行で停止します。 次のような式でこれを破ろうとしないでください。 [.\n]+。字句解析プログラムは入力ファイル全体を読み取ろうとし、内部バッファー・オーバーフローが発生します。</p>
+<p><strong>文字列の中での文字列の検索</strong></p>
+ <p><strong>lex</strong> プログラムは入力ストリームを区分し、各式の可能な一致をすべて検索することはしません。 各文字は一度だけ計算されます。 例えば、両方のオカレンスをカウントするには、次のようにします。sheおよびhe入力テキストでは、以下の規則を試してください。</p>
+ <div> <div><div><pre><code>she         s++
+he          h++
+\n          |.           ;</code></pre></div><div></div></div></div>
+ <p>最後の 2 つの規則はそれ以外のすべてを無視しますheおよびshe. ただし、she含むhe、<strong> lex</strong> は、以下のインスタンスを認識 <em>しません</em> 。he含まれているshe.</p>
+ <p>この選択をオーバーライドするには、アクション <strong>REJECT</strong> を使います。 このディレクティブは、<strong>lex</strong> が次の規則に進むように命令します。 そこで <strong>lex</strong> は入力ポインターの位置を調整して、最初の規則が実行される前の場所に置き、次の選択の規則を実行します。 例えば、含まれているインスタンスをカウントするには、以下のようにします。he以下の規則を使用します。</p>
+ <div> <div><div><pre><code>she                 {s++;REJECT;}
+he                  {h++;REJECT;}
+\n                  |.                   ;</code></pre></div><div></div></div></div>
+ <p>出現回数をカウントした後she<strong>lex</strong> は、入力ストリームをリジェクトしてから、以下のオカレンスをカウントします。heこのケースではshe含むheただし、その逆の場合は、 <strong>REJECT</strong> アクションを省略できます。he場合によっては、どちらの入力文字が両方のクラスにあるかを判別するのが困難なことがあります。</p>
+ <p>一般に <strong>REJECT</strong> は、<strong>lex</strong> を入力ストリームを区分するためではなく、入力内のある項目のすべての例を検出するために使うと便利で、これらの項目の例は互いに重なり合っていたり含んでいたりすることがあります。</p>
+</section>
+
+<section><h2>フラグ</h2> <div> 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><strong>-C</strong></td>
+
+<td>C++ コンパイラーで使用できるように、<strong>lex.yy.c</strong> の代わりに <strong>lex.yy.C</strong> ファイルを作成します。 入出力ストリーム・ライブラリーを取り出すには、マクロ <strong>_CPP_IOSTREAMS</strong> も使用します。</td>
+
+</tr>
+
+<tr>
+<td><strong>-n</strong></td>
+
+<td>統計情報の要約情報の出力を抑制します。 有限状態マシンに対してユーザー独自のテーブル・サイズを設定する場合、このフラグを選択しなければ、lex コマンドは自動的にこの要約情報を作成します。</td>
+
+</tr>
+
+<tr>
+<td><strong>-t</strong></td>
+
+<td><strong>lex.yy.c</strong> をファイルの代わりに標準出力に書き出します。</td>
+
+</tr>
+
+<tr>
+<td><strong>-v</strong></td>
+
+<td>生成した有限状態マシンの統計情報 1 行の要約を提供します。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+</section>
+
+<section><h2>終了状況</h2> <p>このコマンドは、以下の終了値を戻します。</p>
+ 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><strong>0</strong></td>
+
+<td>正常終了。</td>
+
+</tr>
+
+<tr>
+<td><strong>&gt;0</strong></td>
+
+<td>エラーが発生しました。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</section>
+
+<section><h2>例</h2> <ol>
+<li><span></span>ファイルから<strong> lex</strong> 命令を描画するlexcommands出力を <strong>lex.yy.c</strong>に置き、次のコマンドを使用します。<div> <div><div><pre><code>lex lexcommands</code></pre></div><div></div></div></div>
+</li>
+
+<li><span></span>大文字を小文字に変換し、行の終わりにあるブランクを除去し、複数のブランクを単一ブランクで置き換える <strong>lex</strong> プログラムを作成するには、 <strong>lex</strong> コマンド・ファイルに次のように指定します。<div> <div><div><pre><code>%%
+[A-Z]   putchar(yytext[0]+ 'a'-'A');
+[ ]+$ ;
+[ ]+    putchar(' '); </code></pre></div><div></div></div></div>
+</li>
+
+</ol>
+</section>
+
+<section><h2>ファイル</h2> <div> 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><strong>/usr/ccs/lib/libl.a</strong></td>
+
+<td>実行時ライブラリーが入っています。</td>
+
+</tr>
+
+<tr>
+<td><strong>/usr/ccs/lib/lex/ncform</strong></td>
+
+<td>有限状態マシンを定義します。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+</section>
+
+</div></div>

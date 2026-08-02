@@ -1,0 +1,114 @@
+<div class="official-dom"><div>
+<section><h2>目的</h2> <p>システム・コンソールの出力を、一時的に指定されたデバイスまたはファイルへリダイレクトします。</p>
+</section>
+
+<section><h2>構文</h2> <p><strong>swcons </strong> [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/s_commands/swcons.html#swcons__row-d3e66512" target="_blank" rel="noopener noreferrer"><strong>-p</strong></a> <em>Log_File</em> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/s_commands/swcons.html#swcons__row-d3e66520" target="_blank" rel="noopener noreferrer"><strong>-s</strong></a> <em>Log_Size</em> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/s_commands/swcons.html#swcons__row-d3e66528" target="_blank" rel="noopener noreferrer"><strong>-t</strong></a> <em>Tag_Verbosity</em> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/s_commands/swcons.html#swcons__row-d3e66541" target="_blank" rel="noopener noreferrer"><strong>-v</strong></a> <em>Log_Verbosity</em> ] <em>PathName</em></p>
+</section>
+
+<section><h2>説明</h2> <p><strong>swcons</strong> コマンドは、システムの運用中にシステム・コンソール出力を別のターゲットへも一時的に切り替えます。 このコマンドは、システム情報要求メッセージ、エラー要求メッセージ、および介入要求メッセージ出力を指定された宛先に切り替えます。 <strong>getty</strong> コマンドによるログインを提供されているシステム・コンソール・デバイスの操作には、<strong>swcons</strong> コマンドの影響はありません。</p>
+ <p>もう一度 <strong>swcons</strong> コマンドで変更されるか、またはシステムが次回に始動されるか、または指定されたデバイスやファイルにアクセスするときコンソール・ドライバーがエラーを検出するまで、このコマンドの使用中に指定されたデバイスやファイルはコンソール出力用のターゲットのままになっています。 オープン・エラーまたは書き込みエラーが、<strong>swcons</strong> コマンドで指定されたデバイスまたはファイル上で検出されると、コンソール・デバイス・ドライバーは、
+すべての出力を、システムが始動されたときにコンソール・サポートを提供したデバイスやファイルに切り替えます。</p>
+ <p><em>PathName</em> パラメーターは、システム・コンソールのメッセージ出力を受け取るデバイスまたはファイルへの完全修飾パス名でなければなりません。 <em>PathName</em> パラメーターに存在しないファイルを指定すると、<strong>swcons</strong> コマンドはそのファイルを作成します。 ファイルが存在するときは、<strong>swcons</strong> コマンドは、ファイルの内容に新規のコンソール・メッセージ出力を追加します。</p>
+ <p></p><blockquote><span>“</span><span></span><strong>重要:</strong> コンソール出力を NFS マウント・ファイルシステムまたはディスクレス/データレス・クライアントに切り替えるために <strong>swcons</strong> コマンドを使用すると、オペレーティング・システムがハングする可能性があります。<span>”</span></blockquote>
+<p></p>
+</section>
+
+<section><h2>フラグ</h2> <div> 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><strong>-p</strong><em> ログ・ファイル</em></td>
+
+<td>コンソール出力ログ・ファイルに使用する絶対パス名を指定します。</td>
+
+</tr>
+
+<tr>
+<td><strong>-s</strong><em> ログ・サイズ</em></td>
+
+<td>コンソール出力ログ・ファイルのサイズ (単位: バイト) を指定します。</td>
+
+</tr>
+
+<tr>
+<td><strong>-t</strong><em> タグの冗長性</em></td>
+
+<td>コンソール出力タグ付けの詳細レベルを指定します。 ゼロはタグ付けを使用不可にし、
+1 から 9 はタグ付けを使用可能にします。 コンソール出力ロギングおよびタグ付けについて詳しくは、「 <span><em>Files Reference</em></span> 」の「 <strong>console Special File</strong> 」を参照してください。</td>
+
+</tr>
+
+<tr>
+<td><strong>-v</strong><em> ログの冗長性</em></td>
+
+<td>コンソール出力ロギングの詳細レベルを指定します。 ゼロはロギングを使用不可にし、
+1 から 9 はロギングを使用可能にします。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+</section>
+
+<section><h2>セキュリティー</h2> <div><div>
+        <div>
+          <div><span>RBAC ユーザーへの注意:</span> このコマンドは特権命令を実行できます。 特権命令を実行できるのは特権ユーザーのみです。 権限と特権の詳細については、<span>セキュリティ</span>の <a href="https://www.ibm.com/docs/ja/ssw_aix_73/security/rbac_priv_cmd_db.html" target="_blank" rel="noopener noreferrer">特権コマンドデータベース</a>を参照してください。 このコマンドに関連する特権と権限のリストについては、'<a href="https://www.ibm.com/docs/ja/ssw_aix_73/l_commands/lssecattr.html" target="_blank" rel="noopener noreferrer"><span>lssecattr</span></a>コマンドまたは'<a href="https://www.ibm.com/docs/ja/ssw_aix_73/g_bostechref/getcmdattr.html" target="_blank" rel="noopener noreferrer"><span>getcmdattr</span></a>サブコマンドを参照のこと。</div>
+        </div>
+      </div></div>
+</section>
+
+<section><h2>例</h2> <ol>
+<li><span></span>システム・コンソール・メッセージ出力を、以下の名前のファイルに変更します。console.out合計の/tmpディレクトリー、 <span></span> を入力します。<div> <div><div><pre><code>swcons /tmp/console.out</code></pre></div><div></div></div></div>
+</li>
+
+<li><span></span>論理名を持つ端末へのシステム・コンソール・メッセージ出力を変更するには、次のようにします。tty3<span></span> と入力します。<div> <div><div><pre><code>swcons /dev/tty3</code></pre></div><div></div></div></div>
+</li>
+
+<li><span></span>システム始動時に、システム・コンソール・メッセージ出力を、コンソール出力をサポートする装置またはファイルに戻すには、次のように入力します。 <span></span><div> <div><div><pre><code>swcons</code></pre></div><div></div></div></div>
+</li>
+
+</ol>
+</section>
+
+<section><h2>ファイル</h2> <div> 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><strong>/dev/console</strong></td>
+
+<td>システム・コンソールのアクセス用のスペシャル・ファイルを指定します。</td>
+
+</tr>
+
+<tr>
+<td><strong>/usr/sbin/swcons</strong></td>
+
+<td><strong>swcons</strong> コマンド・ファイルが含まれます。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+</section>
+
+</div></div>

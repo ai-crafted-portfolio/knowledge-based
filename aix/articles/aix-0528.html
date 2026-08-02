@@ -1,0 +1,330 @@
+<div class="official-dom"><div>
+<section><h2>目的</h2> <p>フォルダーおよびメール・ディレクトリー内のメッセージをすべて、リストします。</p>
+</section>
+
+<section><h2>構文</h2> <div>
+<div><div><pre><code>folders [ +Folder ] [ Message ] [  -all ] [ -pack | -nopack ] [ -fast | -nofast ] [ -recurse | -norecurse ] [ -print | -noprint ] [ -header | -noheader ] [ -total | -nototal ] [ -push | -pop ] [ -list | -nolist]</code></pre></div><div></div></div>
+</div>
+</section>
+
+<section><h2>説明</h2> <p><span>folders</span> コマンドは、メール・ディレクトリー内のすべてのフォルダーとメッセージをリストします。 このコマンドは、 <span>-all</span> フラグで指定された <a href="https://www.ibm.com/docs/ja/ssw_aix_73/f_commands/folder.html#folder" target="_blank" rel="noopener noreferrer"><span>folder</span></a> コマンドと同等です。</p>
+</section>
+
+<section><h2>フラグ</h2> <div> 
+<div><div><table><caption><span>表 1. フラグ</span></caption><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><span>-all</span></td>
+
+<td>メール・ディレクトリー内の各フォルダーの情報を、1 行に 1 フォルダー分ずつ表示します。</td>
+
+</tr>
+
+<tr>
+<td><span>-fast</span></td>
+
+<td>フォルダーの名前のみを表示します。</td>
+
+</tr>
+
+<tr>
+<td><code>+</code>フォルダー</td>
+
+<td>表示するフォルダー情報を指定します。</td>
+
+</tr>
+
+<tr>
+<td><span>-header</span></td>
+
+<td>フォルダー情報の列見出しを表示します。 このフラグはデフォルトです。</td>
+
+</tr>
+
+<tr>
+<td><span>-help</span></td>
+
+<td>これは、コマンド構文、使用可能なスイッチ (トグル)、およびバージョン情報をリストします。<div>
+<div><div>
+        <div>
+          <div><span>注:</span> メッセージ・ハンドラー (MH) の場合、このフラグ名は完全な形で指定しなければなりません。</div>
+        </div>
+      </div></div>
+
+</div>
+</td>
+
+</tr>
+
+<tr>
+<td><span>-list</span></td>
+
+<td>現行フォルダーの後に、フォルダー・スタックの内容を表示します。</td>
+
+</tr>
+
+<tr>
+<td>Message</td>
+
+<td>指定されたメッセージを現行メッセージに設定します。 <code>+</code>Folder フラグを指定しないと、
+このコマンドでは指定したメッセージが現行フォルダーに設定されます。 メッセージを指定するには、次の参照を使用します。<dl>
+
+<dt>Number</dt>
+
+<dd>メッセージ番号。</dd>
+
+
+
+<dt><code>cur</code> または <code>.</code> (ピリオド)</dt>
+
+<dd>現行メッセージ。 これはデフォルトです。</dd>
+
+
+
+<dt><code>first</code></dt>
+
+<dd>フォルダー内の最初のメッセージ</dd>
+
+
+
+<dt><code>last</code></dt>
+
+<dd>フォルダー内の最後のメッセージ</dd>
+
+
+
+<dt><code>next</code></dt>
+
+<dd>現行メッセージの次のメッセージ</dd>
+
+
+
+<dt><code>new</code></dt>
+
+<dd>新たに作成するメッセージ。</dd>
+
+
+
+<dt><code>prev</code></dt>
+
+<dd>現行メッセージの直前のメッセージ。</dd>
+
+
+</dl>
+</td>
+
+</tr>
+
+<tr>
+<td><span>-nofast</span></td>
+
+<td>各フォルダーの情報を表示します。 このフラグはデフォルトです。</td>
+
+</tr>
+
+<tr>
+<td><span>-noheader</span></td>
+
+<td>フォルダー情報の列見出しを表示しません。</td>
+
+</tr>
+
+<tr>
+<td><span>-nolist</span></td>
+
+<td>フォルダー・スタックの内容を表示しません。 このフラグはデフォルトです。</td>
+
+</tr>
+
+<tr>
+<td><span>-nopack</span></td>
+
+<td>フォルダー内のメッセージの番号を付け直しません。 このフラグはデフォルトです。</td>
+
+</tr>
+
+<tr>
+<td><span>-noprint</span></td>
+
+<td>フォルダー情報を表示しません。 <span>-push</span>、<span>-pop</span>、<span>-list</span> フラグを指定した場合は、<span>-noprint</span> フラグがデフォルトになります。</td>
+
+</tr>
+
+<tr>
+<td><span>-norecurse</span></td>
+
+<td>メール・ディレクトリー内にあるフォルダーの情報を表示します。 サブフォルダーの情報は表示しません。 このフラグはデフォルトです。</td>
+
+</tr>
+
+<tr>
+<td><span>-nototal</span></td>
+
+<td>メール・ディレクトリー構造内のすべてのメッセージおよびフォルダーを表示しないようにします。</td>
+
+</tr>
+
+<tr>
+<td><span>-pack</span></td>
+
+<td>フォルダー内のメッセージの番号を付け直します。 番号を付け直すと、メッセージが削除された後のメッセージ番号付けのギャップがなくなります。</td>
+
+</tr>
+
+<tr>
+<td><span>-pop</span></td>
+
+<td>フォルダー・スタックの最上部からフォルダーを除去して、現行フォルダーにします。</td>
+
+</tr>
+
+<tr>
+<td><span>-print</span></td>
+
+<td>各フォルダー内のメッセージ数、各フォルダーの現行メッセージ、現行フォルダーを表示します。 <a href="https://www.ibm.com/docs/ja/ssw_aix_73/f_commands/folders.html#folders__row-d3e114788" target="_blank" rel="noopener noreferrer"><span>-push</span></a>、 <a href="https://www.ibm.com/docs/ja/ssw_aix_73/f_commands/folders.html#folders__row-d3e114757" target="_blank" rel="noopener noreferrer"><span>-pop</span></a>、または <a href="https://www.ibm.com/docs/ja/ssw_aix_73/f_commands/folders.html#folders__row-d3e114632" target="_blank" rel="noopener noreferrer"><span>-list</span></a> フラグが指定されている場合は、 <a href="https://www.ibm.com/docs/ja/ssw_aix_73/f_commands/folders.html#folders__row-d3e114721" target="_blank" rel="noopener noreferrer"><span>-noprint</span></a> フラグがデフォルトになります。それ以外の場合は、 <span>-print</span> フラグがデフォルトになります。</td>
+
+</tr>
+
+<tr>
+<td><span>-push</span></td>
+
+<td>現行フォルダーをフォルダー・スタックの最上部に移して、指定されたフォルダーを現行フォルダーにします。 フォルダーを指定せずに <span>-push</span> フラグを使用すると、
+フォルダー・スタックの最上部のフォルダーと現行フォルダーが交換されます。</td>
+
+</tr>
+
+<tr>
+<td><span>-recurse</span></td>
+
+<td>メール・ディレクトリー構造内にあるすべてのフォルダーとサブフォルダーの情報を表示します。</td>
+
+</tr>
+
+<tr>
+<td><span>-total</span></td>
+
+<td>メール・ディレクトリー構造内にあるすべてのメッセージとフォルダーを表示します。 <span>-total</span> フラグは、 <a href="https://www.ibm.com/docs/ja/ssw_aix_73/f_commands/folders.html#folders__row-d3e114797" target="_blank" rel="noopener noreferrer"><span>-recurse</span></a> フラグを指定しない限り、サブフォルダーの情報を表示しません。 <span>-total</span> フラグはデフォルトです。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+</section>
+
+<section><h2>プロファイル・エントリー</h2> <p>以下のエントリーが UserMhDirectory<span>/.mh_profile</span> ファイルに入力されます。</p>
+ 
+<div><div><table><caption><span>表 2. プロファイル・エントリー</span></caption><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><code>Current-Folder:</code></td>
+
+<td>デフォルトの現行フォルダーを設定します。</td>
+
+</tr>
+
+<tr>
+<td><code>Folder-Protect:</code></td>
+
+<td>新規フォルダー・ディレクトリーの保護レベルを設定します。</td>
+
+</tr>
+
+<tr>
+<td><code>Folder-Stack:</code></td>
+
+<td>フォルダー・スタックを指定します。</td>
+
+</tr>
+
+<tr>
+<td><code>lsproc:</code></td>
+
+<td>フォルダーの内容をリストするために使用されるプログラムを指定します。</td>
+
+</tr>
+
+<tr>
+<td><code>Path:</code></td>
+
+<td>ユーザーの MH ディレクトリーを指定します。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</section>
+
+<section><h2>例</h2> <ol>
+<li>すべてのフォルダーに関する情報を表示するには、次のように入力します。<div>
+<div><div><pre><code>folders</code></pre></div><div></div></div>システムは、次のようなメッセージで応答します。<div><div><pre><code>Folder  # of messages (range); cur msg  (other files)
+inbox+ has 80 messages (1-82); cur= 7; (others).
+test has 5 messages (1-6);   cur=  5; (others).
+ 
+   Total= 85 messages in 2 folders.   </code></pre></div><div></div></div>この例では、<code>2</code> つのフォルダーに合計 <code>85</code> のメッセージが入っています。 現行フォルダーは <code>inbox</code> です。これは、後ろに <code>+</code> (正符号) が付いていることから分かります。</div>
+</li>
+
+<li>すべてのフォルダーの名前のみをリストするには、次のように入力します。<div><code>folders    <a href="https://www.ibm.com/docs/ja/ssw_aix_73/f_commands/folders.html#folders__row-d3e114601" target="_blank" rel="noopener noreferrer">-fast</a></code></div>システムは、次のようなメッセージで応答します。<div>
+<div><div><pre><code>inbox
+test</code></pre></div><div></div></div>
+</div>
+</li>
+
+<li>すべてのフォルダー内のメッセージの番号を変更するには、次のように入力します。<div><code>folders    <a href="https://www.ibm.com/docs/ja/ssw_aix_73/f_commands/folders.html#folders__row-d3e114751" target="_blank" rel="noopener noreferrer">-pack</a></code></div>システムは、次のようなメッセージで応答します。<div>
+<div><div><pre><code>inbox+ has 80 messages (1-80); cur= 7; (others).
+test has 5 messages (1-5);  cur= 5; (others).</code></pre></div><div></div></div>この例では、 <code>inbox</code> フォルダーおよび <code>test</code> フォルダー内のメッセージが再番号付けされ、メッセージが削除された後のメッセージ番号付けのギャップが除去されます。</div>
+</li>
+
+</ol>
+</section>
+
+<section><h2>ファイル</h2> <div> 
+<div><div><table><caption><span>表 3. ファイル</span></caption><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><span>$HOME/.mh_profile</span></td>
+
+<td>MH ユーザー・プロファイルが入っています。</td>
+
+</tr>
+
+<tr>
+<td><span>/usr/bin/folders</span></td>
+
+<td><span>folders</span> コマンドが入っています。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+</section>
+
+</div></div>

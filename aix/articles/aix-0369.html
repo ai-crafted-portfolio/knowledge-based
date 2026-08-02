@@ -1,0 +1,163 @@
+<div class="official-dom"><div>
+<section><h2>目的</h2> <p>クライアントがリースを更新するたびに実行するスクリプトを提供します。</p>
+</section>
+
+<section><h2>構文</h2> <p><strong>/usr/sbin/dhcpaction</strong> <a href="https://www.ibm.com/docs/ja/ssw_aix_73/d_commands/dhcpaction.html#dhcpaction__row-d3e25664" target="_blank" rel="noopener noreferrer"><em>HostName</em></a> <a href="https://www.ibm.com/docs/ja/ssw_aix_73/d_commands/dhcpaction.html#dhcpaction__row-d3e25658" target="_blank" rel="noopener noreferrer"><em>DomainName</em></a> <a href="https://www.ibm.com/docs/ja/ssw_aix_73/d_commands/dhcpaction.html#dhcpaction__row-d3e25670" target="_blank" rel="noopener noreferrer"><em>IP アドレス</em></a> <a href="https://www.ibm.com/docs/ja/ssw_aix_73/d_commands/dhcpaction.html#dhcpaction__row-d3e25676" target="_blank" rel="noopener noreferrer"><em>LeaseTime</em> </a> <a href="https://www.ibm.com/docs/ja/ssw_aix_73/d_commands/dhcpaction.html#dhcpaction__row-d3e25652" target="_blank" rel="noopener noreferrer"><em>ClientID</em></a> <a href="https://www.ibm.com/docs/ja/ssw_aix_73/d_commands/dhcpaction.html#dhcpaction__row-d3e25694" target="_blank" rel="noopener noreferrer">{ <strong>A </strong>| <strong>PTR (ポインター) </strong>| <strong>両方 </strong>| <strong>なし </strong>}</a> <a href="https://www.ibm.com/docs/ja/ssw_aix_73/d_commands/dhcpaction.html#dhcpaction__row-d3e25709" target="_blank" rel="noopener noreferrer">{ <strong>ノニム </strong>| <strong>NIM とは </strong>}</a></p>
+</section>
+
+<section><h2>説明</h2> <p><span>dhcpaction</span> コマンドは、DNS サーバーを更新するメソッドを提供します。それは、適切なイベントの順序で <span>nsupdate</span> コマンドを呼び出して、<code>A</code> レコード、<code>PTR</code> レコード、またはその両方を更新することによって行われます。 <span>dhcpaction</span> コマンドは、DHCP クライアント
+およびサーバー・デーモンにより呼び出されます。 これは、<code>updateDNS</code> 文字列から呼び出されます。 この設定は構成可能です。一部の環境、主に異機種混合環境では、<code>A</code> レコードまたは <code>PTR</code> レコードを更新できないクライアントもあるからです。 デフォルトのアクションでは、クライアントによって <code>A</code> レコードが更新され、
+サーバーによって <code>PTR</code> レコードから更新されます。 ネットワーク管理者が実装したい任意のポリシーを許可するために、デーモン構成ファイル内にオプションが設定されている場合があります。</p>
+ <p><span>dhcpaction</span> コマンドは、NIM と DHCP も同時に実行します。 NIM パラメーターを指定された <span>dhcpaction</span> コマンドは、NIM オブジェクトの IP アドレスの変更があると、NIM オブジェクトの更新を実行しようとします。 このアクションにより、オブジェクトの同期をとり続けることができます。 そのためには、一部の保留操作を取り消さなければならないことがあります。 オブジェクトはコメントされ、
+メッセージがマスター・マシンのコンソールに送信されます。 オブジェクトの頻繁なリセットは避けてください。 通常、アドレスは DHCP 環境で変更しないでください。 <code>NONIM</code> オプションの設定は、クライアントだけで行ってください。</p>
+</section>
+
+<section><h2>パラメーター</h2> <div> 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><span>ClientID</span></td>
+
+<td>DNS サーバーを更新するときに使用するクライアント ID を指定します。</td>
+
+</tr>
+
+<tr>
+<td><span>DomainName</span></td>
+
+<td>DNS サーバーを更新するときに使用するドメイン・ネームを指定します。</td>
+
+</tr>
+
+<tr>
+<td><span>HostName</span></td>
+
+<td>DNS サーバー内の更新するホスト名を指定します。</td>
+
+</tr>
+
+<tr>
+<td><span>IPAddress</span></td>
+
+<td>DNS サーバーでホスト名と関連付ける IP アドレスを指定します。</td>
+
+</tr>
+
+<tr>
+<td><span>LeaseTime</span></td>
+
+<td>DNS サーバーでホスト名と IP アドレスが関連付けられている所要時間を秒で指定します。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+</section>
+
+<section><h2>オプション</h2> <div> 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><span>A</span> | <span>PTR</span> | <span>両方</span> | <span>なし</span></td>
+
+<td>DNS サーバー内の更新する必要があるレコード (ある場合) を指定します。</td>
+
+</tr>
+
+<tr>
+<td><span>NONIM</span> ｜ <span>ニム</span></td>
+
+<td>NIM と DHCP の正しい相互作用を支援するために、スクリプトを実行する必要があるかどうかを指定します。 これは、DHCP サーバー上では <span>NIM</span> にのみ設定する必要があります。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+</section>
+
+<section><h2>終了状況</h2> <p>このコマンドは、以下の終了値を戻します。</p>
+ 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td>0</td>
+
+<td>正常終了。</td>
+
+</tr>
+
+<tr>
+<td>&gt;0</td>
+
+<td>エラーが発生しました。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</section>
+
+<section><h2>セキュリティー</h2> <p>アクセス制御: すべてのユーザーが可能ですが、一部の NIM アクションについては root である必要があります。</p>
+</section>
+
+<section><h2>ファイル</h2> <div> 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><span>/usr/sbin/dhcpaction</span></td>
+
+<td><span>dhcpaction</span> コマンドが入っています。</td>
+
+</tr>
+
+<tr>
+<td><span>/etc/dhcpcd.ini</span></td>
+
+<td>DHCP のクライアント構成ファイルが入っています。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+</section>
+
+</div></div>

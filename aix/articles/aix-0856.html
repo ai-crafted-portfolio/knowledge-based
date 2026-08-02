@@ -1,0 +1,124 @@
+<div class="official-dom"><div>
+<section><h2>目的</h2>
+
+<p><span>AIXLive Update</span>操作に使用される基本プロセス・リストのエントリを追加、削除、または一覧表示します。</p>
+
+</section>
+
+<section><h2>構文</h2>
+
+<div><div><pre><code>lvupdateSetProcs -b [ -n label -a command | -n label -r | -l ]</code></pre></div><div></div></div>
+</section>
+
+<section><h2>説明</h2>
+
+<p><span>ライブ・アップデート</span> 操作中は、基本プロセスのチェックポイントはとられません。 これらのプロセスは、サロゲート LPAR に移行されるのではなく、元の論理区画で変更されないままになります。 このコマンドにより、基本プロセスのリストを管理するためのメカニズムが提供されます。 基本プロセスのリストは、<span>/etc/liveupdate/lvup_BaseProcs</span> ファイルに入れられます。</p>
+
+</section>
+
+<section><h2>パラメーター</h2>
+
+<div>
+
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td>command</td>
+
+<td>最大 1024 文字のストリングで、絶対パスを含む実行可能ファイルを指定します。</td>
+
+</tr>
+
+<tr>
+<td>ラベル</td>
+
+<td>最大 80 文字のストリングで、基本プロセスとして実行される特定のコマンドに関連付けられているラベルを指定します。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+
+</div>
+
+</section>
+
+<section><h2>フラグ</h2>
+
+<div>
+
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><span>-a</span> コマンド</td>
+
+<td>指定されたプロセス・リストにコマンドを追加します。<p><span>-a</span> フラグで指定された コマンド は、 <code>init</code> プロセスの直接の子として実行する必要があります。</p>
+</td>
+
+</tr>
+
+<tr>
+<td><span>-b</span></td>
+
+<td>基本プロセス・リストで処理される <span>lvupdateSetProcs</span> コマンドを指定します。</td>
+
+</tr>
+
+<tr>
+<td><span>-l</span></td>
+
+<td>指定されたプロセス・リストからコマンドをリストします。</td>
+
+</tr>
+
+<tr>
+<td><span>-n</span> ラベル</td>
+
+<td>追加または削除されるコマンドに関連付けるラベルを指定します。</td>
+
+</tr>
+
+<tr>
+<td><span>-r</span> コマンド</td>
+
+<td>指定されたプロセス・リストからコマンドを削除します。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+
+</div>
+
+</section>
+
+<section><h2>例</h2>
+
+<ol>
+<li><span>「ライブ・アップデート」</span> 操作で使用される基本プロセス・リストにエントリーを追加するには、次のコマンドを入力します。<div><div><pre><code># lvupdateSetProcs -b -n myserv -a /usr/sbin/myservice</code></pre></div><div></div></div></li>
+
+<li>基本プロセスとして登録されているコマンドをリストするには、次のコマンドを入力します。<div><div><pre><code># lvupdateSetProcs -bl</code></pre></div><div></div></div></li>
+
+</ol>
+
+</section>
+
+</div></div>

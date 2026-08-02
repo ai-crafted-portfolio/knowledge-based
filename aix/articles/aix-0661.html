@@ -1,0 +1,68 @@
+<div class="official-dom"><div>
+<section><h2>目的</h2> <p>ipreport 出力ファイルから各種の操作ヘッダーを抽出し、それらをテーブルに表示します。 要求と応答に関するある種のカスタマイズされた nfs 情報も提供されます。</p>
+</section>
+
+<section><h2>構文</h2> <p><span><span>ipfilter</span></span> [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/i_commands/ipfilter.html#ipfilter__row-d3e27516" target="_blank" rel="noopener noreferrer"><span><span>-f</span></span></a> [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/i_commands/ipfilter.html#ipfilter__row-d3e27498" target="_blank" rel="noopener noreferrer">u n t x c a</a> ]] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/i_commands/ipfilter.html#ipfilter__row-d3e27535" target="_blank" rel="noopener noreferrer"><span><span>-s</span></span></a> [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/i_commands/ipfilter.html#ipfilter__row-d3e27498" target="_blank" rel="noopener noreferrer">u n t x c a</a> ]] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/i_commands/ipfilter.html#ipfilter__row-d3e27526" target="_blank" rel="noopener noreferrer"><span><span>-n</span></span></a> [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/i_commands/ipfilter.html#ipfilter__row-d3e27504" target="_blank" rel="noopener noreferrer"><span><span>-d</span></span></a> <em>milliseconds</em> ]] <em>ipreport_output_file</em></p>
+</section>
+
+<section><h2>説明</h2> <p><strong>ipfilter</strong> コマンドは、ipreport 出力ファイルから特定の情報を抽出し、それをテーブルに表示します。 現在認識されている操作ヘッダーは、udp、nfs、tcp、ipx、icmp、atm です。 <span><span>ipfilter</span></span> コマンドには、以下の 3 つの異なるタイプのレポートがあります。</p>
+ <ul>
+<li>選択したすべての操作のリストを表示する単一ファイル (<strong>ipfilter.all</strong>)。 テーブルには、パケット番号、時間、ソースと出力先、長さ、順序 #、Ack #、ソース・ポート、出力先ポート、ネットワーク・インターフェース、操作タイプが表示されます。</li>
+
+<li>選択したヘッダーごとに個別のファイル (<strong>ipfilter.udp</strong>、<strong>ipfilter.nfs</strong>、
+<strong>ipfilter.tcp</strong>、<strong>ipfilter.ipx</strong>、<strong>ipfilter.icmp</strong>、<strong>ipfilter.atm</strong>)。 情報は <strong>ipfilter.all</strong> と同じです。</li>
+
+<li>nfs 要求および返信について報告する <strong>nfs.rpt</strong> ファイル。 テーブルには次の情報が含まれます。トランザクション ID #、要求のタイプ、要求の状況、コール・パケット番号、コールの時間、
+呼び出しのサイズ、返信パケット番号、返信の時間、返信のサイズ、および呼び出しと返信の間の経過時間 (ミリ秒)。</li>
+
+</ul>
+</section>
+
+<section><h2>フラグ</h2> <div> 
+<div><div><table><thead> <tr> <th><div>項目</div></th>
+ <th><div>説明</div></th>
+ </tr>
+ </thead>
+<tbody>
+<tr>
+<td><span><span>u n t x c a</span></span></td>
+
+<td>操作ヘッダー (それぞれ udp、nfs、tcp、ipx、icmp、および atm) を指定します。</td>
+
+</tr>
+
+<tr>
+<td><span><span>-d</span></span> <em>ミリ秒</em></td>
+
+<td>経過時間が <em>milliseconds</em> より大きい呼び出し/返信の対のみが表示されます。</td>
+
+</tr>
+
+<tr>
+<td><span><span>-f</span></span> [u n t x c a]</td>
+
+<td>選択した操作が <strong>ipfilter.all</strong> に表示されます。</td>
+
+</tr>
+
+<tr>
+<td><span><span>-n</span></span></td>
+
+<td><strong>nfs.rpt</strong> を生成します。</td>
+
+</tr>
+
+<tr>
+<td><span><span>-s</span></span> [u n t x c] ([u n t x c])</td>
+
+<td>選択した操作ごとに別々のファイルが作成されます。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+</section>
+
+</div></div>

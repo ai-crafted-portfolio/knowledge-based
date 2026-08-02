@@ -1,0 +1,550 @@
+<div class="official-dom"><div>
+<section><h2>目的</h2> <p>ファイルを <span>troff</span> 形式から PostScript 形式に変換します。</p>
+</section>
+
+<section><h2>構文</h2> <div>
+<div><div><pre><code>psroff [ -t] [ -dQueue ] [ -nNumber ] [ -tTitle ] [ -DFontDirectory ] [ -FFontFamily ] [ -PFlag ] [ troffFlags ] [ File ... ]</code></pre></div><div></div></div>
+</div>
+</section>
+
+<section><h2>説明</h2> <p><span>psroff</span> コマンドは、環境で <span>troff</span> コマンドを実行して PostScript プリンターで出力を生成するシェル・スクリプトです。 <span>psdit</span> コマンドを使用して、 <span>troff</span> 中間出力を PostScript 形式に変換し、この出力を印刷用にスプールします。 ファイルを指定しないと、標準入力が使用されます。</p>
+ <p>任意の PostScript 言語コマンドまたはファイルを <span>troff</span> 文書に組み込むには、 <span>psdit</span> コマンドを参照してください。</p>
+<p><strong>PostScript フォント情報</strong></p>
+ <p>「 PostScript Fonts for Transcript」表には、 TranScript コマンドで使用できるフォントが示されています。 このフォントは、<span>enscript</span> コマンドを使用するときは長名で使用でき、<span>psroff</span> コマンドか <span>troff</span> コマンドを使用するときは省略名で使用できます。 次のテーブルは、フォントのデフォルト・セットを宣言するときに使用する <span>psroff</span> コマンド (省略名) です。 英字は大文字と小文字が区別されます。</p>
+ 
+<div><span>PostScript フォント (トランスクリプト用)</span><div><table><thead>
+<tr>
+<th><div>ロング・ネーム (ショート・ネーム)</div></th>
+
+<th><div>フォント・ファミリー</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td>AvantGarde-Book (ag)</td>
+
+<td>AvantGarde</td>
+
+</tr>
+
+<tr>
+<td>AvantGarde-Demi (Ag)</td>
+
+<td>AvantGarde</td>
+
+</tr>
+
+<tr>
+<td>AvantGarde-DemiOblique (AG)</td>
+
+<td>AvantGarde</td>
+
+</tr>
+
+<tr>
+<td>AvantGarde-BookOblique (aG)</td>
+
+<td>AvantGarde</td>
+
+</tr>
+
+<tr>
+<td>Bookman-Demi (Bo)</td>
+
+<td>Bookman</td>
+
+</tr>
+
+<tr>
+<td>Bookman-DemiItalic (BO)</td>
+
+<td>Bookman</td>
+
+</tr>
+
+<tr>
+<td>Bookman-Light (bo)</td>
+
+<td>Bookman</td>
+
+</tr>
+
+<tr>
+<td>Bookman-LightItalic (bO)</td>
+
+<td>Bookman</td>
+
+</tr>
+
+<tr>
+<td>Courier (C)</td>
+
+<td>Courier</td>
+
+</tr>
+
+<tr>
+<td>Courier-Bold (CB)</td>
+
+<td>Courier</td>
+
+</tr>
+
+<tr>
+<td>Courier-BoldOblique (CO)</td>
+
+<td>Courier</td>
+
+</tr>
+
+<tr>
+<td>Courier-Oblique (CO)</td>
+
+<td>Courier</td>
+
+</tr>
+
+<tr>
+<td>Garamond-Bold (Ga)</td>
+
+<td>Garamond</td>
+
+</tr>
+
+<tr>
+<td>Garamond-BoldItalic (GA)</td>
+
+<td>Garamond</td>
+
+</tr>
+
+<tr>
+<td>Garamond-Light (ga)</td>
+
+<td>Garamond</td>
+
+</tr>
+
+<tr>
+<td>Garamond-LightItalic (gA)</td>
+
+<td>Garamond</td>
+
+</tr>
+
+<tr>
+<td>Helvetica (H)</td>
+
+<td>Helvetica</td>
+
+</tr>
+
+<tr>
+<td>Helvetica-Bold (HB)</td>
+
+<td>Helvetica</td>
+
+</tr>
+
+<tr>
+<td>Helvetica-Oblique (HO)</td>
+
+<td>Helvetica</td>
+
+</tr>
+
+<tr>
+<td>Helvetica-BoldOblique (HD)</td>
+
+<td>Helvetica</td>
+
+</tr>
+
+<tr>
+<td>Helvetica-Narrow (hn)</td>
+
+<td>Helvetica</td>
+
+</tr>
+
+<tr>
+<td>Helvetica-Narrow-Bold (Hn)</td>
+
+<td>Helvetica</td>
+
+</tr>
+
+<tr>
+<td>Helvetica-Narrow-BoldOblique (HN)</td>
+
+<td>Helvetica</td>
+
+</tr>
+
+<tr>
+<td>Helvetica-Narrow-Oblique (hN)</td>
+
+<td>Helvetica</td>
+
+</tr>
+
+<tr>
+<td>LubalinGraph-Book <code>(lu)</code></td>
+
+<td>Lubalin</td>
+
+</tr>
+
+<tr>
+<td>LubalinGraph-BookOblique <code>(lU)</code></td>
+
+<td>Lubalin</td>
+
+</tr>
+
+<tr>
+<td>LubalinGraph-Demi <code>(Lu)</code></td>
+
+<td>Lubalin</td>
+
+</tr>
+
+<tr>
+<td>LubalinGraph-DemiOblique <code>(LU)</code></td>
+
+<td>Lubalin</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+ 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td>NewCenturySchlbk (NC)</td>
+
+<td>NewCentury</td>
+
+</tr>
+
+<tr>
+<td>NewCenturySchlbk-Bold (Nc)</td>
+
+<td>NewCentury</td>
+
+</tr>
+
+<tr>
+<td>NewCenturySchlbk-Italic (nC)</td>
+
+<td>NewCentury</td>
+
+</tr>
+
+<tr>
+<td>NewCenturySchlbk-Roman (nc)</td>
+
+<td>NewCentury</td>
+
+</tr>
+
+<tr>
+<td>Optima (op)</td>
+
+<td>Optima</td>
+
+</tr>
+
+<tr>
+<td>Optima-Bold (Op)</td>
+
+<td>Optima</td>
+
+</tr>
+
+<tr>
+<td>Optima-BoldOblique (OP)</td>
+
+<td>Optima</td>
+
+</tr>
+
+<tr>
+<td>Optima-Oblique (oP)</td>
+
+<td>Optima</td>
+
+</tr>
+
+<tr>
+<td>Palatino-Bold (PB)</td>
+
+<td>Palatino</td>
+
+</tr>
+
+<tr>
+<td>Palatino-BoldItalic (PX)</td>
+
+<td>Palatino</td>
+
+</tr>
+
+<tr>
+<td>Palatino-Italic (PI)</td>
+
+<td>Palatino</td>
+
+</tr>
+
+<tr>
+<td>Palatino-Roman (PA)</td>
+
+<td>Palatino</td>
+
+</tr>
+
+<tr>
+<td>Souvenir-Demi (Sv)</td>
+
+<td>Souvenir</td>
+
+</tr>
+
+<tr>
+<td>Souvenir-DemiItalic (SV)</td>
+
+<td>Souvenir</td>
+
+</tr>
+
+<tr>
+<td>Souvenir-Light (sv)</td>
+
+<td>Souvenir</td>
+
+</tr>
+
+<tr>
+<td>Souvenir-LightItalic (sV)</td>
+
+<td>Souvenir</td>
+
+</tr>
+
+<tr>
+<td>Times-Bold (TB)</td>
+
+<td>Times</td>
+
+</tr>
+
+<tr>
+<td>Times-BoldItalic (TD)</td>
+
+<td>Times</td>
+
+</tr>
+
+<tr>
+<td>Times-Italic (TI)</td>
+
+<td>Times</td>
+
+</tr>
+
+<tr>
+<td>Times-Roman (TR)</td>
+
+<td>Times</td>
+
+</tr>
+
+<tr>
+<td>Symbol (S)</td>
+
+<td>(なし)</td>
+
+</tr>
+
+<tr>
+<td>ZapfChancery-MediumItalic (ZC)</td>
+
+<td>Zapf</td>
+
+</tr>
+
+<tr>
+<td>ZapfDingbats</td>
+
+<td>(なし)</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</section>
+
+<section><h2>フラグ</h2> <div> 
+<div><div><table><caption><span>表 1. フラグ</span></caption><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><span>-D</span>FontDirectory</td>
+
+<td>標準フォント・ディレクトリーではなく、インストール手順で構成された指定フォント・ディレクトリーでフォント・ファミリー・ディレクトリーを検索します。 <span>troff</span> コマンドで <span>-F</span> フラグを模倣するには、このフラグと <span>-F</span> フラグの両方を使用する必要がある場合があります。</td>
+
+</tr>
+
+<tr>
+<td><span>-d</span>キュー</td>
+
+<td>Queue パラメーターで指定したキューに出力を入れます。 <span>-d</span> フラグを使用しない場合には、<span>psroff</span> コマンドが出力をデフォルトのキューに入れ、最初のキューが <code>qdaemon</code> に対して認識されます。 このフラグは、スプーラー印刷によって認識されます。</td>
+
+</tr>
+
+<tr>
+<td><span>-F</span>FontFamily</td>
+
+<td>Times デフォルト・ファミリーではなく、 <code>R</code> フォント、 <code>I</code> フォント、 <code>B</code> フォント、または <code>BI</code> フォントに指定されたフォント・ファミリーを使用します。 Times、Courier、Helvetica フォント・ファミリーはユーザーの現場で定義され、他のフォントも同様に使用できます。 ユーザーが使用するプリンターが、ユーザーの選ぶフォント・ファミリーを持っていることを確認してください。 このフラグは、<span>troff</span> コマンドの <span>-F</span> フラグを変更します。 <span>troff</span> command <span>-F</span> フラグを使用する場合は、 <span>troff</span> コマンドを直接実行するか、代わりに <span>-D</span> フラグを使用する必要があります。</td>
+
+</tr>
+
+<tr>
+<td><span>-n</span>  Number</td>
+
+<td> Number パラメーターで指定された数の出力コピーが作成されます。 デフォルトは 1 部です。 このフラグは、スプーラー印刷によって認識されます。</td>
+
+</tr>
+
+<tr>
+<td><span>-P</span>フラグ</td>
+
+<td>Flag パラメーターをスプーラーへ渡します。 これは、スプーラーのフラグと <span>psroff</span> コマンドを使用したフラグの間で矛盾がある場合に便利です。</td>
+
+</tr>
+
+<tr>
+<td><span>-t</span></td>
+
+<td>PostScript 出力をプリンターにスプーリングするのではなく、標準出力に送信します。 このフラグは、<span>troff</span> コマンドの <span>-t</span> フラグを変更します。 <span>troff</span> command <span>-t</span> フラグが必要な場合は、 <span>troff</span> コマンドを直接実行する必要があります。</td>
+
+</tr>
+
+<tr>
+<td><span>-t</span>タイトル</td>
+
+<td>最初のバナー・ページで使用するジョブ名を設定します。 デフォルトでは、最初の入力ファイルの名前が使用されます。 このフラグは、スプーラー印刷によって認識されます。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+</section>
+
+<section><h2>パラメーター</h2> <div> 
+<div><div><table><caption><span>表 2. パラメーター</span></caption><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td>troffFlags</td>
+
+<td><span>troff</span> コマンドで使用可能な標準フラグを指定します。</td>
+
+</tr>
+
+<tr>
+<td>File</td>
+
+<td><span>troff</span> 中間出力ファイルを指定します。 デフォルトは標準入力です。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+</section>
+
+<section><h2>ファイル</h2> <div> 
+<div><div><table><caption><span>表 3. ファイル</span></caption><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><span>/usr/share/lib/tmac/tmac.*</span></td>
+
+<td>標準マクロ・ファイルが入っています。</td>
+
+</tr>
+
+<tr>
+<td><span>/usr/lib/font/devpsc/*</span></td>
+
+<td>PostScript 仮想デバイス用の <span>troff</span> 記述ファイルが入っています。</td>
+
+</tr>
+
+<tr>
+<td><span>/usr/lib/ps/*.afm</span></td>
+
+<td><span>enscript</span> コマンドで使用するための Adobe Font Metrics (AFM) ファイルが入っています。</td>
+
+</tr>
+
+<tr>
+<td><span>/usr/lib/ps/font.map</span></td>
+
+<td>フォント名とその省略形のリストが入っています。</td>
+
+</tr>
+
+<tr>
+<td><span>/usr/lib/ps/ditroff.font</span></td>
+
+<td><span>troff</span> コマンドのフォント・ファミリー・ファイルが入っています。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+</section>
+
+</div></div>

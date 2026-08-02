@@ -1,0 +1,58 @@
+<div class="official-dom"><div>
+<section><h2>目的</h2> <p>ホストからネットワーク情報センター (NIC) フォーマットのホスト・テーブルを入手します。</p>
+</section>
+
+<section><h2>構文</h2> <p><strong>/usr/sbin/gettable</strong> [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/g_commands/gettable.html#gettable__row-d3e140356" target="_blank" rel="noopener noreferrer"><strong>-v </strong></a>] <em>ホスト</em> [ <em>OutFile </em>]</p>
+</section>
+
+<section><h2>説明</h2> <p><strong>/usr/sbin/gettable</strong> コマンドは、<em>Host</em> パラメーターにより指定されたサーバーから NIC 標準ホスト・テーブルを入手するために使用します。 テーブルは取り出すと、<em>OutFile</em> パラメーターで示したファイル内に置かれます。</p>
+ <p><strong>gettable</strong>  コマンドは、<em>Host</em> パラメーター用のサービス指定内で示されたポートへの伝送制御プロトコル (TCP) 接続をオープンします。 次に、すべての名前が要求され、結果的に入手された情報が出力ファイル内に入ります。</p>
+ <p><strong>gettable</strong> コマンドは、 <a href="https://www.ibm.com/docs/ja/ssw_aix_73/h_commands/htable.html" target="_blank" rel="noopener noreferrer"><strong>htable</strong></a> コマンドと一緒に使用するのが最適です。このコマンドは、NIC 標準ファイル・フォーマットを、ネットワーク・ライブラリー・ルックアップ・ルーチンによって使用されるフォーマットに変換します。</p>
+</section>
+
+<section><h2>フラグ</h2> <div> 
+<div><div><table><thead> <tr> <th><div>項目</div></th>
+ <th><div>説明</div></th>
+ </tr>
+ </thead>
+<tbody>
+<tr>
+<td><strong>-v</strong></td>
+
+<td>詳細なホスト・テーブルの代わりにバージョン番号のみを取り出して、出力を <em>OutFile</em> ファイルに入れます。デフォルトでは、<strong>hosts.ver</strong> ファイルに入ります。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+</section>
+
+<section><h2>パラメーター</h2> <div> 
+<div><div><table><thead> <tr> <th><div>項目</div></th>
+ <th><div>説明</div></th>
+ </tr>
+ </thead>
+<tbody>
+<tr>
+<td><em>Host</em></td>
+
+<td>ホスト・テーブル情報を提供するサーバーを指定します。</td>
+
+</tr>
+
+<tr>
+<td><em>OutFile</em></td>
+
+<td>ホスト・テーブル情報を入れるファイルを指定します。 <strong>gettable</strong> コマンドで <strong>-v</strong> フラグを指定しなかった場合は、デフォルトのファイル名が <strong>hosts.txt</strong> になります。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+ </div>
+</section>
+
+</div></div>

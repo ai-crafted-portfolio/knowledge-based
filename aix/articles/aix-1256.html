@@ -1,0 +1,121 @@
+<div class="official-dom"><div>
+<section><h2>目的</h2> <p>サブシステムまたはサブシステム・グループのリフレッシュを要求します。</p>
+</section>
+
+<section><h2>構文</h2> <p><strong>refresh</strong> [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/r_commands/refresh.html#refresh__row-d3e139135" target="_blank" rel="noopener noreferrer"><strong>-h</strong></a> <em>ホスト</em>] { <a href="https://www.ibm.com/docs/ja/ssw_aix_73/r_commands/refresh.html#refresh__row-d3e139121" target="_blank" rel="noopener noreferrer"><strong>-g</strong></a> <em>グループ</em>| <a href="https://www.ibm.com/docs/ja/ssw_aix_73/r_commands/refresh.html#refresh__row-d3e139162" target="_blank" rel="noopener noreferrer"><strong>-p</strong></a> <em>SubsystemPID</em>| <a href="https://www.ibm.com/docs/ja/ssw_aix_73/r_commands/refresh.html#refresh__row-d3e139170" target="_blank" rel="noopener noreferrer"><strong>-s</strong></a> <em>Subsystem</em>}</p>
+</section>
+
+<section><h2>説明</h2> <p><strong>refresh</strong> コマンドは、サブシステムに送られるサブシステム・リフレッシュ要求をシステム・リソース・コントローラーに送信します。 リフレッシュ・アクションは、サブシステムによって異なります。</p>
+
+<div><div>
+        <div>
+          <div><span>注:</span> サブシステムの通信方式がシグナルの場合、 <span>refresh</span> コマンドは失敗します。</div>
+        </div>
+      </div></div>
+</section>
+
+<section><h2>フラグ</h2> <div> 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><strong>-g</strong><em> グループ</em></td>
+
+<td>リフレッシュの対象となるサブシステム・グループを指定します。 <em>グループ</em> 名がサブシステム・オブジェクト・クラスに含まれていない場合、 <strong>リフレッシュ</strong> コマンドは失敗します。</td>
+
+</tr>
+
+<tr>
+<td><strong>-h</strong><em> ホスト</em></td>
+
+<td>このリフレッシュ・アクションの要求先となる外部の <em>Host</em> コンピューターを指定します。 ローカル・ユーザーは、 <span>“</span>ルート<span>”</span>として実行する必要があります。 リモート・システムは、リモート・システム・リソース・コントローラー要求を受け入れるように構成しておく必要があります。 つまり、
+<strong>srcmstr</strong> デーモン (<strong>/etc/inittab</strong> を参照) を <strong>-r</strong> フラグで開始し、かつ、リモート要求を許可するよう <strong>/etc/hosts.equiv</strong> ファイルまたは <strong>.rhosts</strong> ファイルを構成しておく必要があります。</td>
+
+</tr>
+
+<tr>
+<td><strong>-p</strong><em> SubsystemPID</em></td>
+
+<td>リフレッシュの対象となるサブシステムの特定のインスタンスを指定します。</td>
+
+</tr>
+
+<tr>
+<td><strong>-s</strong><em> サブシステム</em></td>
+
+<td>リフレッシュの対象となるサブシステムを指定します。 <em>Subsystem</em> 名には、実際のサブシステム名、またはサブシステムの同義語名が使えます。 <em>サブシステム</em> 名がサブシステム・オブジェクト・クラスに含まれていない場合、 <strong>リフレッシュ</strong> コマンドは失敗します。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+</section>
+
+<section><h2>セキュリティー</h2> <p><strong>アテンション RBAC ユーザー</strong>: このコマンドは特権操作を実行できます。 特権命令を実行できるのは特権ユーザーのみです。 権限および特権について詳しくは、「<em>セキュリティー</em>」の『特権コマンド・データベース』を参照してください。 このコマンドに関連した特権および権限のリストについては、<strong>lssecattr</strong> コマンドまたは <strong>getcmdattr</strong> サブコマンドの項を参照してください。</p>
+</section>
+
+<section><h2>例</h2> <ol>
+<li><span></span>グループをリフレッシュするには、以下のようにします。tcpip次のように入力します。<div>refresh  <a href="https://www.ibm.com/docs/ja/ssw_aix_73/r_commands/refresh.html#refresh__row-d3e139121" target="_blank" rel="noopener noreferrer">-g</a> tcpip</div>
+</li>
+
+<li>サブシステムをリフレッシュするには、次のようにします。xntpd次のように入力します。<div>refresh  <a href="https://www.ibm.com/docs/ja/ssw_aix_73/r_commands/refresh.html#refresh__row-d3e139170" target="_blank" rel="noopener noreferrer">-s</a> xntpd</div>
+</li>
+
+</ol>
+</section>
+
+<section><h2>ファイル</h2> <div> 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><strong>/etc/objrepos/SRCsubsys</strong></td>
+
+<td>SRC サブシステム構成オブジェクト・クラスを指定します。</td>
+
+</tr>
+
+<tr>
+<td><strong>/etc/services</strong></td>
+
+<td>インターネット・サービスに使われるソケットとプロトコルを定義します。</td>
+
+</tr>
+
+<tr>
+<td><strong>/dev/SRC</strong></td>
+
+<td><strong>AF_UNIX</strong> ソケット・ファイルを指定します。</td>
+
+</tr>
+
+<tr>
+<td><strong>/dev/.SRC-unix</strong></td>
+
+<td>一時ソケット・ファイルの位置を指定します。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+</section>
+
+</div></div>

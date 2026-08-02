@@ -1,0 +1,94 @@
+<div class="official-dom"><div>
+<section><h2>目的</h2> <p>NFS のマウントを除去します。</p>
+</section>
+
+<section><h2>構文</h2> <p><strong>/usr/sbin/rmnfsmnt</strong><a href="https://www.ibm.com/docs/ja/ssw_aix_73/r_commands/rmnfsmnt.html#rmnfsmnt__row-d3e162113" target="_blank" rel="noopener noreferrer"><strong> -f </strong></a><em>PathName</em> [<strong></strong> <a href="https://www.ibm.com/docs/ja/ssw_aix_73/r_commands/rmnfsmnt.html#rmnfsmnt__row-d3e162121" target="_blank" rel="noopener noreferrer"><strong>-i</strong></a> | <a href="https://www.ibm.com/docs/ja/ssw_aix_73/r_commands/rmnfsmnt.html#rmnfsmnt__row-d3e162101" target="_blank" rel="noopener noreferrer"><strong>-b</strong></a> | <a href="https://www.ibm.com/docs/ja/ssw_aix_73/r_commands/rmnfsmnt.html#rmnfsmnt__row-d3e162130" target="_blank" rel="noopener noreferrer"><strong>-n</strong></a><strong></strong> ]</p>
+</section>
+
+<section><h2>説明</h2> <p><strong>rmnfsmnt</strong> コマンドは、<strong>/etc/filesystems</strong> ファイルから該当するエントリーを除去して、
+指定されたファイルシステムのマウントを解除します。 <strong>-N</strong> フラグを付けると、
+<strong>rmnfsmnt</strong> コマンドは <strong>/etc/filesystems</strong> ファイルを修正せずにファイルシステムのマウントを解除します。</p>
+</section>
+
+<section><h2>フラグ</h2> <div> 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><strong>-B</strong></td>
+
+<td><strong>/etc/filesystems</strong> ファイル内のエントリーを除去して、ディレクトリーのマウントを解除します。 <strong>/etc/filesystems</strong> ファイルにエントリーが存在しなければ、
+フラグはファイルに変更を加えません。 ファイルシステムが現在マウントされていなければ、
+フラグはマウントを解除しようとしません。 このフラグはデフォルトです。</td>
+
+</tr>
+
+<tr>
+<td><strong>-f</strong><em> PathName</em></td>
+
+<td>NFS でマウントされたファイルシステムのパス名を指定します。</td>
+
+</tr>
+
+<tr>
+<td><strong>-I</strong></td>
+
+<td>パス名で指定されたエントリーを <strong>/etc/filesystems</strong> ファイルから除去します。</td>
+
+</tr>
+
+<tr>
+<td><strong>-N</strong></td>
+
+<td><strong>/etc/filesystems</strong> ファイルを修正せずに、指定されたディレクトリーのマウントを解除します。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+</section>
+
+<section><h2>例</h2> <ol>
+<li><span></span>ファイル・システムをアンマウントするには、次のように入力します。<div> <div><div><pre><code>rmnfsmnt -f /usr/man -N</code></pre></div><div></div></div>この例では、/usr/manファイル・システムがアンマウントされました。</div>
+</li>
+
+<li><span></span>ファイルのマウントを除去するには、次のように入力します。<div> <div><div><pre><code>rmnfsmnt -f /usr/local/man -B</code></pre></div><div></div></div>この例では、以下のようにマウントされます。/usr/local/manファイルが除去されます。</div>
+</li>
+
+</ol>
+</section>
+
+<section><h2>ファイル</h2> <div> 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><strong>/etc/filesystems</strong></td>
+
+<td>システムの再始動時にマウントするリモート・ファイルシステムをリストします。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+</section>
+
+</div></div>

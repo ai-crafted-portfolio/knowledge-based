@@ -1,0 +1,106 @@
+<div class="official-dom"><div>
+<section><h2>目的</h2> <p>Preboot Execution Environment (PXE) ブート・サーバーをインプリメントします。 ブート・ファイル転送サーバー・アドレスを提供し、
+PXE クライアント用に該当するブート・ファイルを判別します。</p>
+</section>
+
+<section><h2>構文</h2> <p>システム・リソース・コントローラーを使って PXE クライアントにブート・ファイル情報を提供するには、
+次のように入力します。</p>
+ <p>startsrc-s <strong>binld</strong>[<a href="https://www.ibm.com/docs/ja/ssw_aix_73/b_commands/binld.html#binld__row-d3e56592" target="_blank" rel="noopener noreferrer"><strong>-a</strong></a>] ...</p>
+ <p>システム・リソース・コントローラーを使わずに PXE クライアントにブート・ファイル情報を提供するには、
+次のように入力します。</p>
+ <p><strong>binld</strong> [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/b_commands/binld.html#binld__row-d3e56598" target="_blank" rel="noopener noreferrer"><strong>-f</strong></a> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/b_commands/binld.html#binld__row-d3e56604" target="_blank" rel="noopener noreferrer"><strong>-i］</strong></a></p>
+</section>
+
+<section><h2>説明</h2> <p>BINLD サーバーは、PXE クライアントにブート・ファイルを割り当て、
+ブート・ファイルをどこからダウンロードすればよいかをクライアントに知らせます。 BINLD デーモンは、バックグラウンドで実行され、
+それが提供するブート・ファイルのデータベースと、
+各ブート・ファイルに該当するクライアント情報 (クライアント・アーキテクチャー、
+クライアント・マシン ID、ネットワーク ID の大小のバージョン) を保守します。 初期ブート・ファイル・データベースは、構成ファイルによって指定されます。 構成ファイルにも、
+PXE クライアントにブート・ファイル情報を割り当てるために必要なすべてのデータが入っています。</p>
+ <p>BINLD サーバーは、始動時に構成ファイルを読み取り、
+使用可能なブート・ファイルの初期データベースをセットアップします。 BINLD サーバーは <strong>refresh</strong> コマンドまたは SIGHUP シグナルを受信して、
+構成ファイルを再度読み取ります。</p>
+</section>
+
+<section><h2>フラグ</h2> <div> 
+<div><div><table><thead> <tr> <th><div>項目</div></th>
+ <th><div>説明</div></th>
+ </tr>
+ </thead>
+<tbody>
+<tr>
+<td><strong>-a</strong></td>
+
+<td>提供する引数。</td>
+
+</tr>
+
+<tr>
+<td><strong>-f</strong></td>
+
+<td>ConfigurationFile. 使用する構成ファイルを指定します。</td>
+
+</tr>
+
+<tr>
+<td><strong>-i</strong></td>
+
+<td>IP アドレス。 DHCPINFORM の送信先の DHCP サーバーの IP アドレスを指定します。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+</section>
+
+<section><h2>終了状況</h2> <p>このコマンドは、以下の終了値を戻します。</p>
+ 
+<div><div><table><thead> <tr> <th><div>項目</div></th>
+ <th><div>説明</div></th>
+ </tr>
+ </thead>
+<tbody>
+<tr>
+<td><strong>0</strong></td>
+
+<td>正常終了。</td>
+
+</tr>
+
+<tr>
+<td><strong>&gt;</strong></td>
+
+<td>エラーが発生しました。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</section>
+
+<section><h2>セキュリティー</h2> <p>アクセス制御: このコマンドを実行するには、root 権限を持っていなければなりません。</p>
+</section>
+
+<section><h2>ファイル</h2> <div> 
+<div><div><table><thead> <tr> <th><div>項目</div></th>
+ <th><div>説明</div></th>
+ </tr>
+ </thead>
+<tbody>
+<tr>
+<td>/usr/sbin/binld</td>
+
+<td>BINLD デーモンが入っています。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+</section>
+
+</div></div>

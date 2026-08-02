@@ -1,0 +1,115 @@
+<div class="official-dom"><div>
+<section><h2>目的</h2> <p>モジュール名とドライバー名のリストを作成します。</p>
+</section>
+
+<section><h2>構文</h2> <p><strong>スクルス</strong> [  <a href="https://www.ibm.com/docs/ja/ssw_aix_73/s_commands/scls.html#scls__row-d3e9919" target="_blank" rel="noopener noreferrer"><strong>「-c」 </strong></a>|  <a href="https://www.ibm.com/docs/ja/ssw_aix_73/s_commands/scls.html#scls__row-d3e9925" target="_blank" rel="noopener noreferrer"><strong>- </strong></a>] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/s_commands/scls.html#scls__row-d3e9934" target="_blank" rel="noopener noreferrer"><strong>-m (M)</strong></a> <em>モジュール名の変更</em> ] [ <em>モジュール</em> ... ]</p>
+</section>
+
+<section><h2>説明</h2> <p><strong>scls</strong> コマンドは、
+現在の <strong>Portable Streams Environment</strong> (PSE) 構成を照会する手段を提供します。 <strong>scls</strong> コマンドは、モジュール名およびドライバー名のリストを生成します。 拡張されたリストを生成するために、フラグを使用できます。 コマンド・ラインのフラグ以降のパラメーターはすべてモジュール名またはドライバー名です。生成された出力は、それらの名前に対するものだけです。</p>
+ <p></p><blockquote><span>“</span><span></span><strong>注:</strong> <strong>scls</strong> コマンドには、 <strong>sc</strong> STREAMS モジュールと <strong>nuls</strong> ドライバーが必要です。 いずれか一方が使用できない場合、<strong>scls</strong> コマンドは正しく実行されません。<span>”</span></blockquote>
+<p></p>
+</section>
+
+<section><h2>フラグ</h2> <div> 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><strong>-c</strong></td>
+
+<td>インターフェース・ルーチンが呼び出された回数を示すリストを作成します。</td>
+
+</tr>
+
+<tr>
+<td><strong>-l</strong></td>
+
+<td>拡張タイプ、メジャー番号、<strong>module_info</strong> 構造に関係のある情報を示す詳細なリストを生成します。</td>
+
+</tr>
+
+<tr>
+<td><strong>-m</strong></td>
+
+<td><em>sc_module_name</em> によって指し示されたモジュールを、ストリーム・ヘッド直下の現行ストリームの上部にプッシュします。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+ <p><strong>-c</strong> フラグと <strong>-l</strong> フラグは同時には指定できません。</p>
+</section>
+
+<section><h2>パラメーター</h2> <div> 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><em>モジュール</em></td>
+
+<td>情報を出力するモジュール名またはドライバー名を指定します。</td>
+
+</tr>
+
+<tr>
+<td><em>モジュール名 (sc_module_name)</em></td>
+
+<td>ストリーム・ヘッド直下の現行ストリームにプッシュする必要があるモジュール名を指定します。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+</section>
+
+<section><h2>ファイル</h2> <div> 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><strong>sc</strong></td>
+
+<td>動的にロード可能な STREAMS 構成モジュール。</td>
+
+</tr>
+
+<tr>
+<td><strong>NUL</strong></td>
+
+<td>動的にロード可能な STREAMS null デバイス。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+</section>
+
+</div></div>

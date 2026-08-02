@@ -1,0 +1,218 @@
+<div class="official-dom"><div>
+<section><h2>目的</h2> <p>/etc/inetd.conf ファイルまたは同様のシステムの構成ファイルの内容を変更します。</p>
+</section>
+
+<section><h2>構文</h2><p><strong>サーバーまたはサブサーバーのエントリーを追加または活動化する</strong></p>
+ <p><strong>サブサーバー</strong> [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/c_commands/chsubserver.html#chsubserver__row-d3e111304" target="_blank" rel="noopener noreferrer"><strong>-a 値</strong></a> ] <a href="https://www.ibm.com/docs/ja/ssw_aix_73/c_commands/chsubserver.html#chsubserver__row-d3e111434" target="_blank" rel="noopener noreferrer"><strong>-v (V)</strong></a> <em>ServiceName</em> <a href="https://www.ibm.com/docs/ja/ssw_aix_73/c_commands/chsubserver.html#chsubserver__row-d3e111362" target="_blank" rel="noopener noreferrer"><strong>P-</strong></a> <em>プロトコル</em> [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/c_commands/chsubserver.html#chsubserver__row-d3e111395" target="_blank" rel="noopener noreferrer"><strong>T</strong></a> <em>ソケット・タイプ</em> ][ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/c_commands/chsubserver.html#chsubserver__row-d3e111453" target="_blank" rel="noopener noreferrer"><strong>-w (W)</strong></a> <em>WaitIndicator</em> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/c_commands/chsubserver.html#chsubserver__row-d3e111418" target="_blank" rel="noopener noreferrer"><strong>-ウー</strong></a> <em>ユーザー</em> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/c_commands/chsubserver.html#chsubserver__row-d3e111345" target="_blank" rel="noopener noreferrer"><strong>-</strong></a> <em>プログラム</em> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/c_commands/chsubserver.html#chsubserver__row-d3e111370" target="_blank" rel="noopener noreferrer"><strong>-</strong></a> <em>サーバー</em> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/c_commands/chsubserver.html#chsubserver__row-d3e111322" target="_blank" rel="noopener noreferrer"><strong>-C</strong></a> <em>ConfigFile</em> ] [ <em>プログラム</em> ] [ <em>引数</em> ]</p>
+<p><strong>サーバー・エントリーを変更するには、以下のようにします。</strong></p>
+ <p><strong>chsubserver</strong> <a href="https://www.ibm.com/docs/ja/ssw_aix_73/c_commands/chsubserver.html#chsubserver__row-d3e111316" target="_blank" rel="noopener noreferrer"><strong>-c</strong></a> <a href="https://www.ibm.com/docs/ja/ssw_aix_73/c_commands/chsubserver.html#chsubserver__row-d3e111434" target="_blank" rel="noopener noreferrer"><strong>-v</strong></a> <em>ServiceName</em> <a href="https://www.ibm.com/docs/ja/ssw_aix_73/c_commands/chsubserver.html#chsubserver__row-d3e111362" target="_blank" rel="noopener noreferrer"><strong>-p</strong></a> <em>protocol</em>[<a href="https://www.ibm.com/docs/ja/ssw_aix_73/c_commands/chsubserver.html#chsubserver__row-d3e111395" target="_blank" rel="noopener noreferrer"><strong>-t</strong></a> <em>SocketType</em>] [<a href="https://www.ibm.com/docs/ja/ssw_aix_73/c_commands/chsubserver.html#chsubserver__row-d3e111453" target="_blank" rel="noopener noreferrer"><strong>-w</strong></a> <em>WaitIndicator</em>] [<a href="https://www.ibm.com/docs/ja/ssw_aix_73/c_commands/chsubserver.html#chsubserver__row-d3e111418" target="_blank" rel="noopener noreferrer"><strong>-u</strong></a> <em>user</em>] [<a href="https://www.ibm.com/docs/ja/ssw_aix_73/c_commands/chsubserver.html#chsubserver__row-d3e111345" target="_blank" rel="noopener noreferrer"><strong>-g</strong></a> <em>program</em>] [<a href="https://www.ibm.com/docs/ja/ssw_aix_73/c_commands/chsubserver.html#chsubserver__row-d3e111426" target="_blank" rel="noopener noreferrer"><strong>-V</strong></a> <em>NewServiceName</em>] [<a href="https://www.ibm.com/docs/ja/ssw_aix_73/c_commands/chsubserver.html#chsubserver__row-d3e111353" target="_blank" rel="noopener noreferrer"><strong>-P</strong></a> <em>NewProtocol</em>] [<a href="https://www.ibm.com/docs/ja/ssw_aix_73/c_commands/chsubserver.html#chsubserver__row-d3e111381" target="_blank" rel="noopener noreferrer"><strong>-T</strong></a> <em>NewSocketType</em>] [<a href="https://www.ibm.com/docs/ja/ssw_aix_73/c_commands/chsubserver.html#chsubserver__row-d3e111442" target="_blank" rel="noopener noreferrer"><strong>-W</strong></a> <em>NewWaitIndicator</em>] [<a href="https://www.ibm.com/docs/ja/ssw_aix_73/c_commands/chsubserver.html#chsubserver__row-d3e111410" target="_blank" rel="noopener noreferrer"><strong>-U</strong></a> <em>NewUser</em>] [<a href="https://www.ibm.com/docs/ja/ssw_aix_73/c_commands/chsubserver.html#chsubserver__row-d3e111337" target="_blank" rel="noopener noreferrer"><strong>-G</strong></a> <em>NewProgram</em>] [<a href="https://www.ibm.com/docs/ja/ssw_aix_73/c_commands/chsubserver.html#chsubserver__row-d3e111370" target="_blank" rel="noopener noreferrer"><strong>-r</strong></a> <em>server</em>] [<a href="https://www.ibm.com/docs/ja/ssw_aix_73/c_commands/chsubserver.html#chsubserver__row-d3e111322" target="_blank" rel="noopener noreferrer"><strong>-C</strong></a> <em>ConfigFile</em>] [<em>program</em>] [<em>args</em>]</p>
+<p><strong>サーバー・エントリーまたは inetd サブサーバー・エントリーを非活動化する</strong></p>
+ <p><strong>サブサーバー</strong> <a href="https://www.ibm.com/docs/ja/ssw_aix_73/c_commands/chsubserver.html#chsubserver__row-d3e111331" target="_blank" rel="noopener noreferrer"><strong>-d 年</strong></a> <a href="https://www.ibm.com/docs/ja/ssw_aix_73/c_commands/chsubserver.html#chsubserver__row-d3e111434" target="_blank" rel="noopener noreferrer"><strong>-v (V)</strong></a> <em>ServiceName</em> <a href="https://www.ibm.com/docs/ja/ssw_aix_73/c_commands/chsubserver.html#chsubserver__row-d3e111362" target="_blank" rel="noopener noreferrer"><strong>P-</strong></a> <em>プロトコル</em> [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/c_commands/chsubserver.html#chsubserver__row-d3e111395" target="_blank" rel="noopener noreferrer"><strong>T</strong></a> <em>SocketType</em> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/c_commands/chsubserver.html#chsubserver__row-d3e111453" target="_blank" rel="noopener noreferrer"><strong>-w (W)</strong></a> <em>WaitIndicator</em> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/c_commands/chsubserver.html#chsubserver__row-d3e111418" target="_blank" rel="noopener noreferrer"><strong>-ウー</strong></a> <em>ユーザー</em> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/c_commands/chsubserver.html#chsubserver__row-d3e111345" target="_blank" rel="noopener noreferrer"><strong>-</strong></a> <em>プログラム</em> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/c_commands/chsubserver.html#chsubserver__row-d3e111370" target="_blank" rel="noopener noreferrer"><strong>-</strong></a> <em>サーバー</em> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/c_commands/chsubserver.html#chsubserver__row-d3e111322" target="_blank" rel="noopener noreferrer"><strong>-C</strong></a> <em>ConfigFile</em> ] [ <em>プログラム</em> ] [ <em>引数</em> ]</p>
+</section>
+
+<section><h2>説明</h2> <p><strong>chsubserver</strong> コマンドは、デフォルトの <strong>/etc/inetd.conf</strong> システム構成ファイル、またはこれに類似する構成ファイルのエントリーを追加、削除、または変更します。 これらのエントリーは、DARPA インターネットで使用される既知のサービスに関連があり、<strong>inetd</strong> サーバーで使用される情報にも関連があります。 <strong>inetd</strong> サーバーのエントリーは、システムがインターネット・サービス要求をどのように処理するかを決定します。</p>
+ <p><strong>chsubserver</strong> コマンドにより、<strong>-r</strong> フラグを使用してサーバーをリフレッシュすることもできます。 指定のサーバーには、その構成ファイルを再読み取りをするために、<strong>SIGHUP</strong> シグナルが送られます。 これにより、構成ファイルを編集し、変更内容を即座に有効にすることができます。</p>
+ <p>各サービス・エントリーには、既知のサービスに関する情報と、<strong>inetd</strong> サーバーが使用する情報が入っています。 <strong>chsubserver</strong> コマンドは、既知のサービスと <strong>inetd</strong> サーバーまたは他のサブサーバー情報に関して、以下の項目を操作します。</p>
+ <ul>
+<li><span></span> <em>ServiceName</em> 変数によって指定された公式インターネット・サービス名。</li>
+
+<li><span></span>サービスに使用される、 <em>protocol</em> 変数で指定されるトランスポート・プロトコル。</li>
+
+<li><span></span>サービスに関連付けられた、 <em>SocketType</em> 変数によって指定されたソケットのタイプ。 サービスに関連するソケット・タイプは、ストリーム・ソケットまたはデータグラム・ソケットです。 ストリーム・ソケットを指定する場合は、<strong>nowait</strong> フラグのみを使用してください。 データグラム・ソケットを指定する場合は、<strong>wait</strong> フラグまたは <strong>nowait</strong> フラグのいずれかを使用してください。</li>
+
+<li><span></span> <strong>wait</strong> または <strong>nowait</strong> フラグ。 <em>WaitIndicator</em> 変数で指定します。 <strong>wait</strong> または <strong>nowait</strong> フラグは、<strong>inetd</strong> サーバーがソケット側で引き続き listen する前に、データグラム・サーバーがソケットを解放するのを待つかどうかを示します。</li>
+
+<li><span></span> <strong>inetd</strong> サーバーがサブサーバーを始動するために使用する、 <em>user</em> 変数で指定されたユーザー名。</li>
+
+</ul>
+ <p>このコマンドは、System Management Interface Tool (SMIT) <strong>smit inetdconf</strong> 高速パスを使用しても実行できます。</p>
+</section>
+
+<section><h2>フラグ</h2> <div> 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><strong>-a</strong></td>
+
+<td>構成ファイル内のエントリーを追加または活動化にします。 要求されたサービスが構成ファイル内に存在する場合は、<strong>-a</strong> フラグはその行からコメント文字を削除します。 行が存在しなければ、<strong>-a</strong> フラグはその行を構成ファイルに追加します。 これはデフォルトのアクションです。</td>
+
+</tr>
+
+<tr>
+<td><strong>-c</strong></td>
+
+<td>構成ファイル内のエントリーを変更します。</td>
+
+</tr>
+
+<tr>
+<td><strong>-C</strong></td>
+
+<td><strong>/etc/inetd.conf</strong> に類似する構成ファイルを指定します。</td>
+
+</tr>
+
+<tr>
+<td><strong>-d</strong></td>
+
+<td>構成ファイル内の行をコメント化し、ファイル内のエントリーを非活動化にします。</td>
+
+</tr>
+
+<tr>
+<td><strong>-G</strong><em> NewProgram</em></td>
+
+<td>始動する既存のプログラムを変更します。</td>
+
+</tr>
+
+<tr>
+<td><strong>-g</strong><em> プログラム</em></td>
+
+<td>始動するプログラムを指定します。</td>
+
+</tr>
+
+<tr>
+<td><strong>-P </strong><em>NewProtocol</em></td>
+
+<td>現行プロトコル名の新しいプロトコル名を指定します。</td>
+
+</tr>
+
+<tr>
+<td><strong>-p </strong><em>プロトコル</em></td>
+
+<td>プロトコルを指定します。</td>
+
+</tr>
+
+<tr>
+<td><strong>-r </strong><em>サーバー</em></td>
+
+<td>指定サーバーに <strong>SIGHUP</strong> を送信します。</td>
+
+</tr>
+
+<tr>
+<td><strong>-T </strong><em>NewSocketType</em></td>
+
+<td>既存のソケット・タイプ、つまりストリーム・ソケットの場合は <strong>stream</strong>  値、またはデータグラム・ソケットの場合は <strong>dgram</strong> 値を置き換えます。</td>
+
+</tr>
+
+<tr>
+<td><strong>-t </strong><em>SocketType</em></td>
+
+<td>ソケットのタイプ、つまりストリーム・ソケットの場合は <strong>stream</strong> の値、またはデータグラム・ソケットの場合は <strong>dgram</strong> の値を指定します。</td>
+
+</tr>
+
+<tr>
+<td><strong>-U</strong><em> NewUser</em></td>
+
+<td>既存のユーザー名を置き換えます。</td>
+
+</tr>
+
+<tr>
+<td><strong>-u</strong><em> ユーザー</em></td>
+
+<td>ユーザー名を指定します。</td>
+
+</tr>
+
+<tr>
+<td><strong>-V </strong><em>NewName</em></td>
+
+<td>新しいサービス名を指定します。</td>
+
+</tr>
+
+<tr>
+<td><strong>-v </strong><em>ServiceName</em></td>
+
+<td>サービス名を指定します。</td>
+
+</tr>
+
+<tr>
+<td><strong>-W </strong><em>NewWaitIndicator</em></td>
+
+<td>既存の <em>WaitIndicator</em> を置き換えます。</td>
+
+</tr>
+
+<tr>
+<td><strong>-w </strong><em>WaitIndicator</em></td>
+
+<td><strong>wait</strong>  の値を持つ単一スレッド・サービスまたは <strong>nowait</strong> の値を持つマルチスレッド・サービスを指定します。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+</section>
+
+<section><h2>セキュリティー</h2> <p>アクセス制御: このコマンドにアクセスできるのは、root ユーザーとシステム・グループのメンバーだけです。</p>
+</section>
+
+<section><h2>例</h2> <ol>
+<li><span></span> /etc/inetd.conf ファイルの uucp 行のコメントを外すには、次のように入力します。<div> <div><div><pre><code>chsubserver -a -v uucp -p tcp </code></pre></div><div></div></div></div>
+</li>
+
+<li><span></span>gregserv サービスを記述し、プログラムを実行する行を <strong>/etc/inetd.conf</strong> ファイルに追加するには、以下のようにします。/usr/sbin/gregservストリーム・ソケットおよび ftpd の引数を使用して udp プロトコル上の root として、以下のように 1 行で入力します。<div> <div><div><pre><code>chsubserver -a -r inetd -v gregserv -p udp -t stream -w nowait -u 
+root -g /usr/sbin/gregserv ftpd</code></pre></div><div></div></div><strong>inetd</strong> は確認を待ちません。 この行をファイルに追加し終ると、<strong>inetd</strong> プログラムに <strong>SIGHUP</strong> シグナルが送信されます。</div>
+</li>
+
+<li><span></span> <strong>/tmp/inetd.conf</strong> ファイルで、既存のサービスをストリーム・ソケットの使用から dgram ソケットの使用に変更するには、以下のように 1 行で入力します。<div> <div><div><pre><code>chsubserver -c -v gregserv -p udp -t stream -T dgram -C /tmp/inetd.conf</code></pre></div><div></div></div></div>
+</li>
+
+<li><span></span> <strong>/etc/inetd.conf</strong> ファイル内の udp を介して gregserv サービスをコメント化するには、次のように入力します。<div> <div><div><pre><code>chsubserver -d -v gregserv -p udp</code></pre></div><div></div></div></div>
+</li>
+
+</ol>
+</section>
+
+<section><h2>ファイル</h2> <div> 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><strong>/usr/sbin/chsubserver</strong></td>
+
+<td><strong>chsubserver</strong> コマンドが入っています。</td>
+
+</tr>
+
+<tr>
+<td><strong>/etc/inetd</strong><strong>.conf</strong></td>
+
+<td><strong>inetd</strong> デーモン用の構成情報が入っています。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+</section>
+
+</div></div>

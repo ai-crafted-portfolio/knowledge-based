@@ -1,0 +1,127 @@
+<div class="official-dom"><div>
+<section><h2>目的</h2> <p>BNU のリモート・システムとの接続の状態を表示します。</p>
+</section>
+
+<section><h2>構文</h2> <p><strong>uusnap</strong></p>
+</section>
+
+<section><h2>説明</h2> <p><strong>uusnap</strong> コマンドは、基本ネットワーク・ユーティリティー (BNU) の状態を示すテーブルを表示します。 テーブルには、各リモート・システムごとに以下の情報が表示されます。</p>
+ 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td>SystemName</td>
+
+<td>リモート・システムの名前を示します。</td>
+
+</tr>
+
+<tr>
+<td>Number Cmds</td>
+
+<td>コマンド・ファイルの数を指定します (<a href="https://www.ibm.com/docs/ja/ssw_aix_73/filesreference/Command.html" target="_blank" rel="noopener noreferrer"><strong>C. * --&gt;</strong></a> ファイル) がリモート・システム用にキューに入れられました。</td>
+
+</tr>
+
+<tr>
+<td>Number Data</td>
+
+<td>データ転送の数を指定します (<a href="https://www.ibm.com/docs/ja/ssw_aix_73/filesreference/Data.html" target="_blank" rel="noopener noreferrer"><strong>D. * (D)</strong></a> ファイル) がリモート・システム用にキューに入れられました。</td>
+
+</tr>
+
+<tr>
+<td>Number Xqts</td>
+
+<td>リモート・コマンド実行数 (<a href="https://www.ibm.com/docs/ja/ssw_aix_73/filesreference/Execute.html" target="_blank" rel="noopener noreferrer"><strong>X * (*)</strong></a> ) を指定します。 ファイル) がリモート・システム用にキューに入れられました。</td>
+
+</tr>
+
+<tr>
+<td>Message</td>
+
+<td><strong>/var/spool/uucp/</strong><a href="https://www.ibm.com/docs/ja/ssw_aix_73/filesreference/Status.html" target="_blank" rel="noopener noreferrer"><strong>.Status</strong></a><strong>/</strong><em>SystemName</em> ファイルから、サイトの現在の状況メッセージを指定します。 このMessageフィールドには、BNU がリモート・システムを再試行するまでの残り時間、および BNU がシステムに到達しようとして失敗した回数 (ある場合) のカウントが含まれる場合があります。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</section>
+
+<section><h2>例</h2> <p>BNU の状態のスナップショットを表示するには、以下のように入力します。</p>
+ <div> <div><div><pre><code>uusnap</code></pre></div><div></div></div></div>
+ <p>このコマンドにより、以下のように出力されます。</p>
+ <div> <div><div><pre><code>nostromo  4 Cmds  2 Data  2 Xqts  SUCCESSFUL
+zeus      2 Cmds  1 Data  2 Xqts  NO DEVICES AVAILABLE</code></pre></div><div></div></div></div>
+ <p>これらの行は、4 つのコマンド・ファイル、2 つのデータ・ファイル、および 2 つの実行ファイルが現在システムのキューに入っていることを示しています。nostromo. 最後の接続先nostromoWAS SUCCESSFUL. システムへの最後の接続試行zeus一方、ローカル・システムで使用可能な装置がなかったため、成功しませんでした。</p>
+</section>
+
+<section><h2>ファイル</h2> <div> 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><strong>/usr/bin/uusnap</strong></td>
+
+<td><strong>uusnap</strong> コマンドが入っています。</td>
+
+</tr>
+
+<tr>
+<td><strong>/var/spool/uucp/.Status</strong><strong>/</strong><em>システム名</em></td>
+
+<td>リモート・システムと接続する BNU の状態を記録します。</td>
+
+</tr>
+
+<tr>
+<td><strong>/var/spool/uucp/</strong><em>システム名</em></td>
+
+<td><strong>C. * --&gt;</strong>を含む <strong>D. * (D)</strong>, および <strong>X * (*)</strong> <strong>ウシコ</strong> デーモンによって転送されるファイル。</td>
+
+</tr>
+
+<tr>
+<td><strong>/var/spool/uucp/</strong><em>SystemName</em><strong>/</strong><strong>C. *</strong></td>
+
+<td>転送されるファイルについて BNU に命令します。</td>
+
+</tr>
+
+<tr>
+<td><strong>/var/spool/uucp/</strong><em>SystemName</em><strong>/</strong><strong>D. *</strong></td>
+
+<td>BNU が転送するファイルが入っています。</td>
+
+</tr>
+
+<tr>
+<td><strong>/var/spool/uucp/</strong><em> システム名</em><strong> /</strong> <strong>X.*</strong></td>
+
+<td>BNU が実行するリモート・コマンドが入っています。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+</section>
+
+</div></div>

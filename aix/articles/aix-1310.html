@@ -1,0 +1,161 @@
+<div class="official-dom"><div>
+<section><h2>目的</h2> <p>フォルダーと、そのフォルダーに含まれるメッセージを除去します。</p>
+</section>
+
+<section><h2>構文</h2> <p><strong>RM</strong> [ <strong>+</strong> <a href="https://www.ibm.com/docs/ja/ssw_aix_73/r_commands/rmf.html#rmf__row-d3e158411" target="_blank" rel="noopener noreferrer"><em>フォルダー</em> </a>] [  <a href="https://www.ibm.com/docs/ja/ssw_aix_73/r_commands/rmf.html#rmf__row-d3e158430" target="_blank" rel="noopener noreferrer"><strong>-対話式 </strong></a>|  <a href="https://www.ibm.com/docs/ja/ssw_aix_73/r_commands/rmf.html#rmf__row-d3e158441" target="_blank" rel="noopener noreferrer"><strong>-非対話式 </strong></a>]</p>
+</section>
+
+<section><h2>説明</h2> <p><strong>rmf</strong> コマンドは指定されたフォルダー内のメッセージを削除してから、フォルダーを削除します。 デフォルトでは、<strong>rmf</strong> コマンドはフォルダーを削除する前にユーザーの要求を確認します。 フォルダーにメッセージ以外のファイルが入っていると、
+<strong>rmf</strong> コマンドはそれらのファイルを削除せずにエラーを報告します。</p>
+
+<div><div>
+        <div>
+          <div><span>重要:</span> <span></span> <span>rmf</span> コマンドは、他のリンクを持たないメッセージを取り消し不可に削除します。</div>
+        </div>
+      </div></div>
+ <p>デフォルトでは、<strong>rmf</strong> コマンドは現行フォルダーを除去します。 現行フォルダーが除去されると、<strong>inbox</strong> が現行フォルダーになります。 <strong>+</strong><em>Folder</em> フラグを指定しなかった場合に、
+<strong>rmf</strong> コマンドが現行フォルダーを見つけられなけれ
+ば、このコマンドは <strong>+inbox</strong> フォルダーを除去する前に確認を求めます。</p>
+ <p>フォルダーへのアクセス権が読み取り専用の場合は、<strong>rmf</strong> コマンドはフォルダーまたはフォルダーに含まれるメッセージを削除しません。 <strong>rmf</strong> コマンドは、
+専用シーケンスと現行メッセージ情報のみをプロファイルから削除します。</p>
+ <p><strong>rmf</strong> コマンドはフォルダーを再帰的に削除しません。 親フォルダーの除去を要求してサブフォルダーを除去することはできません。 サブフォルダーを除去すると、
+その親フォルダーが現行フォルダーになります。</p>
+</section>
+
+<section><h2>フラグ</h2> <div> 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><strong>+</strong><em>フォルダー</em></td>
+
+<td>除去するフォルダーを指定します。</td>
+
+</tr>
+
+<tr>
+<td><strong>-help</strong></td>
+
+<td>これは、コマンド構文、使用可能なスイッチ (トグル)、およびバージョン情報をリストします。<div><div>
+        <div>
+          <div><span>注:</span> メッセージ・ハンドラー (MH) の場合、このフラグ名は完全な形で指定しなければなりません。</div>
+        </div>
+      </div></div>
+</td>
+
+</tr>
+
+<tr>
+<td><strong>対話式</strong></td>
+
+<td>フォルダーを除去する前に確認を要求します。 <strong>+</strong><em>Folder</em> フラグを指定しない場合は、これがデフォルトです。</td>
+
+</tr>
+
+<tr>
+<td><strong>非対話式</strong></td>
+
+<td>確認を要求せずにフォルダーとそのメッセージを除去します。 これはデフォルトです。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+</section>
+
+<section><h2>プロファイル・エントリー</h2> <p>以下のエントリーが <em>UserMhDirectory</em><strong>/.mh_profile</strong> ファイルに入力されます。</p>
+ 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td>Current-Folder:</td>
+
+<td>デフォルトの現行フォルダーを設定します。</td>
+
+</tr>
+
+<tr>
+<td>Path:</td>
+
+<td>ユーザーの MH ディレクトリーを指定します。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</section>
+
+<section><h2>セキュリティー</h2>
+<div><div>
+        <div>
+          <div><span>重要:</span> これは RBAC ユーザー用です。 <span>rmf</span> コマンドは特権操作を実行できます。 特権命令を実行できるのは特権ユーザーのみです。 権限および特権について詳しくは、「<em>セキュリティー</em>」の『特権コマンド・データベース』を参照してください。 特権のリストおよびこのコマンドに関連する権限については、<strong>lssecattr</strong> コマンドまたは <strong>getcmdattr</strong> サブコマンドを参照してください。</div>
+        </div>
+      </div></div>
+</section>
+
+<section><h2>例</h2>
+<div><div>
+        <div>
+          <div><span>重要:</span> <span></span> <span>rmf</span> コマンドは、他のリンクを持たないメッセージを取り消し不可に削除します。</div>
+        </div>
+      </div></div>
+ <ol>
+<li><span></span>現行フォルダーを削除するには、以下のようにします。status次のように入力します。<div> <div><div><pre><code>rmf</code></pre></div><div></div></div>システムは、次のようなメッセージで応答します。<div><div><pre><code>Remove folder "status"?</code></pre></div><div></div></div>フォルダーを削除する場合は、次のように入力します。yesシステムは、次のようなメッセージで応答します。<div><div><pre><code>[+inbox now current]</code></pre></div><div></div></div></div>
+</li>
+
+<li><span></span>削除するには、meetingsフォルダーを非対話式に入力します。<div> <div><div><pre><code>rmf +meetings</code></pre></div><div></div></div></div>
+</li>
+
+</ol>
+</section>
+
+<section><h2>ファイル</h2> <div> 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><strong>$HOME/.mh_profile</strong></td>
+
+<td>MH ユーザー・プロファイルを定義します。</td>
+
+</tr>
+
+<tr>
+<td><strong>/usr/bin/rmf</strong></td>
+
+<td><strong>rmf</strong> コマンドが入っています。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+</section>
+
+</div></div>

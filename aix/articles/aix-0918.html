@@ -1,0 +1,288 @@
+<div class="official-dom"><div>
+<div></div>
+
+<section><h2>目的</h2> <p>Kerberos クライアントを構成します。</p>
+</section>
+
+<section><h2>構文</h2> <p><span>IBM</span>Network Authentication Service に対してのみKerberosを設定する：</p>
+ <p><strong>mkkrb5clnt</strong><strong> <a href="https://www.ibm.com/docs/ja/ssw_aix_73/m_commands/mkkrb5clnt.html#sdmkkrb5clnt__row-d3e140272" target="_blank" rel="noopener noreferrer">-h</a></strong> | [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/m_commands/mkkrb5clnt.html#sdmkkrb5clnt__row-d3e140250" target="_blank" rel="noopener noreferrer"><strong>「-c」</strong></a> <em>KDC とは</em> <a href="https://www.ibm.com/docs/ja/ssw_aix_73/m_commands/mkkrb5clnt.html#sdmkkrb5clnt__row-d3e140326" target="_blank" rel="noopener noreferrer"><strong>-</strong></a> <em>レルム</em> <a href="https://www.ibm.com/docs/ja/ssw_aix_73/m_commands/mkkrb5clnt.html#sdmkkrb5clnt__row-d3e140335" target="_blank" rel="noopener noreferrer"><strong>-s</strong></a> <em>サーバー</em> <a href="https://www.ibm.com/docs/ja/ssw_aix_73/m_commands/mkkrb5clnt.html#sdmkkrb5clnt__row-d3e140361" target="_blank" rel="noopener noreferrer"><strong>-U (U)</strong></a> [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/m_commands/mkkrb5clnt.html#sdmkkrb5clnt__row-d3e140236" target="_blank" rel="noopener noreferrer"><strong>-a 値</strong></a> <em>管理者</em> ] <a href="https://www.ibm.com/docs/ja/ssw_aix_73/m_commands/mkkrb5clnt.html#sdmkkrb5clnt__row-d3e140258" target="_blank" rel="noopener noreferrer"><strong>-d 年</strong></a> <em>ドメイン</em> [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/m_commands/mkkrb5clnt.html#sdmkkrb5clnt__row-d3e140244" target="_blank" rel="noopener noreferrer"><strong>-A</strong></a> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/m_commands/mkkrb5clnt.html#sdmkkrb5clnt__row-d3e140278" target="_blank" rel="noopener noreferrer"><strong>I</strong></a> <em>データベース</em> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/m_commands/mkkrb5clnt.html#sdmkkrb5clnt__row-d3e140286" target="_blank" rel="noopener noreferrer"><strong>-K (K)</strong></a> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/m_commands/mkkrb5clnt.html#sdmkkrb5clnt__row-d3e140355" target="_blank" rel="noopener noreferrer"><strong>-T (T)</strong></a> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/m_commands/mkkrb5clnt.html#sdmkkrb5clnt__row-d3e140343" target="_blank" rel="noopener noreferrer"><strong>T</strong></a> <em>チケット存続時間</em> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/m_commands/mkkrb5clnt.html#sdmkkrb5clnt__row-d3e140314" target="_blank" rel="noopener noreferrer"><strong>N</strong></a> <em>更新存続時間</em> ] ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/m_commands/mkkrb5clnt.html#sdmkkrb5clnt__row-d3e140292" target="_blank" rel="noopener noreferrer"><strong>-</strong></a> {<em>LDAP サーバー</em> | <em>ldapserver: ポート</em>} ]</p>
+ <p>kadmind 以外のサービスに対して Kerberos を構成するには、次のように入力します。</p>
+ <p><strong>mkkrb5clnt</strong> <strong>-h</strong> | <strong>「-c」</strong> <em>KDC とは</em> <strong>-</strong> <em>レルム</em> <strong>-s</strong> <em>サーバー</em> <strong>-d 年</strong> <em>ドメイン</em> [ <strong>I</strong> <em>データベース</em> ] [ <strong>-K (K)</strong> ] [ <strong>T</strong> <em>チケット存続時間</em> ] [ <strong>N</strong> <em>更新存続時間</em> ] <a href="https://www.ibm.com/docs/ja/ssw_aix_73/m_commands/mkkrb5clnt.html#sdmkkrb5clnt__row-d3e140266" target="_blank" rel="noopener noreferrer"><strong>-D</strong></a> [ <strong>-</strong> {<em>LDAP サーバー</em> | <em>ldapserver: ポート</em>} ] | <strong>-U (U)</strong></p>
+</section>
+
+<section><h2>説明</h2> <p>このコマンドは、Kerberos クライアントを構成します。 コマンドの最初の部分では、入力からレルム名、KDC、VDB パス、およびドメイン名が読み取られ、
+さらに、<strong>krb5.conf</strong> ファイルが生成されます。</p>
+ 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><strong>/etc/krb5/krb5.conf:</strong></td>
+
+<td>レルム名、Kerberos admin サーバー、およびドメイン名は、コマンド・ラインで指定されたとおりに設定されます。 さらに、<strong>default_keytab_name</strong>、<strong>kdc</strong>、
+および <strong>kadmin</strong> ログ・ファイルへのパスが更新されます。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+ <p>DCE が構成されていない場合は、このコマンドにより、
+<strong>/etc/krb5.conf</strong> から <strong>/etc/krb5/krb5.conf</strong> へのパスが作成されます。</p>
+ <p>このコマンドを使用すると、root を管理ユーザーとして構成し、統合された Kerberos 認証を構成し、
+Kerberos をデフォルトの認証方式として構成することができます。</p>
+ <p>統合ログインのためには、<strong>-i</strong> フラグで、
+使用されるデータベースの名前を指定することが必要です。 LDAP の場合、LDAP を指定するロード・モジュールの名前を使用してください。 ローカル・ファイルの場合、キーワード・ファイルを使用してください。</p>
+ 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><strong>標準出力</strong></td>
+
+<td><strong>-h</strong> フラグが使用されているとき、情報メッセージから成り立っています。</td>
+
+</tr>
+
+<tr>
+<td><strong>標準エラー</strong></td>
+
+<td>コマンドが正常に完了できないとき、エラー・メッセージから成り立っています。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</section>
+
+<section><h2>フラグ</h2> <div> 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><strong>-a</strong><em> Admin</em></td>
+
+<td>Kerberos サーバー管理者のプリンシパル名を指定します。</td>
+
+</tr>
+
+<tr>
+<td><strong>-A</strong></td>
+
+<td>root が Kerberos 管理ユーザーとして追加されるように指定します。</td>
+
+</tr>
+
+<tr>
+<td><strong>-c</strong><em> KDC</em></td>
+
+<td>KDC サーバーを指定します。</td>
+
+</tr>
+
+<tr>
+<td><strong>-d</strong><em> ドメイン</em></td>
+
+<td>Kerberos クライアントの完全なドメイン名を指定します。</td>
+
+</tr>
+
+<tr>
+<td><strong>-D</strong></td>
+
+<td>非 kadmind サービスに対して Kerberos を指定します。</td>
+
+</tr>
+
+<tr>
+<td><strong>-h</strong></td>
+
+<td>コマンドが有効なコマンド構文のみを表示することを指定します。</td>
+
+</tr>
+
+<tr>
+<td><strong>-i</strong><em> Database</em></td>
+
+<td>統合された Kerberos 認証を構成します。</td>
+
+</tr>
+
+<tr>
+<td><strong>-K</strong></td>
+
+<td>Kerberos がデフォルトの認証方式として構成されるように指定します。</td>
+
+</tr>
+
+<tr>
+<td><strong>-l</strong> <em>ldapserver | ldapserver:port</em></td>
+
+<td>サーバーの場合は、ネットワーク認証サービス・プリンシパルおよびポリシー情報を保管するのに
+使用する LDAP ディレクトリーを指定します。<p>クライアントの場合は、管理サーバーおよび LDAP を使用する KDC ディスカバリーに
+使用する LDAP ディレクトリー・サーバーを指定します。 <strong>-l</strong> フラグを使用する場合は、KDC およびサーバー・フラグの指定はオプションです。 <strong>-l</strong> オプションを使用しない場合は、KDC およびサーバー・フラグを
+指定する必要があります。 オプションとして、ポート番号を指定することができます。</p>
+ <p>クライアントおよびサーバーの場合、オプションとして、ポート番号を指定することができます。 ポート番号を指定しないと、クライアントは、デフォルトの LDAP サーバー・ポート 389 または
+SSL 接続の場合は 636 に接続します。</p>
+ <div><div>
+        <div>
+          <div><span>注:</span> クライアント構成のみが更新されます。</div>
+        </div>
+      </div></div>
+</td>
+
+</tr>
+
+<tr>
+<td><strong>-n</strong> <em>renew_lifetime</em></td>
+
+<td>サーバーがサポートしている場合、更新可能なチケットを生成するための、クライアントに特定の時刻を指定します。 デフォルトで、チケットは更新不可です。 <em>renew_lifetime</em> パラメーター値は、コロンで区切られた 4 個の数値で構成されています。</td>
+
+</tr>
+
+<tr>
+<td><strong>-r</strong><em> Realm</em></td>
+
+<td>Kerberos クライアントが構成されるレルムの完全名を指定します。</td>
+
+</tr>
+
+<tr>
+<td><strong>-s</strong><em> Server</em></td>
+
+<td>Kerberos 管理サーバーの完全修飾ホスト名を指定します。</td>
+
+</tr>
+
+<tr>
+<td><strong>-t</strong> <em>ticket_lifetime</em></td>
+
+<td>サーバーがサポートしている場合、受信済みチケットに、クライアントに特定のチケット存続時間を指定します。 このフラグが指定されない場合は、サーバーがチケット存続時間を設定します。 <em>ticket_lifetime</em> パラメーター値は、コロンで区切られた 4 個の数値で構成されます。</td>
+
+</tr>
+
+<tr>
+<td><strong>-T</strong></td>
+
+<td>サーバー管理者の TGT ベースの管理チケットを獲得するためのフラグを指定します。</td>
+
+</tr>
+
+<tr>
+<td><strong>-U</strong></td>
+
+<td>セットアップを直前の構成コマンドから元に戻します。</td>
+
+</tr>
+
+
+</tbody>
+</table></div>
+</div>
+</div>
+</section>
+
+<section><h2>終了状況</h2> <p>このコマンドが正常に実行されない場合、結果として、不完全なクライアント構成が生じる可能性があります。</p>
+ 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><strong>0</strong></td>
+
+<td>コマンドの正常終了を示します。</td>
+
+</tr>
+
+<tr>
+<td><strong>1</strong></td>
+
+<td>エラーが発生したことを示します。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</section>
+
+<section><h2>セキュリティー</h2> <p><strong>aix.security.kerberos</strong> 権限のあるユーザーがこのコマンドの使用を許可されます。</p>
+</section>
+
+<section><h2>例</h2> <ol>
+<li>コマンド構文を表示するには、次のコマンドを入力します。<div> <div><div><pre><code>mkkrb5clnt -h</code></pre></div><div></div></div></div>
+</li>
+
+<li><strong>testbox.austin.ibm.com</strong> を、<strong>sundial.austin.ibm.com</strong> のクライアントとして構成する (ここでは、KDC も <strong>sundial.austin.ibm.com</strong> で実行されている) には、次のコマンドを入力します。<div> <div><div><pre><code>mkkrb5clnt -c sundial.austin.ibm.com -r UD3A.AUSTIN.IBM.COM \
+-s sundial.austin.ibm.com -d austin.ibm.com</code></pre></div><div></div></div></div>
+</li>
+
+<li><strong>testbox.austin.ibm.com</strong> をクライアントとして構成し、サーバー管理者として root を作成し、統合ログインを構成し、デフォルト認証スキームとして Kerberos を構成するには、次のコマンドを入力します。<div> <div><div><pre><code>mkkrb5clnt -c sundial.austin.ibm.com -r UD3A.AUSTIN.IBM.COM \
+-s sundial.austin.ibm.com -d austin.ibm.com \
+-A -i files -K -T</code></pre></div><div></div></div></div>
+</li>
+
+<li><span>AIX</span>マシンに対して<strong>testbox.austin.ibm.com</strong>をクライアントとして設定するには、以下のコマンドを入力する：<div><div><pre><code>mkkrb5clnt -c non-aix.austin.ibm.com -r NON-AIX.AUSTIN.IBM.COM \
+-s non-aix.austin.ibm.com -d austin.ibm.com –D</code></pre></div><div></div></div></li>
+
+<li>チケット存続時間が 1 日 2 時間 3 分 4 秒、更新存続時間が 5 日 6 時間 7 分 8 秒の<span>AIX</span> 以外のマシンに対して、 <strong>testbox.austin.ibm.com</strong> をクライアントとして構成するには、次のコマンドを入力します。<div><div><pre><code>mkkrb5clnt -c non-aix.austin.ibm.com -r NON-AIX.AUSTIN.IBM.COM \
+-s non-aix.austin.ibm.com -d austin.ibm.com –D \
+-t 1:2:3:4 -n 5:6:7:8</code></pre></div><div></div></div></li>
+
+</ol>
+</section>
+
+<section><h2>ファイル</h2> <div> 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><strong>/usr/krb5/sbin</strong></td>
+
+<td><strong>mkkrb5clnt</strong> コマンドが入っています。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+</section>
+
+</div></div>

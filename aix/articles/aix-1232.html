@@ -1,0 +1,168 @@
+<div class="official-dom"><div>
+<section><h2>目的</h2> <p>ローカルで定義された特定の役割ベースのアクセス制御 (RBAC) およびドメインの役割ベースのアクセス制御テーブルを LDIF フォーマットで標準出力 (<strong>stdout</strong>) に出力します。</p>
+</section>
+
+<section><h2>構文</h2> <p><strong>rbactoldif</strong> <a href="https://www.ibm.com/docs/ja/ssw_aix_73/r_commands/rbactoldif.html#rbactoldif__row-d3e129651" target="_blank" rel="noopener noreferrer"><strong>-d</strong></a><em>baseDN</em> [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/r_commands/rbactoldif.html#rbactoldif__row-d3e129660" target="_blank" rel="noopener noreferrer"><strong>-s</strong></a> <em>テーブル</em> ]</p>
+</section>
+
+<section><h2>説明</h2> <p><strong>rbactoldif</strong> コマンドは、ローカルに定義された RBAC テーブルからデータを読み取り、結果を LDIF フォーマットで <strong>stdout</strong> に出力します。 ファイルにリダイレクトすると、<strong>ldapadd</strong> コマンドまたは <strong>ldif2db</strong> コマンドを使用して、LDAP サーバーに結果を追加できます。</p>
+ <p><strong>rbactoldif</strong> コマンドは <strong>/etc/security/ldap/sectoldif.cfg</strong> ファイルを読み取って、権限、ロール、特権コマンド、特権デバイス、およびデータのエクスポート先の特権ファイル・サブツリーにどのような名前を付けるかを決定します。 <strong>rbactoldif</strong> コマンドは、ファイルで定義されている AUTHORIZATION、ROLE、PRIVCMD、PRIVDEV、および PRIVFILE の各タイプにのみデータをエクスポートします。 このファイルで指定される名前は、<strong>-d</strong> フラグで指定される基本識別名 (DN) の下にサブツリーを作成するために使用されます。 詳しくは、「 <span><em>Files Reference</em></span> 」の <strong>/etc/security/ldap/sectoldif.cfg</strong> ファイルを参照してください。</p>
+</section>
+
+<section><h2>フラグ</h2> 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><strong>-d</strong> <em>baseDN</em></td>
+
+<td>RBAC データが下に置かれる指定 DN を指定します。</td>
+
+</tr>
+
+<tr>
+<td><strong>-s</strong> <em>表</em></td>
+
+<td>読み取りの対象となるテーブルのセットを指定します。 <strong>-s</strong> フラグを指定しない場合は、すべての RBAC およびドメインの RBAC テーブルが読み取られます。 以下の文字の 1 つ以上を指定します。これらの文字はそれぞれテーブル名を表します。<dl>
+<dt>a</dt>
+
+<dd>権限テーブルを指定します。</dd>
+
+
+<dt>c</dt>
+
+<dd>特権コマンド・テーブルを指定します。</dd>
+
+
+<dt>d</dt>
+
+<dd>特権デバイス・テーブルを指定します。</dd>
+
+
+<dt>e</dt>
+
+<dd>ドメイン・テーブルを指定します。</dd>
+
+
+<dt>f</dt>
+
+<dd>特権ファイル・テーブルを指定します。</dd>
+
+
+<dt>o</dt>
+
+<dd>ドメイン・オブジェクト・テーブルを指定します。</dd>
+
+
+<dt>r</dt>
+
+<dd>ロール・テーブルを指定します。</dd>
+
+
+<dt>t</dt>
+
+<dd>trvi テーブルを指定します。</dd>
+
+</dl>
+</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</section>
+
+<section><h2>セキュリティー</h2> <p><strong>rbactoldif</strong> コマンドは、モード・ビット 500 を持ち、root グループおよびセキュリティー・グループにより所有されます。</p>
+</section>
+
+<section><h2>アクセスされるファイル</h2> 
+<div><div><table><thead>
+<tr>
+<th><div>ファイル</div></th>
+
+<th><div>モード</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><strong>/etc/security/authorizations</strong></td>
+
+<td>r</td>
+
+</tr>
+
+<tr>
+<td><strong> /etc/security/roles</strong></td>
+
+<td>r</td>
+
+</tr>
+
+<tr>
+<td><strong> /etc/security/privcmds</strong></td>
+
+<td>r</td>
+
+</tr>
+
+<tr>
+<td><strong> /etc/security/privdevs</strong></td>
+
+<td>r</td>
+
+</tr>
+
+<tr>
+<td><strong> /etc/security/privfiles</strong></td>
+
+<td>r</td>
+
+</tr>
+
+<tr>
+<td><strong>/etc/security/.rbac_ids</strong></td>
+
+<td>r</td>
+
+</tr>
+
+<tr>
+<td><strong>/etc/security/domains</strong></td>
+
+<td>r</td>
+
+</tr>
+
+<tr>
+<td><strong>/etc/security/domobjs</strong></td>
+
+<td>r</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</section>
+
+<section><h2>例</h2> <ol>
+<li>すべての RBAC テーブルおよびドメイン RBAC テーブルを、以下の基本 DN を持つ LDIF フォーマットにエクスポートします。cn=aixdata次のコマンドを使用します。<div><div><pre><code>rbactoldif -d cn=aixdata</code></pre></div><div></div></div></li>
+
+<li>基本 DN を持つ許可テーブルおよびロール・テーブルのみをエクスポートするには、以下のようにします。cn=aixdata次のコマンドを使用します。<div><div><pre><code>rbactoldif -d cn=aixdata -s ar</code></pre></div><div></div></div></li>
+
+<li>基本 DN を持つ <code>domobjs</code> 表のみをエクスポートするには、以下のようにします。cn=aixdata次のコマンドを使用します。<div><div><pre><code>rbactoldif -d cn=aixdata -s o</code></pre></div><div></div></div></li>
+
+</ol>
+</section>
+
+</div></div>

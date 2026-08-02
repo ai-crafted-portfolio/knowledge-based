@@ -1,0 +1,98 @@
+<div class="official-dom"><div>
+<section><h2>目的</h2> <p>仮想プリンターを除去します。</p>
+</section>
+
+<section><h2>構文</h2> <p><strong>rmvirprt</strong> <a href="https://www.ibm.com/docs/ja/ssw_aix_73/r_commands/rmvirprt.html#rmvirprt__row-d3e170512" target="_blank" rel="noopener noreferrer"><strong>-q</strong></a> <em>PrinterQueueName</em> <a href="https://www.ibm.com/docs/ja/ssw_aix_73/r_commands/rmvirprt.html#rmvirprt__row-d3e170504" target="_blank" rel="noopener noreferrer"><strong>-d</strong></a> <em>QueueDeviceName</em></p>
+</section>
+
+<section><h2>説明</h2> <p><strong>rmvirprt</strong> コマンドは、<em>PrinterQueueName</em> 変数の値と <em>QueueDeviceName</em> 変数の値に割り当てられている仮想プリンターを除去します。 <strong>rmvirprt</strong> コマンドは、指定されたキューまたはキュー・デバイスに関連付けられている System Management Interface Tool (SMIT) オブジェクト・データ・マネージャー (ODM) オブジェクトも除去します。</p>
+ <p>このコマンドは、System Management Interface Tool (SMIT) <strong>smit rmvirprt</strong> 高速パスを使用して実行することもできます。</p>
+ <div><div>
+        <div>
+          <div><span>注:</span> コマンド行から <strong>Rmvirprt</strong> を実行すると、キューまたはキュー・デバイスは除去されず、指定されたキューおよびキュー・デバイスで実行中またはキューに入れられているジョブも検査されません。 ただし、SMIT を使用してこのコマンドを対話式に実行する場合には、実行中のジョブまたはキューに入っているジョブがない限り、対応するキュー、キュー・デバイス、
+およびオプションでプリンター・デバイスが仮想プリンターとともに除去されます。</div>
+        </div>
+      </div></div>
+</section>
+
+<section><h2>フラグ</h2> <div> 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><strong>-d</strong><em> QueueDeviceName</em></td>
+
+<td>仮想プリンターが割り当てられるキュー・デバイスの名前を指定します。</td>
+
+</tr>
+
+<tr>
+<td><strong>-q</strong><em> PrinterQueueName</em></td>
+
+<td>仮想プリンターが割り当てられている印刷キューの名前を指定します。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+</section>
+
+<section><h2>例</h2> <p>以下の属性値を削除します。mypro関連付けられている仮想プリンターproq印刷キュー、タイプ:</p>
+ <div>rmvirprt  <a href="https://www.ibm.com/docs/ja/ssw_aix_73/r_commands/rmvirprt.html#rmvirprt__row-d3e170504" target="_blank" rel="noopener noreferrer">-d</a> mypro  <a href="https://www.ibm.com/docs/ja/ssw_aix_73/r_commands/rmvirprt.html#rmvirprt__row-d3e170512" target="_blank" rel="noopener noreferrer">-q</a> proq</div>
+</section>
+
+<section><h2>ファイル</h2> <div> 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><a href="https://www.ibm.com/docs/ja/ssw_aix_73/filesreference/qconfig.html" target="_blank" rel="noopener noreferrer"><strong>/etc/qconfig</strong></a></td>
+
+<td>構成ファイルが入っています。</td>
+
+</tr>
+
+<tr>
+<td><strong>/usr/sbin/rmvirprt</strong></td>
+
+<td><strong>rmvirprt</strong> コマンドが入っています。</td>
+
+</tr>
+
+<tr>
+<td><strong>/var/spool/lpd/pio/@local/custom/*</strong></td>
+
+<td>カスタマイズされた仮想プリンターの属性ファイルが入っています。</td>
+
+</tr>
+
+<tr>
+<td><strong>/var/spool/lpd/pio/@local/ddi/*</strong></td>
+
+<td>ダイジェストした仮想プリンターの属性ファイルが入っています。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+</section>
+
+</div></div>

@@ -1,0 +1,207 @@
+<div class="official-dom"><div>
+<section><h2>目的</h2><p>メッセージ・ハンドラー (MH) のアドレスを操作します。</p>
+</section>
+
+<section><h2>構文</h2> <p><strong>対象者</strong> [  <a href="https://www.ibm.com/docs/ja/ssw_aix_73/w_commands/whom.html#whom__row-d3e20771" target="_blank" rel="noopener noreferrer"><strong>-別名</strong></a><em> ファイル </em>... ] [<strong>-nocheck (検査なし)</strong> | <strong>-チェック</strong> ] [ {  <a href="https://www.ibm.com/docs/ja/ssw_aix_73/w_commands/whom.html#whom__row-d3e20793" target="_blank" rel="noopener noreferrer"><strong>-draftfolder</strong></a><strong> +</strong><em>フォルダー </em>|  <a href="https://www.ibm.com/docs/ja/ssw_aix_73/w_commands/whom.html#whom__row-d3e20868" target="_blank" rel="noopener noreferrer"><strong>-nodrafth旧 </strong></a>| <em>ファイル </em>}{  <a href="https://www.ibm.com/docs/ja/ssw_aix_73/w_commands/whom.html#whom__row-d3e20801" target="_blank" rel="noopener noreferrer"><strong>-draftmessage</strong></a><em> メッセージ </em>|  <a href="https://www.ibm.com/docs/ja/ssw_aix_73/w_commands/whom.html#whom__row-d3e20782" target="_blank" rel="noopener noreferrer"><strong>-ドラフト</strong></a><em>ファイル </em>} ]</p>
+</section>
+
+<section><h2>説明</h2> <p><strong>whom</strong> コマンドは以下のことを行います。</p>
+ <ul>
+<li><span></span>メッセージのヘッダーをアドレスのセットに展開します。</li>
+
+<li><span></span>メッセージの提案された受信者のアドレスをリストします。</li>
+
+<li><span></span>は、アドレスがトランスポート・サービスに配信可能であることを確認します。<p></p><blockquote><span>“</span><strong>注:</strong> <strong>whom</strong> コマンドは、送信可能なアドレスとしてリストされた宛先に実際に送信されるかどうかについては保証しません。<span>”</span></blockquote>
+<p></p>
+</li>
+
+</ul>
+ <p>メッセージはドラフト・フォルダーまたはファイルに入れることができます。 メッセージの保管場所を指定するには、<strong>-draft</strong>、<strong>-draftfolder</strong>、<strong> -draftmessage</strong> のフラグを使用してください。</p>
+ <p><strong>-draftfolder</strong> フラグが指定されていない場合、またはDraft-Folder:<strong>$HOME/.mh_profile</strong> ファイル内のエントリーが定義されていません。 <strong>workstation</strong> コマンドは MH ディレクトリーで <strong>draft</strong> ファイルを検索します。 <strong>-draftfolder +</strong><em>Folder</em> フラグの後にメッセージを指定すると、<strong>-draftmessage</strong> フラグを指定した場合と同じになります。</p>
+</section>
+
+<section><h2>フラグ</h2> <div> 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><strong>-alias</strong><em> ファイル</em></td>
+
+<td>メール別名を検索するファイルを指定します。 デフォルトの場合は、システムは <strong>/etc/mh/Mailaliases</strong> ファイルを検索します。</td>
+
+</tr>
+
+<tr>
+<td><strong>-ドラフト</strong></td>
+
+<td><em>UserMhDirectory</em><strong>/draft</strong> ファイルのヘッダー情報 (存在する場合) を使用します。</td>
+
+</tr>
+
+<tr>
+<td><strong>-draftfolder +</strong><em>フォルダー</em></td>
+
+<td>指定したフォルダー内のドラフト・メッセージからのヘッダー情報を使用します。 存在しないドラフト・フォルダーを指定した場合には、システムが新規に作成します。</td>
+
+</tr>
+
+<tr>
+<td><strong>-draftmessage</strong><em> メッセージ</em><strong></strong></td>
+
+<td>指定したドラフト・メッセージからのヘッダー情報を使用します。</td>
+
+</tr>
+
+<tr>
+<td><strong>-help</strong></td>
+
+<td>これは、コマンド構文、使用可能なスイッチ (トグル)、およびバージョン情報をリストします。<p></p><blockquote><span>“</span><strong>注:</strong> MH の場合は、このフラグ名を省略することはできません。<span>”</span></blockquote>
+<p></p>
+</td>
+
+</tr>
+
+<tr>
+<td><em>Message</em></td>
+
+<td>メッセージ・ドラフトを指定します。 下記のものを使ってメッセージを指定します。<dl>
+<dt><em>Number</em></dt>
+
+<dd>メッセージ番号。</dd>
+
+
+<dt><strong>cur</strong> または <strong>。</strong> (ピリオド)</dt>
+
+<dd>現行メッセージ。 これはデフォルトです。</dd>
+
+
+<dt><strong>first</strong></dt>
+
+<dd>フォルダー内の最初のメッセージ</dd>
+
+
+<dt><strong>last</strong></dt>
+
+<dd>フォルダー内の最後のメッセージ</dd>
+
+
+<dt><strong>次へ</strong></dt>
+
+<dd>現行メッセージの次のメッセージ</dd>
+
+
+<dt><strong>prev</strong></dt>
+
+<dd>現行メッセージの直前のメッセージ。</dd>
+
+</dl>
+</td>
+
+</tr>
+
+<tr>
+<td><strong>-ノドラフトフォルダー</strong></td>
+
+<td><strong>-draftfolder +</strong><em>Folder</em> フラグの最後のオカレンスを取り消します。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+ <p></p><blockquote><span>“</span><span></span><strong>注:</strong> 他の 2 つのフラグ <strong>-check</strong> および <strong>-nocheck</strong>も使用できます。 これらのフラグを指定しても、<strong>whom</strong> コマンドの検査方法は変わりません。 <strong>-check</strong> フラグおよび <strong>-nocheck</strong> フラグは互換性だけを検査するものです。<span>”</span></blockquote>
+<p></p>
+</section>
+
+<section><h2>プロファイル・エントリー</h2> <p>以下のエントリーが <em>UserMhDirectory</em><strong>/.mh_profile</strong> ファイルに入力されます。</p>
+ 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td>Draft-Folder:</td>
+
+<td>ドラフト用のデフォルト・フォルダーを設定します。</td>
+
+</tr>
+
+<tr>
+<td>postproc:</td>
+
+<td>メッセージの通知に使用するプログラムを指定します。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</section>
+
+<section><h2>セキュリティー</h2><div><div>
+        <div>
+          <div><span>RBAC ユーザーへの注意:</span> このコマンドは特権命令を実行できます。 特権命令を実行できるのは特権ユーザーのみです。 権限と特権の詳細については、<span>セキュリティ</span>の <a href="https://www.ibm.com/docs/ja/ssw_aix_73/security/rbac_priv_cmd_db.html" target="_blank" rel="noopener noreferrer">特権コマンドデータベース</a>を参照してください。 このコマンドに関連する特権と権限のリストについては、'<a href="https://www.ibm.com/docs/ja/ssw_aix_73/l_commands/lssecattr.html" target="_blank" rel="noopener noreferrer"><span>lssecattr</span></a>コマンドまたは'<a href="https://www.ibm.com/docs/ja/ssw_aix_73/g_bostechref/getcmdattr.html" target="_blank" rel="noopener noreferrer"><span>getcmdattr</span></a>サブコマンドを参照のこと。</div>
+        </div>
+      </div></div>
+</section>
+
+<section><h2>例</h2> <p>メッセージの予定受信側のアドレスをリストして検査するには、下記のように、それぞれのプロンプトに対してメッセージの宛先および主題を入力します。</p>
+ <div> <div><div><pre><code>To: d77@nostromo
+Subject: a test</code></pre></div><div></div></div></div>
+ <p>再びプロンプトが表示されたら、メッセージのテキストを入力します。</p>
+ <div> <div><div><pre><code>-------Enter initial text
+test
+-------</code></pre></div><div></div></div></div>
+ <p>構成リフレッシュがwhatnowプロンプトが出されたら、次のように <strong>誰</strong> コマンドを入力します。</p>
+ <div> <div><div><pre><code>whatnow&gt;&gt;&gt; whom</code></pre></div><div></div></div></div>
+ <p>メッセージの予定受信側のアドレスが表示されます。</p>
+ <div> <div><div><pre><code>lance...
+d77@nostromo... deliverable</code></pre></div><div></div></div></div>
+</section>
+
+<section><h2>ファイル</h2> <div> 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><strong>$HOME/.mh_profile</strong></td>
+
+<td>MH ユーザー・プロファイルを指定します。</td>
+
+</tr>
+
+<tr>
+<td><strong>/usr/bin/whom</strong></td>
+
+<td><strong>whom</strong> コマンドが入っています。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+</section>
+
+</div></div>

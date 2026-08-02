@@ -1,0 +1,2571 @@
+<div class="official-dom"><div>
+<section><h2>目的</h2> <p>CDE ログイン・サービスを実行します。</p>
+</section>
+
+<section><h2>構文</h2> <p><span><span>dtlogin</span></span> [-<a href="https://www.ibm.com/docs/ja/ssw_aix_73/d_commands/dtlogin.html#dtlogin__row-d3e56437" target="_blank" rel="noopener noreferrer"><span><span>config</span></span></a> <span><span>configuration_file</span></span> ] [-<a href="https://www.ibm.com/docs/ja/ssw_aix_73/d_commands/dtlogin.html#dtlogin__row-d3e56455" target="_blank" rel="noopener noreferrer"><span><span>daemon</span></span></a> ] [-<a href="https://www.ibm.com/docs/ja/ssw_aix_73/d_commands/dtlogin.html#dtlogin__row-d3e56471" target="_blank" rel="noopener noreferrer"><span><span>debug</span></span></a> <span><span>debug_level</span></span> ] [-<a href="https://www.ibm.com/docs/ja/ssw_aix_73/d_commands/dtlogin.html#dtlogin__row-d3e56492" target="_blank" rel="noopener noreferrer"><span><span>error</span></span></a> <span><span>error_log_file</span></span> ] [-<a href="https://www.ibm.com/docs/ja/ssw_aix_73/d_commands/dtlogin.html#dtlogin__row-d3e56507" target="_blank" rel="noopener noreferrer"><span><span>nodaemon</span></span></a> ] [-<a href="https://www.ibm.com/docs/ja/ssw_aix_73/d_commands/dtlogin.html#dtlogin__row-d3e56517" target="_blank" rel="noopener noreferrer"><span><span>resources</span></span></a> <span><span>resource_file</span></span> ] [-<a href="https://www.ibm.com/docs/ja/ssw_aix_73/d_commands/dtlogin.html#dtlogin__row-d3e56532" target="_blank" rel="noopener noreferrer"><span><span>server</span></span></a> <span><span>server_entry</span></span> ] [-<a href="https://www.ibm.com/docs/ja/ssw_aix_73/d_commands/dtlogin.html#dtlogin__row-d3e56562" target="_blank" rel="noopener noreferrer"><span><span>session</span></span></a> <span><span>session_program</span></span> ] [-<a href="https://www.ibm.com/docs/ja/ssw_aix_73/d_commands/dtlogin.html#dtlogin__row-d3e56547" target="_blank" rel="noopener noreferrer"><span><span>udpPort</span></span></a> <span><span>port_number</span></span> ]</p>
+</section>
+
+<section><h2>説明</h2> <div><span><span>dtlogin</span></span> コマンドは、以下の主要なタスクをサポートします。<ul>
+<li>明示的に管理されているローカル・ディスプレイおよびリモート・ディスプレイ、および XDMCP 管理のリモート・ディスプレイのための <span><span>dtgreet</span></span> ログイン画面の起動。</li>
+
+<li>GUI ログイン画面から従来型端末 (キャラクター) ログインにアクセスする。</li>
+
+<li>システム依存ユーザーの認証およびログインを行う。</li>
+
+<li>選択されたセッションを起動する。</li>
+
+</ul>
+</div>
+ <p><span><span>dtlogin</span></span> コマンドは、 <span><span>init</span></span>、 <span><span>getty</span></span>、および <span><span>login</span></span> が文字端末で提供するサービスに類似したサービスを提供します。これには、ログインとパスワードのプロンプト、ユーザーの認証、およびセッションの実行が含まれます。 <em>セッション</em> は、特定プロセスのライフタイムによって定義されます。 従来のキャラクター・ベースの端末の世界では、セッションはユーザーのログイン・シェル・プロセスです。DT のコンテキストでは、セッションは DT セッション・マネージャーです。 DT セッション・マネージャーを使用しない場合、終了オプションのあるウィンドウ・マネージャーまたはシェルを実行する端末エミュレーターのいずれかが、代表的な代替プログラムとなります。端末エミュレーターのライフタイムは実行されるシェル・プロセスのライフタイムです。 この場合、X セッションはキャラクター・ベース端末セッションのエミュレーションに縮小されます。 セッションが終了すると、 <span><span>dtlogin</span></span> は X サーバーをリセットし、(オプションで) プロセス全体を再始動します。</p>
+ <p><span><span>dtlogin</span></span> コマンドは、X Display Manager Control Protocol バージョン 1.0を使用したリモート・ディスプレイの管理をサポートします。 リモート・ディスプレイの管理をサポートします。 <span><span>dtlogin</span></span> は、XDMCP から間接照会を受け取ると、選択機能プロセスを実行して、ディスプレイの代わりに XDMCP BroadcastQuery (または指定されたホストに対する XDMCP 照会) を実行し、XDMCP ディスプレイ管理を提供する使用可能なホストのメニューを提供することができます。 この機能は、ホスト・メニューを提供しない X 端末で役に立ちます。</p>
+ <p><span><span>dtlogin</span></span> は、ユーザーに表示される最初のインターフェースを提供するため、使いやすく、特定のサイトのニーズに応じて簡単にカスタマイズできるように設計されています。</p>
+<p><strong>ログイン・ウィンドウ</strong></p>
+ <p>ログイン・ウィンドウを使用すると、ユーザーは、ユーザー ID とパスワードを入力し、起動セッションを選択し、起動ロケールを選択することができます。 また、ユーザーは、X サーバーをリセットしたり、X サーバーを一時的に中断してキャラクター・ログイン・プロンプトにアクセスしたりすることができます。</p>
+ <div>ログイン・ウィンドウの内容は次のとおりです。<dl>
+
+<dt>ログイン・フィールド</dt>
+
+<dd>ユーザーが ID を入力できる入力フィールドを提供します。</dd>
+
+
+<dt>パスワード・フィールド</dt>
+
+<dd>ユーザーがパスワードを入力できる入力フィールドを提供します (エコーなし)。</dd>
+
+
+<dt>「OK (了解)」ボタン</dt>
+
+<dd>ユーザーを認証し、セッションを起動します。</dd>
+
+
+<dt>「Clear (消去)」ボタン</dt>
+
+<dd>ログイン・フィールドおよびパスワード・フィールドを消去します。</dd>
+
+
+<dt>オプション</dt>
+
+<dd>ユーザーはロケール名とログイン・セッション・タイプを選択できます。 また、ユーザーは、X サーバーを再始動したり、キャラクター・ログイン・プロンプト (ローカル・ディスプレイ用) に切り替えたりすることができます。 「Options (オプション)」メニューの内容は次のとおりです。<dl>
+
+<dt>言語</dt>
+
+<dd>「Languages (言語)」メニューを表示します。 ログイン画面の「オプション」メニューから言語を選択すると、即時にログイン画面がローカライズされ、次のセッションの <span><span>LANG</span></span> 変数が設定されます。 ログイン画面のローカライズと <span><span>LANG</span></span> は、セッションの終了時にデフォルト値に戻ります。 このメニューの内容は、システムにインストールされたロケールによって異なる場合があります。 これらは、 <span><span>languageList</span></span> リソースを使用してオーバーライドできます。 C のデフォルト・ロケールは、language リソースを使用して指定変更できます。 指定されたシステム・ロケールまたは <span><span>languageList</span></span> ロケールは、「言語」メニューのメニュー項目として表示されます。 表示する代替テキストは、 <span><span>languageName</span></span> リソースを使用して、特定のロケール名に対して指定できます。</dd>
+
+
+<dt>「No-windows (ウィンドウなし)」</dt>
+
+<dd>キャラクター・ログイン・プロンプトを表示します (ローカル・ディスプレイのみ)。</dd>
+
+
+<dt>「Reload Login (再ロード・ログイン)」</dt>
+
+<dd>X サーバーを再始動し、ログイン画面に戻ります。</dd>
+
+
+<dt>リソース</dt>
+
+<dd>使用されるリソースをリストします。</dd>
+
+
+<dt>「Sessions (セッション)」</dt>
+
+<dd>「Sessions (セッション)」メニューを表示します。 ユーザーは、ログインしたときに開始するセッション・タイプを選択できます。 以下のメニュー項目があります。<dl>
+
+<dt>「DT Session (DT セッション)」</dt>
+
+<dd>通常のデスクトップ・セッション (Xsession) を開始します。</dd>
+
+
+<dt>「Fail-safe Session (復旧セッション)」</dt>
+
+<dd>復旧セッション (Xfailsafe) を開始します。</dd>
+
+</dl>
+</dd>
+
+</dl>
+</dd>
+
+
+<dt>ヘルプ</dt>
+
+<dd>ヘルプ・メッセージを表示します。</dd>
+
+</dl>
+</div>
+<p><strong>サーバーの制御</strong></p>
+ <p><span><span>dtlogin</span></span> コマンドは、 POSIX シグナルを使用してローカル・サーバーを制御します。 SIGHUP シグナルにより、サーバーがリセットされ、すべてのクライアント接続がクローズされ、その他のクリーンアップ処理が実行されると予想されます。 また、SIGTERM シグナルにより、サーバーが終了すると予想されます。 これらのシグナルが予期されるアクションを実行しない場合、 <span><span>resetSignal</span></span> および <span><span>termSignal</span></span> リソースは代替シグナルを指定できます。</p>
+ <p>XDMCP を使用していないリモート・サーバーを制御するために、 <span><span>dtlogin</span></span> はディスプレイ上のウィンドウ階層を検索し、 KillClient X プロトコル要求を使用して、次のセッションのために端末をクリーンアップします。 しかし、ウィンドウが作成されたクライアントのみが検出されるため、すべてのクライアントが実際に kill されるとは限りません。 XDMCP は、より確実なメカニズムを提供します。 <span><span>dtlogin</span></span> が初期接続を閉じると、セッションは終了し、端末は他のすべての接続を閉じる必要があります。</p>
+<p><strong>dtlogin の制御</strong></p>
+ <p><span><span>dtlogin</span></span> コマンドは、SIGHUP および SIGTERM の 2 つのシグナルに応答します。 SIGHUP が送信されると、 <span><span>dtlogin</span></span> は、構成ファイルおよびサーバー・リソースによって指定されたファイルを再読み取りし、項目が追加または除去されたかどうかを判別します。 新しいエントリーが追加されると、 <span><span>dtlogin</span></span> は関連するディスプレイでセッションを開始します。 除去されたエントリーは即時に使用不可にされます。つまり、進行中のセッションは通知なしに終了し、新しいセッションは開始されません。 <span><span>dtlogin</span></span> は、SIGTERM に送信されると、進行中のすべてのセッションを終了し、終了します。 これは、システムをシャットダウンするときに使用します。</p>
+<p><strong>国際化対応</strong></p>
+ <p>すべてのラベルおよびメッセージはローカライズ可能です。 <span><span>dtlogin.cat</span></span> メッセージ・カタログには、デフォルトのラベルとメッセージのローカライズされた表現が含まれています。 <span><span>dtlogin</span></span> コマンドは、 <span><span>LANG</span></span> 環境変数によって示される適切なメッセージ・カタログを読み取り、ローカライズされたストリングを表示します。 認証画面のオプションの 1 つを使用すると、ユーザーはデフォルトの言語を後続セッション用に指定変更することができます。 認証画面が選択された言語用にローカライズされている場合、画面はその言語で再表示されます。画面がローカライズされていない場合は、デフォルトの言語で表示されます。 いずれの場合も、結果のセッションに対して <span><span>LANG</span></span> 環境変数が適切に設定されます。</p>
+ <p>ディスプレイのデフォルトの言語を変更するには、dtlogin 構成ファイル内でリソース言語が使用可能です。 <span><span>languageList</span></span> リソースは、認証画面に表示されるデフォルトの言語セットをオーバーライドするために、 <span><span>dtlogin</span></span> 構成ファイルで使用できます。 <span><span>languageName</span></span> リソースは、ロケール名から「言語」メニューに表示されるテキストへのマッピングを提供するために使用できます。</p>
+<p><strong>認証と監査</strong></p>
+ <p><span><span>dtlogin</span></span> コマンドは、サービス名 <span><span>dtlogin</span></span>を使用して PAM によって有効にされるログイン・サービスです。 <span><span>dtlogin</span></span>クライアントは、従来のローカル<span>UNIX</span>ログインと監査に加えて、PAM認証もサポートしている。 Kerberos や B1 などの追加の認証または監査機能が、個別ベンダーによって追加されることがあります。</p>
+ <p>システム全体の認証に PAM を使用するには、root ユーザー権限を設定し、 <span><span>/etc/security/login.cfg</span></span> ファイルの <span><span>usw</span></span> スタンザの <span><span>auth_type</span></span> 属性の値を <code>PAM_AUTH</code>に変更します。</p>
+ <div>PAM が有効になっている場合に使用される認証メカニズムは、 <span><span>/etc/pam.conf</span></span>のログイン・サービスの構成によって異なります。 <span><span>dtlogin</span></span> コマンドには、 <span><span>auth</span></span>、 <span><span>account</span></span>、 <span><span>password</span></span>、および <span><span>session</span></span> の各モジュール・タイプの <span><span>/etc/pam.conf</span></span> エントリーが必要です。 <span><span>dtlogin</span></span> サービスの <span><span>/etc/pam.conf</span></span> では、以下の構成が推奨されます。<div><div><pre><code>  dtlogin        auth               required       /usr/lib/security/pam_aix
+  dtlogin        account            required       /usr/lib/security/pam_aix
+  dtlogin        password           required       /usr/lib/security/pam_aix
+  dtlogin        session            required       /usr/lib/security/pam_aix
+</code></pre></div><div></div></div></div>
+<p><strong>X サーバー・セキュリティー</strong></p>
+ <p>X サーバーでは、ユーザー・ベースのアクセス制御とホスト・ベースのアクセス制御の両方が提供されます。 デフォルトでは、 <span><span>dtlogin</span></span> は X サーバー (MIT-MAGIC-COOKIE-1) に対するユーザー・ベースのアクセス制御を使用します。 このレベルのセキュリティーでは、ユーザー単位でのアクセス制御が可能です。 このアクセス制御方式では、クライアントが渡した許可データがサーバー上の許可データに一致した場合に、クライアントはアクセスを許可されます。 ユーザーがログインすると、この許可データはデフォルトで <span><span>$HOME/.Xauthority</span></span> ファイルに保管され、保護されます。</p>
+ <p>しかし、非セキュア・ネットワークのある環境では、ホスト・ベースのアクセス制御メカニズムの使用が望ましい場合があります。ユーザー・ベースのアクセス制御の場合、どのようなホストでも秘密鍵を発見しさえすれば接続が可能になるという弱点があります。 また、ユーザー・ベースのアクセス制御には、R2 または R3 クライアントがサーバーに接続できないという欠点もあります。</p>
+ <p><span><span>authorize</span></span> リソースは、 <span><span>dtlogin</span></span>がユーザー・ベースまたはホスト・ベースのどちらのアクセス制御を使用するかを制御します。 詳しくは、 <a href="https://www.ibm.com/docs/ja/ssw_aix_73/x_commands/xhost.html" target="_blank" rel="noopener noreferrer">xhost</a>および <a href="https://www.ibm.com/docs/ja/ssw_aix_73/x_commands/xauth.html" target="_blank" rel="noopener noreferrer">xauth</a> コマンドを参照してください。</p>
+</section>
+
+<section><h2>リソース</h2> <p><span><span>dtlogin</span></span> コマンドは、 <span><span>dtlogin</span></span> 構成ファイルの内容によって制御されます。この構成ファイルのデフォルトは <span><span>/usr/dt/config/Xconfig</span></span>です。 <span><span>dtlogin</span></span> の一般的な動作を制御するリソースもあれば、特定の表示に対して指定できるリソースもあります。</p>
+<p><strong>一般リソース</strong></p>
+ <div>以下の <span><span>dtlogin</span></span> 一般リソースはディスプレイ固有ではなく、該当する場合はすべてのディスプレイに適用されます。<div><div><table><thead> <tr> <th><div>項目</div></th>
+ <th><div>説明</div></th>
+ </tr>
+ </thead>
+<tbody>
+<tr>
+<td><span><span>accessFile</span></span></td>
+
+<td><dl>
+<dt>クラス:</dt>
+
+<dd>AccessFile</dd>
+
+
+<dt>ClassType:</dt>
+
+<dd>ストリング</dd>
+
+
+<dt>デフォルト:</dt>
+
+<dd>ヌル</dd>
+
+
+<dt>説明:</dt>
+
+<dd>無許可 XDMCP サービスを防止し、XDMCP IndirectQuery 要求の転送を可能にするために、このファイルには、このマシンへの直接アクセスを許可されている、または照会の転送先のホストのリストを持っているホスト名のデータベースが含まれています。 フォーマットの説明については、<a href="https://www.ibm.com/docs/ja/ssw_aix_73/d_commands/dtlogin.html#dtlogin__dtlogin_xaccess_file" target="_blank" rel="noopener noreferrer">Xaccess ファイル</a>のセクションを参照してください。 このリソースを設定しない場合、すべてのホストが XDMCP サービスを許可されます。</dd>
+
+</dl>
+</td>
+
+</tr>
+
+<tr>
+<td><span><span>authDir</span></span></td>
+
+<td><dl>
+<dt>クラス:</dt>
+
+<dd>AuthDir</dd>
+
+
+<dt>ClassType:</dt>
+
+<dd>ストリング</dd>
+
+
+<dt>デフォルト:</dt>
+
+<dd><span><span>/var/dt</span></span></dd>
+
+
+<dt>説明:</dt>
+
+<dd>XDMCP を使用して表示用の許可ファイルを一時的に保管するために <span><span>dtlogin</span></span> が使用するディレクトリー名。</dd>
+
+</dl>
+</td>
+
+</tr>
+
+<tr>
+<td><span><span>autoRescan</span></span></td>
+
+<td><dl>
+<dt>クラス:</dt>
+
+<dd>AutoRescan</dd>
+
+
+<dt>ClassType:</dt>
+
+<dd>boolean</dd>
+
+
+<dt>デフォルト:</dt>
+
+<dd>はい</dd>
+
+
+<dt>説明:</dt>
+
+<dd>セッションが終了し、ファイルが変更された後で、 <span><span>dtlogin</span></span> が構成ファイルとサーバー・ファイルを再スキャンするかどうかを制御します。 メイン・プロセスに SIGHUP シグナルを送信することにより、 <span><span>dtlogin</span></span> にこれらのファイルの再読み取りを強制することができます。</dd>
+
+</dl>
+</td>
+
+</tr>
+
+<tr>
+<td><span><span>daemonMode</span></span></td>
+
+<td><dl>
+<dt>クラス:</dt>
+
+<dd>DaemonMode</dd>
+
+
+<dt>ClassType:</dt>
+
+<dd>boolean</dd>
+
+
+<dt>デフォルト:</dt>
+
+<dd>いいえ</dd>
+
+
+<dt>説明:</dt>
+
+<dd><span><span>dtlogin</span></span> コマンドは、それ自体を関連付けられていないデーモン・プロセスにすることができます。 これは、親プロセスを fork して終了してから、ファイル・ディスクリプターをクローズし、制御端末を解放するという手順で行われます。 これは、 <span><span>dtlogin</span></span>をデバッグしようとするときには不都合です。 このリソースを False に設定すると、 <span><span>daemonMode</span></span>が無効になります。</dd>
+
+</dl>
+</td>
+
+</tr>
+
+<tr>
+<td><span><span>debugLevel</span></span></td>
+
+<td><dl>
+<dt>クラス:</dt>
+
+<dd>DebugLevel</dd>
+
+
+<dt>ClassType:</dt>
+
+<dd>整数</dd>
+
+
+<dt>デフォルト:</dt>
+
+<dd>0</dd>
+
+
+<dt>説明:</dt>
+
+<dd>この整数リソースに非ゼロ値を指定すると、デバッグ情報の表示が可能になります。 また、この指定により、デーモン・モードが使用不可になり、通常は使用されないビット・バケットへ情報がリダイレクトされます。</dd>
+
+</dl>
+</td>
+
+</tr>
+
+<tr>
+<td><span><span>errorLogFile</span></span></td>
+
+<td><dl>
+<dt>クラス:</dt>
+
+<dd>ErrorLogFile</dd>
+
+
+<dt>ClassType:</dt>
+
+<dd>ストリング</dd>
+
+
+<dt>デフォルト:</dt>
+
+<dd>ヌル</dd>
+
+
+<dt>説明:</dt>
+
+<dd>通常、エラー出力はシステム・コンソールに送信されます。 エラー出力をリダイレクトするには、このリソースを任意のファイル名に設定します。 このファイルには、 <span><span>Xsetup</span></span>、 <span><span>Xstartup</span></span>、および <span><span>Xreset</span></span>によって <span><span>stderr</span></span> に送信された出力が含まれます。</dd>
+
+</dl>
+</td>
+
+</tr>
+
+<tr>
+<td><span><span>errorLogSize</span></span></td>
+
+<td><dl>
+<dt>クラス:</dt>
+
+<dd>errorLogSize</dd>
+
+
+<dt>ClassType:</dt>
+
+<dd>整数</dd>
+
+
+<dt>デフォルト:</dt>
+
+<dd>50</dd>
+
+
+<dt>説明:</dt>
+
+<dd>このリソースはエラー・ログ・ファイルの最大サイズを K バイト単位で指定します。 この制限に達すると、 <span><span>dtlogin</span></span> は、ファイル・サイズが最大値の 75% に削減されるまで、ファイル内の最も古いエントリーを削除します。 ファイルの切り捨てが行われた後、エラー・ログ・ファイルに (例えば cat または tail を使用して) アクセスするユーザーは、ファイルをいったん閉じてから、ファイルに記録された後続の情報を見るために再オープンしてアクセスする必要があります。</dd>
+
+</dl>
+</td>
+
+</tr>
+
+<tr>
+<td><span><span>exportList</span></span></td>
+
+<td><dl>
+<dt>クラス:</dt>
+
+<dd>ExportList</dd>
+
+
+<dt>ClassType:</dt>
+
+<dd>ストリング</dd>
+
+
+<dt>デフォルト:</dt>
+
+<dd>ヌル</dd>
+
+
+<dt>説明:</dt>
+
+<dd>スペースまたはタブで区切られた変数名のセットが入っています。 指定された各変数は、 <span><span>dtlogin</span></span> 環境から取得され、サーバーおよびセッションの環境にロードされます。 詳しくは、「 <a href="https://www.ibm.com/docs/ja/ssw_aix_73/d_commands/dtlogin.html#dtlogin__dtlogin_environment" target="_blank" rel="noopener noreferrer">環境</a> 」セクションを参照してください。</dd>
+
+</dl>
+</td>
+
+</tr>
+
+<tr>
+<td><span><span>fontPathHead</span></span></td>
+
+<td><dl>
+<dt>クラス:</dt>
+
+<dd>FontPathHead</dd>
+
+
+<dt>ClassType:</dt>
+
+<dd>ストリング</dd>
+
+
+<dt>デフォルト:</dt>
+
+<dd>ヌル</dd>
+
+
+<dt>説明:</dt>
+
+<dd>デフォルトの X サーバー・フォント・パスの前に付加される値。</dd>
+
+</dl>
+</td>
+
+</tr>
+
+<tr>
+<td><span><span>fontPathTail</span></span></td>
+
+<td><dl>
+<dt>クラス:</dt>
+
+<dd>fontPathTail</dd>
+
+
+<dt>ClassType:</dt>
+
+<dd>ストリング</dd>
+
+
+<dt>デフォルト:</dt>
+
+<dd>ヌル</dd>
+
+
+<dt>説明:</dt>
+
+<dd>デフォルトの X サーバー・フォント・パスの後に付加される値。</dd>
+
+</dl>
+</td>
+
+</tr>
+
+<tr>
+<td><span><span>keyFile</span></span></td>
+
+<td><dl>
+<dt>クラス:</dt>
+
+<dd>KeyFile</dd>
+
+
+<dt>ClassType:</dt>
+
+<dd>ストリング</dd>
+
+
+<dt>デフォルト:</dt>
+
+<dd><span><span>/usr/dt/config/Xkeys</span></span></dd>
+
+
+<dt>説明:</dt>
+
+<dd>XDM-AUTHENTICATION-1 スタイルの XDMCP 認証では、 <span><span>dtlogin</span></span> と端末の間で秘密鍵を共有する必要があります。 このリソースには、このような値が入ったファイルを指定します。 このファイルの各エントリーは、ディスプレイ名と共有キーから構成されます。 デフォルトでは、 <span><span>dtlogin</span></span> には XDM-AUTHENTICATION-1 のサポートが含まれていません。通常は配布できない DES が必要であるためです。</dd>
+
+</dl>
+</td>
+
+</tr>
+
+<tr>
+<td><span><span>lockPidFile</span></span></td>
+
+<td><dl>
+<dt>クラス:</dt>
+
+<dd>LockPidFile</dd>
+
+
+<dt>ClassType:</dt>
+
+<dd>boolean</dd>
+
+
+<dt>デフォルト:</dt>
+
+<dd>はい</dd>
+
+
+<dt>説明:</dt>
+
+<dd><span><span>dtlogin</span></span> がファイル・ロックを使用して、 <span><span>dtlogin</span></span> の複数インスタンスが並行して実行されないようにするかどうかを制御します。</dd>
+
+</dl>
+</td>
+
+</tr>
+
+<tr>
+<td><span><span>networkDevice</span></span></td>
+
+<td><dl>
+<dt>クラス:</dt>
+
+<dd>NetworkDevice</dd>
+
+
+<dt>ClassType:</dt>
+
+<dd>ストリング</dd>
+
+
+<dt>デフォルト:</dt>
+
+<dd><span><span>/dev/dtremote</span></span></dd>
+
+
+<dt>説明:</dt>
+
+<dd>リモート接続の場合、 <span><span>finger</span></span> などのコマンドが適切に動作するためには、 <span><span>/etc/utmp</span></span> の <code>line</code> の値も <span><span>/dev</span></span> ディレクトリー内にデバイスとして存在している必要があります。 このリソースは、リモート・ディスプレイの接続時に <span><span>dtlogin</span></span> が作成する <span><span>/dev</span></span> ファイルのパス名を指定します。 ほとんどのプラットフォームでは、ファイルは <span><span>/dev/null</span></span>へのシンボリック・リンクとして作成されます。 指定値は <code>/dev/</code> で始める必要があります。それ以外の値は廃棄され、ファイルは作成されません。</dd>
+
+</dl>
+</td>
+
+</tr>
+
+<tr>
+<td><span><span>pidFile</span></span></td>
+
+<td><dl>
+<dt>クラス:</dt>
+
+<dd>PidFile</dd>
+
+
+<dt>ClassType:</dt>
+
+<dd>ストリング</dd>
+
+
+<dt>デフォルト:</dt>
+
+<dd>ヌル</dd>
+
+
+<dt>説明:</dt>
+
+<dd>指定されたファイル名は、メイン <span><span>dtlogin</span></span> プロセスのプロセス ID の ASCII 表記を含むように作成されます。 これは、シグナルを <span><span>dtlogin</span></span>に送信するときに使用できます。 また、 <span><span>dtlogin</span></span> クライアントはファイル・ロックを使用して、同じマシン上で複数の dtlogin が実行されないようにします。 詳しくは、 <span><span>lockPidFile</span></span> リソースを参照してください。</dd>
+
+</dl>
+</td>
+
+</tr>
+
+<tr>
+<td><span><span>removeDomainname</span></span></td>
+
+<td><dl>
+<dt>クラス:</dt>
+
+<dd>RemoveDomainname</dd>
+
+
+<dt>ClassType:</dt>
+
+<dd>boolean</dd>
+
+
+<dt>デフォルト:</dt>
+
+<dd>はい</dd>
+
+
+<dt>説明:</dt>
+
+<dd>XDMCP クライアントの表示名を計算する場合、 <span><span>dtlogin</span></span> は通常、端末の完全修飾ホスト名を作成します。 これは紛らわしい場合があるため、この変数が設定されていると、 <span><span>dtlogin</span></span> はホスト名のドメイン・ネーム部分がローカル・ホストのドメイン・ネームと同じであれば、その部分を除去します。</dd>
+
+</dl>
+</td>
+
+</tr>
+
+<tr>
+<td><span><span>requestPort</span></span></td>
+
+<td><dl>
+<dt>クラス:</dt>
+
+<dd>RequestPort</dd>
+
+
+<dt>ClassType:</dt>
+
+<dd>int</dd>
+
+
+<dt>デフォルト:</dt>
+
+<dd>177</dd>
+
+
+<dt>説明:</dt>
+
+<dd><span><span>dtlogin</span></span> が着信 XDMCP 要求を listen するために使用する UDP ポート番号を示します。 システムのデバッグの必要がない限り、このリソースのデフォルト値はそのままにしてください。</dd>
+
+</dl>
+</td>
+
+</tr>
+
+<tr>
+<td><span><span>servers</span></span></td>
+
+<td><dl>
+<dt>クラス:</dt>
+
+<dd>サーバー</dd>
+
+
+<dt>ClassType:</dt>
+
+<dd>ストリング</dd>
+
+
+<dt>デフォルト:</dt>
+
+<dd>:0 Local local /system_dependent_path/X :0</dd>
+
+
+<dt>説明:</dt>
+
+<dd>サーバー・エントリーをすべて (1 行に 1 つずつ) 入れたファイル名を指定するか (値がスラッシュで始まる場合)、または単一のサーバー・エントリーを指定します。 各エントリーは、常時管理する必要があって XDMCP を使用しないディスプレイを示します。 各エントリーの一般構文は次のとおりです。<div><div><pre><code>DisplayName DisplayClass DisplayType[@ite] [Command [options]]</code></pre></div><div></div></div>ここで:<dl>
+<dt><span><span>DisplayName</span></span></dt>
+
+<dd><span><span>-display</span></span> オプションで、任意の X プログラムに渡すことができる値。 この文字列は、特定のディスプレイを指定するためにディスプレイ固有のリソースで使用されます。したがって、名前の一致にとくに注意する必要があります。 例えば、他のリソースが <code>Dtlogin._0.session</code>として指定されている場合は、 <code>localhost:0 local /usr/bin/X11/X :0</code> の代わりに <code>:0 local /usr/bin/X11/X
+:0</code> を使用します。 このフィールドのアスタリスク (*<code></code>) は、 <span><span>dtlogin</span></span>によって <code><span><span>hostname</span></span>:0</code> に展開されます。</dd>
+
+
+<dt><span><span>DisplayClass</span></span></dt>
+
+<dd>ディスプレイ・クラス部分も、リソースのクラス部分としてディスプレイ固有のリソースで使用されます。 類似したディスプレイの大きな集合 (例えば、X 端末のグループ) があって、それらのディスプレイのいくつかのグループ用にリソースを設定したい場合に、この方法が役に立ちます。 XDMCP を使用する場合、ディスプレイにはディスプレイ・クラスを指定する必要があります。 ご使用のデバイスの場合に妥当な標準ディスプレイ・クラス文字列については、ご使用の X 端末の資料を参照してください。</dd>
+
+
+<dt><span><span>DisplayType</span></span></dt>
+
+<dd><code>local</code> を指定した場合は、このエントリーについて X サーバーを開始する必要があることを示します。 <code>remote</code> の値を指定した場合は、既存の X サーバーを接続する必要があることを示します。</dd>
+
+
+<dt>@ite</dt>
+
+<dd>ローカル・ビットマップでは、ユーザーはログイン画面を使用して「 <span><span>Command Line
+Login</span></span> 」オプションを選択できます。これにより、X サーバーが一時的に中断され、従来の文字の <code>login:</code> プロンプトが表示されます。 ここでユーザーはログインして、X 関連以外のタスクを実行することができます。 ユーザーがタスクを完了してログアウトすると、X サーバーが再起動され、ログイン画面が再表示されます。 <span><span>Command Line Login</span></span> モードをサポートするには、ディスプレイに内部端末エミュレーター (ITE) デバイスが関連付けられている必要があります。 デフォルトでは、 <span><span>dtlogin</span></span> は ITE 装置「コンソール」(<span><span>/dev/console</span></span>) をディスプレイ <code>:0</code>に関連付けます。 ユーザーの構成がこのデフォルトに一致しない場合は、ITE が関連付けられているディスプレイには <code>@device</code> を指定し、servers ファイルにリストされているそれ以外のすべてのディスプレイには <code>@none</code> を指定します。</dd>
+
+
+<dt>Command [options]</dt>
+
+<dd>X サーバーを開始する文字列。 <span><span>dtlogin</span></span> クライアントは常に、指定された <span><span>DisplayName</span></span> を使用して X サーバーに接続するため、X サーバーへのオプションとして明示的な接続番号 (前の例では<code>:0</code> ) を指定することが必要になる場合があります。</dd>
+
+</dl>
+</dd>
+
+</dl>
+</td>
+
+</tr>
+
+<tr>
+<td><span><span>sysParmsFile </span></span></td>
+
+<td><dl>
+<dt>クラス:</dt>
+
+<dd>SysParmsFile</dd>
+
+
+<dt>ClassType:</dt>
+
+<dd>ストリング</dd>
+
+
+<dt>デフォルト:</dt>
+
+<dd><span><span>/system_dependent_path</span></span></dd>
+
+
+<dt>説明:</dt>
+
+<dd>シェル・コマンドが入っているファイルを指定します。シェル・コマンドの 1 つは、システムの時間帯環境変数 (<span><span>TZ</span></span>) を設定します。 タイム・ゾーンがシェル構文 <code>TZ=</code>を使用して設定されている場合、 <span><span>dtlogin</span></span> はこの情報を使用して、ユーザー・セッションのタイム・ゾーンを設定できます。</dd>
+
+</dl>
+</td>
+
+</tr>
+
+<tr>
+<td><span><span>timeZone</span></span></td>
+
+<td><dl>
+<dt>クラス:</dt>
+
+<dd>TimeZone</dd>
+
+
+<dt>ClassType:</dt>
+
+<dd>ストリング</dd>
+
+
+<dt>デフォルト:</dt>
+
+<dd>ヌル</dd>
+
+
+<dt>説明:</dt>
+
+<dd><span><span>dtlogin</span></span>のローカル・タイム・ゾーンを指定します。 これは、 <span><span>TZ</span></span> 変数の値として <span><span>dtlogin</span></span> の環境にロードされ、後続のすべてのセッションに継承されます。 一部のシステムでは、タイム・ゾーン設定を含む構成ファイル (例えば、 <span><span>/etc/src.sh</span></span>) が維持されます。 <span><span>sysParmsFile</span></span> リソースも参照してください。</dd>
+
+</dl>
+</td>
+
+</tr>
+
+<tr>
+<td><span><span>wakeupInterval</span></span></td>
+
+<td><dl>
+<dt>クラス:</dt>
+
+<dd>WakeupInterval</dd>
+
+
+<dt>ClassType:</dt>
+
+<dd>整数</dd>
+
+
+<dt>デフォルト:</dt>
+
+<dd>10</dd>
+
+
+<dt>説明:</dt>
+
+<dd>ユーザーがログイン画面から <span><span>Command Line Login</span></span> モードを選択すると、 <span><span>dtlogin</span></span> は X サーバーを終了し、従来の文字ベースのログイン・プロンプト <code>login:</code> が表示されるようにします。 ユーザーが <span><span>wakeupInterval</span></span> 秒の 2 倍以内にログインしないと、X サーバーが再始動されます。 ユーザーがログインすると、 <span><span>dtlogin</span></span> は <span><span>wakeupInterval</span></span> 秒ごとにユーザーがログアウトしたかどうかを検査します。 ユーザーがログアウトした場合は、X サーバーが再起動され、ログイン画面が再表示されます。</dd>
+
+</dl>
+</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+<p><strong>DISPLAY RESOURCES</strong></p>
+ <p><span><span>dtlogin</span></span> コマンド表示リソースは、すべての表示または特定の表示に対して指定できます。 特定のディスプレイを指定するには、<code>Dtlogin</code> と最終リソース名セグメントの間のリソース名にディスプレイ名を挿入します。 例えば、<code>Dtlogin.expo_0.startup</code> は、<code>expo:0</code> ディスプレイ上の起動シェル・ファイルを定義するリソースの名前です。 リソース・マネージャーは、リソースの名前とその値をコロンで区切り、リソース名の部分をドットで区切ります。これにより、 <span><span>dtlogin</span></span> は、リソース名の生成時にドット (<code>.</code>) とコロン (<code>:</code>) に下線 (<code>_</code>) を使用します。</p>
+ <p>また、ディスプレイ名の代わりにクラス名を挿入することにより、クラス用にリソースを指定することもできます。 XDMCP の管理対象でないディスプレイの場合は、servers リソースで参照されるファイル内にクラス所属を指定することができます。 XDMCP を使用するディスプレイでは、XDMCP パケットの一部としてクラス所属が提供されます。</p>
+ <div>以下の <span><span>dtlogin</span></span> 一般リソースはディスプレイ固有ではなく、該当する場合はすべてのディスプレイに適用されます。<div><div><table><thead> <tr> <th><div>項目</div></th>
+ <th><div>説明</div></th>
+ </tr>
+ </thead>
+<tbody>
+<tr>
+<td><span><span>authorize</span></span></td>
+
+<td><dl>
+<dt>ClassClass:</dt>
+
+<dd>Authorize</dd>
+
+
+<dt>タイプ:</dt>
+
+<dd>boolean</dd>
+
+
+<dt>デフォルト:</dt>
+
+<dd>いいえ</dd>
+
+
+<dt>説明:</dt>
+
+<dd>Authorize は、 <span><span>dtlogin</span></span> がサーバー接続の許可を生成して使用するかどうかを制御するブール・リソースです。 <span><span>authName</span></span> リソースも参照してください。</dd>
+
+</dl>
+</td>
+
+</tr>
+
+<tr>
+<td><span><span>authName</span></span></td>
+
+<td><dl>
+<dt>ClassClass:</dt>
+
+<dd>AuthName</dd>
+
+
+<dt>タイプ:</dt>
+
+<dd>ストリング</dd>
+
+
+<dt>デフォルト:</dt>
+
+<dd><span><span>MIT-MAGIC-COOKIE-1</span></span></dd>
+
+
+<dt>説明:</dt>
+
+<dd><span><span>authorize</span></span> リソースが使用される場合、 <span><span>authName</span></span> は使用される許可のタイプを指定します。 現在、 <span><span>dtlogin</span></span> は MIT-MAGIC-COOKIE-1 許可のみをサポートします。 XDM-AUTHORIZATION-1 のサポートも可能ですが、DES は一般に配布できません。 XDMCP 接続は、動的にサポートされる許可タイプを示します。この場合、 <span><span>authName</span></span> は無視されます。 <span><span>authorize</span></span> リソースも参照してください。)</dd>
+
+</dl>
+</td>
+
+</tr>
+
+<tr>
+<td><span><span>authFile</span></span></td>
+
+<td><dl>
+<dt>ClassClass:</dt>
+
+<dd>AuthFile</dd>
+
+
+<dt>タイプ:</dt>
+
+<dd>ストリング</dd>
+
+
+<dt>デフォルト:</dt>
+
+<dd>ヌル</dd>
+
+
+<dt>説明:</dt>
+
+<dd><span><span>-auth</span></span> サーバー・コマンド行オプションを使用して、 <span><span>dtlogin</span></span> からサーバーに許可データを伝達します。 このリソースが消去されるとサーバーの許可メカニズムが使用不可になるため、書き込み保護ディレクトリーに保持して、消去を防止します。 NULL の場合、 <span><span>dtlogin</span></span> はファイル名を生成します。</dd>
+
+</dl>
+</td>
+
+</tr>
+
+<tr>
+<td><span><span>chooser</span></span></td>
+
+<td><dl>
+<dt>ClassClass:</dt>
+
+<dd>Chooser</dd>
+
+
+<dt>タイプ:</dt>
+
+<dd></dd>
+
+
+<dt>デフォルト:</dt>
+
+<dd></dd>
+
+
+<dt>説明:</dt>
+
+<dd>特殊なホスト名 <code>CHOOSER</code> にリダイレクトされた間接照会用のホスト・メニューを提供するために実行するプログラムを指定します。 デフォルトは <span><span>/usr/dt/bin/dtchooser</span></span>です。 「 <a href="https://www.ibm.com/docs/ja/ssw_aix_73/d_commands/dtlogin.html#dtlogin__dtlogin_xaccess_file" target="_blank" rel="noopener noreferrer">Xaccess ファイル</a> 」セクションを参照してください。</dd>
+
+</dl>
+</td>
+
+</tr>
+
+<tr>
+<td><span><span>cpp</span></span></td>
+
+<td><dl>
+<dt>ClassClass:</dt>
+
+<dd>Cpp</dd>
+
+
+<dt>タイプ:</dt>
+
+<dd>ストリング</dd>
+
+
+<dt>デフォルト:</dt>
+
+<dd>system dep.</dd>
+
+
+<dt>説明:</dt>
+
+<dd><span><span>xrdb</span></span>によって使用される C プリプロセッサーのパスを指定します。</dd>
+
+</dl>
+</td>
+
+</tr>
+
+<tr>
+<td><span><span>environment</span></span></td>
+
+<td><dl>
+<dt>ClassClass:</dt>
+
+<dd>Environment</dd>
+
+
+<dt>タイプ:</dt>
+
+<dd>ストリング</dd>
+
+
+<dt>デフォルト:</dt>
+
+<dd>system dep.</dd>
+
+
+<dt>説明:</dt>
+
+<dd>スペースまたはタブで区切られた <span><span>name</span></span>=<span><span>value</span></span> のペアのセットが入っています。 各は、サーバーおよびセッションの環境にロードされます。 詳しくは、「 <a href="https://www.ibm.com/docs/ja/ssw_aix_73/d_commands/dtlogin.html#dtlogin__dtlogin_environment" target="_blank" rel="noopener noreferrer">環境</a> 」セクションを参照してください。</dd>
+
+</dl>
+</td>
+
+</tr>
+
+<tr>
+<td><span><span>failsafeClient</span></span></td>
+
+<td><dl>
+<dt>ClassClass:</dt>
+
+<dd>FailsafeClient</dd>
+
+
+<dt>タイプ:</dt>
+
+<dd>ストリング</dd>
+
+
+<dt>デフォルト:</dt>
+
+<dd><span><span>/system_dep./xterm</span></span></dd>
+
+
+<dt>説明:</dt>
+
+<dd>デフォルト・セッションの実行が失敗すると、 <span><span>dtlogin</span></span> はこのプログラムにフォールバックします。 このプログラムは引数なしで実行されますが、セッションが使用するはずだったものと同じ環境変数を使用して実行されます。</dd>
+
+</dl>
+</td>
+
+</tr>
+
+<tr>
+<td><span><span>grabServer</span></span></td>
+
+<td><dl>
+<dt>ClassClass:</dt>
+
+<dd>GrabServer</dd>
+
+
+<dt>タイプ:</dt>
+
+<dd>boolean</dd>
+
+
+<dt>デフォルト:</dt>
+
+<dd>はい</dd>
+
+
+<dt>説明:</dt>
+
+<dd>セキュリティーを向上させるために、 <span><span>dtlogin</span></span> は、名前とパスワードを読み取りながら、サーバーとキーボードをグラブします。 <span><span>grabServer</span></span> リソースは、名前とパスワードの読み取り中にサーバーを保持するかどうかを指定します。 false の場合、サーバーはキーボードのグラブが成功した後でグラブ解除されます。False でない場合は、サーバーはセッション開始の直前までグラブされます。</dd>
+
+</dl>
+</td>
+
+</tr>
+
+<tr>
+<td><span><span>grabTimeout</span></span></td>
+
+<td><dl>
+<dt>ClassClass:</dt>
+
+<dd>GrabTimeout</dd>
+
+
+<dt>タイプ:</dt>
+
+<dd>整数</dd>
+
+
+<dt>デフォルト:</dt>
+
+<dd>3 秒</dd>
+
+
+<dt>説明:</dt>
+
+<dd><span><span>dtlogin</span></span> がグラブの成功を待機する最大時間を指定します。 別のクライアントそのサーバーをグラブしている場合、またはおそらくネットワーク待ち時間が非常に長い場合にも、グラブが失敗することがあります。 <span><span>grabTimeout</span></span> リソースのデフォルトは 3 秒です。ディスプレイ上の類似ウィンドウによってユーザーがだまされる可能性があるため、このリソースは注意して使用してください。 グラブが失敗すると、 <span><span>dtlogin</span></span> はサーバー (可能な場合) とセッションを強制終了して再始動します。 一部の X 端末は、サーバーのグラブ中にログイン画面を表示できません。 <span><span>grabServer</span></span> を FALSE に設定すると、画面は表示されますが、ログイン画面の内容をコピーすることによってユーザーのログイン名が盗まれる可能性があります。 キーボードはグラブされたままであり、パスワードはエコーされないので、パスワードが盗まれることはありません。</dd>
+
+</dl>
+</td>
+
+</tr>
+
+<tr>
+<td><span><span>language</span></span></td>
+
+<td><dl>
+<dt>ClassClass:</dt>
+
+<dd>言語</dd>
+
+
+<dt>タイプ:</dt>
+
+<dd>ストリング</dd>
+
+
+<dt>デフォルト:</dt>
+
+<dd>system dep.</dd>
+
+
+<dt>説明:</dt>
+
+<dd><span><span>LANG</span></span> 環境変数のデフォルト設定を指定します。 <span><span>dtlogin</span></span> 画面がその言語用にローカライズされている場合は、適切に表示されます。ローカライズされていない場合は、C 言語で表示されます。ユーザーは、ログイン画面のオプションを使用して、この設定を一時的にオーバーライドできます。 後続のセッションが終了すると、 <span><span>LANG</span></span> 変数はこの設定に戻ります。</dd>
+
+</dl>
+</td>
+
+</tr>
+
+<tr>
+<td><span><span>languageList</span></span></td>
+
+<td><dl>
+<dt>ClassClass:</dt>
+
+<dd>LanguageList</dd>
+
+
+<dt>タイプ:</dt>
+
+<dd>ストリング</dd>
+
+
+<dt>デフォルト:</dt>
+
+<dd>ヌル</dd>
+
+
+<dt>説明:</dt>
+
+<dd>ログイン画面の「Language (言語)」メニューに表示される言語のデフォルト・セットを、ユーザーが指定変更できるようにします。 特定のディスプレイで実際に使用される言語のセットが、システムにインストールされているセットより小さい場合、これが役に立ちます。 リソース値は、 <span><span>LANG</span></span> 環境変数の有効な値のリストです。 言語値は、1 つ以上のスペースまたはタブで分離する必要があります。</dd>
+
+</dl>
+</td>
+
+</tr>
+
+<tr>
+<td><span><span>languageName</span></span></td>
+
+<td><dl>
+<dt>ClassClass:</dt>
+
+<dd>LanguageName</dd>
+
+
+<dt>タイプ:</dt>
+
+<dd>ストリング</dd>
+
+
+<dt>デフォルト:</dt>
+
+<dd>ヌル</dd>
+
+
+<dt>説明:</dt>
+
+<dd>ログイン画面の「Language (言語)」メニューに表示されるデフォルトのロケール名を、ユーザーが代替テキストに指定変更できるようにします。 この指定変更により、例えば、<code>En_US</code> という項目の代わりに <code>English (United States)</code> という項目がユーザーに表示されることになります。 このリソースは、 <span><span>Dtlogin *</span></span><span><span>local_name</span></span>. <span><span>languageName</span></span>として指定されます。 <span><span>text</span></span> は以下のとおりです。<div><div><pre><code>Dtlogin*En_US.languageName: English (United States)
+Dtlogin*Fr_CA.languageName: French (Canadian)</code></pre></div><div></div></div></dd>
+
+</dl>
+</td>
+
+</tr>
+
+<tr>
+<td><span><span>openDelay</span></span></td>
+
+<td><dl>
+<dt>ClassClass:</dt>
+
+<dd>OpenDelay</dd>
+
+
+<dt>タイプ:</dt>
+
+<dd>整数</dd>
+
+
+<dt>デフォルト:</dt>
+
+<dd>5 秒</dd>
+
+
+<dt>説明:</dt>
+
+<dd>応答の鈍いサーバーをオープンする継続した試行の間の所要時間 (秒) を指定します。</dd>
+
+</dl>
+</td>
+
+</tr>
+
+<tr>
+<td><span><span>openRepeat</span></span></td>
+
+<td><dl>
+<dt>ClassClass:</dt>
+
+<dd>OpenRepeat</dd>
+
+
+<dt>タイプ:</dt>
+
+<dd>整数</dd>
+
+
+<dt>デフォルト:</dt>
+
+<dd>5 秒</dd>
+
+
+<dt>説明:</dt>
+
+<dd>応答の鈍いサーバーをオープンする継続した試行の回数を指定します。</dd>
+
+</dl>
+</td>
+
+</tr>
+
+<tr>
+<td><span><span>openTimeout</span></span></td>
+
+<td><dl>
+<dt>ClassClass:</dt>
+
+<dd>OpenTimeout</dd>
+
+
+<dt>タイプ:</dt>
+
+<dd>整数</dd>
+
+
+<dt>デフォルト:</dt>
+
+<dd>30 秒</dd>
+
+
+<dt>説明:</dt>
+
+<dd>応答の鈍いサーバーのオープンを実際に試行しているときの待ち時間を指定します。 この時間は、 <span><span>connect</span></span> システム・コールで費やされた最大時間と同じです。</dd>
+
+</dl>
+</td>
+
+</tr>
+
+<tr>
+<td><span><span>pingInterval</span></span></td>
+
+<td><dl>
+<dt>ClassClass:</dt>
+
+<dd>PingInterval</dd>
+
+
+<dt>タイプ:</dt>
+
+<dd>整数</dd>
+
+
+<dt>デフォルト:</dt>
+
+<dd>5 分</dd>
+
+
+<dt>説明:</dt>
+
+<dd>リモート・ディスプレイが消えるのを検出するために、 <span><span>dtlogin</span></span> は、X 接続を使用して XSync 要求を送信し、ときどきリモート・ディスプレイを ping します。 <span><span>pingInterval</span></span> リソースは、ping を連続して試行する時間間隔 (分単位) を指定します。</dd>
+
+</dl>
+</td>
+
+</tr>
+
+<tr>
+<td><span><span>pingTimeout</span></span></td>
+
+<td><dl>
+<dt>ClassClass:</dt>
+
+<dd>PingTimeout</dd>
+
+
+<dt>タイプ:</dt>
+
+<dd>int</dd>
+
+
+<dt>デフォルト:</dt>
+
+<dd>5 分</dd>
+
+
+<dt>説明:</dt>
+
+<dd>端末が要求に応答するのを待つ最大待ち時間 (分) を指定します。 端末が応答しない場合、セッションは終了します。 <span><span>dtlogin</span></span> クライアントはローカル表示を ping しません。 サーバーが (例えば、リモート・ファイルシステム・サービスを) 待機中で ping に応答しない場合、その結果としてローカル・セッションが終了することがあってはなりません。</dd>
+
+</dl>
+</td>
+
+</tr>
+
+<tr>
+<td><span><span>reset</span></span></td>
+
+<td><dl>
+<dt>ClassClass:</dt>
+
+<dd>リセット</dd>
+
+
+<dt>タイプ:</dt>
+
+<dd>ストリング</dd>
+
+
+<dt>デフォルト:</dt>
+
+<dd>ヌル</dd>
+
+
+<dt>説明:</dt>
+
+<dd>セッション終了後に (root として) 実行されるプログラムを指定します。 このリソースを設定しない場合、実行されるプログラムはありません。 従来の名前は <span><span>Xreset</span></span>です。 <a href="https://www.ibm.com/docs/ja/ssw_aix_73/d_commands/dtlogin.html#dtlogin__dtlogin_xreset_file" target="_blank" rel="noopener noreferrer">Xreset ファイル</a>を参照してください。</dd>
+
+</dl>
+</td>
+
+</tr>
+
+<tr>
+<td><span><span>resetForAuth </span></span></td>
+
+<td><dl>
+<dt>ClassClass:</dt>
+
+<dd>ResetForAuth</dd>
+
+
+<dt>タイプ:</dt>
+
+<dd>boolean</dd>
+
+
+<dt>デフォルト:</dt>
+
+<dd>いいえ</dd>
+
+
+<dt>説明:</dt>
+
+<dd>サンプル・サーバーでの許可のオリジナル・インプリメンテーションの際、許可ファイルは、初期接続の検査時ではなく、サーバー・リセット時に再読み取りされていました。 <span><span>dtlogin</span></span> は、ディスプレイに接続する直前に許可情報を生成するため、古いサーバーは現行の許可情報を取得しません。 このリソースにより、 <span><span>dtlogin</span></span> はファイルのセットアップ後にサーバーに SIGHUP を送信し、追加のサーバー・リセットが行われます。その間に、新しい許可情報が読み取られます。</dd>
+
+</dl>
+</td>
+
+</tr>
+
+<tr>
+<td><span><span>resetSignal</span></span></td>
+
+<td><dl>
+<dt>ClassClass:</dt>
+
+<dd>Signal</dd>
+
+
+<dt>タイプ:</dt>
+
+<dd>整数</dd>
+
+
+<dt>デフォルト:</dt>
+
+<dd>1 SIGHUP</dd>
+
+
+<dt>説明:</dt>
+
+<dd><span><span>dtlogin</span></span> がサーバーをリセットするために送信するシグナルを指定します。</dd>
+
+</dl>
+</td>
+
+</tr>
+
+<tr>
+<td><span><span>resources</span></span></td>
+
+<td><dl>
+<dt>ClassClass:</dt>
+
+<dd>リソース</dd>
+
+
+<dt>タイプ:</dt>
+
+<dd>ストリング</dd>
+
+
+<dt>デフォルト:</dt>
+
+<dd>ヌル</dd>
+
+
+<dt>説明:</dt>
+
+<dd><span><span>xrdb</span></span> がリソース・データベースとしてディスプレイの画面 0 のルート・ウィンドウにロードするファイルの名前を指定します。 このリソース・データベースは認証プロシージャーの開始直前にロードされるので、ログイン・ウィンドウの外観を制御することができます。 認証画面に関するセクションで、このファイルに入れるのに適した各種リソースについて説明していますので、参照してください。 このリソースにはデフォルト値はありませんが、従来の名前は <span><span>Xresources</span></span>です。</dd>
+
+</dl>
+</td>
+
+</tr>
+
+<tr>
+<td><span><span>session</span></span></td>
+
+<td><dl>
+<dt>ClassClass:</dt>
+
+<dd>セッション</dd>
+
+
+<dt>タイプ:</dt>
+
+<dd>ストリング</dd>
+
+
+<dt>デフォルト:</dt>
+
+<dd><span><span>/usr/dt/bin/Xsession</span></span></dd>
+
+
+<dt>説明:</dt>
+
+<dd>認証ユーザー用に実行されるセッションを指定します。 デフォルトでは、 <span><span>/usr/dt/bin/Xsession</span></span> ファイルが実行されます。 従来の名前は <span><span>Xsession</span></span>です。 <a href="https://www.ibm.com/docs/ja/ssw_aix_73/d_commands/dtlogin.html#dtlogin__dtlogin_xsession_file" target="_blank" rel="noopener noreferrer">Xsession</a> ファイルを参照してください。</dd>
+
+</dl>
+</td>
+
+</tr>
+
+<tr>
+<td><span><span>setup</span></span></td>
+
+<td><dl>
+<dt>ClassClass:</dt>
+
+<dd>Setup</dd>
+
+
+<dt>タイプ:</dt>
+
+<dd>ストリング</dd>
+
+
+<dt>デフォルト:</dt>
+
+<dd>ヌル</dd>
+
+
+<dt>説明:</dt>
+
+<dd>認証画面の表示前に (root として) 実行されるプログラムを指定します。 デフォルトで実行するプログラムはありません。 従来の名前は <span><span>Xsetup</span></span>です。 <a href="https://www.ibm.com/docs/ja/ssw_aix_73/d_commands/dtlogin.html#dtlogin__dtlogin_xsetup_file" target="_blank" rel="noopener noreferrer">Xsetup</a> ファイルを参照してください。</dd>
+
+</dl>
+</td>
+
+</tr>
+
+<tr>
+<td><span><span>startAttempts</span></span></td>
+
+<td><dl>
+<dt>ClassClass:</dt>
+
+<dd>StartAttempts</dd>
+
+
+<dt>タイプ:</dt>
+
+<dd>整数</dd>
+
+
+<dt>デフォルト:</dt>
+
+<dd>4</dd>
+
+
+<dt>説明:</dt>
+
+<dd>4 つの数値リソース ( <span><span>openDelay</span></span>、 <span><span>openRepeat</span></span>、 <span><span>openTimeout</span></span>、および <span><span>startAttempts</span></span>) が、控えめのサーバーを開こうとするときの dtlogin の動作を制御します。 このリソースは、サーバーのオープンを中止する前にプロセス全体が実行される回数を指定します。 <span><span>openRepeat</span></span> の試行後、または特定の試行で <span><span>openTimeout</span></span> 秒が経過した場合、 <span><span>dtlogin</span></span> はサーバーを終了して再始動し、接続を再試行します。 このプロセスは <span><span>startAttempts</span></span> 回繰り返されます。この時点で、表示は非活動として宣言され、使用不可になります。</dd>
+
+</dl>
+</td>
+
+</tr>
+
+<tr>
+<td><span><span>startup</span></span></td>
+
+<td><dl>
+<dt>ClassClass:</dt>
+
+<dd>Startup</dd>
+
+
+<dt>タイプ:</dt>
+
+<dd>ストリング</dd>
+
+
+<dt>デフォルト:</dt>
+
+<dd>ヌル</dd>
+
+
+<dt>説明:</dt>
+
+<dd>認証プロセスの成功後に (root として) 実行するプログラムを指定します。 デフォルトで実行するプログラムはありません。 ここで使用されるファイルの標準的な名前は、 <span><span>Xstartup</span></span>です。 <a href="https://www.ibm.com/docs/ja/ssw_aix_73/d_commands/dtlogin.html#dtlogin__dtlogin_xstartup_file" target="_blank" rel="noopener noreferrer">Xstartup ファイル</a> のセクションを参照してください。</dd>
+
+</dl>
+</td>
+
+</tr>
+
+<tr>
+<td><span><span>systemPath</span></span></td>
+
+<td><dl>
+<dt>ClassClass:</dt>
+
+<dd>SystemPath</dd>
+
+
+<dt>タイプ:</dt>
+
+<dd>ストリング</dd>
+
+
+<dt>デフォルト:</dt>
+
+<dd>system_dep._path</dd>
+
+
+<dt>説明:</dt>
+
+<dd><span><span>dtlogin</span></span> クライアントは、始動スクリプトおよびリセット・スクリプトの <span><span>PATH</span></span> 環境変数をこのリソースの値に設定します。 このエントリーには「.」がないことに 注意してください。 ルートをこのようにしておくと、多くのシステム侵入の試みを防ぐよい方法になります。</dd>
+
+</dl>
+</td>
+
+</tr>
+
+<tr>
+<td><span><span>systemShell</span></span></td>
+
+<td><dl>
+<dt>ClassClass:</dt>
+
+<dd>SystemShell</dd>
+
+
+<dt>タイプ:</dt>
+
+<dd>ストリング</dd>
+
+
+<dt>デフォルト:</dt>
+
+<dd>/bin/sh</dd>
+
+
+<dt>説明:</dt>
+
+<dd><span><span>dtlogin</span></span> クライアントは、始動スクリプトおよびリセット・スクリプトの <span><span>SHELL</span></span> 環境変数をこのリソースの値に設定します。</dd>
+
+</dl>
+</td>
+
+</tr>
+
+<tr>
+<td><span><span>terminateServer</span></span></td>
+
+<td><dl>
+<dt>ClassClass:</dt>
+
+<dd>TerminateServer</dd>
+
+
+<dt>タイプ:</dt>
+
+<dd>boolean</dd>
+
+
+<dt>デフォルト:</dt>
+
+<dd>いいえ</dd>
+
+
+<dt>説明:</dt>
+
+<dd>セッションが終了したとき X サーバーを (リセットする代わりに) 終了するかどうかを指定します。 このオプションを使用すると、サーバーが時間と共に無限に肥大化する場合に、サーバーの連続実行の時間を制限することができます。</dd>
+
+</dl>
+</td>
+
+</tr>
+
+<tr>
+<td><span><span>termSignal</span></span></td>
+
+<td><dl>
+<dt>ClassClass:</dt>
+
+<dd>Signal</dd>
+
+
+<dt>タイプ:</dt>
+
+<dd>整数</dd>
+
+
+<dt>デフォルト:</dt>
+
+<dd>15 (SIGTERM)</dd>
+
+
+<dt>説明:</dt>
+
+<dd><span><span>dtlogin</span></span> がサーバーを終了するために送信するシグナルを指定します。</dd>
+
+</dl>
+</td>
+
+</tr>
+
+<tr>
+<td><span><span>userAuthDir</span></span></td>
+
+<td><dl>
+<dt>ClassClass:</dt>
+
+<dd>UserAuthDir</dd>
+
+
+<dt>タイプ:</dt>
+
+<dd>ストリング</dd>
+
+
+<dt>デフォルト:</dt>
+
+<dd>/var/dt</dd>
+
+
+<dt>説明:</dt>
+
+<dd><span><span>dtlogin</span></span> は、通常のユーザー許可ファイル (<span><span>$HOME/.Xauthority</span></span>) に書き込むことができない場合、このディレクトリーに固有のファイル名を作成し、作成されたファイルを環境変数 <span><span>XAUTHORITY</span></span> が指すようにします。</dd>
+
+</dl>
+</td>
+
+</tr>
+
+<tr>
+<td><span><span>userPath</span></span></td>
+
+<td><dl>
+<dt>ClassClass:</dt>
+
+<dd>UserPath</dd>
+
+
+<dt>タイプ:</dt>
+
+<dd>ストリング</dd>
+
+
+<dt>デフォルト:</dt>
+
+<dd>system_dep._path</dd>
+
+
+<dt>説明:</dt>
+
+<dd><span><span>dtlogin</span></span> クライアントは、セッションの <span><span>PATH</span></span> 環境変数をこの値に設定します。 これはコロンで区切ったディレクトリーのリストでなければなりません。</dd>
+
+</dl>
+</td>
+
+</tr>
+
+<tr>
+<td><span><span>xdmMode</span></span></td>
+
+<td><dl>
+<dt>ClassClass:</dt>
+
+<dd>XdmMode</dd>
+
+
+<dt>タイプ:</dt>
+
+<dd>boolean</dd>
+
+
+<dt>デフォルト:</dt>
+
+<dd>いいえ</dd>
+
+
+<dt>説明:</dt>
+
+<dd>True の場合、 <span><span>$HOME/.xsession</span></span> ファイルは、 <span><span>dtsession</span></span>からではなく、ユーザー認証時に <span><span>Xsession</span></span> から実行されます。</dd>
+
+</dl>
+</td>
+
+</tr>
+
+<tr>
+<td><span><span>xrdb</span></span></td>
+
+<td><dl>
+<dt>ClassClass:</dt>
+
+<dd>Xrdb</dd>
+
+
+<dt>タイプ:</dt>
+
+<dd>ストリング</dd>
+
+
+<dt>デフォルト:</dt>
+
+<dd><span><span>/system_dep./xrdb</span></span></dd>
+
+
+<dt>説明:</dt>
+
+<dd>リソースを読み込むために使用するプログラムを指定します。 認証画面はキーボードから <span><span>name</span></span>-<span><span>password</span></span> のペアを読み取ります。 これは Motif ツールキットのクライアントですから、色、フォント、およびいくつかのレイアウト・オプションをこのリソースで制御できます。 この画面の一般リソースは、 <span><span>resources</span></span> リソース (<span><span>Xresources</span></span> がデフォルト) によって指定されたファイルに入れる必要があります。 言語固有の値 (テキストやフォントなど) を <span><span>Dtlogin app-defaults</span></span> ファイルに指定します。</dd>
+
+</dl>
+</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+<p><strong>ロゴ・リソース</strong></p>
+ <div>認証画面のデフォルト・ロゴは、ユーザーの選択したビットマップまたはピックスマップで置き換えることができます。 リソースを指定する際は、文字列 <code>Dtlogin*logo*</code> の前書きを付ける必要があります。<div><div><table><thead> <tr> <th><div>項目</div></th>
+ <th><div>説明</div></th>
+ </tr>
+ </thead>
+<tbody>
+<tr>
+<td><span><span>bitmapFile</span></span></td>
+
+<td><dl>
+<dt>ClassClass:</dt>
+
+<dd>BitmapFile</dd>
+
+
+<dt>タイプ:</dt>
+
+<dd>ストリング</dd>
+
+
+<dt>デフォルト:</dt>
+
+<dd>ヌル</dd>
+
+
+<dt>説明:</dt>
+
+<dd>ロゴに使用するビットマップ・ファイルまたはピックスマップ・ファイルの絶対パス名を指定します。</dd>
+
+</dl>
+</td>
+
+</tr>
+
+<tr>
+<td><span><span>background</span></span></td>
+
+<td><dl>
+<dt>ClassClass:</dt>
+
+<dd>Background</dd>
+
+
+<dt>タイプ:</dt>
+
+<dd>pixel</dd>
+
+
+<dt>デフォルト:</dt>
+
+<dd>#a8a8a8</dd>
+
+
+<dt>説明:</dt>
+
+<dd>ロゴの背景色を指定します。</dd>
+
+</dl>
+</td>
+
+</tr>
+
+<tr>
+<td><span><span>topShadowPixmap</span></span></td>
+
+<td><dl>
+<dt>ClassClass:</dt>
+
+<dd>topShadowPixmap</dd>
+
+
+<dt>タイプ:</dt>
+
+<dd>ストリング</dd>
+
+
+<dt>デフォルト:</dt>
+
+<dd>25_foreground</dd>
+
+
+<dt>説明:</dt>
+
+<dd>ロゴのボーダー・シャドーに使用するピックスマップを指定します。</dd>
+
+</dl>
+</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+ <div>以下のリソースは、ログイン画面で使用するグリーティング文字列を記述します。 リソースを指定する際は、文字列 <code>Dtlogin*greeting*</code> の前書きを付ける必要があります。<div><div><table><thead> <tr> <th><div>項目</div></th>
+ <th><div>説明</div></th>
+ </tr>
+ </thead>
+<tbody>
+<tr>
+<td><span><span>foreground</span></span></td>
+
+<td><dl>
+<dt>ClassClass:</dt>
+
+<dd>Foreground</dd>
+
+
+<dt>タイプ:</dt>
+
+<dd>pixel</dd>
+
+
+<dt>デフォルト:</dt>
+
+<dd>黒</dd>
+
+
+<dt>説明:</dt>
+
+<dd>ウェルカム・メッセージの前景色を指定します。</dd>
+
+</dl>
+</td>
+
+</tr>
+
+<tr>
+<td><span><span>background</span></span></td>
+
+<td><dl>
+<dt>ClassClass:</dt>
+
+<dd>Background</dd>
+
+
+<dt>タイプ:</dt>
+
+<dd>pixel</dd>
+
+
+<dt>デフォルト:</dt>
+
+<dd>動的</dd>
+
+
+<dt>説明:</dt>
+
+<dd>ウェルカム・メッセージの背景色を指定します。 デフォルトは、カラー・システムの場合はライト・グレー、モノクローム・システムの場合は白です。</dd>
+
+</dl>
+</td>
+
+</tr>
+
+<tr>
+<td><span><span>fontlist</span></span></td>
+
+<td><dl>
+<dt>ClassClass:</dt>
+
+<dd>FontList</dd>
+
+
+<dt>タイプ:</dt>
+
+<dd>FontList</dd>
+
+
+<dt>デフォルト:</dt>
+
+<dd>-*-*schoolbook-medium-i-normal--18-*</dd>
+
+
+<dt>説明:</dt>
+
+<dd>ウェルカム・メッセージに使用するフォントを指定します。</dd>
+
+</dl>
+</td>
+
+</tr>
+
+<tr>
+<td><span><span>labelString</span></span></td>
+
+<td><dl>
+<dt>ClassClass:</dt>
+
+<dd>LabelString</dd>
+
+
+<dt>タイプ:</dt>
+
+<dd>ストリング</dd>
+
+
+<dt>デフォルト:</dt>
+
+<dd>Welcome to %LocalHost%</dd>
+
+
+<dt>説明:</dt>
+
+<dd>ウェルカム・メッセージに使用する文字列を指定します。 テキストに改行文字 <code>(0</code> を含めると、複数の行を指定することができます。 テキストにトークン <code>%LocalHost%</code> を含めた場合、ログイン・サービスを提供するホストの名前で置き換えられます。 テキストにトークン <code>%DisplayName%</code> を含めた場合、ディスプレイ名で置き換えられます。</dd>
+
+</dl>
+</td>
+
+</tr>
+
+<tr>
+<td><span><span>perLabelString</span></span></td>
+
+<td><dl>
+<dt>ClassClass:</dt>
+
+<dd>LabelString</dd>
+
+
+<dt>タイプ:</dt>
+
+<dd>ストリング</dd>
+
+
+<dt>デフォルト:</dt>
+
+<dd>Welcome %s</dd>
+
+
+<dt>説明:</dt>
+
+<dd>個別設定ウェルカム・メッセージに使用する文字列を指定します。 このメッセージは、ユーザー名が入力された後で表示されます。 <code>%</code> は、入力されたユーザー名で置き換えられます。</dd>
+
+</dl>
+</td>
+
+</tr>
+
+<tr>
+<td><span><span>alignment</span></span></td>
+
+<td><dl>
+<dt>ClassClass:</dt>
+
+<dd>Alignment</dd>
+
+
+<dt>タイプ:</dt>
+
+<dd>ストリング</dd>
+
+
+<dt>デフォルト:</dt>
+
+<dd>ALIGNMENT_CENTER</dd>
+
+
+<dt>説明:</dt>
+
+<dd>ウェルカム・メッセージの位置合わせに使用する文字列を指定します。 有効な値は、ALIGNMENT_BEGINNING、ALIGNMENT_CENTER、および ALIGNMENT_END です。</dd>
+
+</dl>
+</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+<p><strong>マット・リソース</strong></p>
+ <div>以下のリソースは、ログイン画面で使用するマット・レイアウトを記述します。 リソースを指定する際は、文字列 <code>Dtlogin*matte.</code> の前書きを付ける必要があります。<div><div><table><thead> <tr> <th><div>項目</div></th>
+ <th><div>説明</div></th>
+ </tr>
+ </thead>
+<tbody>
+<tr>
+<td><span><span>width</span></span></td>
+
+<td><dl>
+<dt>ClassClass:</dt>
+
+<dd>幅</dd>
+
+
+<dt>タイプ:</dt>
+
+<dd>整数</dd>
+
+
+<dt>デフォルト:</dt>
+
+<dd>高解像度ディスプレイの場合は 806、中解像度ディスプレイの場合は 755、低解像度ディスプレイの場合は 585</dd>
+
+
+<dt>説明:</dt>
+
+<dd><span><span>login_matte</span></span>に使用する幅を指定します。</dd>
+
+</dl>
+</td>
+
+</tr>
+
+<tr>
+<td><span><span>height</span></span></td>
+
+<td><dl>
+<dt>ClassClass:</dt>
+
+<dd>Height</dd>
+
+
+<dt>タイプ:</dt>
+
+<dd>整数</dd>
+
+
+<dt>デフォルト:</dt>
+
+<dd>高解像度ディスプレイの場合は 412、中解像度ディスプレイの場合は 385、低解像度ディスプレイの場合は 300</dd>
+
+
+<dt>説明:</dt>
+
+<dd><span><span>login_matte</span></span>に使用する高さを指定します。</dd>
+
+</dl>
+</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+<p><strong>ラベル・リソース</strong></p>
+ <div>以下のリソースは、ログイン画面で使用するフォント・レイアウトを記述します。 リソースを指定する際は、<code>string Dtlogin*.</code> という前書きを付ける必要があります。<div><div><table><thead> <tr> <th><div>項目</div></th>
+ <th><div>説明</div></th>
+ </tr>
+ </thead>
+<tbody>
+<tr>
+<td><span><span>labelFont</span></span></td>
+
+<td><dl>
+<dt>ClassClass:</dt>
+
+<dd>LabelFont</dd>
+
+
+<dt>タイプ:</dt>
+
+<dd>ストリング</dd>
+
+
+<dt>デフォルト:</dt>
+
+<dd>高解像度ディスプレイの場合は -*-swiss 742-medium-r-normal-*-140-*-p-110-*、低解像度ディスプレイの場合は -*-swiss 742-bold-r-normal-*-140-*-p-100-*</dd>
+
+
+<dt>説明:</dt>
+
+<dd>プッシュボタンおよびラベルに使用する <span><span>labelFont</span></span> を指定します。</dd>
+
+</dl>
+</td>
+
+</tr>
+
+<tr>
+<td><span><span>textFont</span></span></td>
+
+<td><dl>
+<dt>ClassClass:</dt>
+
+<dd>TextFont</dd>
+
+
+<dt>タイプ:</dt>
+
+<dd>ストリング</dd>
+
+
+<dt>デフォルト:</dt>
+
+<dd>高解像度ディスプレイの場合は -*-prestige-medium-r-normal-*-128-72-*、低解像度ディスプレイの場合は -*-helvetica-bold-r-normal-*-100-*</dd>
+
+
+<dt>説明:</dt>
+
+<dd>プッシュボタンおよびラベルに使用する <span><span>textFont</span></span> を指定します。</dd>
+
+</dl>
+</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+</section>
+
+<section><h2>フラグ</h2> <p>-<span><span>config</span></span>以外のすべてのフラグは、リソースとして構成ファイルにも指定できる値を指定します。 典型的な場合は、カスタマイズはコマンド・ライン・オプションではなく構成ファイルを使用して行われます。 これらのフラグは、デバッグおよび 1 回限りのテストで最も役に立ちます。</p>
+ 
+<div><div><table><thead> <tr> <th><div>項目</div></th>
+ <th><div>説明</div></th>
+ </tr>
+ </thead>
+<tbody>
+<tr>
+<td><span><span>-config</span></span> <span><span>「configuration_file」</span></span></td>
+
+<td>残りの構成パラメーターを指定するリソース・ファイルを指定します。 これにより、 <span><span>dtlogin</span></span> default <span><span>Xconfig</span></span> ファイルが置き換えられます。 詳しくは、 <a href="https://www.ibm.com/docs/ja/ssw_aix_73/d_commands/dtlogin.html#dtlogin__dtlogin_xconfig_file" target="_blank" rel="noopener noreferrer">Xconfig ファイル</a> のセクションを参照してください。</td>
+
+</tr>
+
+<tr>
+<td><span><span>-daemon</span></span></td>
+
+<td><span><span>daemonMode</span></span> リソースの値として <code>true</code> を指定します。 これにより、 <span><span>dtlogin</span></span> はすべてのファイル記述子をクローズし、制御端末の関連付けを解除し、(他のデーモンのホストと同様に) 最初に始動するときにバックグラウンドに自分自身を置きます。</td>
+
+</tr>
+
+<tr>
+<td><span><span>-debug</span></span><span><span> デバッグレベル</span></span></td>
+
+<td><span><span>debug_level</span></span> リソースの数値を指定します。 ゼロ以外の値を指定すると、 <span><span>dtlogin</span></span> はデバッグ・ステートメントを端末に出力します。また、 <span><span>daemonMode</span></span> リソースを使用不可にして、強制的に <span><span>dtlogin</span></span> を同期的に実行させます。</td>
+
+</tr>
+
+<tr>
+<td><span><span>-error</span></span><span><span> エラーログファイル</span></span></td>
+
+<td><span><span>error_log_file</span></span> リソースの値を指定します。 詳しくは、 <a href="https://www.ibm.com/docs/ja/ssw_aix_73/d_commands/dtlogin.html#dtlogin__dtlogin_xerrors_file" target="_blank" rel="noopener noreferrer">Xerrors</a> ファイルのセクションを参照してください。</td>
+
+</tr>
+
+<tr>
+<td><span><span>-nodaemon</span></span></td>
+
+<td>リソースの値として <code>false</code> を指定します。</td>
+
+</tr>
+
+<tr>
+<td><span><span>-resources</span></span> <span><span>リソース・ファイル</span></span></td>
+
+<td><span><span>resource_file</span></span> リソースの値を指定します。 詳しくは、 <a href="https://www.ibm.com/docs/ja/ssw_aix_73/d_commands/dtlogin.html#dtlogin__dtlogin_xresources_file" target="_blank" rel="noopener noreferrer">Xresources ファイル</a> のセクションを参照してください。</td>
+
+</tr>
+
+<tr>
+<td><span><span>-server</span></span> <span><span>サーバー項目</span></span></td>
+
+<td><span><span>server_entry</span></span> リソースの値を指定します。 詳しくは、 <a href="https://www.ibm.com/docs/ja/ssw_aix_73/d_commands/dtlogin.html#dtlogin__dtlogin_xservers_file" target="_blank" rel="noopener noreferrer">Xservers ファイル</a> のセクションを参照してください。</td>
+
+</tr>
+
+<tr>
+<td><span><span>-udpPort</span></span> <span><span>ポート番号</span></span></td>
+
+<td><span><span>requestPort</span></span> リソースの値を指定します。 これは、 <span><span>dtlogin</span></span> が XDMCP 要求をモニターするポート番号を設定します。 XDMCP は既知の登録済み udp ポート 177 を使用するため、デバッグの場合を除いてこのリソースの変更は避けてください。</td>
+
+</tr>
+
+<tr>
+<td><span><span>-session</span></span> <span><span>セッション・プログラム</span></span></td>
+
+<td><span><span>session_program</span></span> リソースの値を指定します。 詳しくは、 <a href="https://www.ibm.com/docs/ja/ssw_aix_73/d_commands/dtlogin.html#dtlogin__dtlogin_xsession_file" target="_blank" rel="noopener noreferrer">Xconfig ファイル</a> のセクションを参照してください。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</section>
+
+<section><h2>環境変数</h2> <p><span><span>dtlogin</span></span> コマンドは、以下のデフォルト環境でユーザーのセッションを呼び出します。</p>
+ 
+<div><div><table><thead> <tr> <th><div>項目</div></th>
+ <th><div>説明</div></th>
+ </tr>
+ </thead>
+<tbody>
+<tr>
+<td><span><span>DISPLAY</span></span></td>
+
+<td>関連したディスプレイ名に設定されます。</td>
+
+</tr>
+
+<tr>
+<td><span><span>EDITOR</span></span></td>
+
+<td><span><span>/usr/dt/bin/dtpad</span></span>に設定します。</td>
+
+</tr>
+
+<tr>
+<td><span><span>HOME</span></span></td>
+
+<td>ユーザーのホーム・ディレクトリーに設定されます。</td>
+
+</tr>
+
+<tr>
+<td><span><span>KBD_LANG</span></span></td>
+
+<td>適用可能な言語の場合は、 <span><span>LANG</span></span> の値に設定します。</td>
+
+</tr>
+
+<tr>
+<td><span><span>LANG</span></span></td>
+
+<td>現行の NLS 言語があれば、その言語に設定されます。</td>
+
+</tr>
+
+<tr>
+<td><span><span>LC_ALL</span></span></td>
+
+<td>現行の NLS 言語があれば、その言語に設定されます。</td>
+
+</tr>
+
+<tr>
+<td><span><span>LC_MESSAGES</span></span></td>
+
+<td>現行の NLS 言語があれば、その言語に設定されます。</td>
+
+</tr>
+
+<tr>
+<td><span><span>LOGNAME</span></span></td>
+
+<td>ユーザー名に設定されます。</td>
+
+</tr>
+
+<tr>
+<td><span><span>MAIL</span></span></td>
+
+<td><span><span>/usr/mail/$USER</span></span> (システム依存) に設定します。</td>
+
+</tr>
+
+<tr>
+<td><span><span>PATH</span></span></td>
+
+<td><span><span>userPath</span></span> リソースの値に設定します。</td>
+
+</tr>
+
+<tr>
+<td><span><span>USER</span></span></td>
+
+<td>ユーザー名に設定されます。</td>
+
+</tr>
+
+<tr>
+<td><span><span>SHELL</span></span></td>
+
+<td>ユーザーのデフォルト・シェルに設定します ( <span><span>/etc/passwd</span></span>から)。</td>
+
+</tr>
+
+<tr>
+<td><span><span>TERM</span></span></td>
+
+<td><span><span>dtterm</span></span>に設定します。</td>
+
+</tr>
+
+<tr>
+<td><span><span>TZ</span></span></td>
+
+<td><span><span>timeZone</span></span> リソースの値またはシステム・デフォルトに設定されます。</td>
+
+</tr>
+
+<tr>
+<td><span><span>XAUTHORITY</span></span></td>
+
+<td>権限ファイルに設定されます。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+<p><strong>環境リストへの追加</strong></p>
+ <div>結果の環境変数の望ましいスコープに応じて、さらに次の 4 つのメソッドがあります。これらのメソッドは上記のリストを変更するか、上記のリストに追加されるものです。<ul>
+<li><span><span>exportList</span></span> リソースは、親によって <span><span>dtlogin</span></span> プロセスに提供される変数のエクスポートを可能にするために使用できます。 この方式で指定される変数は、ディスプレイの X サーバー・プロセスとユーザーのセッションの両方で使用でき、デフォルト設定をすべて指定変更します。 このリソースは、少なくとも 1 つのスペースまたはタブで区切られた <span><span>name</span></span>=<span><span>value</span></span> の文字列を受け入れます。</li>
+
+<li><span><span>environment</span></span> リソースは、グローバルまたは表示ごとに環境変数を設定できるようにするために、 <span><span>dtlogin</span></span> 構成ファイルで使用できます。 この方式で指定される変数は、ディスプレイの X サーバー・プロセスとユーザーのセッションの両方で使用でき、デフォルト設定をすべて指定変更します。 このリソースは、少なくとも 1 つのスペースまたはタブで区切られた <span><span>name</span></span>=<span><span>value</span></span> の文字列を受け入れます。 この文字列を構文解析するシェルはないため、指定する値は定数でなければなりません。 次に例を示します。<div><div><pre><code>Dtlogin*environment:MAIL_HOST=blanco MAIL_SERVER=pablo</code></pre></div><div></div></div> <div><div>
+        <div>
+          <div><span>注:</span> <span><span>LANG</span></span> および <span><span>TZ</span></span> 環境変数は、構成ファイル内に独自の専用リソースを持っており、環境によって設定してはなりません。</div>
+        </div>
+      </div></div>
+</li>
+
+<li>シェルによる処理を必要とする環境変数、または別の環境変数の値に依存する環境変数は、起動スクリプト <span><span>Xsession</span></span>で指定できます。 これらの変数はディスプレイ上のすべてのユーザーの環境にロードされますが、X サーバー・プロセスにはロードされません。 これらの変数は同じ変数の前の設定をすべて指定変更します。 <span><span>Xsession</span></span> スクリプトは、環境変数を設定するための <span><span>ksh</span></span> 構文を受け入れます。 次に例を示します。<div><div><pre><code>MAIL=/usr/mail/$USER</code></pre></div><div></div></div></li>
+
+<li>個人用環境変数は、 <span><span>$HOME/.dtprofile</span></span> スクリプト・ファイルでユーザーごとに設定できます。 <span><span>dtlogin</span></span> コマンドは、このファイル内のコマンドに対して <span><span>sh</span></span>、 <span><span>ksh</span></span>、または <span><span>csh</span></span> のいずれかの構文を受け入れます。 これらのコマンドは、 <span><span>tset</span></span> または <span><span>stty</span></span>を除き、端末入出力を実行するコマンドではなく、環境変数を設定するコマンドでなければなりません。 <span><span>.dtprofile</span></span> の最初の行が <code>#!/bin/sh, #!/bin/ksh</code> または <code>#!/bin/csh</code>の場合、 <span><span>dtlogin</span></span> は適切なシェルを使用して <span><span>.dtprofile</span></span>を解析します。 それ以外の場合は、ユーザーのデフォルト・シェル (<span><span>$SHELL</span></span>) が使用されます。</li>
+
+</ul>
+            </div>
+</section>
+
+<section><h2>終了状況</h2> <p>次のような終了値が戻されます。</p>
+ 
+<div><div><table><thead> <tr> <th><div>項目</div></th>
+ <th><div>説明</div></th>
+ </tr>
+ </thead>
+<tbody>
+<tr>
+<td><span><span>0</span></span></td>
+
+<td>正常終了。</td>
+
+</tr>
+
+<tr>
+<td><span><span>&gt;0</span></span></td>
+
+<td>エラーが発生しました。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</section>
+
+<section><h2>例</h2> <ol>
+<li>CDE ログイン・サービスをデーモンとして開始するには、次のように入力します。<div><div><pre><code>/usr/dt/bin/dtlogin -daemon</code></pre></div><div></div></div></li>
+
+<li>CDE ログイン・サービスをデバッグ・モードで開始するには、次のように入力します。<div><div><pre><code>/usr/dt/bin/dtlogin -debug 1</code></pre></div><div></div></div></li>
+
+</ol>
+</section>
+
+<section><h2>場所</h2> <p><span><span>/usr/dt/bin/dtlogin</span></span></p>
+</section>
+
+<section><h2>標準エラー</h2> <div><span><span>dtlogin</span></span> コマンドは、以下のエラー・メッセージを返します。<ul>
+<li><code>Login incorrect; please try again.</code></li>
+
+<li><code>Unable to change to home directory.</code></li>
+
+<li><code>Sorry. Maximum number of users already logged in.</code></li>
+
+<li><code>Login error, invalid user ID.</code></li>
+
+<li><code>Login error, invalid group ID.</code></li>
+
+<li><code>Login error, invalid audit ID.</code></li>
+
+<li><code>Login error, invalid audit flag.</code></li>
+
+<li><code>Logins are currently disabled.</code></li>
+
+<li><code>Your current password has expired.</code></li>
+
+</ul>
+</div>
+</section>
+
+<section><h2>ファイル</h2> <p><span><span>dtlogin</span></span> コマンドは、さまざまな環境で動作するように設計されており、特定のシステムに合わせて変更できる一連の構成ファイルを提供します。 デフォルトの <span><span>dtlogin</span></span> 構成ファイルは <span><span>/usr/dt/config</span></span> にあります。ただし、 <span><span>Xsession</span></span>は例外で、これは <span><span>/usr/dt/bin</span></span>に保管されています。 構成ファイルは次のとおりです。</p>
+ 
+<div><div><table><thead> <tr> <th><div>項目</div></th>
+ <th><div>説明</div></th>
+ </tr>
+ </thead>
+<tbody>
+<tr>
+<td><span><span>/usr/dt/config/Xconfig</span></span></td>
+
+<td>他の <span><span>dtlogin</span></span> 構成ファイルおよび <span><span>dtlogin</span></span> 動作を指定します。</td>
+
+</tr>
+
+<tr>
+<td><span><span>/usr/dt/config/Xaccess</span></span></td>
+
+<td>XDMCP サービスを要求しているディスプレイからのアクセスを制御します。</td>
+
+</tr>
+
+<tr>
+<td><span><span>/usr/dt/config/Xservers</span></span></td>
+
+<td><span><span>dtlogin</span></span> が明示的に管理するディスプレイのリストが入っています。</td>
+
+</tr>
+
+<tr>
+<td><span><span>/usr/dt/config/Xresources</span></span></td>
+
+<td>ログイン画面の外観を指定するリソース定義が入っています。</td>
+
+</tr>
+
+<tr>
+<td><span><span>/usr/dt/config/Xsetup</span></span></td>
+
+<td>ログイン画面を表示する前に root として実行されるスクリプト。</td>
+
+</tr>
+
+<tr>
+<td><span><span>/usr/dt/config/Xstartup</span></span></td>
+
+<td>ユーザーが正常に認証された後で root として実行されるスクリプト。</td>
+
+</tr>
+
+<tr>
+<td><span><span>/usr/dt/bin/Xsession</span></span></td>
+
+<td>ユーザーのセッションを開始する認証ユーザーとして実行されるスクリプト。</td>
+
+</tr>
+
+<tr>
+<td><span><span>/usr/dt/config/Xfailsafe</span></span></td>
+
+<td>復旧セッションを開始する認証ユーザーとして実行されるスクリプト。</td>
+
+</tr>
+
+<tr>
+<td><span><span>/usr/dt/config/Xreset</span></span></td>
+
+<td>ユーザーのセッションが終了した後で root として実行されるスクリプト。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+<p><strong>Xconfig ファイル</strong></p>
+ <div><span><span>Xconfig</span></span> ファイルは、 <span><span>dtlogin</span></span> の一般リソースを含んでおり、 <span><span>dtlogin</span></span> 構成ファイル・ツリーの最上部にあります。 <span><span>Xconfig</span></span> は、他の <span><span>dtlogin</span></span> 構成ファイルおよびログ・ファイルの場所を指定し、 <span><span>dtlogin</span></span> の動作を指定します。 その他の <span><span>dtlogin</span></span> 構成ファイルおよびログ・ファイルの場所は、リソース定義によって指定されます。 デフォルトは次のとおりです。<dl>
+<dt>Dtlogin.errorLogFile</dt>
+
+<dd>/var/dt/Xerrors</dd>
+
+
+<dt>Dtlogin.pidFile</dt>
+
+<dd>/var/dt/Xpid</dd>
+
+
+<dt>Dtlogin.accessFile</dt>
+
+<dd>Xaccess</dd>
+
+
+<dt>Dtlogin.servers</dt>
+
+<dd>Xservers</dd>
+
+
+<dt>Dtlogin*resources</dt>
+
+<dd>%L/Xresources</dd>
+
+
+<dt>Dtlogin*setup</dt>
+
+<dd>Xsetup</dd>
+
+
+<dt>Dtlogin*startup</dt>
+
+<dd>Xstartup</dd>
+
+
+<dt>Dtlogin*reset</dt>
+
+<dd>Xreset</dd>
+
+
+<dt>Dtlogin*failsafeClient</dt>
+
+<dd>Xfailsafe</dd>
+
+
+<dt>Dtlogin*session</dt>
+
+<dd>/usr/dt/bin/Xsession</dd>
+
+</dl>
+</div>
+ <div><span><span>accessFile</span></span>、 <span><span>servers</span></span>、 <span><span>resources</span></span>、 <span><span>setup</span></span>、 <span><span>startup</span></span>、 <span><span>reset</span></span>、 <span><span>failsafeClient</span></span>、または <span><span>session</span></span> に指定されたパスが相対パスである場合、 <span><span>dtlogin</span></span> はまずディレクトリー <span><span>/etc/dt/config</span></span>でファイルを探し、次に <span><span>/usr/dt/config</span></span>を探します。<div><div>
+        <div>
+          <div><span>注:</span> 一部のリソースは、コンポーネントを <code>*</code> で分離して指定されます。 これらのリソースは、<code>*</code> をディスプレイ名で置き換えて、個別のディスプレイごとに固有にすることができます。 詳しくは、 <a href="https://www.ibm.com/docs/ja/ssw_aix_73/d_commands/dtlogin.html#dtlogin__dtlogin_display_resources" target="_blank" rel="noopener noreferrer">リソースの表示</a> を参照してください。</div>
+        </div>
+      </div></div>
+ </div>
+ <p>デフォルトの <span><span>Xconfig</span></span> ファイルは <span><span>/usr/dt/config/Xconfig</span></span>です。 システム管理者は、/<span><span>usr/dt/config/Xconfig</span></span> を <span><span>/etc/dt/config/Xconfig</span></span> にコピーし、 <span><span>/etc/dt/config/Xconfig</span></span>を変更することによって、 <span><span>Xconfig</span></span> をカスタマイズできます。 デフォルトの <span><span>Xconfig</span></span> ファイルには、いくつかのベンダー固有のリソース定義と例に加えて、前述の構成ファイルとログ・ファイルの項目が含まれています。</p>
+<p><strong>Xaccess ファイル</strong></p>
+ <p><span><span>accessFile</span></span> リソースによって指定されたデータベース・ファイルは、XDMCP サービスを要求するディスプレイからのアクセスを制御するために <span><span>dtlogin</span></span> が使用する情報を提供します。 このファイルには、直接照会およびブロードキャスト照会への応答を制御するエントリー、間接照会への応答を制御するエントリー、およびマクロ定義の、3 種類のエントリーが含まれています。</p>
+ <p>直接エントリーのフォーマットは、ホスト名またはパターンのいずれかです。 パターンがホスト名と相違する点は、1 つ以上のメタキャラクターを含んでいることです (<code>*</code> は 0 個以上の文字の任意のシーケンスに一致し、<code>?</code> は任意の単一文字に一致します)。メタキャラクターはディスプレイ・デバイスのホスト名と比較されます。 エントリーがホスト名の場合、比較はすべてネットワーク・アドレスを使用して行われるので、正しいネットワーク・アドレスに変換される名前はすべて使用できます。 パターンの場合は、正規のホスト名だけが比較に使用されるので、別名を突き合わせないようにする必要があります。 ホスト名またはパターンの前に感嘆符 (<code>!</code>) 文字を付けると、そのエントリーに一致するホストは除外されます。</p>
+ <p>間接エントリーにもホスト名またはパターンが入っていますが、その後に間接照会の送信先のホスト名またはマクロのリストが続きます。 間接エントリーは、ログイン画面を表示できるホストのメニューを提供するために、 <span><span>dtlogin</span></span> 実行 <span><span>dtchooser</span></span> を指定することもできます。</p>
+ <p>マクロ定義には、マクロ名と、ホスト名のリストとそのマクロが展開する他のマクロが入っています。 マクロをホスト名と区別するために、マクロ名の先頭には <code>%</code> 文字が付いています。 マクロはネスト可能です。</p>
+ <p>特定のディスプレイ・ホストへのアクセスを検査する場合、各エントリーが順にスキャンされ、最初に一致したエントリーが応答を決定します。 間接エントリーのスキャン中は直接エントリーおよびブロードキャスト・エントリーは無視されます。また、その逆もいえます。 ブランク行は無視され、 <code>#</code> はコメント区切り文字として扱われ、その行の残りは無視されます。 <code>\newline</code> は改行を無視し、間接ホスト・リストが複数行にまたがることができるようにします。</p>
+ <div>次に示すものは、Xaccess ファイルの例です。<div><div><pre><code>#
+# Xaccess - XDMCP access control file
+#
+
+#
+# Direct/Broadcast query entries
+#
+!xtra.lcs.mit.edu # disallow direct/broadcast service for xtra
+bambi.ogi.edu     # allow access from this particular display
+*.lcs.mit.edu     # allow access from any display in LCS
+
+#
+# Indirect query entries
+#
+
+#define %HOSTS macro
+%HOSTS                expo.lcs.mit.edu xenon.lcs.mit.edu \
+                      excess.lcs.mit.edu kanga.lcs.mit.edu
+
+#force extract to contact xenon
+extract.lcs.mit.edu xenon.lcs.mit.edu
+
+#disallow indirect access by xtra
+!xtra.lcs.mit.edu   dummy
+
+#all others get to choose among %HOSTS
+*.lcs.mit.edu       %HOSTS</code></pre></div><div></div></div> </div>
+ <p>XDMCP アクセス権限が付与されている場合、X 端末の許可情報を含む一時ファイルを、 <span><span>authDir</span></span> によって指定されたディレクトリーに作成できます。 セッションが開始されると、この一時ファイルは削除されます。</p>
+ <p>ブロードキャスト照会または間接照会で使用するホスト・メニューを提供しない X 端末の場合、 <span><span>chooser</span></span> プログラムはそれらに対してこれを行うことができます。 <span><span>Xaccess</span></span> ファイルで、間接ホスト・リストの最初の項目として <code>CHOOSER</code> を指定します。 <span><span>chooser</span></span> プログラムは、リスト内の残りの各ホスト名に照会要求を送信し、応答するすべてのホストのメニューを表示します。 リストは <code>BROADCAST</code>という語で構成される場合があります。この場合、 <span><span>chooser</span></span> は代わりにブロードキャストを送信し、応答するすべてのホストのメニューを再び表示します。 オペレーティング・システムによっては、UDP パケットをブロードキャストできないものもあります。その場合、この機能は役に立ちません。</p>
+ <div><span><span>chooser</span></span> プログラムを使用する <span><span>Xaccess</span></span> ファイルの例を以下に示します。<div><div><pre><code>#offer a menu of these hosts to extract
+extract.lcs.mit.edu CHOOSER %HOSTS
+
+#offer a menu of all hosts to xtra
+xtra.lcs.mit.edu    CHOOSER BROADCAST</code></pre></div><div></div></div></div>
+ <p><span><span>chooser</span></span> に使用するプログラムは、 <span><span>chooser</span></span> リソースによって指定されます。 このプログラム用のリソースは、resources によって名前を指定されたファイルに書き込むことができます。 デフォルトの <span><span>Xaccess</span></span> ファイルは <span><span>/usr/dt/config/Xaccess</span></span>です。 システム管理者は、 <span><span>/usr/dt/config/Xaccess</span></span> を <span><span>/etc/dt/config/Xaccess</span></span> にコピーしてから <span><span>/etc/dt/config/Xaccess</span></span>を変更することにより、 <span><span>Xaccess</span></span> をカスタマイズできます。 デフォルトの <span><span>Xaccess</span></span> ファイルには、エントリーが含まれていません。</p>
+<p><strong>Xservers ファイル</strong></p>
+ <p><span><span>Xservers</span></span> ファイルには、管理するディスプレイのリストが含まれています。 デフォルトの <span><span>Xservers</span></span> ファイルは <span><span>/usr/dt/config/Xservers</span></span>です。 システム管理者は、 <span><span>/usr/dt/config/Xservers</span></span> を <span><span>/etc/dt/config/Xservers</span></span> にコピーしてから <span><span>/etc/dt/config/Xservers</span></span>を変更することにより、 <span><span>Xservers</span></span> をカスタマイズできます。 デフォルトの <span><span>Xservers</span></span> ファイルには、1 つのローカル・ディスプレイ用の項目が含まれています。</p>
+<p><strong>Xresources ファイル</strong></p>
+ <p><span><span>Xservers</span></span> ファイルには、ログイン画面の外観を指定するリソース定義が含まれています。 デフォルトの <span><span>Xresources</span></span> ファイルは <span><span>/usr/dt/config/Xresources</span></span>です。 システム管理者は、 <span><span>/usr/dt/config/Xresources</span></span> を <span><span>/etc/dt/config/Xresources</span></span> にコピーしてから <span><span>/etc/dt/config/Xresources</span></span>を変更することにより、 <span><span>Xresources</span></span> をカスタマイズできます。</p>
+<p><strong>Xsetup ファイル</strong></p>
+ <p>通常、 <span><span>Xsetup</span></span> ファイルはシェル・スクリプトです。 root ユーザーだけがこのスクリプトを実行できます。実行の際は特にセキュリティーに注意する必要があります。 このスクリプトはログイン画面が表示される前に実行されます。 どんな種類の引数もこのスクリプトには渡されません。 <span><span>dtlogin</span></span> コマンドは、ログイン画面を表示する前に、このスクリプトが終了するまで待機します。</p>
+ <p>デフォルトの <span><span>Xsetup</span></span> ファイルは <span><span>/usr/dt/config/Xsetup</span></span>です。 システム管理者は、 <span><span>/usr/dt/config/Xsetup</span></span> を <span><span>/etc/dt/config/Xsetup</span></span> にコピーしてから <span><span>/etc/dt/config/Xsetup</span></span>を変更することにより、 <span><span>Xsetup</span></span> をカスタマイズできます。 デフォルトの <span><span>Xsetup</span></span> ファイルには、ベンダー固有のコードが含まれていますが、通常は、キーボード・マップのセットアップなど、ログイン画面の表示前に X サーバーをセットアップするコードが含まれています。</p>
+<p><strong>Xstartup ファイル</strong></p>
+ <div>通常、 <span><span>Xstartup</span></span> ファイルはシェル・スクリプトです。 root ユーザーだけがこのスクリプトを実行できます。実行の際は特にセキュリティーに注意する必要があります。 このスクリプトには、日替わりメッセージを表示したり、ユーザーに代わってその他のシステム・レベルの機能を実行したりするコマンドが書き込まれます。 このスクリプトを使用するために、以下の環境変数が設定されます。<dl>
+<dt>表示</dt>
+
+<dd>関連したディスプレイ名に設定されます。</dd>
+
+
+<dt>HOME</dt>
+
+<dd>ユーザーのホーム・ディレクトリーに設定されます。</dd>
+
+
+<dt>PATH</dt>
+
+<dd><span><span>systemPath</span></span> リソースの値に設定します。</dd>
+
+
+<dt>ユーザー</dt>
+
+<dd>ユーザー名に設定されます。</dd>
+
+
+<dt>SHELL</dt>
+
+<dd><span><span>systemShell</span></span> リソースの値に設定します。</dd>
+
+</dl>
+</div>
+ <p>どんな種類の引数もこのスクリプトには渡されません。 <span><span>dtlogin</span></span> コマンドは、このスクリプトが終了するまで待機してから、ユーザー・セッションを開始します。 このスクリプトの終了値がゼロ以外の場合、 <span><span>dtlogin</span></span> はセッションを即時に終了し、別の認証サイクルを開始します。</p>
+ <p>デフォルトの <span><span>Xstartup</span></span> ファイルは <span><span>/usr/dt/config/Xstartup</span></span>です。 システム管理者は、 <span><span>/usr/dt/config/Xstartup</span></span> を <span><span>/etc/dt/config/Xstartup</span></span> にコピーしてから <span><span>/etc/dt/config/Xstartup</span></span>を変更することにより、 <span><span>Xstartup</span></span> をカスタマイズできます。 デフォルトの <span><span>Xstartup</span></span> ファイルには、 <span><span>/dev/console</span></span> の所有権を、コンソールでセッションを実行しているユーザーに変更するコードが含まれています。</p>
+<p><strong>Xsession ファイル</strong></p>
+ <p><span><span>Xsession</span></span> スクリプトは、ユーザーのセッションを初期化し、デスクトップ・セッション・マネージャーを呼び出します。 このスクリプトは許可ユーザーのアクセス権によって実行され、いくつかの環境変数が事前設定されています。 事前設定変数のリストについては、 <a href="https://www.ibm.com/docs/ja/ssw_aix_73/d_commands/dtlogin.html#dtlogin__dtlogin_environment" target="_blank" rel="noopener noreferrer">環境変数</a> を参照してください。</p>
+ <div>デフォルトの <span><span>Xsession</span></span> ファイルは <span><span>/usr/dt/bin/Xsession</span></span>です。 システム管理者は、 <span><span>/usr/dt/bin/Xsession</span></span> を <span><span>/etc/dt/config/Xsession</span></span> にコピーしてから <span><span>/etc/dt/config/Xsession</span></span>を変更することにより、 <span><span>Xsession</span></span> をカスタマイズできます。 <span><span>Xconfig</span></span> で定義されたセッション・リソースも、カスタマイズされた <span><span>Xsession</span></span> ファイルを参照するように変更する必要があります。 <span><span>Xconfig</span></span> ファイルの更新方法については、 <a href="https://www.ibm.com/docs/ja/ssw_aix_73/d_commands/dtlogin.html#dtlogin__dtlogin_xconfig_file" target="_blank" rel="noopener noreferrer">Xconfig ファイル</a> を参照してください。 デフォルトの <span><span>Xsession</span></span> ファイルには、セッション初期化コードが含まれています。 ベンダー固有のコードも入っていますが、このファイルの一般機能は次のとおりです。<ul>
+<li>ユーザーの <span><span>$HOME/.dtprofile</span></span> を提供します。</li>
+
+<li><span><span>/etc/dt/config/Xsession.d/*</span></span> スクリプトをソースとする</li>
+
+<li><span><span>/usr/dt/config/Xsession.d/*</span></span> スクリプトをソースとする</li>
+
+<li>バックグラウンドでデスクトップ・ウェルカム・クライアント <span><span>dthello</span></span>を起動します。</li>
+
+<li>アプリケーション検索パス・セットアップ・スクリプト <span><span>dtsearchpath</span></span> を提供します。</li>
+
+<li>ヘルプ・セットアップ・クライアント <span><span>dthelpgen</span></span>をバックグラウンドで起動します。</li>
+
+<li>アプリケーション・マネージャー・ディレクトリー・セットアップ・クライアント <span><span>dtappgather</span></span>をバックグラウンドで起動します。</li>
+
+<li>デスクトップ・セッション・マネージャー <span><span>dtsession</span></span> を実行します。</li>
+
+<li></li>
+
+</ul>システム管理者は、 <span><span>Xsession</span></span> ファイルをカスタマイズしないことをお勧めします。</div>
+<p><strong>Xreset ファイル</strong></p>
+ <p><span><span>Xstartup</span></span>と対称的に、 <span><span>Xreset</span></span> スクリプトは、ユーザー・セッションが終了した後に実行されます。 root ユーザーによって実行されるため、 <span><span>Xreset</span></span> スクリプトには、ファイル・サーバーからディレクトリーをアンマウントするなど、 <span><span>Xstartup</span></span>のコマンドの影響を取り消すコマンドを含める必要があります。 <span><span>Xstartup</span></span> に渡された環境変数の集合は、 <span><span>Xreset</span></span>にも提供されます。</p>
+ <p>デフォルトの <span><span>Xreset</span></span> ファイルは <span><span>/usr/dt/config/Xreset</span></span>です。 システム管理者は、 <span><span>/usr/dt/config/Xreset</span></span> を <span><span>/etc/dt/config/Xreset</span></span> にコピーしてから <span><span>/etc/dt/config/Xreset</span></span>を変更することにより、 <span><span>Xreset</span></span> をカスタマイズできます。 デフォルトの <span><span>Xreset</span></span> ファイルには、 <span><span>/dev/console</span></span> のコード変更の所有権が root に戻されます。</p>
+<p><strong>Xerrors ファイル</strong></p>
+ <p><span><span>Xerrors</span></span> スクリプトには、 <span><span>dtlogin</span></span> からのエラー・メッセージと、 <span><span>Xsetup</span></span>、 <span><span>Xstartup</span></span> 、または <span><span>Xreset</span></span>によって <span><span>stderr</span></span> に出力されるすべてのエラー・メッセージが含まれます。 システム管理者は、このファイルの内容を <span><span>dtlogin</span></span> のトラブルシューティングに使用できます。 <span><span>errorLogSize</span></span> リソースは、 <span><span>Xerrors</span></span> ファイルのサイズを制限し、バインドされていない状態で拡張されないようにすることができます。 ファイルが要求されたサイズより大きくなり、 <span><span>dtlogin</span></span>によって切り捨てられた場合、ファイルにアクセスしているユーザー (例えば、 <span><span>cat</span></span> または <span><span>tail</span></span>を使用) は、ファイルに記録されている後続の情報を表示するために、ファイルを (ファイルが切り捨てられた後で) クローズし、アクセス用に再オープンする必要があります。</p>
+ <p>システム管理者は、 <span><span>Xconfig</span></span> ファイルで <span><span>errorLogFile</span></span> リソースを設定することにより、 <span><span>Xerrors</span></span> のパス名を変更できます。</p>
+<p><strong>Xpid ファイル</strong></p>
+ <p><span><span>Xpid</span></span> スクリプトには、マスター <span><span>dtlogin</span></span> プロセスのプロセス ID が含まれています。これは、 <span><span>dtlogin</span></span>にシグナルを送信するときに使用できます。 システム管理者は、 <span><span>Xconfig</span></span> ファイルで <span><span>pidFile</span></span> リソースを設定することにより、 <span><span>Xpid</span></span> のパス名を変更できます。</p>
+</section>
+
+</div></div>

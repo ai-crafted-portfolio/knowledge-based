@@ -1,0 +1,93 @@
+<div class="official-dom"><div>
+<section><h2>目的</h2>
+
+<p>インストールされたバージョンの AIX のコマンドに不足しているファイルセットを特定し、自動的にインストールします。</p>
+
+</section>
+
+<section><h2>構文</h2>
+
+<div><div><pre><code>autofsinstall [ -a ] [ -d ] [ -l ]</code></pre></div><div></div></div>
+</section>
+
+<section><h2>説明</h2>
+
+<p>自動ファイルセット・インストールの有効化、無効化、またはステータスの確認は、 <span>autofsinstall</span> コマンドで行うことができます。 この機能を有効にすると、 <span>autofsinstall</span> コマンドは <a href="https://www.ibm.com/docs/ja/ssw_aix_73/w_commands/which_fileset.html" target="_blank" rel="noopener noreferrer"><span>which_fileset</span></a> コマンドを使用して、見つからないコマンドに必要な適切なファイルセットを自動的に特定する。</p>
+
+<div>LPP（Licensed Program Product）リソースが割り当てられているNIM（Network Installation Management）サーバーがシステムを管理する場合、システムは以下のアクションを実行します：<ol>
+<li>見つからないファイルセットの名前を表示する</li>
+
+<li>不足しているファイルセットのインストールを確認するプロンプトが表示されます</li>
+
+<li>NIMサーバーから必要なファイルセットを取得し、インストールを確認すると自動的にインストールする</li>
+
+</ol>
+</div>
+
+</section>
+
+<section><h2>フラグ</h2>
+
+<div>
+
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><span>-a</span></td>
+
+<td>不足しているコマンドのファイルセットの自動インストールを有効にし、永続化のために <a href="https://www.ibm.com/docs/ja/ssw_aix_73/osmanagement/prof_file.html" target="_blank" rel="noopener noreferrer"><span>.profile</span></a> ファイルを更新します。</td>
+
+</tr>
+
+<tr>
+<td><span>-d</span></td>
+
+<td>自動インストール機能を無効にし、自動インストールに関連するエントリを <span>.profile</span> ファイルから削除します。</td>
+
+</tr>
+
+<tr>
+<td><span>-l</span></td>
+
+<td>不足しているコマンドのファイルセットの自動インストール状態が有効か無効かを表示します。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+
+</div>
+
+</section>
+
+<section><h2>セキュリティー</h2>
+
+<p><span>autofsinstall</span> 、rootユーザーのみが実行できる。</p>
+
+</section>
+
+<section><h2>例</h2>
+
+<ul>
+<li>不足しているコマンドのファイルセットの自動インストールを有効にするには、以下のコマンドを入力する：<div><div><pre><code>autofsinstall -a</code></pre></div><div></div></div><p>変更を適用するには、新しいターミナルを開く。</p>
+</li>
+
+<li>不足しているコマンドのファイルセットの自動インストールを無効にするには、以下のコマンドを入力する：<div><div><pre><code>autofsinstall -d</code></pre></div><div></div></div><p>変更を適用するには、新しいターミナルを開く。</p>
+</li>
+
+<li>不足しているコマンドのファイルセットの自動インストールのステータスを確認するには、以下のコマンドを入力する：<div><div><pre><code>autofsinstall -l</code></pre></div><div></div></div></li>
+
+</ul>
+
+</section>
+
+</div></div>

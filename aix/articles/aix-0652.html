@@ -1,0 +1,116 @@
+<div class="official-dom"><div>
+<section><h2>目的</h2> <p>バックアップ・フォーマット・ファイルのインストール・イメージが入っているディレクトリーの <strong>.toc</strong> ファイルを作成します。 このコマンドは、<strong>installp</strong> コマンドおよびインストール・スクリプトにより使用されます。</p>
+</section>
+
+<section><h2>構文</h2> <p><strong>Inutoc</strong> [ <em>ディレクトリー</em> ]</p>
+</section>
+
+<section><h2>説明</h2> <p><strong>Inutoc</strong> コマンドは、 <em>ディレクトリー</em>内に <strong>. 目次</strong> ファイルを作成します。 <strong>.toc</strong> ファイルが既に存在している場合、このファイルは新しい情報を使って再作成されます。 デフォルト・インストール・イメージ <em>Directory</em> は <strong>
+/usr/sys/inst.images</strong> です。 <strong>Inutoc</strong> コマンドは、 <em>ディレクトリー</em>内のすべてのインストール・イメージの <strong>. 目次</strong> ファイルに目次エントリーを追加します。</p>
+ <p><strong>.toc</strong> ファイルが含まれていないディレクトリー内のインストール・イメージを作成または使用する場合、
+<strong>installp</strong> コマンドと <strong>bffcreate</strong> コマンドは自動的にこのコマンドを呼び出します。</p>
+</section>
+
+<section><h2>エラー・コード</h2> <div> 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><strong>未確定 IR</strong></td>
+
+<td>使用方法が正しくないか、または <em>Directory</em> にディレクトリーを指定していません。</td>
+
+</tr>
+
+<tr>
+<td><strong>INUCHDIR (I)</strong></td>
+
+<td>ディレクトリーを <em>Directory</em> に変更できません。</td>
+
+</tr>
+
+<tr>
+<td><strong>INUCRTOC (I)</strong></td>
+
+<td><strong>.toc</strong> ファイルを作成できませんでした。</td>
+
+</tr>
+
+<tr>
+<td><strong>INUGOOD (I)</strong></td>
+
+<td>エラーはありません。</td>
+
+</tr>
+
+<tr>
+<td><strong>INUSYSFL (I)</strong></td>
+
+<td>システム・コールに失敗しました。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+</section>
+
+<section><h2>セキュリティー</h2> <p>特権制御 : このコマンドを実行できるのは、root ユーザーだけです。</p>
+ <div><div><div>
+        <div>
+          <div><span>RBAC ユーザーの注意:</span> このコマンドは特権操作を実行できます。 特権命令を実行できるのは特権ユーザーのみです。 権限と特権の詳細については、<span>セキュリティ</span>の <a href="https://www.ibm.com/docs/ja/ssw_aix_73/security/rbac_priv_cmd_db.html" target="_blank" rel="noopener noreferrer">特権コマンドデータベース</a>を参照してください。 このコマンドに関連する特権と権限のリストについては、'<a href="https://www.ibm.com/docs/ja/ssw_aix_73/l_commands/lssecattr.html" target="_blank" rel="noopener noreferrer"><span>lssecattr</span></a>コマンドまたは'<a href="https://www.ibm.com/docs/ja/ssw_aix_73/g_bostechref/getcmdattr.html" target="_blank" rel="noopener noreferrer"><span>getcmdattr</span></a>サブコマンドを参照のこと。</div>
+        </div>
+      </div></div>
+</div>
+</section>
+
+<section><h2>例</h2> <ol>
+<li><span></span><strong> /usr/sys/inst.images</strong> ディレクトリーの <strong>.toc</strong> ファイルを作成するには、次のように入力します。<div> <div><div><pre><code>inutoc</code></pre></div><div></div></div></div>
+</li>
+
+<li><span></span> <strong>/tmp/images</strong> ディレクトリーの <strong>.toc</strong> ファイルを作成するには、次のように入力します。<div> <div><div><pre><code>inutoc /tmp/images</code></pre></div><div></div></div></div>
+</li>
+
+</ol>
+</section>
+
+<section><h2>ファイル</h2> <div> 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><strong>/usr/sys/inst.images</strong></td>
+
+<td><strong>.toc</strong> ファイルを作成するデフォルト・ディレクトリー。</td>
+
+</tr>
+
+<tr>
+<td><strong>.toc</strong></td>
+
+<td>このコマンドによって指定されたディレクトリーに作成されるファイル。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+</section>
+
+</div></div>

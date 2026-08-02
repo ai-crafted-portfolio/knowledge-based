@@ -1,0 +1,67 @@
+<div class="official-dom"><div>
+<section><h2>目的</h2> <p>選択されたメッセージをメッセージ・カタログから表示します。</p>
+</section>
+
+<section><h2>構文</h2> <p><strong>dspmsg</strong>[<a href="https://www.ibm.com/docs/ja/ssw_aix_73/d_commands/dspmsg.html#dspmsg__row-d3e52855" target="_blank" rel="noopener noreferrer"><strong>-s</strong></a> <em>SetNumber</em>]<em>CatalogName</em><em> MessageNumber</em>[<strong> '</strong><em>DefaultMessage</em><strong>'</strong>[<em>Arguments</em>] ]</p>
+</section>
+
+<section><h2>説明</h2> <p><strong>dspmsg</strong> コマンドは、<strong>gencat</strong> コマンドで作成されたメッセージ・カタログから特定のメッセージのテキストを表示します。または、メッセージが取り出せない場合は、コマンドにパラメーターとして与えられたデフォルト・メッセージを表示します。 <strong>dspmsg</strong> コマンドは、メッセージを標準出力に出力します。 このコマンドは、<strong>echo</strong> コマンドの代わりにシェル・スクリプトで使用するためのものです。</p>
+ <div> <div><div>
+        <div>
+          <div><span>注:</span> <strong>dspmsg</strong> コマンドは、C または POSIX ロケール環境で <strong>LC_FASTMSG</strong> が False に設定されている場合に、 <strong>NLSPATH</strong> の下でカタログ・ファイルを検索します。<p><strong>LC__FASTMSG</strong> は、デフォルト・メッセージが C および POSIX ロケールに対して使用されること、
+および <strong>LC__FASTMSG</strong> が真に設定されている場合は、<strong>NLSPATH</strong> が無視されることを指定します。</p>
+ <p><strong>LC__FASTMSG</strong> のデフォルト値は、<strong>/etc/environment</strong> において真です。</p>
+</div>
+        </div>
+      </div></div>
+</div>
+ <p><strong>NLSPATH</strong> 環境変数および <strong>LC_MESSAGES</strong> カテゴリーは、<em>CatalogName</em> パラメーターの値に / (スラッシュ) が使われていない場合に、指定されたメッセージ・カタログを見つける目的で使用されます。 <em>CatalogName</em> パラメーターで指定されたカタログが見つからない場合、または <em>MessageNumber</em> パラメーター (およびオプションの <em>SetNumber</em> 値) で指定されたメッセージが見つからない場合には、指定された <em>DefaultMessage</em> 値が表示されます。 <em>DefaultMessage</em> 値が指定されていなければ、システムが生成したエラー・メッセージが表示されます。</p>
+ <p><strong>dspmsg</strong> コマンドでは、文字列引数に <strong>%s</strong>、%n$s、<strong>%ld</strong>、または %n$ld <strong>printf</strong> サブルーチン変換指定が含まれる場合は、10 個までの文字列引数をメッセージに置き換えることができます。 変換指定用の引数で存在しないものがあると、<strong>dspmsg</strong> エラー・メッセージが出力されます。 標準の <strong>printf</strong> サブルーチン制御文字エスケープ (例えば、<strong>&amp;#xa5;n</strong>) が認識されます。</p>
+ <p>カタログ内では、<strong>printf</strong> サブルーチン・フォーマット文字列を使用するようにしてください。 このフォーマットでは、メッセージ内のフォーマット文字列が、デフォルト・メッセージとは異なる順序になっていても、引数が正しく挿入されます。 メッセージの挿入に <strong>%n$s</strong> 表記法を使う場合は、デフォルト・メッセージを単一引用符で囲まなければなりません。</p>
+</section>
+
+<section><h2>フラグ</h2> <div> 
+<div><div><table><thead> <tr> <th><div>項目</div></th>
+ <th><div>説明</div></th>
+ </tr>
+ </thead>
+<tbody>
+<tr>
+<td><strong>-s</strong><em> SetNumber</em></td>
+
+<td>オプションのセット番号を指定します。 <em>SetNumber</em> 変数のデフォルト値は 1 です。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+</section>
+
+<section><h2>例</h2> <p>セット番号 1、メッセージ番号 2 を表示するには、test.catカタログ、入力:</p>
+ <div> <div><div><pre><code>dspmsg    -s    1    test.cat    2    'message    %s    not    found'    2</code></pre></div><div></div></div></div>
+ <p>メッセージが見つからない場合は、message
+   2    not    foundが表示されます。</p>
+</section>
+
+<section><h2>ファイル</h2> <div> 
+<div><div><table><thead> <tr> <th><div>項目</div></th>
+ <th><div>説明</div></th>
+ </tr>
+ </thead>
+<tbody>
+<tr>
+<td><strong>/usr/bin/dspmsg</strong></td>
+
+<td><strong>dspmsg</strong> コマンドが入っています。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+</section>
+
+</div></div>

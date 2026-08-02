@@ -1,0 +1,152 @@
+<div class="official-dom"><div>
+<div> <p></p>
+</div>
+
+<section><h2>目的</h2> <p>追加ページング・スペースを追加します。</p>
+</section>
+
+<section><h2>構文</h2><p><strong>追加ページング・スペースに論理ボリュームを追加する</strong></p>
+ <p><strong>マーケティング</strong> [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/m_commands/mkps.html#mkps__row-d3e151550" target="_blank" rel="noopener noreferrer"><strong>T </strong></a><em> LV</em> | <em>[ps_helper psname]</em> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/m_commands/mkps.html#mkps__row-d3e151524" target="_blank" rel="noopener noreferrer"><strong>-a 値 </strong></a>] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/m_commands/mkps.html#mkps__row-d3e151536" target="_blank" rel="noopener noreferrer"><strong>N </strong></a>] [<a href="https://www.ibm.com/docs/ja/ssw_aix_73/m_commands/mkps.html#mkps__mkps_rowk" target="_blank" rel="noopener noreferrer"><strong>-k (K)</strong></a>] [<a href="https://www.ibm.com/docs/ja/ssw_aix_73/m_commands/mkps.html#mkps__row-d3e151530" target="_blank" rel="noopener noreferrer"><strong>「-c」 </strong></a> <em> ChksumSize</em>]<a href="https://www.ibm.com/docs/ja/ssw_aix_73/m_commands/mkps.html#mkps__row-d3e151542" target="_blank" rel="noopener noreferrer"><strong>-s</strong></a> <em> LogicalPartitions VolumeGroup</em> [ <em>PhysicalVolume</em> ]</p>
+<p><strong>NFS サーバー上で余分のページング・スペースを追加する</strong></p>
+ <p><strong>mkps</strong>[<a href="https://www.ibm.com/docs/ja/ssw_aix_73/m_commands/mkps.html#mkps__row-d3e151524" target="_blank" rel="noopener noreferrer"><strong>-a </strong></a>] [<a href="https://www.ibm.com/docs/ja/ssw_aix_73/m_commands/mkps.html#mkps__row-d3e151536" target="_blank" rel="noopener noreferrer"><strong>-n </strong></a>]<a href="https://www.ibm.com/docs/ja/ssw_aix_73/m_commands/mkps.html#mkps__row-d3e151550" target="_blank" rel="noopener noreferrer"><strong>-t </strong></a><em> nfsServerHostName ServerFileName</em></p>
+</section>
+
+<section><h2>説明</h2> <p><strong>mkps</strong> コマンドは、追加ページング・スペースを追加します。 ページング・スペースは、使用する前に <strong>swapon</strong> コマンドを使用してアクティブにしてください。 <em>VolumeGroup</em> パラメーターは、これから作成するページング・スペース用の論理ボリューム内にボリューム・グループを指定します。 <em>PhysicalVolume</em> パラメーターは、論理ボリュームが作成される <em>VolumeGroup</em> の物理ボリュームを指定します。</p>
+ <div><div>
+        <div>
+          <div><span>注：</span> デフォルトのUDP（ User Datagram Protocol ）または NFSv2 プロトコルではなく、 NFS （ネットワーク・ファイル・システム） v4 を使用する場合、2GBを超えるページング領域が可能です。 NFSv2 スワップでは、NFSv2 プロトコルの制限により、最大 2 GB のスワップ・ファイルしか処理できません。</div>
+        </div>
+      </div></div>
+ <p><strong>mkps</strong> コマンドの 2 番目の形式では、<em>ServerHostName</em> パラメーターは、<em>ServerFileName</em> が存在する NFS サーバーを指定します。 <em>ServerFileName</em> は、システムの NFS ページングに使用されるファイルを指定します。 <em>ServerFileName</em> ファイルは、必ず存在しなければならず、また、ページング用ファイルを使用するクライアントに正しくエクスポートされなければなりません。</p>
+ <p>NFS ページング・スペースを追加する場合、クライアントは UDP を使用してサーバーへの接触を試み、次に TCP を使用して接触を試みます。 そのページング・スペースにアクセスする場合、サーバーに接触するには、最初に成功したメソッドが使用されます。</p>
+ <p><strong>-t</strong> フラグが指定されている場合、引数は、サード・パーティーのヘルパー実行プログラムであると想定されます。 ヘルパー実行可能ファイルが <span>/sbin/helpers/pagespace</span> パスに存在する場合は、すべての引数を渡し、 <strong>-m</strong> フラグを使用して <strong>mkps</strong> コマンドを指定することにより、ヘルパー実行可能ファイルが作成されます。 ヘルパー実行可能プログラムがゼロを返すと、エントリーが <span>/etc/swapspaces</span> パスに追加されます。 この場合、 <em>psname</em> が/で始まる場合は、デバイス・エントリーの絶対パスと見なされます。そうでない場合は、 <span>/dev</span> が <em>psname</em>の前に付加されます。 ヘルパー実行可能ファイルは、デバイスを作成してページングを可能にし、ODM にエントリーを追加する作業を行う必要があります。 ヘルパー・プログラムが <span>/sbin/helpers/pagespace</span> ディレクトリーに存在しない場合、 <strong>mkps</strong> コマンドは使用法エラーを表示します。 ヘルパー実行可能ファイルは、成功した場合は 0 で、失敗に終わった場合は非ゼロで終了する必要があります。</p>
+ <p>このコマンドは、System Management Interface Tool (SMIT) <strong>smit mkps</strong> 高速パスを使用して実行することができます。</p>
+</section>
+
+<section><h2>フラグ</h2> <div> 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><strong>-a</strong></td>
+
+<td>ページング・スペースがそれ以降の再始動時に構成されることを指定します。</td>
+
+</tr>
+
+<tr>
+<td><strong>-c</strong></td>
+
+<td>ページング・スペースに使用するチェックサムのサイズをビット単位で指定します。 有効なオプションは、0 (チェックサム使用不可)、8、16、および 32 です。 -c を指定しない場合は、デフォルトとして 0 が使用されます。</td>
+
+</tr>
+
+<tr>
+<td><strong>-k</strong></td>
+
+<td>ページング・スペースの論理ボリュームでデータ暗号化を有効にします。 <span>-k</span> フラグは、 IBM AIX 7.3 (テクノロジー・レベル 1 以降) で使用可能です。<p><span>mkps</span> コマンドは、ページング・スペースの論理ボリュームの 1 次暗号鍵を初期化します。 ページング・スペースが作成されたボリューム・グループに対してデータ暗号化が有効になっていない場合は、 <span>-k</span> フラグを使用できません。 そのようなボリューム・グループに暗号化されたページング・スペースを作成しようとすると、 <span>mkps</span> コマンドは失敗し、エラー・メッセージが表示されます。</p>
+</td>
+
+</tr>
+
+<tr>
+<td><strong>-n</strong></td>
+
+<td>ページング・スペースを即座にアクティブにします。</td>
+
+</tr>
+
+<tr>
+<td><strong>-s</strong><em> LogicalPartitions</em></td>
+
+<td>論理区画で作成されるページング・スペースと論理ボリュームのサイズを指定します。</td>
+
+</tr>
+
+<tr>
+<td><strong>-t</strong></td>
+
+<td>作成するページング・スペースのタイプを指定します。 次の変数のいずれか 1 つが必要です。<dl>
+<dt><em>ラトビア</em></dt>
+
+<dd>論理ボリューム・タイプのページング・スペースがシステムに作成されることを指定します。</dd>
+
+
+<dt><em>nfs</em></dt>
+
+<dd>NFS タイプのページング・スペースがシステムに作成されることを指定します。</dd>
+
+
+<dt><em>ps_helper</em></dt>
+
+<dd>サード・パーティー・デバイスのヘルパー・プログラムの名前。</dd>
+
+
+<dt><em>PSB 名</em></dt>
+
+<dd>ページング・スペースのデバイス・エントリーの名前。</dd>
+
+</dl>
+</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+</section>
+
+<section><h2>セキュリティー</h2> <div><div><div>
+        <div>
+          <div><span>RBAC ユーザーへの注意:</span> このコマンドは特権命令を実行できます。 特権命令を実行できるのは特権ユーザーのみです。 権限と特権の詳細については、<span>セキュリティ</span>の <a href="https://www.ibm.com/docs/ja/ssw_aix_73/security/rbac_priv_cmd_db.html" target="_blank" rel="noopener noreferrer">特権コマンドデータベース</a>を参照してください。 このコマンドに関連する特権と権限のリストについては、'<a href="https://www.ibm.com/docs/ja/ssw_aix_73/l_commands/lssecattr.html" target="_blank" rel="noopener noreferrer"><span>lssecattr</span></a>コマンドまたは'<a href="https://www.ibm.com/docs/ja/ssw_aix_73/g_bostechref/getcmdattr.html" target="_blank" rel="noopener noreferrer"><span>getcmdattr</span></a>サブコマンドを参照のこと。</div>
+        </div>
+      </div></div>
+</div>
+</section>
+
+<section><h2>例</h2> <ol>
+<li>ボリューム・グループにページング・スペースを作成するmyvg4 つの論理区画があり、即時に活動化され、後続のすべてのシステム再始動時に活動化される場合は、次のコマンドを入力します。<div><div><pre><code>mkps  -a  -n  -s4 myvg</code></pre></div><div></div></div>
+</li>
+
+<li>ホスト <code>swapserve</code> が <span>/export/swap/swapclient</span> ファイルをエクスポートした NFS サーバー <code>swapserve</code> 上に NFS ページング・スペースを作成するには、次のコマンドを入力します。<div><div><pre><code>mkps -t nfs swapserve /export/swap/swapclient</code></pre></div><div></div></div></li>
+
+<li><code>myps</code> ヘルパー実行可能プログラムを使用して <code>test</code>ページング・スペースを作成するには、次のコマンドを入力します。<div><div><pre><code>mkps -t test /dev/myps -s1 myvg mydisk</code></pre></div><div></div></div></li>
+
+<li>暗号化されて活動化され、以降のすべてのシステム再始動操作でページング・スペースが構成されるように論理区画を持つ <code>myvg</code> ボリューム・グループ内に暗号化されたページング・スペースを作成するには、次のコマンドを入力します。<div><div><pre><code>mkps -a -k -n -s4 myvg</code></pre></div><div></div></div></li>
+
+</ol>
+</section>
+
+<section><h2>ファイル</h2> <div> 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><span>/etc/swapspaces</span></td>
+
+<td>ページング・スペース・デバイスおよびその属性を指定します。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+</section>
+
+</div></div>

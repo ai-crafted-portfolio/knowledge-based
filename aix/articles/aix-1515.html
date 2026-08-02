@@ -1,0 +1,135 @@
+<div class="official-dom"><div>
+<section><h2>目的</h2> <p>指定されたオブジェクト・ファイルのシンボル情報を表示します。</p>
+</section>
+
+<section><h2>構文</h2> <p><strong>ストリップム</strong> [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/s_commands/stripnm.html#stripnm__row-d3e54930" target="_blank" rel="noopener noreferrer"><strong>-x (X)</strong></a> | <a href="https://www.ibm.com/docs/ja/ssw_aix_73/s_commands/stripnm.html#stripnm__row-d3e54911" target="_blank" rel="noopener noreferrer"><strong>-d 年</strong></a> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/s_commands/stripnm.html#stripnm__row-d3e54923" target="_blank" rel="noopener noreferrer"><strong>-s</strong></a> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/s_commands/stripnm.html#stripnm__row-d3e54942" target="_blank" rel="noopener noreferrer"><strong>-z</strong></a> ] <em>ファイル</em></p>
+ <p></p>
+</section>
+
+<section><h2>説明</h2> <p><strong>stripnm</strong> コマンド (<strong>-s</strong> フラグなしで実行した場合) は、指定されたオブジェクト・ファイルのシンボル・テーブルを標準出力へ表示します。 <em>File</em> パラメーターで指定するファイルは、1 つのオブジェクト・ファイル、またはオブジェクト・ファイルのアーカイブ・ライブラリーのいずれでも構いません。 <em>File</em> パラメーターで指定したファイルがアーカイブの場合は、アーカイブ内の各オブジェクト・ファイルのリストが生成されます。 シンボル・テーブルがオブジェクト・ファイルから取り除かれている場合
+は、<strong>stripnm</strong> コマンドがトレースバック・テー
+ブル (<strong>-s</strong> フラグを指定していなくても) とオブジェクト・
+ファイルのローダー・セクションからシンボル名を取り出します。 トレースバック・テーブルが存在しない場合には、エラー・メッセージが表示されます。</p>
+ <p>シンボル名の前には、シンボル名のアドレスとシンボル・タイプを示す文字 (<strong>nm</strong> 出力
+に類似) が 1 つ付きます。 <strong>z</strong> と一緒に使用すると、出力形式は以前と同じになる。 <span>AIX 5.2</span> つまり、各シンボル名の後にアドレス（アドレスが未定義の場合は空白が続く）、クラスとセクションのタイプが続く。 アドレス・フィールド
+は、10 進数 (デフォルト値に <strong>-z</strong> を使用、
+または <strong>-d</strong> を使用した場合) または 16 進数 (デフォルト
+値に <strong>-z</strong> を使用しないか、または <strong>-x</strong> フラグ
+を使用した場合) で表示できます。</p>
+ <p>ソース・ファイル名についても <strong>stripnm</strong> コマンドが収集および
+報告をします。 ソース・ファイル名の行に続くすべてのシンボルは、次のソース・ファイル
+名行になるまで、そのソース・ファイルに属します。 strip されたファイルについては、
+ソース・ファイル名がオブジェクト・ファイル名として報告されます。</p>
+ <p><strong>stripnm</strong> コマンドに <strong>-s</strong> フラグ
+を付けて実行すると、シンボル・テーブルがあっても無視して、常にトレースバック・テーブル
+とオブジェクト・ファイルのローダー・セクションからルーチン名を取り出します。</p>
+ <p>シンボル・テーブルがない場合、または <strong>-s</strong> フラグを
+使用した場合は、<strong>stripnm</strong> コマンドはグルー・コ
+ードとポインター・グルー情報も検索します。 いずれもオブジェクト・ファイルの
+テキスト・セクションにある命令シーケンスです。</p>
+ <div>32 ビット・アプリケーションのデータ・コードは、次の命令シーケンスで構成されています。<div><div><pre><code>8182xxxx #   lwz r12,xxxx(r12) (xxxx is the TOC entry index)
+90410014 #   stw r2,14(r1)
+800c0000 #   lwz r0,0(r12)
+804c0004 #   lwz r2,4(r12)
+7c0903a6 # mtctr r0
+4e800420 # bctr</code></pre></div><div></div></div></div>
+ <p>ローダー・セクション・エントリーのアドレスが <code>xxxx</code> で示され
+る TOC エントリーに一致する場合は、このデータ・コード・シーケンスについて
+関数名を提供します。</p>
+ <div>64 ビットの実行プログラムのデータ・コード・シーケンスは次のとおりです。<div><div><pre><code>982xxxx #    ld r12,xxxx(r2) (xxxx is the TOC entry index)
+8410028 #   std r2,28(r1)
+80c0000 #    ld r0,0(r12)
+84c0008 #    ld r2,8(r12
+c0903a6 # mtctr r0
+e800420 #  bctr
+
+</code></pre></div><div></div></div></div>
+ <div>32 ビット・アプリケーションのポインター・データ・コードは、次
+のシーケンスで構成されています。<div><div><pre><code>800b0000 #   lwz r0,0(r11)
+90410014 #   stw r2,20(r1)
+7c0903a6 # mtctr r0
+804b0004 #   lwz r2,4(r11)
+816b0008 #   lwz r11,8(r11)
+4e80xx20 #  bctr</code></pre></div><div></div></div></div>
+ <div>64 ビットの実行プログラムについては、ポインター・データ・コードの
+シーケンスは次のとおりです。<div><div><pre><code>e80b0000 #    ld r0,0(r11)
+f8410028 #   std r2,20(r1)
+7c0903a6 # mtctr r0
+e84b0008 #    ld r2,8(r11)
+e96b0010 #    ld r11,16(r11)
+4e80xx20 #  bctr</code></pre></div><div></div></div></div>
+ <p>ポインター・データは 1 つのコピーだけに存在し、常に <code>._prtgl</code> の
+シンボルで報告されます。</p>
+ <p>stripnm コマンドは、これらのシーケンスについて、Text セクションの最初から最後まで検
+索します。 コマンドは一致する命令シーケンスを捜し出すと、これをデータ・
+コードまたはポインター・データとして報告します。</p>
+ <p>ソース・ファイル・シンボルは、データ・コードとポインター・コードの両者に
+ついて、<strong>stripnm</strong> が人工的に生成します。 32 ビットの
+実行プログラムのソース・ファイルは、すべてのデータ・コード・エントリー
+が <code>glink.s</code>、ポインター・データは <code>ptrgl.s</code> で
+す。 64 ビットの実行プログラムのソース・ファイルは、
+それぞれ <code>glink64.s</code> と <code>ptrgl_64.s</code> です。</p>
+ <p><strong>stripnm</strong> コマンドを、<strong>/unix</strong> ファイルのシンボル情報を検索するために使用することもできます。 <strong>/unix</strong> ファイルが現在実行中のカーネルに対応しない場合は、警告メッセージが表示されます。</p>
+</section>
+
+<section><h2>フラグ</h2> <div> 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><strong>-d</strong></td>
+
+<td>シンボルのアドレス値を 10 進フォーマットで表示します。<p>これが <strong>-z</strong> が付いたときのデフォルトです。</p>
+</td>
+
+</tr>
+
+<tr>
+<td><strong>-s</strong></td>
+
+<td>シンボル・テーブルを無視するように強制します。</td>
+
+</tr>
+
+<tr>
+<td><strong>-x</strong></td>
+
+<td>シンボルのアドレス値を 16 進フォーマットで表示します。<p>これが <strong>-z</strong> が付いていないときのデフォルトです。</p>
+</td>
+
+</tr>
+
+<tr>
+<td><strong>-Z</strong></td>
+
+<td>古いフォーマットを使用します。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+</section>
+
+<section><h2>例</h2> <ol>
+<li><span></span> <strong>a.out</strong> オブジェクト・ファイルのシンボルをリストするには、次のように入力します。<div> <div><div><pre><code>stripnm a.out</code></pre></div><div></div></div></div>
+</li>
+
+<li><strong>a.out</strong> オブジェクト・ファイルの
+シンボル・アドレス値を 10 進数でリストするには、以下のように入力します。<div><div><pre><code>stripnm -d a.out</code></pre></div><div></div></div></li>
+
+<li>16 進アドレスを使用せずに、libc.a オブジェクト・
+ファイルのシンボルを古いフォーマットでリストするには、以下のように入力します。<div><div><pre><code>stripnm -xz libc.a</code></pre></div><div></div></div></li>
+
+</ol>
+</section>
+
+</div></div>

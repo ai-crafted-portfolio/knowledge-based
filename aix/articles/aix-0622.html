@@ -1,0 +1,126 @@
+<div class="official-dom"><div>
+<section><h2>目的</h2> <p>文字のエンコード方式をコード・ページ・エンコード・スキームから別のスキームに変換します。</p>
+</section>
+
+<section><h2>構文</h2> <p><strong>iconv</strong> [<a href="https://www.ibm.com/docs/ja/ssw_aix_73/i_commands/iconv.html#iconv__row-d3e3306" target="_blank" rel="noopener noreferrer"><span><span>-c</span></span></a><a href="https://www.ibm.com/docs/ja/ssw_aix_73/i_commands/iconv.html#iconv__row-d3e3360" target="_blank" rel="noopener noreferrer"><span><span>s</span></span></a>] <a href="https://www.ibm.com/docs/ja/ssw_aix_73/i_commands/iconv.html#iconv__row-d3e3334" target="_blank" rel="noopener noreferrer"><strong>-f</strong></a><em> FromCode</em> <a href="https://www.ibm.com/docs/ja/ssw_aix_73/i_commands/iconv.html#iconv__row-d3e3372" target="_blank" rel="noopener noreferrer"><strong>-t</strong></a> <em>ToCode</em> [ <em>FileName</em>...]</p>
+ <p><span><span>iconv</span></span> <a href="https://www.ibm.com/docs/ja/ssw_aix_73/i_commands/iconv.html#iconv__row-d3e3348" target="_blank" rel="noopener noreferrer"><span><span>-l</span></span></a></p>
+</section>
+
+<section><h2>説明</h2> <p><strong>iconv</strong> コマンドは、標準入力または指定されたファイルから読み取った文字のエンコード方式を、任意のコード化文字セットから別のコード化文字セットに変換し、変換結果を標準出力に書き出します。 入力と出力のコード化文字セットは、<em>FromCode</em> パラメーターと <em>ToCode</em> パラメーターによって識別されます。 入力データは <em>FromCode</em> パラメーターに指定したコード・セット内の文字で構成されていなければなりません。 コマンド・ラインで <em>FileName</em> パラメーターを指定しないと、<strong>iconv</strong> コマンドは標準入力から読み取ります。</p>
+ <p>このコマンドは、System Management Interface Tool (SMIT) <strong>smit iconv</strong> 高速パスを使用して実行することができます。 <span><span>iconv</span></span>コマンドは、環境変数「<span><span>LOCPATH</span></span>、「<span><span>iconv</span></span>/<span><span>FromCodeSet</span></span>_ToCodeSetという形式のコードセット・コンバーターを検索する。 <span><span>LOCPATH</span></span> のデフォルト値は <span><span>/usr/lib/nls/loc</span></span>です。</p>
+</section>
+
+<section><h2>フラグ</h2> <div> 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><strong>-c</strong></td>
+
+<td>出力から入力ファイルに変換できない文字を省略します。 変換できない文字には、入力の <span><span>FromCode</span></span> で無効な文字、または出力
+の <span><span>ToCode</span></span> で対応する文字がない文字が含まれます。 変換不能文字を省略した後、 <span><span>iconv</span></span> は入力の次のバイトに進み、次の文字を変換します。 <span><span>-c</span></span> を使用しない場合、 <span><span>iconv</span></span> は、入力で変換できない文字を検出すると終了します。 <span><span>-c</span></span> が存在するかどうかは、 <span><span>iconv</span></span>の終了状況に影響しません。</td>
+
+</tr>
+
+<tr>
+<td><strong>-f</strong><em> FromCode</em></td>
+
+<td>入力データをエンコードするコード・セットを指定します。 <strong>-f</strong> フラグと <em>FromCode</em> パラメーターの間のスペースはオプションです。</td>
+
+</tr>
+
+<tr>
+<td><strong>-l</strong></td>
+
+<td>サポートされるすべての <span><span>FromCode</span></span> および <span><span>ToCode</span></span> 値を標準出力に書き出します。</td>
+
+</tr>
+
+<tr>
+<td><strong>-s</strong></td>
+
+<td>無効文字に関する標準エラーに書き込まれるメッセージを抑止します。 -s が使用されない場合は、変換できない文字または切り捨てられた文字ごとに、標準エラーに
+エラー・メッセージが書き込まれます。 <span><span>-s</span></span> が存在するかどうかは、 <span><span>iconv</span></span>の終了状況に影響しません。</td>
+
+</tr>
+
+<tr>
+<td><strong>-t</strong><em> ToCode</em></td>
+
+<td>出力データの変換先コード・セットを指定します。 <strong>-t</strong> フラグ
+と <em>ToCode</em> パラメーターの間のスペースはオプションです。</td>
+
+</tr>
+
+<tr>
+<td><em>FileName</em></td>
+
+<td>変換するファイルを指定します。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+ </section>
+
+<section><h2>終了状況</h2> <p>このコマンドは、以下の終了値を戻します。</p>
+ 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><strong>0</strong></td>
+
+<td>入力データは正常に変換されました。</td>
+
+</tr>
+
+<tr>
+<td><strong>1</strong></td>
+
+<td>指定された変換はサポートしていません。指定した入力ファイルは読み取り用にオープンできません。</td>
+
+</tr>
+
+<tr>
+<td><strong>※2</strong></td>
+
+<td>入力ストリーム内に使用できない文字がありました。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</section>
+
+<section><h2>例</h2> <ol>
+<li><span></span> <strong>mail.x400</strong> ファイルの内容をコード・セット IBM-850 から変換し、その結果を <strong>mail.local</strong> ファイルに保管するには、次のように入力します。<div> <div><div><pre><code>iconv -f IBM-850 -t ISO8859-1 mail.x400 &gt; mail.local</code></pre></div><div></div></div></div>
+</li>
+
+<li><span></span> <strong>mail.japan</strong>ファイルの内容を7ビットのインターチェンジISO2022)エンコーディングから日本語EUCコードセットIBM-eucJPに変換するには、次のように入力する：<div> <div><div><pre><code>iconv -f fold7 -t IBM-eucJP mail.japan &gt; mail.local</code></pre></div><div></div></div></div>
+</li>
+
+<li><span></span>ローカル・ファイルの内容をメール交換形式に変換し、メールを送信するには、次のように入力します。<div> <div><div><pre><code>iconv -f IBM-943 -t fold7 mail.local | mail fxrojas</code></pre></div><div></div></div></div>
+</li>
+
+</ol>
+</section>
+
+</div></div>

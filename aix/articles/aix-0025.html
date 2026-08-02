@@ -1,0 +1,1407 @@
+<div class="official-dom"><div>
+<section><h2>目的</h2>
+
+<p>仮想メモリーの統計情報を報告します。</p>
+
+</section>
+
+<section><h2>構文</h2>
+
+<div><div><pre><code>vmstat [ -f  ] [ -i ] [ -s  ] [ -I [ -W ]] [ -t ] [ -v ] [ -h ] [ -w ] [ -l ] [ -c ] [ -L level ] [ -@ wparname | ALL ] [{ -p | -P } physicalvolume | ALL ] ALL ] [ -S power ]  [ physicalvolume ] [ interval ] [ count ]
+</code></pre></div><div></div></div>
+<div><div>
+        <div>
+          <div><span>注：</span> <span>ワークロード・パーティションでは</span>、 wparname オプションと <span>-i</span> フラグを併用してはならない。</div>
+        </div>
+      </div></div>
+
+</section>
+
+<section><h2>説明</h2>
+
+<p><span>vmstat</span> コマンドは、カーネル・スレッド、仮想メモリー、ディスク、ハイパーバイザー・ページ、トラップ、およびプロセッサー・アクティビティの統計情報を報告します。 <span>vmstat</span> コマンドによって生成されるレポートは、システム負荷活動のバランスをとるために使用される。 これらのシステム全体の統計は、値が全プロセッサのパーセンテージで表される場合は平均値として計算され、それ以外の場合は合計値として計算される。 <span>vmstat</span> コマンドは、統計がアトミックに読み込まれない場合、一貫性のない統計を返すことがある。</p>
+
+<p>フラグを指定せずに <span>vmstat</span> コマンドを実行した場合、 <span>vmstat</span> コマンド・レポートには、システム起動時からの仮想メモリ・アクティビティの概要が含まれます。 <span>-f</span> フラグを指定すると、<span>vmstat</span> コマンドはシステム始動後の fork の数を報告します。 <span>physicalvolume</span> パラメーターは物理ボリュームの名前を指定する。</p>
+
+<p><span>interval</span> パラメーターは、各レポートの間隔を秒で指定します。 <span>interval</span> パラメータを指定しない場合、 <span>vmstat</span> コマンドはシステム起動時からの統計情報を含む単一のレポートを生成し、終了する。 <span>count</span> パラメーターは、<span>interval</span> パラメーターと一緒に指定する必要があります。 <span>count</span> パラメータを指定した場合、 <span>count</span> パラメータ値によって、生成されるレポートの数と秒間隔が決定される。 <span>count</span> パラメーターなしで <span>interval</span> パラメーターを指定すると、レポートは連続して生成されます。 <span>count</span> パラメーターに、ゼロの値を指定しないでください。</p>
+
+
+<p>カーネルはカーネルスレッド、ページング、割り込みアクティビティの統計情報を保持しており、 <span>vmstat</span> コマンドは perfstat カーネル拡張を使用することでアクセスできます。 ディスクの入出力（I/O）統計は、デバイス・ドライバによって管理される。 ディスクの平均転送率は、活動時間と転送数の情報から求められます。 アクティブ時間%は、レポート中にドライブがビジー状態であった時間から計算される。</p>
+
+<p><span>vmstat</span> コマンドは、 <span>マイクロ・パーティショニング</span>環境において、消費された物理プロセッサ数（pc）と消費されたエンタイトルメントの割合（ec）をレポートします。</p>
+
+<p><span>vmstat</span> コマンドで生成されるレポートには、システム構成行と列見出しが含まれる。 フラグが指定された場合、 <span>vmstat</span> コマンド・レポートはシステム・コンフィギュレーションと <span>WPAR</span> コンフィギュレーションから構成される。</p>
+
+</section>
+
+<section><h2>システム構成行</h2>
+
+<div>システム・コンフィギュレーションの行には以下の値がある：<dl>
+
+<dt><span>lcpu</span></dt>
+
+<dd><span>lcpu</span> フィールドは、論理プロセッサの数を示す。</dd>
+
+
+
+<dt><span>mem</span></dt>
+
+<dd><span>mem</span> フィールドはメモリ量を示す。</dd>
+
+
+
+<dt><span>tmem</span></dt>
+
+<dd><span>tmem</span> フィールドは、論理パーティション（LPAR）の真のメモリサイズを示します。<div><div>
+        <div>
+          <div><span>注：</span> このフラグは、 <span>-c</span> オプションが提供され、アクティブ・メモリー拡張が有効になっている場合にのみ使用可能。</div>
+        </div>
+      </div></div>
+</dd>
+
+
+
+<dt><span>ent</span></dt>
+
+<dd><span>ent</span> 。 この情報は、共有プロセッサー上でパーティションを実行する場合にのみ表示されます。</dd>
+
+
+
+<dt><span>drives</span></dt>
+
+<dd><span>drives</span> フィールドはディスクの数を示す。 この情報は、物理ボリューム名が監視されている場合にのみ表示されます。</dd>
+
+
+
+<dt>ワークロード・パーティション (<span>WPARs</span>)</dt>
+
+<dd><span>WPARs</span> フィールドは、アクティブな<span>ワークロードパーティションの</span>数を示す。 この情報は、<span>-@</span> フラグを指定した場合にのみ表示されます。</dd>
+
+
+
+<dt><span>memlim</span></dt>
+
+<dd><span>memlim</span> フィールドは、 <span>ワークロードパーティションの</span>メモリリソースの上限（メガバイト単位）を示す。 この情報は、メモリリソースの制限がある <span>WPARに対してのみ</span>表示される。</dd>
+
+
+
+<dt><span>cpulim</span></dt>
+
+<dd><span>cpulim</span> フィールドは、 <span>ワークロードパーティションの</span>プロセッサリソースの上限をプロセッサ単位で示す。 この情報は、プロセッサ・リソースの制限が適用された <span>WPARに対してのみ</span>表示される。</dd>
+
+
+
+<dt><span>rset</span></dt>
+
+<dd><span>rset</span> フィールドは、 <span>WPARに関連付けられて</span>いる <span>rset</span> レジストリのタイプを示す。 <span>rset</span> レジストリ・タイプは、レギュラー・タイプとエクスクルーシブ・タイプがある。 この情報は、 <span>rset</span> レジストリに関連付けられている <span>WPARs</span> に対してのみ表示される。</dd>
+
+
+
+<dt><span>mmode</span></dt>
+
+<dd><span>mmode</span> フィールドはメモリーモードを示す。 この指標は、システムでアクティブ・メモリー共有が有効になっている場合に自動的に表示される。 この指標は、 <span>-c</span> オプションを指定した場合にも表示される。</dd>
+
+
+
+<dt><span>mpsz</span></dt>
+
+<dd><span>mpsz</span> フィールドは、メモリプールのサイズをギガバイト単位で示す。 この指標は共有メモリーモードでのみ表示される。</dd>
+
+
+</dl>
+</div>
+
+</section>
+
+<section><h2>列見出し</h2>
+
+<p><span>vmstat</span> コマンドで生成されるレポートの列見出しの値は以下の通り：</p>
+
+<dl>
+
+<dt><span>WPAR</span></dt>
+
+<dd><span>WPARは</span> <span>ワークロードパーティション</span>名で、 <span>ワークロードパーティションに関する</span>情報を提供する。 この情報は、<span>-@</span> フラグを指定した場合にのみ表示されます。<div><div>
+        <div>
+          <div><span>注:</span><ol>
+<li>システム <span>WPAR</span> 名はシステム全体の統計情報を示し、グローバル <span>WPAR</span> 名は統計情報がグローバルのみに属することを示す。</li>
+
+<li><span>vmstat</span> コマンドを <span>-@</span><span> ALL</span> オプションで起動し、 <span>WPAR</span> 固有の情報がメトリックで利用できない場合、値の代わりにダッシュ記号 (-) が表示されます。</li>
+
+<li><span>-@</span> wparname または <span>WPAR</span> 内で <span>vmstat</span> コマンドを開始すると、 <span>WPAR</span> 情報がメトリックに利用できない場合、そのメトリックにはアットマーク（@）が付き、システム全体の値が表示されます。</li>
+
+<li>メトリックがサポートされない場合、値に代わりダッシュ (-) が表示されます。</li>
+
+</ol>
+
+</div>
+        </div>
+      </div></div>
+</dd>
+
+
+
+<dt><span>kthr</span></dt>
+
+<dd><div>カーネル・スレッドの状態に関する情報を提供する。<dl>
+
+<dt><code>r</code></dt>
+
+<dd>サンプリング間隔で実行可能なカーネル・スレッドの平均数を表す。 サンプリング間隔を超えて実行可能なカーネル・スレッドは、準備はできているがまだ実行を待っているスレッドと、すでに実行中のスレッドから構成される。</dd>
+
+
+
+<dt><code>b</code></dt>
+
+<dd>サンプリング間隔にわたって、VMM（Virtual Memory Manager）の待ち行列（リソース待ち、I/O待ち）に入れられたカーネル・スレッドの平均数を表す。</dd>
+
+
+</dl>
+</div>
+
+</dd>
+
+
+
+<dt><span>MEMORY</span></dt>
+
+<dd><div>仮想メモリと実メモリの使用状況に関する情報を提供する。 仮想ページはアクセスされればアクティブとみなされる。 仮想ページは4096バイト。<dl>
+
+<dt><code>avm</code></dt>
+
+<dd>アクティブな仮想ページの数を示す。</dd>
+
+
+
+<dt><code>fre</code></dt>
+
+<dd>空きリストのサイズを示す。<div><div>
+        <div>
+          <div><span>注:</span> 実メモリーの大部分は、ファイル・システム・データのキャッシュとして使用されます。 フリーリストのサイズは小さいままだ。</div>
+        </div>
+      </div></div>
+</dd>
+
+
+</dl>
+</div>
+
+</dd>
+
+
+
+<dt><span>ページ</span></dt>
+
+<dd><div>ページフォルトとページングアクティビティに関する情報を提供する。 この情報はインターバルで平均化され、1秒あたりの単位で表示される。<dl>
+
+<dt><code>re</code></dt>
+
+<dd>ページャーの I/O リストを示す。</dd>
+
+
+
+<dt><code>pi</code></dt>
+
+<dd>ページングスペースからページインされるページを示す。</dd>
+
+
+
+<dt><code>po</code></dt>
+
+<dd>ページングスペースにページアウトしたページを示す。</dd>
+
+
+
+<dt><code>fr</code></dt>
+
+<dd>解放されたページ（ページの入れ替え）を示す。</dd>
+
+
+
+<dt><code>sr</code></dt>
+
+<dd>ページ置換アルゴリズムによってスキャンされるページを示す。</dd>
+
+
+
+<dt><code>cy</code></dt>
+
+<dd>ページ置換アルゴリズムによるクロックサイクルを示す。</dd>
+
+
+</dl>
+</div>
+
+</dd>
+
+
+
+<dt><span>フォールト</span></dt>
+
+<dd><div>サンプリング間隔における1秒あたりの平均トラップ・レートおよび割り込みレートに関する情報を提供する。<dl>
+
+<dt><code>in</code></dt>
+
+<dd>デバイスの割り込みを示す。</dd>
+
+
+</dl>
+<dl>
+
+<dt><code>sy</code></dt>
+
+<dd>システムコールを示す。</dd>
+
+
+</dl>
+<dl>
+
+<dt><code>cs</code></dt>
+
+<dd>カーネル・スレッドのコンテキスト・スイッチを示す。</dd>
+
+
+</dl>
+</div>
+
+</dd>
+
+
+
+<dt><span>CPU</span></dt>
+
+<dd><div>プロセッサ時間の使用率の内訳に関する情報を提供する。<dl>
+
+<dt><code>us</code></dt>
+
+<dd>ユーザータイムを示す。<p>上限が設定されていないパーティションの現在の物理プロセッサ消費量が、権利を与えられた容量を超えた場合、パーセンテージは消費された物理プロセッサ数に対する相対的なものになる。</p>
+</dd>
+
+
+</dl>
+<dl>
+
+<dt><code>sy</code></dt>
+
+<dd>システム時間を示す。<p>上限が設定されていないパーティションの現在の物理プロセッサ消費量が、権利を与えられた容量を超えた場合、パーセンテージは消費された物理プロセッサ数に対する相対的なものになる。</p>
+</dd>
+
+
+</dl>
+<dl>
+
+<dt><code>id</code></dt>
+
+<dd>プロセッサのアイドル時間を示す。<p>上限が設定されていないパーティションの現在の物理プロセッサ消費量が、権利を与えられた容量を超えた場合、パーセンテージは消費された物理プロセッサ数に対する相対的なものになる。</p>
+</dd>
+
+
+</dl>
+<dl>
+
+<dt><code>wa</code></dt>
+
+<dd>システムに未処理のディスクまたは NFS I/O 要求があったプロセッサのアイドル時間を示す。<p>上限が設定されていないパーティションの現在の物理プロセッサ消費量が、権利を与えられた容量を超えた場合、パーセンテージは消費された物理プロセッサ数に対する相対的なものになる。</p>
+</dd>
+
+
+</dl>
+<dl>
+
+<dt><code>pc</code></dt>
+
+<dd>使用されている物理プロセッサの数を示す。 この情報は、共有プロセッサー上でパーティションを実行する場合にのみ表示されます。</dd>
+
+
+</dl>
+<dl>
+
+<dt><code>ec</code></dt>
+
+<dd>消費される権利付き容量の割合を示す。 この情報は、共有プロセッサー上でパーティションを実行する場合にのみ表示されます。 このデータが計算される時間ベースはさまざまであるため、権利のある容量パーセンテージは100％を超えることがあり、その超過はサンプリング間隔が小さい場合にのみ顕著となる。</dd>
+
+
+</dl>
+<dl>
+
+<dt><code>rc</code></dt>
+
+<dd>プロセッサリソースの使用率を示す。 この情報は、プロセッサー・リソースの制限を強制した WPAR の場合にのみ表示されます。</dd>
+
+
+</dl>
+</div>
+
+</dd>
+
+
+
+<dt><span>ディスク</span></dt>
+
+<dd><p>サンプル間隔で発生した、指定した物理ボリュームへの1秒あたりの転送数に関する情報を提供します。 <span>physicalvolume</span> パラメーターには、1つから4つの名前を指定できる。 転送統計情報は、指定した各ドライブについて、指定した順番で報告されます。 この値は、物理デバイスに対する要求を表します。 読み書きのデータ量を意味するものではない。 複数の論理要求を 1 つの物理要求にまとめることができます。 <span>physicalvolume</span> 」パラメータを使用すると、コマンド実行の最初に物理ボリューム名が表示される。</p>
+
+</dd>
+
+
+</dl>
+
+<p><span>-I</span> フラグを指定すると、I/O指向のビューが表示され、以下のように列が変更される：</p>
+
+<dl>
+
+<dt><span>kthr</span></dt>
+
+<dd>列 <code>r</code> および <code>b</code> に加えて、列 <code>p</code> も表示されます。<dl>
+
+<dt><code>p</code></dt>
+
+<dd>生デバイスからのI/Oメッセージを待つスレッドの平均数を示す。 生デバイスとは、システムに直接接続されているデバイスのことである。<p><span>-I</span> フラグとともに <span>-W</span> フラグが指定された場合、 <code>r</code>、 <code>b</code>、 <code>p</code> 列とともに、 <code>w</code> 列も表示される。</p>
+</dd>
+
+
+
+<dt><code>w</code></dt>
+
+<dd>ファイルシステムの直接I/Oイベントの発生を待機している1秒あたりのスレッド数を示す。 ファイルシステムの直接I/Oイベントには以下の種類がある：<ul>
+<li>非同期入出力 (AIO)</li>
+
+<li>バッファー・キャッシュ・サブシステム</li>
+
+<li>並行入出力 (CIO)</li>
+
+<li>ファイルシステム直接入出力</li>
+
+<li>NFS サブシステム</li>
+
+<li>スレッドが、仮想メモリー・マネージャー (VMM) 待ちリストからのアクションを待機しています。</li>
+
+</ul>
+</dd>
+
+
+</dl>
+</dd>
+
+
+
+<dt><span>ページ</span></dt>
+
+<dd><code>re</code> 、 <code>cy</code> 列の代わりに、 <code>fi</code> 、 <code>fo</code> 列が新たに表示される。<dl>
+
+<dt><code>fi</code></dt>
+
+<dd>1秒あたりのページイン数を示す。</dd>
+
+
+</dl>
+<dl>
+
+<dt><code>fo</code></dt>
+
+<dd>1秒あたりのファイルページアウト数を示す。</dd>
+
+
+</dl>
+</dd>
+
+
+</dl>
+
+<p><span>-c</span> フラグを指定すると、Active Memory Expansion ビューが表示され、以下のように列が変更されます：</p>
+
+<dl>
+
+<dt><span>メモリー</span></dt>
+
+<dd>列 <code>csz</code>、 <code>cfr</code>、 <code>dxm</code> に加え、列 <code>avm</code> 、 <code>fre</code> が表示される。<dl>
+
+<dt><code>csz</code></dt>
+
+<dd>現在の圧縮プールサイズを4KBページ単位で示す。</dd>
+
+
+</dl>
+<dl>
+
+<dt><code>cfr</code></dt>
+
+<dd>圧縮プールで利用可能な空きページを4KBページ単位で示す。</dd>
+
+
+</dl>
+<dl>
+
+<dt><code>dxm</code></dt>
+
+<dd>4KBページ単位で、拡張メモリーサイズの不足を示す。</dd>
+
+
+</dl>
+</dd>
+
+
+
+<dt><span>ページ</span></dt>
+
+<dd><code>re</code> 、 <code>cy</code> 列の代わりに、 <code>ci</code> 、 <code>co</code> 列が新たに表示される。<dl>
+
+<dt><code>ci</code></dt>
+
+<dd>圧縮プールからの1秒あたりのページイン数を示す。</dd>
+
+
+</dl>
+<dl>
+
+<dt><code>co</code></dt>
+
+<dd>圧縮プールへの1秒あたりのページアウト数を示す。</dd>
+
+
+</dl>
+</dd>
+
+
+</dl>
+
+<p><span>vmstat</span> コマンドの実行中に、 <span>vmstat</span> コマンドの出力に影響を与えるようなシステム構成の変更があった場合、 <span>vmstat</span> コマンドは構成変更に関する警告メッセージを表示する。 <span>vmstat</span> コマンドは、更新されたシステム・コンフィギュレーションとヘッダーに関する情報を印刷した後も、出力を表示し続ける。</p>
+
+<div><span>-l</span> フラグを指定すると、 <code>large-page</code> セクションが追加表示され、以下の列が表示される：<dl>
+
+<dt><code>alp</code></dt>
+
+<dd>使用中のラージページの数を示す。</dd>
+
+
+
+<dt><code>flp</code></dt>
+
+<dd>ラージページのフリーリストにあるラージページの数を示す。</dd>
+
+
+</dl>
+
+</div>
+
+<div><span>-p</span> フラグを指定すると、指定したページ・サイズについてVMM統計の追加行が表示される。 <span>-I</span> 、 <span>-t</span> フラグを指定した場合、 <span>-p</span> フラグを指定すると、指定したページサイズ分の追加行が生成される。 この追加行には、指定されたページ・サイズに関連する以下のVMM統計情報が含まれる：<ul>
+<li><code>avm</code></li>
+
+<li><code>fre</code></li>
+
+<li><code>re</code></li>
+
+<li><code>fi</code></li>
+
+<li><code>fo</code></li>
+
+<li><code>pi</code></li>
+
+<li><code>po</code></li>
+
+<li><code>ci</code></li>
+
+<li><code>co</code></li>
+
+<li><code>fr</code></li>
+
+<li><code>sr</code></li>
+
+<li><code>cy</code></li>
+
+</ul>
+<div><div>
+        <div>
+          <div><span>注:</span><ul>
+<li><span>-I</span> フラグは、 <code>re</code>、 <code>fi</code>、 <code>fo</code>、 <code>cy</code> オプションの表示に影響する。</li>
+
+<li><span>-c</span> フラグは、 <code>re</code>、 <code>ci</code>、 <code>co</code>、 <code>cy</code> オプションの表示に影響する。</li>
+
+<li>リソース制御がない場合、<code>avm</code> および <code>fre</code> オプションはシステム規模のものです。 したがって、 <span>-@</span> オプションが設定されている場合、 <code>avm</code> と <code>fre</code> の両方のオプションにアットマーク（@）が付けられる。</li>
+
+</ul>
+
+</div>
+        </div>
+      </div></div>これらの VMM 統計情報は <code>psz</code> 列の後、<code>siz</code> 列の前に表示されます。<dl>
+
+<dt><code>psz</code></dt>
+
+<dd>ページ・サイズ (例えば、4 KB、64 KB) を示します。</dd>
+
+
+
+<dt><code>siz</code></dt>
+
+<dd>システム上に存在する、指定されたページ・サイズのフレーム数を示す。</dd>
+
+
+</dl><span>-s</span> フラグを指定した場合、 <span>-p</span> フラグは、指定されたページ・サイズに関連する統計情報のみを含む別のスタンザ出力を生成する。 この追加のスタンザはページ・サイズ・ヘッダーに続いて出力されます。</div>
+
+<div><span>-P</span> オプションは、指定されたページサイズについて以下のレポートを生成する：<dl>
+
+<dt><code>pgsz</code></dt>
+
+<dd>ページサイズを示す（例：4KBB、64KBB）。</dd>
+
+
+
+<dt><code>Memory</code></dt>
+
+<dd>指定されたページ・サイズに対するメモリー統計情報を示します。</dd>
+
+
+
+<dt><code>siz</code></dt>
+
+<dd>システム上に存在する、指定されたページ・サイズのフレーム数を示す。</dd>
+
+
+
+<dt><code>avm</code></dt>
+
+<dd>指定されたページサイズに該当するアクティブな仮想ページを示す。</dd>
+
+
+
+<dt><code>fre</code></dt>
+
+<dd>指定されたページサイズの空きリストのサイズを示す。</dd>
+
+
+
+<dt><code>Page</code></dt>
+
+<dd>指定されたページ・サイズに関係のあるページ・フォールトとページ送りの活動状況を示します。 ページに関連する列
+<code>re</code>、<code>pi</code>、<code>po</code>、<code>fr</code>、<code>sr</code>、<code>cy</code>、<code>fi</code>、<code>fo</code>、<code>ci</code>、および
+<code>co</code> もこの報告書に適用できます。</dd>
+
+
+</dl>
+</div>
+
+</section>
+
+<section><h2>フラグ</h2>
+
+<div><div>
+        <div>
+          <div><span>注：</span> コマンドラインで <span>-f</span> または <span>-s</span> フラグのどちらかを指定した場合、システムは <span>-f</span> または <span>-s</span> フラグを受け入れ、他のフラグは無視する。 コマンドラインで <span>-f</span> と <span>-s</span> の両方のフラグを指定した場合、システムは最初のフラグのみを受け入れ、2番目のフラグは無視する。</div>
+        </div>
+      </div></div>
+
+
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><span>-@</span> ワーパルネーム</td>
+
+<td><span>ワークロード・パーティション</span>の仮想メモリー・アクティビティーを報告します。<ul>
+<li><span>-@</span> <span>ALL</span> オプションは、システム内のすべての<span>ワークロード・パーティションに加えて</span>、システムおよびグローバル環境にもレポートが関連することを示します。<div><div>
+        <div>
+          <div><span>注:</span> システム全体の統計情報である値は、 <span>WPAR</span> セクションに対してダッシュ (-) でマークされます。</div>
+        </div>
+      </div></div>
+</li>
+
+<li><span>-@</span> wparname フラグは、アクティビティがその<span>ワークロード・パーティションのみ</span>であることを示す。 <span><span>ワークロード・パーティションで</span>、 <span>-@</span> フラグを指定すると、システム全体の統計と<span>ワークロード・パーティションの</span>統計が表示されます。 </span>システム全体の統計情報は、アットマーク (@) でマークされます。<div><div>
+        <div>
+          <div><span>注：</span> <span>-@</span> フラグと <span>-i</span> フラグを併用しないこと。</div>
+        </div>
+      </div></div>
+</li>
+
+</ul>
+</td>
+
+</tr>
+
+<tr>
+<td><span>-c</span></td>
+
+<td><code>memory</code>メモリ圧縮の統計情報を表示します。出力では、見出し「」の下に新しい列「 <code>csz</code> <code>cfr</code>,,, および <code>dxm</code> 」、見出し <code>page</code> 「」の下に列「 <code>ci</code> および <code>co</code> 」が、従来の列 <code>re</code> 「 および <code>cy</code>」の代わりに表示されます。<div><div>
+        <div>
+          <div><span>注：</span> このオプションは、アクティブメモリ拡張を有効にした場合にのみ使用できます。</div>
+        </div>
+      </div></div>
+</td>
+
+</tr>
+
+<tr>
+<td><span>-f</span></td>
+
+<td>システム始動後の fork の数を報告します。</td>
+
+</tr>
+
+<tr>
+<td><span>-i</span></td>
+
+<td>システム始動後に各デバイスが行った割り込みの数を表示します。<div><div>
+        <div>
+          <div><span>注：</span> <span>-I</span>、 <span>-t</span>、 <span>-w</span>、 <span>-l</span> のフラグは、これらのフラグが <span>-i</span> フラグとともに指定されている場合、無視される。</div>
+        </div>
+      </div></div>
+</td>
+
+</tr>
+
+<tr>
+<td><span>-I</span></td>
+
+<td><code>page</code> の見出しにある列 <code>re</code> と <code>cy</code> の代わりに、 <code>kthr</code> の見出しにある新しい出力列 <code>p</code> と、 <code>page</code> の見出しにある列 <code>fi</code> と <code>fo</code> を持つ I/O 指向のビューを表示する。</td>
+
+</tr>
+
+<tr>
+<td><span>-l</span></td>
+
+<td><code>alp</code> 、 <code>flp</code> のカラムを持つ、追加の <code>large-page</code> セクションを表示する。</td>
+
+</tr>
+
+<tr>
+<td><span>-L</span> レベル</td>
+
+<td>ソフトページのプロモーション統計を表示します。<div><div>
+        <div>
+          <div><span>注：</span> <span>-v</span> フラグは、 <span>-L</span> フラグと共にのみ使用できる。 他のフラグを <span>-L</span> 。</div>
+        </div>
+      </div></div>
+</td>
+
+</tr>
+
+<tr>
+<td><span>-p</span> 
+pagesize</td>
+
+<td>通常の <span>vmstat</span> コマンド出力に、指定されたページ・サイズの VMM 統計を追加する。</td>
+
+</tr>
+
+<tr>
+<td><span>-P</span> 
+pagesize</td>
+
+<td>指定されたページ・サイズに関係のある VMM 統計情報のみを表示します。</td>
+
+</tr>
+
+<tr>
+<td><span>-s</span></td>
+
+<td>sum構造体の内容を標準出力に書き出す。sum構造体には、システム初期化以降のページングイベントの絶対カウントが含まれる。 <span>-s</span> フラグは <span>-v</span> フラグでのみ指定できる。 以下に、これらのイベントを説明します。<dl>
+
+<dt><code>address translation faults</code></dt>
+
+<dd>アドレス変換ページ・フォールトが発生した回数です。 ページフォルトを解決するためにI/Oを必要としないかもしれない。 この値には、ストレージ保護ページ・フォールト (ロックの失敗) は含まれません。</dd>
+
+
+
+<dt><code>backtracks</code></dt>
+
+<dd>以前のページ・フォールトの回復中に発生したページ・フォールトの回数です。 最初に新しいページフォルトを解決し、それから最初のページフォルトをバックトラックすることができる。</dd>
+
+
+
+<dt><code>CPU context switches</code></dt>
+
+<dd>プロセッサー・コンテキスト・スイッチ (新しいプロセスのディスパッチ) の回数です。</dd>
+
+
+
+<dt><code>decrementer interrupts</code></dt>
+
+<dd>decrementer 割り込みの回数です。</dd>
+
+
+
+<dt><code>device interrupts</code></dt>
+
+<dd>ハードウェア割り込みの回数です。</dd>
+
+
+
+<dt><code>executable-filled page faults</code></dt>
+
+<dd>命令のページ・フォールトの数です。</dd>
+
+
+
+<dt><code>extend XPT waits</code></dt>
+
+<dd>アクセス中のセグメントのコミットのために、VMM によってプロセスが待機状態になった回数です。</dd>
+
+
+
+<dt><code>free frame waits</code></dt>
+
+<dd>プロセスがページ・フレームを要求する回数です。 フリー・リストが空になり、そしてフリー・リストが補充される間、プロセスが待機させられます。</dd>
+
+
+
+<dt><code>iodones</code></dt>
+
+<dd>VMM の各入出力要求が完了した回数です。</dd>
+
+
+
+<dt><code>mpc send interrupts</code></dt>
+
+<dd>マルチパス・チャネル（mpc）が割り込みを送信するたびにインクリメントされる。</dd>
+
+
+
+<dt><code>mpc receive interrupts</code></dt>
+
+<dd>mpcが割り込みを受信するたびにインクリメントされる。</dd>
+
+
+
+<dt><code>page-ins</code></dt>
+
+<dd>仮想メモリー・マネージャーがページを読み取った回数です。 ページスペースとファイルスペースからのページインに対してカウントがインクリメントされる。 この値とページ・アウト統計情報の値を合わせると、仮想メモリー・マネージャーが開始した実入出力の総数が求められます。</dd>
+
+
+
+<dt><code>page-outs</code></dt>
+
+<dd>仮想メモリーマネージャーによって書き込まれるページごとにインクリメントされる。 カウントは、ページスペースへのページアウトとファイルスペースへのページアウトでインクリメントされる。 ページイン統計とともに、この統計は、仮想メモリ・マネージャによって開始された実I/Oの総量を表す。</dd>
+
+
+
+<dt><code>paging space page-ins</code></dt>
+
+<dd>VMMがページングスペースからのページインを開始した場合のみインクリメントされる。</dd>
+
+
+
+<dt><code>paging space page-outs</code></dt>
+
+<dd>VMMがページングスペースへのページアウトを開始した場合のみインクリメントされる。</dd>
+
+
+
+<dt><code>pages examined by the clock</code></dt>
+
+<dd>VMM は、クロック・アルゴリズムを使って、疑似 LRU ページ置き換えスキームを実現します。 ページは時計によって検査され、 <code>aged</code> 。 この値は、ページがクロックに検査された回数です。</dd>
+
+
+
+<dt><code>pages freed by the clock</code></dt>
+
+<dd>クロックアルゴリズムが実メモリから解放するページを選択するごとに増加する。</dd>
+
+
+
+<dt><code>pending I/O waits</code></dt>
+
+<dd>ページ・イン入出力が完了するまでに、VMM によってプロセスが待機状態になった回数です。</dd>
+
+
+</dl>
+</td>
+
+</tr>
+
+<tr>
+<td><span>-s</span></td>
+
+<td><dl>
+
+<dt><code>phantom interrupts</code></dt>
+
+<dd>ファントム割り込みごとに増加する。</dd>
+
+
+
+<dt><code>revolutions of the clock hand</code></dt>
+
+<dd>VMM クロック回転数 (つまり、メモリーのスキャン数) です。</dd>
+
+
+
+<dt><code>start I/Os</code></dt>
+
+<dd>VMM が開始した読み取りまたは書き込み入出力要求の回数です。</dd>
+
+
+
+<dt><code>syscalls</code></dt>
+
+<dd>システム・コールの回数です。</dd>
+
+
+
+<dt><code>total reclaims</code></dt>
+
+<dd>新しいI/O要求を開始せずにアドレス変換フォルトが満たされたときにインクリメントされる。 このイベントは次のような場合に発生する：<ul>
+<li>ページがVMMによって以前に要求されたが、I/Oがまだ完了していない場合。</li>
+
+<li>ページがVMMのリード・アヘッド・アルゴリズムによってプリフェッチされたが、フォールト・セグメントからは隠されていた場合</li>
+
+<li>そのページが無料リストに掲載され、まだ再利用されていない場合。</li>
+
+</ul>
+
+</dd>
+
+
+
+<dt><code>traps</code></dt>
+
+<dd>イベントがオペレーティング・システムによって管理されていないことを示す。</dd>
+
+
+
+<dt><code>zero-filled page faults</code></dt>
+
+<dd>作業用ストレージで発生し、フレームの割り当てとゼロ埋め込みで回復できるページ・フォールトの数です。</dd>
+
+
+</dl><span> <span>-s</span> フラグとともに <span>-c</span> フラグを指定すると、以下の追加メトリクスが表示されます：</span><dl>
+
+<dt><code>compressed pool page ins</code></dt>
+
+<dd>システム起動時からの圧縮プールからのページイン数を示す。</dd>
+
+
+
+<dt><code>compressed pool page outs </code></dt>
+
+<dd>システム起動時からの圧縮プールへのページアウト数を示す。</dd>
+
+
+</dl>
+</td>
+
+</tr>
+
+<tr>
+<td><span>-s</span></td>
+
+<td><p><span>-p</span> pagesize フラグとともに使用されると、 <span>-s</span> フラグは、指定されたページ・サイズの合計構造をシステム全体の合計構造に追加する。 この追加スタンザの前には、ページサイズヘッダー（例えば4KBページ）が付く。 このページ・サイズ・ベースのスタンザでは、これらの統計はページ・サイズに関係しないため、以下の詳細は表示されない：</p>
+
+<ul>
+<li>プロセッサー・コンテキスト切り換えの回数</li>
+
+<li>デバイス割り込みの回数</li>
+
+<li>ソフトウェア割り込みの回数</li>
+
+<li>decrementer 割り込みの回数</li>
+
+<li>MPC-sent 割り込みの回数</li>
+
+<li>MPC-received 割り込みの回数</li>
+
+<li>phantom 割り込みの回数</li>
+
+<li>トラップの回数</li>
+
+<li>システム・コールの回数</li>
+
+</ul>
+
+<div><div>
+        <div>
+          <div><span>注:</span><ol>
+<li><span>-@</span> <span>ALL</span> フラグで <span>-s</span> フラグを指定すると、システム全体の統計が<span>ワークロード・パーティション・セクションで</span>繰り返される。</li>
+
+<li><span>-@</span> wparname フラグで <span>-s</span> フラグを指定すると、すべてのメトリクスが報告され、システム全体の統計情報にはアットマーク（@）が付きます。</li>
+
+<li><span>-l</span> フラグとともに <span>-s</span> フラグを指定すると、 <span>vmstat</span> コマンドは以下のメトリックを表示する：<dl>
+
+<dt><code>large-page hi water count</code></dt>
+
+<dd>ラージページ使用中カウントの最大値を指定する。</dd>
+
+
+</dl>
+</li>
+
+</ol>
+
+</div>
+        </div>
+      </div></div>
+
+</td>
+
+</tr>
+
+<tr>
+<td><span>-S</span> 
+power</td>
+
+<td>プロセッサーの統計値に <span>10 </span><sup>powerの</sup>値を掛ける。 電力のデフォルト値は <span>0</span> である。<div>以下の統計情報は、スケーリングされます。<ul>
+<li><code>us</code></li>
+
+<li><code>sy</code></li>
+
+<li><code>id</code></li>
+
+<li><code>wa</code></li>
+
+<li><code>pc</code></li>
+
+<li><code>ec</code></li>
+
+</ul>
+</div>
+
+<div><div>
+        <div>
+          <div><span>注:</span><ol>
+<li><span>-f</span>、 <span>-s</span>、 <span>-i</span>、 <span>-v</span>、 <span>-p</span> のフラグで、 <span>-S</span> フラグを指定しないこと。</li>
+
+<li><span>-S</span> フラグが指定されると、 <code>us</code>、 <code>sy</code>、 <code>id</code>、 <code>wa</code> 統計が変更される。 デフォルトでは、 <code>us</code>、 <code>sy</code>、 <code>id</code>、 <code>wa</code> の統計は、 <span>WPARの</span>プロセッサ消費量に対するものである。 <span>-S</span> フラグにゼロ以外の電力値が指定されている場合、これらの統計値はシステム全体のプロセッサ消費量に対する相対値である。</li>
+
+<li><span>-S</span> フラグのパワー 値は、0～3の範囲である。</li>
+
+</ol>
+
+</div>
+        </div>
+      </div></div>
+</td>
+
+</tr>
+
+<tr>
+<td><span>-t</span></td>
+
+<td><span>vmstat</span> コマンドの出力の各行の横にタイムスタンプを表示する。 このタイム・スタンプは、<code>HH:MM:SS</code> フォーマットで表示されます。<div><div>
+        <div>
+          <div><span>注：</span> <span>-f</span>、 <span>-s</span>、 <span>-i</span> のフラグが指定されている場合、タイムスタンプは表示されない。</div>
+        </div>
+      </div></div>
+</td>
+
+</tr>
+
+<tr>
+<td><span>-v</span></td>
+
+<td>Virtual Memory Managerが保持する様々な統計情報を標準出力に書き出す。 <span>-v</span> フラグは、 <span>-s</span>、 <span>-L</span>、 <span>-h</span> フラグと一緒にのみ使用できる。<p><span>-v</span> フラグを指定すると、以下の統計情報が表示されます。</p>
+
+<dl>
+
+<dt><code>compressed percentage</code></dt>
+
+<dd>圧縮ページが使用するメモリの割合を示す。</dd>
+
+
+
+<dt><code>client filesystem I/Os blocked with no fsbuf</code></dt>
+
+<dd><code>fsbuf</code> が利用できなかったためにブロックされたクライアントファイルシステムI/Oリクエストの数を示す。 Network File System ( NFS ) と Veritas ( VxFS ) はクライアント・ファイル・システムである。 <code>Fsbuf</code> は、ファイルシステム層でI/O要求を保持するために使われるピン留めされたメモリバッファである。</dd>
+
+
+
+<dt><code>client pages</code></dt>
+
+<dd>クライアントのページ数を示す。</dd>
+
+
+
+<dt><code>compressed pages</code></dt>
+
+<dd>圧縮メモリのページ数を示す。</dd>
+
+
+
+<dt><code>external pager filesystem I/Os blocked with no fsbuf </code></dt>
+
+<dd><code>fsbuf</code> が利用できなかったためにブロックされた外部ページャークライアントのファイルシステム I/O 要求の数を示す。 <code>JFS2</code> は外部ページャークライアントファイルシステムである。 <code>Fsbuf</code> は、ファイルシステム層でI/O要求を保持するために使われるピン留めされたメモリバッファである。</dd>
+
+
+
+<dt><code>file pages</code></dt>
+
+<dd>ファイルキャッシュが使用する4KBBページの数を示す。</dd>
+
+
+
+<dt><code>free pages</code></dt>
+
+<dd>4KBBの無料ページ数を示す。</dd>
+
+
+
+<dt><code>filesystem I/Os blocked with no fsbuf </code></dt>
+
+<dd><code>fsbuf</code> が利用できなかったためにブロックされたファイルシステム I/O 要求の数を示す。 <code>Fsbuf</code> は、ファイルシステム層でI/O要求を保持するために使われるピン留めされたメモリバッファである。</dd>
+
+
+
+<dt><code>lruable pages</code></dt>
+
+<dd>4KBBページのうち、差し替えを検討しているページ数を示す。 この数には、VMM 内部ページに使用されるページや、カーネル・テキストのピンされた部分に使用されるページは含まれません。</dd>
+
+
+
+<dt><code>maxclient percentage</code></dt>
+
+<dd>クライアント・ページに使用できるメモリの最大パーセンテージを指定するチューニング・パラメータ（ <code>vmo</code> を使用して管理）を示します。</dd>
+
+
+
+<dt><code>maxperm percentage</code></dt>
+
+<dd><code>vmo</code> を使用して管理される実メモリの割合のチューニングパラメータを示す。</dd>
+
+
+
+<dt><code>maxpin percentage</code></dt>
+
+<dd>ピン留めできる実メモリの割合を指定するチューニングパラメータ（ <code>vmo</code> で管理）を示す。</dd>
+
+
+
+<dt><code>memory pages</code></dt>
+
+<dd>実メモリのサイズを4KBBページ数で示す。</dd>
+
+
+
+<dt><code>memory pools</code></dt>
+
+<dd><code>vmo</code> を使用して管理するメモリプールの数を指定するチューニングパラメータを示す。</dd>
+
+
+
+<dt><code>minperm percentage</code></dt>
+
+<dd><code>vmo</code> を使用して管理される実メモリの割合のチューニングパラメータを示す。</dd>
+
+
+
+<dt><code>numclient percentage</code></dt>
+
+<dd>クライアント・ページが占めるメモリの割合を示す。</dd>
+
+
+</dl>
+</td>
+
+</tr>
+
+<tr>
+<td><span>-v</span> （続き）</td>
+
+<td><dl>
+
+<dt><code>numperm percentage</code></dt>
+
+<dd>ファイルキャッシュが使用する <code>lruable</code> メモリの割合を示す。</dd>
+
+
+
+<dt><code>paging space I/Os blocked with no psbuf </code></dt>
+
+<dd><code>psbuf</code> スペースが利用できないためにブロックされたページングスペース I/O 要求の数を示す。 <code>psbufs</code> 空間は、仮想メモリー・マネージャー層でI/O要求を保持するために使用されるピン留めメモリー・バッファである。</dd>
+
+
+
+<dt><code>pending disk I/Os blocked with no pbuf</code></dt>
+
+<dd><code>pbuf</code> が利用できなかったためにブロックされた、保留中のディスクI/O要求の数を示す。 <code>pbuf</code> は、論理ボリュームマネージャレイヤーでI/O要求を保持するために使用されるピン留めメモリバッファである。</dd>
+
+
+
+<dt><code>pinned pages</code></dt>
+
+<dd>ピン留めされた4KBBページの数を示す。<div><div>
+        <div>
+          <div><span>注記：</span> カーネル・ロック機能（<span>vmm_klock_mode</span> パラメーター）が有効な場合、ピン留めされたページにはカーネル・ロック（<code>klocked</code> ）ページが含まれる。 カーネル・ロック機能の詳細については、以下のコマンドを入力してください：<div><div><pre><code>vmo -h vmm_klock_mode</code></pre></div><div></div></div></div>
+        </div>
+      </div></div>
+</dd>
+
+
+
+<dt><code>remote page-outs scheduled </code></dt>
+
+<dd>クライアント・ファイルシステムに対してスケジュールされているページアウトの数を示す。</dd>
+
+
+</dl>
+
+<p><span>-v</span> フラグとともに <span>-h</span> フラグを指定すると、以下の追加メトリクスが表示されます：</p>
+<dl>
+
+<dt><code>Time resolving virtualized partition memory page faults</code></dt>
+
+<dd>仮想パーティションがメモリ・ページ・フォールトの解決待ちのためにブロックされている合計時間を示します。 時間はミリ秒の細分度で、計測の単位は秒です。</dd>
+
+
+
+<dt><code>Virtualized partition memory page faults</code></dt>
+
+<dd>仮想化パーティションに対して記録された仮想パーティション・メモリ・ページ・フォールトの総数を示します。</dd>
+
+
+
+<dt><code>Number of 4 KB page frames loaned</code></dt>
+
+<dd>パーティションのメモリのうち、ハイパーバイザーに貸与される4KBページの数を示す。</dd>
+
+
+
+<dt><code>Percentage of partition memory loaned</code></dt>
+
+<dd>ハイパーバイザーに貸与されるパーティションのメモリの割合を示します。</dd>
+
+
+</dl>
+
+<div><div>
+        <div>
+          <div><span>注:</span><ol>
+<li><span>-v</span> フラグが <span>-@</span> <span>ALL</span> フラグとともに使用されている場合、システム全体の統計は<span>ワークロード・パーティション・セクションで</span>繰り返されない。</li>
+
+<li><span>-s</span> フラグを <span>-@</span> wparname フラグとともに使用すると、すべてのメトリクスが報告され、システム全体の統計情報にはアットマーク（@）が付けられる。</li>
+
+</ol>
+
+</div>
+        </div>
+      </div></div><span> <span>-v</span> フラグとともに <span>-c</span> フラグを指定すると、以下の追加メトリクスが表示されます：</span><dl>
+
+<dt><code>Compressed Pool Size</code></dt>
+
+<dd>圧縮プールのサイズを4KBページ単位で示す。</dd>
+
+
+
+<dt><code>percentage of true memory that is used for compressed pool</code></dt>
+
+<dd>圧縮プールに使用される未展開メモリの割合を示す。</dd>
+
+
+
+<dt><code>free pages in compressed pool (4 KB pages)</code></dt>
+
+<dd>圧縮プール内の空きページ数を4KBページ単位で示す。</dd>
+
+
+
+<dt><code>target memory expansion factor</code></dt>
+
+<dd>LPAR に設定されているターゲットメモリ拡張率を示します。</dd>
+
+
+
+<dt><code>achieved memory expansion factor</code></dt>
+
+<dd>現在のメモリ拡張倍率を示す。</dd>
+
+
+</dl>
+</td>
+
+</tr>
+
+<tr>
+<td><span>-h</span></td>
+
+<td>ハイパーバイザーのページ情報を含む <code>hypv-page</code> セクションを表示します。 <code>hypv-page</code> セクションには、以下のメトリックが含まれます。<dl>
+
+<dt><code>hpi</code></dt>
+
+<dd>1秒あたりのハイパーバイザーのページイン数を示す。</dd>
+
+
+
+<dt><code>hpit</code></dt>
+
+<dd>ハイパーバイザーのページインごとに費やされる平均時間をミリ秒単位で示す。</dd>
+
+
+
+<dt><code>pmem</code></dt>
+
+<dd>パーティションの論理メモリをバックアップする物理メモリの量を示す。 値の計測の単位はギガバイト (GB) です。</dd>
+
+
+</dl>
+<p><span>-v</span> フラグとともに <span>-h</span> フラグを指定すると、 <span>-v</span> フラグを使用して表示されるメトリッ クに加えて、以下のメトリクスが表示されます：</p>
+<dl>
+
+<dt><code>Time resolving virtualized partition memory page faults</code></dt>
+
+<dd>仮想パーティションがメモリ・ページ・フォールトの解決待ちのためにブロックされている合計時間を示します。 時間はミリ秒の細分度で、計測の単位は秒です。</dd>
+
+
+
+<dt><code>Virtualized partition memory page faults</code></dt>
+
+<dd>仮想化パーティションに対して記録された仮想パーティション・メモリ・ページ・フォールトの総数を示します。</dd>
+
+
+
+<dt><code>Number of 4 KBB page frames loaned</code></dt>
+
+<dd>パーティション内のハイパーバイザーに貸与されるメモリの4KBBページ数を示す。</dd>
+
+
+
+<dt><code>Percentage of partition memory loaned</code></dt>
+
+<dd>パーティション内のハイパーバイザーに貸与されているメモリのパーセンテージを示します。</dd>
+
+
+</dl>
+</td>
+
+</tr>
+
+<tr>
+<td><span>-w</span></td>
+
+<td>レポートを幅広モードで表示します。</td>
+
+</tr>
+
+<tr>
+<td><span>-W</span></td>
+
+<td><code>kthr</code> セクションに追加フィールド <span>w</span> を表示する。 このオプションは、<span>-I</span> フラグと共に指定した場合にのみ許可されます。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+
+<div><div>
+        <div>
+          <div><span>注:</span><ol>
+<li>Active Memory Expansion が有効な場合、 <span>vmstat</span> コマンドは拡張ビューでメモリ統計を報告する。 ただし、環境変数 AME_MEMVIEW が TRUE に設定されている場合は、
+メモリーの統計情報は True ビューに表示されます。</li>
+
+<li>AME_MEMVIEW 環境変数は、 <span>-c</span> フラグを使用して報告されるメモリ統計には影響しません。</li>
+
+</ol>
+
+</div>
+        </div>
+      </div></div>
+
+</section>
+
+<section><h2>例</h2>
+
+<ol>
+<li>ブート以後の統計情報の要約を表示するには、次のコマンドを入力します。<div>
+<div><div><pre><code>vmstat</code></pre></div><div></div></div>
+</div>
+</li>
+
+<li>秒間隔で5つのサマリーを表示するには、以下のコマンドを入力する：<div><div><pre><code>vmstat 2 5</code></pre></div><div></div></div></li>
+
+<li>論理ディスク scdisk13 と scdisk14 の統計を含む、ブート以降の統計のサマリーを表示するには、以下のコマンドを入力します：<div>
+<div><div><pre><code>vmstat scdisk13 scdisk14</code></pre></div><div></div></div>
+</div>
+</li>
+
+<li>fork 統計情報を表示するには、次のコマンドを入力します。<div>
+<div><div><pre><code>vmstat -f</code></pre></div><div></div></div>
+</div>
+</li>
+
+<li>さまざまなイベントの回数を表示するには、次のコマンドを入力します。<div>
+<div><div><pre><code>vmstat -s</code></pre></div><div></div></div>
+</div>
+</li>
+
+<li><span>vmstat</span> コマンドの出力の各列の横にタイムスタンプを表示するには、以下のコマンドを入力する：<div>
+<div><div><pre><code>vmstat -t</code></pre></div><div></div></div>
+</div>
+</li>
+
+<li>I/O 指向のビューに列の代替セットを表示するには、次のコマンドを入力します。<div>
+<div><div><pre><code>vmstat -I</code></pre></div><div></div></div>
+</div>
+</li>
+
+<li>使用可能なすべての VMM 統計情報を表示するには、次のコマンドを入力します。<div><div><pre><code>vmstat -vs</code></pre></div><div></div></div></li>
+
+<li><code>alp</code> 、 <code>flp</code> のカラムを8秒間隔でラージページ・セクションに表示するには、以下のコマンドを入力する：<div><div><pre><code>vmstat -l 8</code></pre></div><div></div></div></li>
+
+<li>特定のページ・サイズ (例えば、4 KB) に固有の VMM 統計情報を表示するには、次のコマンドを入力します。<div><div><pre><code>vmstat -p 4K</code></pre></div><div></div></div></li>
+
+<li>システムでサポートされているすべてのページ・サイズについての VMM 統計情報を表示するには、次のコマンドを入力します。<div><div><pre><code>vmstat -p ALL</code></pre></div><div></div></div>または、
+次のコマンドを入力します。<div><div><pre><code>vmstat -p all</code></pre></div><div></div></div></li>
+
+<li>特定のページ・サイズ (この例では、4 KB) についての VMM 統計情報のみを表示するには、次のコマンドを入力します。<div><div><pre><code>vmstat -P 4K</code></pre></div><div></div></div></li>
+
+<li>サポートされているすべてのページ・サイズについて、ページごとの VMM 統計情報の内訳のみを表示するには、次のコマンドを入力します。<div><div><pre><code>vmstat -P ALL</code></pre></div><div></div></div>または、
+次のコマンドを入力します。<div><div><pre><code>vmstat -P all</code></pre></div><div></div></div></li>
+
+<li>ブート後にすべての<span>ワークロードパーティションの</span>統計のサマリーを表示するには、以下のコマンドを入力します：<div><div><pre><code>vmstat -@ ALL</code></pre></div><div></div></div></li>
+
+<li>すべての<span>ワークロード・パーティションで</span>利用可能なすべてのVMM統計を表示するには、次のコマンドを入力します：<div><div><pre><code>vmstat -vs -@ ALL</code></pre></div><div></div></div></li>
+
+<li><span>ワークロード・パーティション</span>から <span>WPAR</span> とシステム全体の VMM 統計情報の両方を表示するには、次のコマンドを入力します。<div><div><pre><code>vmstat -@</code></pre></div><div></div></div></li>
+
+<li>プロセッサー値を 10 倍してその結果を表示するには、次のコマンドを入力します。<div><div><pre><code>vmstat -S 1</code></pre></div><div></div></div></li>
+
+<li>ハイパーバイザーのページに関する統計情報を表示するには、次のコマンドを入力します。<div><div><pre><code>vmstat -h</code></pre></div><div></div></div></li>
+
+<li>ハイパーバイザーに貸し出されているページについての情報を表示するには、次のコマンドを入力します。<div><div><pre><code>vmstat -vh</code></pre></div><div></div></div></li>
+
+<li>メモリー圧縮統計情報 (Active Memory Expansion が有効になっている LPAR 内) を表示するには、次のコマンドを入力します。<div><div><pre><code>vmstat -c</code></pre></div><div></div></div></li>
+
+<li>(Active Memory Expansion が有効になっている LPAR 内の) 各ページ・サイズに固有のメモリー圧縮統計を表示するには、次のコマンドを入力します。<div><div><pre><code>vmstat -c -P ALL</code></pre></div><div></div></div></li>
+
+<li>(Active Memory Expansion が有効になっている LPAR で) <span>-s</span> フラグで表示される統計情報にメモリ圧縮情報を追加するには、次のコマンドを入力します：<div><div><pre><code>vmstat -s -c</code></pre></div><div></div></div></li>
+
+<li>(Active Memory Expansion が有効になっている LPAR で) <span>-v</span> フラグで表示される統計情報にメモリ圧縮情報を追加するには、次のコマンドを入力します：<div><div><pre><code>vmstat -v -c</code></pre></div><div></div></div></li>
+
+<li>ソフトページのプロモーション統計を表示するには、以下のコマンドを入力する：<div><div><pre><code>vmstat -L 1</code></pre></div><div></div></div></li>
+
+</ol>
+
+</section>
+
+<section><h2>ファイル</h2>
+
+<div>
+
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><span>/usr/bin/vmstat</span></td>
+
+<td><span>vmstat</span> コマンドが入っています。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+
+</div>
+
+</section>
+
+</div></div>

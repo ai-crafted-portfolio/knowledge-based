@@ -1,0 +1,641 @@
+<div class="official-dom"><div>
+<section><h2>目的</h2> <p>イーサネット・デバイス・ドライバーとデバイス統計情報を表示します。</p>
+</section>
+
+<section><h2>構文</h2> <p><strong>EntSTAT</strong> [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/e_commands/entstat.html#entstat__row-d3e83551" target="_blank" rel="noopener noreferrer"><strong>-d 年</strong></a> <a href="https://www.ibm.com/docs/ja/ssw_aix_73/e_commands/entstat.html#entstat__row-d3e83557" target="_blank" rel="noopener noreferrer"><strong>-</strong></a> <a href="https://www.ibm.com/docs/ja/ssw_aix_73/e_commands/entstat.html#entstat__row-d3e83563" target="_blank" rel="noopener noreferrer"><strong>T</strong></a> ] <em>デバイス名 (Device_Name)</em></p>
+</section>
+
+<section><h2>説明</h2> <p><strong>entstat</strong> コマンドは、指定したイーサネット・デバイス・ドライバーによって収集される統計を表示します。 オプションとして一般的なデバイスの統計の他に、デバイス固有の統計を表示するように指定できます。 フラグを指定しないと、一般的なデバイスの統計のみが表示されます。</p>
+ <p>このコマンドは、<strong>-v</strong> フラグを指定して <strong>netstat</strong> コマンドを実行するときにも呼び出されます。 <strong>netstat</strong> コマンドは <strong>entstat</strong> コマンド・フラグを発行しません。</p>
+ <p>無効な <em>Device_Name</em> を指定すると、<strong>entstat</strong> コマンドはデバイスに接続できないことを示すエラー・メッセージを生成します。</p>
+</section>
+
+<section><h2>フラグ</h2> <div> 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><strong>-d</strong></td>
+
+<td>デバイス固有の統計を含め、すべての統計を表示します。</td>
+
+</tr>
+
+<tr>
+<td><strong>-r</strong></td>
+
+<td>すべての統計を初期値にリセットします。 このフラグは、特権ユーザーだけが発行できます。</td>
+
+</tr>
+
+<tr>
+<td><strong>-t</strong></td>
+
+<td>一部のデバイス・ドライバーでデバッグ・トレースを切り替えます。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+</section>
+
+<section><h2>パラメーター</h2> <div> 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><em>Device_name</em></td>
+
+<td><strong>ent0</strong> のようなイーサネット・デバイス名。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+</section>
+
+<section><h2>統計フィールド</h2> <p></p><blockquote><span>“</span><strong>注:</strong> アダプターによっては、
+特定の統計情報がサポートされない場合もあります。 サポートされない統計フィールドの値は、常に 0 です。<span>”</span></blockquote>
+<p></p>
+ <p><strong>entstat</strong> コマンドの出力に表示される統計フィールドとその説明は次のとおりです。</p>
+<p><strong>タイトル・フィールド </strong></p>
+ <div> 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td>Device Type</td>
+
+<td>アダプター・タイプの記述が表示されます。</td>
+
+</tr>
+
+<tr>
+<td>Hardware Address</td>
+
+<td>現在デバイスで使用中のイーサネット・ネットワーク・アドレスが表示されます。</td>
+
+</tr>
+
+<tr>
+<td>Elapsed Time</td>
+
+<td>最後に統計がリセットされてから経過した実時間が表示されます。 ハードウェア・エラーが検出されると、
+エラー・リカバリー処理中に統計情報の一部がデバイス・ドライバーによってリセットされることがあります。 このような状況が発生した場合は、2 つの統計情報の時間差を反映するために、出力の途中でもう 1 つの Elapsed Time が表示されます。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+<p><strong>送信統計フィールド</strong></p>
+ <div> 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td>Packets</td>
+
+<td>デバイスによって正常に送信されたパケットの数。</td>
+
+</tr>
+
+<tr>
+<td>Bytes</td>
+
+<td>デバイスによって正常に送信されたバイト数。</td>
+
+</tr>
+
+<tr>
+<td>Interrupts</td>
+
+<td>ドライバーがアダプターから受け取った送信割り込みの数。</td>
+
+</tr>
+
+<tr>
+<td>Transmit Errors</td>
+
+<td>このデバイス上で発生した出力エラーの数。 このフィールドは、
+ハードウェア/ネットワーク・エラーにより失敗した送信回数のカウンターです。</td>
+
+</tr>
+
+<tr>
+<td>Packets Dropped</td>
+
+<td>送信のためにデバイス・ドライバーが受け入れ、
+デバイスには (何らかの理由で) 提供されなかったパケットの数。</td>
+
+</tr>
+
+<tr>
+<td>Max Packets on S/W Transmit Queue</td>
+
+<td>ソフトウェア送信キューに入れられたことのある発信パケットの最大数。</td>
+
+</tr>
+
+<tr>
+<td>S/W Transmit Queue Overflow</td>
+
+<td>ソフトウェア送信キューからあふれた発信パケット数。</td>
+
+</tr>
+
+<tr>
+<td>Current S/W+H/W
+Transmit Queue Length</td>
+
+<td>ソフトウェア送信キューまたはハードウェア送信キュー上で保留されている発信パケットの数。</td>
+
+</tr>
+
+<tr>
+<td>Broadcast Packets</td>
+
+<td>エラーなしで送信されたブロードキャスト・パケット数。</td>
+
+</tr>
+
+<tr>
+<td>Multicast Packets</td>
+
+<td>エラーなしで送信されたマルチキャスト・パケット数。</td>
+
+</tr>
+
+<tr>
+<td>No Carrier Sense</td>
+
+<td>キャリアなし検知エラーにより失敗した送信回数。</td>
+
+</tr>
+
+<tr>
+<td>DMA Underrun</td>
+
+<td>DMA アンダーラン・エラーにより失敗した送信回数。</td>
+
+</tr>
+
+<tr>
+<td>Lost CTS Errors</td>
+
+<td>送信可信号が失われたことによるエラーのために失敗した送信回数。</td>
+
+</tr>
+
+<tr>
+<td>Max Collision Errors</td>
+
+<td>衝突が多すぎるために失敗した送信回数。 衝突の発生回数が、アダプター上の再試行回数を超えました。</td>
+
+</tr>
+
+<tr>
+<td>Late Collision Errors</td>
+
+<td>後発衝突エラーにより失敗した送信回数。</td>
+
+</tr>
+
+<tr>
+<td>Deferred</td>
+
+<td>送信中に遅延された発信パケット数。 遅延とは、アダプターがフレームを送信しようとして、延期しなければならなかったことを意味します。 このような状況は、アダプターが送信できる状態になっていても、ネットワークがビジー状態である場合に起こります。 アダプターは、最初の試行についてのみパケットの送信を遅延します。 それ以降、アダプターはチェックしないでパケットを送信します。 依然としてネットワークがビジー状態である場合は、衝突が記録されます。</td>
+
+</tr>
+
+<tr>
+<td>SQE Test </td>
+
+<td>送信中に正常に実行された「信号品質エラー」検査 (つまり、ハートビート) の回数が入っています。</td>
+
+</tr>
+
+<tr>
+<td>Timeout Errors</td>
+
+<td>アダプターがタイムアウト・エラーを報告したことにより失敗した送信回数。</td>
+
+</tr>
+
+<tr>
+<td>Single Collision Count</td>
+
+<td>送信中に衝突が 1 回発生した発信パケット数。</td>
+
+</tr>
+
+<tr>
+<td>Multiple Collision Count</td>
+
+<td>送信中に衝突が複数回 (2 から 15) 発生した発信パケット数。</td>
+
+</tr>
+
+<tr>
+<td>Current HW
+Transmit Queue Length</td>
+
+<td>現在ハードウェア送信キューに入っている発信パケット数。</td>
+
+</tr>
+
+<tr>
+<td>CRC Errors</td>
+
+<td>チェックサム (FCS) エラーがある受信パケット数。</td>
+
+</tr>
+
+<tr>
+<td>DMA Overrun</td>
+
+<td>DMA オーバーラン・エラーがある受信パケット数。</td>
+
+</tr>
+
+<tr>
+<td>Alignment Errors</td>
+
+<td>位置合わせエラーがある受信パケット数。</td>
+
+</tr>
+
+<tr>
+<td>No Resource Errors</td>
+
+<td>リソースなしエラーによりハードウェアがドロップした受信パケット数。 通常、このエラーは、アダプター上の受信バッファーがすべて使い果たされたことが原因で発生します。 一部のアダプターには、
+受信バッファーのサイズを変更できる構成可能パラメーターがあります。 チューニング情報については、デバイス構成属性
+(または SMIT のヘルプ) を調べてください。</td>
+
+</tr>
+
+<tr>
+<td>Receive Collision Errors</td>
+
+<td>受信中に衝突エラーが発生した受信パケット数。</td>
+
+</tr>
+
+<tr>
+<td>Packet Too Short Errors</td>
+
+<td>パケット・サイズがイーサネットの最小パケット・サイズよりも小さいことを示す長さエラーが付いた受信パケット数。</td>
+
+</tr>
+
+<tr>
+<td>Packet Too Long Errors</td>
+
+<td>パケット・サイズがイーサネットの最大パケット・サイズよりも大きいことを示す長さエラーが付いた受信パケット数。</td>
+
+</tr>
+
+<tr>
+<td>Packets Discarded by Adapter</td>
+
+<td>何からの原因でハードウェアがドロップした受信パケット数。</td>
+
+</tr>
+
+<tr>
+<td>Receiver Start Count</td>
+
+<td>アダプター上のレシーバー (受信装置) が始動された回数。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+<p><strong>受信統計フィールド</strong></p>
+ <div> 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td>Packets</td>
+
+<td>デバイスによって正常に受信されたパケット数。</td>
+
+</tr>
+
+<tr>
+<td>Bytes</td>
+
+<td>デバイスによって正常に受信されたバイト数。</td>
+
+</tr>
+
+<tr>
+<td>Interrupts</td>
+
+<td>ドライバーがアダプターから受け取った受信割り込みの数。</td>
+
+</tr>
+
+<tr>
+<td>Receive Errors</td>
+
+<td>このデバイス上で発生した入力エラーの数。 このフィールドは、ハードウェア/ネットワーク・エラーにより失敗した受信回数のカウンターです。</td>
+
+</tr>
+
+<tr>
+<td>Packets Dropped</td>
+
+<td>デバイス・ドライバーがこのデバイスから受信し、
+ネットワーク・デマルチプレクサーには (何らかの理由で) 提供されなかったパケットの数。</td>
+
+</tr>
+
+<tr>
+<td>Bad Packets</td>
+
+<td>デバイス・ドライバーによって受信 (つまり保管) された正しくないパケットの数。</td>
+
+</tr>
+
+<tr>
+<td>Broadcast Packets</td>
+
+<td>エラーなしで受信されたブロードキャスト・パケットの数。</td>
+
+</tr>
+
+<tr>
+<td>Multicast Packets</td>
+
+<td>エラーなしで受信されたマルチキャスト・パケットの数。</td>
+
+</tr>
+
+<tr>
+<td>CRC Errors</td>
+
+<td>チェックサム (FCS) エラーがある受信パケット数。</td>
+
+</tr>
+
+<tr>
+<td>DMA Overrun</td>
+
+<td>DMA オーバーラン・エラーがある受信パケット数。</td>
+
+</tr>
+
+<tr>
+<td>Alignment Errors</td>
+
+<td>位置合わせエラーがある受信パケット数。</td>
+
+</tr>
+
+<tr>
+<td>No Resource Errors</td>
+
+<td>リソースなしエラーによりハードウェアがドロップした受信パケット数。</td>
+
+</tr>
+
+<tr>
+<td>Receive Collision Errors</td>
+
+<td>受信中に衝突エラーが発生した受信パケット数。</td>
+
+</tr>
+
+<tr>
+<td>Packet Too Short Errors<strong></strong></td>
+
+<td>パケット・サイズがイーサネットの最小パケット・サイズよりも小さいことを示す長さエラーが付いた受信パケット数。</td>
+
+</tr>
+
+<tr>
+<td>Packet Too Long Errors</td>
+
+<td>パケット・サイズがイーサネットの最大パケット・サイズよりも大きいことを示す長さエラーが付いた受信パケット数。</td>
+
+</tr>
+
+<tr>
+<td>Packets Discarded by Adapter</td>
+
+<td>何からの原因でハードウェアがドロップした受信パケット数。</td>
+
+</tr>
+
+<tr>
+<td>Receiver Start Count</td>
+
+<td>アダプター上のレシーバー (受信装置) が始動された回数。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+<p><strong>一般統計フィールド</strong></p>
+ <div> 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td>No mbuf Errors</td>
+
+<td>mbufs をデバイス・ドライバーが利用できなかった回数。 これは、通常、
+インバウンド・パケットを処理するためにドライバーで mbuf バッファーを取得しなければならない場合、
+受信操作時に発生します。 要求されたサイズの mbuf プールが空の場合には、パケットが廃棄されます。 <strong>netstat -m</strong> コマンドを使用すると、これを確認できます。</td>
+
+</tr>
+
+<tr>
+<td>Adapter Reset Count</td>
+
+<td>アダプターが再始動 (再初期化) された回数。</td>
+
+</tr>
+
+<tr>
+<td><code>Adapter Data Rate</code></td>
+
+<td>Mbps 単位 (メガビット/秒) の、アダプターの最大データ転送速度。</td>
+
+</tr>
+
+<tr>
+<td>Driver Flags</td>
+
+<td>現在オンになっているデバイス・ドライバーの内部状況フラグ。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+<p><strong>デバイス固有の統計情報フィールド</strong></p>
+ <p>この表示部分は、アダプターのタイプごとに異なる場合があります。 アダプター固有の情報と、一般統計に含まれていなかった拡張統計が含まれていることがあります。 アダプターによっては、デバイス固有の統計がないものもあります。</p>
+</section>
+
+<section><h2>セキュリティー</h2> <div><div><div>
+        <div>
+          <div><span>RBAC ユーザーの注意:</span> このコマンドは特権操作を実行できます。 特権命令を実行できるのは特権ユーザーのみです。 権限と特権の詳細については、<span>セキュリティ</span>の <a href="https://www.ibm.com/docs/ja/ssw_aix_73/security/rbac_priv_cmd_db.html" target="_blank" rel="noopener noreferrer">特権コマンドデータベース</a>を参照してください。 このコマンドに関連する特権と権限のリストについては、'<a href="https://www.ibm.com/docs/ja/ssw_aix_73/l_commands/lssecattr.html" target="_blank" rel="noopener noreferrer"><span>lssecattr</span></a>コマンドまたは'<a href="https://www.ibm.com/docs/ja/ssw_aix_73/g_bostechref/getcmdattr.html" target="_blank" rel="noopener noreferrer"><span>getcmdattr</span></a>サブコマンドを参照のこと。</div>
+        </div>
+      </div></div>
+</div>
+</section>
+
+<section><h2>例</h2> <ol>
+<li><strong>ent0</strong> の一般統計を表示するには、次のように入力します。<div> <div><div><pre><code>entstat ent0</code></pre></div><div></div></div>以下の出力が作成されます。<div><div><pre><code>ETHERNET STATISTICS (ent0) :
+Device Type: Ethernet High Performance LAN Adapter
+Hardware Address: 02:60:8c:2e:d0:1d
+Elapsed Time: 0 days 0 hours 8 minutes 41 seconds
+ 
+Transmit Statistics:     Receive Statistics:
+--------------------     -------------------
+Packets: 3               Packets: 2
+Bytes: 272               Bytes: 146
+Interrupts: 3            Interrupts: 2
+Transmit Errors: 0       Receive Errors: 0
+Packets Dropped: 0       Packets Dropped: 0
+Max Packets on S/W       Bad Packets: 0
+Transmit Queue:0         
+S/W Transmit Queue       
+Overflow: 0              
+Current S/W+H/W Transmit
+Queue Length: 0
+ 
+Broadcast Packets: 2     CRC Errors: 0 
+Multicast Packets: 0     Broadcast Packets: 1
+No Carrier Sense: 0      Multicast Packets: 0
+DMA Underrun: 0          DMA Overrun: 0
+Lost CTS Errors: 0       Alignment Errors: 0
+Max Collision Errors: 0  No Resource Errors: 0
+Late Collision Errors: 0 Receive Collision Errors: 0
+Deferred: 0              Packet Too Short Errors: 0
+SQE Test: 0              Packet Too Long Errors: 0
+Timeout Errors: 0        Packets Discarded by Adapter: 0
+Single Collision         Receiver Start Count: 1
+Count: 0
+Multiple Collision Count: 0
+Current HW Transmit Queue
+Length: 0
+ 
+General Statistics:
+-------------------
+No mbuf Errors: 0
+Adapter Reset Count: 0
+Adapter Data Rate: 2000
+Driver Flags: Up Broadcast Running Simplex </code></pre></div><div></div></div></div>
+</li>
+
+<li><strong>ent0</strong> に関して、イーサネット・デバイスの一般統計とイーサネット・デバイス固有の統計を表示するには、次のように入力します。<div> <div><div><pre><code>entstat -d ent0</code></pre></div><div></div></div>以下の出力が作成されます。<div><div><pre><code>ETHERNET STATISTICS (ent0) :
+Device Type: Ethernet High Performance LAN Adapter
+Hardware Address: 02:60:8c:2e:d0:1d
+Elapsed Time: 0 days 2 hours 6 minutes 30 seconds
+ 
+Transmit Statistics:      Receive Statistics:
+--------------------      -------------------
+Packets: 3                Packets: 2
+Bytes: 272                Bytes: 146
+Interrupts: 3             Interrupts: 2
+Transmit Errors: 0        Receive Errors: 0
+Packets Dropped: 0        Packets Dropped: 0
+Max Packets on S/W        Receiver Start Count: 1
+Transmit Queue:0 
+Bad Packets: 0
+S/W Transmit Queue Overflow: 0
+Current S/W+H/W Transmit Queue Length: 0
+ 
+Broadcast Packets: 0      Broadcast Packets: 0
+Multicast Packets: 0      Multicast Packets: 0
+No Carrier Sense: 0       CRC Errors: 0
+DMA Underrun: 0           DMA Overrun: 0
+Lost CTS Errors: 0        Alignment Errors: 0
+Max Collision Errors: 0   No Resource Errors: 0
+Late Collision Errors: 0  Receive Collision Errors: 0
+Deferred: 0               Packet Too Short Errors: 0
+SQE Test: 0               Packet Too Long Errors: 0
+Timeout Errors: 0         Packets Discarded by Adapter: 0
+Single Collision Count: 0 Receiver Start Count: 1
+Multiple Collision Count: 0
+Current HW Transmit Queue Length: 0
+ 
+General Statistics:
+-------------------
+No mbuf Errors: 0
+Adapter Reset Count: 0
+Adapter Data Rate: 2000
+Driver Flags: Up Broadcast Running Simplex 
+ 
+Ethernet High Performance LAN Adapter Specific Statistics:
+----------------------------------------------------------
+Receive Buffer Pool Size: 37
+Transmit Buffer Pool Size: 39
+In Promiscuous Mode for IP Multicast: No
+Packets Uploaded from Adapter: 0
+Host End-of-List Encountered: 0
+82586 End-of-List Encountered: 0
+Receive DMA Timeouts: 0
+Adapter Internal Data: 0x0 0x0 0x0 0x0 0x0</code></pre></div><div></div></div></div>
+</li>
+
+</ol>
+</section>
+
+</div></div>

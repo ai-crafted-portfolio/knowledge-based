@@ -1,0 +1,56 @@
+<div class="official-dom"><div>
+<div> <p></p><blockquote><span>“</span><strong>注:</strong> これは System V Print Subsystem コマンドです。<span>”</span></blockquote>
+<p></p>
+</div>
+
+<section><h2>目的</h2> <p>印刷サービスを開始/停止します。</p>
+</section>
+
+<section><h2>構文</h2> <p><strong>/usr/lib/lp/lpsched</strong></p>
+ <p><strong>lpshut</strong></p>
+</section>
+
+<section><h2>説明</h2> <p><strong>lpsched</strong> コマンドは LP 印刷サービスを開始します。</p>
+ <p><strong>lpshut</strong> コマンドは、
+印刷サービスを終了します。 <strong>lpshut</strong> コマンドが呼び出されたときに印刷を行っているすべてのプリンターは印刷を停止します。 <strong>lpsched</strong> が再び開始されると、
+プリンターがシャットダウンしたときに印刷を行っていた要求は、
+最初から再び印刷されます。</p>
+ <p>これらのコマンドを実行するには適切な特権を持っていなければなりません。</p>
+ <p>スケジューラーが実行できない場合、
+<strong>lpsched</strong> ログ・ファイルを調べてください。
+この中には、印刷要求、プリンターの説明、形式、フィルター、クラス、
+アラート、システムなどのロードの、
+失敗の試みがすべて含まれています。 ログ・ファイルは <strong>/var/lp/logs</strong> にあります。 また、ネットワーク印刷サービスに関する役立つ情報が、
+<strong>/var/lp/logs/lpNet</strong> ログ・ファイルにあります。</p>
+ <p><code>lpsched
+-?</code>と入力すると、システムはコマンド使用法メッセージを表示し、0 を戻します。</p>
+</section>
+
+<section><h2>セキュリティー</h2> <div><div><div>
+        <div>
+          <div><span>RBAC ユーザーへの注意:</span> このコマンドは特権命令を実行できます。 特権命令を実行できるのは特権ユーザーのみです。 権限と特権の詳細については、<span>セキュリティ</span>の <a href="https://www.ibm.com/docs/ja/ssw_aix_73/security/rbac_priv_cmd_db.html" target="_blank" rel="noopener noreferrer">特権コマンドデータベース</a>を参照してください。 このコマンドに関連する特権と権限のリストについては、'<a href="https://www.ibm.com/docs/ja/ssw_aix_73/l_commands/lssecattr.html" target="_blank" rel="noopener noreferrer"><span>lssecattr</span></a>コマンドまたは'<a href="https://www.ibm.com/docs/ja/ssw_aix_73/g_bostechref/getcmdattr.html" target="_blank" rel="noopener noreferrer"><span>getcmdattr</span></a>サブコマンドを参照のこと。</div>
+        </div>
+      </div></div>
+</div>
+</section>
+
+<section><h2>ファイル</h2> <div> 
+<div><div><table><thead> <tr> <th><div>項目</div></th>
+ <th><div>説明</div></th>
+ </tr>
+ </thead>
+<tbody>
+<tr>
+<td><strong>/var/spool/lp/*</strong></td>
+
+<td> </td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+</section>
+
+</div></div>

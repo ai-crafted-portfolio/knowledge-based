@@ -1,0 +1,154 @@
+<div class="official-dom"><div>
+<section><h2>目的</h2> <p>出力デバイスの幅が固定されている場合に、長い行を折り返します。</p>
+</section>
+
+<section><h2>構文</h2> <p><strong>折り返し</strong> [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/f_commands/fold.html#fold__row-d3e113671" target="_blank" rel="noopener noreferrer"><strong>-b</strong></a> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/f_commands/fold.html#fold__row-d3e113680" target="_blank" rel="noopener noreferrer"><strong>-s </strong></a>] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/f_commands/fold.html#fold__row-d3e113689" target="_blank" rel="noopener noreferrer"><strong>-w (W) </strong><em>幅 </em></a>] [ <em>ファイル</em>... ]</p>
+</section>
+
+<section><h2>説明</h2> <p><strong>fold</strong> コマンドは、出力デバイスの幅が限定されている場合に、長い行を折り返すフィルターです。 デフォルトでは、このコマンドは行を 80 桁の幅になるように切って、標準入力の内容を折り返します。 また、コマンドへの入力として 1 個または複数のファイルを指定できます。 標準入力は、ファイル・パラメーターを指定しない場合、または「-」パラメーターを指定した場合に使用されます。</p>
+ <p><strong>fold</strong> コマンドは、個々の出力行が <em>Width</em> パラメーターで指定した値を超えない範囲でできるだけ広くなるように、入力行に改行文字を挿入します。 <strong>-b</strong> フラグを指定すると、行幅はバイトで計算されます。 <strong>-b</strong> フラグを指定しない場合は、次のとおりになります。</p>
+ <ul>
+<li><span></span><em>Width</em> は、 <strong>LC_CTYPE</strong> 環境変数によって決定される列にカウントされます。</li>
+
+<li><span></span>バックスペース文字は、出力行の長さを 1 だけ減らします。</li>
+
+<li><span></span>タブ文字は、桁位置が 1 に 8 の倍数を加えた次の桁に進みます。</li>
+
+</ul>
+ <p><strong>fold</strong> コマンドは、ファイルにタブが含まれていれば、8 の倍数の <strong>-w</strong><em> Width</em> 値を受け入れます。 ファイルにタブが含まれている場合に他の幅の値を使用するには、 <strong>fold</strong> コマンドを使用する前に、 <a href="https://www.ibm.com/docs/ja/ssw_aix_73/e_commands/expand.html" target="_blank" rel="noopener noreferrer"><strong>expand</strong></a> コマンドを使用してください。</p>
+ <div><div>
+        <div>
+          <div><span>注:</span><ol>
+<li><span></span> <strong>fold</strong> コマンドは、存在するすべての下線に影響する可能性があります。</li>
+
+<li><span></span> <strong>fold</strong> コマンドは、 <strong>-b</strong> フラグが使用されている場合でも、マルチバイト文字の中央に改行文字を挿入しません。</li>
+
+</ol>
+</div>
+        </div>
+      </div></div>
+</section>
+
+<section><h2>フラグ</h2> <div> 
+<div><div><table><thead> <tr> <th><div>項目</div></th>
+ <th><div>説明</div></th>
+ </tr>
+ </thead>
+<tbody>
+<tr>
+<td><strong>-b</strong></td>
+
+<td><em>Width</em> をバイト単位で計算します。 デフォルトでは桁単位で計算します。</td>
+
+</tr>
+
+<tr>
+<td><strong>-s</strong></td>
+
+<td>出力行セグメントに空白文字が含まれている場合に、<em>Width</em> の範囲内の右端のブランクの後に来る行を切ります。 デフォルトでは、個々の出力行セグメントができるだけ広くなるように行を切ります。</td>
+
+</tr>
+
+<tr>
+<td><strong>-w</strong><em> 幅</em></td>
+
+<td>最大行幅を <em>Width</em> 変数の値として指定します。 デフォルトは 80 です。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+</section>
+
+<section><h2>パラメーター</h2>
+
+<p><span>fold</span> コマンドでサポートされるパラメーターは以下のとおりです。</p>
+
+
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><strong>File</strong></td>
+
+<td>折り返す必要のあるテキスト・ファイルのパス名。 ファイル・パラメーターを指定しない場合は、標準入力が使用されます。</td>
+
+</tr>
+
+<tr>
+<td><strong>INPUT ファイル</strong></td>
+
+<td><strong>-b</strong> フラグを指定した場合、入力ファイルはテキスト・ファイルであり、テキスト・ファイルの行幅は {LINE_MAX} バイトを超えることができます。<div><div>
+        <div>
+          <div><span>注:</span> <strong>-b</strong> フラグが指定されていない場合、入力ファイルはテキスト・ファイルであり、テキスト・ファイルの行の幅は {LINE_MAX} バイトを超えることはできません。</div>
+        </div>
+      </div></div>
+</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+
+</section>
+
+<section><h2>終了状況</h2> <p>このコマンドは、以下の終了値を戻します。</p>
+ 
+<div><div><table><thead> <tr> <th><div>項目</div></th>
+ <th><div>説明</div></th>
+ </tr>
+ </thead>
+<tbody>
+<tr>
+<td><strong>0</strong></td>
+
+<td>すべての入力ファイルが正常に処理されました。</td>
+
+</tr>
+
+<tr>
+<td><strong>&gt;0</strong></td>
+
+<td>エラーが発生しました。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</section>
+
+<section><h2>例</h2> <p>次の名前のファイルの行を折りたたみます。longlines幅 72 (72) に変更するには、次のように入力します。</p>
+ <div> <div><div><pre><code>fold -w 72 longlines</code></pre></div><div></div></div></div>
+</section>
+
+<section><h2>ファイル</h2> <div> 
+<div><div><table><thead> <tr> <th><div>項目</div></th>
+ <th><div>説明</div></th>
+ </tr>
+ </thead>
+<tbody>
+<tr>
+<td><strong>/usr/bin/fold</strong></td>
+
+<td><strong>fold</strong> コマンドが入っています。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+</section>
+
+</div></div>

@@ -1,0 +1,97 @@
+<div class="official-dom"><div>
+<section><h2>目的</h2> <p>ユーザー定義機能 (UDF) ファイルシステムを作成します。</p>
+</section>
+
+<section><h2>構文</h2> <p><strong>udfcreate</strong> <a href="https://www.ibm.com/docs/ja/ssw_aix_73/u_commands/udfcreate.html#udfcreate__row-d3e142474" target="_blank" rel="noopener noreferrer"><strong>-d</strong></a> <em>デバイス</em> [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/u_commands/udfcreate.html#udfcreate__row-d3e142446" target="_blank" rel="noopener noreferrer"><strong>-b</strong></a> <em>bitmap_location</em> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/u_commands/udfcreate.html#udfcreate__row-d3e142483" target="_blank" rel="noopener noreferrer"><strong>-f</strong></a> <em>formatType</em> ]</p>
+</section>
+
+<section><h2>説明</h2> <p><strong>udfcreate</strong> コマンドは、指定されたデバイス上に UDF ファ
+イルシステムを作成し、汎用セット ID (<em>
+setID</em>) とボリューム名 (<em>volName</em>) をラベルとして付けます。</p>
+</section>
+
+<section><h2>フラグ</h2> 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><strong>-b</strong> <em>ビットマップ・ロケーション</em></td>
+
+<td>ビットマップの位置を指定します。 これは、 <strong>B</strong>、 <strong>E</strong>、または <strong>分</strong>のいずれかです。 <strong>B</strong> は、ビットマップが区画の先頭に置かれることを示します。 <strong>e</strong> は、
+ビットマップを区画の末尾にすることを意味します。 <strong>m</strong> は、
+ビットマップを区画の中央にすることを意味します。 ビットマップのデフォルトの位置は、区画の先頭です。</td>
+
+</tr>
+
+<tr>
+<td><strong>-d</strong> <em>デバイス</em></td>
+
+<td>UDF ボリュームを作成するデバイスを指定します。</td>
+
+</tr>
+
+<tr>
+<td><strong>-f</strong> <em>formatType</em></td>
+
+<td>メディア上に存在する UDF のバージョンを示します。 フォーマット・タイプの 1 は UDF 1.5 バージョン、2 は UDF 2.0 バージョン、3 は UDF 2.01 バージョンを
+表します。 デフォルト・バージョンは UDF 1.5 です。</td>
+
+</tr>
+
+<tr>
+<td>- <strong>s</strong> 2048</td>
+
+<td>新規に作成される UDF ファイルシステムに、強制的に 2048 バイトの論理ブロックを使用させます。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</section>
+
+<section><h2>例</h2> <ol>
+<li><strong>/dev/cd1</strong> デバイス上に新規 UDF ファイルシステムを作成するには、
+次のコマンドを入力します。<div><div><pre><code>udfcreate -d /dev/cd1</code></pre></div><div></div></div></li>
+
+</ol>
+</section>
+
+<section><h2>ファイル</h2> 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><strong>/usr/sbin/udfcreate</strong></td>
+
+<td><strong>udfcreate</strong> コマンドが入っています。</td>
+
+</tr>
+
+<tr>
+<td><strong>/usr/lib/libudf.a</strong></td>
+
+<td><strong>udfcreate</strong> コマンドが呼び出すライブラリー・ルーチンが入っています。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</section>
+
+</div></div>

@@ -1,0 +1,75 @@
+<div class="official-dom"><div>
+<section><h2>目的</h2> <p>C ソース・コードを読みやすいフォーマットにします。</p>
+</section>
+
+<section><h2>構文</h2> <p><strong>cb</strong> [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/c_commands/cb.html#cb__row-d3e67192" target="_blank" rel="noopener noreferrer"><strong>-s </strong></a>] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/c_commands/cb.html#cb__row-d3e67181" target="_blank" rel="noopener noreferrer"><strong>-l </strong></a><em>長さ</em> | <a href="https://www.ibm.com/docs/ja/ssw_aix_73/c_commands/cb.html#cb__row-d3e67172" target="_blank" rel="noopener noreferrer"><strong>-j </strong></a>] [ <em>File </em>...]</p>
+</section>
+
+<section><h2>説明</h2> <p><strong>cb</strong> コマンドは、標準入力または指定したファイルから C プログラムを読み取り、インデントとスペースを使用してコードの構造を示すフォーマットで標準出力にそのプログラムを書き込みます。 フラグを指定しないで呼び出すと、<strong>cb</strong> コマンドは、行の分割や結合を実行しません。 プリプロセッサー・ステートメントに句読点があるとインデント・エラーになることがあります。</p>
+ <p>最良の結果を得るために、構文的に正しいソース・コードでこのコマンドを使用してください。</p>
+</section>
+
+<section><h2>フラグ</h2> <div> 
+<div><div><table><thead> <tr> <th><div>項目</div></th>
+ <th><div>説明</div></th>
+ </tr>
+ </thead>
+<tbody>
+<tr>
+<td><strong>-j</strong></td>
+
+<td>分割された行を結合します。 <strong>-l</strong> フラグを指定すると無視されます。</td>
+
+</tr>
+
+<tr>
+<td><strong>-l</strong><em> 長さ</em></td>
+
+<td>文字数が <em>Length</em> より長い行を分割します。</td>
+
+</tr>
+
+<tr>
+<td><strong>-s</strong></td>
+
+<td><em>The C Programming Language</em> にある Kernighan とリッチーのスタイルに従ってソース・コードをフォーマット設定します (Englewood Cli項式、ニュージャージー州: Prentice-Hall, Inc.)。 1978).</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+</section>
+
+<section><h2>例</h2> <p>バージョンを作成するにはpgm.cCALLEDpgm.pretty.cこれは読みやすいので、次のように入力します。</p>
+ <div> <div><div><pre><code>cb pgm.c &gt; pgm.pretty.c</code></pre></div><div></div></div></div>
+</section>
+
+<section><h2>ファイル</h2> <div> 
+<div><div><table><thead> <tr> <th><div>項目</div></th>
+ <th><div>説明</div></th>
+ </tr>
+ </thead>
+<tbody>
+<tr>
+<td><strong>/usr/ccs/bin/cb</strong></td>
+
+<td><strong>cb</strong> コマンドが入っています。</td>
+
+</tr>
+
+<tr>
+<td><strong>/usr/bin/cb</strong></td>
+
+<td><strong>cb</strong> コマンドに対するシンボリック・リンク。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+</section>
+
+</div></div>

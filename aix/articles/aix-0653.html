@@ -1,0 +1,74 @@
+<div class="official-dom"><div>
+<section><h2>目的</h2> <p>ソフトウェア・プロダクトのインストール・プロシージャーによって生成される特定のエラー・メッセージまたは診断メッセージを表示します。 このコマンドは、<strong>installp</strong> コマンドおよびインストール・スクリプトにより使用されます。</p>
+ <p></p>
+</section>
+
+<section><h2>構文</h2> <p><strong>inuumsg</strong><em> 数値</em> [ <em>Argument1</em> ] [ <strong>,</strong><em> Argument2</em> ] [ <strong>,</strong><em> Argument3</em> ] [ <strong>,</strong><em> Argument4</em> ]</p>
+</section>
+
+<section><h2>説明</h2> <p><strong>inuumsg</strong> コマンドは、ソフトウェア・プロダクトのインストール・プロシージャーのエラー・メッセージまたは診断メッセージを表示します。 各プロシージャーが固有のテキストを持つのではなく、メッセージは中央メッセージ・カタログ <strong>/usr/lpp/msg/$LANG/inuumsg.cat</strong> で保守されます。 <strong>イヌムスグ</strong> コマンドを実行してメッセージ <em>数値</em>を指定すると、エラー・メッセージが表示されます。 文字列引数は <em>Argument1</em> から <em>Argument4</em> までの最高 4 つまでをメッセージの適切な位置に代入できます。</p>
+</section>
+
+<section><h2>終了状況</h2> <div> 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><strong>0</strong></td>
+
+<td>メッセージが見つかり、表示されたことを示します。</td>
+
+</tr>
+
+<tr>
+<td><strong>1</strong></td>
+
+<td>メッセージが見つからず、表示されなかったことを示します。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+</section>
+
+<section><h2>セキュリティー</h2> <p>特権制御 : このコマンドを実行できるのは、root ユーザーだけです。</p>
+</section>
+
+<section><h2>例</h2> <p>番号 3 のエラー・メッセージを表示するには、次のように入力します。</p>
+ <div> <div><div><pre><code>inuumsg 3</code></pre></div><div></div></div></div>
+</section>
+
+<section><h2>ファイル</h2> <div> 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><strong>/usr/lpp/msg/$LANG/inuumsg.cat</strong></td>
+
+<td>メッセージ・カタログ。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+</section>
+
+</div></div>

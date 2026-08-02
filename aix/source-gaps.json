@@ -1,74 +1,62 @@
 [
   {
-    "row_id": "NEW-AIX73-CAT-0147",
-    "command": "cancel",
-    "title": "cancel コマンド",
-    "status": "SOURCE_GAP",
-    "reason": "MCP snapshot lacks both Japanese and English core sections.",
-    "source_url": ""
+    "row_id": "NEW-AIX73-CAT-0243",
+    "content_api_url": "https://www.ibm.com/docs/api/v1/content/ssw_aix_73/c_commands/chsignpolicy.html?parsebody=true&lang=ja",
+    "reason": "DOM parse: ValueError: official body refbody not found"
   },
   {
-    "row_id": "NEW-AIX73-CAT-0335",
-    "command": "ctscfg",
-    "title": "ctscfg コマンド",
-    "status": "SOURCE_GAP",
-    "reason": "MCP snapshot lacks both Japanese and English core sections.",
-    "source_url": ""
+    "row_id": "NEW-AIX73-CAT-0709",
+    "content_api_url": "https://www.ibm.com/docs/api/v1/content/ssw_aix_73/l_commands/ldapgetusrattr.html?parsebody=true&lang=ja",
+    "reason": "DOM parse: ValueError: official body refbody not found"
   },
   {
-    "row_id": "NEW-AIX73-CAT-0499",
-    "command": "fastboot",
-    "title": "fastboot コマンド",
-    "status": "SOURCE_GAP",
-    "reason": "MCP snapshot lacks both Japanese and English core sections.",
-    "source_url": ""
+    "row_id": "NEW-AIX73-CAT-1728",
+    "content_api_url": "https://www.ibm.com/docs/api/v1/content/ssw_aix_73/v_commands/viosupgrade.html?parsebody=true&lang=ja",
+    "reason": "DOM parse: ValueError: official body refbody not found"
   },
   {
-    "row_id": "NEW-AIX73-CAT-0642",
-    "command": "init",
-    "title": "init コマンド",
-    "status": "SOURCE_GAP",
-    "reason": "MCP snapshot lacks both Japanese and English core sections.",
-    "source_url": ""
+    "row_id": "NEW-AIX73-CAT-1758",
+    "content_api_url": "https://www.ibm.com/docs/api/v1/content/ssw_aix_73/w_commands/wlmassign.html?parsebody=true&lang=ja",
+    "reason": "DOM parse: ValueError: official body refbody not found"
   },
   {
-    "row_id": "NEW-AIX73-CAT-1320",
-    "command": "rmitab",
-    "title": "rmitab コマンド",
-    "status": "SOURCE_GAP",
-    "reason": "MCP snapshot lacks both Japanese and English core sections.",
-    "source_url": ""
+    "row_id": "NEW-AIX73-CAT-1759",
+    "content_api_url": "https://www.ibm.com/docs/api/v1/content/ssw_aix_73/w_commands/wlmcheck.html?parsebody=true&lang=ja",
+    "reason": "DOM parse: ValueError: official body refbody not found"
   },
   {
-    "row_id": "NEW-AIX73-CAT-1360",
-    "command": "rmvfs",
-    "title": "rmvfs コマンド",
-    "status": "SOURCE_GAP",
-    "reason": "MCP snapshot lacks both Japanese and English core sections.",
-    "source_url": ""
+    "row_id": "NEW-AIX73-CAT-1762",
+    "content_api_url": "https://www.ibm.com/docs/api/v1/content/ssw_aix_73/w_commands/wol.html?parsebody=true&lang=ja",
+    "reason": "DOM parse: ValueError: official body refbody not found"
   },
   {
-    "row_id": "NEW-AIX73-CAT-1382",
-    "command": "rsyslogd",
-    "title": "rsyslogd コマンド",
-    "status": "SOURCE_GAP",
-    "reason": "MCP snapshot lacks both Japanese and English core sections.",
-    "source_url": ""
+    "row_id": "NEW-AIX73-CAT-1768",
+    "content_api_url": "https://www.ibm.com/docs/api/v1/content/ssw_aix_73/w_commands/writesrv.html?parsebody=true&lang=ja",
+    "reason": "DOM parse: ValueError: official body refbody not found"
   },
   {
-    "row_id": "NEW-AIX73-CAT-1383",
-    "command": "rtcd",
-    "title": "rtcd コマンド",
-    "status": "SOURCE_GAP",
-    "reason": "MCP snapshot lacks both Japanese and English core sections.",
-    "source_url": ""
+    "row_id": "NEW-AIX73-CAT-1786",
+    "content_api_url": "https://www.ibm.com/docs/api/v1/content/ssw_aix_73/x_commands/xkbevd.html?parsebody=true&lang=ja",
+    "reason": "DOM parse: ValueError: official body refbody not found"
   },
   {
-    "row_id": "NEW-AIX73-CAT-1632",
-    "command": "tsig-keygen",
-    "title": "tsig-keygen コマンド",
-    "status": "SOURCE_GAP",
-    "reason": "MCP snapshot lacks both Japanese and English core sections.",
-    "source_url": ""
+    "row_id": "NEW-AIX73-CAT-1812",
+    "content_api_url": "https://www.ibm.com/docs/api/v1/content/ssw_aix_73/y_commands/ypbind.html?parsebody=true&lang=ja",
+    "reason": "DOM parse: ValueError: official body refbody not found"
+  },
+  {
+    "row_id": "NEW-AIX73-CAT-1817",
+    "content_api_url": "https://www.ibm.com/docs/api/v1/content/ssw_aix_73/y_commands/yppasswdd.html?parsebody=true&lang=ja",
+    "reason": "DOM parse: ValueError: official body refbody not found"
+  },
+  {
+    "row_id": "NEW-AIX73-CAT-1820",
+    "content_api_url": "https://www.ibm.com/docs/api/v1/content/ssw_aix_73/y_commands/ypserv.html?parsebody=true&lang=ja",
+    "reason": "DOM parse: ValueError: official body refbody not found"
+  },
+  {
+    "row_id": "NEW-AIX73-CAT-1822",
+    "content_api_url": "https://www.ibm.com/docs/api/v1/content/ssw_aix_73/y_commands/ypupdated.html?parsebody=true&lang=ja",
+    "reason": "DOM parse: ValueError: official body refbody not found"
   }
 ]

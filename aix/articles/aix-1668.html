@@ -1,0 +1,82 @@
+<div class="official-dom"><div>
+<section><h2>目的</h2> <p>iSCSI ソフトウェア・イニシエーターまたは iSCSI TOE アダプターを使用してアクセスされる iSCSI ソフトウェア・イニシエーターのデバイスの構成をリストおよび更新します。</p>
+</section>
+
+<section><h2>構文</h2> <p><strong>update_iscsi</strong> <strong>[</strong> <a href="https://www.ibm.com/docs/ja/ssw_aix_73/u_commands/update_iscsi.html#update_iscsi__update_iscsi_flag_l" target="_blank" rel="noopener noreferrer"><strong>-l</strong></a> <a href="https://www.ibm.com/docs/ja/ssw_aix_73/u_commands/update_iscsi.html#update_iscsi__update_iscsi_pname" target="_blank" rel="noopener noreferrer"><em>name</em></a> <strong>]</strong></p>
+</section>
+
+<section><h2>説明</h2> <p><strong>update_iscsi</strong> コマンドは、構成属性が iSCSI に関連しており、<strong>rootvg</strong> イメージのオブジェクト・データ・マネージャー (ODM) への移行が必要なデバイスをリストおよび更新します。</p>
+ <p><strong>update_iscsi</strong> コマンドは、<strong>rootvg</strong> イメージに基本オペレーティング・システムが含まれているすべてのファイルシステムがマウントされた後に、保守モードで実行できます。 更新が必要なのは、iSCSI ブート問題の原因のデバイスのみである点に注意してください。</p>
+ <p>iSCSI 構成属性が変更されたデバイスをリストするには、引数を付けずに <strong>update_iscsi</strong> コマンドを実行してください。</p>
+ <p>リストされたデバイスの構成を <strong>rootvg</strong> イメージの ODM に移行するには、 <strong>-l</strong> <span><span>name</span></span> フラグを指定して <strong>update_iscsi</strong> コマンドを実行します。 <span><span>name</span></span> パラメーターは、RAM ファイルシステム内のデバイスの ODM 名を表します。</p>
+ <p><strong>update_iscsi</strong> コマンドは、<strong>iscsi_devlist</strong> ファイルにリストされているデバイスを表示します。このファイルは <strong>/etc/objrepos</strong> ディレクトリーにあります。 このコマンドは、これらのデバイスを対応する <strong>rootvg</strong> エントリーにマッチングさせた後にリストします。 <strong>iscsi_devlist</strong> ファイルがない場合、またはファイルにデバイスがまったくリストされない場合は、ODM を RAM ファイルシステム用に設定していないことを示すメッセージが表示されます。</p>
+</section>
+
+<section><h2>フラグ</h2> 
+<div><div><table><thead> <tr> <th><div>項目</div></th>
+ <th><div>説明</div></th>
+ </tr>
+ </thead>
+<tbody>
+<tr>
+<td><span><span>-l</span></span></td>
+
+<td>RAM ファイルシステム内のデバイスの ODM 名を指定します。 このフラグはオプションです。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</section>
+
+<section><h2>パラメーター</h2> 
+<div><div><table><thead> <tr> <th><div>項目</div></th>
+ <th><div>説明</div></th>
+ </tr>
+ </thead>
+<tbody>
+<tr>
+<td><span><span>name</span></span></td>
+
+<td>RAM ファイルシステム内のデバイスの ODM 名。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</section>
+
+<section><h2>Sample Output</h2> <div>以下のサンプルは、フラグが指定されていない <strong>update_iscsi</strong> コマンドの出力を示したものです。<div><div><pre><code>RAM FS DEVICE NAME     ROOTVG DEVICE NAME       DESCRIPTION
+inet0                  inet0                    Internet Network Extension
+en0                    en1                      Standard Ethernet Network Interface
+iscsi0                 iscsi0                   iSCSI Protocol Device</code></pre></div><div></div></div></div>
+</section>
+
+<section><h2>終了状況</h2> <p><strong>update_iscsi</strong> コマンドが <span><span>name</span></span> パラメーターで指定された ODM 名を検出できない場合、 <strong>ROOTVG DEVICE NAME</strong> の値は <span><span>New Device</span></span>に設定されます。</p>
+ <p><strong>iscsi_devlist</strong> ファイルがない場合、または空の場合は、エラー・メッセージが表示されます。</p>
+</section>
+
+<section><h2>場所</h2> <p><span><span>/usr/sbin/</span></span></p>
+</section>
+
+<section><h2>ファイル</h2> 
+<div><div><table><thead> <tr> <th><div>項目</div></th>
+ <th><div>説明</div></th>
+ </tr>
+ </thead>
+<tbody>
+<tr>
+<td><span><span>iscsi_devlist</span></span></td>
+
+<td>ネットワーク・ディスク・インストール・メニューを使用して設定される属性をもつデバイスのリストが含まれます。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</section>
+
+</div></div>

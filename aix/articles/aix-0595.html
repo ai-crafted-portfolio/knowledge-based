@@ -1,0 +1,166 @@
+<div class="official-dom"><div>
+<section><h2>目的</h2> <p>コマンド・パス名を記憶または報告します。</p>
+</section>
+
+<section><h2>構文</h2>
+<dl>
+
+<dt>コマンドのパスをパス名リストに追加するには、以下のようにします。</dt>
+
+<dd><div><div><pre><code>hash [ Command ... ]</code></pre></div><div></div></div>
+</dd>
+
+
+
+<dt>パス名リストをクリアするには</dt>
+
+<dd><div><div><pre><code>hash -r</code></pre></div><div></div></div>
+</dd>
+
+
+</dl>
+</section>
+
+<section><h2>説明</h2> <p><span>hash</span> コマンドは、パス名をリストに追加するか、リストの内容をパージすることによって、現行シェルがコマンドのパス名を記憶する方法に影響を与えます。</p>
+ <p>パラメーターまたはフラグを指定しないと、<span>hash</span> コマンドは
+パス名リストの内容を標準出力に報告します。 このレポートには、以前に <span>hash</span> コマンドを起動した際に見つかった現行シェル環境内のコマンドのパス名が含まれます。 この表示には、通常のコマンド検索プロセスによって呼び出され、検出されたコマンドを含めることもできます。</p>
+ <div><div>
+        <div>
+          <div><span>注:</span> シェル組み込みコマンドは、 <span>hash</span> コマンドでは報告されません。</div>
+        </div>
+      </div></div>
+ <p><span>-r</span> フラグを使用すると、コマンド・パス名リストの内容をクリアすることができます。 また、PATH 環境変数の値をリセットしても、リストからパス名をクリアすることができます。 最も単純なフォーマットでクリアする場合は、次のように入力します。</p>
+ <div> <div><div><pre><code>PATH="$PATH"</code></pre></div><div></div></div></div>
+ <p>Command パラメーターを使用すると、<span>hash</span> コマンドは指定したコマンドのパス名を検索し、このパスをリストに追加します。 コマンドの指定には、/ (スラッシュ) を使用しないでください。</p>
+ <p><span>hash</span> コマンドは現行シェル環境に影響を与えるので、Korn シェル (POSIX シェル) の正規組み込みコマンドとして用意されています。 以下の例のように、<span>hash</span> コマンドを別のコマンドの実行環境内で呼び出すと、
+呼び出し元の環境のコマンド検索プロセスには影響しません。</p>
+ <div> <div><div><pre><code>nohup hash -r
+find . -type f | xargs hash</code></pre></div><div></div></div></div>
+ <p><span>hash</span> コマンドを使用することは、 <span>alias</span> <span>-t</span> コマンドを使用することと同等です。</p>
+</section>
+
+<section><h2>フラグ</h2> <div> 
+<div><div><table><caption><span>表 1. フラグ</span></caption><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><span>-r</span></td>
+
+<td>パス名リストの内容をクリアします。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+</section>
+
+<section><h2>パラメーター</h2> <div> 
+<div><div><table><caption><span>表 2. パラメーター</span></caption><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td>Command</td>
+
+<td>パス名リストに追加する Command を指定します。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+</section>
+
+<section><h2>終了状況</h2> <p>次のような終了値が戻されます。</p>
+ 
+<div><div><table><caption><span>表 3. 終了状況</span></caption><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><span>0</span></td>
+
+<td>正常終了。</td>
+
+</tr>
+
+<tr>
+<td><span>&gt;0</span></td>
+
+<td>エラーが発生しました。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</section>
+
+<section><h2>例</h2> <ol>
+<li><span>wc</span> コマンドのパス名を見つけて、それをパス名リストに追加するには、次のように入力します。<div>
+<div><div><pre><code>hash wc</code></pre></div><div></div></div>
+</div>
+</li>
+
+<li>パス名リストの内容をクリアするには、次のように入力します。<div>
+<div><div><pre><code>hash -r</code></pre></div><div></div></div>
+</div>
+</li>
+
+</ol>
+</section>
+
+<section><h2>ファイル</h2> <div> 
+<div><div><table><caption><span>表 4. ファイル</span></caption><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><span>/usr/bin/ksh</span></td>
+
+<td>Korn シェルの <span>hash</span> 組み込みコマンドが入っています。</td>
+
+</tr>
+
+<tr>
+<td><span>/usr/bin/hash</span></td>
+
+<td><span>hash</span> コマンドが入っています。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+</section>
+
+</div></div>

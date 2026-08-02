@@ -1,0 +1,157 @@
+<div class="official-dom"><div>
+<section><h2>目的</h2> <p>標準入力から 1 行読み取ります。</p>
+</section>
+
+<section><h2>構文</h2> <p><strong>読み取り</strong> [<a href="https://www.ibm.com/docs/ja/ssw_aix_73/r_commands/read.html#read__row-d3e136118" target="_blank" rel="noopener noreferrer"><strong>-p</strong></a>] [<strong> </strong> <a href="https://www.ibm.com/docs/ja/ssw_aix_73/r_commands/read.html#read__row-d3e136133" target="_blank" rel="noopener noreferrer"><strong>-r</strong></a><strong> </strong>] [<a href="https://www.ibm.com/docs/ja/ssw_aix_73/r_commands/read.html#read__row-d3e136139" target="_blank" rel="noopener noreferrer"><strong>-s</strong></a>][<a href="https://www.ibm.com/docs/ja/ssw_aix_73/r_commands/read.html#read__row-d3e136145" target="_blank" rel="noopener noreferrer">- <strong>u</strong> [ <em>n</em> ]</a>][ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/r_commands/read.html#read__row-d3e136176" target="_blank" rel="noopener noreferrer"><em>VariableName?プロンプト</em></a>] </p>
+ <p>[<a href="https://www.ibm.com/docs/ja/ssw_aix_73/r_commands/read.html#read__row-d3e136185" target="_blank" rel="noopener noreferrer"><em>VariableName </em>...</a> ]</p>
+</section>
+
+<section><h2>説明</h2> <p><strong>read</strong> コマンドは、標準入力から 1 行を読み取り、 <a href="https://www.ibm.com/docs/ja/ssw_aix_73/osmanagement/korn_shell_field_split.htm" target="_blank" rel="noopener noreferrer">IFS</a> (内部フィールド分離文字) 変数の文字を分離文字として使用して、入力行の各フィールドの値をシェル変数に割り当てます。 <em>VariableName</em> パラメーターは、入力行から 1 つのフィールドの値を取り込んだシェル変数の名前を指定します。 <em>VariableName</em> パラメーターで指定した最初のシェル変数には、最初のフィールドの値が代入され、<em>VariableName</em> パラメーターで指定した 2 番目のシェル変数には 2 番目のフィールドの値が代入されるというように、最後のフィールドに達するまで、値が代入されていきます。 標準入力行のフィールド数が <em>VariableName</em> パラメーターで指定した対応するシェル変数よりも多い場合は、最後に指定したシェル変数に残りの全フィールドの値が代入されます。 フィールド数がシェル変数よりも少ない場合は、残りのシェル変数は空文字列に設定されます。</p>
+
+<div><div>
+        <div>
+          <div><span>注:</span> <em>VariableName</em> パラメーターを省略すると、変数 REPLY がデフォルトの変数名として使用されます。</div>
+        </div>
+      </div></div>
+ <p><strong>read</strong> コマンドによってシェル変数を設定すると、現在のシェル実行環境はその影響を受けます。</p>
+</section>
+
+<section><h2>フラグ</h2> <div> 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><strong>-p</strong></td>
+
+<td>|&amp; (パイプ接続、アンパーサンド) を使用して、Korn シェルが実行したプロセスの出力から入力を読み取ります。<div><div>
+        <div>
+          <div><span>注:</span> <strong>-p</strong> フラグにファイル終了文字を指定すると、別のプロセスを作成するためにこのプロセスのクリーンアップが実行されます。</div>
+        </div>
+      </div></div>
+</td>
+
+</tr>
+
+<tr>
+<td><strong>-r</strong></td>
+
+<td>read コマンドが &amp;#xa5; (&amp;#xa5;) 文字を制御文字としてではなく、入力行の一部として処理するように指定します。</td>
+
+</tr>
+
+<tr>
+<td><strong>-s</strong></td>
+
+<td>入力をコマンドとして Korn シェルのヒストリー・ファイルに保存します。</td>
+
+</tr>
+
+<tr>
+<td>- <strong>u</strong> [ <em>n</em> ]</td>
+
+<td>1 桁のファイル・ディスクリプター番号 <em>n</em>から入力を読み取ります。 ファイル記述子は、ksh <a href="https://www.ibm.com/docs/ja/ssw_aix_73/osmanagement/korn_shell_built_in_cmds.htm" target="_blank" rel="noopener noreferrer">exec</a> 組み込みコマンドを使用してオープンすることができます。 <em>n</em> のデフォルト値は 0 で、これはキーボードを示します。 値 2 は標準エラーを示します。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+</section>
+
+<section><h2>パラメーター</h2> <div> 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><em>VariableName?プロンプト</em></td>
+
+<td>変数の名前と使用されるプロンプトを指定します。 対話式 Korn シェルはプロンプトを標準エラーに書き込んで、入力を実行します。 <em>Prompt</em> に複数のワードが含まれる場合、必ず各ワードを単一引用符または二重引用符で囲んでください。</td>
+
+</tr>
+
+<tr>
+<td><em>VariableName</em>...</td>
+
+<td>1 つまたはそれ以上の変数名をホワイト・スペースで区切って指定します。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+</section>
+
+<section><h2>終了状況</h2> <p>このコマンドは、以下の終了値を戻します。</p>
+ 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><strong>0</strong></td>
+
+<td>正常終了。</td>
+
+</tr>
+
+<tr>
+<td><strong>&gt;0</strong></td>
+
+<td>ファイル終わり文字が検出されたか、またはエラーが発生しました。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</section>
+
+<section><h2>例</h2> <ol>
+<li><span></span>次のスクリプトは、各行の最初のフィールドが行の末尾に移動されたファイルを出力します。<div> <div><div><pre><code>while read -r xx yy
+do
+         print printf "%s %s/n" $yy $xx
+done &lt; InputFile</code></pre></div><div></div></div></div>
+</li>
+
+<li><span></span>行を読み取ってフィールドに分割し、プロンプトとして <span>“</span>「Please enter:」 <span>”</span> を使用するには、次のように入力します。<div>
+<div><div><pre><code>read word1?"Please enter:  " word2</code></pre></div><div></div></div>システムは次のように表示します。<div><div><pre><code>Please enter:
+You enter:
+hello world</code></pre></div><div></div></div><em>word1</em> 変数の値は <span>“</span>ハロー<span>”</span> でなければならず、 <em>word2</em> は <span>“</span>ワールド<span>”</span>でなければなりません。</div>
+</li>
+
+<li><span></span>コプロセスを作成するには、print <strong>-p</strong> を使用してコプロセスに書き込み、read <strong>-p</strong> を使用してコプロセスから入力を読み取るには、次のように入力します。<div>
+<div><div><pre><code>(read; print "hello $REPLY") 
+print -p "world"
+read -p line</code></pre></div><div></div></div><em>line</em> 変数の値は <span>“</span>hello world<span>”</span>でなければなりません。</div>
+</li>
+
+<li><span></span>入力行のコピーをコマンドとしてヒストリー・ファイルに保管するには、次のように入力します。<div>
+<div><div><pre><code>read -s line &lt; input_file</code></pre></div><div></div></div>input_file に <span>“</span>echo hello world<span>”</span>が含まれている場合、 <span>“</span>echo hello world<span>”</span> がコマンドとしてヒストリー・ファイルに保存されます。</div>
+</li>
+
+</ol>
+</section>
+
+</div></div>

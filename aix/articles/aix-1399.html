@@ -1,0 +1,266 @@
+<div class="official-dom"><div>
+<section><h2>目的</h2> <p>指定された <span>ワークロード・パーティション</span>に属するすべてのファイルを検索してバックアップします。</p>
+</section>
+
+<section><h2>構文</h2> <p><strong>サヴワル</strong> [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/s_commands/savewpar.html#savewpar__row-d3e6338" target="_blank" rel="noopener noreferrer"><strong>-a 値</strong></a> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/s_commands/savewpar.html#savewpar__row-d3e6344" target="_blank" rel="noopener noreferrer"><strong>-A</strong></a> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/s_commands/savewpar.html#savewpar__row-d3e6350" target="_blank" rel="noopener noreferrer"><strong>-B</strong></a> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/s_commands/savewpar.html#savewpar__row-d3e6362" target="_blank" rel="noopener noreferrer"><strong>-b (B)</strong></a> <em>ブロック数</em> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/s_commands/savewpar.html#savewpar__row-d3e6374" target="_blank" rel="noopener noreferrer"><strong>-e (E)</strong></a> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/s_commands/savewpar.html#savewpar__row-d3e6416" target="_blank" rel="noopener noreferrer"><strong>「-f」</strong></a> <em>装置</em> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/s_commands/savewpar.html#savewpar__row-d3e6427" target="_blank" rel="noopener noreferrer"><strong>I</strong></a> | <a href="https://www.ibm.com/docs/ja/ssw_aix_73/s_commands/savewpar.html#savewpar__row-d3e6436" target="_blank" rel="noopener noreferrer"><strong>-m (M)</strong></a> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/s_commands/savewpar.html#savewpar__row-d3e6448" target="_blank" rel="noopener noreferrer"><strong>-N (N)</strong></a> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/s_commands/savewpar.html#savewpar__row-d3e6464" target="_blank" rel="noopener noreferrer"><strong>P-</strong></a> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/s_commands/savewpar.html#savewpar__row-T" target="_blank" rel="noopener noreferrer"><strong>-T (T)</strong></a> ][ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/s_commands/savewpar.html#savewpar__row-d3e6470" target="_blank" rel="noopener noreferrer"><strong>-v (V)</strong></a> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/s_commands/savewpar.html#savewpar__row-d3e6477" target="_blank" rel="noopener noreferrer"><strong>V 値</strong></a> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/s_commands/savewpar.html#savewpar__row-d3e6489" target="_blank" rel="noopener noreferrer"><strong>-X (X) </strong></a>] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/s_commands/savewpar.html#savewpar__row-d3e6512" target="_blank" rel="noopener noreferrer"><strong>-Z </strong></a>] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/s_commands/savewpar.html#savewpar__row-P" target="_blank" rel="noopener noreferrer"><strong>-P </strong></a>] <em>WparName</em></p>
+</section>
+
+<section><h2>説明</h2> <div><strong>サヴワル</strong> コマンドは、指定された <span>ワークロード・パーティション</span> (<span>WPAR</span>) に属するすべてのファイルを検索してバックアップします。 <strong>savewpar</strong> コマンドは、<strong>mkwpardata</strong> コマンドで作成されたデータ・ファイルを使用します。 このデータ・ファイルは、以下の形式を使用した以下のディレクトリーにあります。<div><div><pre><code>/tmp/wpardata/WparName/image.data</code></pre></div><div></div></div><em>WparName</em> 変数は、 <span>WPAR</span>の名前を反映します。 <strong>サヴワル</strong> コマンドは、このファイルを使用して、 <span>ワークロード・パーティション</span>を再作成するために <strong>レスウパー</strong> コマンドで使用できるバックアップ・イメージを作成します。 詳しくは、<strong>restwpar</strong> コマンドを参照してください。</div>
+ <p>カスタマイズされた (<em>rootvg</em> は含まない) ボリューム・グループをバックアップするには、<strong>savevg</strong> コマンドを参照してください。</p>
+ <div><div>
+        <div>
+          <div><span>制約事項:</span><ul>
+<li><code>savewpar</code> コマンドは、ブート可能テープの作成には使用できません。 パフォーマンスを最高にするために、<code>savewpar</code> コマンドを実行する前に、ファイルのオープンとクローズを頻繁に行うアプリケーションを正しく終了してください。</li>
+
+<li>AIX ライブ・カーネル・アップデート操作中、<code>savewpar</code> コマンドを実行してはなりません。</li>
+
+</ul><strong>savewpar</strong> コマンドは、ブート可能テープの作成には使用できません。 パフォーマンスを最高にするために、<strong>savewpar</strong> コマンドを実行する前に、ファイルのオープンとクローズを頻繁に行うアプリケーションを正しく終了してください。</div>
+        </div>
+      </div></div>
+</section>
+
+<section><h2>フラグ</h2> 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><strong>-a</strong></td>
+
+<td>拡張属性または NFS バージョン 4 (NFS4) アクセス制御リスト (ACL) をバックアップしません。</td>
+
+</tr>
+
+<tr>
+<td><strong>-A</strong></td>
+
+<td>データ管理アプリケーション・プログラミング・インターフェース (DMAPI) のファイルシステムのファイルをバックアップします。</td>
+
+</tr>
+
+<tr>
+<td><strong>-B</strong></td>
+
+<td>書き込み可能な <em>namefs-mounted</em> ファイルシステムに存在するファイルは、バックアップしません。 デフォルトでは、書き込み可能な <em>namefs-mounted</em> ファイルシステムからのファイルが、バックアップに含められます。</td>
+
+</tr>
+
+<tr>
+<td><strong>-b</strong> <em>ブロック</em></td>
+
+<td>1 回の出力操作で書き込む 512 バイト単位のブロック数を指定します。 このパラメーターを指定しなければ、<strong>backup</strong> コマンドは、
+選択した物理デバイスにデフォルト値を使用します。 値が大きくなるほど、テープ・デバイスへの物理的な転送量は大きくなります。 指定する値は、使用するデバイスの物理ブロック・サイズの倍数でなければなりません。</td>
+
+</tr>
+
+<tr>
+<td><strong>-e</strong></td>
+
+<td><strong>/etc/exclude.</strong><em>WparName</em> ファイルで指定されたファイルをこのコマンドによるバックアップ対象から除外します。<div><div>
+        <div>
+          <div><span>ヒント:</span> 特定のファイルをバックアップから除外したい場合は、ASCII エディターを使用して <strong>/etc/exclude.</strong><em>WparName</em> ファイルを作成し、 <span>WPAR</span> バックアップ・イメージに含めないファイル名のパターンを入力します。 このファイル内のパターンは、<strong>grep</strong> コマンドのパターン・マッチング規則へ入力され、
+バックアップから除かれるファイルを判別します。</div>
+        </div>
+      </div></div>
+ <p>すべてのファイルは、基本ディレクトリーから相対的にバックアップされます (ドット文字「.」のマークが付きます)。 ( <span>WPAR</span>の場合)。 除外するファイルやディレクトリーについて、検索文字列を文字列先頭と
+一致させることが重要である場合は、検索文字列の最初に脱字記号 (^)、続いてドット文字 (.)、そして
+除外するファイル名またはディレクトリーを指定します。</p>
+ <div>例えば、以下の内容をすべて除外するとします。/tmpディレクトリーを含む他のディレクトリーを除外しないようにしてください。/tmpパス名の中で、除外ファイルを次のように編集します。<div><div><pre><code>	^./tmp/</code></pre></div><div></div></div></div>
+ <p>除外するファイル名またはディレクトリーが他のファイル名またはディレクトリーの文字列の一部である場合は、
+脱字記号 (^) とそれに続けてドット文字 (.) を使用し、検索が行の開始から始まることを示すか、ドル記号 ($) を使用して、
+検索が行の終わりで終了することを示します。</p>
+</td>
+
+</tr>
+
+<tr>
+<td><strong>-f </strong><em>デバイス</em></td>
+
+<td>イメージを保管するデバイス名またはファイル名を指定します。 デフォルト値は <strong>/dev/rmt0</strong>  デバイスです。</td>
+
+</tr>
+
+<tr>
+<td><strong>-i</strong></td>
+
+<td><strong>mkwpardata</strong> コマンドを呼び出すことによって、データ・ファイルを作成します。</td>
+
+</tr>
+
+<tr>
+<td><strong>-m</strong></td>
+
+<td><strong>-m</strong> フラグを指定して <strong>mkwpardata</strong> コマンドを呼び出すことによって、
+マップ・ファイル付きのデータ・ファイルを作成します。</td>
+
+</tr>
+
+<tr>
+<td><strong>-N</strong></td>
+
+<td><span>ワークロード・パーティション</span>のマウント・グループ内の書き込み可能 NFSマウント・ファイルシステムからファイルをバックアップします。 デフォルトでは、コマンドは、書き込み可能 NFS マウント・ファイルシステムからファイルをバックアップしません。<div><div>
+        <div>
+          <div><span>要件:</span> NFS4-mounted ファイル・システムの場合、リモート・サーバー上のファイルの所有権を適切に確立するには、ローカル・システムとリモート・システムが同じセキュリティー・ドメインに属している必要があります。 これが当てはまらない場合は、<strong>-N</strong> フラグを使用しないでください。</div>
+        </div>
+      </div></div>
+</td>
+
+</tr>
+
+<tr>
+<td><strong>-p</strong></td>
+
+<td>ファイルがバックアップされるとき、ファイルのソフトウェア・パッキングを使用不可にします。 磁気テープ・ドライブのなかには、独自のパッキングおよび圧縮アルゴリズムを使用するものもあります。</td>
+
+</tr>
+
+<tr>
+<td><strong>-T</strong></td>
+
+<td>スナップショットを使用することにより、バックアップを作成します。 このフラグが適用されるのは JFS2 ファイルシステムの場合のみです。<p><span>ワークロード・パーティション</span>のバックアップを作成するためにスナップショットを使用するように <strong>-T (T)</strong> フラグを指定すると、外部 JFS2 スナップショットが作成されます。 スナップショットによって JFS2 ファイルシステムのポイント・イン・タイム・イメージが作成できるため、システムを一時的に非アクティブ状態に設定する必要はありません。</p>
+<p>スナップショットのサイズは、ファイルシステムのサイズの 2% から 15% です。 バックアップ操作が完了すると、スナップショットの論理ボリュームは除去されます。 ただし、ファイルシステムに既に他のスナップショットがある場合は、スナップショットは除去されません。</p>
+<p>さらに、ファイルシステムに内部スナップショットがある場合、外部スナップショットを作成できないため、ファイルシステムのバックアップの作成にスナップショットが使用されません。 <strong>-T</strong> フラグの使用は、バックアップされているボリューム・グループ内に存在する JFS ファイルシステムには影響を及ぼしません。</p>
+</td>
+
+</tr>
+
+<tr>
+<td><strong>-v</strong></td>
+
+<td>冗長モードを指定します。 バックアップされるとき、ファイルをリストします。</td>
+
+</tr>
+
+<tr>
+<td><strong>-V</strong></td>
+
+<td>テープ・バックアップを検証します。 <strong>-V</strong> フラグを指定した <strong>savewpar</strong> コマンドは、バックアップ・テープ上の各ファイル・ヘッダーを検査し、読み取りエラーが発生するとすべて報告します。</td>
+
+</tr>
+
+<tr>
+<td><strong>-X</strong></td>
+
+<td><strong>/tmp</strong> ファイルシステムは、必要に応じて自動的に解凍される必要があることを指定します。<div><div>
+        <div>
+          <div><span>要件:</span> <strong>-X (X)</strong> フラグは、必要に応じて、 <strong>I</strong> フラグまたは <strong>-m (M)</strong> フラグと一緒にのみ適用できます。</div>
+        </div>
+      </div></div>
+<div><div>
+        <div>
+          <div><span>注:</span> このファイル・システム拡張は、デバイス・ファイル・システムの拡張には使用されません。デバイス・ファイル・システムが同じ <strong>/tmp</strong> ファイル・システムであっても、バックアップ・イメージが保存されます。</div>
+        </div>
+      </div></div>
+</td>
+
+</tr>
+
+<tr>
+<td><strong>-Z</strong></td>
+
+<td>すべてのファイル、ディレクトリー、およびファイルシステムに関する暗号化ファイルシステム (EFS) 情報をバックアップしないように指定します。 このフラグは、<strong>-Z</strong> フラグ付きの <strong>backup</strong> コマンドを実行します。</td>
+
+</tr>
+
+<tr>
+<td><strong>-P</strong></td>
+
+<td><span>/etc/exclude_packing</span> ディレクトリーにリストされたパッキング・オプションからファイルを除外します。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</section>
+
+<section><h2>パラメーター</h2> 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><em>WparName</em></td>
+
+<td>バックアップする <span>ワークロード・パーティション</span> の名前を指定します。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</section>
+
+<section><h2>例</h2> <ol>
+<li>バックアップするにはuserwpar<span>ワークロード・パーティション</span> をデフォルトの磁気テープ・ドライブ (<strong>dev/rmt0</strong>) に追加し、新しいテープ・ドライブを作成します。/tmp/wpardata/userwpar/image.dataファイルの場合は、以下のコマンドを入力します。<div><div><pre><code>savewpar -i userwpar</code></pre></div><div></div></div></li>
+
+<li>バックアップするにはwpar2<span>ワークロード・パーティション</span> および新規マップ・ファイルの作成/tmp/wpardata/wpar2/image.data<strong>rmt1</strong> 装置上のファイルの場合は、次のコマンドを入力します。<div><div><pre><code>savewpar -mf/dev/rmt1 wpar2</code></pre></div><div></div></div></li>
+
+<li>バックアップするにはwpar2<span>ワークロード・パーティション</span>。以下にリストされているファイルを除外します。/etc/exclude.wpar2ファイルの場合は、以下のコマンドを入力します。<div><div><pre><code>savewpar -ief/dev/rmt1 wpar2</code></pre></div><div></div></div></li>
+
+<li>バックアップするにはmy_wpar<span>ワークロード・パーティション</span> テープ・ドライブ内のテープに対して <strong>/dev/rmt0</strong> 、ファイル・ヘッダーの読みやすさを検証するには、次のコマンドを入力します。<div><div><pre><code>savewpar -f /dev/rmt0 -V my_wpar</code></pre></div><div></div></div></li>
+
+<li>スクラッチ・ディレクトリーの内容のすべてを除外するには、除外ファイルを以下のように編集します。<div><div><pre><code>/scratch/</code></pre></div><div></div></div></li>
+
+<li><strong>/tmp</strong> ディレクトリーの内容をすべて除外し、パス名に <strong>/tmp</strong> が存在する、その他のディレクトリーは除外させないようにするには、除外ファイルを以下のように編集します。<div><div><pre><code>^./tmp/ </code></pre></div><div></div></div></li>
+
+<li><strong>wpar2</strong> ワークロード区画をバックアップし、新規ワークロード区画を作成するには、以下のようにします。/tmp/wpardata/userwpar/image.dataファイルを UDFS 対応装置 <strong>/dev/usbms0</strong>に追加するには、次のコマンドを入力します。<div><div><pre><code>savewpar -f /dev/usbms0 wpar2</code></pre></div><div></div></div></li>
+
+</ol>
+</section>
+
+<section><h2>SMIT 高速パス</h2> <ol>
+<li><span>ワークロード・パーティション</span> バックアップを作成するには、次の SMIT 高速パスを入力します。<div><div><pre><code>smit savewpar</code></pre></div><div></div></div></li>
+
+<li><strong>サヴワル</strong> コマンドを使用して作成された <span>ワークロード・パーティション</span> バックアップの内容をリストするには、次の SMIT 高速パスを入力します。<div><div><pre><code>smit lssavewpar</code></pre></div><div></div></div></li>
+
+<li><span>ワークロード・パーティション</span> バックアップから個々のファイルをリストアするには、次の SMIT 高速パスを入力します。<div><div><pre><code>smit restwpar</code></pre></div><div></div></div></li>
+
+</ol>
+</section>
+
+<section><h2>ファイル</h2> 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><strong>/tmp/wpardata/
+</strong><em>WparName</em> <strong>/</strong><em>
+WparName</em><strong>.data</strong></td>
+
+<td><em>WparName</em> の値が<span>ワークロード・パーティション</span>の名前である場合に使用されます。</td>
+
+</tr>
+
+<tr>
+<td><strong>/etc/除外.</strong><em> WparName</em></td>
+
+<td>バックアップから除外されるファイルが入っています。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</section>
+
+</div></div>

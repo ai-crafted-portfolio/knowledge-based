@@ -1,0 +1,339 @@
+<div class="official-dom"><div>
+<section><h2>目的</h2> <p>システムに構成されている現場交換可能ユニット (FRU) に関連付けられている重要プロダクト・データ (VPD) をリストします。</p>
+</section>
+
+<section><h2>構文</h2> <p><span><span>lsvpd</span></span> [<a href="https://www.ibm.com/docs/ja/ssw_aix_73/l_commands/lsvpd.html#lsvpd__row-d3e105726" target="_blank" rel="noopener noreferrer"><span><span>-m</span></span></a>][<a href="https://www.ibm.com/docs/ja/ssw_aix_73/l_commands/lsvpd.html#lsvpd__row-d3e105744" target="_blank" rel="noopener noreferrer"><span><span>-s</span></span></a><span><span> シリアルナンバー</span></span><a href="https://www.ibm.com/docs/ja/ssw_aix_73/l_commands/lsvpd.html#lsvpd__row-d3e105761" target="_blank" rel="noopener noreferrer"><span><span>-t</span></span></a><span><span> タイプ_モデル</span></span> ] [<a href="https://www.ibm.com/docs/ja/ssw_aix_73/l_commands/lsvpd.html#lsvpd__row-d3e105778" target="_blank" rel="noopener noreferrer"><span><span>-v</span></span></a>]</p>
+</section>
+
+<section><h2>説明</h2> <p><span><span>lsvpd</span></span> コマンドは、現場交換可能ユニット (FRU) の重要プロダクト・データ (VPD) を収集します。 このコマンドは、オブジェクト・データ・マネージャー (ODM) の適切なデバイス構成オブジェクト・クラスを読み取り、重要プロダクト・データ (VPD) と一般システム情報を収集します。 <span><span>lsvpd</span></span> コマンドは、実行されているプラットフォームに固有のデータ構造を読み取ることにより、追加の VPD を抽出できます。 データは、保守担当者がデバイス品質とパフォーマンスのモニターを容易にできるような形式で提供されます。</p>
+ <div><div>
+        <div>
+          <div><span>注:</span> <span><span>lsvpd</span></span> コマンドからの出力は通知専用であり、ハードウェア定義の変更に応じて変更される可能性があります。 移植可能アプリケーションは、このデータの構文解析を行うべきではありません。</div>
+        </div>
+      </div></div>
+</section>
+
+<section><h2>フラグ</h2> 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><span><span>-m</span></span></td>
+
+<td>グローバル VPD を持つ FRU と区画専用 VPD を持つ FRU の見分け方。 グローバル VPD を持つ FRU は <code>*FC ********</code> の形式の行で始まります。 区画専用 VPD を持つ FRU は <code>*FC ========</code> の形式の行で始まります。 このフラグを指定しない場合、出力は <code>*FC ????????</code> の形式の行で始まります。 LPAR については、このオプションで一般的なシステムに関連付けられている FRU と、特定の区画に割り当てられている FRU を識別することができます。</td>
+
+</tr>
+
+<tr>
+<td><span><span>-s</span></span> <span><span>SERIAL_NUMBER</span></span></td>
+
+<td>システムのシリアル番号を指定します。 オプションの <span><span>serial_number</span></span> パラメーターは旧版であり、使用できません。 シリアル番号を入力すると、その値がコマンドの出力の中で使用されます。 場合によっては、 <span><span>lsvpd</span></span> がシリアル番号を自動的に判別できないことがあります。 このような場合は、ユーザーが値を入力してコマンド出力に表示させるようにしなければなりません。</td>
+
+</tr>
+
+<tr>
+<td><span><span>-t</span></span> <span><span>タイプ・モデル</span></span></td>
+
+<td>システムの型式モデルを指定します。 オプションの <span><span>type_model</span></span> パラメーターは旧版であり、使用できません。 型式モデルを入力すると、その値がコマンドの出力の中で使用されます。 場合によっては、 <span><span>lsvpd</span></span> がタイプ・モデルを自動的に判別できないことがあります。 このような場合は、ユーザーが値を入力してコマンド出力に表示させるようにしなければなりません。</td>
+
+</tr>
+
+<tr>
+<td><span><span>-v</span></span></td>
+
+<td>デバッグの目的のみに詳細出力を行います。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</section>
+
+<section><h2>終了状況</h2> 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><span><span>0</span></span></td>
+
+<td>コマンドは正常に完了しました。</td>
+
+</tr>
+
+<tr>
+<td><span><span>1</span></span></td>
+
+<td>エラーが発生しました。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</section>
+
+<section><h2>セキュリティー</h2> <div><div><div>
+        <div>
+          <div><span>RBAC ユーザーへの注意:</span> このコマンドは特権命令を実行できます。 特権命令を実行できるのは特権ユーザーのみです。 権限と特権の詳細については、<span>セキュリティ</span>の <a href="https://www.ibm.com/docs/ja/ssw_aix_73/security/rbac_priv_cmd_db.html" target="_blank" rel="noopener noreferrer">特権コマンドデータベース</a>を参照してください。 このコマンドに関連する特権と権限のリストについては、'<a href="https://www.ibm.com/docs/ja/ssw_aix_73/l_commands/lssecattr.html" target="_blank" rel="noopener noreferrer"><span>lssecattr</span></a>コマンドまたは'<a href="https://www.ibm.com/docs/ja/ssw_aix_73/g_bostechref/getcmdattr.html" target="_blank" rel="noopener noreferrer"><span>getcmdattr</span></a>サブコマンドを参照のこと。</div>
+        </div>
+      </div></div>
+</div>
+</section>
+
+<section><h2>例</h2> <ol>
+<li><span><span>lsvpd</span></span> コマンドの出力は、以下のようになります。<div><div>
+        <div>
+          <div><span>注:</span> ポータブル・アプリケーションでは、このデータを解析しないでください。</div>
+        </div>
+      </div></div>
+ <div><div><pre><code>*VC 5.0
+*TM IBM,7029-6E3
+*SE IBM,0110B721E
+*PI 000B721E
+*OS AIX 5.3.0.0
+*FC ????????
+*DS Platform Firmware
+*YL U0.1-P1-X1/Y1
+*RM 3F041029       
+*VK RS6K
+*FC ????????
+*DS System Firmware
+*YL U0.1-P1-X1/Y2
+*RM RG041029_d79e00_regatta
+*VK RS6K
+*FC ????????
+*DS System VPD
+*YL U0.1
+*SE 10B721E
+*TM 7029-6E3
+*MN IBM980
+*VK RS6K
+*PA Y
+*BR I0
+*FC ????????
+*DS PS CEC OP PANEL 
+*YL U0.1-L1
+*SN YL1124350190
+*EC H64013 
+*CC 28D3
+*FN  97P3352
+*DC BD 200210290851
+*VK RS6K
+*FC ????????
+*DS 2 WAY BACKPLANE 
+*YL U0.1-P1
+*SN YL1123354433
+*PN 80P3099
+*CC 26F5
+*CE 1
+*FN  80P3099
+*VK RS6K
+*FC ????????
+*DS CSP             
+*YL U0.1-P1-X1
+*SN YL1024360048
+*PN 80P5573
+*CC 28D0
+*CE 1
+*FN  80P5573
+*RM 3F041029       
+*VK RS6K
+*FC ????????
+*DS IBM 1.8V VRM    
+*YL U0.1-P1-V1
+*FN  24P6892
+*VK RS6K
+*FC ????????
+*DS IBM 2.5V VRM    
+*YL U0.1-P1-V2
+*FN  53P5623
+*VK RS6K
+*FC ????????
+*DS IBM 1.2V VRM    
+*YL U0.1-P1-V3
+*FN  53P5621
+*VK RS6K
+*FC ????????
+*DS A IBM AC PS     
+*YL U0.1-V2
+*SN YL1023C90045
+*EC H85582 
+*CC 51B5
+*FN  97P5101
+*VK RS6K
+*FC ????????
+*DS IBM Air Mover   
+*YL U0.1-F1
+*FN  53P4612
+*VK RS6K
+*FC ????????
+*DS IBM Air Mover   
+*YL U0.1-F2
+*FN  53P4612
+*VK RS6K
+*FC ????????
+*DS IBM Air Mover   
+*YL U0.1-F3
+*FN  53P4612
+*VK RS6K
+*FC ????????
+*DS VSBPD4E1  U4SCSI
+*YL U0.1-P2
+*SN YL11243550F4
+*PN 80P4611
+*EC H85823 
+*CC 28D2
+*FN  80P4610
+*FS 
+*VK RS6K
+*FC ????????
+*DS MEDIA BACKPLANE 
+*YL U0.1-P4
+*SN YL1124341459
+*PN 80P3510
+*EC H85610 
+*CC 28D1
+*FN  80P3516
+*VK RS6K
+*FC ????????
+*DS PCI-X Dual Channel Ultra320 SCSI Adapter
+*AX sisscsia1
+*PL 1Z-08
+*CD 10140266
+*PN 97P6513
+*FN 97P6513
+*SN YL11A5013461
+*MN 001A
+*EC 1
+*RM 05080064
+*Z0 5702
+*YL U0.1-P1-I1
+*FC ????????
+*DS IDE DVD-ROM Drive
+*AX cd0
+*PL 1G-19-00
+*MF IBM     
+*TM DROM00205       
+*RL NR38
+*Z0 058002028F000010
+*YL U0.1-P1-X1/Q6-A0
+*FC ????????
+*DS 16 Bit LVD SCSI Disk Drive
+*AX hdisk0
+*PL 1S-08-00-5,0
+*MF IBM     
+*TM ST336607LC      
+*FN 00P3068     
+*RL 4335304A
+*SN 000D7D3B
+*EC H12094    
+*PN 00P2676     
+*Z0 000003129F00013E
+*Z1 0812C512
+*Z2 0002
+*Z3 04341
+*Z4 0001
+*Z5 22
+*Z6 H12094    
+*YL U0.1-P1/Z1-A5
+*FC ????????
+*DS 16 Bit LVD SCSI Disk Drive
+*AX hdisk1
+*PL 1S-08-00-8,0
+*MF IBM     
+*TM ST336607LC      
+*FN 00P3068     
+*RL 4335304A
+*SN 000D7996
+*EC H12094    
+*PN 00P2676     
+*Z0 000003129F00013E
+*Z1 0812C512
+*Z2 0002
+*Z3 04340
+*Z4 0001
+*Z5 22
+*Z6 H12094    
+*YL U0.1-P1/Z1-A8
+*FC ????????
+*DS Diskette Drive
+*AX fd0
+*PL 01-D1-00-00
+*YL U0.1-P1-X1-D1
+*FC ????????
+*DS Asynchronous Terminal
+*AX tty0
+*PL 01-S1-00-00
+*YL U0.1-P1-X1/S1-L0
+*FC ????????
+*DS SCSI Enclosure Services Device
+*AX ses0
+*PL 1S-08-00-15,0
+*MF IBM     
+*TM VSBPD4E1  U4SCSI
+*RL 4610
+*SN 243550F4
+*Z0 0D0002022F004000
+*FN 80P4610
+*FL DB1  
+*FS                 
+*YL U0.1-P1/Z1-Af
+*FC ????????
+*DS IBM MS 512 MB   
+*YL U0.1-P1-M5
+*SN YL10243591YT
+*PN 00P5767
+*CC 30D2
+*FN  00P5767
+*SZ 512
+*VK RS6K
+*FC ????????
+*DS IBM MS 512 MB   
+*YL U0.1-P1-M7
+*SN YL10243591YP
+*PN 00P5767
+*CC 30D2
+*FN  00P5767
+*SZ 512
+*VK RS6K
+*FC ????????
+*DS IBM MS 512 MB   
+*YL U0.1-P1-M4
+*SN YL1024359208
+*PN 00P5767
+*CC 30D2
+*FN  00P5767
+*SZ 512
+*VK RS6K
+*FC ????????
+*DS IBM MS 512 MB   
+*YL U0.1-P1-M2
+*SN YL1024359204
+*PN 00P5767
+*CC 30D2
+*FN  00P5767
+*SZ 512
+*VK RS6K</code></pre></div><div></div></div></li>
+
+</ol>
+</section>
+
+<section><h2>ロケーション</h2> <p><span><span>/usr/sbin/lsvpd</span></span></p>
+</section>
+
+</div></div>

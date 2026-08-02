@@ -1,0 +1,90 @@
+<div class="official-dom"><div>
+<section><h2>目的</h2><p>無人のワークステーションのセキュリティーを向上させます。</p>
+</section>
+
+<section><h2>構文</h2><p><strong>xss</strong> [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/x_commands/xss.html#xss__row-d3e46410" target="_blank" rel="noopener noreferrer"><strong>-e</strong></a><em> CommandString </em>] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/x_commands/xss.html#xss__row-d3e46424" target="_blank" rel="noopener noreferrer"><strong>-timeout</strong></a><em> Seconds </em>] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/x_commands/xss.html#xss__row-d3e46438" target="_blank" rel="noopener noreferrer"><strong>-display</strong></a><em> DisplayPtr </em>] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/x_commands/xss.html#xss__row-d3e46446" target="_blank" rel="noopener noreferrer"><strong>-v </strong></a>] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/x_commands/xss.html#xss__row-d3e46452" target="_blank" rel="noopener noreferrer"><strong>-fg</strong></a><em> Color </em>] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/x_commands/xss.html#xss__row-d3e46460" target="_blank" rel="noopener noreferrer"><strong>-bg</strong></a><em> Color </em>]  <a href="https://www.ibm.com/docs/ja/ssw_aix_73/x_commands/xss.html#xss__row-d3e46468" target="_blank" rel="noopener noreferrer"><strong>-geometry</strong></a><em> wxh + x + y </em>]</p>
+</section>
+
+<section><h2>説明</h2> <p><strong>xss</strong> コマンドは、新しく追加されたマサチューセッツ工科大学 (MIT) のスクリーンセーバー拡張機能とともに動作して、ユーザーがコントロール可能なスクリーンセーバーまたはスクリーン・ロックをインプリメントします。 このコマンドは、無人のワークステーションのセキュリティーを改善するように設計されています。</p>
+ <p><strong>xss</strong> コマンドは、スクリーンセーバー・タイムアウト・メッセージを受信したとき、またはユーザーがプッシュボタンを始動したときに、ユーザーが指定したコマンド文字列を実行します。 ユーザーがコマンドを指定していなければ、<strong>xss</strong> コマンドはデフォルトで <strong>xlock</strong> コマンドを実行します。</p>
+ <p></p><blockquote><span>“</span><span></span><strong>注:</strong> <strong>xss</strong> コマンドは、新しく追加された MIT スクリーン・セーバー拡張機能のみを使用します。 <strong>xss</strong> コマンドは、古い X サーバー上では動作しません。また、古い X 拡張ライブラリーを使っているときも動作しません。<span>”</span></blockquote>
+<p></p>
+</section>
+
+<section><h2>フラグ</h2> <div> 
+<div><div><table><thead> <tr> <th><div>項目</div></th>
+ <th><div>説明</div></th>
+ </tr>
+ </thead>
+<tbody>
+<tr>
+<td><strong>-e</strong><em> CommandString</em></td>
+
+<td>スクリーンセーバーがタイムアウトになったとき、またはユーザーがプッシュボタンを始動したときに、<strong>xss</strong> コマンドを実行するように設定します。 <em>CommandString</em> パラメーター値が複数のワードの場合、
+その値を " " (二重引用符) で囲まなければならないことに注意してください。</td>
+
+</tr>
+
+<tr>
+<td><strong>-timeout</strong><em> 秒</em></td>
+
+<td>ユーザーのアクティビティーがないままスクリーンセーバーがタイムアウトになるまでの時間 (秒) を設定します。この時間が経過すると、<strong>xss</strong> コマンドは <em>CommandString</em> パラメーターを実行します。</td>
+
+</tr>
+
+<tr>
+<td><strong>-表示</strong><em> DisplayPtr</em></td>
+
+<td>X11 ディスプレイへの接続を設定します。</td>
+
+</tr>
+
+<tr>
+<td><strong>-v</strong></td>
+
+<td>詳細モードをオンにします。</td>
+
+</tr>
+
+<tr>
+<td><strong>-fg</strong><em> 色</em></td>
+
+<td>プッシュボタンのフォアグラウンド・カラーを設定します。</td>
+
+</tr>
+
+<tr>
+<td><strong>-bg</strong><em> 色</em></td>
+
+<td>プッシュボタンのバックグラウンド・カラーを設定します。</td>
+
+</tr>
+
+<tr>
+<td><strong>-geometry</strong><em> wxh + x + y</em></td>
+
+<td>クライアント・ウィンドウのサイズと位置を指定します。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+</section>
+
+<section><h2>例</h2> <p><strong>xss</strong> コマンドに <strong>-display</strong> フラグを付けてリモートで実行している場合、<strong>xss</strong> コマンドで実行されるコマンドにも <strong>-display</strong> フラグ・オプションを指定しなければならないことに注意してください。 下記のリモートでの実行の例を参照してください。</p>
+ <ol>
+<li><span></span>リモートでの実行:<div> <div><div><pre><code>xss -display myhost:0 -e "xlock -remote -display myhost:0"</code></pre></div><div></div></div></div>
+</li>
+
+<li><span></span>スクリーン・セーバーのみ:<div> <div><div><pre><code>xss -e "xlock -nolock"</code></pre></div><div></div></div></div>
+</li>
+
+<li><span></span>簡単な例:<div> <div><div><pre><code>xss -e xlock</code></pre></div><div></div></div></div>
+</li>
+
+</ol>
+</section>
+
+</div></div>

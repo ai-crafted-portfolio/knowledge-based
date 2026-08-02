@@ -1,0 +1,125 @@
+<div class="official-dom"><div>
+<section><h2>目的</h2> <p>起動時に IPv6 のネットワークインターフェースを自動的に設定します。</p>
+</section>
+
+<section><h2>構文</h2>
+<div><div><pre><code>autoconf6 [ -a ] [ -A ] [ -i ] [ -s ] [ -6 ] [ -M ] [ -O ] [ -R ] [ -c ] [ -v ] [ -S ] [ -m main_interface ] [ interface_name ... ]
+</code></pre></div><div></div></div></section>
+
+<section><h2>説明</h2> <p>起動時にこの <span>autoconf6</span> コマンドを使用することで、ND対応のネットワークインターフェースにリンクローカルアドレスを割り当てることができます。 この <span>autoconf6</span> コマンドは、ループバックインターフェースを初期化し、必要に応じて自動トンネルを設定し、必要なルートを追加します。 このコマンドを使用 <span>autoconf6</span> すれば、いつでもリンクローカルアドレスを設定し、新しく設定されたイーサネット風のインターフェースで自動トンネリングを有効にすることができます。</p>
+</section>
+
+<section><h2>フラグ</h2> <div> 
+<div><div><table><caption><span>表 1. フラグ</span></caption><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><span>-a</span></td>
+
+<td>Internet Protocol バージョン 4 ( IPv4 ) の設定で構成された、使用可能なインターフェースを設定および有効化します。</td>
+
+</tr>
+
+<tr>
+<td><span>-A</span></td>
+
+<td>使用可能なインターフェースを設定し、有効にします。</td>
+
+</tr>
+
+<tr>
+<td><span>-i</span></td>
+
+<td>引数として指定されたインターフェースを設定し、有効にします。 および <span>-i</span> フラグを <span>-a</span> 指定しない場合、すでにアップ状態にあるインターフェースのみが設定されます。</td>
+
+</tr>
+
+<tr>
+<td><span>-s</span></td>
+
+<td>Simple Internet Transition (SIT) インターフェースと、 IPv4-compatible プログラムをインストールします。 このフラグを <span>-s</span> 指定しない場合、SITインターフェースは、すでにSITインターフェースがアップ状態にある場合にのみ設定されます。</td>
+
+</tr>
+
+<tr>
+<td><span>-6</span> </td>
+
+<td>SIT インターフェースおよび IPv4 互換の相互運用機能 (interoperability) は、インストールも変更もされません。</td>
+
+</tr>
+
+<tr>
+<td><span>-M</span></td>
+
+<td>デバッグモードでは、既存の IPv6 マルチキャストルートに変更を加えないでください。</td>
+
+</tr>
+
+<tr>
+<td><span>-O</span></td>
+
+<td>デバッグモードでは、ループバックインターフェースを設定しないでください。</td>
+
+</tr>
+
+<tr>
+<td><span>-R</span></td>
+
+<td>デバッグモードでは、デフォルトの IPv6 ルートをインストールしないでください。</td>
+
+</tr>
+
+<tr>
+<td><span>-c</span></td>
+
+<td>以前の互換性フラグは、不正なリンクローカルアドレスを持つユーザーを対象としていました。</td>
+
+</tr>
+
+<tr>
+<td><span>-v</span></td>
+
+<td>詳細な出力を生成し、プログラムが実行する各操作や発生したエラーに関する詳細情報を表示するようにします。</td>
+
+</tr>
+
+<tr>
+<td><span>-S</span></td>
+
+<td><p>RFC 7217 に基づく安定したプライバシーアドレスをリンクローカルインターフェースに設定し、各インターフェースが安定かつランダム化された IPv6 リンクローカルアドレスを確実に取得できるようにします。 このアドレスは、ハードウェア由来の識別子が漏洩するのを防ぎ、システムの再起動後もアドレスの安定性を維持するRFC 7217アルゴリズムを用いて生成されます。</p>
+
+</td>
+
+</tr>
+
+<tr>
+<td><span>-m</span> main_interface</td>
+
+<td>主インターフェースを指定します。 <code>main_if6</code>また、この <span>no</span> コマンドに引数「」を指定して使用することもできます。</td>
+
+</tr>
+
+<tr>
+<td>interface_name</td>
+
+<td>設定が必要なインターフェースの名前を指定します。 flag を interface_name とともに指定 <span>-i</span> することができます。 interface_name を指定せずにこのフラグを <span>-i</span> 指定した場合、インターフェースは設定されません。 flag を <span>-i</span> 指定せずに interface_name を指定すると、プログラムは使用方法のメッセージを表示します。 interface_name として を <code>ibX</code> 指定すると、 InfiniBand ポートの EUI-64 に基づいて、その <code>ibX</code> インターフェースに IPv6 アドレスが設定されます。 コマンド <span>autoconf6</span> でインターフェース <code>ibX</code> を使用するには、その <code>ibX</code> インターフェースに IPv4 アドレスが事前に設定されている必要があります。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+</section>
+
+<section><h2>メッセージ</h2> <p>このコマンドによって <span>autoconf6</span> 実行される操作を示し、実行中に発生した問題があれば報告します。</p>
+</section>
+
+</div></div>

@@ -1,0 +1,41 @@
+<div class="official-dom"><div>
+<section><h2>目的</h2> <p>CacheFS を用いてキャッシュされたデータの整合性を検査します。</p>
+</section>
+
+<section><h2>構文</h2> <p><strong>fsck_cachefs</strong> [ <strong>-m</strong> ] [ <strong>-o noclean</strong> ] <em>cache_directory</em></p>
+</section>
+
+<section><h2>説明</h2> <p><strong>fsck</strong> コマンドの CacheFS バージョンは、キャッシュ・ディレクトリーの整合性を検査します。 デフォルトでは、検出した CacheFS の問題を修正します。 対話モードはありません。 CacheFS ファイルシステムで <strong>fsck_cachefs</strong> の呼び出しの最も可能性が高いのは、ブート時に <strong>/etc/rc.nfs</strong> のエントリーから実行される場合です。</p>
+</section>
+
+<section><h2>フラグ</h2> <div> 
+<div><div><table><thead> <tr> <th><div>項目</div></th>
+ <th><div>説明</div></th>
+ </tr>
+ </thead>
+<tbody>
+<tr>
+<td><strong>-m</strong></td>
+
+<td>検査はしますが、修復は行いません。</td>
+
+</tr>
+
+<tr>
+<td><strong>-ノクリーン</strong></td>
+
+<td>問題があると疑う理由がない場合でも、強制的にキャッシュを検査します。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+</section>
+
+<section><h2>例</h2> <p>強制的にキャッシュ・ディレクトリーの検査を行うには、次のように入力します。</p>
+ <div> <div><div><pre><code>fsck_cachefs -o noclean /cache3</code></pre></div><div></div></div></div>
+</section>
+
+</div></div>

@@ -1,0 +1,1018 @@
+<div class="official-dom"><div>
+<section><h2>目的</h2> <p><span>ワークロード・パーティション</span>の特性をリストします。</p>
+</section>
+
+<section><h2>構文</h2> <p>表形式:</p>
+ <p><strong>Lswpar</strong> [<a href="https://www.ibm.com/docs/ja/ssw_aix_73/l_commands/lswpar.html#lswpar__lswparfalgb" target="_blank" rel="noopener noreferrer"><strong>-b</strong></a> | <a href="https://www.ibm.com/docs/ja/ssw_aix_73/l_commands/lswpar.html#lswpar__lswparfalgbr" target="_blank" rel="noopener noreferrer"><strong>-ブレ</strong></a> | <a href="https://www.ibm.com/docs/ja/ssw_aix_73/l_commands/lswpar.html#lswpar__lswparfalgbf" target="_blank" rel="noopener noreferrer"><strong>-Bf (B)</strong></a> | <a href="https://www.ibm.com/docs/ja/ssw_aix_73/l_commands/lswpar.html#lswpar__lswparflagud" target="_blank" rel="noopener noreferrer"><strong>-D</strong></a> | <a href="https://www.ibm.com/docs/ja/ssw_aix_73/l_commands/lswpar.html#lswpar__row-d3e107934" target="_blank" rel="noopener noreferrer"><strong>-I (I)</strong></a> | <strong><a href="https://www.ibm.com/docs/ja/ssw_aix_73/l_commands/lswpar.html#lswpar__lswparflagum" target="_blank" rel="noopener noreferrer">-M (M)</a></strong> | <strong><a href="https://www.ibm.com/docs/ja/ssw_aix_73/l_commands/lswpar.html#lswpar__lswparflagun" target="_blank" rel="noopener noreferrer">-N (N)</a></strong> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/l_commands/lswpar.html#lswpar__row-d3e108934" target="_blank" rel="noopener noreferrer"><strong>-X (X)</strong></a> ] [<a href="https://www.ibm.com/docs/ja/ssw_aix_73/l_commands/lswpar.html#lswpar__lswparflaga" target="_blank" rel="noopener noreferrer"><strong>-a 値</strong> <em>フィールド名</em></a> [,...]] [<a href="https://www.ibm.com/docs/ja/ssw_aix_73/l_commands/lswpar.html#lswpar__lswparflagq" target="_blank" rel="noopener noreferrer"><strong>-Q (Q)</strong></a>] [<a href="https://www.ibm.com/docs/ja/ssw_aix_73/l_commands/lswpar.html#lswpar__lswparflags" target="_blank" rel="noopener noreferrer"><strong>-s</strong> <em>状態</em></a>] [<a href="https://www.ibm.com/docs/ja/ssw_aix_73/l_commands/lswpar.html#lswpar__lswparflagt" target="_blank" rel="noopener noreferrer"><strong>T</strong> <em>タイプ</em></a>] [<a href="https://www.ibm.com/docs/ja/ssw_aix_73/l_commands/lswpar.html#lswpar__lswparname" target="_blank" rel="noopener noreferrer"><em>WPAR 名</em></a> ...]</p>
+ <p>パラグラフ形式:</p>
+ <p><strong>Lswpar</strong> {<a href="https://www.ibm.com/docs/ja/ssw_aix_73/l_commands/lswpar.html#lswpar__lswparflagug" target="_blank" rel="noopener noreferrer"><strong>-G</strong></a> | <a href="https://www.ibm.com/docs/ja/ssw_aix_73/l_commands/lswpar.html#lswpar__lswparflagul" target="_blank" rel="noopener noreferrer"><strong>-L (L)</strong></a> | <a href="https://www.ibm.com/docs/ja/ssw_aix_73/l_commands/lswpar.html#lswpar__lswparflagur" target="_blank" rel="noopener noreferrer"><strong>-R</strong></a> | <a href="https://www.ibm.com/docs/ja/ssw_aix_73/l_commands/lswpar.html#lswpar__lswparflagus" target="_blank" rel="noopener noreferrer"><strong>-S (S)</strong></a> | <a href="https://www.ibm.com/docs/ja/ssw_aix_73/l_commands/lswpar.html#lswpar__lswparflagut" target="_blank" rel="noopener noreferrer"><strong>-T (T)</strong></a>} [<a href="https://www.ibm.com/docs/ja/ssw_aix_73/l_commands/lswpar.html#lswpar__lswparflags" target="_blank" rel="noopener noreferrer"><strong>-s</strong> <em>状態</em></a>] [<a href="https://www.ibm.com/docs/ja/ssw_aix_73/l_commands/lswpar.html#lswpar__lswparflagt" target="_blank" rel="noopener noreferrer"><strong>T</strong> <em>タイプ</em></a>] [<a href="https://www.ibm.com/docs/ja/ssw_aix_73/l_commands/lswpar.html#lswpar__lswparname" target="_blank" rel="noopener noreferrer"><em>WPAR 名</em></a> ...]</p>
+ <p>区切り文字形式:</p>
+ <p><strong>Lswpar</strong> {<a href="https://www.ibm.com/docs/ja/ssw_aix_73/l_commands/lswpar.html#lswpar__lswparflagc" target="_blank" rel="noopener noreferrer"><strong>「-c」</strong></a> | <a href="https://www.ibm.com/docs/ja/ssw_aix_73/l_commands/lswpar.html#lswpar__lswparflagd" target="_blank" rel="noopener noreferrer"><strong>-d 年</strong> <em>デリム</em></a>} [<a href="https://www.ibm.com/docs/ja/ssw_aix_73/l_commands/lswpar.html#lswpar__lswparflaga" target="_blank" rel="noopener noreferrer"><strong>-a 値</strong> <em>フィールド名</em></a> [,...] | <a href="https://www.ibm.com/docs/ja/ssw_aix_73/l_commands/lswpar.html#lswpar__lswparflagug" target="_blank" rel="noopener noreferrer"><strong>-G</strong></a> | {<a href="https://www.ibm.com/docs/ja/ssw_aix_73/l_commands/lswpar.html#lswpar__lswparfalgb" target="_blank" rel="noopener noreferrer"><strong>-b</strong></a> | <a href="https://www.ibm.com/docs/ja/ssw_aix_73/l_commands/lswpar.html#lswpar__lswparfalgbr" target="_blank" rel="noopener noreferrer"><strong>-ブレ</strong></a> | <a href="https://www.ibm.com/docs/ja/ssw_aix_73/l_commands/lswpar.html#lswpar__lswparfalgbf" target="_blank" rel="noopener noreferrer"><strong>-Bf (B)</strong></a> | <a href="https://www.ibm.com/docs/ja/ssw_aix_73/l_commands/lswpar.html#lswpar__lswparflagud" target="_blank" rel="noopener noreferrer"><strong>-D</strong></a> | <a href="https://www.ibm.com/docs/ja/ssw_aix_73/l_commands/lswpar.html#lswpar__row-d3e108934" target="_blank" rel="noopener noreferrer"><strong>-X (X)</strong></a> <a href="https://www.ibm.com/docs/ja/ssw_aix_73/l_commands/lswpar.html#lswpar__row-d3e107934" target="_blank" rel="noopener noreferrer"><strong>-I (I)</strong></a> | <a href="https://www.ibm.com/docs/ja/ssw_aix_73/l_commands/lswpar.html#lswpar__lswparflagum" target="_blank" rel="noopener noreferrer"><strong>-M (M)</strong></a> | <a href="https://www.ibm.com/docs/ja/ssw_aix_73/l_commands/lswpar.html#lswpar__lswparflagun" target="_blank" rel="noopener noreferrer"><strong>-N (N)</strong></a>} [<a href="https://www.ibm.com/docs/ja/ssw_aix_73/l_commands/lswpar.html#lswpar__lswparflaga" target="_blank" rel="noopener noreferrer"><strong>-a 値</strong> <em>フィールド名</em></a> [,...]] | <a href="https://www.ibm.com/docs/ja/ssw_aix_73/l_commands/lswpar.html#lswpar__lswparflagur" target="_blank" rel="noopener noreferrer"><strong>-R</strong></a> | <a href="https://www.ibm.com/docs/ja/ssw_aix_73/l_commands/lswpar.html#lswpar__lswparflagus" target="_blank" rel="noopener noreferrer"><strong>-S (S)</strong></a> | <a href="https://www.ibm.com/docs/ja/ssw_aix_73/l_commands/lswpar.html#lswpar__lswparflagut" target="_blank" rel="noopener noreferrer"><strong>-T (T)</strong></a>] [<a href="https://www.ibm.com/docs/ja/ssw_aix_73/l_commands/lswpar.html#lswpar__lswparflagq" target="_blank" rel="noopener noreferrer"><strong>-Q (Q)</strong></a>] [<a href="https://www.ibm.com/docs/ja/ssw_aix_73/l_commands/lswpar.html#lswpar__lswparflags" target="_blank" rel="noopener noreferrer"><strong>-s</strong> <em>状態</em></a>] [<a href="https://www.ibm.com/docs/ja/ssw_aix_73/l_commands/lswpar.html#lswpar__lswparflagt" target="_blank" rel="noopener noreferrer"><strong>T</strong> <em>タイプ</em></a>] [<a href="https://www.ibm.com/docs/ja/ssw_aix_73/l_commands/lswpar.html#lswpar__lswparname" target="_blank" rel="noopener noreferrer"><em>WPAR 名</em></a> ...]</p>
+</section>
+
+<section><h2>説明</h2> <p><strong>lswpar</strong> コマンドは、指定された 1 つ以上の <span>ワークロード・パーティション</span> (指定されていない場合はすべての <span>ワークロード・パーティション</span> ) に関する情報を標準出力に出力します。</p>
+ <p><strong>-s</strong> フラグを使用して、以下の <span>ワークロード・パーティション</span> 状態に従ってすべてのリストをフィルターに掛けることができます。</p>
+ 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><strong>定義済み</strong></td>
+
+<td><span>ワークロード区画</span> は <strong>mkwpar </strong> コマンドによって定義され、使用する準備ができていますが、アクティブではありません。 <strong>startwpar</strong> コマンドを使用して、この状態で <span>ワークロード・パーティション</span> を開始します。</td>
+
+</tr>
+
+<tr>
+<td><strong>ロード済み</strong></td>
+
+<td><span>ワークロード・パーティション</span> がカーネルで構成されていますが、プロセスはまだ開始されていません。<div><div>
+        <div>
+          <div><span>注:</span> この状態は、 <strong>lswpar</strong> コマンドを使用して <span>ワークロード・パーティション</span>を開始するプログラマチック・コンシューマーにのみ表示されます。</div>
+        </div>
+      </div></div>
+</td>
+
+</tr>
+
+<tr>
+<td><strong>アクティブ</strong></td>
+
+<td><span>ワークロード・パーティション</span> は正常に実行されています。</td>
+
+</tr>
+
+<tr>
+<td><strong>凍結</strong></td>
+
+<td>チェックポイント操作が開始され、 <span>ワークロード区画</span> のプロセスが静止し、保管フェーズを待機します。<div><div>
+        <div>
+          <div><span>注:</span> <strong>Frozen</strong> 状態が表示されるのは、 <strong>lswpar</strong> コマンドを使用して <span>ワークロード・パーティション</span>のチェックポイントを指定した場合のみです。 チェックポイントまたは再始動機能には、基本 <span>WPAR</span>以外の追加ソフトウェア・パッケージが必要です。</div>
+        </div>
+      </div></div>
+</td>
+
+</tr>
+
+<tr>
+<td><strong>一時停止</strong></td>
+
+<td>チェックポイントまたは再始動操作が実行され、 <span>ワークロード区画</span> のプロセスを再開または強制終了する準備ができました。 チェックポイントまたは再始動機能には、追加のソフトウェアが必要です。</td>
+
+</tr>
+
+<tr>
+<td><strong>保守</strong></td>
+
+<td>ワークロード区画は、<strong>startwpar</strong> コマンドを指定して保守モードにすることができます。 保守モード中に、ワークロード区画がカーネル内に構成され、ファイルシステムがマウントされましたが、プロセスが開始されません。</td>
+
+</tr>
+
+<tr>
+<td><strong>移動中</strong></td>
+
+<td>非同期チェックポイント・リスタート操作が実行されました。 <span>ワークロード区画</span> は到着サーバー上で <strong>「アクティブ」</strong> ですが、 <span>ワークロード区画</span> は、すべてのリソースが正常に転送されるまで、出発サーバー上で <strong>「移動中」</strong> 状態で表示されます。 チェックポイントまたは再始動機能には、追加のソフトウェアが必要です。</td>
+
+</tr>
+
+<tr>
+<td><strong>移行</strong></td>
+
+<td>管理操作が進行中です。 <span>ワークロード区画</span> は、作成中、開始中、停止中、構成中などです。</td>
+
+</tr>
+
+<tr>
+<td><strong>中断</strong></td>
+
+<td>管理操作が失敗し、この <span>ワークロード・パーティション</span> は使用不可の状態のままです。</td>
+
+</tr>
+
+<tr>
+<td><strong>ERROR</strong></td>
+
+<td>ワークロード区画名やフラグなどの無効なエレメントのために、エラーが発生しました。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+ <p><strong>-t</strong> フラグを使用すると、以下の <span>ワークロード・パーティション</span> ・タイプに従ってすべてのリストをフィルターに掛けることができます。</p>
+ 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><strong>アプリケーション</strong></td>
+
+<td>このタイプは、分離されたシステム・サービスなしで単一プロセス (またはその方法で呼び出されるプロセスのグループ) を実行するアプリケーション・ <span>ワークロード・パーティション</span>です。 プロセスまたはプロセスのグループは、その稼働環境 (ファイル・システム、セキュリティー、デバイス) を継承します。 アプリケーション・ <span>ワークロード・パーティション</span> が作成された環境から (以下同様)。</td>
+
+</tr>
+
+<tr>
+<td><strong>システム</strong></td>
+
+<td>このタイプは、オペレーティング・システムの独立した完全に機能するインスタンスをエミュレートするシステム・ <span>ワークロード・パーティション</span>です。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+ <p>追加のチェックポイントまたは再始動ソフトウェアがインストールされる場合は、以下のタイプも指定することができます。</p>
+ 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><strong>チェックポイント指定可能</strong></td>
+
+<td>この <span>ワークロード区画</span> は、チェックポイント機能または再始動機能に対して使用可能になっています。<div><div>
+        <div>
+          <div><span>ヒント:</span> このタイプは、相互に排他的な <span>ワークロード・パーティション</span> ・タイプではありません。 <strong>チェックポイント指定可能</strong> <span>ワークロード・パーティション</span> は、引き続き <strong>System</strong> または <strong>Application</strong> <span>ワークロード・パーティション</span>のいずれかです。</div>
+        </div>
+      </div></div>
+</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+ <div>追加のバージョン管理された <span>ワークロード・パーティション</span> ・ソフトウェアがインストールされている場合は、以下のタイプを指定することもできます。<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><strong>Versioned</strong></td>
+
+<td>この <span>ワークロード・パーティション</span> は、オペレーティング・システム互換モードで実行されています。<div><div>
+        <div>
+          <div><span>ヒント:</span> このタイプは、相互に排他的な <span>ワークロード・パーティション</span> ・タイプではありません。 <strong>バージョン管理された</strong> <span>ワークロード・パーティション</span> は、引き続き <strong>システム</strong> <span>ワークロード・パーティション</span>です。</div>
+        </div>
+      </div></div>
+</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>Versioned</div>
+<p><strong>表形式</strong></p>
+ <p>オプションが使用されない場合は、出力は以下の例に示すように表形式です。</p>
+ <p></p><div><code>Name         State    Type    Hostname    Directory   RootVG WPAR<br>
+-------------------------------------------------------------------<br>
+<em>wpar name</em>    <em>state</em>    <em>type</em>  <em>hostname</em>    <em>root directory</em>   <em>yes/no</em><br>
+...            ...    ...   ...           ...             ...</code></div>
+<p></p>
+ <div>表形式では、 <span>WPAR</span>ごとに複数のレコードが存在する場合があります。 <strong>-D</strong>、 <strong>-I</strong>、 <strong>-M</strong>。 および <strong>-N</strong> フラグは表形式で表示されますが、 <strong>-c</strong> フラグおよび <strong>-d</strong> フラグと組み合わせて区切り形式を生成することができます。 <strong>-a</strong> フラグを使用すると、表形式で表示されるフィールドをカスタマイズすることができます。 <strong>-q</strong> フラグを使用して、表の見出しを抑止することができます。<div><div>
+        <div>
+          <div><span>ヒント:</span> 自動化された目的で、表形式の出力の正確な形式と内容に依存しないでください。 区切り文字形式を使用すれば、解析が可能な出力を作成できます。</div>
+        </div>
+      </div></div>表形式の各フィールドの幅は、該当の列の最も長い値に応じて拡張されます。 したがって、要求されるフィールドに応じて、幅の狭い画面では出力の折り返しが起こることがあります。</div>
+<p><strong>パラグラフ形式</strong></p>
+ <p>パラグラフ形式では、各フィールドには 1 つの <span>WPAR</span>に対して 1 つの値があります。 <strong>-G</strong>、 <strong>-R</strong>、 <strong>-S</strong>、および <strong>-T</strong> フラグを使用して、 <span>ワークロード・パーティション</span> 構成の段落スタイルのサブセットを表示できます。 <strong>-L</strong> フラグは詳細なリストを表示します。このリストは、<strong>-D</strong>、<strong>-G</strong>、<strong>-I</strong>、<strong>-M</strong>、<strong>-N</strong>、<strong>-R</strong>、<strong>-S</strong>、および <strong>-T</strong> フラグによって示されるデータの組み合わせです。 それ以外の場合は、形式を組み合わせることはできません。</p>
+<p><strong>区切り文字形式</strong></p>
+ <p>区切り文字形式は、機械可読形式の生成に使用されます。 任意の区切り文字を選択することができます。 <strong>-c</strong> または <strong>-d</strong> フラグを使用して区切り文字形式を生成することができます。 <a href="https://www.ibm.com/docs/ja/ssw_aix_73/l_commands/lswpar.html#lswpar__lswparflaga" target="_blank" rel="noopener noreferrer"><strong>-a</strong></a> フラグを使用して、表示するフィールドをカスタマイズすることができます。 <strong>-q</strong> フラグを使用して、ヘッダー行を抑止することができます。 パラグラフ形式のフラグ (<strong>-G</strong>、<strong>-R</strong>、<strong>-S</strong>、および <strong>-T</strong>) と、表形式のフラグ (<strong>-D</strong>、<strong>-I</strong>、<strong>-M</strong>、および <strong>-N</strong>) を個別に使用することにより、対応する事前定義済みのフィールド・セットに表示を限定することができます。</p>
+</section>
+
+<section><h2>フラグ</h2> 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><strong>-a</strong> <em>フィールド名</em></td>
+
+<td><p>表形式または区切り文字形式の表示を 1 つ以上の指定されたフィールドに限定します。 複数のフィールド名は、スペースを入れずにコンマで区切る必要があります。 このフラグは、<strong>-G</strong>、<strong>-R</strong>、<strong>-S</strong>、<strong>-L</strong>、または <strong>-T</strong> フラグと同時には使用できません。</p>
+ <p>デフォルトでは、表示は 1 行に 1 つの <span>WPAR</span> で構成されます。 指定できるフィールドは、次のいずれかです。</p>
+ <div><strong>General</strong><ul>
+<li><strong>名前</strong> ( <span>WPAR</span> 名)</li>
+
+<li><strong>Cid</strong> (<span>WPAR</span> の ID。</li>
+
+<li><strong>キー</strong> ( <span>WPAR</span> のキー)</li>
+
+<li><strong>Rootvgwpar</strong> RootVG <span>WPAR</span> ( <span>WPAR</span> が RootVG <span>WPAR</span> であるかどうかを識別するための yes/no の値が表示されます。</li>
+
+<li><strong>Uuid</strong> ( <span>WPAR</span> の UUID)</li>
+
+<li><strong>Vipwpar</strong> VIP <span>WPAR</span> ( <span>WPAR</span> が VIP <span>WPAR</span>であるかどうかを識別するために、yes/no の値が表示されます。 このフィールドは、アプリケーション <span>WPAR</span> にのみ適用されます。</li>
+
+<li><strong>状態</strong></li>
+
+<li><strong>タイプ</strong> (システムまたはアプリケーション)</li>
+
+<li><strong>Hostname</strong></li>
+
+<li><strong>経路指定</strong></li>
+
+<li><strong>directory</strong></li>
+
+<li><strong>プライベート・ユーザー </strong><p>出力例は以下に示すように表示されます。</p><div>0&gt; lswpar-aname,privateusr test<br>名前 プライベート/usr?<br>--------------------<br>test no  </div>
+<p></p>
+</li>
+
+<li><strong>Script</strong> (ユーザー指定の開始/停止スクリプト)</li>
+
+<li><strong>自動</strong><ul>
+<li>このフィールドの値が「<strong>yes</strong>」の場合は、プロセスはグローバル・システム再始動時に自動的に開始されます。</li>
+
+<li>このフィールドの値が「<strong>no</strong>」の場合は、プロセスはグローバル・システム再始動時に自動的に開始されません。</li>
+
+</ul>
+</li>
+
+<li><strong>Application</strong> (アプリケーション WPAR の追跡済みプロセス)</li>
+
+<li><strong>チェックポイント指定可能</strong></li>
+
+<li><strong>owner</strong></li>
+
+<li><strong>OStype</strong> (ゼロ以外の値は、バージョン管理された WPAR を示し、値 0 または NULL はネイティブ WPAR を示します)</li>
+
+</ul>
+</div>
+ <div><strong>リソース制御 </strong><ul>
+<li><strong>アクティブ</strong><ul>
+<li>このフィールドの値が「<strong>yes</strong>」の場合は、リソース制御は活動状態です。</li>
+
+<li>このフィールドの値が「<strong>no</strong>」の場合は、リソース制御は非活動状態です。</li>
+
+</ul>
+</li>
+
+<li><strong>rset</strong></li>
+
+<li><strong>shares_CPU</strong></li>
+
+<li><strong>CPU</strong></li>
+
+<li><strong>shares_memory</strong></li>
+
+<li><strong>MEMORY</strong></li>
+
+<li><strong>ProcVirtMem</strong></li>
+
+<li><strong>TotalProcesses</strong></li>
+
+<li><strong>TotalThreads</strong></li>
+
+<li><strong>totalPTYs</strong></li>
+
+<li><strong>totalLargePages</strong></li>
+
+<li><strong>totalVirtmem</strong></li>
+
+<li><strong>pct_msgIDs</strong></li>
+
+<li><strong>pct_semIDs</strong></li>
+
+<li><strong>pct_shmIDs</strong></li>
+
+<li><strong>pct_pinMem</strong></li>
+
+</ul>
+</div>
+</td>
+
+</tr>
+
+<tr>
+<td> </td>
+
+<td>(<em></em> <strong>-a</strong> <em>フラグで指定できるフィールド</em>、 <em>は以下のとおりです。</em>)<div><strong>デバイス</strong><ul>
+<li><strong>「名前」</strong> ( <span>WPAR</span>の名前)</li>
+
+<li><strong>devname</strong> (デバイスの名前)</li>
+
+<li><strong>Devtype</strong> (pseudo、disk、clone)</li>
+
+<li><strong>rootvg</strong></li>
+
+</ul>この表示は、1 行につき 1 つのデバイスで構成されます。 サンプル出力を以下に表示します。</div>
+ <p></p><div>0&gt; lswpar -Da name, devname, rootvg test<br> Name Device Name RootVG<br> ------------------------------<br> test hdisk1 yes <br> <br> 0&gt; lswpar test<br> Name State Type Hostname Directory RootVG WPAR<br> ------------------------------------------------------<br> test D S test /wpars/test yes</div>
+<p></p>
+ <div><strong>カーネル・エクステンション</strong><ul>
+<li><strong>「名前」</strong> ( <span>WPAR</span>の名前)</li>
+
+<li><strong>Kext</strong> (カーネル・エクステンションへの絶対パス)</li>
+
+<li><strong>ローカル</strong></li>
+
+<li><strong>メジャー</strong></li>
+
+<li><strong>kextstatus </strong> (allocated または exported)</li>
+
+<li><strong>checksum </strong> (カーネル・エクステンションのチェックサム)</li>
+
+<li><strong>mtime</strong> (カーネル・エクステンションの変更時刻)</li>
+
+</ul>この表示は、1 行につき 1 つのカーネル・エクステンションで構成されます。</div>
+ <p><strong><span>WPAR</span>-特定の経路</strong></p>
+ <div><span>ワークロード・パーティション</span> は、複数の経路を持つことができます。 したがって、<strong>-I</strong> フラグを使用する場合、次のフィールドに <strong>-a</strong> フラグを指定することができます。<ul>
+<li><strong>name</strong> ( <span>WPAR</span> 名)</li>
+
+<li><strong>最新</strong></li>
+
+<li><strong>rtgateway (rtgateway)</strong></li>
+
+<li><strong>RTInterface</strong></li>
+
+<li><strong>RTTYPE</strong></li>
+
+<li><strong>rtfamily (rtfamily)</strong></li>
+
+</ul>この表示は、1 行につき 1 つの経路で構成されます。</div>
+ <p><strong>ネットワーク</strong></p>
+ <div>1 つの <span>WPAR</span> に複数のネットワークがある場合があります。 したがって、<strong>-N</strong> フラグを使用する場合、次のフィールドに <strong>-a</strong> フラグを指定することができます。<ul>
+<li><strong>名前</strong> ( <span>WPAR</span> 名)</li>
+
+<li><strong>インターフェース</strong></li>
+
+<li><strong>アドレス</strong></li>
+
+<li><strong>netmask</strong></li>
+
+<li><strong>Broadcast</strong></li>
+
+</ul>この表示は、1 行につき 1 つのネットワークで構成されます。</div>
+</td>
+
+</tr>
+
+<tr>
+<td> </td>
+
+<td><p><strong>マウント数</strong></p>
+ <div><span>ワークロード・パーティション</span> には、複数のマウントが存在する場合があります。 したがって、<strong>-M</strong> フラグを使用する場合、次のフィールドに <strong>-a</strong> フラグを指定することができます。<ul>
+<li><strong>名前</strong> ( <span>WPAR</span> 名)</li>
+
+<li><strong>Mountpoint</strong> (マウント・ポイント名)</li>
+
+<li><strong>Device</strong> (マウントされたオブジェクト)</li>
+
+<li><strong>Vfs</strong> (仮想ファイルシステムのタイプ)</li>
+
+<li><strong>Nodename</strong> (マウントがリモートの場合、ノード名)</li>
+
+<li><strong>Options</strong> (任意のマウント・オプション)</li>
+
+</ul>この表示は、1 行につき 1 つのマウントで構成されます。</div>
+ <div><strong>セキュリティー</strong><ul>
+<li><strong>Privs</strong> (特権のリスト)</li>
+
+</ul>
+</div>
+ <div><strong>Operation</strong><ul>
+<li><strong>Opname</strong> (実行される管理操作の名前)</li>
+
+<li><strong>Oppid</strong> (操作のプロセス ID)</li>
+
+<li><strong>Opstart</strong> (操作の開始時刻)</li>
+
+</ul>
+</div>
+</td>
+
+</tr>
+
+<tr>
+<td> </td>
+
+<td><p><strong>ブート・リスト</strong></p>
+ <div><strong>-b</strong> フラグを使用する場合、<strong>-a</strong> フラグを以下のフィールドと共に指定することができます。<ul>
+<li><strong>name</strong> ( <span>WPAR</span>の名前)。</li>
+
+<li><strong>bootlist</strong> (コンマ区切り形式による bootset の番号付きリスト)</li>
+
+</ul>この表示は、1 行につき 1 つの bootlist で構成されます。</div>
+ <p><strong>ブート・セット</strong></p>
+<div><strong>-Br</strong> フラグを使用する場合、<strong>-a</strong> フラグを以下のフィールドと共に指定することができます。<ul>
+<li><strong>name</strong> ( <span>WPAR</span>の名前)。</li>
+
+<li><strong>devname</strong> (デバイスの名前)</li>
+
+<li><strong>vdevname</strong> (仮想デバイスの名前)</li>
+
+<li><strong>rootvg</strong></li>
+
+<li><strong>bootset</strong> ( <span>WPAR</span>のブート・セット・デバイス)</li>
+
+</ul>
+</div>
+<p>この表示は、1 行につき 1 つの bootset で構成されます。</p>
+ <div><strong>-Bf</strong> フラグを使用する場合、<strong>-a</strong> フラグを以下のフィールドと共に指定することができます。<ul>
+<li><strong>name</strong> ( <span>WPAR</span>の名前)。</li>
+
+<li><strong>mountpoint</strong> (mountpoint の名前)</li>
+
+<li><strong>device</strong> (マウントされたオブジェクト)</li>
+
+<li><strong>vfs</strong> (仮想ファイルシステムのタイプ)</li>
+
+<li><strong>Options</strong> (任意のマウント・オプション)</li>
+
+<li><strong>bootset</strong> ( <span>WPAR</span>の bootset ファイル・システム)</li>
+
+</ul>
+</div>
+<p>この表示は、1 行につき 1 つの bootset で構成されます。</p>
+</td>
+
+</tr>
+
+<tr>
+<td><strong>-b</strong></td>
+
+<td>ワークロード区画の bootlist を表示します。 <strong>-c</strong> または <strong>-d</strong> フラグが指定されていない場合、各 <span>WPAR</span> の出力は以下の表形式になります。<p><code>Name - Bootlist</code></p>
+</td>
+
+</tr>
+
+<tr>
+<td><strong>-br</strong></td>
+
+<td>要求された RootVG WPAR ごとの詳細な bootset 情報を生成します。 <strong>-c</strong> または <strong>-d</strong> フラグが指定されていない場合、各 <span>WPAR</span> の出力は以下の表形式になります。<p><code>Name - Device Name - Type - Virtual
+Device - RootVG - Bootset</code></p>
+</td>
+
+</tr>
+
+<tr>
+<td><strong>-Bf (Bf)</strong></td>
+
+<td>要求された非 RootVG WPAR ごとの詳細な bootset 情報を生成します。 <strong>-c</strong> または <strong>-d</strong> フラグが指定されていない場合、各 <span>WPAR</span> の出力は以下の表形式になります。<p><code>Name - Mount Point - Device -
+Vfs - Options - Bootset</code></p>
+</td>
+
+</tr>
+
+<tr>
+<td><strong>-c</strong></td>
+
+<td>マシンの構文解析に適したコロンで区切られた出力を生成します。 このフラグは、<strong>-L
+</strong> フラグとは併用できません。 デフォルト出力形式 (<strong>-D</strong>、<strong>-G</strong>、<strong>-I</strong>、<strong>-M</strong>、<strong>-N</strong>、<strong>-R</strong>、<strong>-S</strong>、および <strong>-T</strong> フラグが使用されない場合) は、次のとおりです。<p><code>name:state:type:hostname:directory</code></p>
+ <div><strong>state</strong> フィールドは、以下の有効な状態のうち 1 つ以上の状態です。<dl>
+<dt>D</dt>
+
+<dd>定義済み</dd>
+
+
+<dt>L</dt>
+
+<dd>ロード済み</dd>
+
+
+<dt>A</dt>
+
+<dd>アクティブ</dd>
+
+
+<dt>F</dt>
+
+<dd>凍結</dd>
+
+
+<dt>P</dt>
+
+<dd>一時停止</dd>
+
+
+<dt>N</dt>
+
+<dd>保守</dd>
+
+
+<dt>M</dt>
+
+<dd>移動中</dd>
+
+
+<dt>T</dt>
+
+<dd>移行</dd>
+
+
+<dt>B</dt>
+
+<dd>中断</dd>
+
+
+<dt>E</dt>
+
+<dd>エラー</dd>
+
+</dl>
+</div>
+ <div><strong>type</strong> フィールドは、以下の有効なタイプのうち 1 つ以上のタイプです。<dl>
+<dt>A</dt>
+
+<dd>アプリケーション・ <span>ワークロード・パーティション</span></dd>
+
+
+<dt>S</dt>
+
+<dd>システム・ <span>ワークロード・パーティション</span></dd>
+
+
+<dt>L</dt>
+
+<dd>バージョン管理されたシステム <span>・ワークロード・パーティション</span></dd>
+
+</dl>
+</div>
+</td>
+
+</tr>
+
+<tr>
+<td><strong>-d</strong><em> デリム</em></td>
+
+<td>マシンの構文解析に適した、区切り文字で区切られた出力を生成します。 このフラグは、<strong>-L
+</strong> フラグとは併用できません。 <strong>-d</strong> フラグが指定されている場合の出力形式は、<strong>-c</strong> フラグが指定されている場合と同じですが、フィールド間の区切り文字として <em>delim</em> が出力されます。</td>
+
+</tr>
+
+<tr>
+<td><strong>-D</strong></td>
+
+<td>要求された <span>WPAR</span>ごとに詳細なデバイス情報を生成します。 このフラグは、<strong>-G</strong>、<strong>-I</strong>、<strong>-L</strong>、<strong>-M</strong>、<strong>-N</strong>、<strong>-R</strong>、<strong>-S</strong>、または <strong>-T</strong> フラグとは一緒に使用できません。 <strong>-c</strong> または <strong>-d</strong> フラグが指定されていない場合、各 <span>WPAR</span> 出力は以下の表形式になります。<div><code>===============================<br>
+<em>Name</em> - <em>Device Name</em> - <em>Type</em> - <em>Virtual Device</em> - <em>RootVG</em> - <em>Status</em></code></div>
+</td>
+
+</tr>
+
+<tr>
+<td><strong>-G</strong></td>
+
+<td>要求された <span>WPAR</span>ごとに詳細な一般設定情報を生成します。 このフラグは、<strong>-I</strong>、<strong>-L</strong>、<strong>-M</strong>、<strong>-D</strong>、<strong>-N</strong>、<strong>-R</strong>、または <strong>-T</strong> フラグと一緒には指定できません。 <strong>-c</strong> または <strong>-d</strong> フラグを指定しないと、各 <span>ワークロード・パーティション</span> 出力は以下の段落フォーマットになります。<div><code>================<br>
+<em>Name</em> - <em>State</em><br>
+================<br>
+Type:                   {S|A}<br>
+Hostname:               <em>Hostname</em><span>WPAR</span><br>
+-Specific Routing:  {yes|no}<br>
+Directory:              <em>Directory</em><br>
+Start/Stop Script:      /<em>path</em>/<em>to</em>/<em>userScript</em><br>
+Auto Start:             {yes|no}<br>
+Private /usr:           {yes|no}<br>
+Checkpointable:         {yes|no}<br>
+Application:            /<em>path</em>/<em>to</em>/<em>trackedProcess</em><br>
+Owner:<br>
+Architecture: WPAR compatibility architecture<br>
+OStype:						&lt;i&gt;Integer value representing operating system type&lt;i&gt;<br>
+Cross-WPAR IPC: {yes|no}<br>
+UUID:	                  String value representing universally unique ID</code></div>
+ <p><strong>
+-c</strong> または <strong>-d</strong> フラグを使用すると、出力は次のようになります。</p><div><code>name:state:type:rootvgwpar:hostname:routing:directory:owner:script:<br>
+auto:privateusr:checkpointable:application:ostype</code></div>
+<p></p>
+</td>
+
+</tr>
+
+<tr>
+<td><strong>-I</strong></td>
+
+<td>ユーザー指定のネットワーク経路に関する詳細情報を生成します。 <strong>-I</strong> フラグは、<strong>-D</strong>、<strong>-G</strong>、<strong>-L</strong>、<strong>-M</strong>、<strong>-N</strong>、<strong>-R</strong>、<strong>-S</strong>、または <strong>-T</strong> フラグと一緒には指定できません。 <strong>-I</strong> フラグは、<strong>mkwpar</strong>、<strong>wparexec</strong>、または <strong>chwpar</strong> コマンドの <strong>-I</strong> フラグによって明示的に指定されたルーティング・テーブル・エントリーのみを表示します。 <span>ワークロード・パーティション</span>の完全なルーティング・テーブルを表示するには、 <strong>-r </strong>フラグおよび <strong>-@ </strong>フラグを指定した <strong>netstat</strong> コマンドを使用します。 <strong>-c</strong> または <strong>
+-d</strong> フラグを指定しない場合は、次の例に示すような表形式の出力が生成されます。<div><div><pre><code>Name      Type        Destination   Gateway     Interface
+---------------------------------------------------------------
+name      net|host    destination   gateway     if
+...       ...         ...           ...         ...</code></pre></div><div></div></div><strong>-c</strong> または <strong>
+-d</strong> フラグを使用すると、次の例に示すような区切り文字形式の出力が生成されます。<div><div><pre><code>name:rttype:rtdest:rtgateway:rtinterface:rtfamily</code></pre></div><div></div></div><strong>-I</strong> フラグを <strong>-a</strong> フラグと一緒に使用することにより、出力を次のフィールドの任意の組み合わせに制限することができます。<ul>
+<li><strong>name</strong> ( <span>ワークロード・パーティション</span> 名)</li>
+
+<li><strong>最新</strong></li>
+
+<li><strong>rtgateway (rtgateway)</strong></li>
+
+<li><strong>RTInterface</strong></li>
+
+<li><strong>RTTYPE</strong></li>
+
+<li><strong>rtfamily (rtfamily)</strong></li>
+
+</ul>
+</td>
+
+</tr>
+
+<tr>
+<td><strong>-L</strong></td>
+
+<td><p>長形式を指定します。 要求された <span>ワークロード区画</span>ごとに詳細な段落フォーマットの情報を生成します。 このフラグは、<strong>-c</strong>、<strong>-d</strong>、<strong>-D</strong>、<strong>-G</strong>、<strong>-I</strong>、<strong>-M</strong>、<strong>-N</strong>、<strong>-q</strong>、<strong>-R</strong>、<strong>-S</strong>、または <strong>-T</strong> フラグとは一緒に使用できません。</p>
+ <p>データを解析したい場合は、<strong>-L</strong> 出力を使用しないでください。 解析可能な出力を生成するには、区切り文字で分離されたフォーム (<strong>-c</strong> または <strong>-d</strong> フラグ) を使用します。 各 <span>ワークロード・パーティション</span> には、以下の例のようなフォーマット済み出力があります。</p>
+ <div><code>================<br>
+<em>Name</em> - <em>State</em><br>
+================<br>
+GENERAL<br>
+Type:               {S|A}<br>
+Hostname:           <em>Hostname</em><span>WPAR</span><br>
+-Specific Routing:  {yes|no}<br>
+Directory:          <em>Directory</em><br>
+Start/Stop Script:  /<em>path</em>/<em>to</em>/<em>userScript</em><br>
+Auto Start:         {yes|no}<br>
+Private /usr:       {yes|no}<br>
+Checkpointable:     {yes|no}<br>
+Application:        /<em>path</em>/<em>to</em>/<em>trackedProcess</em><br>
+Owner:<br>
+OStype:						&lt;i&gt;Integer value representing operating system type&lt;i&gt;<br>
+Cross-WPAR IPC:     {yes|no}<br>
+Architecture:<span>WPAR</span> compatibility architecture<br>
+UUID:                  String value representing universally unique ID<br>
+ <br>
+NETWORK<br>
+Interface    				Address          		Mask/Prefix      			Broadcast<br>
+---------------------------------------------------------------<br>
+<em>if</em>  <em>A</em>.<em>B</em>.<em>C</em>.<em>D</em> <em>A</em>.<em>B</em>.<em>C</em>.<em>D</em>        <em>A</em>.<em>B</em>.<em>C</em>.<em>D</em><br>
+<em>...</em>        <em>...</em>          <em>...</em>            <em>...</em><br>
+<br>
+USER-SPECIFIED ROUTES<br>
+Type        Destination   Gateway     Interface<br>
+---------------------------------------------------------------<br>
+<em>net</em>|<em>host</em>    <em>dest</em>ination   <em>gateway</em>     <em>if<br>
+...         ...           ...         ...</em><br>
+FILESYSTEMS<br>
+MountPoint            Device        		Vfs    		Nodename  			Options<br>
+-------------------------------------------------------------<br>
+<em>mountpoint</em>  <em>device</em>  <em>vfs</em>  <em>node</em>    <em>options</em> <br>
+<em>...</em>         <em>...</em>     <em>...</em>  <em>...</em>     <em>...</em> </code></div>
+</td>
+
+</tr>
+
+<tr>
+<td> </td>
+
+<td>(<em></em> <strong>-L</strong> <em>フラグによる長形式の例</em>, <em>は以下のとおりです。</em>)<div><code>RESOURCE CONTROLS<br>
+Active:                                  {yes|no}<br>
+RSet:                                    <em>rset</em><br>
+CPU Shares:                              <em>n</em><br>
+CPU Limits:                              <em>m</em>%-<em>S</em>%,<em>H</em>%<br>
+Memory Shares:                           <em>n</em><br>
+Memory Limits:                           <em>m</em>%-<em>S</em>%,<em>H</em>%<br>
+Per Process Virtual Memory Limit:        <em>n</em>MB<br>
+Total Processes:                         <em>n</em><br>
+Total Threads:                           <em>n</em><br>
+Total PTYs:                              <em>n</em><br>
+Total Large Pages:                       <em>n</em><br>
+Max Message queue IDs:                   <em>n</em>%<br>
+Max Semaphore IDs:                       <em>n</em>%<br>
+Max Shared memory IDs:                   <em>n</em>%<br>
+Max Pinned memory:                       <em>n</em>%</code><br> <code>OPERATION <br>
+Operation:  %<em>c</em><br>
+Process ID: %<em>p</em><br>
+Start time: %<em>t</em></code><br> <br> <code>SECURITY SETTINGS <br>
+Privileges: <em>privilege list</em><br>
+            <em>…</em><br>
+<br>
+DEVICE EXPORTS<br>
+Name				             	Type         		<br>
+Virtual Device		       	RootVG       		Status<br>
+<em>device name</em> <em>type</em> <em>virtual device name</em> <em>yes/no</em> <em>device status</em><br>
+<em>…</em>                                <em>…</em></code></div>
+</td>
+
+</tr>
+
+<tr>
+<td><strong>-M</strong></td>
+
+<td>要求された <span>ワークロード区画</span>ごとに詳細なマウント情報を生成します。 <span>ワークロード・パーティション</span> の外部からマウントされたファイル・システムがリストされ、 <span>ワークロード・パーティション</span> 内で定義されたファイル・システムは含まれません。 <strong>-M</strong> フラグは、<strong>-G</strong>、<strong>-I</strong>,<strong> -L</strong>、<strong>-N</strong>、<strong>-R</strong>、または <strong>-T</strong> フラグとは一緒に使用できません。 <strong>-c</strong> または <strong>-d</strong> フラグを指定しないと、次の例で示すように表出力が生成されます。<div><code>Name     MountPoint    Device    Vfs    Nodename  Options<br>
+----------------------------------------------------------<br>
+name   			mountpoint  		device  	vfs  	node    	options<br>
+...   			 ...         	...     	...  	...     	...</code></div>
+ <p><strong>-c</strong> または <strong>
+-d</strong> フラグを使用すると、次の例に示すような区切り文字形式の出力が生成されます。</p><div><code>name:mountpoint:device:vfs:nodename:options</code></div>
+<p></p>
+ <div>出力を以下のフィールドのいずれかの組み合わせに限定するために、このフラグを <strong>-a</strong> フラグと一緒に使用することができます。<ul>
+<li><strong>Name</strong> ( <span>ワークロード・パーティション</span> 名)</li>
+
+<li><strong>Mountpoint</strong> (マウント・ポイント名)</li>
+
+<li><strong>Device</strong> (マウントされたオブジェクト)</li>
+
+<li><strong>Vfs</strong> (仮想ファイルシステムのタイプ)</li>
+
+<li><strong>Nodename</strong> (マウントがリモートの場合、ノード名)</li>
+
+<li><strong>Options</strong> (任意のマウント・オプション)</li>
+
+</ul>
+</div>
+</td>
+
+</tr>
+
+<tr>
+<td><strong>-N</strong></td>
+
+<td>要求された <span>ワークロード・パーティション</span>ごとに詳細なネットワーク情報を生成します。 このフラグは、<strong>-G</strong>
+、<strong>-I</strong>、<strong>-L</strong>、<strong>-M</strong>、<strong>-R</strong>、<strong>-D</strong>、<strong>-S</strong>、または <strong>-T</strong> フラグと同時には使用できません。 <strong>-c</strong> または <strong>-d</strong> フラグを指定しないと、次の例で示すように表出力が生成されます。<div><code>Name    Interface    Address(6)         Mask/Prefix       Broadcast<br>
+------------------------------------------------------------<br>
+<em>name</em>    <em>if</em>        <em>   A</em>.<em>B</em>.<em>C</em>.<em>D</em>        <em>    A</em>.<em>B</em>.<em>C</em>.<em>D</em>     <em>      A</em>.<em>B</em>.<em>C</em>.<em>D</em><br>
+<em>...</em><br>
+<em>name</em>    <em>if</em>           <em>S</em>:<em>T</em>:<em>U</em>:<em>V</em>:<em>W</em>:<em>X</em>:<em>Y</em>:<em>Z</em>    <em>R</em><br>
+<em>...</em></code></div>
+ <p><strong>-c</strong> または <strong>
+-d</strong> フラグを使用すると、次の例に示すような区切り文字形式の出力が生成されます。</p><div><code>name:interface:address:mask_prefix:broadcast</code></div>
+<p></p>
+ <div><strong>-N</strong> フラグを <strong>-a</strong> フラグと一緒に使用することにより、出力を次のフィールドの任意の組み合わせに制限することができます。<ul>
+<li><strong>名前</strong> ( <span>WPAR</span> 名)</li>
+
+<li><strong>インターフェース</strong></li>
+
+<li><strong>Address</strong>(IPv4 または IPv6 アドレス)</li>
+
+<li><strong>Mask_Prefix</strong> (IPv4 <strong>netmask</strong> フィールドまたは IPv6 <strong>prefixlen</strong> フィールド)</li>
+
+<li><strong>Broadcast</strong></li>
+
+</ul>
+</div>
+ <p><span>WPAR</span> に 1 つ以上の名前がマップされたインターフェースが含まれている場合、 <strong>lswpar</strong> コマンドは、 <span>WPAR</span> が <strong>「定義済み」</strong> 状態のときに構成ファイルに指定された情報のみを表示します。 <span>WPAR</span> が <strong>アクティブ</strong> 状態の場合、実際のランタイム・ネットワーク属性が表示されます。</p>
+ <div><div>
+        <div>
+          <div><span>注:</span> 区切り文字で区切られている出力に IPv6 アドレスが含まれることが予期される場合は、 IPv6 アドレスにはコロンが含まれるため、 <strong>-d</strong> フラグを使用して代替区切り文字を指定してください。</div>
+        </div>
+      </div></div>
+</td>
+
+</tr>
+
+<tr>
+<td><strong>-q</strong></td>
+
+<td>表の見出しを抑止 (静止) します。 このフラグは、表形式と区切り文字形式の出力の場合にのみ有効です。</td>
+
+</tr>
+
+<tr>
+<td><strong>-R</strong></td>
+
+<td>要求された <span>WPAR</span>ごとに詳細なリソース制御情報を生成します。 このフラグは、<strong>-G</strong>、<strong>-I</strong>、<strong>-L</strong>、<strong>-M</strong>、<strong>-N</strong>、<strong>-D</strong>、<strong>-S</strong>、または <strong>-T</strong> フラグと同時には使用できません。 <strong>-c</strong> または <strong>-d</strong> フラグを指定しないと、各 <span>ワークロード・パーティション</span> 出力は以下の段落フォーマットになります。<div><code>================<br>
+<em>Name</em> - <em>State</em><br>
+================<br>
+Active:                                  {yes|no}<br>
+RSet:                                    <em>rset</em><br>
+CPU Shares:                              <em>n</em><br>
+CPU Limits:                              <em>m</em>%-<em>S</em>%,<em>H</em>%<br>
+Memory Shares:                           <em>n</em><br>
+Memory Limits:                           <em>m</em>%-<em>S</em>%,<em>H</em>%<br>
+Per-Process Virtual Memory Limit:        <em>n</em>MB<br>
+Total Processes:                         <em>n</em><br>
+Total Threads:                           <em>n</em><br>
+Total PTYs:                              <em>n</em><br>
+Total Large Pages:                       <em>n</em><br>
+Max Message queue IDs:                   <em>n</em>%<br>
+Max Semaphore IDs:                       <em>n</em>%<br>
+Max Shared memory IDs:                   <em>n</em>%<br>
+Max Pinned memory:                       <em>n</em>%</code></div>
+ <p><strong>-c</strong> または <strong>-d</strong> フラグを使用すると、区切り文字で区切られた出力は以下の例のようになります。</p><div><code>name:state:active:rset:shares_CPU:CPU:shares_memory:memory:<br>
+procVirtMem:totalProcesses:totalThreads:totalPTYs:<br>
+totalLargePages:pct_msgIDs:pct_semIDs:pct_shmIDs:pct_pinMem</code></div>
+<p></p>
+</td>
+
+</tr>
+
+<tr>
+<td><strong>-s {[D] [L] [A] [F] [P] [N] [M] [T] [B]}</strong></td>
+
+<td><span>workload partition</span> の状態に基づいて出力をフィルターに掛けます。 複数の状態コードを使用することができます。 状態コードについては、<strong>-c
+</strong> フラグを参照してください。</td>
+
+</tr>
+
+<tr>
+<td><strong>-S</strong></td>
+
+<td>要求された <span>WPAR</span>ごとに詳細なセキュリティー特権情報を生成します。 このフラグは、<strong>-D</strong>、<strong>-G</strong>、<strong>-I</strong>、<strong>-L</strong>、<strong>-M</strong>、<strong>-N</strong>、<strong>-R</strong>、または <strong>-T</strong> フラグとは一緒に使用できません。 <strong>-c</strong> または <strong>-d</strong> フラグを指定しないと、各 <span>ワークロード・パーティション</span> 出力は以下の段落フォーマットになります。<div><code> ===============================<br>
+<em>Name</em> - <em>State</em><br>
+===============================<br>
+Privileges:  <em>comma-separated list of privileges assigned to the <span>workload partition</span></em></code></div>
+</td>
+
+</tr>
+
+<tr>
+<td><strong>-t {[A][S][C][L]}</strong></td>
+
+<td><span>ワークロード・パーティション</span> ・タイプに基づいて出力をフィルタリングします。 複数のタイプ・コードを使用することができます。 タイプ・コードについては、<strong>-c</strong> フラグを参照してください。</td>
+
+</tr>
+
+<tr>
+<td><strong>-T</strong></td>
+
+<td>要求された <span>ワークロード・パーティション</span>ごとに詳細なロック情報を生成します。 このフラグは、<strong>-D</strong>、<strong>-G</strong>、<strong>-I</strong>、<strong>-L</strong>、<strong>-M</strong>、<strong>-N</strong>、<strong>-R</strong>、<strong>-S</strong>、または <strong>-s</strong> フラグと同時には使用できません。 このフラグは、<strong>-c</strong> フラグも指定されていない限り、<strong>-q</strong> フラグと同時には使用できません。 <strong>-c</strong> フラグを指定しない場合、各 <span>ワークロード・パーティション</span> 出力の形式は次のようになります。<div><code>================<br>
+<em>Name</em> - <em>State</em><br>
+================<br>
+Operation:  %<em>c</em><br>
+Process ID: %<em>p</em><br>
+Start time: %<em>t</em></code></div><strong>-c</strong> または <strong>
+-d</strong> フラグを使用すると、次の例に示すような出力が生成されます。<div><code>name:state:opname:oppid:opstart</code></div>
+</td>
+
+</tr>
+
+<tr>
+<td><strong>-X</strong></td>
+
+<td>要求されたワークロード区画ごとに詳細なカーネル・エクステンション情報を順に生成します。 このフラグは、<strong>-D</strong>、<strong>-G</strong>、<strong>-I</strong>、<strong>-L</strong>、<strong>-M</strong>、<strong>-N</strong>、<strong>-R</strong>、<strong>-S</strong>、または <strong>-T</strong> フラグと同時には使用できません。 <strong>-c</strong> または <strong>-d</strong> フラグが指定されていない場合、各 <span>ワークロード・パーティション</span> 出力は以下の表形式になります。<div><code>Name      Extension Name     Local  Major  Status  checksum<br>
+---------------------------------------------------------------<br>
+name   /path/to/extension    local  major  status  checksum<br>
+...</code></div>
+</td>
+
+</tr>
+
+<tr>
+<td><em>wparname (wparname)</em></td>
+
+<td>1 つ以上の <span>ワークロード・パーティション</span>を指定します。 このパラメーターは、コマンド・ラインの最後のパラメーターでなければなりません。 複数の <span>ワークロード・パーティション</span> 名と一致するシェル・スタイルのワイルドカードを含めることができます。 (この場合、<strong>lswpar</strong> コマンドがメタキャラクターを受け取る前に、シェル拡張を防ぐための適切なシェル引用符を使用します。)</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</section>
+
+<section><h2>セキュリティー</h2> <p>アクセス制御: root ユーザーのみがこのコマンドを実行できます。</p>
+ <div><div><div>
+        <div>
+          <div><span>RBAC ユーザーへの注意:</span> このコマンドは特権命令を実行できます。 特権命令を実行できるのは特権ユーザーのみです。 権限と特権の詳細については、<span>セキュリティ</span>の <a href="https://www.ibm.com/docs/ja/ssw_aix_73/security/rbac_priv_cmd_db.html" target="_blank" rel="noopener noreferrer">特権コマンドデータベース</a>を参照してください。 このコマンドに関連する特権と権限のリストについては、'<a href="https://www.ibm.com/docs/ja/ssw_aix_73/l_commands/lssecattr.html" target="_blank" rel="noopener noreferrer"><span>lssecattr</span></a>コマンドまたは'<a href="https://www.ibm.com/docs/ja/ssw_aix_73/g_bostechref/getcmdattr.html" target="_blank" rel="noopener noreferrer"><span>getcmdattr</span></a>サブコマンドを参照のこと。</div>
+        </div>
+      </div></div>
+</div>
+</section>
+
+<section><h2>例</h2> <ol>
+<li>すべての <span>ワークロード・パーティション</span>に関する表形式の情報を表示するには、次のコマンドを入力します。<div><div><pre><code># lswpar
+Name        State  Type   Hostname            Directory     RootVG WPAR
+-----------------------------------------------------------------------
+bar         A      S      bar.austin.ibm.com  /wpars/bar      yes
+foo         D      S      foo.austin.ibm.com  /wpars/foo      no
+trigger     A      A      trigger             /                </code></pre></div><div></div></div></li>
+
+<li>アプリケーションの <span>ワークロード・パーティション</span> に関する限られた表形式の情報のみを表示するには、次のコマンドを入力します。<div><div><pre><code># lswpar -t A -a name,application,script
+Name     Application                Script
+------------------------------------------------------------
+trigger  /usr/sbin/apachectl start  /home/joe/trigger.script</code></pre></div><div></div></div></li>
+
+<li>すべてのアクティブおよび定義済み <span>ワークロード・パーティション</span>について、ヘッダーなしでコロンで区切られた一般情報を表示するには、次のコマンドを入力します。<div><div><pre><code># lswpar -G -c -q -s AD
+bar:A:S:bar.austin.ibm.com:/wpars/bar:/home/bar/wpar.scr:no:no:yes::no
+foo:D:S:foo.austin.ibm.com:/wpars/foo::no:no:no::no
+trigger:A:A:trigger:/:/home/joe/trigger.script
+:no:no:yes:/usr/sbin/apachectl start:no</code></pre></div><div></div></div></li>
+
+<li><code>trigger</code>という名前の <span>ワークロード区画</span> に関する拡張情報を表示するには、次のコマンドを入力します。<div><div><pre><code> # lswpar -L trigger
+================
+trigger - Active
+================
+GENERAL
+Type:                   A
+Hostname:               triggerWPAR
+-Specific Routing:  yes
+Directory:              /
+Start/Stop Script:      /home/joe/trigger.script
+Auto Start:             no
+Private /usr:           no
+Checkpointable:         yes
+Application:            /usr/sbin/apachectl start
+
+NETWORK
+Interface    Address          Mask/Prefix      Broadcast
+-----------------------------------------------------------------
+en0          1.2.3.4          255.255.255.0    1.2.3.255
+en1          5.6.7.8          255.255.255.0    5.6.7.255
+
+USER-SPECIFIED ROUTES
+Type        Destination   Gateway     Interface
+---------------------------------------------------------------
+net         9.1.2.24      1.2.3.1     en0
+host        192.168.1.2   1.2.3.1     en1
+
+FILESYSTEMS
+MountPoint              Device          Vfs    Nodename  Options
+-----------------------------------------------------------------
+/share                  /nfs2/share     nfs    nfsserver rw
+
+RESOURCE CONTROLS
+Active:                              yes
+RSet:                                isp1
+CPU Shares:                          2
+CPU Limits:                          5%-10%,50%
+Memory Shares:                       3
+Memory Limits:                       10%-20%,30%
+Per-Process Virtual Memory Limit:    1024MB
+Total Processes:                     64
+Total Threads:                       1024
+Total PTYs:                          8
+Total Large Pages:                   16
+Max Message queue IDs:               20%
+Max Semaphore IDs:                   30%
+Max Shared memory IDs:               50%
+Max Pinned memory:                   20%
+OPERATION:
+Operation:                           restart
+Process ID:                          905266
+Start time:                          11:19
+
+
+Privileges:                          PV_AU_,PV_AU_ADD,PV_AU_ADMIN,PV_AU_PROC,
+                                     PV_AU_READ,PV_AU_WRITE,PV_AZ_ADMIN,
+                                     PV_AZ_CHECK,PV_AZ_READ,PV_AZ_ROOT,PV_DAC_,
+                                     PV_DAC_GID,PV_DAC_O,PV_DAC_R,PV_DAC_RID,
+                                     PV_DAC_UID,PV_DAC_W,PV_DAC_X,PV_DEV_CONFIG,
+                                     PV_DEV_QUERY,PV_FS_CHOWN,PV_FS_CHROOT
+
+DEVICE EXPORTS
+Name                                 Type         Virtual Device    RootVG      Status
+-----------------------------------------------------------------------------------------
+hdisk4                               disk                            yes        ALLOCATED
+/dev/null                            pseudo                                     ALLOCATED
+/dev/tty                             pseudo                                     ALLOCATED
+/dev/random                          pseudo                                     ALLOCATED
+/dev/urandom                         pseudo                                     ALLOCATED
+/dev/console                         pseudo                                     ALLOCATED
+/dev/zero                            pseudo                                     ALLOCATED
+/dev/clone                           pseudo                                     ALLOCATED
+/dev/sad                             clone                                      ALLOCATED</code></pre></div><div></div></div></li>
+
+<li><code>roy</code>と呼ばれる <span>ワークロード・パーティション</span> のパイプで区切られた、機械可読ネットワーク情報を表示するには、次のコマンドを入力します。<div><div><pre><code># lswpar -d'|' -N roy
+#name|interface|address|mask_prefix|broadcast
+roy|en0|192.168.1.50|255.255.255.128|192.168.1.127
+roy|en1|2001:DB8::|32|</code></pre></div><div></div></div></li>
+
+<li>すべての <span>ワークロード・パーティション</span>の機械可読リソース制御情報を表示するには、次のコマンドを入力します。<div><div><pre><code># lswpar -cR
+#name:state:active:rset:shares_CPU:CPU:shares_memory:memory:procVirtMem:
+totalProcesses:totalThreads:totalPTYs:
+totalLargePages:pct_msgIDs:pct_semIDs:pct_shmIDs:pct_pinMem
+dale:A:no:::::::
+roy:A:yes:rogers:3::2::32:128
+trigger:A:yes:isp1:2:5%-10%,50%:3:10%-20%,30%:1024MB:64:1024:8:
+16:20%:30%:50%:20%</code></pre></div><div></div></div></li>
+
+<li><code>foo</code>という名前の <span>ワークロード区画</span> に関する操作情報を表示するには、次のコマンドを入力します。<div><div><pre><code># lswpar –T foo
+=================================================================
+foo - Transitional
+=================================================================
+Operation: restart
+Process ID: 905266
+Start time: 11:19</code></pre></div><div></div></div></li>
+
+<li><code>roy</code>という名前の <span>ワークロード・パーティション</span> にエクスポートされ、割り振られているデバイスに関する情報を表示するには、次のコマンドを入力します。</li>
+
+<li><div><div><pre><code># lswpar -D roy
+Name  Device Name      Type    Virtual Device  RootVG    Status   
+------------------------------------------------------------------
+roy   /dev/null       pseudo                  	         EXPORTED
+...  
+roy   fcs0            adapter                           EXPORTED 
+roy   hdisk2          disk      hdisk0          yes     </code></pre></div><div></div></div></li>
+
+<li>RootVG ワークロード区画の bootset に関する情報を表示するには、次のコマンドを入力します。<div><div><pre><code>lswpar -Br &lt;WPAR name&gt;</code></pre></div><div></div></div></li>
+
+<li>ワークロード区画の bootlist に関する情報を表示するには、次のコマンドを入力します。<div><div><pre><code>lswpar -b &lt;WPAR name&gt;</code></pre></div><div></div></div></li>
+
+</ol>
+</section>
+
+</div></div>

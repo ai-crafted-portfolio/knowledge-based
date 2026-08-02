@@ -1,0 +1,2655 @@
+<div class="official-dom"><div>
+<section><h2>目的</h2> <p>ファイルをフルスクリーン表示で編集します。</p>
+</section>
+
+<section><h2>構文</h2> <p>{ <strong>6</strong> | <strong>Vedit</strong> } [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/v_commands/vi.html#vi__row-d3e6796" target="_blank" rel="noopener noreferrer"><strong>- </strong></a>] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/v_commands/vi.html#vi__row-d3e6834" target="_blank" rel="noopener noreferrer"><strong>-R </strong></a>] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/v_commands/vi.html#vi__row-d3e6843" target="_blank" rel="noopener noreferrer"><strong>T</strong></a><em>タグ</em> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/v_commands/vi.html#vi__row-d3e6858" target="_blank" rel="noopener noreferrer"><strong>-v (V) </strong></a>] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/v_commands/vi.html#vi__row-d3e6864" target="_blank" rel="noopener noreferrer"><strong>-w (W)</strong></a><em>数値</em>] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/v_commands/vi.html#vi__row-d3e6875" target="_blank" rel="noopener noreferrer"><strong>-y (Y)</strong></a><em>数値</em> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/v_commands/vi.html#vi__row-d3e6821" target="_blank" rel="noopener noreferrer"><strong>- </strong></a>[ <em>ファイル</em> ] ] [{ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/v_commands/vi.html#vi__row-d3e6883" target="_blank" rel="noopener noreferrer"><strong>+</strong> </a>| <a href="https://www.ibm.com/docs/ja/ssw_aix_73/v_commands/vi.html#vi__row-d3e6774" target="_blank" rel="noopener noreferrer"><strong>「-c」 </strong></a>} { <em>サブコマンド</em> } ] [ <em>ファイル</em> ... ]</p>
+</section>
+
+<section><h2>説明</h2> <p><strong>vi</strong> コマンドは、基本 ex エディターに基づいてフルスクリーン・エディターを始動します。 したがって、vi エディター内では ex サブコマンドが使用できます。 <strong>vedit</strong> コマンドは、vi エディターの初心者向けバージョンを始動します。 vedit エディターでは、<strong>report</strong> オプションが 1 に設定され、<strong>showmode</strong> オプションが設定され、<strong>novice</strong> オプションが設定されて、ライン・エディターとなります。</p>
+ <p>編集するファイル名 (複数可) を指定して vi エディターを始動します。 コマンド・ラインで複数の <em>File</em> パラメーターを指定すると、vi エディターは各ファイルを指定順に編集します。 既存のファイルに対する vi エディターには、ファイルの名前、行数、および画面の末尾にある文字数が表示されます。 マルチバイト・ロケールの場合には、この文字数はバイト数として解釈する必要があります。</p>
+ <p>vi エディターはフルスクリーン・エディターなので、画面単位でテキストを編集できます。 vi エディターは編集しているファイルのコピーを編集バッファーに作成し、ファイルの内容を変更結果が保存されるまで変更しません。 ディスプレイ画面上のカーソル位置は、ファイル内におけるカーソル位置を示し、サブコマンドはカーソル位置のファイルに影響を与えます。</p>
+
+<dl>
+
+<dt>vi エディターの制限</dt>
+
+<dd><p>以下のリストは、vi エディターの最大制限値を示したものです。 これらの値のカウントは、1 バイト文字を想定しています。</p>
+
+<ul>
+<li>グローバル・コマンド・リスト当たり 256 文字まで。</li>
+
+<li>1 つのシェル・エスケープ・コマンドには 2048 文字まで。</li>
+
+<li>1 つの文字列値オプションには 128 文字まで。</li>
+
+<li>1 つのタグ名には 30 文字まで。</li>
+
+<li>合計 2048 文字で 128 マップ・マクロ。</li>
+
+<li>1,048,560 行と見なされる。</li>
+
+<li>マクロ名およびマクロ・テキストは 100 文字まで。</li>
+
+</ul>
+
+<div><div>
+        <div>
+          <div><span>注:</span> vi エディターは最大 2 GB の編集バッファーをサポートします。</div>
+        </div>
+      </div></div>
+
+</dd>
+
+
+
+<dt>vi 編集モード</dt>
+
+<dd><p>vi エディターは、以下のモードで操作します。</p>
+
+
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td>コマンド・モード</td>
+
+<td>vi エディターを始動すると、コマンド・モードになります。 テキスト入力モードでしか指定できないものを除き、すべてのサブコマンドを入力できます。 vi エディターは、サブコマンドおよび他のモードが終了すると、コマンド・モードに戻ります。 サブコマンドを取り消すときには、Esc キーを押します。</td>
+
+</tr>
+
+<tr>
+<td>テキスト入力モード</td>
+
+<td>テキストを追加するときには、このモードで vi エディターを使用します。
+以下のサブコマンドのいずれかでテキスト入力モードに入ります。 <a href="https://www.ibm.com/docs/ja/ssw_aix_73/v_commands/vi.html#vi__a3b27e04416endr" target="_blank" rel="noopener noreferrer"><strong>A</strong></a> サブコマンド、 <a href="https://www.ibm.com/docs/ja/ssw_aix_73/v_commands/vi.html#vi__a3b27e04522endr" target="_blank" rel="noopener noreferrer"><strong>A</strong></a> サブコマンド、 <a href="https://www.ibm.com/docs/ja/ssw_aix_73/v_commands/vi.html#vi__a3b27e04630endr" target="_blank" rel="noopener noreferrer"><strong>I</strong></a> サブコマンド、 <a href="https://www.ibm.com/docs/ja/ssw_aix_73/v_commands/vi.html#vi__a3b27e04740endr" target="_blank" rel="noopener noreferrer"><strong>私は</strong></a> サブコマンド、 <a href="https://www.ibm.com/docs/ja/ssw_aix_73/v_commands/vi.html#vi__a3b27e04846endr" target="_blank" rel="noopener noreferrer"><strong>O</strong></a> サブコマンド、 <a href="https://www.ibm.com/docs/ja/ssw_aix_73/v_commands/vi.html#vi__a3b27e04954endr" target="_blank" rel="noopener noreferrer"><strong>オー</strong></a> サブコマンド、 <a href="https://www.ibm.com/docs/ja/ssw_aix_73/v_commands/vi.html#vi__a3b27e06485endr" target="_blank" rel="noopener noreferrer"><strong>C</strong><em>X</em> </a>サブコマンド ( <em>X</em> はサブコマンドの範囲を表します)、 <a href="https://www.ibm.com/docs/ja/ssw_aix_73/v_commands/vi.html#vi__a3b27e06384endr" target="_blank" rel="noopener noreferrer"><strong>「C」</strong></a> サブコマンド、 <a href="https://www.ibm.com/docs/ja/ssw_aix_73/v_commands/vi.html#vi__a3b27e07429endr" target="_blank" rel="noopener noreferrer"><strong>S</strong></a> サブコマンド、 <a href="https://www.ibm.com/docs/ja/ssw_aix_73/v_commands/vi.html#vi__a3b27e07533endr" target="_blank" rel="noopener noreferrer"><strong>S</strong></a> サブコマンド、および <a href="https://www.ibm.com/docs/ja/ssw_aix_73/v_commands/vi.html#vi__a3b27e07322endr" target="_blank" rel="noopener noreferrer"><strong>「R」</strong></a> サブコマンドのいずれかを使用して、テキスト入力モードに入ります。 これらのいずれかのサブコマンドを入力すれば、テキストを編集バッファーに入力できます。 コマンド・モードに戻るときには、正常終了の Esc キーを押すか、割り込み (Ctrl-C キー・シーケンス) を押して異常終了します。</td>
+
+</tr>
+
+<tr>
+<td>最終行モード</td>
+
+<td>接頭部 <strong>:</strong> (コロン)、<strong> /</strong> (スラッシュ)、 <strong>?</strong> を持つサブコマンド (疑問符)、 <strong>!</strong> (感嘆符)、または <strong>!!</strong> (2 つの感嘆符) は、画面の終わりに表示されている行の入力を読み取ります。 最初の文字を入力すると、vi エディターはカーソルを画面の終わりに置き、コマンドの残りの文字を入力します。 Enter キーを押すとサブコマンドは実行され、割り込み (Ctrl-C キー・シーケンス) を押すと取り消されます。 <strong>!!</strong> が 接頭部を使用すると、カーソルは両方の感嘆符が入力された後にのみ移動します。 接頭部 <strong>:</strong> を使用して最終行モードを入力するとき、以下の文字をカウントを指定するコマンドの前で使用する
+と、vi エディターはその文字に特別な意味を持たせます。<dl>
+
+<dt><strong>%</strong></dt>
+
+<dd>カーソル位置に関係なくすべての行</dd>
+
+
+
+<dt><strong>$</strong></dt>
+
+<dd>最終行</dd>
+
+
+
+<dt><strong>.</strong></dt>
+
+<dd>現行行</dd>
+
+
+</dl>
+
+<div><div>
+        <div>
+          <div><span>注:</span> 最終行モード・サブコマンドの履歴は、上矢印キーと下矢印キーを使用してナビゲートできます。</div>
+        </div>
+      </div></div>
+</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+
+</dd>
+
+
+
+<dt>vi エディターのカスタマイズ</dt>
+
+<dd><div>vi エディターは、以下の方法でカスタマイズできます。<ul>
+<li>vi エディター・オプションの設定</li>
+
+<li>マクロの定義</li>
+
+<li>キーのマッピング</li>
+
+<li>省略形の設定</li>
+
+</ul>
+</div>
+
+</dd>
+
+
+
+<dt>vi エディター・オプションの設定</dt>
+
+<dd><div>以下のリストでは、<strong>set</strong> コマンドを使用して変更できる vi エディター・オプションについて説明します。 各オプションのデフォルト設定は <strong>off</strong> です。 これらのトグル・オプションのいずれかをオンにすると、オプションの前にワード <strong>no</strong> を入力して再びオフにすることができます。 <strong>autowrite</strong> vi オプションを中止したい場合は、<strong>noaw</strong> を入力します。
+この場合、<strong>no</strong> はオプションをオフにし、<strong>aw</strong> は <strong>autowrite</strong> オプションを指定します。<div><div>
+        <div>
+          <div><span>注:</span> vi オプションを入力するときは括弧を使用しないでください。</div>
+        </div>
+      </div></div>
+</div>
+
+
+<div><div><table><thead>
+<tr>
+<th><div>vi オプション (省略形)</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><span>autoindent (ai)</span></td>
+
+<td><strong>シフト幅</strong> オプションで指定されたタブ・ストップ間の間隔を使用して、 <a href="https://www.ibm.com/docs/ja/ssw_aix_73/v_commands/vi.html#vi__row-d3e5308" target="_blank" rel="noopener noreferrer">テキスト入力モード</a> で前の行のインデントまで自動的にインデントします。 デフォルトは <strong>noai</strong> です。 カーソルを前のタブ・ストップまで戻すには、Ctrl-D キー・シーケンスを押します。 このオプションは、グローバル・コマンドには無効です。</td>
+
+</tr>
+
+<tr>
+<td><span>autoprin (ap)</span></td>
+
+<td>編集バッファーを変更するコマンドの後に、現在行を表示します。 デフォルトは <strong>ap</strong>です。 このオプションは、単一の行に入力した一連のコマンドのうち、最後のコマンドにのみ適用され、グローバル・コマンドには無効です。</td>
+
+</tr>
+
+<tr>
+<td><span>autowrite (aw)</span></td>
+
+<td><a href="https://www.ibm.com/docs/ja/ssw_aix_73/v_commands/vi.html#vi__row-d3e8401" target="_blank" rel="noopener noreferrer"><strong>n</strong></a>サブコマンド、<a href="https://www.ibm.com/docs/ja/ssw_aix_73/v_commands/vi.html#vi__row-d3e8343" target="_blank" rel="noopener noreferrer"><strong>:ta</strong></a>サブコマンド、<a href="https://www.ibm.com/docs/ja/ssw_aix_73/v_commands/vi.html#vi__row-d3e8376" target="_blank" rel="noopener noreferrer">Ctrl-A</a>、Ctrl -]、Ctrl-Tキーシーケンス、<a href="https://www.ibm.com/docs/ja/ssw_aix_73/v_commands/vi.html#vi__row-d3e8581" target="_blank" rel="noopener noreferrer"><strong>.NET</strong></a>キーシーケンスの前に、自動的に編集バッファをファイルに書き込みます！ サブコマンド (最後の <a href="https://www.ibm.com/docs/ja/ssw_aix_73/v_commands/vi.html#vi__row-d3e8218" target="_blank" rel="noopener noreferrer"><strong>書き込み</strong></a> サブコマンド以降に編集バッファーが変更された場合) デフォルトは <strong>noaw</strong> です。</td>
+
+</tr>
+
+<tr>
+<td><span>backtags (bt)</span></td>
+
+<td>Ctrl-T サブコマンドが、ファイル編集位置を前回
+の Ctrl-] サブコマンドが発行されたロケーションに戻すことができるようにします。 <strong>バックタグなし</strong> が設定されている場合、Ctrl-T は Ctrl-] と同じです。 デフォルトは <strong>バックタグ</strong>です。</td>
+
+</tr>
+
+<tr>
+<td><span>beautifying text (bf)</span></td>
+
+<td>テキスト入力中に、編集バッファーに制御文字 (タブ、改行、および用紙送りインジケーター) を入力できないようにします。 デフォルトは <strong>nobf</strong> です。 このオプションは、コマンド入力に適用されます。</td>
+
+</tr>
+
+<tr>
+<td><span>closepunct (cp=)</span></td>
+
+<td>特にテキストの折り返し時 (<strong>wraptype</strong> オプション) に終了句読点のリストを処理します。 複数文字の句読点の前に文字数を付けます。以下に例を示します。cp=3..;)}. <strong>6</strong> コマンドは、折り返し時に終了句読点を分割しません。</td>
+
+</tr>
+
+<tr>
+<td><span>directory (dir=)</span></td>
+
+<td>編集バッファーが入っているディレクトリーを表示します。 デフォルトは <strong>dir = /var/tmp</strong> です。</td>
+
+</tr>
+
+<tr>
+<td><span>edcompatible (ed)</span></td>
+
+<td>複数の置換を行う間にサブコマンド接尾部 <strong>g</strong> (グローバル) および <strong>c</strong> (確認) を保持し、<strong>r</strong> (読み取り) 接尾部を <strong>r</strong> サブコマンドと同様に機能させます。 デフォルトは <strong>noed</strong> です。</td>
+
+</tr>
+
+<tr>
+<td><span>exrc (exrc)</span></td>
+
+<td>このオプションを設定しなければ、現在のディレクトリー名が <strong>HOME</strong> 環境変数で指定されていない限り、初期化時に現行ディレクトリー内の <strong>.exrc</strong> ファイルがすべて無視されます。 デフォルトは <strong>noexrc</strong> です。</td>
+
+</tr>
+
+<tr>
+<td><span>hardtabs (ht=)</span></td>
+
+<td>vi エディターに対して、ディスプレイ画面上のハードウェア・タブ・ストップの間隔を指示します。 (このオプションは、基礎となる端末または端末エミュレーターのタブ設定と一致する必要があります。) デフォルトは <strong>ht=8</strong> です。</td>
+
+</tr>
+
+<tr>
+<td><span>history (hist=)</span></td>
+
+<td>最終行モード時のコマンドの履歴を見る場合に使用される最大履歴数を設定します。 初期値は <span><span>hist=32</span></span>です。 <span><span>tvi</span></span> コマンドの場合、ヒストリー・サイズはゼロ (<span><span>hist=0</span></span>) です。</td>
+
+</tr>
+
+<tr>
+<td><span>ignorecase (ic)</span></td>
+
+<td>正規表現の検索中に大文字と小文字の違いを無視します。 デフォルトは <strong>noic</strong> です。</td>
+
+</tr>
+
+<tr>
+<td><span>linelimit (ll=)</span></td>
+
+<td><strong>-y</strong> コマンド・ライン・オプションに関して最大行数を設定します。 このオプションは、<strong>.exrc</strong> ファイルまたは <strong>EXINIT</strong> 環境変数とともに使用する場合のみ有効です。</td>
+
+</tr>
+
+<tr>
+<td><span>lisp (lisp)</span></td>
+
+<td>( )、{ }、[ [、および ] ] の特殊な意味を除去し、s 式に対して = (フォーマット出力) 演算子を使用可能にして、リスト処理 (LISP) プログラムを編集できるようにします。 デフォルトは <strong>nolisp</strong> です。</td>
+
+</tr>
+
+<tr>
+<td><span>list (list)</span></td>
+
+<td>タブ (^ I) とマークされた行の終わり ($) を含むテキストを表示します。 デフォルトは <strong>ノーリスト</strong> です。</td>
+
+</tr>
+
+<tr>
+<td><span>magic (magic)</span></td>
+
+<td>パターンを検索するときに、
+. (ピリオド)、[ (左大括弧)、および * (アスタリスク) を特殊文字として扱います。 オフ・モードでは、( ) (小括弧) と $ (ドル記号) のみが特殊な意味を保持します。 ただし、前に円記号 (&amp;#xa5;) を付けると、他の文字の特殊な意味を復活させることができます。 デフォルトは <strong>magic</strong>です。</td>
+
+</tr>
+
+<tr>
+<td><span>mesg (mesg)</span></td>
+
+<td>ビジュアル・モードで設定されている間、端末への書き込み許可をオンにします。 このオプションは、<strong>.exrc</strong> ファイルまたは <strong>EXINIT</strong> 環境変数とともに使用する場合のみ有効です。 デフォルトは <strong>on</strong>です。</td>
+
+</tr>
+
+<tr>
+<td><span>modeline (modeline)</span></td>
+
+<td>このオプションをファイルの最初の 5 行または最後の 5 行に使用すると、vi エディターのコマンド・ラインが実行されます。 vi エディターのコマンド・ラインは、1 行のどこにでも挿入できます。 vi エディターがコマンド行を認識できるようにするには、行にスペースまたはタブとそれに続くタブが含まれている必要があります。ex:またはvi:ストリング。 コマンド・ラインは、2 つ目の <strong>:</strong> (コロン) で終わります。 vi エディターは、1 つ目のコロンと 2 つ目のコロンの間にあるデータを、vi エディター・コマンドとして解釈しようとします。 デフォルトは <strong>nomodeline</strong> です。</td>
+
+</tr>
+
+<tr>
+<td><span>novice</span></td>
+
+<td><strong>novice</strong> モードになっていることを示します。 この値を <strong>set</strong> コマンドで変更することはできません。</td>
+
+</tr>
+
+<tr>
+<td><span>number (nu)</span></td>
+
+<td>各行に接頭部として行番号を付けて表示します。 デフォルトは <strong>nonu</strong> です。</td>
+
+</tr>
+
+<tr>
+<td><span>optimize (opt)</span></td>
+
+<td>カーソル・アドレッシング機能がない端末の処理速度を高めます。 デフォルトは <strong>noopt</strong>です。</td>
+
+</tr>
+
+<tr>
+<td><span>paragraphs (para=)</span></td>
+
+<td>段落を開始する vi マクロ名を定義します。 デフォルトは <strong>para=IPLPPPQPP&amp;#xa5;</strong><strong> LIpplpipnpbp</strong> です。 <strong>.P</strong> マクロのように単一文字の <strong>nroff</strong> マクロの場合、段落を再指定するときには引用文字としてスペースを指定する必要があります。</td>
+
+</tr>
+
+<tr>
+<td><span>partialchar (pc=)</span></td>
+
+<td>倍角文字が完全に表示されない場合に、最後の表示列に表示されます。 デフォルト文字は <strong>-</strong> (負符号) です。</td>
+
+</tr>
+
+<tr>
+<td><span>prompt</span></td>
+
+<td>コマンド・モードで、<strong>:</strong> (コロン) を出力して新しい vi エディターの入力を求めるプロンプトを表示します。 デフォルトは <strong>on</strong>です。</td>
+
+</tr>
+
+<tr>
+<td><span>readonly (ro)</span></td>
+
+<td>永久的な読み取り専用モードを設定します。 デフォルトは <strong>noreadonly</strong> です。</td>
+
+</tr>
+
+<tr>
+<td><span>redraw (redraw)</span></td>
+
+<td>ダム・ワークステーション上でスマート・ワークステーションをシミュレートします。 デフォルトは <strong>nore</strong> です。</td>
+
+</tr>
+
+<tr>
+<td><span>remap</span></td>
+
+<td>他のマクロに関するマクロを定義できるようにします。 デフォルトは <strong>on</strong>です。</td>
+
+</tr>
+
+<tr>
+<td><span>report (re=)</span></td>
+
+<td>メッセージが表示される前にコマンドを繰り返すことができる回数を設定します。 グローバル・サブコマンドのように、メッセージを多く生成するサブコマンドの場合は、コマンド・シーケンスが完了するとメッセージが表示されます。 デフォルトは <strong>report=5です。</strong></td>
+
+</tr>
+
+<tr>
+<td><span>scroll (scr=)</span></td>
+
+<td>上下にスクロールする際のスクロール行数を設定します。 デフォルトは、ウィンドウ・サイズの 1/2 に相当する行数から端数を切り捨てた行数です。</td>
+
+</tr>
+
+<tr>
+<td><span>sections (sect=)</span></td>
+
+<td>セクションを開始する vi マクロを定義します。 デフォルトは <strong>sect=NHSHHH&amp;#xa5;
+HUuhsh+c</strong> です。 <strong>.P</strong> マクロのように単一文字の <strong>nroff</strong> マクロの場合、段落を再指定するときには引用文字としてスペースを指定する必要があります。</td>
+
+</tr>
+
+<tr>
+<td><span>shell (sh=)</span></td>
+
+<td><strong>!</strong> のシェルを定義します。 サブコマンドまたは <a href="https://www.ibm.com/docs/ja/ssw_aix_73/v_commands/vi.html#vi__row-d3e8521" target="_blank" rel="noopener noreferrer"><strong>:! </strong>サブコマンド</a>. デフォルトはログイン・シェルです。</td>
+
+</tr>
+
+<tr>
+<td><span>shiftwidth (sw=)</span></td>
+
+<td><strong>自動インデント</strong> オプション、シフト・コマンド <strong>( &gt;</strong> および <strong>&lt; )</strong>、およびテキスト入力コマンド ( <a href="https://www.ibm.com/docs/ja/ssw_aix_73/v_commands/vi.html#vi__a3b27e05133endr" target="_blank" rel="noopener noreferrer">Ctrl + D</a> および Ctrl-T キー・シーケンス) で使用されるソフトウェア・タブ・ストップの距離を設定します。 vi オプションは、行頭の字下げにのみ影響を与えます。 デフォルトは <strong>sw=8</strong> です。</td>
+
+</tr>
+
+<tr>
+<td><span>showmatch (sm)</span></td>
+
+<td>) (右小括弧) または ] (右大括弧) を入力すると、
+それに対応している ( (左小括弧) または [ (左大括弧) を表示します。 デフォルトは <strong>nosm</strong> です。</td>
+
+</tr>
+
+<tr>
+<td><span>showmode (smd)</span></td>
+
+<td>vi エディターが入力モードになっていることを示すメッセージを表示します。 デフォルトは <strong>nosmd</strong> です。</td>
+
+</tr>
+
+<tr>
+<td><span>slowopen (slow)</span></td>
+
+<td>挿入時のディスプレイ画面の更新を延期します。 デフォルトは <strong>noslow</strong> です。</td>
+
+</tr>
+
+<tr>
+<td><span>tabstop (ts=)</span></td>
+
+<td>表示されたファイル内でタブ・ストップの間隔を設定します。 デフォルトは <strong>ts=8</strong> です。</td>
+
+</tr>
+
+<tr>
+<td><span>tags (tags =)</span></td>
+
+<td><a href="https://www.ibm.com/docs/ja/ssw_aix_73/c_commands/ctags.html" target="_blank" rel="noopener noreferrer"><strong>Cタグ</strong></a> コマンドを使用して作成された関数名のデータベース・ファイルの検索パスを定義します。 デフォルトは <strong>tags=tags&amp;#xa5;</strong><strong> /usr/lib/tags</strong> です。</td>
+
+</tr>
+
+<tr>
+<td><span>term (term=)</span></td>
+
+<td>使用中のワークステーションのタイプを設定します。 デフォルトは <strong>term=$TERM</strong> です。
+この場合、<strong>$TERM</strong> は <strong>TERM</strong> シェル変数の値です。</td>
+
+</tr>
+
+<tr>
+<td><span>terse (terse)</span></td>
+
+<td>vi エディターで短いフォーマットのメッセージを表示できるようにします。 デフォルトは <strong>noterse</strong> です。</td>
+
+</tr>
+
+<tr>
+<td><span>timeout (to)</span></td>
+
+<td>文字入力の時間制限を 2 秒に設定します。 この制限により、<strong>timeout</strong> オプションを設定するときにマクロ内の文字を別個の文字として入力し、処理できます。 マクロの使用を再開するには、<strong>notimeout</strong> オプションを設定します。 デフォルトは <strong>to</strong>です。</td>
+
+</tr>
+
+<tr>
+<td><span>ttytype</span></td>
+
+<td>使用する端末の tty タイプを示します。 この値を vi エディターで変更することはできません。</td>
+
+</tr>
+
+<tr>
+<td><span>warn (warn)</span></td>
+
+<td><a href="https://www.ibm.com/docs/ja/ssw_aix_73/v_commands/vi.html#vi__row-d3e8581" target="_blank" rel="noopener noreferrer"><strong>!</strong></a> の前に警告メッセージを表示します。 サブコマンドは、編集バッファーで変更が行われ、ファイルに書き込まれなかった後でシェル・コマンドを初めて発行した場合に、シェル・コマンドを実行します。 デフォルトは <strong>warn</strong>です。</td>
+
+</tr>
+
+<tr>
+<td><span>window (wi=)</span></td>
+
+<td>テキスト・ウィンドウ 1 つ分に表示される行数を設定します。 600 ボー未満であれば 8 行、1200 ボーの場合は 16 行、1200 ボーを超える場合はフルスクリーンの行数より 1 行少ない行数です。</td>
+
+</tr>
+
+<tr>
+<td><span>wrapmargin (wm=)</span></td>
+
+<td>ある行から次の行までの自動ワード折り返しのマージンを設定します。 デフォルトは <strong>wm=0</strong>です。 値 0 は、ワード・ラップをオフにします。</td>
+
+</tr>
+
+<tr>
+<td><span>wrapscan (ws)</span></td>
+
+<td>文字列検索を編集バッファーの終わりから先頭に折り返せるようにします。 デフォルトは <strong>ws</strong>です。</td>
+
+</tr>
+
+<tr>
+<td><span>wraptype (wt=)</span></td>
+
+<td>行末でワードを折り返すために使用するメソッドを示します。 デフォルト値は <strong>general</strong>です。 以下の 4 つの値から 1 つ指定できます。<dl>
+
+<dt><strong>概要</strong></dt>
+
+<dd>2 つの文字間のホワイト・スペースとしてワードの切れ目で折り返せるようにします。 この設定はデフォルトです。</dd>
+
+
+
+<dt><strong>word</strong></dt>
+
+<dd>ワードのところで折り返せるようにします。</dd>
+
+
+
+<dt><strong>硬直</strong></dt>
+
+<dd>列のところ (しかも、終了句読点の前) で折り返せるようにします。</dd>
+
+
+
+<dt><strong>柔軟な</strong></dt>
+
+<dd>列のところで折り返せるようにしますが、1 文字の句読点はマージンを超えて延長できます。</dd>
+
+
+</dl>
+</td>
+
+</tr>
+
+<tr>
+<td><span>writeany (wa)</span></td>
+
+<td>通常は <a href="https://www.ibm.com/docs/ja/ssw_aix_73/v_commands/vi.html#vi__row-d3e8218" target="_blank" rel="noopener noreferrer"><strong>書き込み</strong></a> サブコマンドの前に行われる検査をオフにします。 デフォルトは <strong>nowa</strong> です。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+
+<p>デフォルト設定から変更された vi エディター設定のリストを表示するには、次のように入力します。setスペース・バーを押します。 コマンド・モードに戻るには、Enter キーを押します。</p>
+
+<p>vi エディター設定の完全なリストを表示するには、次のように入力します。set allEnter キーを押して、コマンド・モードに戻ります。</p>
+
+<p>vi エディター・オプションをオンにするには、次のように入力します。set Optionこのコマンドは, 自動的にコマンド・モードに戻ります。</p>
+
+<p>複数の vi エディター・オプションをオンにするには、以下を入力します。set Option Option
+Optionこのコマンドは、指定された 3 つの vi エディター・オプションをオンにして、コマンド・モードに戻ります。</p>
+
+<p>vi エディター・オプションをオフにするには、次のように入力します。set noOptionこのコマンドは, 自動的にコマンド・モードに戻ります。</p>
+
+<p>vi エディター・オプションの値を変更するには、次のように入力します。set
+Option=Valueこのコマンドは, 自動的にコマンド・モードに戻ります。</p>
+
+<p>vi エディターの <strong>:set</strong> サブコマンドを使用すると、この編集セッション中にのみ使用するオプションを設定するか、またはこの編集セッションの将来のすべての編集セッションに使用するオプションを設定できます。</p>
+
+<p><em>この編集セッションのみに使用する</em> vi エディター・オプションを設定または変更するには、コマンド・ラインから <strong>:set</strong> サブコマンドを入力します。</p>
+
+<div><em>すべての編集セッション用</em> の vi オプションを設定するには、<strong>:set</strong> サブコマンドを <strong>.profile</strong> ファイル (ログイン時にシェルによって読み取られるファイル) 内の <strong>EXINIT</strong> 環境変数に入れるか、または <strong>set</strong> サブコマンドを <strong>.exrc</strong> ファイルに入れます。 vi エディターは、まず <strong>EXINIT</strong> 環境変数を検索して、そのコマンドを実行します。 <strong>EXINIT</strong> 環境変数が存在しなければ、vi エディターは次に <strong>$HOME/.exrc</strong> ファイルを検索して、そのコマンドを実行します。 最後に、以前の検索結果に関係なく、vi エディターはローカル <strong>.exrc</strong> ファイルを検索して、そのコマンドを実行します。<div><div>
+        <div>
+          <div><span>注:</span> このプロセスは、 <strong>TVI</strong> コマンド (trusted vi) を使用する場合を除き、true です。 この場合、vi エディターは <strong>/etc/.exrc</strong> ファイルのみを検索して実行します。</div>
+        </div>
+      </div></div>
+</div>
+
+<p><strong>エクINIT (X)</strong> 環境変数を設定してオプションを変更する方法については、 <a href="https://www.ibm.com/docs/ja/ssw_aix_73/filesreference/environment.html" target="_blank" rel="noopener noreferrer"><strong>環境</strong></a> ファイル内の環境変数の説明を参照してください。</p>
+
+<div><strong>.exrc</strong> ファイルには、以下のように <strong>set</strong><em> Option</em><strong>=</strong><em>Value</em> フォーマットのサブコマンドを入れることができます。<div><div><pre><code>set cp=3 . . ;</code></pre></div><div></div></div></div>
+
+<p><strong>.exrc</strong> ファイルにコメントを追加するには、行の先頭文字として <strong>"</strong> (二重引用符) を使用します。</p>
+
+</dd>
+
+
+
+<dt>マクロの定義</dt>
+
+<dd><p>サブコマンドまたはサブコマンド・シーケンスを頻繁に使用する場合は、vi エディターを使用して、そのサブコマンドまたはシーケンスを発行するマクロを定義することができます。</p>
+
+<p>マクロを定義するには、サブコマンドのシーケンスに英字の名前を付けてバッファーに入れます。 a から z までの小文字を使用するとバッファーの内容がオーバーレイされ、A から Z までの大文字を使用すると、テキストはバッファーの以前の内容に追加されるので、マクロを個々に構築できます。</p>
+
+<div>例えば、 <code>corner</code> というワードを検索し、 <code>corner</code> というワードの後の 3 行目を現在行にする c という名前のバッファー・マクロを定義するには、次のコマンドを入力します。<div><div><pre><code>o /corner/+3</code></pre></div><div></div></div></div>
+
+<p>次に、Esc キーを押して、次のコマンドを入力します。</p>
+
+<div>
+<div><div><pre><code>"c</code></pre></div><div></div></div>
+</div>
+
+<p>この場合、c はバッファー・マクロ名です。</p>
+
+<p>定義済みバッファーの前の内容にテキストを追加するには、次のように入力します。o viSubcommandEsc キーを押して、次のように入力します。"CapitalLetterここで、 <em>CapitalLetter</em> 変数は、大文字の A から Z を指定します。 例えば、 <code>corner</code> という語を検索し、さらにコマンドを追加できるようにする T という名前のバッファー・マクロを作成するには、次のコマンドを入力します。</p>
+
+<div>
+<div><div><pre><code>o corner</code></pre></div><div></div></div>
+</div>
+
+<div>次に、Esc キーを押して、次のコマンドを入力します。<div><div><pre><code>"T</code></pre></div><div></div></div></div>
+
+<p>この場合、T はバッファー・マクロ名です。 このプロセスを何度でも繰り返して、同じバッファーにさらに vi サブコマンドを追加することができます。</p>
+
+<div>例えば、カーソルを前の行に移動してその行を削除するコマンドを追加するには、次のコマンドを入力します。<div><div><pre><code>o -dd</code></pre></div><div></div></div></div>
+
+<div>この場合、- (負符号) は、カーソルを 1 行上に移動することを意味し、dd は、現在行を削除することを意味します。 Esc キーを押して次のコマンドを入力します。<div><div><pre><code>"Tdd</code></pre></div><div></div></div></div>
+
+<p>マクロを開始するには、以下を入力します。@Letterここで、 <em>レター</em> 変数は、使用するバッファー・マクロの文字名を指定します。 同じマクロを再び使用するには、次のように入力します。@@(2 つのアト・シンボル)。 例えば、次のように入力します。@TT バッファー・マクロを開始し、 <strong>探索</strong>、 <strong>カーソルの移動</strong>、および <strong>行の削除</strong> コマンドを実行します。 実行@@TT バッファー・マクロを再び開始します。</p>
+
+<p>システムで使用する文字セットは、照合テーブルで定義されます。 このテーブルは、vi マクロのパフォーマンスに影響を与えます。</p>
+
+</dd>
+
+
+
+<dt>キーのマッピング</dt>
+
+<dd><p><a href="https://www.ibm.com/docs/ja/ssw_aix_73/v_commands/vi.html#vi__row-d3e6349" target="_blank" rel="noopener noreferrer"><strong>: マップ</strong></a>、 <a href="https://www.ibm.com/docs/ja/ssw_aix_73/v_commands/vi.html#vi__row-d3e6524" target="_blank" rel="noopener noreferrer"><strong>:map!</strong></a>を使用できます。 および <a href="https://www.ibm.com/docs/ja/ssw_aix_73/v_commands/vi.html#vi__row-d3e6582" target="_blank" rel="noopener noreferrer"><strong>:AB</strong></a> サブコマンドを使用して、キー・ストロークを 1 つのコマンドまたは一連のコマンドにマップします。 <strong>:map</strong> サブコマンドは、コマンド・モードで使用します。 <strong>:map!</strong> サブコマンドおよび <strong>:ab</strong> サブコマンドは、テキスト入力モードで使用します。 どちらのモードでも、今回以降のすべての編集セッションに使用するキー、または今回の編集セッション専用のキーをマップできます。</p>
+
+<p><em>将来のすべての編集セッション</em> に使用するキーをマップするには、サブコマンドを <strong>$HOME/.exrc</strong> ファイルに入れます。 vi エディターを始動するたびに、このファイルが読み取られます。 マッピングは、すべての編集セッションで有効になります。</p>
+
+<p><em>現在の編集セッション専用</em> のキーを<em>コマンド・モード</em> からマップするには、vi エディター・セッション中にサブコマンドを始動します。 現在の編集セッション専用のキーを<em>テキスト入力モード</em> からマップするには、vi エディター・セッション中にコマンド・ラインにサブコマンドを入力します。 マッピングは、現在の編集セッション中にのみ有効です。</p>
+
+<div><div>
+        <div>
+          <div><span>注意</span> <span>IBM</span>3161 ASCII ディスプレイ・ステーション、<span>IBM</span>3163 ASCII ディスプレイ・ステーション、<span>IBM</span>3101 ASCII ディスプレイ・ステーションを使用している場合、vi エディターのデフォルトのキー・マッピングは、データを失う原因になることがあります。 デフォルトのマッピングを表示するには、<strong>:map</strong> サブコマンドを発行します。 Esc-J または Shift-J キー・シーケンスの場合は、特定の問題が発生します。 これらのキー・シーケンスを使用すると、現在のカーソル位置からファイルの終わりまでのすべての情報が削除されます。 この問題を避けるには、<strong>.exrc</strong> ファイルを使用してこのキー・シーケンスを変更します。</div>
+        </div>
+      </div></div>
+
+<p><strong>: マップ</strong>、<strong> :map!</strong>、 および <strong>:AB</strong> サブコマンドは、次のように定義され、使用されます。</p>
+
+
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><span>:map</span></td>
+
+<td>マクロをコマンド・モードで定義します。 <strong>:map</strong> サブコマンドを使用すると、vi エディター内で単一のキーを押して、指定したコマンドまたはコマンド・シーケンスを実行できます。<p>コマンド・モードでキーをマップするには、編集バッファーが空の状態で vi エディターを始動し、vi エディターが始動した後に <strong>vi</strong> コマンドで vi ファイル名を指定せず、バッファーに何も入力しません。 <strong>:map</strong> サブコマンドを使用すると、以下の操作を行うことができます。</p>
+
+<ul>
+<li>文字を編集コマンドのシーケンスにマップするには、次のように入力します。<div>
+<div><div><pre><code>:map Letter viSubcommand</code></pre></div><div></div></div>
+</div>
+</li>
+
+<li>以前にコマンド・モードでマップした文字をマップ解除するには、次のように入力します。<div>
+<div><div><pre><code>:unmap Letter</code></pre></div><div></div></div>
+</div>
+</li>
+
+<li>コマンド・モード用の現在のマッピング・リストを表示するには、次のように入力します。<div>
+<div><div><pre><code>:map</code></pre></div><div></div></div>
+</div>
+</li>
+
+</ul>
+
+<p>以下のキーは、vi エディターでは使用しませんが、コマンド・モードで <strong>:map</strong> サブコマンドとともに使用することができます。</p>
+
+<ul>
+<li>文字 g、K、q、V、および v</li>
+
+<li>制御キー・シーケンス Ctrl-A、Ctrl-K、Ctrl-O、Ctrl-W、および Ctrl-X</li>
+
+<li>記号 _ (下線)、* (アスタリスク)、円記号 (&amp;#xa5;)、および = (等号)</li>
+
+</ul>
+
+<p>既に vi エディターで使用しているキーをマップできますが、マップが有効になっている間は、そのキーの通常の機能を使用できなくなります。 一部の端末では、コマンド・シーケンスをファンクション・キーにマップできます。 LISP モードの場合は、vi エディターで使用されているので、= (等号) は使用できません。</p>
+
+<p>文字 v を、そのワードの次のオカレンスを見つけるコマンドのシーケンスにマップします。map単語に変更しますMAP次のコマンドを入力します。</p>
+
+<div>
+<div><div><pre><code>:map v /map&lt;Ctrl-V&gt;&lt;Enter&gt;cwMAP&lt;Ctrl-V&gt;&lt;Esc&gt;&lt;Ctrl-V&gt;&lt;Enter&gt;</code></pre></div><div></div></div>
+</div>
+
+<p>前の例では、次のオカレンスを見つけるように vi エディターに指示しています。map(/map&lt;Ctrl-V&gt;&lt;Enter&gt;)、変更mapからMAP(cwMAP)、change-word サブコマンドを終了する (&lt;Ctrl-V&gt;&lt;Esc&gt;) を入力し、コマンド (&lt;Ctrl-V&gt;&lt;Enter&gt;).</p>
+
+<div>
+<div><div>
+        <div>
+          <div><span>要件:</span> vi エディターが Enter キーを解釈しないようにするには、マップ時に Ctrl-V キー・シーケンスを前に付ける必要があります。 この条件は、Esc、Backspace、および Delete キーにも該当します。</div>
+        </div>
+      </div></div>
+
+</div>
+
+<p>制御文字 Ctrl-A、Ctrl-K、および Ctrl-O をマップするには、Ctrl キーと文字を同時に押します。 例えば、ファイルを保存して連続する次のファイルを編集するコマンド・シーケンスに、Ctrl-A キー・シーケンスをマップするには、次のコマンドを入力します。</p>
+
+<div>
+<div><div><pre><code>:map &lt;Ctrl-A&gt; :w&lt;Ctrl-V&gt;&lt;Enter&gt;:n&lt;Ctrl-V&gt;&lt;Enter&gt;</code></pre></div><div></div></div>
+</div>
+
+<p>制御文字 Ctrl-T、Ctrl-W、および Ctrl-X をマップするには、Ctrl-V キー・シーケンスを使用して最初にエスケープする必要があります。</p>
+</td>
+
+</tr>
+
+<tr>
+<td><strong> </strong></td>
+
+<td><p>| (パイプ接続シンボル) をマップするには、次のように、2 つの Ctrl-V キー・シーケンスで最初にエスケープする必要があります。
+次の例では、シェルにエスケープし、ファイル <strong>/etc/motd</strong> を連結して出力を <strong>wc</strong> コマンドにパイプ接続するコマンド・シーケンスに、文字 g をマップします。</p>
+
+<div>
+<div><div><pre><code>:map g :!cat /etc/motd &lt;Ctrl-V&gt;&lt;Ctrl-V&gt;| wc&lt;Ctrl-V&gt;&lt;Enter&gt;</code></pre></div><div></div></div>
+</div>
+
+<p>端末でファンクション・キーをマップできる場合は、#<em>number</em> キー・シーケンスを使用して参照し、マップしたいファンクション・キーの番号を指定する必要があります。 次の例では、1 ワードを削除してカーソルを下方に 3 ワード分だけ移動させるコマンド・シーケンスに、ファンクション・キー F1 がマップされます。</p>
+
+<div>
+<div><div><pre><code>:map #1 dwwww</code></pre></div><div></div></div>
+</div>
+
+<p>ファンクション・キーのマッピングを機能させるには、端末タイプのファンクション・キーの出力が、<strong>terminfo</strong> ファイル内で定義した出力と一致する必要があります。 これらの定義は kf<em>number</em> エントリーで示されます。
+この場合、kf1 はファンクション・キー F1 を表し、kf2 はファンクション・キー F2 を表すという具合になります。 ファンクション・キーを押したときに表示される出力が、このエントリーと一致しない場合は、マッピングする前に、端末のセットアップ・モードを使用し、これらの端末データベース・エントリーに合わせて設定を変更する必要があります。</p>
+
+<p>また、Home、End、Page Up、および Page Down などの一定のキーボード特殊キーもマップすることができます。 ほとんどの端末では、これらのキーは既に vi エディター内でマップされています。 このマッピングは、<strong>:map</strong> サブコマンドを使用して確認できます。 これらのキーがマップされていない場合は、以下のように <strong>:map</strong> サブコマンドを使用することができます。</p>
+
+<div>
+<div><div><pre><code>:map &lt;Ctrl-V&gt;&lt;End&gt; G
+:map &lt;Ctrl-V&gt;&lt;Home&gt; 1G
+:map &lt;Ctrl-V&gt;&lt;PageUp&gt; &lt;Ctrl-F&gt;
+:map &lt;Ctrl-V&gt;&lt;PageDown&gt; &lt;Ctrl-B&gt;</code></pre></div><div></div></div>
+</div>
+
+<p>すべての現在のマップ・リストをコマンド・モードで表示させるには、<strong>:map</strong> サブコマンドを入力します。 上記の例は、次のように表示されます。</p>
+
+<div>
+<div><div><pre><code>v       v          /map&lt;Ctrl-M&gt;cwMAP&lt;Ctrl-[&gt;Ctrl-M&gt;
+&lt;Ctrl-A&gt;  &lt;Ctrl-A&gt;   :w&lt;Ctrl-M&gt;:n&lt;Ctrl-M&gt;
+g         g          :!cat /etc/motd | wc &lt;Ctrl-M&gt;</code></pre></div><div></div></div>
+</div>
+
+<div>
+<div><div>
+        <div>
+          <div><span>ヒント:</span> Ctrl-V および Enter キー・シーケンスは Ctrl-M キー・シーケンスとして表示され、Ctrl-V および Esc キー・シーケンスは Ctrl-[キー・シーケンスとして表示されます。</div>
+        </div>
+      </div></div>
+
+</div>
+
+</td>
+
+</tr>
+
+<tr>
+<td><span>:map!</span></td>
+
+<td>テキスト入力モードで文字列を単一のキーにマップします。 キーをテキスト入力モードでマップするには、編集バッファーが空の状態で vi エディターを始動し、エディターが始動した後は、<strong>vi</strong> コマンドを使用して vi ファイル名を指定せず、バッファーに何も入力しないでください。 <strong>:map!</strong> を使用できます。 サブコマンドを使用すると、以下の操作を行うことができます。<ul>
+<li>テキスト入力モードで 1 文字を単一または複数の vi 文字列にマップするには、次のように入力します。<div>
+<div><div><pre><code>:map! Letter String</code></pre></div><div></div></div>
+</div>
+</li>
+
+<li>以前にテキスト入力モードでマップした文字をマップ解除するには、次のように入力します。<div>
+<div><div><pre><code>:unmap! Letter</code></pre></div><div></div></div>
+</div>
+</li>
+
+<li>テキスト入力モードで特定のキーにマップされている既存の文字列のリストを表示するには、次のように入力します。<div>
+<div><div><pre><code>:map!</code></pre></div><div></div></div>
+</div>
+</li>
+
+</ul>
+
+<p>マップしたキーをテキスト入力モードで入力すると、指定した文字列が生成されます。 Ctrl-V および Esc キー・シーケンスを使用すると、コマンド・モードになり、現在のワード (<strong>bbw</strong>) の先頭まで戻り、<strong>cw</strong> (ワード変更) サブコマンドが始動されます。 次に例を示します。</p>
+
+<div>
+<div><div><pre><code>:map! % &lt;Ctrl-V&gt;&lt;Esc&gt;bbwcw</code></pre></div><div></div></div>
+</div>
+
+<p>テキストを入力するときに、ワードを誤って入力したことに気付いたら、% (パーセント) キーを押し、そのワードを入力し直すと変更できます。 自動的に挿入モードに戻ります。</p>
+
+<div>
+<div><div>
+        <div>
+          <div><span>重要:</span> <strong>:map!</strong> に使用するキーを選択する際には注意してください。 サブコマンドと同じです。 キーがマップされると、最初に <strong>:unmap!</strong> を発行しない限り、それらのキーをテキストとして入力することはできなくなります。 サブコマンドと同じです。</div>
+        </div>
+      </div></div>
+
+</div>
+</td>
+
+</tr>
+
+<tr>
+<td><span>:ab</span></td>
+
+<td>テキスト入力モードで使用できるように、キーまたはキー・シーケンスを文字列にマップします。 <strong>:ab</strong> サブコマンドは、複数の繰り返されるフレーズ、名前、またはタイトルを処理するテキストを入力するときに便利です。<p>以下の例では、単語を置き換えます。city句を使用するAustin, Texas 78759テキスト入力モードで入力され、その後に空白、ピリオド、またはコンマが続く場合:</p>
+
+<div>
+<div><div><pre><code>:ab city Austin, Texas 78759</code></pre></div><div></div></div>
+</div>
+
+<p>例えば、テキスト入力中に、次のように入力するものと仮定します。</p>
+
+<div>
+<div><div><pre><code>My current residence is city.</code></pre></div><div></div></div>
+</div>
+
+<p>Tab キーを押すと、単語が展開されます。city読み取り:</p>
+
+<div>
+<div><div><pre><code>My current residence is Austin, Texas 78759.</code></pre></div><div></div></div>
+</div>
+
+<p>ワード内に含まれる省略形は、展開されません。 例えば、My current residence iscity「iscity」という語は拡張されません。</p>
+
+<p><strong>:map!</strong> が サブコマンドを使用して挿入モードに省略形をマップすると、発生する位置にかかわらず、出現した省略形はすべて展開されます。 <strong>:map!</strong> を使用した場合 上記の例のサブコマンド (:map! city Austin, Texas 78759)、次に単語を入力するたびにcity前または後に何があっても、ワードは次のように拡張されます。Austin, Texas 78759ということは、iscityは、右記になりますisAustin, Texas 78759.</p>
+
+<div>
+<div><div>
+        <div>
+          <div><span>重要:</span> <strong>:AB</strong> サブコマンドに使用するキーを選択する際には注意してください。 キーを定義すると、そのキーは最初に <strong>:unab</strong> サブコマンドを発行しなければテキストとして入力できなくなります。</div>
+        </div>
+      </div></div>
+
+</div>
+</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+
+</dd>
+
+
+
+<dt>省略形の設定</dt>
+
+<dd><p><strong>セット</strong> コマンドの動作は、 <strong>マップ!</strong> コマンドと似ています。 ただし、省略語が別の語である場合にのみ、 <strong>セット</strong> コマンドは省略語の代わりにストリングを使用します。 vi エディターの <strong>set</strong> コマンドを使用すると、以下の操作を行うことができます。</p>
+
+<ul>
+<li>既存の省略形のリスト</li>
+
+<li>省略形の除去</li>
+
+<li>省略形の設定 (定義)<div><div>
+        <div>
+          <div><span>ヒント:</span> 編集バッファーを空にして vi エディターを開始します。 vi エディターが始動した場合は、<strong>vi</strong> コマンドを使用して vi ファイル名を指定したり、バッファーに入力したりしないでください。 Esc キーを押して、コマンド・モードになっていることを確認してください。</div>
+        </div>
+      </div></div>
+
+
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td>省略形をリストする</td>
+
+<td><strong>:ab</strong> コマンドを入力すると、既存の省略形がリストされます。 Enter キーを押すと、コマンド・モードに戻ります。</td>
+
+</tr>
+
+<tr>
+<td>省略形を削除するには</td>
+
+<td>省略形を除去するには、<strong>:anab</strong><em>Abbreviation</em> コマンドを入力します。
+この場合、<em>Abbreviation</em> 変数では、それ以上省略したくない文字列を指定します。</td>
+
+</tr>
+
+<tr>
+<td>省略形を設定 (定義) するには</td>
+
+<td>省略形を設定するには、<strong>:ab</strong><em> Abbreviation String</em> コマンドを入力します。
+この場合、<em>Abbreviation</em> 変数では、省略形として定義する文字列を指定し、<em>String</em> 変数では省略する文字列を指定します。 省略形が別個のワードである場合にのみ、省略形は文字列に置き換えられます。<p>例えば、 <span>:ab kn upper</span> コマンドを入力してから、次のように入力したとします。acknowledgeテキスト入力モードでは、ワード acknowledge の kn ストリングは別個のワードではないため、設定された省略ストリングは開始されません。</p>
+
+<p>ただし、 <span>:ab kn upper</span> コマンドを入力してから、次のように入力すると、make the kn line all kncaseテキスト入力モードの場合、結果は <code>make
+the upper line all uppercase</code>になります。</p>
+</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</li>
+
+</ul>
+
+</dd>
+
+
+</dl>
+</section>
+
+<section><h2>フラグ</h2> <div> 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><span>-c</span>サブコマンド</td>
+
+<td><strong>vi</strong> による表示を開始する前に、ex エディター・サブコマンドを実行します。 カーソルは、最後に実行されたサブコマンドの影響を受ける行に移動します。 <strong>-c'</strong><strong> '</strong> の場合と同様に、null オペランドを入力すると、vi エディターによりカーソルがファイルの先頭行に移動します。 <strong>-c</strong> フラグは、<strong>+</strong> フラグと一緒には使用できません。 同時に両方のフラグを指定しないでください。</td>
+
+</tr>
+
+<tr>
+<td><span>-l</span></td>
+
+<td>LISP モードで vi エディターに入ります。 このモードでは、LISP コードに適した字下げが vi エディターによって作成され、<strong>(</strong>,<strong> )</strong>、<strong> {</strong>,<strong> }</strong>、<strong> [[</strong>、<strong>]]</strong> などのサブコマンドは、LISP のコードに適した動作をするように変更されます。</td>
+
+</tr>
+
+<tr>
+<td><span>-r</span> [File]</td>
+
+<td>vi エディター やシステムの誤動作が発生した後で、ファイルを回復します。 <em>File</em> 変数を指定しなければ、vi エディターはすべての保管ファイルのリストを表示します。</td>
+
+</tr>
+
+<tr>
+<td><span>-R</span></td>
+
+<td><strong>readonly</strong> オプションを設定し、ファイルの上書きを防止します。</td>
+
+</tr>
+
+<tr>
+<td><span>-t</span>タグ</td>
+
+<td><em>Tag</em> 変数の入ったファイルを編集し、vi エディターをその定義に配置します。 このフラグを使用するには、まず <a href="https://www.ibm.com/docs/ja/ssw_aix_73/c_commands/ctags.html" target="_blank" rel="noopener noreferrer"><strong>Cタグ</strong></a> コマンドを使用して、関数名とその場所のデータベースを作成する必要があります。</td>
+
+</tr>
+
+<tr>
+<td><span>-v</span></td>
+
+<td>verbose モードで vi エディターに入ります。</td>
+
+</tr>
+
+<tr>
+<td><span>-w</span>Number
+</td>
+
+<td>デフォルト・ウィンドウ・サイズを、<em>Number</em> 変数で指定した値に設定します。 このフラグは低速回線で vi エディターを使用するときに便利です。</td>
+
+</tr>
+
+<tr>
+<td><span>-y</span>Number
+</td>
+
+<td>最大行数設定値 1,048,560 を 1024 よりも大きい任意の値で上書きします。 vi エディターがバッファー操作で余分に行を使用するので必要な行数を 2 度要求する必要があります。</td>
+
+</tr>
+
+<tr>
+<td><span>+</span>[サブコマンド]</td>
+
+<td>編集開始前に ex エディター・サブコマンドを実行します。 <em>Subcommand</em> 変数を指定しなければ、カーソルはファイルの先頭行に置かれます。 この <strong>+</strong> フラグは、<strong>-c</strong> フラグと一緒には使用できません。 同時に両方のフラグを指定しないでください。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+</section>
+
+<section><h2>vi 一般サブコマンドの構文</h2><p>サブコマンドを入力するには、以下の一般構文を使用します。</p>
+<div>[<em>名前付きバッファー</em>] [<em>演算子</em>] [<em>数値</em>] <em>オブジェクト</em><div><div>
+        <div>
+          <div><span>ヒント:</span> 大括弧はオプション項目を示します。</div>
+        </div>
+      </div></div>
+</div>
+ 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td>[名前付きバッファー]</td>
+
+<td>一時テキスト・ストレージ域を指定します。</td>
+
+</tr>
+
+<tr>
+<td>[演算子]</td>
+
+<td>サブコマンドやアクションを指定し、vi エディターを指示します。</td>
+
+</tr>
+
+<tr>
+<td>[数値]</td>
+
+<td>アクションまたは行アドレスの範囲を整数で指定します。</td>
+
+</tr>
+
+<tr>
+<td>オブジェクト (object)</td>
+
+<td>実行対象として、テキスト・オブジェクト (文字、ワード、ステートメント、段落、セクション、文字列) またはテキスト位置 (行、現在行における位置、画面位置) を指定します。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+
+<dl>
+
+<dt>サブコマンドの前のカウント</dt>
+
+<dd><p>多くのサブコマンドの前には数値を指定することができます。 vi エディターはこの数値を以下のいずれかの方法で解釈します。</p>
+
+<ul>
+<li><em>Number</em> パラメーターで指定した行に移動する。<div><div><pre><code>5G
+10Z</code></pre></div><div></div></div></li>
+
+<li><em>Number</em> パラメーターで指定した桁に移動する。<div><div><pre><code>25|</code></pre></div><div></div></div></li>
+
+<li><em>Number</em> パラメーターで指定した行数だけ上下にスクロールする。<div><div><pre><code>10Ctrl-U
+10Ctrl-D</code></pre></div><div></div></div></li>
+
+</ul>
+
+</dd>
+
+
+</dl>
+</section>
+
+<section><h2>vi エディターのサブコマンド</h2> <p>サブコマンドを使用すると、以下のようなアクションを実行できます。</p>
+ <ul>
+<li>カーソルの移動</li>
+
+<li>テキストの編集</li>
+
+<li>ファイルの操作</li>
+
+<li>その他のアクション</li>
+
+</ul>
+</section>
+
+<section><h2>カーソルの移動</h2> <p>サブコマンドを使用すると、次の方法によってファイル内でカーソルを移動できます。</p>
+ <ul>
+<li>1 行内の移動</li>
+
+<li>文字位置による 1 行内の移動</li>
+
+<li>ワードへの移動</li>
+
+<li>行位置による移動</li>
+
+<li>センテンス、段落、またはセクションへの移動</li>
+
+<li>画面の再ドローによる移動</li>
+
+<li>ページングとスクロール</li>
+
+<li>パターン検索</li>
+
+<li>ファイル内の特定位置にマーク付けして戻る</li>
+
+</ul>
+
+<dl>
+
+<dt>1 行内の移動</dt>
+
+<dd><p><a href="https://www.ibm.com/docs/ja/ssw_aix_73/v_commands/vi.html#vi__row-d3e5302" target="_blank" rel="noopener noreferrer">コマンド・モード</a>で以下のサブコマンドを入力します。 不完全なコマンドは、Esc キーを押すと取り消すことができます。 vi サブコマンドのフォーマットに関する情報が必要な場合は、 <a href="https://www.ibm.com/docs/ja/ssw_aix_73/v_commands/vi.html#vi__general_sub_syntax" target="_blank" rel="noopener noreferrer">vi General サブコマンドの構文</a>を参照してください。</p>
+
+
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><span>左向き矢印</span>、または <span> h</span> か <span>Ctrl-H</span></td>
+
+<td>カーソルを 1 文字左に移動します。</td>
+
+</tr>
+
+<tr>
+<td><span>下矢印</span>、<span>j</span>、または <span>Ctrl-J</span> か <span>Ctrl-N</span></td>
+
+<td>カーソルを 1 行下に移動します (桁位置は移動しません)。</td>
+
+</tr>
+
+<tr>
+<td><span>上矢印</span>、または <span>k</span> か <span>Ctrl-P</span></td>
+
+<td>カーソルを 1 行上に移動します (桁位置は移動しません)。</td>
+
+</tr>
+
+<tr>
+<td><span>右矢印</span> または <span>l</span></td>
+
+<td>カーソルを 1 文字右に移動します。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+
+</dd>
+
+
+
+<dt>文字位置による 1 行内の移動</dt>
+
+<dd><p><a href="https://www.ibm.com/docs/ja/ssw_aix_73/v_commands/vi.html#vi__row-d3e5302" target="_blank" rel="noopener noreferrer">コマンド・モード</a>で以下のサブコマンドを入力します。 不完全なコマンドは、Esc キーを押すと取り消すことができます。 vi サブコマンドのフォーマットに関する情報が必要な場合は、 <a href="https://www.ibm.com/docs/ja/ssw_aix_73/v_commands/vi.html#vi__general_sub_syntax" target="_blank" rel="noopener noreferrer">vi General サブコマンドの構文</a>を参照してください。</p>
+
+
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><span>^</span></td>
+
+<td>カーソルを最初の非ブランク文字に移動します。</td>
+
+</tr>
+
+<tr>
+<td><span>0</span></td>
+
+<td>カーソルを行の先頭に移動します。</td>
+
+</tr>
+
+<tr>
+<td><span>$</span></td>
+
+<td>カーソルを行の終わりに移動します。</td>
+
+</tr>
+
+<tr>
+<td><span>f</span>X</td>
+
+<td>カーソルを次の <em>x</em> 文字に移動します。</td>
+
+</tr>
+
+<tr>
+<td><span>F</span>X</td>
+
+<td>カーソルを最後の <em>x</em> 文字に移動します。</td>
+
+</tr>
+
+<tr>
+<td><span>t</span>X</td>
+
+<td>カーソルを、次の <em>x</em> 文字の 1 桁前に移動します。</td>
+
+</tr>
+
+<tr>
+<td><span>T</span>X</td>
+
+<td>カーソルを、最後の <em>x</em> 文字の 1 桁後に移動します。</td>
+
+</tr>
+
+<tr>
+<td><span>;</span></td>
+
+<td>最後の <strong>f</strong>、<strong>F</strong>、<strong>t</strong>、または <strong>T</strong> サブコマンドを繰り返します。</td>
+
+</tr>
+
+<tr>
+<td><span>,</span></td>
+
+<td>最後の <strong>f</strong>、<strong>F</strong>、<strong>t</strong>、または <strong>T</strong> サブコマンドを反対方向に繰り返します。</td>
+
+</tr>
+
+<tr>
+<td>数値|</td>
+
+<td>カーソルを指定した桁に移動します。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+
+</dd>
+
+
+
+<dt>ワードへの移動</dt>
+
+<dd><p><a href="https://www.ibm.com/docs/ja/ssw_aix_73/v_commands/vi.html#vi__row-d3e5302" target="_blank" rel="noopener noreferrer">コマンド・モード</a>で以下のサブコマンドを入力します。 vi サブコマンドのフォーマットについて詳しくは、 <a href="https://www.ibm.com/docs/ja/ssw_aix_73/v_commands/vi.html#vi__general_sub_syntax" target="_blank" rel="noopener noreferrer">vi General サブコマンドの構文</a>を参照してください。</p>
+
+
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><span>w</span></td>
+
+<td>カーソルを次の small ワードに移動します。</td>
+
+</tr>
+
+<tr>
+<td><span>b</span></td>
+
+<td>カーソルを直前の small ワードに移動します。</td>
+
+</tr>
+
+<tr>
+<td><span>e</span></td>
+
+<td>カーソルを次の small ワードの最後に移動します。</td>
+
+</tr>
+
+<tr>
+<td><span>W</span></td>
+
+<td>カーソルを次の big ワードに移動します。</td>
+
+</tr>
+
+<tr>
+<td><span>B</span></td>
+
+<td>カーソルを直前の big ワードに移動します。</td>
+
+</tr>
+
+<tr>
+<td><span>E</span></td>
+
+<td>カーソルを次の big ワードの最後に移動します。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+
+</dd>
+
+
+
+<dt>行位置による移動</dt>
+
+<dd><p><a href="https://www.ibm.com/docs/ja/ssw_aix_73/v_commands/vi.html#vi__row-d3e5302" target="_blank" rel="noopener noreferrer">コマンド・モード</a>で以下のサブコマンドを入力します。 vi サブコマンドのフォーマットに関する情報が必要な場合は、 <a href="https://www.ibm.com/docs/ja/ssw_aix_73/v_commands/vi.html#vi__general_sub_syntax" target="_blank" rel="noopener noreferrer">vi General サブコマンドの構文</a>を参照してください。</p>
+
+
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><span>H</span></td>
+
+<td>カーソルを画面の最初の行に移動します。</td>
+
+</tr>
+
+<tr>
+<td><span>L</span></td>
+
+<td>カーソルを画面の一番下の行に移動します。</td>
+
+</tr>
+
+<tr>
+<td><span>M</span></td>
+
+<td>カーソルを画面の中央の行に移動します。</td>
+
+</tr>
+
+<tr>
+<td><span>+</span></td>
+
+<td>カーソルを次行の最初のブランク以外の文字に移動します。</td>
+
+</tr>
+
+<tr>
+<td><span>-</span></td>
+
+<td>カーソルを直前の行の最初のブランク以外の文字に移動します。</td>
+
+</tr>
+
+<tr>
+<td><span>Enter</span></td>
+
+<td>カーソルを次行の最初のブランク以外の文字に移動します。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+
+</dd>
+
+
+
+<dt>センテンス、段落、またはセクションへの移動</dt>
+
+<dd><p><a href="https://www.ibm.com/docs/ja/ssw_aix_73/v_commands/vi.html#vi__row-d3e5302" target="_blank" rel="noopener noreferrer">コマンド・モード</a>で以下のサブコマンドを入力します。 不完全なサブコマンドは、Esc キーを押すと取り消すことができます。 vi サブコマンドのフォーマットに関する情報が必要な場合は、 <a href="https://www.ibm.com/docs/ja/ssw_aix_73/v_commands/vi.html#vi__general_sub_syntax" target="_blank" rel="noopener noreferrer">vi General サブコマンドの構文</a>を参照してください。</p>
+
+
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><span>(</span></td>
+
+<td>カーソルを直前のセンテンスの先頭か、LISP モードのときは直前の s 式に移動します。</td>
+
+</tr>
+
+<tr>
+<td><span>)</span></td>
+
+<td>カーソルを次のセンテンスの先頭か、LISP モードのときは次の s 式に移動します。</td>
+
+</tr>
+
+<tr>
+<td><span>{</span></td>
+
+<td>カーソルを直前の段落の先頭か、LISP モードのときは次のリストに移動します。</td>
+
+</tr>
+
+<tr>
+<td><span>}</span></td>
+
+<td>カーソルを次の段落の先頭か、C モードのときは次のセクションに、または LISP モードのときは次のリストに移動します。</td>
+
+</tr>
+
+<tr>
+<td><span>]]</span></td>
+
+<td>カーソルを次のセクションか、LISP モードのときは次の関数に移動します。</td>
+
+</tr>
+
+<tr>
+<td><span>[[</span></td>
+
+<td>カーソルを直前のセクションか、LISP モードのときは直前の関数に移動します。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+
+</dd>
+
+
+
+<dt>画面の再ドローによる移動</dt>
+
+<dd><p><a href="https://www.ibm.com/docs/ja/ssw_aix_73/v_commands/vi.html#vi__row-d3e5302" target="_blank" rel="noopener noreferrer">コマンド・モード</a>で以下のサブコマンドを入力します。 不完全なサブコマンドは、Esc キーを押すと取り消すことができます。 vi サブコマンドのフォーマットに関する情報が必要な場合は、 <a href="https://www.ibm.com/docs/ja/ssw_aix_73/v_commands/vi.html#vi__general_sub_syntax" target="_blank" rel="noopener noreferrer">vi General サブコマンドの構文</a>を参照してください。</p>
+
+
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><span>z</span></td>
+
+<td>画面の先頭に現在行を付けて画面を再描画します。</td>
+
+</tr>
+
+<tr>
+<td><span>z-</span></td>
+
+<td>画面の終わりに現在行を付けて画面を再描画します。</td>
+
+</tr>
+
+<tr>
+<td><span>z.</span></td>
+
+<td>画面中央に現在行を移動して画面を再表示します。</td>
+
+</tr>
+
+<tr>
+<td><span>/</span>パターン<span>/z-</span></td>
+
+<td><em>パターン</em> パラメーターで指定された文字ストリングを含む行を末尾にして、画面を再描画します。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+
+</dd>
+
+
+
+<dt>ページングとスクロール</dt>
+
+<dd><p><a href="https://www.ibm.com/docs/ja/ssw_aix_73/v_commands/vi.html#vi__row-d3e5302" target="_blank" rel="noopener noreferrer">コマンド・モード</a>で以下のサブコマンドを入力します。 不完全なサブコマンドは、Esc キーを押すと取り消すことができます。 vi サブコマンドのフォーマットに関する情報が必要な場合は、 <a href="https://www.ibm.com/docs/ja/ssw_aix_73/v_commands/vi.html#vi__general_sub_syntax" target="_blank" rel="noopener noreferrer">vi General サブコマンドの構文</a>を参照してください。</p>
+
+
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><span>Ctrl-U</span></td>
+
+<td>半画面上にスクロールします。</td>
+
+</tr>
+
+<tr>
+<td><span>Ctrl-D</span></td>
+
+<td>半画面下にスクロールします。</td>
+
+</tr>
+
+<tr>
+<td><span>Ctrl-F</span></td>
+
+<td>1 画面下にスクロールします。</td>
+
+</tr>
+
+<tr>
+<td><span>Ctrl-B</span></td>
+
+<td>1 画面上にスクロールします。</td>
+
+</tr>
+
+<tr>
+<td><span>Ctrl-E</span></td>
+
+<td>ウィンドウを 1 行下にスクロールします。</td>
+
+</tr>
+
+<tr>
+<td><span>Ctrl-Y</span></td>
+
+<td>ウィンドウを 1 行上にスクロールします。</td>
+
+</tr>
+
+<tr>
+<td><span>z+</span></td>
+
+<td>前ページ</td>
+
+</tr>
+
+<tr>
+<td><span>z^</span></td>
+
+<td>次ページ</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+
+</dd>
+
+
+
+<dt>パターン検索</dt>
+
+<dd><p><a href="https://www.ibm.com/docs/ja/ssw_aix_73/v_commands/vi.html#vi__row-d3e5302" target="_blank" rel="noopener noreferrer">コマンド・モード</a>で以下のサブコマンドを入力します。 不完全なサブコマンドは、Esc キーを押すと取り消すことができます。 vi サブコマンドのフォーマットに関する情報が必要な場合は、 <a href="https://www.ibm.com/docs/ja/ssw_aix_73/v_commands/vi.html#vi__general_sub_syntax" target="_blank" rel="noopener noreferrer">vi General サブコマンドの構文</a>を参照してください。</p>
+
+
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><span>[</span>数値<span>]G</span></td>
+
+<td><em>Number</em> パラメーターで指定した行番号にカーソルを移動します。
+<em>Number</em> パラメーターが指定されていない場合は、最終行にカーソルを移動します。</td>
+
+</tr>
+
+<tr>
+<td><span>/</span>パターン</td>
+
+<td><em>Pattern</em> パラメーターで指定した文字列のある行の次の行にカーソルを置きます。</td>
+
+</tr>
+
+<tr>
+<td><span>?</span>パターン</td>
+
+<td><em>Pattern</em> パラメーターで指定した文字列のある行の直前の行にカーソルを置きます。</td>
+
+</tr>
+
+<tr>
+<td><span>n</span></td>
+
+<td><em>Pattern</em> パラメーターで指定したテキストの最後の検索を同方向に繰り返します。</td>
+
+</tr>
+
+<tr>
+<td><span>N</span></td>
+
+<td><em>Pattern</em> パラメーターで指定したテキストの最後の検索を反対方向に繰り返します。</td>
+
+</tr>
+
+<tr>
+<td><span>/</span>パターン<span>/+</span>数値</td>
+
+<td><em>Pattern</em> パラメーターで指定した文字列と一致する行の後の指定した行番号にカーソルを置きます。</td>
+
+</tr>
+
+<tr>
+<td><span>?</span>パターン<span>?-</span>数値</td>
+
+<td><em>Pattern</em> パラメーターで指定した文字列と一致する行の前の指定した行番号にカーソルを置きます。</td>
+
+</tr>
+
+<tr>
+<td><span>%</span></td>
+
+<td>現在のカーソル位置にあるものと一致する括弧または中括弧を検索します。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+
+</dd>
+
+
+</dl>
+</section>
+
+<section><h2>テキストの編集</h2> <p>編集用のサブコマンドで、次の作業を実行できます。</p>
+ <ul>
+<li>ファイル内の特定位置にマーク付けして戻る</li>
+
+<li>ファイルへのテキスト追加</li>
+
+<li>入力モードでのテキスト変更</li>
+
+<li>コマンド・モードでのテキスト変更</li>
+
+<li>テキストのコピーと移動</li>
+
+<li>変更結果の復元と繰り返し</li>
+
+</ul>
+
+<dl>
+
+<dt>ファイル内の特定位置にマーク付けして戻る</dt>
+
+<dd><p><a href="https://www.ibm.com/docs/ja/ssw_aix_73/v_commands/vi.html#vi__row-d3e5302" target="_blank" rel="noopener noreferrer">コマンド・モード</a>で以下のサブコマンドを入力します。 不完全なサブコマンドは、Esc キーを押すと取り消すことができます。 vi サブコマンドのフォーマットに関する情報が必要な場合は、 <a href="https://www.ibm.com/docs/ja/ssw_aix_73/v_commands/vi.html#vi__general_sub_syntax" target="_blank" rel="noopener noreferrer">vi General サブコマンドの構文</a>を参照してください。</p>
+
+
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><span>"</span></td>
+
+<td>カーソルを現在行の直前の位置に移動します。</td>
+
+</tr>
+
+<tr>
+<td><span>"</span></td>
+
+<td>カーソルを現在行の直前の位置を含む行の先頭に移動します。</td>
+
+</tr>
+
+<tr>
+<td><span>m</span>X</td>
+
+<td><em>x</em> パラメーターで指定した文字で現在位置をマークします。</td>
+
+</tr>
+
+<tr>
+<td><span>`</span>X</td>
+
+<td><em>x</em> パラメーターで指定したマークの位置にカーソルを移動します。</td>
+
+</tr>
+
+<tr>
+<td><span>'</span>X</td>
+
+<td>カーソルを <em>x</em> パラメーターで指定したマークを含む行の先頭に移動します。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+
+</dd>
+
+
+
+<dt>ファイルへのテキストの追加 (テキスト入力モード)</dt>
+
+<dd><p>vi エディターをテキスト入力モードに変更するには、 <a href="https://www.ibm.com/docs/ja/ssw_aix_73/v_commands/vi.html#vi__row-d3e5302" target="_blank" rel="noopener noreferrer">コマンド・モード</a> で以下のサブコマンドを入力します。 vi サブコマンドのフォーマットに関する情報が必要な場合は、 <a href="https://www.ibm.com/docs/ja/ssw_aix_73/v_commands/vi.html#vi__general_sub_syntax" target="_blank" rel="noopener noreferrer">vi General サブコマンドの構文</a>を参照してください。</p>
+
+
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><p><span>a</span>テキスト</p>
+
+</td>
+
+<td><em>Text</em> パラメーターで指定したテキストをカーソルの後に挿入します。 <a href="https://www.ibm.com/docs/ja/ssw_aix_73/v_commands/vi.html#vi__row-d3e5308" target="_blank" rel="noopener noreferrer">テキスト入力モード</a> を終了するには、Esc キーを押します。</td>
+
+</tr>
+
+<tr>
+<td><p><span>A</span>テキスト</p>
+
+</td>
+
+<td><em>Text</em> パラメーターで指定したテキストを行の最後に追加します。 <a href="https://www.ibm.com/docs/ja/ssw_aix_73/v_commands/vi.html#vi__row-d3e5308" target="_blank" rel="noopener noreferrer">テキスト入力モード</a> を終了するには、Esc キーを押します。</td>
+
+</tr>
+
+<tr>
+<td><p><span>i</span>テキスト</p>
+
+</td>
+
+<td><em>Text</em> パラメーターで指定したテキストをカーソルの前に挿入します。 <a href="https://www.ibm.com/docs/ja/ssw_aix_73/v_commands/vi.html#vi__row-d3e5308" target="_blank" rel="noopener noreferrer">テキスト入力モード</a> を終了するには、Esc キーを押します。</td>
+
+</tr>
+
+<tr>
+<td><p><span>I</span>テキスト</p>
+
+</td>
+
+<td><em>Text</em> パラメーターで指定したテキストを行の最初の非ブランク文字の前に挿入します。 <a href="https://www.ibm.com/docs/ja/ssw_aix_73/v_commands/vi.html#vi__row-d3e5308" target="_blank" rel="noopener noreferrer">テキスト入力モード</a> を終了するには、Esc キーを押します。</td>
+
+</tr>
+
+<tr>
+<td><p><span>o</span></p>
+
+</td>
+
+<td>現在行の後に空の行を追加します。 <a href="https://www.ibm.com/docs/ja/ssw_aix_73/v_commands/vi.html#vi__row-d3e5308" target="_blank" rel="noopener noreferrer">テキスト入力モード</a> を終了するには、Esc キーを押します。</td>
+
+</tr>
+
+<tr>
+<td><p><span>O</span></p>
+
+</td>
+
+<td>現在行の前に空の行を追加します。 <a href="https://www.ibm.com/docs/ja/ssw_aix_73/v_commands/vi.html#vi__row-d3e5308" target="_blank" rel="noopener noreferrer">テキスト入力モード</a> を終了するには、Esc キーを押します。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+
+</dd>
+
+
+
+<dt>入力モードでのテキスト変更</dt>
+
+<dd><p>以下のサブコマンドは、 <a href="https://www.ibm.com/docs/ja/ssw_aix_73/v_commands/vi.html#vi__row-d3e5308" target="_blank" rel="noopener noreferrer">テキスト入力モード</a>の場合にのみ使用してください。 これらのコマンドは、コマンド・モードでは別の意味を持っています。 vi サブコマンドのフォーマットに関する情報が必要な場合は、 <a href="https://www.ibm.com/docs/ja/ssw_aix_73/v_commands/vi.html#vi__general_sub_syntax" target="_blank" rel="noopener noreferrer">vi General サブコマンドの構文</a>を参照してください。</p>
+
+
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><p><span>Ctrl-D</span></p>
+
+</td>
+
+<td>前の自動字下げストップに戻ります。</td>
+
+</tr>
+
+<tr>
+<td><span>^ Ctrl-D</span></td>
+
+<td>現在行についてのみ自動字下げ処理を終了します。</td>
+
+</tr>
+
+<tr>
+<td><span>0Ctrl-D</span></td>
+
+<td>カーソルを左マージンに戻します。</td>
+
+</tr>
+
+<tr>
+<td><span>Esc</span></td>
+
+<td>挿入を終了し、コマンド状態に戻ります。</td>
+
+</tr>
+
+<tr>
+<td><span>Ctrl-H</span></td>
+
+<td>最後の文字を消去します。</td>
+
+</tr>
+
+<tr>
+<td><span>Ctrl-Q</span></td>
+
+<td>xon が使用不可になっている場合に任意の文字を入力します。</td>
+
+</tr>
+
+<tr>
+<td><span>Ctrl-V</span></td>
+
+<td>任意の文字を入力します。</td>
+
+</tr>
+
+<tr>
+<td><span>Ctrl-W</span></td>
+
+<td>最後の small ワードを消去します。</td>
+
+</tr>
+
+<tr>
+<td><span>\</span></td>
+
+<td>消去文字と抹消文字を引用します。</td>
+
+</tr>
+
+<tr>
+<td><span>Ctrl-?</span></td>
+
+<td>挿入または Ctrl-D キー・シーケンスに割り込んで終了します。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+
+</dd>
+
+
+
+<dt>コマンド・モードでのテキスト変更</dt>
+
+<dd><p><a href="https://www.ibm.com/docs/ja/ssw_aix_73/v_commands/vi.html#vi__row-d3e5302" target="_blank" rel="noopener noreferrer">コマンド・モード</a>では、以下のサブコマンドを使用します。 不完全なサブコマンドは、Esc キーを押すと取り消すことができます。 vi サブコマンドのフォーマットに関する情報が必要な場合は、 <a href="https://www.ibm.com/docs/ja/ssw_aix_73/v_commands/vi.html#vi__general_sub_syntax" target="_blank" rel="noopener noreferrer">vi General サブコマンドの構文</a>を参照してください。</p>
+
+
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><p><span>C</span></p>
+
+</td>
+
+<td>行の残りの部分を変更します (<strong>c$</strong> と同じ)。</td>
+
+</tr>
+
+<tr>
+<td><p><span>cc</span></p>
+
+</td>
+
+<td>行を変更します。</td>
+
+</tr>
+
+<tr>
+<td><span>cw</span></td>
+
+<td>ワードを変更します。</td>
+
+</tr>
+
+<tr>
+<td><span>cw</span>テキスト</td>
+
+<td><em>Text</em> パラメーターで指定したテキストにワードを変更します。</td>
+
+</tr>
+
+<tr>
+<td><span>D</span></td>
+
+<td>行の残りの部分を削除します (<strong>d$</strong> と同じ)。</td>
+
+</tr>
+
+<tr>
+<td><span>dd</span></td>
+
+<td>行を削除します。</td>
+
+</tr>
+
+<tr>
+<td><span>dw</span></td>
+
+<td>ワードを削除します。</td>
+
+</tr>
+
+<tr>
+<td><span>J</span></td>
+
+<td>行を結合します。</td>
+
+</tr>
+
+<tr>
+<td><span>r</span>X</td>
+
+<td>現行文字を、<em>x</em> で指定した文字に置き換えます。</td>
+
+</tr>
+
+<tr>
+<td><p><span>R</span>テキスト</p>
+
+</td>
+
+<td><em>Text</em> パラメーターで指定したテキストに文字を上書きします。</td>
+
+</tr>
+
+<tr>
+<td><p><span>s</span></p>
+
+</td>
+
+<td>文字を置き換えます (<strong>cl</strong> と同じ)。</td>
+
+</tr>
+
+<tr>
+<td><p><span>S</span></p>
+
+</td>
+
+<td>行を置き換えます (<strong>cc</strong> と同じ)。</td>
+
+</tr>
+
+<tr>
+<td><span>u</span></td>
+
+<td>前の変更を元に戻します。</td>
+
+</tr>
+
+<tr>
+<td><span>x</span></td>
+
+<td>カーソル位置の文字を削除します。</td>
+
+</tr>
+
+<tr>
+<td><span>X</span></td>
+
+<td>カーソル位置の前の文字を削除します (<strong>dh</strong> と同じ)。</td>
+
+</tr>
+
+<tr>
+<td><span>&lt;&lt;</span></td>
+
+<td>1 行左にシフトします。</td>
+
+</tr>
+
+<tr>
+<td><span>&lt;L</span></td>
+
+<td>カーソルから画面の終わりまでの全行を左にシフトします。</td>
+
+</tr>
+
+<tr>
+<td><span>&gt;&gt; </span></td>
+
+<td>1 行右にシフトします。</td>
+
+</tr>
+
+<tr>
+<td><span>&gt;L</span></td>
+
+<td>カーソルから画面の終わりまでの全行を右にシフトします。</td>
+
+</tr>
+
+<tr>
+<td><span>~ </span></td>
+
+<td>カーソル位置の文字が大文字であれば小文字に、小文字であれば大文字に変更します。</td>
+
+</tr>
+
+<tr>
+<td><span>!</span></td>
+
+<td>LISP 用に字下げします。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+
+</dd>
+
+
+
+<dt>テキストのコピーと移動</dt>
+
+<dd><p><a href="https://www.ibm.com/docs/ja/ssw_aix_73/v_commands/vi.html#vi__row-d3e5302" target="_blank" rel="noopener noreferrer">コマンド・モード</a>では、以下のサブコマンドを使用します。 不完全なサブコマンドは、Esc キーを押すと取り消すことができます。 vi サブコマンドのフォーマットに関する情報が必要な場合は、 <a href="https://www.ibm.com/docs/ja/ssw_aix_73/v_commands/vi.html#vi__general_sub_syntax" target="_blank" rel="noopener noreferrer">vi General サブコマンドの構文</a>を参照してください。</p>
+
+
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><span>p</span></td>
+
+<td>アンドゥ・バッファーからテキストを戻し、カーソルの後に挿入します。</td>
+
+</tr>
+
+<tr>
+<td><span>P</span></td>
+
+<td>アンドゥ・バッファーからテキストを戻し、カーソルの前に挿入します。</td>
+
+</tr>
+
+<tr>
+<td><span>"</span>X<span>p</span></td>
+
+<td><em>x</em> バッファーからテキストを戻します。</td>
+
+</tr>
+
+<tr>
+<td><span>"</span>X<span>d</span></td>
+
+<td>テキストを削除して <em>x</em> バッファーに入れます。</td>
+
+</tr>
+
+<tr>
+<td><span>y</span></td>
+
+<td>後に続くオブジェクト (例えばワードであれば <strong>w</strong>) をアンドゥ・バッファーに入れます。</td>
+
+</tr>
+
+<tr>
+<td><span>"</span>X<span>y</span></td>
+
+<td>後に続くオブジェクトを <em>x</em> バッファーに入れます。
+<em>x</em> はどの文字でもかまいません。</td>
+
+</tr>
+
+<tr>
+<td><span>Y</span></td>
+
+<td>行をアンドゥ・バッファーに入れます。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+
+</dd>
+
+
+
+<dt>変更結果の復元と繰り返し</dt>
+
+<dd><p><a href="https://www.ibm.com/docs/ja/ssw_aix_73/v_commands/vi.html#vi__row-d3e5302" target="_blank" rel="noopener noreferrer">コマンド・モード</a>では、以下のサブコマンドを使用します。 不完全なサブコマンドは、Esc キーを押すと取り消すことができます。 vi サブコマンドのフォーマットに関する情報が必要な場合は、 <a href="https://www.ibm.com/docs/ja/ssw_aix_73/v_commands/vi.html#vi__general_sub_syntax" target="_blank" rel="noopener noreferrer">vi General サブコマンドの構文</a>を参照してください。</p>
+
+
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><span>u</span></td>
+
+<td>最後の変更を元に戻します。<div>
+<div><div>
+        <div>
+          <div><span>ヒント:</span> 元に戻すと、カーソルは更新された現在行の最初の非ブランク文字に移動します。</div>
+        </div>
+      </div></div>
+
+</div>
+</td>
+
+</tr>
+
+<tr>
+<td><span>U</span></td>
+
+<td>最後の変更以後カーソルが行を残していなければ、現在行を復元します。</td>
+
+</tr>
+
+<tr>
+<td><span>.</span></td>
+
+<td>最後の変更を繰り返すか、<strong> "</strong><em>n</em><strong>p</strong> コマンドを増分します。<div>
+<div><div>
+        <div>
+          <div><span>注:</span><ol>
+<li>このサブコマンドは、元に戻された場合も含めて、最後の変更を繰り返します。 したがって、元に戻された場合は、最後の変更が繰り返されるのではなく元に戻されたものが繰り返されます。</li>
+
+<li>このサブコマンドは、マクロに使用するものではありません。 マクロを繰り返すには、<strong> @@</strong> (アットマーク 2 つ) を入力します。</li>
+
+</ol>
+
+</div>
+        </div>
+      </div></div>
+
+</div>
+</td>
+
+</tr>
+
+<tr>
+<td><span>"</span>n <a href="https://www.ibm.com/docs/ja/ssw_aix_73/v_commands/vi.html#vi__row-d3e8047" target="_blank" rel="noopener noreferrer"><span>p</span></a></td>
+
+<td>最後から <em>n</em> 番目に削除された行をすべて、またはブロック単位で検索します。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+
+</dd>
+
+
+</dl>
+</section>
+
+<section><h2>ファイルの操作</h2> <p>ファイル操作用のサブコマンドを使用すると、以下のセクションで説明するタスクを実行することができます。</p>
+ <ul>
+<li>ファイルへの変更保存</li>
+
+<li>第 2 のファイルの編集</li>
+
+<li>ファイル・リストの編集</li>
+
+<li>ファイル情報の検索</li>
+
+</ul>
+
+<dl>
+
+<dt>ファイルへの変更保存</dt>
+
+<dd><p><a href="https://www.ibm.com/docs/ja/ssw_aix_73/v_commands/vi.html#vi__row-d3e5302" target="_blank" rel="noopener noreferrer">コマンド・モード</a>では、以下のサブコマンドを使用します。 vi サブコマンドのフォーマットに関する情報が必要な場合は、 <a href="https://www.ibm.com/docs/ja/ssw_aix_73/v_commands/vi.html#vi__general_sub_syntax" target="_blank" rel="noopener noreferrer">vi General サブコマンドの構文</a>を参照してください。</p>
+
+
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><span>:w</span></td>
+
+<td>編集バッファーの内容を元のファイルに書き込みます。 <a href="https://www.ibm.com/docs/ja/ssw_aix_73/e_commands/ex.html" target="_blank" rel="noopener noreferrer">例</a> エディター内でこのサブコマンドを使用する場合は、: (コロン) を入力する必要はありません。</td>
+
+</tr>
+
+<tr>
+<td><span>:w</span> ファイル</td>
+
+<td><em>File</em> パラメーターで指定したファイルに編集バッファーの内容を書き込みます。 <a href="https://www.ibm.com/docs/ja/ssw_aix_73/e_commands/ex.html" target="_blank" rel="noopener noreferrer">例</a> エディター内でこのサブコマンドを使用する場合は、: (コロン) を入力する必要はありません。</td>
+
+</tr>
+
+<tr>
+<td><span>:w!</span> ファイル</td>
+
+<td><em>File</em> パラメーターで指定したファイルに編集バッファーの内容を上書きします。 <a href="https://www.ibm.com/docs/ja/ssw_aix_73/e_commands/ex.html" target="_blank" rel="noopener noreferrer">例</a> エディター内でこのサブコマンドを使用する場合は、: (コロン) を入力する必要はありません。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+
+</dd>
+
+
+
+<dt>第 2 のファイルの編集</dt>
+
+<dd><p><a href="https://www.ibm.com/docs/ja/ssw_aix_73/v_commands/vi.html#vi__row-d3e5302" target="_blank" rel="noopener noreferrer">コマンド・モード</a>で以下のサブコマンドを入力します。 vi サブコマンドのフォーマットに関する情報が必要な場合は、 <a href="https://www.ibm.com/docs/ja/ssw_aix_73/v_commands/vi.html#vi__general_sub_syntax" target="_blank" rel="noopener noreferrer">vi General サブコマンドの構文</a>を参照してください。</p>
+
+
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><span>:e</span> ファイル</td>
+
+<td>指定ファイルを編集します。 <a href="https://www.ibm.com/docs/ja/ssw_aix_73/e_commands/ex.html" target="_blank" rel="noopener noreferrer">例</a> エディターからこのサブコマンドを使用する場合は、: (コロン) を入力する必要はありません。</td>
+
+</tr>
+
+<tr>
+<td><span>:e!</span></td>
+
+<td>現行ファイルを再度編集し、すべての変更を破棄します。</td>
+
+</tr>
+
+<tr>
+<td><span>:e</span> + ファイル</td>
+
+<td>指定ファイルをファイルの終わりから編集します。</td>
+
+</tr>
+
+<tr>
+<td><span>:e</span> + 数値ファイル</td>
+
+<td>指定ファイルを指定行番号から編集します。</td>
+
+</tr>
+
+<tr>
+<td><span>:e #</span></td>
+
+<td>代替ファイルを編集します。 通常は、<strong>:e</strong> コマンドで別のファイルにアクセスする前のファイル名が代替ファイルです。 ただし、新しいファイルを呼び出したときに現行ファイル内で変更が保留になっている場合には、新しいファイルが代替ファイルになります。 このサブコマンドは、 <a href="https://www.ibm.com/docs/ja/ssw_aix_73/v_commands/vi.html#vi__row-d3e8376" target="_blank" rel="noopener noreferrer"><strong>Ctrl + A</strong></a> サブコマンドと同じです。</td>
+
+</tr>
+
+<tr>
+<td><span>:r</span> ファイル</td>
+
+<td>現在行の後に新しい行を追加して、ファイルを編集バッファーに読み込みます。 <a href="https://www.ibm.com/docs/ja/ssw_aix_73/e_commands/ex.html" target="_blank" rel="noopener noreferrer">例</a> エディターからこのサブコマンドを使用する場合は、 <strong>:</strong> (コロン) を入力する必要はありません。</td>
+
+</tr>
+
+<tr>
+<td><span>:r !</span>コマンド</td>
+
+<td>指定されたコマンドを実行し、現行カーソル位置の後に改行を追加することにより、その出力をファイルに入れます。</td>
+
+</tr>
+
+<tr>
+<td><span>:ta</span> タグ</td>
+
+<td><em>Tag</em> タグの入っているファイルを、そのタグ位置から編集します<em>。</em> このサブコマンドを使用するには、まず <a href="https://www.ibm.com/docs/ja/ssw_aix_73/c_commands/ctags.html" target="_blank" rel="noopener noreferrer"><strong>Cタグ</strong></a> コマンドを使用して関数名とその場所のデータベースを作成する必要があります。 <a href="https://www.ibm.com/docs/ja/ssw_aix_73/e_commands/ex.html" target="_blank" rel="noopener noreferrer">例</a> エディターからこのサブコマンドを使用する場合は、 <strong>:</strong> (コロン) を入力する必要はありません。</td>
+
+</tr>
+
+<tr>
+<td><span>Ctrl-]</span></td>
+
+<td>現行のワードと関連したタグの入っているファイルを、そのタグ位置から編集します。 このサブコマンドを使用するには、最初に <strong>ctags</strong> コマンドを使用して関数名とそれらの位置のデータベースを作成する必要があります。 Ctrl-T は、前回の Ctrl-] サブコマンドが発行された編集位置でファイルを編集します。 複数の Ctrl-] サブコマンドが発行されている場合は、Ctrl-] サブコマンドが発行された前回の編集位置に戻るのに、
+複数の Ctrl-T サブコマンドを使用することができます。</td>
+
+</tr>
+
+<tr>
+<td><span>Ctrl-A</span></td>
+
+<td>代替ファイルを編集します。 代替ファイルは、通常は前の現行ファイル名です。 ただし、新しいファイルを呼び出したときに現行ファイル内で変更が保留になっている場合には、新しいファイルが代替ファイルになります。 このサブコマンドは、 <a href="https://www.ibm.com/docs/ja/ssw_aix_73/v_commands/vi.html#vi__row-d3e8305" target="_blank" rel="noopener noreferrer"><strong>:e #</strong></a> サブコマンドと同じです。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+
+</dd>
+
+
+
+<dt>ファイル・リストの編集</dt>
+
+<dd><p><a href="https://www.ibm.com/docs/ja/ssw_aix_73/v_commands/vi.html#vi__row-d3e5302" target="_blank" rel="noopener noreferrer">コマンド・モード</a>で以下のサブコマンドを入力します。 vi サブコマンドのフォーマットに関する情報が必要な場合は、 <a href="https://www.ibm.com/docs/ja/ssw_aix_73/v_commands/vi.html#vi__general_sub_syntax" target="_blank" rel="noopener noreferrer">vi General サブコマンドの構文</a>を参照してください。</p>
+
+
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><span>:n</span></td>
+
+<td>コマンド・ラインで入力したリスト内の次のファイルを編集します。 <a href="https://www.ibm.com/docs/ja/ssw_aix_73/e_commands/ex.html" target="_blank" rel="noopener noreferrer">例</a> エディターからこのサブコマンドを使用する場合、: (コロン) は必要ありません。</td>
+
+</tr>
+
+<tr>
+<td><span>:n</span> ファイル</td>
+
+<td>編集する新しいファイル・リストを指定します。 <a href="https://www.ibm.com/docs/ja/ssw_aix_73/e_commands/ex.html" target="_blank" rel="noopener noreferrer">例</a> エディターからこのサブコマンドを使用する場合、 <strong>:</strong> (コロン) は必要ありません。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+
+</dd>
+
+
+
+<dt>ファイル情報の検索</dt>
+
+<dd><p><a href="https://www.ibm.com/docs/ja/ssw_aix_73/v_commands/vi.html#vi__row-d3e5302" target="_blank" rel="noopener noreferrer">コマンド・モード</a>に次のサブコマンドを入力します。 vi サブコマンドのフォーマットに関する情報が必要な場合は、 <a href="https://www.ibm.com/docs/ja/ssw_aix_73/v_commands/vi.html#vi__general_sub_syntax" target="_blank" rel="noopener noreferrer">vi General サブコマンドの構文</a>を参照してください。</p>
+
+
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><span>Ctrl-G</span></td>
+
+<td>現行ファイル名、現在行番号、ファイル内の行数、ファイル内におけるカーソル位置をパーセントで表示します。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+
+</dd>
+
+
+</dl>
+</section>
+
+<section><h2>その他のアクション</h2> <p>vi エディターには、以下のセクションで説明するサブコマンドがあります。</p>
+ <ul>
+<li>スクリーン調整</li>
+
+<li>シェル・コマンドの入力</li>
+
+<li>vi エディターへの割り込みと終了</li>
+
+</ul>
+
+<dl>
+
+<dt>スクリーン調整</dt>
+
+<dd><p><a href="https://www.ibm.com/docs/ja/ssw_aix_73/v_commands/vi.html#vi__row-d3e5302" target="_blank" rel="noopener noreferrer">コマンド・モード</a>で以下のサブコマンドを入力します。 不完全なサブコマンドは、Esc キーを押すと取り消すことができます。 vi サブコマンドのフォーマットに関する情報が必要な場合は、 <a href="https://www.ibm.com/docs/ja/ssw_aix_73/v_commands/vi.html#vi__general_sub_syntax" target="_blank" rel="noopener noreferrer">vi General サブコマンドの構文</a>を参照してください。</p>
+
+
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><span>Ctrl-L</span></td>
+
+<td>画面を消去し、再表示します。</td>
+
+</tr>
+
+<tr>
+<td><span>Ctrl-R</span></td>
+
+<td>画面を再表示し、@ (アットマーク) でマークされたブランク行を削除します。</td>
+
+</tr>
+
+<tr>
+<td><span>z</span>Number
+</td>
+
+<td>ウィンドウの長さを指定した行数にします。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+
+</dd>
+
+
+
+<dt>シェル・コマンドの入力</dt>
+
+<dd><p>以下のサブコマンドを使用すると、vi エディターでコマンド内でコマンドを実行することができます。 <a href="https://www.ibm.com/docs/ja/ssw_aix_73/v_commands/vi.html#vi__row-d3e5302" target="_blank" rel="noopener noreferrer">コマンド・モード</a>で以下のサブコマンドを入力します。 vi サブコマンドのフォーマットに関する情報が必要な場合は、 <a href="https://www.ibm.com/docs/ja/ssw_aix_73/v_commands/vi.html#vi__general_sub_syntax" target="_blank" rel="noopener noreferrer">vi General サブコマンドの構文</a>を参照してください。</p>
+
+
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><span>:sh</span></td>
+
+<td>複数のコマンドを実行できるように、シェルに入ります。 Ctrl-D キー・シーケンスを押すと、vi エディターに戻ることができます。 <a href="https://www.ibm.com/docs/ja/ssw_aix_73/e_commands/ex.html" target="_blank" rel="noopener noreferrer">例</a> エディター内でこのサブコマンドを使用する場合、: (コロン) は必要ありません。</td>
+
+</tr>
+
+<tr>
+<td><span>:!</span>コマンド</td>
+
+<td>指定したコマンドを実行してから vi エディターに戻ります。 <a href="https://www.ibm.com/docs/ja/ssw_aix_73/e_commands/ex.html" target="_blank" rel="noopener noreferrer">例</a> エディター内でこのサブコマンドを使用する場合、: (コロン) は必要ありません。<div>
+<div><div>
+        <div>
+          <div><span>ヒント:</span> # (代替ファイル)、 <strong>%</strong> (現行ファイル)、および <strong>!</strong> (上記のコマンド) <strong>:!</strong> の後に続くと、特殊文字が展開されます。 サブコマンドと同じです。 これらの文字が展開されないようにするには、円記号 (<strong>&amp;#xa5;</strong>) を使用してください。</div>
+        </div>
+      </div></div>
+
+</div>
+</td>
+
+</tr>
+
+<tr>
+<td><span>:!!</span></td>
+
+<td>最後の<strong> :!</strong> を繰り返します。<em>コマンド</em> サブコマンド<strong>.</strong></td>
+
+</tr>
+
+<tr>
+<td>数値<span>!!</span>コマンド</td>
+
+<td>指定したコマンドを実行し、<em>Number</em> で指定した行をコマンドの出力に置き換えます<strong>。</strong> 数値を指定しない場合、デフォルト値は 1 です。 コマンドが標準入力を予期している場合は、指定された行が入力として使用されます。</td>
+
+</tr>
+
+<tr>
+<td><span>!</span>オブジェクト・コマンド</td>
+
+<td>指定したコマンドを実行し、<em>Object</em> パラメーターで指定したオブジェクトをコマンドの出力に置き換えます<strong>。</strong> コマンドが標準入力を求める場合、指定したオブジェクトは入力として使用されます。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+
+</dd>
+
+
+
+<dt>vi エディターへの割り込みと終了</dt>
+
+<dd><p><a href="https://www.ibm.com/docs/ja/ssw_aix_73/v_commands/vi.html#vi__row-d3e5302" target="_blank" rel="noopener noreferrer">コマンド・モード</a>で以下のサブコマンドを入力します。 vi サブコマンドのフォーマットに関する情報が必要な場合は、 <a href="https://www.ibm.com/docs/ja/ssw_aix_73/v_commands/vi.html#vi__general_sub_syntax" target="_blank" rel="noopener noreferrer">vi General サブコマンドの構文</a>を参照してください。</p>
+
+
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><span>Q</span></td>
+
+<td>コマンド・モードで <a href="https://www.ibm.com/docs/ja/ssw_aix_73/e_commands/ex.html" target="_blank" rel="noopener noreferrer">例</a> エディターに入ります。</td>
+
+</tr>
+
+<tr>
+<td><span>ZZ</span></td>
+
+<td>vi エディターを終了して変更を保存します。</td>
+
+</tr>
+
+<tr>
+<td><span>:q</span></td>
+
+<td>vi エディターを終了します。 編集バッファーの内容を変更した場合は、vi エディターは警告メッセージを表示し、終了しません。 <a href="https://www.ibm.com/docs/ja/ssw_aix_73/e_commands/ex.html" target="_blank" rel="noopener noreferrer">例</a> エディターからこのサブコマンドを使用する場合、: (コロン) は必要ありません。</td>
+
+</tr>
+
+<tr>
+<td><span>:q!</span></td>
+
+<td>vi エディターを終了します。
+編集バッファーは破棄されます。 <a href="https://www.ibm.com/docs/ja/ssw_aix_73/e_commands/ex.html" target="_blank" rel="noopener noreferrer">例</a> エディターからこのサブコマンドを使用する場合、: (コロン) は必要ありません。</td>
+
+</tr>
+
+<tr>
+<td><span>Esc</span></td>
+
+<td>テキスト入力または不完全なサブコマンドを終了します。</td>
+
+</tr>
+
+<tr>
+<td><span>Ctrl-?</span></td>
+
+<td>サブコマンドに割り込みます。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+
+</dd>
+
+
+</dl>
+</section>
+
+<section><h2>終了状況</h2> <p>次のような終了値が戻されます。</p>
+ 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><span>0</span></td>
+
+<td>正常終了したことを示します。</td>
+
+</tr>
+
+<tr>
+<td><span>&gt;0</span></td>
+
+<td>これは、エラーが発生したことを示しています。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</section>
+
+<section><h2>入力ファイル</h2> <p>入力ファイルは必ずテキスト・ファイルか、同様のファイルである必要があります。
+ただし、ファイルの最後の行が不完全であってはなりません (つまり、ヌル文字が含まれていないことが必要です)。</p>
+ <p><strong>.exrc</strong> ファイルは、<strong>ex</strong> コマンドが記述されたテキスト・ファイルである必要があります。</p>
+ <p><span><span>$HOME/.vi_history</span></span> ファイルは、最終行モードのコマンド履歴を記録する自動生成テキスト・ファイルです。</p>
+ <p>デフォルトでは、vi エディターはファイルから編集する行を読み取る際に、各行を vi エディター・コマンドとして解釈しません。</p>
+</section>
+
+</div></div>

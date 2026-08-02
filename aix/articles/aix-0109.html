@@ -1,0 +1,358 @@
+<div class="official-dom"><div>
+<section><h2>目的</h2> <p>ファイルおよびファイルシステムをバックアップします。</p>
+</section>
+
+<section><h2>構文</h2>
+
+<p><strong>名前で指定されたファイルのバックアップ</strong></p>
+
+<p><span>backup</span> <a href="https://www.ibm.com/docs/ja/ssw_aix_73/b_commands/backup.html#backup__row-d3e49426" target="_blank" rel="noopener noreferrer"><code>-f</code></a> デバイス <a href="https://www.ibm.com/docs/ja/ssw_aix_73/b_commands/backup.html#backup__row-d3e49490" target="_blank" rel="noopener noreferrer"><code>-i</code></a> [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/b_commands/backup.html#backup__row-d3e49344" target="_blank" rel="noopener noreferrer"><code>-b</code></a> 数値 ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/b_commands/backup.html#backup__row-d3e49585" target="_blank" rel="noopener noreferrer"><code>-p</code></a> [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/b_commands/backup.html#backup__row-d3e49375" target="_blank" rel="noopener noreferrer"><code>-e</code></a> RegularExpression ]] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/b_commands/backup.html#backup__row-d3e49390" target="_blank" rel="noopener noreferrer"><code>-E</code></a>{<strong>force|ignore|warn</strong>}] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/b_commands/backup.html#backup__row-d3e49500" target="_blank" rel="noopener noreferrer"><code>-l</code></a> Number ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/b_commands/backup.html#backup__row-d3e49611" target="_blank" rel="noopener noreferrer"><code>-U</code></a> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/b_commands/backup.html#backup__row-d3e49552" target="_blank" rel="noopener noreferrer"><code>-o</code></a> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/b_commands/backup.html#backup__row-d3e49596" target="_blank" rel="noopener noreferrer"><code>-q</code></a> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/b_commands/backup.html#backup__row-d3e49633" target="_blank" rel="noopener noreferrer"><code>-v</code></a> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/b_commands/backup.html#backup__row-d3e49683" target="_blank" rel="noopener noreferrer"><code>-Z</code></a> ]</p>
+
+<p><strong>i ノードで指定されたファイルシステムのバックアップ</strong></p>
+
+<p><span>backup</span> <a href="https://www.ibm.com/docs/ja/ssw_aix_73/b_commands/backup.html#backup__row-d3e49426" target="_blank" rel="noopener noreferrer"><code>-f</code></a> デバイス [[ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/b_commands/backup.html#backup__row-d3e49675" target="_blank" rel="noopener noreferrer"><code>-Level</code></a> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/b_commands/backup.html#backup__row-d3e49344" target="_blank" rel="noopener noreferrer"><code>-b</code></a> 番号 ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/b_commands/backup.html#backup__row-d3e49369" target="_blank" rel="noopener noreferrer"><code>-c</code></a> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/b_commands/backup.html#backup__row-d3e49511" target="_blank" rel="noopener noreferrer"><code>-L</code></a> 長さ ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/b_commands/backup.html#backup__row-d3e49540" target="_blank" rel="noopener noreferrer"><code>-n</code></a> snapshotName ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/b_commands/backup.html#backup__row-d3e49611" target="_blank" rel="noopener noreferrer"><code>-U</code></a> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/b_commands/backup.html#backup__row-d3e49617" target="_blank" rel="noopener noreferrer"><code>-u</code></a> ]] [ FileSystem ] | [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/b_commands/backup.html#backup__row-d3e49653" target="_blank" rel="noopener noreferrer"><code>-w</code></a> | <a href="https://www.ibm.com/docs/ja/ssw_aix_73/b_commands/backup.html#backup__row-d3e49662" target="_blank" rel="noopener noreferrer"><code>-W</code></a> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/b_commands/backup.html#backup__row-d3e49683" target="_blank" rel="noopener noreferrer"><code>-Z</code></a> ]</p>
+
+</section>
+
+<section><h2>説明</h2> <p><strong>backup</strong> コマンドは、磁気テープやディスケットなどのバックアップ・メディア上にファイルのコピーを作成します。 コピーは、以下の 2 つのバックアップ・フォーマットのいずれかで作成されます。</p>
+ <ul>
+<li><a href="https://www.ibm.com/docs/ja/ssw_aix_73/b_commands/backup.html#backup__row-d3e49490" target="_blank" rel="noopener noreferrer"><strong>-i</strong></a> フラグを使用して名前でバックアップされた特定のファイル。</li>
+
+<li><em>Level</em> パラメーターおよび <em>FileSystem</em> パラメーターを使用した場合は、i ノード番号で指定されたファイルシステム全体のバックアップ</li>
+
+</ul>
+ <p>指定したバックアップ・デバイスに該当しないフラグを指定すると、<strong>backup</strong> コマンドによりエラー・メッセージが表示され、引き続きデフォルトのバックアップ処理が行われます。</p>
+ <p>一度の操作で複数のボリュームに渡るバックアップを実行できます。</p>
+ <div><blockquote><span>“</span><strong>注:</strong><ol>
+<li><strong>backup</strong> コマンドを実行すると、選択した出力メディアにこれまで保存されていたすべてのデータが失われます。</li>
+
+<li>システムのバックアップ時にファイルが変更された場合は、アーカイブ・データの保全性が崩れる場合があります。 したがって、システム・バックアップ処理中は、システムの活動を最小限に抑えてください。</li>
+
+<li>テープ・デバイスのブロック・サイズを 0 (ゼロ) に設定してテープ・デバイスにバックアップをとった場合は、<strong>backup</strong> コマンドの指定時にデフォルトの書き込みサイズを使用したときを除いて、テープからのデータを復元できない場合があります。 <strong>backup</strong> コマンドのデフォルトの書き込みサイズは、テープ・デバイスのブロック・サイズが 0 の条件で、<strong>restore</strong> コマンドにより読み取ることができます。 つまり、テープ・デバイスのブロック・サイズが 0 の場合は、 <a href="https://www.ibm.com/docs/ja/ssw_aix_73/b_commands/backup.html#backup__row-d3e49344" target="_blank" rel="noopener noreferrer"><strong>-b</strong></a> フラグを指定しないでください。 <strong>backup</strong> コマンドの <strong>-b</strong> フラグが指定され、デフォルト・サイズと異なる場合、 アーカイブ・ファイルをテープからリストアする場合は、 <strong>restore</strong> コマンドの <strong>-b</strong> フラグで同じサイズを指定する必要があります。</li>
+
+<li>論理ボリュームをバックアップしようとしないでください。</li>
+
+</ol>
+<span>”</span></blockquote>
+</div>
+<p><strong>名前で指定されたファイルのバックアップ</strong></p>
+ <p>名前でバックアップするには、 <a href="https://www.ibm.com/docs/ja/ssw_aix_73/b_commands/backup.html#backup__row-d3e49490" target="_blank" rel="noopener noreferrer"><strong>-i</strong></a> フラグを使用します。 <strong>backup</strong> コマンドは、バックアップ対象のファイル名を標準入力から読み取ります。</p>
+ <p>ファイル・タイプは、スペシャル・ファイル、通常ファイル、ディレクトリーのいずれでもかまいません。 ファイル・タイプがディレクトリーのときは、ディレクトリーのバックアップだけが作成されます。 ディレクトリーの下のファイルについては、明示的に指定しない限りそのバックアップは作成されません。</p>
+ <div><blockquote><span>“</span><strong>注:</strong><ol>
+<li>ファイルは、バックアップをとったときのパス名で
+指定される場所に復元されますが、バックアップ時に相対パス名を指定すると、復元時に
+もとの場所に復元できないことがあります。 これを避けるためには、バックアップ時に絶対パス名を指定してください。</li>
+
+<li>複数のボリュームを必要とするバックアップを実行しているときには、キーボードからファイル名のリストを入力しないでください。 代わりに、いったんファイルにしたリストを、ファイルから <strong>backup</strong> コマンドにパイプで送るか、またはリダイレクトしてください。 ファイル名をキーボードから入力した後で、バックアップに新しいテープまたはディスケットが必要になると、まだバックアップされていないファイルの名前が不明になってしまいます。 この問題を防ぐには、直前のファイルのアーカイブ済みメッセージが表示されてから、次のファイル名を入力してください。 アーカイブされたメッセージは、次の文字で構成されます。aの後にファイル名が続きます。</li>
+
+<li><a href="https://www.ibm.com/docs/ja/ssw_aix_73/b_commands/backup.html#backup__row-d3e49585" target="_blank" rel="noopener noreferrer"><strong>-p </strong></a>フラグを指定すると、 2GB 未満のファイルのみがパックされます。</li>
+
+</ol>
+<span>”</span></blockquote>
+</div>
+<p><strong>i ノード番号で指定されたファイルシステムのバックアップ</strong></p>
+ <p>i ノード番号で指定されたファイルシステムのバックアップをとるには、<strong>-</strong><em>Level</em> パラメーターおよび <em>FileSystem</em> パラメーターを指定します。 <a href="https://www.ibm.com/docs/ja/ssw_aix_73/b_commands/backup.html#backup__row-d3e49617" target="_blank" rel="noopener noreferrer"><strong>-u</strong></a> フラグと一緒に使用すると、 <strong>-</strong><em>Level</em> パラメーターは、各ファイルシステムの増分バックアップの階層を維持する方法を提供します。 <strong>-u</strong> フラグを指定し、 <strong>-</strong><em>Level</em> パラメーターを次のように設定します。n変更されたファイルのみをバックアップします。n-1レベル・バックアップ。 各増分バックアップの日付、時刻、およびレベルについての情報は、<strong>/etc/dumpdates</strong> ファイルに書き込まれます。バックアップ・レベルとしては 0 から 9 までが指定できます。 可能なバックアップ・レベルは 0 から 9 です。 レベル 0 バックアップでは、ファイルシステム内のすべてのファイルがアーカイブされます。 あるファイルシステムについてのバックアップ情報が <strong>/etc/dumpdates</strong> ファイルに入っていない場合は、どのレベルを指定してもそのファイルシステム内のすべてのファイルが保管されます。</p>
+ <p><em>FileSystem</em> パラメーターでは、物理デバイス名 (ブロック名または未加工名)、またはファイルシステムがマウントされているディレクトリーの名前を指定できます。 デフォルトのファイルシステムは、ルート (<strong>/</strong>) ファイルシステムです。</p>
+ <p>i ノードによるバックアップを実行するには、ファイルシステム・デバイス (<strong>/dev/hd4</strong> など) への読み取りアクセス権またはバックアップ許可が必要です。</p>
+ <div><blockquote><span>“</span><strong>注:</strong><ol>
+<li>i ノード番号で指定されたファイルシステムのバックアップをとる前に、まずファイルシステムをアンマウントする必要があります。 マウントされているファイルシステムのバックアップをとろうとすると、警告メッセージが表示されます。 <strong>backup</strong> コマンドは引き続き実行されますが、バックアップ処理中にファイルシステム内で何らかの変更が発生すると、作成されたバックアップのデータの不整合を招く場合があります。</li>
+
+<li>i ノード番号で指定されたファイルシステムのバックアップをとると、65535 より大きい <strong>uid</strong> または <strong>gid</strong> を持つファイルの <strong>uid</strong> または <strong>gid</strong> は切り捨てられます。 これらのファイルを復元すると、<strong>uid</strong> 属性および <strong>gid</strong> 属性の値は以前とは異なる場合があります。 これらの値を正しく保持するには、65535 より大きい <strong>uid</strong> または <strong>gid</strong> の付いたファイルは、必ず名前を指定する方法でバックアップしてください。</li>
+
+<li>i ノードによるバックアップをとるときは、JFS (ジャーナル・ファイルシステム) または JFS2 ファイルシステムのみ保存できます。 JFS および JFS2 以外のファイルシステムは、ファイル名によってバックアップをとるか、<span>pax</span>、<span>tar</span>、または <span>cpio</span> などの他のアーカイブ・コマンドを使用してバックアップをとってください。 さらに、512 バイトのブロック・サイズを持たないディスクにあるファイルシステムについては、i ノードによるバックアップはサポートされません。 これらのファイルシステムは、<span>pax</span>、<span>tar</span>、または <span>cpio</span> コマンドなどの他のいずれかのアーカイブ・コマンドを使用してバックアップする必要があります。</li>
+
+<li>暗号化ファイルシステムのバックアップには、<strong>-Z</strong> フラグが必須です。</li>
+
+</ol>
+<span>”</span></blockquote>
+</div>
+</section>
+
+<section><h2>フラグ</h2> <div> 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><strong>-b</strong><em> 数値</em></td>
+
+<td>1 回の出力処理で書き込むブロック数を指定します。1 つのブロックの大きさは、名前で指定されたバックアップの場合は 512 バイト、i ノード番号で指定されたバックアップの場合は 1024 バイトです。 <strong>backup</strong> コマンドによってテープ・デバイスにバックアップを書き込むときのデフォルトのブロック数は、名前で指定されたバックアップの場合は 100 で、i ノード番号で指定されたバックアップの場合は 32 です。<p>書き込みサイズは、ブロック数にブロック・サイズを乗じた値になります。 テープ・デバイスに書き込むときの <strong>backup</strong> コマンドのデフォルトの書き込みサイズは、名前で指定されたバックアップの場合 51200 (100 * 512) で、i ノード番号で指定されたバックアップの場合 32768 (32 * 1024) です。 書き込みサイズは、テープの物理ブロック・サイズの偶数倍でなければなりません。</p>
+  <p><strong>backup</strong> コマンドでディスケットに書き込むときは、<strong>-b</strong> フラグは常に無視されます。 この場合、トラック全体を占めるクラスター単位で書き込みます。</p>
+</td>
+
+</tr>
+
+<tr>
+<td><strong>-c</strong></td>
+
+<td>9 トラックのテープではなくカートリッジ・テープであることを指定します。</td>
+
+</tr>
+
+<tr>
+<td><strong>-e</strong><em> RegularExpression</em></td>
+
+<td>正規表現に一致した名前のファイルをパックから除外することを指定します。 正規表現とは、ある検索パターンを定義する 1 つの文字列または文字列のグループで、文字、メタ文字、演算子から構成されます。 ワイルドカード文字と演算式により 1 つ以上の文字列候補を定義する文字列が正規表現になる場合もあります。 <strong>-e</strong> フラグは、 <a href="https://www.ibm.com/docs/ja/ssw_aix_73/b_commands/backup.html#backup__row-d3e49585" target="_blank" rel="noopener noreferrer"><strong>-p</strong></a> フラグが指定されている場合にのみ適用されます。</td>
+
+</tr>
+
+<tr>
+<td><strong>-E</strong></td>
+
+<td>名前によるバックアップの場合、<strong>-E</strong>
+オプションには次の引数のいずれかが必要です。 <strong>-E</strong> オプションを省略すると、<strong>warn</strong> がデフォルトの動作となります。<dl>
+<dt><strong>force</strong></dt>
+
+<dd>ファイルの固定エクステント・サイズまたはスペースの予約を保存できない場合、
+そのファイル上のバックアップ操作は失敗します。</dd>
+
+</dl>
+ <dl>
+<dt><strong>無視</strong></dt>
+
+<dd>エクステント属性の保持のエラーを無視します。</dd>
+
+</dl>
+ <dl>
+<dt><strong>warn</strong></dt>
+
+<dd>ファイルのスペースの予約または固定エクステント・サイズを保存できない場合に、警告を出します。</dd>
+
+</dl>
+</td>
+
+</tr>
+
+<tr>
+<td><strong>-f</strong><em> デバイス</em></td>
+
+<td>出力デバイスを指定します。 指定されたデバイスに出力を送信するには、パス名として <em>Device</em> 変数を指定します。例えば、次のようにします。/dev/rmt0)。 出力を標準出力装置に送るには、-(負符号) を指定します。 - (負) 機能を使用すると、<strong>backup</strong> コマンドの出力を <strong>dd</strong> コマンドにパイプで送ることができます。<p>アーカイブ・デバイスの範囲を指定することもできます。 範囲は、次のフォーマットで指定してください。</p>
+  <div> <div><div><pre><code>/dev/deviceXXX-YYY</code></pre></div><div></div></div></div>
+  <p>ここで、 <em>XXX</em> と <em>YYY</em> は整数で、 <em>XXX</em> は常に <em>YYY</em>より小さくなければなりません。例えば、次のようになります。/dev/rfd0-3.</p>
+  <p>指定する範囲内のすべてのデバイスは、同じタイプにする必要があります。 例えば、すべて 2.3 GB の 8 ミリ・テープ、またはすべて 1.44 MB のディスケットなどです。 すべてのテープ・デバイスには、同じ物理テープ・ブロック・サイズを設定しなければなりません。</p>
+  <p><em>Device</em> 変数により範囲を指定すると、<strong>backup</strong> コマンドは、その範囲内のあるデバイスから次のデバイスに自動的に処理を進めます。 指定されたすべてのデバイスを使い果たすと、<strong>backup</strong> コマンドは停止し、指定範囲のデバイスへの新しいボリュームのマウントを求めてきます。</p>
+</td>
+
+</tr>
+
+<tr>
+<td><strong>-i</strong></td>
+
+<td>ファイルを標準入力から読み取り、名前で指定されたファイルを保管します。 相対パス名を指定すると、ファイルは (<strong>restore</strong> コマンドを指定することにより)、復元時に現行ディレクトリーに対して相対的な名前で復元されます。 絶対パス名を使用した場合は、ファイルは同じ名前で復元されます。</td>
+
+</tr>
+
+<tr>
+<td><strong>-l</strong><em> 番号</em></td>
+
+<td>(小文字の L) ディスケット・デバイスで使用するブロック合計数の制限値を指定します。 指定する値は、ゼロ以外で、ディスケットのトラック当たりのセクター数の倍数でなければなりません。 このオプションは、名前で指定されたバックアップでのみ有効です。 ディスケットのトラック当たりのセクター数については、<strong>format</strong> コマンドを参照してください。</td>
+
+</tr>
+
+<tr>
+<td><strong>-L</strong> <em>長さ</em></td>
+
+<td>テープの長さをバイト単位で指定します。 このフラグを指定すると、<strong>-c</strong>、<strong>-d</strong>、および <strong>-s</strong> の各フラグは無効になります。 接尾辞として b、k、m、または g を付けることにより、それぞれブロック (512 バイト)、
+キロ (1024 バイト)、メガ (1024 K バイト)、ギガ (1024 M バイト) の単位で指定できます。 2 ギガバイトのテープ長を表すには、次のように入力します。-L 2g.<p></p><blockquote><span>“</span><strong>注:</strong> <strong>-L</strong> フラグは i ノード番号で指定されたバックアップ以外は指定しないでください。<span>”</span></blockquote>
+<p></p>
+</td>
+
+</tr>
+
+<tr>
+<td><strong>-n</strong> <em>snapshotName</em></td>
+
+<td>バックアップする内部スナップショットの名前を指定します。 スナップショットが入っているファイルシステムをマウントする必要があります。 <strong>-n</strong> フラグは、i ノードによるバックアップのみに使用されます。</td>
+
+</tr>
+
+<tr>
+<td><strong> -o</strong></td>
+
+<td>バージョン 2 と互換性のある、名前で指定されたバックアップを作成します。 バージョン 2 のシステムとの互換性を保つには、このフラグが必要です。
+バージョン 2 より後のバージョンにより作成される、名前で指定されたバックアップは、バージョン 2 のシステムには復元できないからです。 バージョン 2 と互換性のある、名前で指定されたバックアップを作成するには、名前で指定されたバックアップに必要な他のフラグと共に <strong>-o</strong> フラグを指定します。<p>ユーザー ID やグループ ID などの属性および値を持ち、バージョン 2 のシステムにとって大きすぎるファイルは、バックアップされません。 この種の大きすぎるファイルおよび値に対しては、それぞれにメッセージが表示されます。</p>
+</td>
+
+</tr>
+
+<tr>
+<td><strong>-p</strong></td>
+
+<td>ファイルを保管する前に、それをパックまたは圧縮するように指定します。 合計サイズが 2 GB 未満のファイルがパックされます。<p></p><blockquote><span>“</span><strong>注:</strong> このオプションの使用中は、ファイルシステムを非アクティブにしておくことをお勧めします。 このオプションはアクティブのファイルシステムで使用できます。 ただし、ファイルがバックアップされている時点で変更される場合、バックアップ・レポートが失敗する可能性が高まります。 圧縮機能付きテープ・デバイスにバックアップをとる場合は、このオプションを省略できます。<span>”</span></blockquote>
+<p></p>
+</td>
+
+</tr>
+
+<tr>
+<td><strong>-q</strong></td>
+
+<td>取り外し可能メディアが使用できることを示します。 <strong>-q</strong> フラグを指定すると、<strong>backup</strong> コマンドは、バックアップ・メディアの準備や Enter キーの押し下げを求めないで処理を継続します。 このフラグは最初のボリュームにのみ適用され、後続のボリュームが必要であればその準備を求められます。 <strong>-q</strong> フラグは名前で指定されたバックアップ専用です。</td>
+
+</tr>
+
+<tr>
+<td><span><span>-U</span></span></td>
+
+<td>ACL または名前付き拡張属性があれば、すべてバックアップを指定します。 このオプションを使用しないと、イメージが他の通常のファイル・データと共にアーカイブに組み込む
+のは、AIXC ACL と PCL のみです。 ファイルに NFS4 ACL が含まれている場合は、AIXC への変換が
+アーカイブ時にデフォルトで行われます。</td>
+
+</tr>
+
+<tr>
+<td><strong>-u</strong></td>
+
+<td>ファイルシステムのロウ・デバイス名と、バックアップの時刻、日付、レベルを使用して <strong>/etc/dumpdates</strong> ファイルを更新します。 増分バックアップを行う場合は、<strong>-u</strong> フラグを指定してください。 <strong>-u</strong> フラグは、i ノード番号で指定されたバックアップにのみ適用されます。</td>
+
+</tr>
+
+<tr>
+<td><strong>-v</strong></td>
+
+<td>このフラグを指定された <strong>backup</strong> コマンドは、バックアップについての追加情報を表示します。 <strong>-v</strong> フラグを指定すると、アーカイブ上に存在するファイルのサイズがバイト単位で表示されます。 さらに、すべてのファイルの処理が完了すると、これらのファイル・サイズの合計が表示されます。 ディレクトリーは、サイズ 0 でリストされます。 シンボリック・リンクは、シンボリック・リンクのサイズとともにリストされます。 ハード・リンクは、ハード・リンクのアーカイブ方法を示すファイルのサイズと共に表示されます。 ブロック・デバイスおよびキャラクター型デバイスのバックアップをとった場合は、サイズが 0 として表示されます。<p><strong>-v</strong> フラグを指定していない <strong>backup</strong> コマンドは、保管されたファイルの名前だけを表示します。 このオプションは、ファイル名によるバックアップをとるときにだけ使用します。</p>
+</td>
+
+</tr>
+
+<tr>
+<td><strong>-w</strong></td>
+
+<td>現在使用禁止です。 <strong>-w</strong> フラグを指定すると、他のフラグはすべて無効になります。</td>
+
+</tr>
+
+<tr>
+<td><strong>-W</strong></td>
+
+<td><strong>/etc/dumpdates</strong> ファイル内の各ファイルシステムの最後のバックアップ日およびバックアップ・レベルを表示します。 <strong>-W</strong> オプションを指定すると、他のフラグはすべて無効になります。</td>
+
+</tr>
+
+<tr>
+<td><strong>-</strong><em>レベル</em></td>
+
+<td>バックアップ・レベル (0 から 9 まで) を指定します。 デフォルト・レベルは 9 です。</td>
+
+</tr>
+
+<tr>
+<td><strong>-Z</strong></td>
+
+<td>すべてのファイル、ディレクトリー、およびファイルシステムに関する暗号化ファイルシステム (EFS) 情報をバックアップします。 デフォルトでは EFS 情報が取り出されます。<div><div>
+        <div>
+          <div><strong>-Z</strong>オプションで作成した<span>注：</span>アーカイブは、'<span>AIX 6.1</span>またはそれ以降のリリースでのみ復元できます。</div>
+        </div>
+      </div></div>
+</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+</section>
+
+<section><h2>セキュリティー</h2> <p><strong>RBAC ユーザーへの注意</strong>: このコマンドは特権命令を実行できます。 特権命令を実行できるのは特権ユーザーのみです。 権限および特権について詳しくは、「<em>セキュリティー</em>」の『特権コマンド・データベース』を参照してください。 このコマンドに関連した特権および権限のリストについては、<strong>lssecattr</strong> コマンドまたは <strong>getcmdattr</strong> サブコマンドの項を参照してください。</p>
+</section>
+
+<section><h2>終了状況</h2> <p>このコマンドは、以下の終了値を戻します。</p>
+ 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><strong>0</strong></td>
+
+<td>正常終了。</td>
+
+</tr>
+
+<tr>
+<td><strong>&gt;0</strong></td>
+
+<td>エラーが発生しました。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</section>
+
+<section><h2>例</h2> <ol>
+<li>以下の場所にあるすべてのファイルとサブディレクトリーをバックアップするには、/home絶対パス名を使用するディレクトリーの場合は、次のように入力<div><div><pre><code>find /home -print | backup -i -f /dev/rmt0</code></pre></div><div></div></div><a href="https://www.ibm.com/docs/ja/ssw_aix_73/b_commands/backup.html#backup__row-d3e49490" target="_blank" rel="noopener noreferrer"><strong>-i</strong></a> フラグは、ファイルが標準入力から読み取られ、ファイル名でアーカイブされることを指定します。 <strong>find</strong> コマンドは、以下の場所にあるすべてのファイルのリストを生成します。/homeディレクトリー。 このリスト内の各ファイルには、絶対パス名が付いています。 | (パイプ記号) により、<strong>backup</strong> コマンドはこのリストを標準入力から読み取ります。 <a href="https://www.ibm.com/docs/ja/ssw_aix_73/b_commands/backup.html#backup__row-d3e49426" target="_blank" rel="noopener noreferrer"><strong>-f</strong></a> フラグを指定すると、 <strong>backup</strong> コマンドはファイルを/dev/rmt0テープ装置。 各ファイルは絶対パス名の使用により保管されるので、復元時には同じパスに書き込まれます。</li>
+
+<li>以下の場所にあるすべてのファイルとサブディレクトリーをバックアップするには、/home/mike相対パス名を使用するディレクトリーの場合は、次のように入力<div><div><pre><code>cd /home/mike</code></pre></div><div></div></div><div><div><pre><code>
+find . -print | backup -i -v -q -f /dev/rmt0</code></pre></div><div></div></div><strong>find</strong> コマンドによって生成されたリスト内の各ファイル名の前には、 <strong>./</strong> が付きます。 (ドット、スラッシュ)。 バックアップされる各ファイルは相対パス名で指定されているので、復元時には現行ディレクトリーに書き込まれます。 <a href="https://www.ibm.com/docs/ja/ssw_aix_73/b_commands/backup.html#backup__row-d3e49633" target="_blank" rel="noopener noreferrer"><strong>-v</strong></a> フラグを指定すると、 <strong>backup</strong> コマンドはバックアップに関する追加情報を表示します。 ファイルは、提供されたバックアップ・デバイスに書き込まれます。/dev/rmt0.</li>
+
+<li><strong> /</strong> (ルート) ファイルシステムのバックアップをとるには、次のように入力します。<div><div><pre><code>backup -0 -u -f /dev/rmt0/</code></pre></div><div></div></div>この0level は、 <strong>/</strong> (ルート) ファイル・システム内のすべてのファイルをバックアップすることを指定します。 <a href="https://www.ibm.com/docs/ja/ssw_aix_73/b_commands/backup.html#backup__row-d3e49617" target="_blank" rel="noopener noreferrer"><strong>-u</strong></a> フラグを指定すると、 <strong>backup</strong> コマンドは、このバックアップの <strong>/etc/dumpdates</strong> ファイルを更新します。</li>
+
+<li>前回のレベル 0 のバックアップ以後に変更された <strong> /</strong> (ルート) ファイルシステム内のファイルのバックアップをとるには、次のように入力します。<div><div><pre><code>backup -1 -u -f /dev/rmt0/</code></pre></div><div></div></div><strong>/etc/dumpdates</strong> ファイルに / (ルート) システムのレベル 0 のバックアップに関するエントリーがない場合は、ファイルシステム内のすべてのファイルのバックアップが作成されます。</li>
+
+<li>拡張属性 (Extended Attributes) および ACL を指定してアーカイブを作成する
+場合は、次のように入力します。<div><div><pre><code>ls /etc/passwd | backup -ivUf arch.bk</code></pre></div><div></div></div></li>
+
+</ol>
+</section>
+
+<section><h2>ファイル</h2> <div> 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><strong>/etc/filesystems</strong></td>
+
+<td>ファイルシステムのマウント情報が入っています。</td>
+
+</tr>
+
+<tr>
+<td><strong>/etc/dumpdates</strong></td>
+
+<td>i ノード番号で指定された増分バックアップ用のログを指定します。</td>
+
+</tr>
+
+<tr>
+<td><strong>/dev/rhd4</strong></td>
+
+<td>デフォルトのファイルシステム (ルート) があるデバイスを指定します。</td>
+
+</tr>
+
+<tr>
+<td><strong>/usr/sbin/backup</strong></td>
+
+<td><strong> backup</strong> コマンドが入っています。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+</section>
+
+</div></div>

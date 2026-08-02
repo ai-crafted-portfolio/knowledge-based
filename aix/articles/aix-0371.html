@@ -1,0 +1,154 @@
+<div class="official-dom"><div>
+<section><h2>目的</h2> <p>IPv6 のための動的ホスト構成プロトコル (DHCPv6) クライアントをインプリメントします。 DHCPv6 サーバーから IPv6 ノードの IPv6 アドレスと構成情報を入手します。</p>
+</section>
+
+<section><h2>構文</h2><p>システム・リソース・コントローラー (SRC) を使用して DHCPv6 クライアントを始動する</p>
+ <p><strong>startsrc</strong> <strong>-s</strong> <strong>dhcpcd6</strong> [ <strong>-a</strong> Argument ] ...</p>
+<p>SRC を使用せずに DHCPv6 クライアントを始動する</p>
+ <p><strong>dhcpcd6</strong><a href="https://www.ibm.com/docs/ja/ssw_aix_73/d_commands/dhcpcd6.html#dhcpcd6__row-d3e26367" target="_blank" rel="noopener noreferrer"><strong>[-f</strong></a> ConfigurationFileName]<a href="https://www.ibm.com/docs/ja/ssw_aix_73/d_commands/dhcpcd6.html#dhcpcd6__row-d3e26400" target="_blank" rel="noopener noreferrer"><strong>[-u</strong></a> Client_duid_File]<a href="https://www.ibm.com/docs/ja/ssw_aix_73/d_commands/dhcpcd6.html#dhcpcd6__row-d3e26379" target="_blank" rel="noopener noreferrer"><strong>[-p</strong></a> ClientPort]<a href="https://www.ibm.com/docs/ja/ssw_aix_73/d_commands/dhcpcd6.html#dhcpcd6__row-d3e26391" target="_blank" rel="noopener noreferrer"><strong>[-t</strong></a> SolicitTimeout]</p>
+</section>
+
+<section><h2>説明</h2> <p><span>dhcpcd6</span> デーモンは、DHCPv6 プロトコルを使用して、IPv6
+(インターネット・プロトコル・バージョン 6) アドレスとその他のパラメーターを設定することによって、DHCPv6 クライアントをインプリメントします。</p>
+ <p><span>dhcpcd6</span> デーモンは、通常、ブート時に実行する <span>/etc/rc.net</span> ファイルによって始動されます。 デフォルトで、それはコメント化され、マシンの開始時には実行されません。 システムが始動しているとき、<span>dhcpcd6</span> デーモンは、バックグラウンドで実行されます。</p>
+ <p><span>dhcpcd6</span> デーモンは構成ファイルを読み取り、構成ファイル内に指定されたインターフェースをとるため
+1 つ以上の IPv6 アドレスおよびその他の情報オプションを取り上げ、取り込もうとします。 サーバーから入手したアドレスは、サーバーが指示するとおりに更新されます。</p>
+ <p>DHCPv6 クライアントとしては DHCPv6 サーバーに IPv6 アドレスを
+割り当ててもらう必要がない場合は、クライアントは使用可能な DNS サーバーまたは
+NTP サーバーのリストなどの構成情報のみを入手することができます。 その方法は、ノードが静的アドレスで構成されているときは、有益です。</p>
+ <p><span>refresh</span> コマンドは、<span>dhcpcd6</span> デーモンに構成ファイルを再読み取りさせる場合に使用できます。 同じ応答を得るために、 <span><span>SIGHUP</span></span> を使用することもできます。</p>
+ <p>デフォルトの <span>dhcpcd6</span> 構成ファイルは <span>/etc/dhcpv6/dhcpc6.cnf</span> です。 これには、ログおよびネットワーク・インターフェース情報が入っています。</p>
+</section>
+
+<section><h2>フラグ</h2> 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><span>-f</span> ConfigurationFileName</td>
+
+<td>使用する構成ファイルを指定します。 デフォルトは <span>/etc/dhcpv6/dhcpc6.cnf</span> です。</td>
+
+</tr>
+
+<tr>
+<td><span>-p</span> ClientPort</td>
+
+<td>使用するクライアント・ポートを指定します。 デフォルトは <code>546</code> です。</td>
+
+</tr>
+
+<tr>
+<td><span>-t</span> SolicitTimeout</td>
+
+<td>クライアントが、終了しないでその前にサーバーから構成情報を請求するまでの時間を指定します。</td>
+
+</tr>
+
+<tr>
+<td><span>-u</span> クライアント・ダID_ファイル</td>
+
+<td>使用するクライアント ID ファイルを指定します。 デフォルトは <span>/etc/dhcpv6/dhcpc6.duid</span> です。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</section>
+
+<section><h2>終了状況</h2> <p>このコマンドは、以下の終了値を戻します。</p>
+ 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td>0</td>
+
+<td>正常終了。</td>
+
+</tr>
+
+<tr>
+<td>&gt;0</td>
+
+<td>エラーが発生しました。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</section>
+
+<section><h2>セキュリティー</h2> <p>アクセス制御: このコマンドを実行するには、root 権限を持っていなければなりません。</p>
+</section>
+
+<section><h2>例</h2> <ol>
+<li><span>/usr/local</span> にある構成ファイル <span>dhcpcd6.cnf</span> を使用して DHCPv6 クライアントを始動するには、次のコマンドを入力します。<div><div><pre><code>startsrc -s dhcpcd6 -a "-f /usr/local/dhcpcd6.cnf"</code></pre></div><div></div></div></li>
+
+</ol>
+</section>
+
+<section><h2>場所</h2> <p><span>/usr/sbin/dhcpcd6</span></p>
+</section>
+
+<section><h2>ファイル</h2> 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><span>/usr/sbin/dhcpcd6</span></td>
+
+<td><span>dhcpcd6</span> クライアント・デーモンが入っています。</td>
+
+</tr>
+
+<tr>
+<td><span>/etc/dhcpv6/dhcpc6.cnf</span></td>
+
+<td>デフォルトの構成ファイルが入っています。</td>
+
+</tr>
+
+<tr>
+<td><span>/etc/dhcpv6/dhcpc6.db</span></td>
+
+<td>クライアント・リース・ファイルが入っています。 このファイルは、クライアント・デーモンによって作成されるものであり、構成可能ではありません。</td>
+
+</tr>
+
+<tr>
+<td><span>/etc/dhcpv6/dhcpc6.duid</span></td>
+
+<td>クライアント ID ファイルが入っています。 このファイルは、クライアント・デーモンによって作成されるものであり、構成可能ではありません。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</section>
+
+</div></div>

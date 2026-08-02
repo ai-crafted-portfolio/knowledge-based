@@ -1,0 +1,126 @@
+<div class="official-dom"><div>
+<section><h2>目的</h2> <p>イメージ・ファイルの指定されたソースから更新できるファームウェアまたはマイクロコードによって、システム・リソースを識別します。</p>
+</section>
+
+<section><h2>構文</h2> <p><span><span>umcode_latest</span></span> [<a href="https://www.ibm.com/docs/ja/ssw_aix_73/u_commands/umcode_latest.html#umcode_latest__row-d3e144091" target="_blank" rel="noopener noreferrer"><span><span>-s</span></span></a> <span><span>source</span></span>] [<a href="https://www.ibm.com/docs/ja/ssw_aix_73/u_commands/umcode_latest.html#umcode_latest__row-d3e144073" target="_blank" rel="noopener noreferrer"><span><span>-l</span></span></a>] [<a href="https://www.ibm.com/docs/ja/ssw_aix_73/u_commands/umcode_latest.html#umcode_latest__row-d3e144055" target="_blank" rel="noopener noreferrer"><span><span>-A</span></span></a>] | [<a href="https://www.ibm.com/docs/ja/ssw_aix_73/u_commands/umcode_latest.html#umcode_latest__row-d3e144049" target="_blank" rel="noopener noreferrer"><span><span>-a</span></span></a>[<a href="https://www.ibm.com/docs/ja/ssw_aix_73/u_commands/umcode_latest.html#umcode_latest__row-d3e144079" target="_blank" rel="noopener noreferrer"><span><span>-q</span></span></a>] [<a href="https://www.ibm.com/docs/ja/ssw_aix_73/u_commands/umcode_latest.html#umcode_latest__row-d3e144085" target="_blank" rel="noopener noreferrer"><span><span>-r</span></span></a>] | <a href="https://www.ibm.com/docs/ja/ssw_aix_73/u_commands/umcode_latest.html#umcode_latest__row-d3e144067" target="_blank" rel="noopener noreferrer"><span><span>-i</span></span></a>] | <a href="https://www.ibm.com/docs/ja/ssw_aix_73/u_commands/umcode_latest.html#umcode_latest__row-d3e144061" target="_blank" rel="noopener noreferrer"><span><span>-h</span></span></a></p>
+</section>
+
+<section><h2>説明</h2> <p><span><span>umcode_latest</span></span> コマンドは、これらのシステム・リソースの指定されたソースで検出されたファームウェアまたはマイクロコード・レベルより古いファームウェアまたはマイクロコード・レベルを持つシステム・リソースをリストまたはダウンロードします。</p>
+ <div><div>
+        <div>
+          <div><span>注:</span> システム・タイプ 8842/8844/7047/7013/7015/7017 および 7025-F50 のシステム・ファームウェア・イメージは、このコマンドではサポートされません。 一時システム・ファームウェア・イメージおよび永続システム・ファームウェア・イメージを持つシステムの場合、 <span><span>umcode_latest</span></span> コマンドは、指定されたソース上のイメージと比較するために一時システム・ファームウェア・イメージを使用します。 システム・ファームウェア・イメージ・ファイル名は、 <span><span>.img</span></span>で終わる必要があります。</div>
+        </div>
+      </div></div>
+</section>
+
+<section><h2>フラグ</h2> 
+<div><div><table><thead> <tr> <th><div>項目</div></th>
+ <th><div>説明</div></th>
+ </tr>
+ </thead>
+<tbody>
+<tr>
+<td><span><span>-a</span></span></td>
+
+<td>ソース上のマイクロコードが新しいすべてのシステム・リソースを更新します。</td>
+
+</tr>
+
+<tr>
+<td><span><span>-A</span></span></td>
+
+<td>現在リストまたは更新されているイメージと異なるリソース上のイメージがある場合は、リソースをリストまたは更新します。 デフォルトでは、ソースのイメージが新しくなった場合は常にリストまたは更新します。</td>
+
+</tr>
+
+<tr>
+<td><span><span>-h</span></span></td>
+
+<td>拡張された使用方法ヘルプを記載します。</td>
+
+</tr>
+
+<tr>
+<td><span><span>-i</span></span></td>
+
+<td>更新を必要とするそれぞれのリソースにプロンプトが出されるように、対話モードを提供します。</td>
+
+</tr>
+
+<tr>
+<td><span><span>-l</span></span></td>
+
+<td>更新が必要なシステム・リソースをリストします。 これはデフォルトです。</td>
+
+</tr>
+
+<tr>
+<td><span><span>-q</span></span></td>
+
+<td>すべての更新を続けるかどうかの質問を取り止めます。</td>
+
+</tr>
+
+<tr>
+<td><span><span>-r</span></span></td>
+
+<td>システム IPL を必要とする更新を続けるかどうかの質問を取り止めます。</td>
+
+</tr>
+
+<tr>
+<td><span><span>-s</span></span> <span><span>ソース</span></span></td>
+
+<td>マイクロコード・イメージのソースを指します。 デフォルトは <span><span>/etc/microcode</span></span>です。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</section>
+
+<section><h2>終了状況</h2> 
+<div><div><table><thead> <tr> <th><div>項目</div></th>
+ <th><div>説明</div></th>
+ </tr>
+ </thead>
+<tbody>
+<tr>
+<td><span><span>0</span></span></td>
+
+<td>コマンドは正常に完了しました。</td>
+
+</tr>
+
+<tr>
+<td><span><span>&gt;0</span></span></td>
+
+<td>エラーが発生しました。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</section>
+
+<section><h2>例</h2> <ol>
+<li><span><span>/etc/microcode</span></span>のイメージから更新できるファームウェアまたはマイクロコードを持つすべてのシステム・リソースをリストするには、次のように入力します。<div><div><pre><code> /usr/lpp/diagnostics/bin/umcode_latest </code></pre></div><div></div></div></li>
+
+<li><span><span>/tmp/fwupdate</span></span> ディレクトリー内のイメージから更新できるファームウェアまたはマイクロコードを持つすべてのシステム・リソースをリストするには、次のように入力します。<div><div><pre><code> /usr/lpp/diagnostics/bin/umcode_latest -s /tmp/fwupdate</code></pre></div><div></div></div></li>
+
+<li><span><span>/tmp/fwupdate</span></span> ディレクトリーにあるイメージから更新できるファームウェアまたはマイクロコードを持つすべてのシステム・リソースをリストし、リソースごとに、この時点でリソースを更新するかどうかを確認するには、次のように入力します。<div><div><pre><code> /usr/lpp/diagnostics/bin/umcode_latest -s /fwupdate -i</code></pre></div><div></div></div></li>
+
+<li>既に cd1 ドライブに挿入されている ISO 9660 フォーマット CD-ROM 上の新しいイメージのファームウェアまたはマイクロコードによって、システム・リソースのすべてを自動的に更新するには、次のように入力します。<div><div><pre><code> /usr/lpp/diagnostics/bin/umcode_latest -s cd1 -a -q</code></pre></div><div></div></div></li>
+
+</ol>
+</section>
+
+<section><h2>制約事項</h2> <p>システム・タイプ 8842/8844/7047/7013/7015/7017 および 7025-F50 のシステム・ファームウェア・イメージは、このコマンドによりサポートされません。 一時システム・ファームウェア・イメージおよび永続システム・ファームウェア・イメージを持つシステムの場合、 <span><span>umcode_latest</span></span> コマンドは、指定されたソース上のイメージと比較するために一時システム・ファームウェア・イメージを使用します。 システム・ファームウェア・イメージ・ファイル名は、 <span><span>.img</span></span>で終わる必要があります。</p>
+</section>
+
+<section><h2>場所</h2> <p><span><span>/usr/lpp/diagnostics/bin/umcode_latest</span></span></p>
+</section>
+
+</div></div>

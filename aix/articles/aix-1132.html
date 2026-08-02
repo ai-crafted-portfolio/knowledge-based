@@ -1,0 +1,334 @@
+<div class="official-dom"><div>
+<section><h2>目的</h2>
+
+<p>ユーザー空間のPlatform keystore (PKS)フレームワークの管理操作を行う。</p>
+
+</section>
+
+<section><h2>構文</h2>
+
+<div>
+<dl>
+
+<dt>新しい消費者を追加するには</dt>
+
+<dd><div><div><pre><code>pksctl register -name &lt;consumer&gt; [-password-file &lt;file&gt;] [-min-quota &lt;size&gt;] [-max-quota size&gt;] [-type { multi | single | wrap | wrap_multi | wrap_plus | wrap_plus_multi }]</code></pre></div><div></div></div>
+</dd>
+
+
+
+<dt>既存の消費者を削除するには</dt>
+
+<dd><div><div><pre><code>pksctl deregister -name &lt;consumer&gt; -force</code></pre></div><div></div></div>
+</dd>
+
+
+
+<dt>特定の消費者の最大割当量を減らすには</dt>
+
+<dd><div><div><pre><code>pksctl quota-shrink -name &lt;name&gt; -shrink-max &lt;new_size&gt;</code></pre></div><div></div></div>
+</dd>
+
+
+
+<dt>フレームワークの使用状況に関する統計情報を問い合わせる</dt>
+
+<dd><div><div><pre><code>pksctl stats [-name &lt;consumer&gt;]</code></pre></div><div></div></div>
+</dd>
+
+
+
+<dt>特定のユーザーの最小クォータ、最大クォータ、またはその両方を増やすには</dt>
+
+<dd><div><div><pre><code>pksctl quota-expand -name &lt;consumer&gt; [-expand-min &lt;new_size&gt;] [-expand-max &lt;new_size&gt;]</code></pre></div><div></div></div>
+</dd>
+
+
+
+<dt>今後登録されるコンシューマーのデフォルト・クォータ値を変更するには</dt>
+
+<dd><div><div><pre><code>pksctl set-default [-default-min &lt;new_size&gt;] [-default-max &lt;new_size&gt;] [-default-split &lt;percentage&gt;] </code></pre></div><div></div></div>
+</dd>
+
+
+
+<dt>以前のインストールで残ったオブジェクトを消去するには</dt>
+
+<dd><div><div><pre><code>pksctl purge {-dry-run | -clear} </code></pre></div><div></div></div>
+</dd>
+
+
+</dl>
+
+</div>
+
+</section>
+
+<section><h2>説明</h2>
+
+<div><span>pksctl</span>コマンドは、ユーザー空間のPKSフレームワークに関する管理操作を実行するために使われる。 管理者は以下の操作を行うことができる：<ul>
+<li>消費者を登録または登録解除する。</li>
+
+<li>使用状況に関するメトリクスを照会します。</li>
+
+<li>特定およびデフォルトの使用量制限を変更します。</li>
+
+</ul>
+</div>
+
+<p><span>pksctl</span>コマンドには、特別なロールベースアクセスコントロール（RBAC）権限が割り当てられています。 RBAC特権により、<span>pksctl</span>コマンドは特定の特権操作を実行することができます。</p>
+
+<div><div>
+        <div>
+          <div><span>注:</span><ul>
+<li>消費者を <code>register</code> にするには、消費者ごとに一意の名前を指定する必要があります。 同姓同名の複数の消費者を登録しようとした場合、最初の登録要求のみが処理されます。 それ以降、同名の消費者を登録する要求は拒否される。 消費者が一旦名前を登録すると、その名前はその消費者にとって同じであり続ける。</li>
+
+<li>コンシューマの登録を解除するには、指定されたコンシューマの不揮発性ランダム・アクセス・メモリ（NVRAM）に格納されているすべてのオブジェクトを削除する必要があります。 指定されたコンシューマにマッピングされたオブジェクトがNVRAMに格納されている場合、 <code>deregister</code> 操作は <code>EAGAIN</code> エラーコードで拒否される。</li>
+
+<li>特定の消費者のための最小クォータのサイズは、ユーザーが登録されると減らすことはできません。 ただし、最小クォータのデフォルトサイズはいつでも変更可能です。 最低割当枠の大きさは、消費者が登録される際に指定される。</li>
+
+</ul>
+
+</div>
+        </div>
+      </div></div>
+
+</section>
+
+<section><h2>フラグ</h2>
+
+<div>
+
+<div><div><table><caption><span>表 1. フラグ</span></caption><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><span>-clear</span></td>
+
+<td>パージ操作を行う。 <span>-clear</span>フラグは、有効な登録済みコンシューマにマッピングされていないオブジェクトをすべて削除します。</td>
+
+</tr>
+
+<tr>
+<td><span>-default-max</span> ニューサイズ<p></p>
+</td>
+
+<td>新規登録のコンシューマの最大クォータのデフォルト値を設定します。 既存の消費者は影響を受けない。<div><div>
+        <div>
+          <div><span>注意:</span> <span>-expand-max</span>と<span>-shrink-max</span>フラグを使って、既存のコンシューマのデフォルトの最大クォータを変更することができます。</div>
+        </div>
+      </div></div>
+
+</td>
+
+</tr>
+
+<tr>
+<td><span>-default-min</span> ニューサイズ<p></p>
+</td>
+
+<td>新規登録のコンシューマの最小クォータのデフォルト値を設定します。 既存の消費者は影響を受けない。<div><div>
+        <div>
+          <div><span>注意:</span> <span>-expand-min</span>と<span>-shrink-min</span>フラグを使って、既存のコンシューマのデフォルトの最小クォータを変更することができます。</div>
+        </div>
+      </div></div>
+
+</td>
+
+</tr>
+
+<tr>
+<td><span>-default-split</span> パーセンテージ</td>
+
+<td><p>PKS フレームワークが使用するために予約されている NVRAM 領域をパーセンテージで決定する。 パーセンテージ変数の値は整数でなければならない。 有効な値は40～100の範囲である。</p>
+
+<div><div>
+        <div>
+          <div><span>注意:</span> <span>-default-split</span>フラグで指定される総空間は、コンシューマがカーネルアドレス空間で使用できる空間を示します。 したがって、ユーザー・スペースに予約される値は、100とパーセンテージ変数値の差として計算される。</div>
+        </div>
+      </div></div>
+
+</td>
+
+</tr>
+
+<tr>
+<td><span>-dry-run</span></td>
+
+<td>NVRAMに格納されているが、登録されたコンシューマにマッピングされていないすべてのオブジェクトをリストする。 <span>-dry-run</span>フラグと<span>-clear</span>フラグを一緒に使うことはできません。</td>
+
+</tr>
+
+<tr>
+<td><span>-expand-max</span> ニューサイズ</td>
+
+<td>登録されたコンシューマの最大クォータサイズをnew_size変数で指定された値まで増加させる。 最大クォータサイズが増加される消費者は、<span>-name</span>パラメータで指定されます。</td>
+
+</tr>
+
+<tr>
+<td><span>-expand-min</span> ニューサイズ</td>
+
+<td>登録された消費者の最小クォータサイズをnew_size変数で指定された値まで増加させる。 最小割当サイズが増加される消費者は、 <span>-name</span> パラメータで指定される。</td>
+
+</tr>
+
+<tr>
+<td><span>-force</span></td>
+
+<td>適格な消費者を排除する意図を明示する。 <span>-force</span>フラグは、<code>deregister</code>操作のための必須フラグである。</td>
+
+</tr>
+
+<tr>
+<td><span>-max-quota</span> サイズ</td>
+
+<td>クォータの最大サイズをキロバイト（KB）単位で指定します。 <span>-max-quota</span>フラグは、消費者が登録されたときにのみ、最大割当量のデフォルト値を変更するために使用されます。</td>
+
+</tr>
+
+<tr>
+<td><span>-min-quota</span> サイズ</td>
+
+<td>クォータの最小サイズをKB単位で指定します。 <span>-min-quota</span>フラグは、消費者が登録されたときにのみ、最小割当量のデフォルト値を変更するために使用されます。</td>
+
+</tr>
+
+<tr>
+<td><span>-name</span> 消費者</td>
+
+<td>特定の操作のコンシューマー名を指定する。</td>
+
+</tr>
+
+<tr>
+<td><span>-password-file</span> ファイル</td>
+
+<td><span>-name</span>フラグで指定されたコンシューマのパスワードを含むファイルのパスを指定します。<div><div>
+        <div>
+          <div><span>注意:</span> <span>-password-file</span>フラグで指定されたファイルのセキュリティは、<span>pksctl</span>コマンドを実行するユーザーの責任です。</div>
+        </div>
+      </div></div>
+</td>
+
+</tr>
+
+<tr>
+<td><span>-shrink-max</span> ニューサイズ</td>
+
+<td>登録されたコンシューマの最大クォータサイズをnew_size変数で指定された値まで減少させる。 最大割当サイズが減少する消費者は、 <span>-name</span> パラメータで指定される。</td>
+
+</tr>
+
+<tr>
+<td><span>-type</span> {<span>マルチ</span> ｜ <span>シングル</span> ｜ <span>ラップ</span> ｜ <span>wrap_multi</span> ｜ <span>wrap_plus</span> ｜ <span>wrap_plus_multi</span> }</td>
+
+<td><span>-name</span> パラメータで指定されたコンシューマに許可されるセッションの同時実行を表します。 以下の値が<span>-type</span>フラグに有効な値です：<ul>
+<li><span>single</span>: コンシューマがシングルセッションコンシューマであることを指定する。 デフォルト値は<span>シングル</span>です。</li>
+
+<li><span>multi</span> : コンシューマに複数のセッションを許可することを指定する。</li>
+
+<li><span>ラップする</span> ：同時にアクティブな1つのセッションに対するラップ操作を許可することを指定する。</li>
+
+<li><span>wrap_multi</span> : 複数のセッションに対してラップ操作を許可することを指定する。</li>
+
+<li><span>wrap_plus</span> ：1つのセッションに対して、読み取りと書き込みの操作とともにラップ操作を許可することを指定する。</li>
+
+<li><span>wrap_plus_multi</span> : 複数セッションに対して、読み取りと書き込みの操作とともにラップ操作を許可することを指定する。</li>
+
+</ul>
+</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+
+</div>
+
+</section>
+
+<section><h2>セキュリティー</h2>
+
+<div>
+<div><div>
+        <div>
+          <div><span>Attention RBAC users:</span>このコマンドは特権操作を実行することができます。 特権命令を実行できるのは特権ユーザーのみです。 権限と特権の詳細については、<span>セキュリティ</span>の<a href="https://www.ibm.com/docs/ja/ssw_aix_73/security/rbac_priv_cmd_db.html" target="_blank" rel="noopener noreferrer">特権コマンドデータベース</a>を参照してください。 このコマンドに関連する特権と権限のリストについては、<a href="https://www.ibm.com/docs/ja/ssw_aix_73/l_commands/lssecattr.html" target="_blank" rel="noopener noreferrer"><span>lssecattr</span></a> コマンドまたは<a href="https://www.ibm.com/docs/ja/ssw_aix_73/g_bostechref/getcmdattr.html" target="_blank" rel="noopener noreferrer"><span>getcmdattr</span></a> サブコマンドを参照のこと。</div>
+        </div>
+      </div></div>
+
+</div>
+
+</section>
+
+<section><h2>終了状況</h2>
+
+<div><span>pksctl</span>コマンドは以下の終了値を返す：<div><div><table><caption><span>表2. 終了状況</span></caption><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><span>0</span></td>
+
+<td>指定された操作が正常に完了したことを示す。</td>
+
+</tr>
+
+<tr>
+<td><span>&gt;0</span></td>
+
+<td>エラーが発生したことを示します。 その場合、適切なエラーメッセージが表示されます。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+
+</section>
+
+<section><h2>ファイル</h2>
+
+<div>
+
+<div><div><table><caption><span>表3. ファイル</span></caption><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><span>/usr/sbin/pksctl</span></td>
+
+<td><span>pksctl</span>コマンドを含む。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+
+</div>
+
+</section>
+
+</div></div>

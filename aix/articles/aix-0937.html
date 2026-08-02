@@ -1,0 +1,289 @@
+<div class="official-dom"><div>
+<div></div>
+
+<section><h2>目的</h2> <p><span>IBM</span>Directory (LDAP) を Directory 対応の System V 印刷用に設定します。 また、System V 印刷情報用にそのディレクトリーを使用するように、クライアント・マシンを構成します。</p>
+</section>
+
+<section><h2>構文</h2> <p>System V 印刷情報を保管するように <span>IBM</span> ディレクトリーを構成するには、以下のようにします。</p>
+ <p><strong>mkprtldap</strong> <a href="https://www.ibm.com/docs/ja/ssw_aix_73/m_commands/mkprtldap.html#mkprtldap__row-d3e150210" target="_blank" rel="noopener noreferrer"><strong>-s</strong></a> <a href="https://www.ibm.com/docs/ja/ssw_aix_73/m_commands/mkprtldap.html#mkprtldap__row-d3e150168" target="_blank" rel="noopener noreferrer"><strong>-a</strong></a><em>AdminDN</em> - <a href="https://www.ibm.com/docs/ja/ssw_aix_73/m_commands/mkprtldap.html#mkprtldap__row-d3e150201" target="_blank" rel="noopener noreferrer"><strong>p</strong></a> <em>Adminpasswd</em> <a href="https://www.ibm.com/docs/ja/ssw_aix_73/m_commands/mkprtldap.html#mkprtldap__row-d3e150216" target="_blank" rel="noopener noreferrer"><strong>-w</strong></a><em>ACLBindPasswd</em><a href="https://www.ibm.com/docs/ja/ssw_aix_73/m_commands/mkprtldap.html#mkprtldap__row-d3e150188" target="_blank" rel="noopener noreferrer"><strong> [-f</strong></a> ] <a href="https://www.ibm.com/docs/ja/ssw_aix_73/m_commands/mkprtldap.html#mkprtldap__row-d3e150177" target="_blank" rel="noopener noreferrer"><strong>[-d</strong></a><em>nodeDN</em> ]</p>
+ <p><span>IBM</span> Directory for System V Print 情報を使用するようにクライアントを構成するには、以下のようにします。</p>
+ <p><strong>mkprtldap</strong> <a href="https://www.ibm.com/docs/ja/ssw_aix_73/m_commands/mkprtldap.html#mkprtldap__row-d3e150236" target="_blank" rel="noopener noreferrer"><strong>-c</strong></a> <a href="https://www.ibm.com/docs/ja/ssw_aix_73/m_commands/mkprtldap.html#mkprtldap__row-d3e150257" target="_blank" rel="noopener noreferrer"><strong>-h</strong></a> <em>DirectoryServerHostname</em> <a href="https://www.ibm.com/docs/ja/ssw_aix_73/m_commands/mkprtldap.html#mkprtldap__row-d3e150274" target="_blank" rel="noopener noreferrer"><strong>-w</strong></a> <em>ACLBindPasswd</em>[<a href="https://www.ibm.com/docs/ja/ssw_aix_73/m_commands/mkprtldap.html#mkprtldap__row-d3e150242" target="_blank" rel="noopener noreferrer"><strong>-d</strong></a> <em>PrintBindDN</em>]<a href="https://www.ibm.com/docs/ja/ssw_aix_73/m_commands/mkprtldap.html#mkprtldap__row-d3e150268" target="_blank" rel="noopener noreferrer"><strong>[-U］</strong></a></p>
+ <p><strong>mkprtldap</strong> コマンドの使用方法情報を表示する場合:</p>
+ <p><strong>mkprtldap</strong> <a href="https://www.ibm.com/docs/ja/ssw_aix_73/m_commands/mkprtldap.html#mkprtldap__row-d3e150297" target="_blank" rel="noopener noreferrer"><strong>?</strong></a></p>
+</section>
+
+<section><h2>説明</h2> <p><strong>mkprtldap</strong> コマンドは、System V 印刷情報用にディレクトリー (LDAP) を使用するように、 <span>IBM</span> ディレクトリー (LDAP) サーバー、および 1 つ以上のクライアントを構成します。 このコマンドは、
+サーバーとしてセットアップされるシステムとすべてのクライアント・システムで実行する必要があります。 一度 System V 印刷用のディレクトリー (LDAP) サーバーを構成したら、
+ディレクトリー使用可能 System V 印刷コマンド (<strong>dslpadmin</strong>、
+<strong>dslpaccess</strong>、<strong>dslpsearch</strong>、<strong>dslpenable</strong>、<strong>dslpdisable</strong>、<strong>dslpaccept</strong>、<strong>lp</strong>、
+<strong>lpstat</strong>、<strong>cancel</strong>、および <strong>dslpreject</strong>)
+を実行して、ディレクトリー (LDAP) サーバー上の System V 印刷情報 (プリンターおよび印刷キュー) を追加、
+除去、および管理する必要があります。 <strong>mkprtldap</strong> コマンドは、
+System V 印刷情報用にそのディレクトリー (LDAP) サーバーを使用するように、クライアント・マシンを構成します。</p>
+ <div><strong>mkprtldap</strong> コマンドを使用するには、サーバーとして構成されているマシンに <span>IBM</span> Directory Server ソフトウェアがインストールされている必要があります。 また、このコマンドでは、System V 印刷情報用にディレクトリー (LDAP) サーバーを使用するすべてのクライアント・マシンに <span>IBM</span> ディレクトリー・クライアント・ソフトウェアをインストールする必要があります。<div><div>
+        <div>
+          <div><span>注:</span> クライアント (<strong>-c</strong> フラグ) とサーバー (<strong>-s</strong> サーバー) のオプションを同時に実行することはできません。 システムをサーバーとしてセットアップするときは、mkprtldap コマンドを当該システムで二度実行する必要があります。 つまり、サーバーをセットアップするために一度、クライアントをセットアップするためにもう一度実行します。</div>
+        </div>
+      </div></div>
+</div>
+ <div>サーバー・サイドの構成中に、<strong>-s</strong> フラグを使用して、
+<strong>mkprtldap</strong> コマンドは次のことを行います。<ul>
+<li>ディレクトリーが構成されている場合は、 <span>IBM</span> ディレクトリー管理者の DN とパスワードが必要です。 ディレクトリー管理者の DN およびパスワードが設定されていないと、
+<strong>mkprtldap</strong> は、コマンドに渡された値を使用して DN およびパスワードを設定します。</li>
+
+<li><span>AIX</span> 情報ツリー DN (cn=aixdata コンテナー・オブジェクト) をディレクトリー上に作成します (存在しない場合)。 印刷サブツリーが、<span>AIX</span> 情報サブツリーの下に作成されます。 既存の <span>AIX</span> 情報サブツリーがディレクトリーに存在する場合は、印刷サブツリーがその下に作成されます。 すべての System V 印刷情報は印刷サブツリーの下に保管されます。 ディレクトリー使用可能 System V 印刷コマンドを実行して、
+プリンターおよび印刷キューを、作成した印刷サブツリーの下に追加する必要があります。</li>
+
+<li><strong>mkprtldap</strong> コマンドのデフォルトの接尾部および <span>AIX</span> 情報ツリーは、最上位のコンテナー・オブジェクト cn=aixdata です。 印刷サブツリー (ou = print) は、 <span>AIX</span> 情報ツリーの下に作成されます。</li>
+
+<li>印刷サブツリーは、
+コマンドに渡された <strong>ACLBindPasswd</strong> パラメーターの値で保護される ACL である。 当該ディレクトリーを System V 印刷情報用に使用するようにクライアントを構成するとき、
+同じ値を使用する必要があります。 一般ユーザーやパスワード解読プログラムからの推量が困難なパスワード値を選択してください。</li>
+
+<li><strong>-d</strong> オプションが使用され、ディレクトリー上の有効な既存のノードがコマンドに渡されると、指定されたノードの下に <span>AIX</span> 情報サブツリーが作成されます。 その後、印刷サブツリーが、<span>AIX</span> 情報サブツリーの下に作成されます。</li>
+
+<li>上記のすべてが完了した後、 <span>IBM</span> Directory Server を始動します。</li>
+
+<li><span>IBM</span> Directory Server プロセス (slapd) を <strong>/etc/inittab</strong> ファイルに追加して、リブート後にサーバーが始動するようにします。</li>
+
+</ul>クライアントの構成では、<strong>mkprtldap</strong> コマンドは次のことを行います。<ul>
+<li><span>IBM</span> Directory (LDAP) サーバー・ホスト名を <strong>/etc/ldapsvc/server.print</strong> ファイルに保管します。</li>
+
+<li><span>AIX</span> 印刷バインド DN を <strong>/etc/ldapsvc/server.print</strong> ファイルに保管します。</li>
+
+<li><span>AIX</span> 印刷バインド DN の ACL BIND パスワードを <strong>/etc/ldapsvc/system.print</strong> ファイルに保管します。 ACL BIND パスワードの値は、
+ディレクトリー・サーバーの構成で指定されるものと同じでなければなりません。</li>
+
+<li><strong>-U</strong> フラグを指定した場合は、直前のクライアント構成を元に戻す。 このオプションは、
+<strong>/etc/ldapsvc/system.print
+</strong> ファイルおよび <strong>/etc/ldapsvc/server.print</strong> ファイルを、
+ファイル (<strong>/etc/ldapsvc/server.print.save
+</strong> および <strong>/etc/ldapsvc/system.print.save</strong>) の直前に保管されたコピーと交換します。</li>
+
+</ul>
+</div>
+</section>
+
+<section><h2>フラグ</h2><p><strong>サーバー</strong></p>
+ 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><strong>-a</strong> <em>AdminDN</em></td>
+
+<td>ディレクトリー (LDAP) 管理者の DN を指定します。</td>
+
+</tr>
+
+<tr>
+<td><strong>-d</strong> <em>nodeDN</em></td>
+
+<td>この拡張オプションには、 <span>AIX</span> 情報ツリーおよび印刷サブツリーが作成されるディレクトリー上の有効な既存ノード DN が必要です。</td>
+
+</tr>
+
+<tr>
+<td><strong>-f</strong></td>
+
+<td>強制フラグは、1 つ以上の <span>AIX</span> 情報ツリーがディレクトリーに存在する場合に、 <strong>mkprtldap</strong> コマンドが印刷サブツリー (および必要に応じて <span>AIX</span> 情報サブツリー) の作成を強制するために必要です。</td>
+
+</tr>
+
+<tr>
+<td><strong>-p</strong> <em>adminpasswd</em></td>
+
+<td>ディレクトリー (LDAP) 管理者のパスワードを指定します。</td>
+
+</tr>
+
+<tr>
+<td><strong>-s</strong></td>
+
+<td>このコマンドが、System V 印刷用のディレクトリーを構成するために実行中であることを示します。</td>
+
+</tr>
+
+<tr>
+<td><strong>-w</strong> <em>ACLBindPasswd</em></td>
+
+<td>ディレクトリーの印刷サブツリーを ACL 保護するためのパスワードを指定します。 一般ユーザーやパスワード解読プログラムからの推量が困難なパスワード値を選択してください。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+<p><strong>クライアント</strong></p>
+ 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><strong>-c</strong></td>
+
+<td>このコマンドが、
+System V 印刷情報用のディレクトリーを使用するように、クライアントの構成を実行中であることを示します。</td>
+
+</tr>
+
+<tr>
+<td><strong>-d</strong> <em>PrintBindDN</em></td>
+
+<td>印刷バインド DN を指定します。 デフォルトの印刷バインド DN は <strong>ou=print,cn=aixdata</strong> です。 クライアント構成で使用する印刷バインド DN は、
+<strong>mkprtldap</strong> コマンドのサーバー・セットアップの終了時に表示されます。</td>
+
+</tr>
+
+<tr>
+<td><strong>-h</strong> <em>DirectoryServerHostname</em></td>
+
+<td>System V 印刷情報を保管するための <span>IBM</span> ディレクトリー・サーバー・セットアップのホスト名。</td>
+
+</tr>
+
+<tr>
+<td><strong>-U</strong></td>
+
+<td>クライアントの直前の構成を元に戻します。</td>
+
+</tr>
+
+<tr>
+<td><strong>-w</strong> <em>ACLBindPasswd</em></td>
+
+<td>印刷サブツリーの ACL BIND パスワード。 ACL BIND パスワードは、<strong>mkprtldap</strong> コマンドのサーバー・セットアップで指定します。 ACL BIND パスワードの値は、
+ディレクトリー・サーバーのセットアップで使用されるパスワードと一致しなければなりません。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+<p><strong>使用法</strong></p>
+ 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td>?</td>
+
+<td><strong>mkprtldap</strong> コマンドの使用方法情報を表示します。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</section>
+
+<section><h2>セキュリティー</h2> <p>このコマンドを実行できるのは、<code>root</code> ユーザーのみです。</p>
+</section>
+
+<section><h2>例</h2> <ol>
+<li><span>IBM</span> Directory Server が構成されているマシンで System V 印刷を構成するには、以下のようにします。<div>当該ディレクトリーで System V 印刷を構成するには、管理者の DN およびパスワードが必須です。 既存の管理者の DN およびパスワードが、
+それぞれ <strong>cn=admin</strong> および <strong>passwd</strong> であるとします。<div><div><pre><code>mkprtldap -s -a cn=admin -p passwd -w pass123wd</code></pre></div><div></div></div></div>
+</li>
+
+<li><strong>mkprtldap</strong> コマンドは、既存のノードの下に印刷情報を保管するように <span>IBM</span> ディレクトリーを構成するオプションを提供します (例: <strong>o=ibm</strong>)。ディレクトリー [拡張オプション] の <strong>c=us</strong>)。 このオプションは、
+特定の理由で印刷情報を当該ディレクトリーの既存ノードの下に保管する必要がある場合にのみ推奨されます。 <strong>-d</strong> オプションを指定しないで、
+印刷サブツリーを当該ディレクトリーのデフォルト・ロケーションに保管するオプションを推奨します。 当該ディレクトリーで System V 印刷を構成するには、管理者の DN およびパスワードが必須です。
+既存の管理者の DN およびパスワードが、
+それぞれ <strong>cn=admin</strong> および <strong>passwd</strong> であるとします。<div><div><pre><code>mkprtldap -a cn=admin -p passwd -w acl123passwd -d o=ibm,c=us</code></pre></div><div></div></div>このコマンドを実行すると、 <strong>o=ibm, c=us</strong> オブジェクトの下に <span>AIX</span> 情報ツリー (<strong>cn=aixdata</strong>) が作成されます。 印刷サブツリーは、この新規オブジェクト (<strong>cn=aixdata</strong>、<strong>o=ibm</strong>、<strong>c=us</strong>) の下に作成されます。</li>
+
+<li><span>IBM</span> Directory Server および既存の <span>AIX</span> 情報ツリーが構成されているマシンで System V 印刷を構成するには、以下のようにします。 ディレクトリーに、他のサブシステム固有の情報 (例えば、セキュリティーまたは NIS 情報) を含む既存の <span>AIX</span> 情報ツリーが含まれている場合があります。 印刷情報は、ディレクトリー上の別の <span>AIX</span> 情報ツリーの下の別の場所に保管する必要がある場合があります。 デフォルトでは、このコマンドは、ディレクトリー上に <span>AIX</span> 情報ツリーが存在する場合は、新しい情報ツリーを作成しません。 印刷情報を保管するための新しい <span>AIX</span> 情報ツリーをコマンドに強制的に作成させるには、コマンドに <strong>-f</strong> フラグを使用します。 セキュリティーおよび NIS サブシステム情報が、 <strong>cn=aixdata, o = ibm, c=us</strong>の <span>AIX</span> 情報ツリーの下に保管されている場合を考えてみます。 印刷情報用に、既存のものと異なる新規の <span>AIX</span> 情報ツリーを作成するには、<strong>-f</strong> フラグを付けてこのコマンドを実行し、デフォルト・ロケーションまたは別のノードを指定します。 当該ディレクトリーで System V 印刷を構成するには、管理者の DN およびパスワードが必須です。 既存の管理者の DN およびパスワードが、それぞれ <strong>cn=admin</strong> および <strong>passwd</strong> であるとします。<div><div><pre><code>mkprtldap -a cn=admin -p passwd -w passwd123 -f </code></pre></div><div></div></div><p>このコマンドを実行すると、新しい <span>AIX</span> 情報ツリー (<strong>CN=AXDATA</strong>) が接尾部 (<strong>CN=AXDATA</strong>) 付きで作成され、印刷情報はこの新しい <span>AIX</span> 情報ツリー (<strong>出力 = 印刷</strong>、 <strong>CN=AXDATA</strong>) の下に保管されます。 この例では、ディレクトリー上に 2 つの <span>AIX</span> 情報ツリー <strong>cn=aixdata, o = ibm, c=us</strong> および <strong>cn=aixdata</strong>があります。 印刷情報は <strong>cn=aixdata</strong> オブジェクト (接尾部 - <strong>
+cn=aixdata</strong>) の下にあります。 <strong>mkprtldap</strong> では、
+印刷情報を当該ディレクトリーに追加する場合はデフォルト・ロケーションを使用することを推奨します。</p>
+
+</li>
+
+<li><span>IBM</span> ホスト上の System V 印刷用のディレクトリー・セットアップ <strong>server.ibm.com</strong>を使用するようにクライアントを構成するには、次のように入力します。<div><div><pre><code>mkprtldap -c -h server.ibm.com -w passwd </code></pre></div><div></div></div>ACL BIND パスワード (<strong>passwd</strong>) が、
+ディレクトリー・サーバーのセットアップで指定されたものと必ず同じになるようにしてください。 -d オプションを使用した印刷バインド DN 値の指定を行わないでこのコマンドを実行すると、
+コマンドはデフォルトの印刷バインド DN <strong>ou=print,cn=aixdata</strong> を使用するようになります。 印刷バインド DN は、サーバーを構成する <strong>
+mkprtldap</strong> コマンドの実行終了時に表示される印刷バインド DN と一致しなければなりません。</li>
+
+<li>クライアント側構成ファイルの情報を変更するには、
+新しい情報を使用して <strong>mkprtldap</strong> コマンドを実行します。<div><div><pre><code>mkprtldap -c -h server.ibm.co.uk -w aclpasswd -d ou=print,cn=aixdata,c=uk</code></pre></div><div></div></div>既に構成済みのクライアントでこのコマンドを実行すると、<strong>/etc/ldapsvc/server.print</strong> ファイルおよび <strong>/etc/ldapsvc/system.print</strong> ファイル内の情報が変更されて、新しい構成情報が入ります。 <strong>/etc/ldapsvc/server.print</strong> および <strong>/etc/ldapsvc/system.print
+</strong> の元の内容は、
+<strong>/etc/ldapsvc/server.print.save</strong>
+および <strong>/etc/ldapsvc/system.print.save</strong> の各ファイルに保管されます。</li>
+
+</ol>
+</section>
+
+<section><h2>ファイル</h2> 
+<div><div><table><thead>
+<tr>
+<th><div>モード</div></th>
+
+<th><div>ファイル</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><strong>rw</strong></td>
+
+<td><strong>/etc/slapd32.conf</strong></td>
+
+<td>(サーバー構成)- <span>IBM</span> ディレクトリー (LDAP バージョン 5.2) 構成情報が含まれます。</td>
+
+</tr>
+
+<tr>
+<td><strong>rw</strong></td>
+
+<td><strong>/home/ldapdb2/idsslapd-ldapdb2/etc/ibmslapd.conf</strong></td>
+
+<td>(サーバー構成)- <span>IBM</span> ディレクトリー (LDAP バージョン 6.0 以降) の構成情報が含まれます。</td>
+
+</tr>
+
+<tr>
+<td><strong>rw</strong></td>
+
+<td><strong>/etc/ldapsvc/server.print</strong></td>
+
+<td>(クライアントの構成) - System V 印刷情報を保管するように構成済みのディレクトリー・サーバーについての情報が入っています。 (マシン名、ディレクトリーでの印刷サブツリーのロケーション、および LDAP ポート)</td>
+
+</tr>
+
+<tr>
+<td><strong>rw</strong></td>
+
+<td><strong>/etc/ldapsvc/system.print</strong></td>
+
+<td>(クライアントの構成) - ディレクトリーでの印刷サブツリーの ACL BIND パスワードが入っています。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</section>
+
+</div></div>

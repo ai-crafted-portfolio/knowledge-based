@@ -1,0 +1,293 @@
+<div class="official-dom"><div>
+<section><h2>目的</h2> <p>サブシステム・オブジェクト・クラス内のサブシステム定義を変更します。</p>
+</section>
+
+<section><h2>構文</h2> <p><strong>CHSSSYS</strong> <a href="https://www.ibm.com/docs/ja/ssw_aix_73/c_commands/chssys.html#chssys__row-d3e110498" target="_blank" rel="noopener noreferrer"><strong>-s</strong></a> <em>OldSubsystem</em> [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/c_commands/chssys.html#chssys__row-d3e110265" target="_blank" rel="noopener noreferrer"><strong>-a 値</strong></a> <em>引数</em> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/c_commands/chssys.html#chssys__row-d3e110302" target="_blank" rel="noopener noreferrer"><strong>-e (E)</strong></a> <em>StandardError</em> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/c_commands/chssys.html#chssys__row-d3e110362" target="_blank" rel="noopener noreferrer"><strong>I</strong></a> <em>StandardInput </em>] [  <a href="https://www.ibm.com/docs/ja/ssw_aix_73/c_commands/chssys.html#chssys__row-d3e110435" target="_blank" rel="noopener noreferrer"><strong>- </strong></a><em>StandardOutput </em>] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/c_commands/chssys.html#chssys__row-d3e110452" target="_blank" rel="noopener noreferrer"><strong>P-</strong></a> <em>パス </em>] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/c_commands/chssys.html#chssys__row-d3e110481" target="_blank" rel="noopener noreferrer"><strong>-s</strong></a> <em>NewSubsystem </em>] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/c_commands/chssys.html#chssys__row-d3e110524" target="_blank" rel="noopener noreferrer"><strong>T</strong></a> <em>同義語 </em>] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/c_commands/chssys.html#chssys__row-d3e110539" target="_blank" rel="noopener noreferrer"><strong>-ウー</strong></a> <em>UserID </em>] [  <a href="https://www.ibm.com/docs/ja/ssw_aix_73/c_commands/chssys.html#chssys__row-d3e110446" target="_blank" rel="noopener noreferrer"><strong>-O (O) </strong></a>|  <a href="https://www.ibm.com/docs/ja/ssw_aix_73/c_commands/chssys.html#chssys__row-d3e110475" target="_blank" rel="noopener noreferrer"><strong>-R </strong></a>] [  <a href="https://www.ibm.com/docs/ja/ssw_aix_73/c_commands/chssys.html#chssys__row-d3e110276" target="_blank" rel="noopener noreferrer"><strong>-d 年</strong></a> | <a href="https://www.ibm.com/docs/ja/ssw_aix_73/c_commands/chssys.html#chssys__row-d3e110296" target="_blank" rel="noopener noreferrer"><strong>-D</strong></a> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/c_commands/chssys.html#chssys__row-d3e110463" target="_blank" rel="noopener noreferrer"><strong>-q (Q) </strong></a>| <a href="https://www.ibm.com/docs/ja/ssw_aix_73/c_commands/chssys.html#chssys__row-d3e110469" target="_blank" rel="noopener noreferrer"><strong>-キュー</strong></a> ] [  <a href="https://www.ibm.com/docs/ja/ssw_aix_73/c_commands/chssys.html#chssys__row-d3e110373" target="_blank" rel="noopener noreferrer"><strong>-K (K)</strong></a> | [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/c_commands/chssys.html#chssys__row-d3e110379" target="_blank" rel="noopener noreferrer"><strong>-I (I)</strong> </a><em>MessageQueue</em> <a href="https://www.ibm.com/docs/ja/ssw_aix_73/c_commands/chssys.html#chssys__row-d3e110397" target="_blank" rel="noopener noreferrer"><strong>-m (M)</strong></a> <em>MessageMtype </em>|  <a href="https://www.ibm.com/docs/ja/ssw_aix_73/c_commands/chssys.html#chssys__row-d3e110331" target="_blank" rel="noopener noreferrer"><strong>「-f」 </strong></a><em>StopForce</em> <a href="https://www.ibm.com/docs/ja/ssw_aix_73/c_commands/chssys.html#chssys__row-d3e110415" target="_blank" rel="noopener noreferrer"><strong>N</strong></a> <em>StopNormal</em> <a href="https://www.ibm.com/docs/ja/ssw_aix_73/c_commands/chssys.html#chssys__row-d3e110512" target="_blank" rel="noopener noreferrer"><strong>-S (S)</strong></a>]  [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/c_commands/chssys.html#chssys__row-d3e110311" target="_blank" rel="noopener noreferrer"><strong>-E (E)</strong></a> <em>ナイス </em>] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/c_commands/chssys.html#chssys__row-d3e110351" target="_blank" rel="noopener noreferrer"><strong>-G</strong></a> <em>グループ </em>] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/c_commands/chssys.html#chssys__row-d3e110550" target="_blank" rel="noopener noreferrer"><strong>-w (W)</strong></a> <em>待機 </em>]</p>
+</section>
+
+<section><h2>説明</h2> <p><strong>chssys</strong> コマンドは、サブシステム・オブジェクト・クラス内の既存のサブシステム定義を変更します。 新しいサブシステム名を入力すると、サブサーバー・タイプ・オブジェクト・クラスと通知オブジェクト・クラスが変更されて、その新しいサブシステム名が反映されます。</p>
+ <p></p><blockquote><span>“</span><span></span><strong>注:</strong> サブシステムに対してアクションが実行されたときにシステム・リソース・コントローラー (SRC) によって実行される監査は、 <strong>mkssys</strong> コマンドを使用してサブシステムを作成したユーザーのログイン ID に対してログに記録されます。 例えば、root ユーザー権限でログインした場合、サブシステムは、監査アカウントとして root 権限で追加されます。<span>”</span></blockquote>
+<p></p>
+</section>
+
+<section><h2>フラグ</h2> <div> 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><strong>-a</strong><em> 引数</em></td>
+
+<td>サブシステムとして実行されるプログラムに渡す必要のある引数を指定します。 これらのコマンドの <em>Arguments</em> は、シェルで適用されるのと同じルールに従って SRC によってサブシステムへ渡されます。 引用符で囲まれた文字列は 1 つの引数として渡され、引用符で囲まれた文字列の外側をブランクにすることにより、引数を区切ることができます。 引用符は単一引用符でも二重引用符でも使用できます。</td>
+
+</tr>
+
+<tr>
+<td><strong>-d</strong></td>
+
+<td><strong>lssrc</strong> <strong>-a</strong> コマンド要求 (全状況) または <strong>lssrc</strong> <strong>-g</strong> コマンド要求 (状況グループ) が発行されたときにアクティブでないサブシステムを表示することを指定します。</td>
+
+</tr>
+
+<tr>
+<td><strong>-D</strong></td>
+
+<td>全状況要求または状況グループ要求がなされたときにアクティブでないサブシステムを表示しないことを指定します。</td>
+
+</tr>
+
+<tr>
+<td><strong>-e</strong><em> StandardError</em></td>
+
+<td>サブシステム標準エラーのデータの出力先を指定します。</td>
+
+</tr>
+
+<tr>
+<td><strong>-E</strong><em> ニース</em></td>
+
+<td><em>Nice</em> 値を指定します。 <em>Nice</em> パラメーターは、サブシステムの実行優先順位を変更します。 有効な値は、0 から 39 です (通常の <em>Nice</em> 値は、すべての正数にマッピングされています)。 <strong>-E</strong> フラグが指定されていないと、サブシステムの優先順位はデフォルトの 20 になります。 0 から 19 までの値は、root 権限を持つユーザー用に予約されています。</td>
+
+</tr>
+
+<tr>
+<td><strong>-f</strong><em> StopForce</em></td>
+
+<td>サブシステムの強制終了が要求されたときにサブシステムに送信されるシグナルを指定します。 このコマンドは、サブシステムが通信にシグナルを使用するときだけ使用してください。 <em>StopForce</em> パラメーターが無効なシグナルを指定すると、 <strong>chssys</strong> コマンドは失敗します。 このフラグの後ろには <strong>-n</strong> フラグと <strong>-S</strong> フラグを指定する必要があります。</td>
+
+</tr>
+
+<tr>
+<td><strong>-G</strong><em> グループ</em></td>
+
+<td><em>Group</em> パラメーターで指定したグループにサブシステムが所属することと、そのグループのすべてのグループ・アクションに応答することを指定します。</td>
+
+</tr>
+
+<tr>
+<td><strong>-i</strong><em> StandardInput</em></td>
+
+<td>サブシステム <em>StandardInput</em> の経路指定先を指定します。 このフィールドは、サブシステムが通信にソケットを使用する場合は無視されます。</td>
+
+</tr>
+
+<tr>
+<td><strong>-K</strong></td>
+
+<td>サブシステムが通信方式としてソケットを使用することを指定します。</td>
+
+</tr>
+
+<tr>
+<td><strong>-I</strong><em> MessageQueue</em></td>
+
+<td>サブシステムが通信メソッドとしてメッセージ・キューを使用することを指定します。 <em>MessageQueue</em> パラメーターは、サブシステム用のメッセージ・キューを作成するためのメッセージ・キュー・キーを指定します。 入力としてサブシステム・パス名を持つ <strong>ftok</strong> サブルーチンを使用して、固有キーを生成します。 このフラグの後ろには <strong>-m</strong> フラグを指定する必要があります。</td>
+
+</tr>
+
+<tr>
+<td><strong>-m</strong><em> MessageMtype</em></td>
+
+<td>SRC によるサブシステムへのパケット送信時にサブシステムが予期する <em>MessageMtype</em> キーを指定します。 このコマンドは、サブシステムが通信にメッセージ・キューを使用するときだけ使用してください。 <em>MessageMtype</em> は 0 より大きくなければなりません。 このフラグの前には、 <strong>-l</strong> フラグを付ける必要があります。</td>
+
+</tr>
+
+<tr>
+<td><strong>-n</strong><em> StopNormal</em></td>
+
+<td>サブシステムの通常の停止が要求されたときにサブシステムに送信されるシグナルを指定します。 このコマンドは、サブシステムが通信にシグナルを使用するときだけ使用してください。 <em>StopNormal</em> パラメーターに無効なシグナルを指定すると、 <strong>chssys</strong> コマンドは失敗します。 このフラグの前には <strong>-f</strong> フラグを、後ろには <strong>-S</strong> フラグを指定する必要があります。</td>
+
+</tr>
+
+<tr>
+<td><strong>-o</strong><em> StandardOutput</em></td>
+
+<td>サブシステム <em>StandardOutput</em> の出力先を指定します。</td>
+
+</tr>
+
+<tr>
+<td><strong>-O</strong></td>
+
+<td>サブシステムが異常終了したときサブシステムを再始動しないことを指定します。</td>
+
+</tr>
+
+<tr>
+<td><strong>-p</strong><em> パス</em></td>
+
+<td>サブシステム・プログラムまでの絶対 <em>Path</em> を指定します。</td>
+
+</tr>
+
+<tr>
+<td><strong>-q</strong></td>
+
+<td>サブシステムが複数のインスタンスを同時に実行可能なことを指定します。</td>
+
+</tr>
+
+<tr>
+<td><strong>-Q</strong></td>
+
+<td>サブシステムが複数のインスタンスを同時に実行できないことを指定します。</td>
+
+</tr>
+
+<tr>
+<td><strong>-R</strong></td>
+
+<td>サブシステムが異常終了したときにサブシステムを再始動することを指定します。</td>
+
+</tr>
+
+<tr>
+<td><strong>-s</strong><em> NewSubsystem</em></td>
+
+<td>サブシステムを一意的に識別する新しい名前を指定します。 古いサブシステム名に定義されたサブサーバーや通知メソッドは <em>NewSubsystem</em> 名用に再定義されます。 <em>NewSubsystem</em> 名が既にサブシステム・オブジェクト・クラスで認識されている場合、 <strong>chssys</strong> コマンドは失敗します。</td>
+
+</tr>
+
+<tr>
+<td><strong>-s</strong><em> OldSubsystem</em></td>
+
+<td>サブシステムを一意的に識別する現在の名前を指定します。 <em>OldSubsystem</em> 名がサブシステム・オブジェクト・クラスで認識されない場合、 <strong>chssys</strong> コマンドは失敗します。</td>
+
+</tr>
+
+<tr>
+<td><strong>-S</strong></td>
+
+<td>サブシステムが通信メソッドとしてシグナルを使用することを指定します。 ユーザーの通信メソッドがシグナルのときは、サブシステム名にサブサーバーを定義することはできません。 サブシステムについてサブサーバーを定義すると、サブサーバー定義はサブサーバー・オブジェクト・クラスから削除されます。 このフラグの前には、<strong>-f</strong> フラグと <strong>-n</strong> フラグを指定する必要があります。</td>
+
+</tr>
+
+<tr>
+<td><strong>-t</strong><em> 同義語</em></td>
+
+<td>サブシステムの代替名を指定します。 <em>Synonym</em> 名がサブシステム・オブジェクト・クラスで既に認識されている場合、 <strong>chssys</strong> コマンドは失敗します。</td>
+
+</tr>
+
+<tr>
+<td><strong>-u</strong><em> UserID</em></td>
+
+<td>サブシステムのユーザー ID を指定します。 サブシステムを作成する <em>UserID</em> は、そのサブシステムのセキュリティー監査に使用されます。</td>
+
+</tr>
+
+<tr>
+<td><strong>-w</strong><em> 待機</em></td>
+
+<td>停止取り消し (<strong>SIGTERM</strong>) シグナルの送信からその次の <strong>SIGKILL</strong> シグナルの送信までの経過時間を秒単位で指定します。 再始動アクションの制限時間としても使用します。 <em>Wait</em> 値で指定した制限時間内にサブシステムが 3 回以上異常終了
+すると、サブシステムは自動的に再始動されません。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+</section>
+
+<section><h2>セキュリティー</h2><p><strong>イベントの監査</strong></p>
+ <p>監査サブシステムが適切に構成されており、かつ使用可能である場合、<strong>chssys</strong> コマンドを実行するたびに、
+次の監査レコード (イベント) が生成されます。</p>
+ 
+<div><div><table><thead>
+<tr>
+<th><div>イベント</div></th>
+
+<th><div>情報</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><strong>SRC_Chssys</strong></td>
+
+<td>サブシステム名と変更されたフィールドを監査ログに記録します。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+ <p>監査イベントの適切な選択とグループ化、および監査イベント・データ収集の構成の詳細については、<span>Security</span>の <strong>Setting up Auditing</strong>を参照してください。</p>
+ <p><strong>RBAC ユーザーへの注意</strong>: このコマンドは特権命令を実行できます。 特権命令を実行できるのは特権ユーザーのみです。 権限および特権について詳しくは、「<em>セキュリティー</em>」の『特権コマンド・データベース』を参照してください。 このコマンドに関連した特権および権限のリストについては、<strong>lssecattr</strong> コマンドまたは <strong>getcmdattr</strong> サブコマンドの項を参照してください。</p>
+</section>
+
+<section><h2>例</h2> <ol>
+<li><span></span>サブシステム名を変更するには、次のように入力します。<div>chssys  <a href="https://www.ibm.com/docs/ja/ssw_aix_73/c_commands/chssys.html#chssys__row-d3e110498" target="_blank" rel="noopener noreferrer">-s</a> srctest  <a href="https://www.ibm.com/docs/ja/ssw_aix_73/c_commands/chssys.html#chssys__row-d3e110481" target="_blank" rel="noopener noreferrer">-s</a> inetd</div>これにより, 次のサブシステム名が変更されます。srctestへinetd.</li>
+
+<li><span></span>通信タイプをソケットに変更するには、次のように入力します。<div>chssys  <a href="https://www.ibm.com/docs/ja/ssw_aix_73/c_commands/chssys.html#chssys__row-d3e110498" target="_blank" rel="noopener noreferrer">-s</a> srctest  <a href="https://www.ibm.com/docs/ja/ssw_aix_73/c_commands/chssys.html#chssys__row-d3e110373" target="_blank" rel="noopener noreferrer">-K</a></div>これにより、サブシステムの通信タイプはソケットになります。</li>
+
+<li><span></span>通信タイプをメッセージ・キューに変更するには、次のように入力します。<div>chssys  <a href="https://www.ibm.com/docs/ja/ssw_aix_73/c_commands/chssys.html#chssys__row-d3e110498" target="_blank" rel="noopener noreferrer">-s</a> srctest  <a href="https://www.ibm.com/docs/ja/ssw_aix_73/c_commands/chssys.html#chssys__row-d3e110379" target="_blank" rel="noopener noreferrer">-l</a> 123456  <a href="https://www.ibm.com/docs/ja/ssw_aix_73/c_commands/chssys.html#chssys__row-d3e110397" target="_blank" rel="noopener noreferrer">-m</a> 789</div>これにより、サブシステムの通信タイプがメッセージ・キューに変更されます。メッセージ・キュー・キーは以下のようになります。123456およびサブシステム・メッセージ・タイプ789.</li>
+
+<li><span></span>通信タイプをシグナルに変更するには、次のように入力します。<div>chssys  <a href="https://www.ibm.com/docs/ja/ssw_aix_73/c_commands/chssys.html#chssys__row-d3e110498" target="_blank" rel="noopener noreferrer">-s</a> srctest  <a href="https://www.ibm.com/docs/ja/ssw_aix_73/c_commands/chssys.html#chssys__row-d3e110512" target="_blank" rel="noopener noreferrer">-S</a>  <a href="https://www.ibm.com/docs/ja/ssw_aix_73/c_commands/chssys.html#chssys__row-d3e110415" target="_blank" rel="noopener noreferrer">-n</a> 30  <a href="https://www.ibm.com/docs/ja/ssw_aix_73/c_commands/chssys.html#chssys__row-d3e110331" target="_blank" rel="noopener noreferrer">-f</a> 31</div>これにより、サブシステムの通信タイプがシグナルに変更され、通常の停止シグナルが以下のようになります。30そして強制停止信号は31.</li>
+
+<li><span></span>コマンド引数を変更するには、次のように入力します。<div>chssys  <a href="https://www.ibm.com/docs/ja/ssw_aix_73/c_commands/chssys.html#chssys__row-d3e110498" target="_blank" rel="noopener noreferrer">-s</a> srctest  <a href="https://www.ibm.com/docs/ja/ssw_aix_73/c_commands/chssys.html#chssys__row-d3e110265" target="_blank" rel="noopener noreferrer">-a</a> "-a 123 -b \"4 5 6\" -c '7 8 9'"</div>この場所-a最初の議論として1232 番目として-b3 つ目は4 5 64 番目として-c5 番目として7 8 9に対する 6 番目の引数としてsrctestサブシステム。</li>
+
+</ol>
+</section>
+
+<section><h2>ファイル</h2> <div> 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><strong>/etc/objrepos/SRCsubsys</strong></td>
+
+<td>SRC サブシステム構成オブジェクト・クラスを指定します。</td>
+
+</tr>
+
+<tr>
+<td><strong>/etc/objrepos/SRCsubsvr</strong></td>
+
+<td>SRC サブサーバー構成オブジェクト・クラスを指定します。</td>
+
+</tr>
+
+<tr>
+<td><strong>/etc/objrepos/SRCnotify</strong></td>
+
+<td>SRC 通知メソッド・オブジェクト・クラスを指定します。</td>
+
+</tr>
+
+<tr>
+<td><strong>/dev/SRC</strong></td>
+
+<td><strong>AF_UNIX</strong> ソケット・ファイルを指定します。</td>
+
+</tr>
+
+<tr>
+<td><strong>/dev/.SRC-unix</strong></td>
+
+<td>一時ソケット・ファイルの位置を指定します。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+</section>
+
+</div></div>

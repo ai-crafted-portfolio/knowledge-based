@@ -1,0 +1,106 @@
+<div class="official-dom"><div>
+<div> <p></p>
+</div>
+
+<section><h2>目的</h2> <p>仮想プリンターの属性値を変更します。</p>
+</section>
+
+<section><h2>構文</h2> <p><strong>chvirprt</strong> <a href="https://www.ibm.com/docs/ja/ssw_aix_73/c_commands/chvirprt.html#chvirprt__row-d3e116304" target="_blank" rel="noopener noreferrer"><strong>-d </strong></a><em>QueueDeviceName </em> <a href="https://www.ibm.com/docs/ja/ssw_aix_73/c_commands/chvirprt.html#chvirprt__row-d3e116312" target="_blank" rel="noopener noreferrer"><strong>-q </strong></a><em>PrintQueueName</em> [<a href="https://www.ibm.com/docs/ja/ssw_aix_73/c_commands/chvirprt.html#chvirprt__row-d3e116277" target="_blank" rel="noopener noreferrer"><strong>-a </strong></a><em>属性</em><strong>=</strong><em>バリュー ... </em>]</p>
+</section>
+
+<section><h2>説明</h2> <p><strong>chvirprt</strong> コマンドは、<em>PrintQueueName</em> と <em>QueueDeviceName</em> に割り当てられた仮想プリンターの属性値を変更します。</p>
+ <p></p><blockquote><span>“</span><span></span><strong>注:</strong> <strong>qprt</strong>コマンド・ライン・フラグのデフォルト値の属性名は、フラグ文字を入力することによって指定できます。 例えば、 <strong>-w</strong> フラグのデフォルト値 (ページ幅) を 132 に変更するには、次のように入力します。w=132. その他の属性名はすべて 2 文字の長さでなければなりません。<span>”</span></blockquote>
+<p></p>
+ <p>このコマンドは、System Management Interface Tool (SMIT)
+<strong>smit chvirprt</strong> 高速パスを使用しても実行できます。</p>
+</section>
+
+<section><h2>フラグ</h2> <div> 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><strong>-a</strong><em> 属性</em><strong>=</strong><em>値</em></td>
+
+<td><em>Attribute</em> の値を <em>Value</em> で置き換えます。 <em>Value</em> に 1 つ以上のスペースを含める場合は、単一引用符で囲みます ('<em>Value</em> ' のようにします)。 <strong>chvirprt</strong> コマンドをコマンド・ラインに入力するときは、これが最後のフラグ
+でなければなりません。</td>
+
+</tr>
+
+<tr>
+<td><strong>-d</strong><em> QueueDeviceName</em></td>
+
+<td>仮想プリンターが割り当てられるキュー・デバイスの名前を指定します。</td>
+
+</tr>
+
+<tr>
+<td><strong>-q</strong><em> PrintQueueName</em></td>
+
+<td>仮想プリンターが割り当てられている印刷キューの名前を指定します。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+</section>
+
+<section><h2>例</h2> <p>デフォルトのページ幅を次のように変更します。132文字 ( <strong>w</strong> 属性) を使用して、そのユーザーを指定します。mary「介入が必要」というメッセージ ( <strong>si</strong> 属性) を受け取ります。proq印刷キューおよびmyproキュー・デバイス、入力:</p>
+ <div>chvirprt  <a href="https://www.ibm.com/docs/ja/ssw_aix_73/c_commands/chvirprt.html#chvirprt__row-d3e116312" target="_blank" rel="noopener noreferrer">-q</a> proq  <a href="https://www.ibm.com/docs/ja/ssw_aix_73/c_commands/chvirprt.html#chvirprt__row-d3e116304" target="_blank" rel="noopener noreferrer">-d</a> mypro  <a href="https://www.ibm.com/docs/ja/ssw_aix_73/c_commands/chvirprt.html#chvirprt__row-d3e116277" target="_blank" rel="noopener noreferrer">-a</a> si=mary w=132</div>
+</section>
+
+<section><h2>ファイル</h2> <div> 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><strong>/etc/qconfig</strong></td>
+
+<td>構成ファイル</td>
+
+</tr>
+
+<tr>
+<td><strong>/usr/sbin/chvirprt</strong></td>
+
+<td><strong>chvirprt</strong> コマンドが入っています。</td>
+
+</tr>
+
+<tr>
+<td><strong>/var/spool/lpd/pio/@local/custom/*</strong></td>
+
+<td>仮想プリンター属性ファイル。</td>
+
+</tr>
+
+<tr>
+<td><strong>/var/spool/lpd/pio/@local/ddi/*</strong></td>
+
+<td>要約仮想プリンター属性ファイルが入っています。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+</section>
+
+</div></div>

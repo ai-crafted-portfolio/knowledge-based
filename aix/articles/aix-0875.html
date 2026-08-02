@@ -1,0 +1,133 @@
+<div class="official-dom"><div>
+<div> <p></p>
+</div>
+
+<section><h2>目的</h2> <p>メッセージの書き込みを許可または拒否します。</p>
+</section>
+
+<section><h2>構文</h2> <p><strong>mesg</strong> [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/m_commands/mesg.html#mesg__row-d3e120992" target="_blank" rel="noopener noreferrer"><strong>n</strong></a> | <a href="https://www.ibm.com/docs/ja/ssw_aix_73/m_commands/mesg.html#mesg__row-d3e120998" target="_blank" rel="noopener noreferrer"><strong>y</strong></a> ]</p>
+</section>
+
+<section><h2>説明</h2> <p><strong>mesg</strong> コマンドは、システム上の他のユーザーが <strong>write</strong> コマンドまたは <strong>talk</strong> コマンドを使用して、
+メッセージを送信できるかどうかを制御します。 引数なしで呼び出されると、<strong>mesg</strong> コマンドは、ワークステーションの現在のメッセージ許可設定を表示します。</p>
+ <p>シェルの始動プロセスは、デフォルトでメッセージを送信できるようにします。 このデフォルト・アクションは、以下の行を含めることによってオーバーライドできます。mesg n<strong>$HOME/.profile</strong> ファイル内。 root 権限を持つユーザーは、メッセージ許可設定に関係なく、どのワークステーションにでもメッセージを送信できます。 メッセージ許可は、電子メール・システムを介して送達されたメッセージには影響しません。</p>
+ <p>追加する場合mesg y<strong>$HOME/.profile</strong>にアクセスすると、 <strong>write</strong> コマンドまたは <strong>talk</strong> コマンドを介して他のユーザーからメッセージを受け取ることができます。</p>
+ <p>追加する場合mesg
+n<strong>$HOME/.profile</strong>に対しては、 <strong>write</strong> コマンドまたは <strong>talk</strong> コマンドを使用して他のユーザーからメッセージを受信することはできません。</p>
+</section>
+
+<section><h2>フラグ</h2> <div> 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><strong>n</strong></td>
+
+<td>root ユーザーのみがワークステーションにメッセージを送信できるようにします。 他のユーザーからの着信メッセージでディスプレイが乱雑にならないように、この形式のコマンドを使用します。</td>
+
+</tr>
+
+<tr>
+<td><strong>y</strong></td>
+
+<td>ローカル・ネットワーク上のすべてのワークステーションが使用しているワークステーションにメッセージを送信できるようにします。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+</section>
+
+<section><h2>終了状況</h2> <p>このコマンドは、以下の終了値を戻します。</p>
+ 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><strong>0</strong></td>
+
+<td>メッセージの受信が許可されました。</td>
+
+</tr>
+
+<tr>
+<td><strong>1</strong></td>
+
+<td>メッセージの受信が許可されませんでした。</td>
+
+</tr>
+
+<tr>
+<td><strong>&gt;1</strong></td>
+
+<td>エラーが発生しました。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</section>
+
+<section><h2>例</h2> <ol>
+<li><span></span>root ユーザーのみがワークステーションにメッセージを送信できるようにするには、次のように入力します。<div>mesg  <a href="https://www.ibm.com/docs/ja/ssw_aix_73/m_commands/mesg.html#mesg__row-d3e120992" target="_blank" rel="noopener noreferrer">n</a></div>
+</li>
+
+<li><span></span>すべてのユーザーがワークステーションにメッセージを送信できるようにするには、次のように入力します。<div>mesg  <a href="https://www.ibm.com/docs/ja/ssw_aix_73/m_commands/mesg.html#mesg__row-d3e120998" target="_blank" rel="noopener noreferrer">y</a></div>
+</li>
+
+<li><span></span>現在のメッセージ許可設定を表示するには、以下のように入力します。<div> <div><div><pre><code>mesg</code></pre></div><div></div></div>次のような情報が表示されます。<div>is  <a href="https://www.ibm.com/docs/ja/ssw_aix_73/m_commands/mesg.html#mesg__row-d3e120998" target="_blank" rel="noopener noreferrer">y</a></div>前の例では、現在のメッセージ許可設定は <a href="https://www.ibm.com/docs/ja/ssw_aix_73/m_commands/mesg.html#mesg__row-d3e120998" target="_blank" rel="noopener noreferrer"> です。y </a>(ローカル・ネットワーク上のすべてのユーザーがワークステーションにメッセージを送信できるようにします)。 メッセージ許可設定を <a href="https://www.ibm.com/docs/ja/ssw_aix_73/m_commands/mesg.html#mesg__row-d3e120992" target="_blank" rel="noopener noreferrer"> に変更した場合n</a> (root ユーザーのみがワークステーションにメッセージを送信できるようにする) には、以下のような情報が表示されます。<div>is  <a href="https://www.ibm.com/docs/ja/ssw_aix_73/m_commands/mesg.html#mesg__row-d3e120992" target="_blank" rel="noopener noreferrer">n</a> </div>
+</div>
+</li>
+
+</ol>
+</section>
+
+<section><h2>ファイル</h2> <div> 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><strong>/dev/tty*</strong></td>
+
+<td>端末インターフェースの制御をサポートします。</td>
+
+</tr>
+
+<tr>
+<td><strong>$HOME/.profile</strong></td>
+
+<td>始動プロセスとデーモンを制御します。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+</section>
+
+</div></div>

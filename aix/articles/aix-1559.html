@@ -1,0 +1,154 @@
+<div class="official-dom"><div>
+<section><h2>目的</h2> <p>ポートの着信ソケット接続の最大数を制御するための TCP トラフィック規定 (TR) ポリシー情報を構成または表示します。</p>
+</section>
+
+<section><h2>構文</h2> <p><strong>tcptr</strong> <a href="https://www.ibm.com/docs/ja/ssw_aix_73/t_commands/tcptr.html#tcptr__add" target="_blank" rel="noopener noreferrer"><strong>-add</strong></a> &lt; <a href="https://www.ibm.com/docs/ja/ssw_aix_73/t_commands/tcptr.html#tcptr__sp" target="_blank" rel="noopener noreferrer"><span><span>start port</span></span></a> &gt; &lt; <a href="https://www.ibm.com/docs/ja/ssw_aix_73/t_commands/tcptr.html#tcptr__ep" target="_blank" rel="noopener noreferrer"><span><span>end port</span></span></a> &gt; &lt; <a href="https://www.ibm.com/docs/ja/ssw_aix_73/t_commands/tcptr.html#tcptr__mc" target="_blank" rel="noopener noreferrer"><span><span>max connection </span></span></a>&gt; [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/t_commands/tcptr.html#tcptr__row-d3e80915" target="_blank" rel="noopener noreferrer"><span><span>divisor</span></span></a> ]</p>
+ <p><strong>tcptr <a href="https://www.ibm.com/docs/ja/ssw_aix_73/t_commands/tcptr.html#tcptr__del" target="_blank" rel="noopener noreferrer">-delete</a></strong> &lt; <span><span>start port</span></span> &gt; &lt; <span><span>end port</span></span> &gt;</p>
+ <p><strong>tcptr <a href="https://www.ibm.com/docs/ja/ssw_aix_73/s_commands/show.html" target="_blank" rel="noopener noreferrer">-show</a></strong></p>
+</section>
+
+<section><h2>説明</h2> <p><strong>tcptr</strong> コマンドは、特定のネットワーク・ポートまたはポートの範囲に、着信 TCP 接続の上限を割り当てます。 このコマンドを実行すると、<span>AIX</span>のTCPレイヤにリモートからアクセスする着信ソケットリクエストによって一括して共有されるコネクションリソースの新しいプールを追加することができる。</p>
+ <p>システムは自動的に、TCP を介して特定のポートに接続を試行する複数のリモート IP アドレス間でリソースが共有されることを保証します。 root ユーザーは、TCP トラフィック規定 (TR) に関連するシステム・リソースを制御できます。</p>
+ <div><div>
+        <div>
+          <div><span>注:</span><ul>
+<li>デフォルトでは、<strong>tcptr</strong> コマンドは使用不可です。</li>
+
+<li><strong>tcptr</strong> コマンドは、特定の IP アドレスからの接続率を制限しません。 特定のポートまたはポート範囲のクライアントからの接続の合計プールは制御されます。</li>
+
+<li>限度に達すると、サーバーへの接続は失われます。 サーバーはトラフィックを規制しており、システムはサーバーからの指示に従っているため、メッセージはログに記録されず、接続は失われます。</li>
+
+<li><strong>tcptr</strong> コマンドを使用して追加される TCP TR ポリシーは、<strong>no</strong> コマンドを使用して <strong>tcptr_enable</strong> ネットワーク属性が 1 の値に設定されるまで、活動化されません。 これらのポリシーはシステム再始動後に自動的に持続されますが、次のコマンドで指定されるように <strong>-p</strong> フラグを使用してネットワーク・フラグが使用可能にされるまで、活動化されません。<div><div><pre><code>no -p -o tcptr_enable=1</code></pre></div><div></div></div></li>
+
+</ul>
+</div>
+        </div>
+      </div></div>
+</section>
+
+<section><h2>フラグ</h2> 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><span><span>-add</span></span></td>
+
+<td>新規 TCP TR ポリシーをシステムに追加します。 <strong>-add</strong> フラグを使用して現行ポリシーの最大許容接続数、開始ポート、およびエンド・ポートを指定します。 ポート範囲が指定されていない場合は、開始ポートとエンド・ポートを同一ポートにすることができます。 オプションで、使用可能 TCP 接続のプールでのより多様なリソース共有を可能にするために、除数を指定することができます。</td>
+
+</tr>
+
+<tr>
+<td><strong>-delete</strong></td>
+
+<td>システムに定義されている既存の TCP TR ポリシーを削除します。 このフラグを使用する場合、ユーザーは現行ポリシーで許可される最大接続数、開始ポート、およびエンド・ポート (ポート範囲を指定しない場合は、開始ポートと同じにできます) を指定する必要があります。</td>
+
+</tr>
+
+<tr>
+<td><strong>-show</strong></td>
+
+<td>システムに定義されているすべての既存の TCP TR ポリシーを表示します。 <strong>-delete</strong> フラグを使用する前に、<strong>-show</strong> フラグを使用してアクティブ・ポリシーを表示することができます。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</section>
+
+<section><h2>パラメーター</h2> 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><span><span>max connection</span></span></td>
+
+<td>特定の TR ポリシーの着信 TCP 接続の最大数を指定します。</td>
+
+</tr>
+
+<tr>
+<td><span><span>start port</span></span></td>
+
+<td>現行の TR ポリシーの開始ポートを指定します。</td>
+
+</tr>
+
+<tr>
+<td><span><span>end port</span></span></td>
+
+<td>現行の TR ポリシーのエンド・ポートを指定します。 ポートが範囲の場合、指定される値は開始ポートより大きい値でなければなりません。 TR ポリシーが単一ポート用の場合、指定される値は開始ポートに指定された値と等しい値でなければなりません。</td>
+
+</tr>
+
+<tr>
+<td><span><span>除数</span></span></td>
+
+<td>使用可能な着信 TCP 接続数と、IP の消費済み着信 TCP 接続数とを比較する除数を指定し、使用可能な全体の接続数を、2 のべき乗で割った数に一致させます。 除数はこの割り算で使用される、2 のべき乗です。 このパラメーターはオプションです。指定されていない場合、デフォルト値は 1 になります。 その場合、使用可能な接続数の半数が使用されます。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</section>
+
+<div><strong><code>tcptr</code> トラフィック規定のアルゴリズム</strong><p>新規接続要求を受信した場合、<span>tcptr</span> コマンドは、次のアルゴリズムを使用して新規ソケット接続を許可または拒否します。</p>
+<div><div><pre><code>If a new connection request is received and (N-X) = 0, the request is rejected.
+If a new connection request is received and (N-X) &gt; 0 and 
+the request is from a source that already has connections 
+with this port(range), then:
+     if X+1 &lt; [(N-X)/2^divisor] then
+        Allow the new connection
+     else
+        Deny the new connection</code></pre></div><div></div></div><dl>
+
+<dt>N</dt>
+
+<dd>ポートに許容される最大接続数 (範囲)。</dd>
+
+
+
+<dt>X</dt>
+
+<dd>特定の IP アドレスに現在使用されている接続数。</dd>
+
+
+
+<dt>divisor</dt>
+
+<dd>オプション。デフォルト値は 1 です。</dd>
+
+
+</dl>
+</div>
+
+<section><h2>例</h2> <ol>
+<li>TCP ポート <code>23</code> のみをカバーする TCP トラフィック規定ポリシーを追加し、最大着信接続プールを <code>256</code>、使用可能接続除数を <code>3</code> に設定するには、以下のコマンドを入力します。<div><div><pre><code># tcptr -add 23 23 256 3</code></pre></div><div></div></div></li>
+
+<li><code>5000</code> から <code>6000</code> の範囲の TCP ポートをカバーする TCP トラフィック規定ポリシーを追加し、最大着信接続プール <code>5000</code>、使用可能接続除数 <code>2</code> を設定するには、以下のコマンドを入力します。<div><div><pre><code># tcptr -add 5000 6000 5000 2</code></pre></div><div></div></div></li>
+
+<li>システムに設定されている TCP トラフィック規定ポリシーを表示するには、以下のコマンドを入力してください。<div><div><pre><code># tcptr -show</code></pre></div><div></div></div></li>
+
+<li><code>5000</code> から <code>6000</code> の範囲の TCP ポートをカバーする TCP トラフィック規定ポリシーを削除するには、以下のコマンドを入力します。<div><div><pre><code># tcptr -delete 5000 6000</code></pre></div><div></div></div></li>
+
+<li>IP アドレス 10.20.30.1 を使用して、ポート 80 に 256/2^3=32 の接続を行う TCP トラフィック規定ポリシーを追加するには、次のコマンドを入力します。<div><div><pre><code>tcptr -add 80 80 256 3</code></pre></div><div></div></div>この場合、この IP アドレスからポート 80 へ次に接続しようとしても拒否され、TCP RST を受け取ります。</li>
+
+</ol>
+</section>
+
+</div></div>

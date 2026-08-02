@@ -1,0 +1,101 @@
+<div class="official-dom"><div>
+<div> <p></p>
+</div>
+
+<section><h2>目的</h2> <p>メールを送受信します。</p>
+</section>
+
+<section><h2>構文</h2> <p><strong>MHMMail</strong><em> ユーザー</em> ... [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/m_commands/mhmail.html#mhmail__row-d3e121717" target="_blank" rel="noopener noreferrer"><strong>-CC</strong></a><em> ユーザー</em> ... ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/m_commands/mhmail.html#mhmail__row-d3e121731" target="_blank" rel="noopener noreferrer"><strong>-開始</strong></a><em> ユーザー</em> ... ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/m_commands/mhmail.html#mhmail__row-d3e121753" target="_blank" rel="noopener noreferrer"><strong>-件名 </strong></a><strong>"</strong><em>ストリング</em><strong>"</strong> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/m_commands/mhmail.html#mhmail__row-d3e121701" target="_blank" rel="noopener noreferrer"><strong>-ボディ</strong></a><em></em><strong> "</strong><em>ストリング</em><strong>"</strong> ]</p>
+</section>
+
+<section><h2>説明</h2> <p><strong>mhmail</strong> コマンドは、メッセージを作成、送信、およびファイリングします。 メッセージをファイリングするには、フラグを指定せずに <strong>mhmail</strong> コマンドを実行します。 デフォルトのフォルダーは <strong>$HOME/inbox</strong> です。</p>
+ <p><em>User</em> パラメーターで 1 つ以上のユーザー・アドレスを指定した場合、<strong>mhmail</strong> コマンドは、ユーザーの端末からテキストを受け取り、メッセージを作成します。 Ctrl-D キー・シーケンスを押すと、メッセージ・テキストを終了できます。 <strong>mhmail</strong> コマンドは、指定された各アドレスに、そのメッセージのコピーを送信します。</p>
+</section>
+
+<section><h2>フラグ</h2> <div> 
+<div><div><table><thead> <tr> <th><div>項目</div></th>
+ <th><div>説明</div></th>
+ </tr>
+ </thead>
+<tbody>
+<tr>
+<td><strong>-body "</strong><em>ストリング</em><strong>"</strong></td>
+
+<td>指定された文字列を本体としてメッセージを送信します。 文字列は引用符で囲まなければなりません。 <strong>-body</strong> フラグを指定された場合、<strong>mhmail</strong> コマンドは端末からのテキストを受け入れません。</td>
+
+</tr>
+
+<tr>
+<td><strong>-cc</strong><em> ユーザー ...</em></td>
+
+<td>指定されたユーザーにメッセージのコピーを送信します。 <strong>mhmail</strong> コマンドは、以下の場所にアドレスを入れます。cc:設定します。</td>
+
+</tr>
+
+<tr>
+<td><strong>-from</strong><em> ユーザー ...</em></td>
+
+<td>指定されたユーザー・アドレスをFrom:メッセージのフィールド。</td>
+
+</tr>
+
+<tr>
+<td><strong>-help</strong></td>
+
+<td>これは、コマンド構文、使用可能なスイッチ (トグル)、およびバージョン情報をリストします。<p></p><blockquote><span>“</span><strong>注:</strong> MH の場合は、このフラグ名を省略することはできません。<span>”</span></blockquote>
+<p></p>
+</td>
+
+</tr>
+
+<tr>
+<td><strong>-subject "</strong><em>ストリング</em><strong>"</strong></td>
+
+<td>指定されたテキスト・ストリングを以下の場所に配置します。Subject:メッセージのフィールド。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+</section>
+
+<section><h2>例</h2> <ol>
+<li><span></span>新規メールを受信してデフォルトのメールフォルダ <strong>$USER/Mail/inbox</strong>にファイルするには、次のように入力します。<div> <div><div><pre><code>mhmail</code></pre></div><div></div></div>システムは、以下のようなメッセージを表示します。<div><div><pre><code>Incorporating new mail into inbox...
+65+  04/08 jim@athena.a   Meeting        &lt;&lt;The meeting will
+66   04/08 jim@athena.a   Schedule       &lt;&lt;Schedule change</code></pre></div><div></div></div>この例では、2 つのメッセージがinboxを適用します。 最初のメッセージの件名は次のとおりです。Meeting最初の行は次の語で始まります。The meeting will。2 番目のメッセージの件名は次のとおりです。Schedule最初の行は次の語で始まります。Schedule change.</div>
+</li>
+
+<li><span></span>スケジュールの変更に関するメッセージをユーザーに送信するにはjamieシステム上venus次のように入力します。<div>mhmail jamie@venus  <a href="https://www.ibm.com/docs/ja/ssw_aix_73/m_commands/mhmail.html#mhmail__row-d3e121753" target="_blank" rel="noopener noreferrer">-subject </a>"Schedule Change"</div>システムは、メッセージのテキストが入力されるのを待ちます。 テキストの最後の行が完成したら、Enter キーを押し、続けて Ctrl-D キー・シーケンスを押すと、メッセージが送信されます。</li>
+
+</ol>
+</section>
+
+<section><h2>ファイル</h2> <div> 
+<div><div><table><thead> <tr> <th><div>項目</div></th>
+ <th><div>説明</div></th>
+ </tr>
+ </thead>
+<tbody>
+<tr>
+<td><strong>/var/spool/Mail/$USER</strong></td>
+
+<td>メール・ドロップの位置を定義します。</td>
+
+</tr>
+
+<tr>
+<td><strong>/usr/bin/mhmail</strong></td>
+
+<td><strong>mhmail</strong> コマンドが入っています。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+</section>
+
+</div></div>

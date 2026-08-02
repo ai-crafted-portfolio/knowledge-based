@@ -1,0 +1,229 @@
+<div class="official-dom"><div>
+<section><h2>目的</h2> <p>基本ネットワーク・ユーティリティー (BNU) コマンド、データ、
+実行ファイルをリモート・システムに転送します。</p>
+</section>
+
+<section><h2>構文</h2> <p><strong>uucico</strong> [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/u_commands/uucico.html#uucico__row-d3e154085" target="_blank" rel="noopener noreferrer"><strong>-r</strong></a> <em>RoleNumber </em>] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/u_commands/uucico.html#uucico__row-d3e154108" target="_blank" rel="noopener noreferrer"><strong>-x</strong></a> <em>DebugLevel </em>] <a href="https://www.ibm.com/docs/ja/ssw_aix_73/u_commands/uucico.html#uucico__row-d3e154123" target="_blank" rel="noopener noreferrer"><strong>-s</strong></a> <em>SystemName</em></p>
+</section>
+
+<section><h2>説明</h2> <p><strong>uucico</strong> デーモンは、基本ネットワーク・ユーティリティー (BNU) <a href="https://www.ibm.com/docs/ja/ssw_aix_73/filesreference/Command.html" target="_blank" rel="noopener noreferrer">コマンド</a> (<strong>C. *</strong>) を転送します。 <a href="https://www.ibm.com/docs/ja/ssw_aix_73/filesreference/Data.html" target="_blank" rel="noopener noreferrer">data</a> (<strong>D. *</strong>)、 および <a href="https://www.ibm.com/docs/ja/ssw_aix_73/filesreference/Execute.html" target="_blank" rel="noopener noreferrer">execute</a> (<strong>E. *</strong>) <a href="https://www.ibm.com/docs/ja/ssw_aix_73/u_commands/uucp.html#uucp" target="_blank" rel="noopener noreferrer"><strong>uucp</strong></a> および <a href="https://www.ibm.com/docs/ja/ssw_aix_73/u_commands/uux.html#uux" target="_blank" rel="noopener noreferrer"><strong>uux</strong></a> コマンドによって作成されたファイルは、指定されたリモート・システムに送られます。 ローカル・システム、リモート・システムのいずれも <strong>uucico</strong> デーモンを実行し、
+それぞれのデーモンは転送要求を完了するために相互に通信します。</p>
+ <p><strong>uucico</strong> デーモンは、以下のアクションを実行します。</p>
+ <ol>
+<li><span></span>転送要求について、ローカル・システム上のスプーリング・ディレクトリー (<a href="https://www.ibm.com/docs/ja/ssw_aix_73/filesreference/SystemName.html" target="_blank" rel="noopener noreferrer"><strong>/var/spool/uucp/</strong><em>SystemName</em></a>) をスキャンします。</li>
+
+<li><span></span> <a href="https://www.ibm.com/docs/ja/ssw_aix_73/filesreference/locks.html" target="_blank" rel="noopener noreferrer"><strong>/etc/locks</strong></a> ディレクトリー内の <a href="https://www.ibm.com/docs/ja/ssw_aix_73/filesreference/Devices.html" target="_blank" rel="noopener noreferrer"><strong>/etc/uucp/Devices</strong></a> ファイルおよびロック・ファイルを検査した後で、通信接続に使用されるデバイスを選択します。</li>
+
+<li><span></span> <a href="https://www.ibm.com/docs/ja/ssw_aix_73/filesreference/Systems.html" target="_blank" rel="noopener noreferrer"><strong>Systems</strong></a>、 <a href="https://www.ibm.com/docs/ja/ssw_aix_73/filesreference/Dialers.html" target="_blank" rel="noopener noreferrer"><strong>Dialers</strong></a>、内の情報を使用して、指定されたリモート・システムへの呼び出しを行います。 および <strong>/etc/uucp</strong> ディレクトリーにある <a href="https://www.ibm.com/docs/ja/ssw_aix_73/filesreference/Dialcodes.html" target="_blank" rel="noopener noreferrer"><strong>Dialcodes</strong></a> ファイル。</li>
+
+<li><span></span> <strong>Systems</strong> ファイルに指定されている必要なログイン手順を実行します。</li>
+
+<li><span></span> <a href="https://www.ibm.com/docs/ja/ssw_aix_73/filesreference/Permissions.html" target="_blank" rel="noopener noreferrer"><strong>/etc/uucp/Permissions</strong></a> ファイルにリストされている許可を検査します。</li>
+
+<li><span></span> <strong>/etc/uucp</strong> ディレクトリーにある <a href="https://www.ibm.com/docs/ja/ssw_aix_73/filesreference/Maxuuscheds.html" target="_blank" rel="noopener noreferrer"><strong>マクスケス</strong></a> ファイルと <a href="https://www.ibm.com/docs/ja/ssw_aix_73/filesreference/Maxuuxqts.html" target="_blank" rel="noopener noreferrer"><strong>Maxuuxqts</strong></a> ファイルのスケジューリング制限を検査します。</li>
+
+<li><span></span>は、ローカル・システムとリモート・システムの両方からすべての転送要求を実行し、転送されたファイルを公開ディレクトリー (<a href="https://www.ibm.com/docs/ja/ssw_aix_73/filesreference/uucppublic.html" target="_blank" rel="noopener noreferrer"><strong>/var/spool/uucppublic/ *</strong></a>) に配置します。</li>
+
+<li><span></span>転送要求と完了を <a href="https://www.ibm.com/docs/ja/ssw_aix_73/filesreference/Log.html" target="_blank" rel="noopener noreferrer"><strong>/var/spool/uucp/.Log/uucico</strong></a> ディレクトリー。</li>
+
+<li><span></span>指定されたユーザーに転送要求を通知します。</li>
+
+</ol>
+ <p>通常、 <strong>ウシコ</strong> デーモンは、必要に応じて <a href="https://www.ibm.com/docs/ja/ssw_aix_73/u_commands/uucp.html#uucp" target="_blank" rel="noopener noreferrer"><strong>UUCP</strong></a> および <a href="https://www.ibm.com/docs/ja/ssw_aix_73/u_commands/uux.html#uux" target="_blank" rel="noopener noreferrer"><strong>ウックス</strong></a> コマンドによって呼び出され、BNU スケジューリング・デーモン <a href="https://www.ibm.com/docs/ja/ssw_aix_73/u_commands/uusched.html#uusched" target="_blank" rel="noopener noreferrer"><strong>Uusched</strong></a>によって定期的に開始されます。BNU スケジューリング・デーモンは、 <a href="https://www.ibm.com/docs/ja/ssw_aix_73/c_commands/cron.html" target="_blank" rel="noopener noreferrer"><strong>クーロン</strong></a> デーモンによって開始されます。</p>
+ <p><strong>uucico</strong> デーモンは、デバッグのためにコマンド・ラインから始動することができます。 BNU <a href="https://www.ibm.com/docs/ja/ssw_aix_73/u_commands/uutry.html#uutry" target="_blank" rel="noopener noreferrer"><strong>uutry</strong></a>、 <a href="https://www.ibm.com/docs/ja/ssw_aix_73/u_commands/uutry.html#uutry" target="_blank" rel="noopener noreferrer"><strong>Uutry</strong></a>、 また、 <a href="https://www.ibm.com/docs/ja/ssw_aix_73/u_commands/uukick.html#uukick" target="_blank" rel="noopener noreferrer"><strong>uukick</strong></a> コマンドは、デバッグをオンにして <strong>uucico</strong> デーモンを開始します。</p>
+ <div><div>
+        <div>
+          <div><span>要件:</span><strong> uucico</strong> デーモンを呼び出すときは、 <strong>/usr/sbin/uucp</strong> ディレクトリーに入っていなければなりません。あるいは、絶対パス名を指定してデーモンを呼び出す必要があります。 <strong>/usr/sbin/uucp/uucico</strong></div>
+        </div>
+      </div></div>
+ <div><div>
+        <div>
+          <div><span>ヒント:</span> リモート・システムでコマンドを実行するための <strong>uux</strong> コマンド要求の場合は、以下のようになります。 <strong>uucico</strong> デーモンがファイルを転送し、 <a href="https://www.ibm.com/docs/ja/ssw_aix_73/u_commands/uuxqt.html#uuxqt" target="_blank" rel="noopener noreferrer"><strong>uuxqt</strong></a> デーモンがリモート・システム上でコマンドを実行します。</div>
+        </div>
+      </div></div>
+</section>
+
+<section><h2>フラグ</h2> <div> 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><strong>-r</strong><em> RoleNumber</em></td>
+
+<td>サーバーとクライアントの関係を指定します。 ロール番号は、サーバー・モード用は 1、クライアント・モード用は 0 となります。 <strong>-r</strong> フラグが使われていない場合には、
+通常 <strong>uucico</strong> デーモンは BNU コマンドまたはデーモンによって自動的に始動されるため、<strong>uucico</strong> デーモンはクライアント・モード (<strong>-r</strong> 0) で始動されます。 <strong>uucico</strong> デーモンを手作業で始動する場合には、このフラグを 1 に設定します。</td>
+
+</tr>
+
+<tr>
+<td><strong>-x</strong><em> DebugLevel</em></td>
+
+<td>デバッグ情報をローカル端末の画面に表示します。 <em>DebugLevel</em> 変数の有効範囲は、0 から 9 で、デフォルトは 5 です。 数値が大きいほど、情報の詳細が表示されます。 このフラグは、 <a href="https://www.ibm.com/docs/ja/ssw_aix_73/filesreference/Systems.html" target="_blank" rel="noopener noreferrer"><strong>/etc/uucp/Systems</strong></a> ファイル内の expect-send シーケンスに関する問題を診断するのに役立ちます。</td>
+
+</tr>
+
+<tr>
+<td><strong>-s</strong><em> SystemName</em></td>
+
+<td>リモート・システムの名前を示します。 このフラグは、コマンド・ラインから <strong>uucico</strong> デーモンを始動する際に必要です。 <em>SystemName</em> 変数は、
+<strong> uucico</strong> デーモンが自動的に始動される際に内部的に与えられます。<p></p><blockquote><span>“</span><strong>注:</strong> システム名には、ASCII 文字以外は使用できません。<span>”</span></blockquote>
+<p></p>
+</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+</section>
+
+<section><h2>例</h2> <p>コマンド・ラインから <strong>uucico</strong> デーモンを呼び出すには、以下のように入力します。</p>
+ <div>/usr/sbin/uucp/uucico  <a href="https://www.ibm.com/docs/ja/ssw_aix_73/u_commands/uucico.html#uucico__row-d3e154085" target="_blank" rel="noopener noreferrer">-r </a>1  <a href="https://www.ibm.com/docs/ja/ssw_aix_73/u_commands/uucico.html#uucico__row-d3e154123" target="_blank" rel="noopener noreferrer">-s </a>hera &amp;</div>
+ <p>バックグラウンド・プロセスとしてデーモンを開始し、リモート・システムに連絡するhera.</p>
+</section>
+
+<section><h2>ファイル</h2> <div> 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><a href="https://www.ibm.com/docs/ja/ssw_aix_73/filesreference/locks.html" target="_blank" rel="noopener noreferrer"><strong>/etc/locks</strong></a> <strong>/*</strong></td>
+
+<td>デバイスの重複使用とシステムの重複呼び出しを防止するためのロック・ファイルが入っています。</td>
+
+</tr>
+
+<tr>
+<td><strong>/usr/sbin/uucp/*</strong></td>
+
+<td><strong>uucico</strong> デーモンおよび BNU 用の構成ファイルが入っています。</td>
+
+</tr>
+
+<tr>
+<td><strong>/etc/uucp/</strong><a href="https://www.ibm.com/docs/ja/ssw_aix_73/filesreference/Devices.html" target="_blank" rel="noopener noreferrer"><strong>デバイス</strong></a></td>
+
+<td>使用可能なデバイスについての情報が入っています。</td>
+
+</tr>
+
+<tr>
+<td><strong>/etc/uucp/</strong><a href="https://www.ibm.com/docs/ja/ssw_aix_73/filesreference/Dialcodes.html" target="_blank" rel="noopener noreferrer"><strong>ダイヤル・コード</strong></a></td>
+
+<td>ダイヤル・コードの省略形が記述されています。</td>
+
+</tr>
+
+<tr>
+<td><strong>/etc/uucp/</strong><a href="https://www.ibm.com/docs/ja/ssw_aix_73/filesreference/Dialers.html" target="_blank" rel="noopener noreferrer"><strong>ダイヤラー</strong></a></td>
+
+<td>接続についての初期接続手順を指定します。</td>
+
+</tr>
+
+<tr>
+<td><strong>/etc/uucp/ </strong><a href="https://www.ibm.com/docs/ja/ssw_aix_73/filesreference/Maxuuscheds.html" target="_blank" rel="noopener noreferrer"><strong>最大スケジュール</strong></a></td>
+
+<td>スケジュールされるジョブを制限します。</td>
+
+</tr>
+
+<tr>
+<td><strong>/etc/uucp/ </strong><a href="https://www.ibm.com/docs/ja/ssw_aix_73/filesreference/Maxuuxqts.html" target="_blank" rel="noopener noreferrer"><strong>最大uuxqts</strong></a></td>
+
+<td>リモート・コマンドの実行を制限します。</td>
+
+</tr>
+
+<tr>
+<td><strong>/etc/uucp/</strong><a href="https://www.ibm.com/docs/ja/ssw_aix_73/filesreference/Permissions.html" target="_blank" rel="noopener noreferrer"><strong>許可</strong></a></td>
+
+<td>リモート・システム用のアクセス権限を記述します。</td>
+
+</tr>
+
+<tr>
+<td><strong>/etc/uucp/</strong><a href="https://www.ibm.com/docs/ja/ssw_aix_73/filesreference/Systems.html" target="_blank" rel="noopener noreferrer"><strong>システム</strong></a></td>
+
+<td>アクセス可能なリモート・システムを記述します。</td>
+
+</tr>
+
+<tr>
+<td><strong>/var/spool/uucp/.Admin/</strong><a href="https://www.ibm.com/docs/ja/ssw_aix_73/filesreference/errors.html" target="_blank" rel="noopener noreferrer"><strong>エラー</strong></a></td>
+
+<td>BNU が訂正できない <strong>uucico</strong> デーモンのエラーをリストします。</td>
+
+</tr>
+
+<tr>
+<td><strong>/var/spool/uucp/</strong><a href="https://www.ibm.com/docs/ja/ssw_aix_73/filesreference/Log.html" target="_blank" rel="noopener noreferrer"><strong>。ログ</strong></a><strong>/uucico</strong> /*</td>
+
+<td><strong>uucico</strong> デーモンのログ・ファイルが入っています。</td>
+
+</tr>
+
+<tr>
+<td><strong>/var/spool/uucp/</strong> <a href="https://www.ibm.com/docs/ja/ssw_aix_73/filesreference/Status.html" target="_blank" rel="noopener noreferrer"><strong>.ステータス</strong></a><strong> /</strong><em> システム名</em></td>
+
+<td>リモート・システムが最後に接続された時刻および次の再試行までの最低時間をリストします。</td>
+
+</tr>
+
+<tr>
+<td><strong>/var/spool/uucp/</strong><a href="https://www.ibm.com/docs/ja/ssw_aix_73/filesreference/SystemName.html" target="_blank" rel="noopener noreferrer"><em>システム名</em></a> /<strong>*</strong></td>
+
+<td><strong>C. *</strong>を含みます。 <strong>D. *</strong>、 および <strong>X.*</strong> <strong>uucico</strong> デーモンによって転送されるファイル。</td>
+
+</tr>
+
+<tr>
+<td><strong>/var/spool/uucp/</strong><em>SystemName</em><strong>/</strong><a href="https://www.ibm.com/docs/ja/ssw_aix_73/filesreference/Command.html" target="_blank" rel="noopener noreferrer"><strong>C. *</strong></a></td>
+
+<td>コマンド・ファイルが入っています。</td>
+
+</tr>
+
+<tr>
+<td><strong>/var/spool/uucp/</strong><em>SystemName</em><strong>/</strong><a href="https://www.ibm.com/docs/ja/ssw_aix_73/filesreference/Data.html" target="_blank" rel="noopener noreferrer"><strong>D. *</strong></a></td>
+
+<td>データ・ファイルが入っています。</td>
+
+</tr>
+
+<tr>
+<td><strong>/var/spool/uucp/</strong><em> システム名</em><strong> /</strong> <a href="https://www.ibm.com/docs/ja/ssw_aix_73/filesreference/Execute.html" target="_blank" rel="noopener noreferrer"><strong>X.*</strong></a></td>
+
+<td>実行ファイルが入っています。</td>
+
+</tr>
+
+<tr>
+<td><strong>/var/spool/</strong> <a href="https://www.ibm.com/docs/ja/ssw_aix_73/filesreference/uucppublic.html" target="_blank" rel="noopener noreferrer"><strong>uucppublic/*</strong></a></td>
+
+<td><strong>uucico</strong> デーモンによる転送後のファイルが入っています。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+</section>
+
+</div></div>

@@ -1,0 +1,92 @@
+<div class="official-dom"><div>
+<section><h2>目的</h2> <p>ホスト上の TCP/IP ベースのネーム・サービス構成を変更します。</p>
+</section>
+
+<section><h2>構文</h2> <p><strong>chnamsv</strong> [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/c_commands/chnamsv.html#chnamsv__row-d3e96791" target="_blank" rel="noopener noreferrer"><strong>-a</strong></a><strong>"</strong><em>属性</em><strong>=</strong><em>値</em> ...<strong>"</strong> | <a href="https://www.ibm.com/docs/ja/ssw_aix_73/c_commands/chnamsv.html#chnamsv__row-d3e96783" target="_blank" rel="noopener noreferrer"><strong>-A</strong></a><em> FileName</em> ]</p>
+</section>
+
+<section><h2>説明</h2> <p><strong>chnamsv</strong> 高水準コマンドは、ホスト上の TCP/IP ベースのネーム・サービス設定を変更します。 このコマンドは、<strong>/etc/resolv.conf</strong> ファイルだけを変更します。 ネームサーバー・データベースは変更しません。</p>
+ <p>クライアントのネーム・サービス設定を変更すると、<strong>chnamsv</strong> コマンドは <strong>namerslv</strong> 低水準コマンドを呼び出して <strong>resolv.conf</strong> 構成ファイルを適宜変更します。</p>
+ <p>このコマンドは、System Management Interface Tool (SMIT) <strong>smit namerslv</strong> 高速パスを使用しても実行できます。</p>
+</section>
+
+<section><h2>フラグ</h2> <div> 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><strong>-A</strong><em> FileName</em></td>
+
+<td>ネームサーバーの初期化情報が入っているファイルの名前を指定します。</td>
+
+</tr>
+
+<tr>
+<td><strong>-a "</strong><em>属性</em><strong>=</strong><em>値 ...</em><strong>"</strong><em></em></td>
+
+<td>データベース内のネームサーバーの初期化ファイルを更新するときに使用する属性とその値のリストを指定します。<p>属性は次のいずれかです。</p>
+  <dl>
+
+<dt><strong>ドメイン</strong></dt>
+
+<dd>ネームサーバーのドメイン・ネーム。</dd>
+
+</dl>
+  <dl>
+<dt><strong>ネームサーバー</strong></dt>
+
+<dd>ネームサーバーのインターネット・アドレス。</dd>
+
+</dl>
+</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+</section>
+
+<section><h2>例</h2> <ol>
+<li>ネームサーバーの初期化ファイルを更新するには、
+次のフォーマットでコマンドを入力します。<div>chnamsv    <a href="https://www.ibm.com/docs/ja/ssw_aix_73/c_commands/chnamsv.html#chnamsv__row-d3e96791" target="_blank" rel="noopener noreferrer">-a</a> "domain=austin.century.com   nameserver=192.9.200.1"</div>上記の例では、ドメイン・サーバーとネームサーバーのアドレスが更新されます。 以前のドメインは上書きされ、新規のネームサーバー・エントリーが付加されます。</li>
+
+<li>別のファイルのネームサーバー初期化情報を更新するには、
+次のフォーマットで入力します。<div>chnamsv    <a href="https://www.ibm.com/docs/ja/ssw_aix_73/c_commands/chnamsv.html#chnamsv__row-d3e96783" target="_blank" rel="noopener noreferrer">-A   </a>namsv.file</div>この例では、更新された情報を含むファイルは以下のようになります。namsv.file.</li>
+
+</ol>
+</section>
+
+<section><h2>ファイル</h2> <div> 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><strong>/etc/</strong> <strong>resolv.conf</strong></td>
+
+<td>ローカル resolver ルーチン用の DOMAIN ネームサーバー情報が入っています。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+</section>
+
+</div></div>

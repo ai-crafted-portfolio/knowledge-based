@@ -1,0 +1,83 @@
+<div class="official-dom"><div>
+<section><h2>目的</h2><p>実行待機中のジョブのキューを表示します。</p>
+</section>
+
+<section><h2>構文</h2><p><strong>ATQ</strong> [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/a_commands/atq.html#atq__row-d3e38954" target="_blank" rel="noopener noreferrer"><strong>C</strong></a> | <a href="https://www.ibm.com/docs/ja/ssw_aix_73/a_commands/atq.html#atq__row-d3e38963" target="_blank" rel="noopener noreferrer"><strong>N </strong></a>] [ <em>ユーザー</em> ... ]</p>
+</section>
+
+<section><h2>説明</h2><p><strong>atq</strong> コマンドは、後日実行の予定で待機している現行ユーザーのジョブのキューを、実行予定順序でソートして表示します。 これらのジョブは <strong>at</strong> コマンドにより作成されたものです。 ユーザーが root であり、<em>User</em> 名が指定されている場合は、<strong>atq</strong> コマンドは、そのユーザーに属するジョブだけを表示します。</p>
+</section>
+
+<section><h2>フラグ</h2><div> 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><strong>-c</strong></td>
+
+<td><strong>at</strong>  コマンドが実行された時刻の順にキューをソートします。</td>
+
+</tr>
+
+<tr>
+<td><strong>-n</strong></td>
+
+<td>現在キューに入っているジョブの数だけを表示します。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+</section>
+
+<section><h2>セキュリティー</h2><p><strong>アテンション RBAC ユーザー</strong>: このコマンドは特権操作を実行できます。 特権命令を実行できるのは特権ユーザーのみです。 権限および特権について詳しくは、「<em>セキュリティー</em>」の『特権コマンド・データベース』を参照してください。 このコマンドに関連した特権および権限のリストについては、<strong>lssecattr</strong> コマンドまたは <strong>getcmdattr</strong> サブコマンドの項を参照してください。</p>
+</section>
+
+<section><h2>例</h2><p><strong>at</strong> コマンドにより作成されたキューを表示するには、次のように入力します。</p>
+<div> <div><div><pre><code>atq</code></pre></div><div></div></div></div>
+<p>このキュー内にジョブが入っていれば、次のようなメッセージが表示されます。</p>
+<div> <div><div><pre><code>root.635623200.a         Wed     Feb 21  12:00:00 1990
+root.635670000.a         Thu     Feb 22  01:00:00 1990</code></pre></div><div></div></div></div>
+</section>
+
+<section><h2>ファイル</h2><div> 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><strong>/usr/bin/atq</strong></td>
+
+<td><strong>atq</strong> プログラムが入っています。</td>
+
+</tr>
+
+<tr>
+<td><strong>/var/spool/cron/atjobs</strong></td>
+
+<td>スプール域を指定します。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+</section>
+
+</div></div>

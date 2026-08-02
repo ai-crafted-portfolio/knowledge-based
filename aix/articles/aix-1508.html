@@ -1,0 +1,130 @@
+<div class="official-dom"><div>
+<section><h2>目的</h2> <p>ストリーム構成を変更します。</p>
+</section>
+
+<section><h2>構文</h2><p><strong>モジュールをストリームにプッシュする</strong></p>
+ <p><strong>Strchg</strong> <a href="https://www.ibm.com/docs/ja/ssw_aix_73/s_commands/strchg.html#strchg__row-d3e53024" target="_blank" rel="noopener noreferrer"><strong>-h</strong></a> <em>Module1</em> [ <strong>,</strong> <em>Module2</em> ... ]</p>
+<p><strong>モジュールをストリームからポップする</strong></p>
+ <p><strong>Strchg</strong> <a href="https://www.ibm.com/docs/ja/ssw_aix_73/s_commands/strchg.html#strchg__row-d3e53032" target="_blank" rel="noopener noreferrer"><strong>P-</strong></a> [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/s_commands/strchg.html#strchg__row-d3e52993" target="_blank" rel="noopener noreferrer"><strong>-a 値</strong></a> | <a href="https://www.ibm.com/docs/ja/ssw_aix_73/s_commands/strchg.html#strchg__row-d3e53041" target="_blank" rel="noopener noreferrer"><strong>-ウー</strong></a> <em>モジュール</em> ]</p>
+<p><strong>モジュールをプッシュおよびポップして構成ファイルを適合させる</strong></p>
+ <p><strong>Strchg</strong> <a href="https://www.ibm.com/docs/ja/ssw_aix_73/s_commands/strchg.html#strchg__row-d3e53005" target="_blank" rel="noopener noreferrer"><strong>「-f」</strong> </a><em>ファイル</em></p>
+</section>
+
+<section><h2>説明</h2> <p><strong>strchg</strong> コマンドは、ユーザーの標準入力に関連するストリームの構成を変更するために使用されます。 <strong>strchg</strong> コマンドは、ストリームに<strong>モジュールをプッシュ</strong>したり、
+ストリームからモジュールをポップしたり、またはその両方を行います。 そのストリームの構成を変更できるのは、root ユーザーまたは STREAMS デバイスのオーナーだけです。 それ以外のユーザーがその構成を変更しようとしても、<strong>strchg</strong> コマンドは成功しません。</p>
+ <p></p><blockquote><span>“</span><span></span><strong>注:</strong> モジュールが誤った順序でプッシュされると、ストリームが予期したとおりに機能しない場合があります。<span>”</span></blockquote>
+<p></p>
+</section>
+
+<section><h2>フラグ</h2> <div> 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><strong>-a</strong></td>
+
+<td>一番上のドライバーより上にあるすべてのモジュールをストリームからポップします。 <strong>-p</strong> フラグは、<strong>-a</strong> フラグの前に指定しなければなりません。</td>
+
+</tr>
+
+<tr>
+<td><strong>-f</strong><em> ファイル</em></td>
+
+<td>指定したファイルで与えられた構成にストリームを準拠させるために、必要なモジュールをプッシュしたり、ポップしたりします。<p><strong>-h</strong>、<strong>-p</strong>、<strong>-f</strong> フラグは、同時に使用できません。</p>
+</td>
+
+</tr>
+
+<tr>
+<td><strong>-h</strong><em> Module1</em></td>
+
+<td>ストリームにモジュールをプッシュします。 プッシュされる順序でコマンド・ラインにモジュールをリストします。</td>
+
+</tr>
+
+<tr>
+<td><strong>-p</strong></td>
+
+<td>ストリームからモジュールをポップします。 このフラグだけを使用すると、<strong>-p</strong> フラグはストリームの一番上にあるモジュールをポップします。</td>
+
+</tr>
+
+<tr>
+<td><strong>-ウー</strong><em> モジュール</em></td>
+
+<td>指定されたモジュールより上にあるすべてのモジュールをストリームからポップします。 <strong>-p</strong> フラグは、<strong>-u</strong> フラグの前に指定しなければなりません。<p><strong>-a</strong> および <strong>-u</strong> フラグは同時には指定できません。</p>
+</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+</section>
+
+<section><h2>パラメーター</h2> <div> 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><em>Module1</em></td>
+
+<td>ストリームにプッシュするモジュールを指定します。 ( <strong>-h</strong> フラグによって使用されます。)</td>
+
+</tr>
+
+<tr>
+<td><em>モジュール</em></td>
+
+<td>ストリーム上に残る一番上のモジュールを指定します。 このモジュールの上にあるすべてのモジュールは、ストリームからポップされます。 ( <strong>-ウー</strong> フラグによって使用されます。)</td>
+
+</tr>
+
+<tr>
+<td><em>File</em></td>
+
+<td>ストリームの希望する構成を示すモジュールのリストが入っています。 各モジュール名は、別々の行に記述しなければなりません。
+この場合、最初の名前が一番上のモジュールを表し、最後の名前がドライバーに一番近いモジュールを表します。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+</section>
+
+<section><h2>戻り値</h2> <p>正常終了すると、 <strong>Strchg</strong> コマンドは値 0 を戻します。 それ以外の場合は、ゼロ以外の値を返し、使用法エラー、不正なモジュール名、プッシュするモジュールが多すぎる、ストリームでの <strong>Ioctl</strong> 操作の失敗、または <em>ファイル</em> パラメーターで指定されたファイルのオープンの失敗を示すエラー・メッセージを出力します。</p>
+</section>
+
+<section><h2>例</h2> <ol>
+<li><span></span>プッシュするには、ldtermストリーム上のモジュールに対して、次のように入力します<div> <div><div><pre><code>strchg -h ldterm</code></pre></div><div></div></div></div>
+</li>
+
+<li><span></span>以下に関連付けられたストリームから最上位のモジュールをポップします。/dev/term/24以下のように入力します。<div> <div><div><pre><code>strchg -p &lt; /dev/term/24</code></pre></div><div></div></div>この場合、ユーザーはこのデバイスのオーナーか、root ユーザーでなければなりません。</div>
+</li>
+
+<li><span></span>以下の場合:fileconfファイルには以下が含まれます。<div> <div><div><pre><code>compat
+ldterm
+ptem</code></pre></div><div></div></div>以下のコマンドは、以下のようにストリームを構成します。ptemモジュールがドライバーの上にプッシュされ, その後に,ldtermモジュール、およびcompatモジュールはストリーム・ヘッドに最も近い位置にプッシュされます。<div><div><pre><code>strchg -f fileconf</code></pre></div><div></div></div></div>
+</li>
+
+</ol>
+</section>
+
+</div></div>

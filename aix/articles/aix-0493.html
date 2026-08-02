@@ -1,0 +1,294 @@
+<div class="official-dom"><div>
+<section><h2>目的</h2> <p>ユーザー情報を表示します。 このコマンドは、 <a href="https://www.ibm.com/docs/ja/ssw_aix_73/f_commands/finger.html#finger" target="_blank" rel="noopener noreferrer"><span>finger</span></a> コマンドと同じです。</p>
+</section>
+
+<section><h2>構文</h2> <div>
+<div><div><pre><code>{ f | finger } [[ -b] [ -h] [ -l] [ -p] ] | [ -i] [ -q] [ -s] [ -w] ]</code></pre></div><div></div></div>
+</div>
+ <div>
+<div><div><pre><code>[ -f] [ -m] [ User | User @Host |  @Host ]</code></pre></div><div></div></div>
+</div>
+</section>
+
+<section><h2>説明</h2> <p><span>f</span> コマンドは、ホストにログインしているユーザーに関する情報を表示します。 出力形式は、表示される情報の選択によって異なります。</p>
+
+<dl>
+
+<dt>デフォルトのフォーマット</dt>
+
+<dd><p>デフォルトの形式には次の項目が入ります。</p>
+
+<ul>
+<li>ログイン名</li>
+
+<li>完全なユーザー名</li>
+
+<li>端末名</li>
+
+<li>書き込み状況 (端末名の前の <code>*</code> (アスタリスク) は、書き込み許可が拒否されたことを示します)</li>
+
+</ul>
+
+<p>ホスト上のユーザーの場合、デフォルト情報のリストには、次の項目も含まれます。</p>
+
+<ul>
+<li>アイドル時間 (アイドル時間は、 <code>a
+:</code> (コロン) が存在する場合は分、単一の整数の場合は分、(コロン) が存在する場合は時間、 <code>d</code> が存在する場合は日時です。)</li>
+
+<li>ログイン時間</li>
+
+<li>サイト固有の情報<p>サイト固有の情報は、 <a href="https://www.ibm.com/docs/ja/ssw_aix_73/filesreference/passwd.html" target="_blank" rel="noopener noreferrer"><span>/etc/passwd</span></a> ファイルの gecos フィールドから取得されます。 gecos フィールドには、完全なユーザー名の後にコンマを続けることができます。 finger コマンドによって、コンマの後ろにすべての情報がサイト特定の情報と一緒に表示されます。</p>
+</li>
+
+</ul>
+
+</dd>
+
+
+
+<dt>長い形式</dt>
+
+<dd><p><span>f</span> コマンドでは、ユーザー名のリストが指定されるたびに、より長い形式が使用されます。 (アカウント名、ユーザーの名と姓が受け入れられます。) このフォーマットは複数行で設定され、次に示す情報の他に上記の情報をすべて含みます。</p>
+
+<ul>
+<li>ユーザーの <span>$HOME</span> ディレクトリー</li>
+
+<li>ユーザーのログイン・シェル</li>
+
+<li>ユーザーの <span>$HOME</span> ディレクトリー内の <span>.plan</span> ファイルの内容</li>
+
+<li>ユーザーの <span>$HOME</span> ディレクトリー内の <span>.project</span> ファイルの内容</li>
+
+</ul>
+
+<p><span>f</span> コマンドはリモート・システム上のユーザーの検索にも使用できます。 フォーマットは、ユーザーを User@Host として指定します。 ユーザー名を省略すると、 <span>f</span> コマンドはリモート・システム上に標準形式のリストを提供します。</p>
+
+<p>任意のテキスト・エディターを使用して <span>.plan</span> ファイルと <span>.project</span> ファイルを作成し、それらのファイルを <span>$HOME</span> ディレクトリーに配置します。 <span>f</span> コマンドは、 <span>.plan</span> および <span>.project</span> ファイルの内容を表示するときに、 <span>toascii</span> サブルーチンを使用して、通常の ASCII 文字範囲外の文字を変換します。 <span>f</span> コマンドにより、変換された文字の前には <code>M-</code> が表示されます。</p>
+
+<p><a href="https://www.ibm.com/docs/ja/ssw_aix_73/f_commands/finger.html#finger__row-d3e112140" target="_blank" rel="noopener noreferrer">User</a> パラメーターでユーザーを指定する場合、ユーザー <code>first name</code>、 <code>last name</code>、または <code>account
+name</code>のいずれかを指定できます。 ユーザーを指定すると、<span>f</span> コマンドは指定したホストで、指定ユーザーに関する情報を長形式で返します。</p>
+
+<p><span>f</span> コマンドに関するその他の情報については、「 <span><em>Networks and communication management</em></span>」の <a href="https://www.ibm.com/docs/ja/ssw_aix_73/network/tcpip_install.html" target="_blank" rel="noopener noreferrer">「Installation of TCP/IP」</a> を参照してください。</p>
+
+</dd>
+
+
+</dl>
+</section>
+
+<section><h2>フラグ</h2> <div> 
+<div><div><table><caption><span>表 1. フラグ</span></caption><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><span>-b</span></td>
+
+<td>簡潔な長形式をリストします。</td>
+
+</tr>
+
+<tr>
+<td><span>-f</span></td>
+
+<td>出力時にヘッダー行の印刷 (表示中のフィールドを定義する最初の行) を抑止します。</td>
+
+</tr>
+
+<tr>
+<td><span>-h</span></td>
+
+<td><span>.project</span> ファイルを、長形式および簡潔な形の長形式では表示しません。</td>
+
+</tr>
+
+<tr>
+<td><span>-i</span></td>
+
+<td>アイドル時間と一緒に高速でリストします。</td>
+
+</tr>
+
+<tr>
+<td><span>-l</span></td>
+
+<td>長形式をリストします。</td>
+
+</tr>
+
+<tr>
+<td><span>-m</span></td>
+
+<td>User パラメーターは、ユーザーのログイン名ではなく、
+ユーザー ID (任意アクセス制御に使用される) であると見なされます。</td>
+
+</tr>
+
+<tr>
+<td><span>-p</span></td>
+
+<td><span>.plan</span> ファイルを、長形式と簡潔な形の長形式では表示しません。</td>
+
+</tr>
+
+<tr>
+<td><span>-q</span></td>
+
+<td>高速でリストします。</td>
+
+</tr>
+
+<tr>
+<td><span>-s</span></td>
+
+<td>短形式をリストします。</td>
+
+</tr>
+
+<tr>
+<td><span>-w</span></td>
+
+<td>幅の狭い、短形式をリストします。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+</section>
+
+<section><h2>パラメーター</h2> <div> 
+<div><div><table><thead> <tr> <th><div>項目</div></th>
+ <th><div>説明</div></th>
+ </tr>
+ </thead>
+<tbody>
+<tr>
+<td>ホスト</td>
+
+<td>リモート・ホスト上のすべてのログイン・ユーザーを指定します。</td>
+
+</tr>
+
+<tr>
+<td>User</td>
+
+<td><span>/etc/passwd</span> ファイル内で指定した、ローカル・ユーザー ID (任意アクセス制御に使用される) またはローカル・ログイン名を指定します。</td>
+
+</tr>
+
+<tr>
+<td>User@Host</td>
+
+<td>リモート・ホスト上のユーザー ID を指定します。これは長形式で表示されます。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+</section>
+
+<section><h2>例</h2> <p></p>
+ <ol>
+<li><span></span>ホスト <code>alcatraz</code>にログインしているすべてのユーザーに関する情報を取得するには、次のように入力します。<div> <div><div><pre><code>f @alcatraz</code></pre></div><div></div></div>次のような情報が表示されます。<div><div><pre><code>[alcatraz.austin.ibm.com]
+Login     Name        TTY Idle         When      Site Info
+brown    Bob Brown   console   2d   Mar 15 13:19
+smith    Susan Smith    pts0  11:   Mar 15 13:01
+jones    Joe Jones      tty0    3   Mar 15 13:01</code></pre></div><div></div></div>ユーザー <code>brown</code> は <code>console</code> でログインし、
+ユーザー <code>smith</code> は、
+疑似テレタイプ・ライン <code>pts0</code> からログインし、
+ユーザー <code>jones</code> は、
+<code>tty0</code> からログインしています。</div>
+</li>
+
+<li>ユーザー <code>brown</code> ( <code>alcatraz</code>) に関する詳細情報を入手するには、次のように入力します。<div>
+<div><div><pre><code>f brown@alcatraz</code></pre></div><div></div></div>次のような情報が表示されます。<div><div><pre><code>Login name: brown
+Directory: /home/brown    Shell: /home/bin/xinit -L -n Startup
+On since May 8 07:13:49 on console
+No Plan.</code></pre></div><div></div></div></div>
+</li>
+
+<li>ローカル・ホストのユーザー <code>brown</code> に関する情報を短形式で取得するには、次のように入力します。<div>
+<div><div><pre><code>f -q brown</code></pre></div><div></div></div>次のような情報が表示されます。<div><div><pre><code>Login           TTY              When
+brown           pts/6            Mon Dec 17 10:58</code></pre></div><div></div></div></div>
+</li>
+
+</ol>
+</section>
+
+<section><h2>ファイル</h2> <div> 
+<div><div><table><caption><span>表 2. ファイル</span></caption><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><span>/usr/bin/f</span></td>
+
+<td>このファイルには、 <span>f</span> コマンドが含まれています。</td>
+
+</tr>
+
+<tr>
+<td><span>/etc/utmp</span></td>
+
+<td>このファイルには、ログインしているユーザーのリストが含まれています。</td>
+
+</tr>
+
+<tr>
+<td><a href="https://www.ibm.com/docs/ja/ssw_aix_73/filesreference/passwd.html" target="_blank" rel="noopener noreferrer"><span>/etc/passwd</span></a></td>
+
+<td>これは、ユーザー・アカウント、ユーザー名、ホーム・ディレクトリーを定義します。</td>
+
+</tr>
+
+<tr>
+<td><span>/etc/security/passwd</span></td>
+
+<td>これは、ユーザー・パスワードを定義します。</td>
+
+</tr>
+
+<tr>
+<td><span>/var/adm/lastlog</span></td>
+
+<td>最後にログインした時刻が入っています。</td>
+
+</tr>
+
+<tr>
+<td><span>$HOME/.plan</span></td>
+
+<td>ユーザー・プランの 1 行単位の説明が入っているオプションのファイル。</td>
+
+</tr>
+
+<tr>
+<td><span>$HOME/.project</span></td>
+
+<td>ユーザー・プロジェクトの割り当てが入っているオプションのファイル。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+</section>
+
+</div></div>

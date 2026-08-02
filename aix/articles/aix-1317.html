@@ -1,0 +1,193 @@
+<div class="official-dom"><div>
+<section><h2>目的</h2>
+
+<p>ボリューム・グループから論理ボリュームを除去します。</p>
+
+</section>
+
+<section><h2>構文</h2>
+
+<div>
+<div><div><pre><code>rmlv [  -B ] [  -f ] [ -w  ] [  -p Physical Volume ]  LogicalVolume ...</code></pre></div><div></div></div>
+</div>
+
+</section>
+
+<section><h2>説明</h2>
+
+<div><div>
+        <div>
+          <div><span>注意:</span> このコマンドは、指定された論理ボリューム内のすべてのデータを破棄します。</div>
+        </div>
+      </div></div>
+
+<div><span>rmlv</span> コマンドは論理ボリュームを除去します。 LogicalVolume パラメーターは、論理ボリューム名または論理ボリューム ID のいずれかです。 論理ボリュームは、まず最初にクローズしなければなりません。 ボリューム・グループ がコンカレント・モードでオンに変更されている場合、 ボリューム・グループ が変更されているすべてのコンカレント・ノード上で論理ボリュームをクローズする必要があります。 例えば、論理ボリュームにファイルシステムが入っている場合は、
+マウントを解除しなければなりません。 ただし、論理ボリュームを除去しても、そのボリューム上に存在していたファイルシステムが破壊されたことはオペレーティング・システムに通知されません。 <span>rmfs</span> コマンドは
+<span>/etc/filesystems</span> ファイルを更新します。<div><div>
+        <div>
+          <div><span>注:</span><ol>
+<li>このコマンドを使用するには、root ユーザー権限を持っているか、あるいは <span>system</span> グループのメンバーでなければなりません。</li>
+
+<li><span>rmlv</span> コマンドは、スナップショット・ボリューム・グループまたは、
+スナップショット・ボリューム・グループを持つボリューム・グループには使用できません。</li>
+
+<li>補助ダンプ論理ボリュームであるアクティブ・ファームウェアに対して <span>rmlv</span> コマンドを使用することはできません。</li>
+
+<li>AIX® 7.2 テクノロジー・レベル 1 以降では、 <code>rmlv</code> コマンドを実行して区画を解放した後、解放された区画に対してスペース再利用プロセスが実行されます。</li>
+
+<li><span>rmlv</span> コマンドを実行する前に、物理ボリューム上に構成されているすべての暗号化論理ボリュームの鍵サーバーおよび鍵ファイルの認証方式を削除します。 <span>rmlv</span> コマンドは、暗号化論理ボリュームが削除される前に、プラットフォーム鍵ストア (PKS) 認証方式のみ削除します。</li>
+
+</ol>
+
+</div>
+        </div>
+      </div></div>
+</div>
+
+
+<p>また、System Management Interface Tool (SMIT) の <code>smit rmlv</code>
+ファスト・パスを使用して、このコマンドを実行することもできます。</p>
+
+</section>
+
+<section><h2>フラグ</h2>
+
+<div>
+
+<div><div><table><caption><span>表 1. フラグ</span></caption><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><span>-B</span></td>
+
+<td>論理ボリュームが <span>-l</span> フラグを使用して作成された場合、親論理ボリュームに対して <code>chlvcopy -B -s</code> を発行します。 通常の論理ボリュームの場合、 <span>-B</span> フラグは無視されます。</td>
+
+</tr>
+
+<tr>
+<td><span>-f</span></td>
+
+<td>確認を要求せずに論理ボリュームを除去します。</td>
+
+</tr>
+
+<tr>
+<td><span>-p</span> PhysicalVolume</td>
+
+<td>PhysicalVolume 上の論理区画のみ削除します。 他に未割り当ての物理区画がない限り、論理ボリュームは削除されません。<div><div>
+        <div>
+          <div><span>重要:</span> 論理ボリュームが複数の物理ボリュームにまたがっている場合、 PhysicalVolume 上の論理区画のみを除去すると、論理ボリューム全体の整合性が損なわれる可能性があります。</div>
+        </div>
+      </div></div>
+</td>
+
+</tr>
+
+<tr>
+<td><span>-w</span></td>
+
+<td>スペース・レクラメーション処理の完了を待機します。<div><div>
+        <div>
+          <div><span>注:</span> スペース再利用の完了の待機時間は、物理区画の数によって異なります。</div>
+        </div>
+      </div></div>
+</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+
+</div>
+
+</section>
+
+<section><h2>セキュリティー</h2>
+
+<dl>
+
+<dt>RBAC ユーザー</dt>
+
+<dd><div><div>
+        <div>
+          <div><span>RBAC ユーザーへの注意:</span> このコマンドは特権操作を実行できます。 特権命令を実行できるのは特権ユーザーのみです。 権限と特権の詳細については、<span>セキュリティ</span>の <a href="https://www.ibm.com/docs/ja/ssw_aix_73/security/rbac_priv_cmd_db.html" target="_blank" rel="noopener noreferrer">特権コマンドデータベース</a>を参照してください。 このコマンドに関連する特権と権限のリストについては、'<a href="https://www.ibm.com/docs/ja/ssw_aix_73/l_commands/lssecattr.html" target="_blank" rel="noopener noreferrer"><span>lssecattr</span></a>コマンドまたは'<a href="https://www.ibm.com/docs/ja/ssw_aix_73/g_bostechref/getcmdattr.html" target="_blank" rel="noopener noreferrer"><span>getcmdattr</span></a>サブコマンドを参照のこと。</div>
+        </div>
+      </div></div>
+</dd>
+
+
+</dl>
+
+</section>
+
+<section><h2>例</h2>
+
+<div>
+<div><div>
+        <div>
+          <div><span>重要:</span> この例で使用されているコマンドは、論理ボリューム内のすべてのデータを破棄します。</div>
+        </div>
+      </div></div>
+
+</div>
+
+<p>ユーザーの確認を要求させずに論理ボリューム <code>lv05</code> を除去するには、以下のコマンドを入力します。</p>
+
+<div><code>rmlv  <a href="https://www.ibm.com/docs/ja/ssw_aix_73/r_commands/rmlv.html#rmlv__row-d3e160568" target="_blank" rel="noopener noreferrer">-f</a> lv05</code></div>
+
+<p>論理ボリュームがボリューム・グループから除去されます。</p>
+
+</section>
+
+<section><h2>ファイル</h2>
+
+<div>
+
+<div><div><table><caption><span>表 2. ファイル</span></caption><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><span>/usr/sbin/rmlv</span></td>
+
+<td><span>rmlv</span> コマンドが常駐するディレクトリー。</td>
+
+</tr>
+
+<tr>
+<td><span>/tmp</span></td>
+
+<td>コマンドの実行中に一時ファイルが格納されるディレクトリー。</td>
+
+</tr>
+
+<tr>
+<td><span>/etc/filesystems</span></td>
+
+<td>既知のファイルシステムをリストし、その特性を定義します。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+
+</div>
+
+</section>
+
+</div></div>

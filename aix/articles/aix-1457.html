@@ -1,0 +1,102 @@
+<div class="official-dom"><div>
+<section><h2>目的</h2> <p><strong>コア</strong>・ファイルを収集します。</p>
+</section>
+
+<section><h2>構文</h2> <p><strong>snapcore</strong>[ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/s_commands/snapcore.html#snapcore__row-d3e33848" target="_blank" rel="noopener noreferrer"><strong>-d</strong></a> <em>ディレクトリー</em>] [<a href="https://www.ibm.com/docs/ja/ssw_aix_73/s_commands/snapcore.html#snapcore__row-d3e33862" target="_blank" rel="noopener noreferrer"><strong>-r</strong></a>] コア [<em> プログラム</em>]</p>
+</section>
+
+<section><h2>説明</h2> <p><strong>snapcore</strong> コマンドは、プログラムによって使用される <strong>コア</strong>・ファイル、プログラム、およびライブラリーを収集し、その情報を <strong>pax</strong> ファイルに圧縮します。 その後ファイルはディスクまたはテープにダウンロードするか、リモート・システムに伝送することができます。 <strong>snapcore</strong> コマンドによって収集された情報は、アプリケーションの問題の識別と解決に必要です。</p>
+ <p><strong>snapcore</strong> コマンドは、<strong>/tmp/snapcore</strong> ディレクトリーの使用可能スペースを確認します。これは、<strong>snapcore</strong> コマンド出力用のデフォルト・ディレクトリーです。 <strong>-d</strong> フラグを使用して、出力を別のディレクトリーに書き込むことができます。 <strong>snapcore</strong> コマンド出力を保持するのに十分なスペースがない場合は、ファイルシステムの拡張が必要になります。</p>
+ <p><strong>snapcore</strong> コマンドが実行されるたびに、新規のアーカイブ・ファイルが作成されます。 このアーカイブ・ファイルの名前は、<strong>snapcore_$pid.pax</strong> となります。 前に作成されたアーカイブ・ファイルを除去するには、<strong>-r</strong> フラグを使用します。 このコマンドは <strong>$pid</strong> (<strong>snapcore</strong> コマンドの PID) を使用して固有名のファイルを作成し、前に作成されたアーカイブをすべて保存します。</p>
+ <p>コアおよびプログラムの絶対パス名を指定します。 プログラム名が指定されない場合、<strong>snapcore</strong> は <strong>コア</strong>・ファイルからプログラム名を読み取って、<em>PATH</em> 変数に含まれているディレクトリー内で場所を検索します。</p>
+</section>
+
+<section><h2>フラグ</h2> <div> 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><strong>-d</strong><em>ディレクトリー</em></td>
+
+<td>オプションの <strong>snapcore</strong> コマンド出力ディレクトリー (<strong>/tmp/snapcore</strong> がデフォルト) を識別します。</td>
+
+</tr>
+
+<tr>
+<td><strong>-r</strong></td>
+
+<td><strong>snapcore</strong> コマンド出力を <strong>/tmp/snapcore</strong> ディレクトリーから除去します。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+ </div>
+</section>
+
+<section><h2>例</h2> <ol>
+<li><strong>コア</strong>・ファイルを収集するには、以下のように入力します。<div> <ol>
+<li><code>snapcore &lt;core file name&gt; &lt;program name&gt;</code></li>
+
+<li><code>snapcore &lt;core file name&gt;</code></li>
+
+</ol>プログラム・ファイルを検索するために、<em>PATH</em> 変数内に含まれているディレクトリーが検索されます。 <strong>pax</strong> ファイルが <strong>/tmp/snapcore</strong> ディレクトリーに作成されます。</div>
+</li>
+
+<li>前に作成されたコア・アーカイブを除去して、新規のコア・アーカイブを作成するには、以下のように入力します。<p><code>snapcore -r&lt;core file name&gt; &lt;program
+name&gt;</code></p>
+ <p><strong>pax</strong> ファイルが <strong>/tmp/snapcore</strong> ディレクトリーに作成されます。</p>
+</li>
+
+<li><strong>コア</strong>・ファイル・アーカイブを別のディレクトリーに作成するには、以下のように入力します。<p><code>snapcore -d&lt;dir name&gt; &lt;core
+file name&gt; &lt;program name&gt;</code></p>
+ <p><strong>pax</strong> ファイルは、 <strong>&lt; dirname&gt;/tmp/snapcore</strong> ディレクトリーに作成されます。</p>
+</li>
+
+<li><strong>/tmp/snapcore</strong> ディレクトリーをクリーンアップするには、以下のように入力します。<p><code>snapcore
+-r</code></p>
+</li>
+
+</ol>
+</section>
+
+<section><h2>ファイル</h2> <div> 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><strong>/usr/sbin/snapcore</strong></td>
+
+<td><strong>snapcore</strong> コマンドが入っています。</td>
+
+</tr>
+
+<tr>
+<td><strong>/tmp/snapcore</strong></td>
+
+<td><strong>コア</strong>・ファイル・アーカイブが入っています。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+</section>
+
+</div></div>

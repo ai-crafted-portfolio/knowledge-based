@@ -1,0 +1,97 @@
+<div class="official-dom"><div>
+<section><h2>目的</h2>
+<p><span>ネットワーク情報サービス</span> (<span>国家情報院</span>) マップを出力します。</p>
+</section>
+
+<section><h2>構文</h2>
+<dl>
+
+<dt><span>Network Information Services</span> データベースを表示する</dt>
+
+<dd><div><div><pre><code>ypcat [ -k ] [ -t ] [ -d DomainName ] MapName</code></pre></div><div></div></div>
+</dd>
+
+
+
+<dt>ニックネーム変換テーブルを表示するには</dt>
+
+<dd><div><div><pre><code>ypcat -x</code></pre></div><div></div></div>
+</dd>
+
+
+</dl>
+</section>
+
+<section><h2>説明</h2>
+<p><strong>ypcat</strong> コマンドは、 <em>MapName</em> パラメーターで指定した <span>Network Information Services</span> (<span>NIS</span>) マップを印刷します。 マップ名またはマップのニックネームを指定できます。 <strong>ヤマネコ</strong> コマンドは <span>国家情報院</span> サービスを使用するため、サーバーを指定する必要はありません。</p>
+</section>
+
+<section><h2>フラグ</h2>
+<div>
+
+<div><div><table><caption><span>表 1. フラグ</span></caption><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><strong>-k</strong></td>
+
+<td>値が NULL であるマップ、またはキーが値の一部ではないマップのキーを表示します。 ( <strong>/etc</strong> ディレクトリーに ASCII バージョンがあるファイルから派生したマップは、このクラスには入りません。)</td>
+
+</tr>
+
+<tr>
+<td><strong>-t</strong></td>
+
+<td><em>MapName</em> パラメーターを使って指定された名前が、ニックネームでは<em>ない</em> ことを示します。 このフラグによって、<strong>ypcat</strong> コマンドはニックネーム変換テーブルをバイパスし、<em>MapName</em> パラメーターを使って指定されたマップだけを検索します。</td>
+
+</tr>
+
+<tr>
+<td><strong>-d</strong><em> DomainName</em></td>
+
+<td>指定されたマップを指定されたドメイン内で検索します。</td>
+
+</tr>
+
+<tr>
+<td><strong>-x</strong></td>
+
+<td>ニックネーム変換テーブルを表示します。 このテーブルはコマンドが認識しているマップ・ニックネームをリストし、各ニックネームに関連する (<em>MapName</em> パラメーターで指定されたとおりの) マップ名を示します。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+</section>
+
+<section><h2>例</h2>
+<ol>
+<li><span></span>ネットワーク全体のパスワード・マップ <strong>passwd.byname</strong>を表示するには、次のように入力します。<div>
+<div><div><pre><code>ypcat passwd</code></pre></div><div></div></div>この例では以下のようにします。passwd<strong>passwd.byname</strong> マップのニックネームです。</div>
+</li>
+
+<li><span></span>マップを見つけるには、次のように入力します。<div>
+<div><div><pre><code>ypcat -t passwd</code></pre></div><div></div></div>この例では、 <strong>ヤマネコ</strong> コマンドは、次のニックネームを持つマップをすべてバイパスします。passwd次に、以下のフルネームを持つマップを検索します。passwd.</div>
+</li>
+
+<li><span></span>別のドメインのマップを表示するには、次のように入力します。<div>
+<div><div><pre><code>ypcat -d polaris passwd</code></pre></div><div></div></div>この例では、 <strong>ヤマネコ</strong> コマンドは、以下の名前のマップを見つけます。passwd指定されたドメイン内polaris.</div>
+</li>
+
+<li><span></span>マップ・ニックネーム変換テーブルを表示するには、次のように入力します。<div>
+<div><div><pre><code>ypcat -x</code></pre></div><div></div></div>この例では、<strong>ypcat</strong> コマンドはマップ・ニックネームのリストと、それらに関連するマップ名を表示します。</div>
+</li>
+
+</ol>
+</section>
+
+</div></div>

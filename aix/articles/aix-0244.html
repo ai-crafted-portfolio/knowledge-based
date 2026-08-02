@@ -1,0 +1,254 @@
+<div class="official-dom"><div>
+<section><h2>目的</h2> <p>リソースまたはリソース・クラスの永続属性値を変更します。</p>
+</section>
+
+<section><h2>構文</h2> <div>次のデータを使用して、<em>リソース</em>の永続
+属性値を変更するには、次のようにします。<ul>
+<li>コマンド・ラインで入力する場合:<p><span><span>chrsrc</span></span> <span><span>-s "</span></span><span><span>選択ストリング</span></span><span><span>"</span></span> [ <span><span>-a</span></span> │ <span><span>-N</span></span> { <span><span>ノード・ファイル</span></span> │ <span><span>"-"</span></span> } ] [<span><span>-v</span></span>] [<span><span>-h</span></span>] [<span><span>-TV</span></span>] <span><span>リソース・クラス属性</span></span><span><span>=</span></span><span><span>値</span></span>…</p>
+   <p><span><span>chrsrc</span></span> <span><span>-r</span></span> [<span><span>-v</span></span>] [<span><span>-h</span></span>] [<span><span>-TV</span></span>] <span><span>resource_handle attr</span></span><span><span>=</span></span><span><span>value</span></span>...</p>
+</li>
+
+<li>入力ファイルでは次のように事前定義されています。<p><span><span>chrsrc</span></span> <span><span>-f</span></span> <span><span>resource_data_input_file</span></span> <span><span>-s "</span></span><span><span>selection_string</span></span><span><span>"</span></span> [<span><span>-a</span></span> | <span><span>-N</span></span> { <span><span>node_file</span></span> | <span><span>"-"</span></span> }] [<span><span>-v</span></span>] [<span><span>-h</span></span>] [<span><span>-TV</span></span>] <span><span>resource_class</span></span></p>
+   <p><span><span>chrsrc</span></span><span><span>-f</span></span><span><span> リソースデータ入力ファイル </span></span><span><span>-r</span></span> [<span><span>-v</span></span>][<span><span>-h</span></span>][<span><span>-TV</span></span><span><span>リソースハンドル</span></span></p>
+</li>
+
+</ul>
+</div>
+ <div>次のデータを使用して、<em>リソース・クラス</em> の永続
+属性値を変更するには、次のようにします。<ul>
+<li>コマンド・ラインで入力する場合:<p><span><span>chrsrc</span></span> { <span><span>-c</span></span> | <span><span>-C</span></span> <span><span>domain_name</span></span>...} [<span><span>-v</span></span> [<span><span>-a</span></span>] [<span><span>-h</span></span>] [<span><span>-TV</span></span>] <span><span>resource_class attr</span></span><span><span>=</span></span><span><span>value</span></span>...</p>
+</li>
+
+<li>入力ファイルでは次のように事前定義されています。<p><span><span>chrsrc</span></span> <span><span>-f</span></span> <span><span>resource_data_input_file</span></span> { <span><span>-c</span></span> | <span><span>-C</span></span> <span><span>domain_name</span></span>...} [<span><span>-v</span></span>][<span><span>-a</span></span>][<span><span>-h</span></span>][<span><span>-TV</span></span><span><span>リソースクラス</span></span></p>
+</li>
+
+</ul>
+</div>
+</section>
+
+<section><h2>説明</h2> <p><span><span>chrsrc</span></span> コマンドは、リソースまたはリソース・クラスの永続属性値を変更します。 デフォルトでは、このコマンドは、<em>リソース</em> の永続
+属性値を変更します。 <span><span>resource_handle</span></span>にリンクされているリソースの永続属性値のみを変更するには、 <span><span>-r</span></span> フラグを使用します。 <span><span>selection_string</span></span>と一致するすべてのリソースの永続属性値を変更するには、 <span><span>-s</span></span> フラグを使用します。 <em>リソース・クラス</em> の永続属性を変更するには、 <span><span>-c</span></span> フラグを使用します。</p>
+ <p><span><span>selection_string</span></span>に複数のノード名を指定する代わりに、 <span><span>-N</span></span> <span><span>node_file</span></span> フラグを使用して、ノード名がファイル内にあることを示すことができます。 標準入力からノード名を読み取るには、 <span><span>-N "-"</span></span> を使用します。</p>
+ <p><span><span>chrsrc</span></span> コマンドは、動的属性を変更することも、 <span><span>read_only</span></span>として指定された永続属性を変更することもできません。 コマンド行または <span><span>resource_data_input_file</span></span> に指定されたすべての属性名が永続属性として定義されており、<span><span> read_only</span></span>として指定されて <em>いない</em> ことを確認するには、 <span><span>-v</span></span> フラグを使用します。 <span><span>-v</span></span> フラグを指定して <span><span>chrsrc</span></span> コマンドを実行すると、指定された属性は変更されませんが、代わりに単に永続であることが検証され、 <span><span>read_only</span></span>として指定されません。 <span><span>chrsrc</span></span> <span><span>-v</span></span> を実行して、コマンド行または <span><span>resource_data_input_file</span></span> で指定された属性が有効であることを確認したら、 <span><span>-v</span></span> フラグを指定せずに <span><span>chrsrc</span></span> コマンドを発行して、実際に属性値を変更することができます。 ただし、 <span><span>chrsrc</span></span> <span><span>-v</span></span> の実行時に属性が「渡される」という理由だけでは、属性を変更できないことに注意してください。 指定されたリソースを制御する基礎となるリソース・マネージャーが、 <span><span>chrsrc</span></span> コマンドで変更できる属性を決定します。 <span><span>chrsrc</span></span> が <span><span>-v</span></span> フラグなしで実行されると、指定された属性を変更できなかったかどうかを示すエラー・メッセージが表示されます。</p>
+ <p>システムにクラスター・システム・マネージメント (CSM) がインストールされている場合は、CSM 定義のノード・グループをノード名の値として使用して、複数のノードを参照できます。 CSM ノード・グループの処理および CSM <span><span>nodegrp</span></span> コマンドの使用については、「 <em>CSM: 管理ガイド</em> 」および「 <em>CSM: コマンドおよびテクニカル・リファレンス</em> 」を参照してください。</p>
+</section>
+
+<section><h2>フラグ</h2> <dl>
+<dt>-a</dt>
+
+<dd>このコマンドをクラスター内のすべてのノードに適用することを指定します。 CT_MANAGEMENT_SCOPE 環境変数は、クラスターの有効範囲を決定します。 CT_MANAGEMENT_SCOPE が設定されていない場合、コマンドにとって有効な範囲になるまで、最初に管理ドメイン有効範囲 (存在する場合) を選択し、次にピア・ドメイン有効範囲 (存在する場合) を選択し、次にローカル有効範囲を選択します。 コマンドは、最初に見つかった有効範囲に対して、1 回実行されます。 例えば、管理ドメインとピア・ドメインの両方が存在する場合に CT_MANAGEMENT_SCOPE が設定されていないと、このコマンドは管理ドメインに適用されます。 このコマンドをピア・ドメインに適用する場合は、CT_MANAGEMENT_SCOPE を <span><span>2</span></span>に設定してください。</dd>
+
+
+<dt>-c</dt>
+
+<dd><span><span>resource_class</span></span> の永続属性値を変更します。</dd>
+
+
+<dt>--C <span><span>ドメイン名...</span></span></dt>
+
+<dd>管理サーバー上で定義された 1 つ以上の RSCT ピア・ドメインにおいて、グローバル・リソース・クラスのクラス属性を変更します。 グローバル・クラスは、ドメインに関する情報が入っているリソース・クラスのピア・ドメインおよび管理ドメインで使用されます。<p>管理サーバーで定義されているすべてのピア・ドメイン上のグローバル化されたリソース・クラスのクラス属性を変更するには、 <span><span>-C</span></span>の代わりに <span><span>-a</span></span> フラグを指定して <span><span>-c</span></span> フラグを使用します。</p>
+</dd>
+
+
+<dt>--f <span><span>resource_data_input_file</span></span></dt>
+
+<dd>リソース属性情報が含まれるファイルの名前を指定します。</dd>
+
+
+<dt>--N <span>{</span> <span><span>node_file</span></span> <span>│</span>"-"<span>}</span></dt>
+
+<dd>ファイルまたは標準入力からノード名を読み取ることを指定します。 ノード名がファイル内にあることを示すには、 <span><span>-N</span></span> <span><span>node_file</span></span> を使用します。<ul>
+<li><span><span>node_file</span></span> では 1 行に 1 つのノード名を指定します。</li>
+
+<li>1 桁目の番号記号 (<span><span>#</span></span>) は、その行がコメントであることを示します。</li>
+
+<li>ノード名の左のブランク文字はすべて無視されます。</li>
+
+<li>ノード名の右のブランク文字はすべて無視されます。</li>
+
+</ul>標準入力からノード名を読み取るには、 <span><span>-N "-"</span></span> を使用します。<p>CT_MANAGEMENT_SCOPE 環境変数は、クラスターの有効範囲を決定します。 CT_MANAGEMENT_SCOPE が設定されていない場合、コマンドにとって有効な範囲になるまで、最初に管理ドメイン有効範囲 (存在する場合) を選択し、次にピア・ドメイン有効範囲 (存在する場合) を選択し、次にローカル有効範囲を選択します。 コマンドは、最初に見つかった有効範囲に対して、1 回実行されます。 例えば、管理ドメインとピア・ドメインの両方が存在する場合に CT_MANAGEMENT_SCOPE が設定されていないと、このコマンドは管理ドメインに適用されます。 このコマンドをピア・ドメインに適用する場合は、CT_MANAGEMENT_SCOPE を <span><span>2</span></span>に設定してください。</p>
+</dd>
+
+
+<dt>-r</dt>
+
+<dd><span><span>resource_handle</span></span> と一致する特定のリソースの永続属性値を変更します。</dd>
+
+
+<dt>--s<span><span>"selection_string</span></span>"</dt>
+
+<dd><span><span>selection_string</span></span> と一致するすべてのリソースの永続属性値を変更します。 <span><span>selection_string</span></span> は、
+二重引用符か単一引用符で囲む必要があります。 <span><span>selection_string</span></span> に二重引用符が含まれている
+場合は、それを単一引用符で囲んでください。例えば、次のとおりです。<div><div><pre><code>-s 'Name == "testing"'</code></pre></div><div></div></div> <div><div><pre><code>-s 'Name ?= "test"'</code></pre></div><div></div></div> <p>永続属性のみを選択文字列にリストすることができます。 選択文字列を指定する方法については、「<em>RSCT: Administration Guide</em>」を参照してください。</p>
+</dd>
+
+
+<dt>-v</dt>
+
+<dd>コマンド行または入力ファイルに指定されたすべての属性名が永続属性として定義されており、 <span><span>read_only</span></span>として指定されて <em>いない</em> ことを確認します。 このフラグを使用しても、 <span><span>chrsrc</span></span> コマンドは永続属性値を変更 <em>しません</em> 。</dd>
+
+
+<dt>-h</dt>
+
+<dd>コマンドの使用ステートメント (使用法) を標準出力に書き込みます。</dd>
+
+
+<dt>-T</dt>
+
+<dd>コマンドのトレース・メッセージを標準エラーに書き込みます。 これは、ソフトウェア保守部門専用の機能です。</dd>
+
+
+<dt>-V</dt>
+
+<dd>コマンドの詳細メッセージを標準出力に書き込みます。</dd>
+
+</dl>
+</section>
+
+<section><h2>パラメーター</h2> <dl>
+<dt><span><span>attr</span></span><span><span>=</span></span><span><span>値</span></span>...</dt>
+
+<dd>1 つ以上の属性ペアおよびその属性に関連する値を指定します。 <span><span>attr</span></span> は、定義済みの永続属性名のいずれかです。 <span><span>lsrsrcdef</span></span> コマンドを使用して、指定されたリソースの定義済み永続属性とそのデータ・タイプのリストを表示します。 value には、関連する属性に適したデータ・タイプを指定する必要があります。 例えば、 <span><span>NodeNumber</span></span> が <span><span>Uint32</span></span> データ型として定義されている場合は、正の数値を入力します。<p><span><span>-f</span></span> フラグを指定して <span><span>chrsrc</span></span> を実行する場合は、このパラメーターを指定しないでください。</p>
+</dd>
+
+
+<dt><span><span>リソース・クラス</span></span></dt>
+
+<dd>リソース・クラス名を指定します。 <span><span>lsrsrcdef</span></span> コマンドを使用して、定義済みリソース・クラス名のリストを表示します。</dd>
+
+
+<dt><span><span>リソース・ハンドル</span></span></dt>
+
+<dd>変更したいリソースにリンクしているリソース・ハンドルを指定します。 有効なリソース・ハンドルのリストを表示するには、 <span><span>lsrsrc</span></span> コマンドを使用します。 リソース・ハンドルは、二重引用符で囲む必要があります。例えば、次のとおりです。<div><div><pre><code>"0x4017 0x0001 0x00000000 0x0069684c 0x0d4715b0 0xe9635f69"</code></pre></div><div></div></div></dd>
+
+</dl>
+</section>
+
+<section><h2>セキュリティー</h2> <p>ユーザーが <span><span>chrsrc</span></span>を実行するには、 <span><span>chrsrc</span></span> で指定された <span><span>resource_class</span></span> に対する書き込み権限が必要です。 権限は、相手のシステムのアクセス制御リスト (ACL) ファイルに指定します。 ACL ファイルとその変更方法については、「<em>RSCT: Administration Guide</em>」を参照してください。</p>
+</section>
+
+<section><h2>終了状況</h2> <div> <dl>
+<dt>0</dt>
+
+<dd>コマンドが正常に実行されました。</dd>
+
+
+<dt>1</dt>
+
+<dd>RMC 内でエラーが発生しました。</dd>
+
+
+<dt>2</dt>
+
+<dd>コマンド・ライン・インターフェース (CLI) スクリプトでエラーが発生しました。</dd>
+
+
+<dt>3</dt>
+
+<dd>コマンド・ラインに間違ったフラグが指定されました。</dd>
+
+
+<dt>4</dt>
+
+<dd>コマンド・ラインに不正なパラメーターが指定されました。</dd>
+
+
+<dt>5</dt>
+
+<dd>不正なコマンド・ライン入力に基づく RMC により、エラーが発生しました。</dd>
+
+
+<dt>6</dt>
+
+<dd>選択文字列と一致するリソースが見つかりません。</dd>
+
+</dl>
+</div>
+</section>
+
+<section><h2>環境変数</h2> <dl>
+<dt>CT_CONTACT</dt>
+
+<dd>CT_CONTACT 環境変数をホスト名または IP アドレスに設定すると、コマンドは指定されたホストの RMC (Resource Monitoring and Control) デーモンにアクセスします。 この環境変数を設定しないと、コマンドは、そのコマンドが実行されているローカル・システムの RMC デーモンにアクセスします。 コマンドにより表示または変更されるリソースまたはリソース・クラスは、
+接続が確立されたシステム上で探されます。</dd>
+
+
+<dt>CT_IP_AUTHENT</dt>
+
+<dd>CT_IP_AUTHENT 環境変数が存在する場合、RMC デーモンは、IP ベース・ネットワーク認証を使用して、CT_CONTACT 環境変数が設定されている IP アドレスで指定されたシステム上の RMC デーモンにアクセスします。 CT_IP_AUTHENT は、CT_CONTACT が IP アドレスに設定されている場合にのみ意味を持ちます。ドメイン・ネーム・システム (DNS) サービスには依存しません。</dd>
+
+
+<dt>CT_MANAGEMENT_SCOPE</dt>
+
+<dd>RMC デーモンがリソースおよびリソース・クラスをモニターし、制御するための
+セッションに使用する管理有効範囲を指定します。 この管理有効範囲により、リソースおよびリソース・クラスをモニターおよび制御できる候補ターゲット・ノードのセットが決定します。 有効な値は以下のとおりです。<dl>
+<dt>0</dt>
+
+<dd><em>local</em> 有効範囲を指定します。</dd>
+
+
+<dt>1</dt>
+
+<dd><em>local</em> 有効範囲を指定します。</dd>
+
+
+<dt>2</dt>
+
+<dd><em>peer domain</em> (ピア・ドメイン) 有効範囲を指定します。</dd>
+
+
+<dt>3</dt>
+
+<dd><em>management domain</em> (管理ドメイン) 有効範囲を指定します。</dd>
+
+</dl>
+  <p>この環境変数が<em>設定されていない</em> 場合は、<em>local</em> 有効範囲が使用されます。</p>
+</dd>
+
+</dl>
+</section>
+
+<section><h2>実行の特性</h2> <p>このコマンドは<span>AIX</span>用のReliable Scalable Cluster Technology(RSCT)ファイルセットの一部です。</p>
+</section>
+
+<section><h2>標準出力</h2> <p><span><span>-h</span></span> フラグを指定すると、このコマンドの使用状況ステートメントが標準出力に書き込まれます。 詳細メッセージはすべて、標準出力に書き込まれます。</p>
+</section>
+
+<section><h2>標準エラー</h2> <p>トレース・メッセージはすべて、標準エラーに書き込まれます。</p>
+</section>
+
+<section><h2>例</h2> <ol>
+<li><span><span>Name</span></span> が <span><span>c175n05</span></span>と等しいリソースについて、リソース・クラス <span><span>IBM.Foo</span></span> 内の <span><span>Int32</span></span>、 <span><span>Uint32</span></span> 、および <span><span>SD</span></span> 永続リソース属性を変更するには、次のように入力します。<div><div><pre><code>chrsrc -s 'Name == "c175n05"' IBM.Foo \
+Int32=-9999 Uint32=9999\
+SD='["testing 1 2 3",1,{2,4,6}]'</code></pre></div><div></div></div></li>
+
+<li>以下の内容で <span><span>resource_data_input_file</span></span> を使用して、 <span><span>c175n</span></span>で始まる <span><span>Name</span></span> を持つリソースについて、リソース・クラス <span><span>IBM.Foo</span></span> の <span><span>Int32</span></span>、 <span><span>Uint32</span></span> 、および <span><span>SD</span></span> リソース属性を変更するには、以下のようにします。<div><div><pre><code>PersistentResourceAttributes::
+resource 1: 
+     Int32  = -9999
+     Uint32 = 9999
+     SD     = ["testing 1 2 3",1,{2,4,6}]</code></pre></div><div></div></div>以下のように入力します。<div><div><pre><code>chrsrc -f /tmp/IBM.Foo.chrsrc \ 
+-s 'Name ?= "c175n"' IBM.Foo</code></pre></div><div></div></div></li>
+
+<li>リソース・ハンドルが「0x0001 0x4005 0x35ae868c 0x00000000 0xfeef2948 0x0d80b827」に等しいリソースの <span><span>Name</span></span> 永続リソース属性を変更するには、次のように入力します。<div><div><pre><code>chrsrc -r "0x0001 0x4005 0x35ae868c 0x00000000 0xfeef2948 0x0d80b827" Name="c175n05"
+    </code></pre></div><div></div></div></li>
+
+<li><span><span>/u/joe/common_nodes</span></span> ファイルを使用して、クラスター内のノード <span><span>node1.linwood.com</span></span> および <span><span>node2.linwood.com</span></span> で <span><span>Name</span></span> が <span><span>Test_Name</span></span> に等しいリソースのリソース・クラス <span><span>IBM.Foo</span></span> の <span><span>Int32</span></span>、 <span><span>Uint32</span></span> 、および <span><span>SD</span></span> 永続リソース属性を変更するには、以下のようにします。<div><div><pre><code># common node file
+#
+node1.linwood.com      main node
+node2.linwood.com      backup node
+#</code></pre></div><div></div></div>次のように入力します。<div><div><pre><code>chrsrc -s 'Name == "Test_Name"' -N /u/joe/common_nodes IBM.Foo \
+Int32=-9999 Uint32=9999 \
+SD='["testing 1 2 3",1,{2,4,6}]'</code></pre></div><div></div></div></li>
+
+</ol>
+</section>
+
+<section><h2>場所</h2> <dl>
+<dt>/opt/rsct/bin/chrsrc</dt>
+
+<dd></dd>
+
+</dl>
+</section>
+
+</div></div>

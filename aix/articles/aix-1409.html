@@ -1,0 +1,109 @@
+<div class="official-dom"><div>
+<section><h2>目的</h2> <p>LDAP ロード・モジュールと LDAP Security Information Server 間の接続の提供と管理、およびトランザクションの処理を行います。</p>
+</section>
+
+<section><h2>構文</h2> <p>/<strong>/usr/sbin/secldapclntd</strong>[<strong><a href="https://www.ibm.com/docs/ja/ssw_aix_73/s_commands/secldapclntd.html#secldapclntd__row-d3e11629" target="_blank" rel="noopener noreferrer">-C</a></strong> <em>CacheSize</em>] [<strong><a href="https://www.ibm.com/docs/ja/ssw_aix_73/s_commands/secldapclntd.html#secldapclntd__row-d3e11653" target="_blank" rel="noopener noreferrer">-p</a></strong> <em>NumOfThread</em>] [<strong><a href="https://www.ibm.com/docs/ja/ssw_aix_73/s_commands/secldapclntd.html#secldapclntd__row-d3e11680" target="_blank" rel="noopener noreferrer">-T</a></strong> <em>HeartBeatIntv</em>] [<a href="https://www.ibm.com/docs/ja/ssw_aix_73/s_commands/secldapclntd.html#secldapclntd__row-d3e11644" target="_blank" rel="noopener noreferrer"><strong>-o</strong></a> <em>ldapTimeOut</em>]</p>
+</section>
+
+<section><h2>説明</h2> <p><strong>secldapclntd</strong> デーモンは、LDAP ロード・モジュールからの要求を受け取り、それを LDAP Security Information Server に転送し、そして、そのサーバーから戻された結果を LDAP ロード・モジュールに渡します。 このデーモンは、起動時に、<strong>/etc/security/ldap/ldap.cfg
+</strong> ファイルに定義されている構成情報を読み取り、指定された識別名およびパスワードを使用して LDAP Security Information Server に認証し、ローカル・ホストとこのサーバーの間の接続を確立します。</p>
+ <p><strong>/etc/security/ldap/ldap.cfg</strong> ファイルで複数のサーバーが指定されている場合、<strong>secldapclntd</strong> デーモンは、それらすべてのサーバーに接続します。 ただし、一度に対話できるのはその中の 1 つのサーバーだけです。 サーバー接続の優先順位は、サーバー・リスト内の位置によって決められます。最高優先順位のサーバーが最初にリストされています。 <strong>secldapclntd</strong> デーモンは、現在通信しているサーバーがダウンするとそれを検出して、別の使用可能なサーバーに自動的に切り替えます。 また、サーバーが再び使用可能になった場合もそれを検出し、そのサーバーとの接続を再確立します。 再接続されたサーバーが現行サーバーより優先順位が高い場合は、
+再接続されたサーバーに通信が切り替えられます。 この自動検出フィーチャーは、各サーバーを定期的に検査する <strong>secldapclntd
+</strong> デーモンによって提供されます。 次の検査までの時間間隔は、デフォルトで 300 秒ですが、これはデーモンの起動時にコマンド・ラインから <strong>-T</strong> オプションを指定するか、あるいは <strong>/etc/ security/ldap/ldap.cfg</strong> ファイルの <strong>heartbeatinterval</strong> 値を変更することにより、変更することができます。</p>
+ <p>起動時には、<strong>secldapclntd</strong> デーモンが LDAP サーバー
+への接続を確立しようとします。 どのサーバーにも接続できない場合は、
+スリープしてから、30 秒後に再試行します。 このプロセスを 2 回繰り返し、
+それでも接続を確立できない場合には、<strong>secldapclntd</strong> デーモン・
+プロセスがあります。</p>
+ <p><strong>secldapclntd</strong> デーモンは、マルチスレッド化されたプログラムです。 このデーモンで使用されるスレッドの数は、デフォルトで 10 になっています。 管理者は、このデーモンで使用するスレッドの数を調整することによって、システム・パフォーマンスを微調整できます。</p>
+ <p><strong>secldapclntd</strong> デーモンは、パフォーマンス上の目的で、LDAP Security Information Server から取り出された情報をキャッシュに入れます。 要求されたデータがキャッシュの中に見つかり、キャッシュ・エントリーの有効期限が切
+れていなければ、キャッシュのそのデータがリクエスターに戻されます。 しかし、情報がキャッシュの中にない場合や、キャッシュにあっても有効期限が切れている場合には、<strong>secldapclntd</strong> デーモンが LDAP Security Information Server にその情報を要求します。</p>
+ <p>キャッシュ・エントリーの有効な数値は、ユーザーの場合は 100 から 10,000 の範囲、
+グループの場合は 10 から 1,000 の範囲です。 デフォルトでは、ユーザーのエントリー
+数が 1000、グループは 100 エントリーです。</p>
+ <p>キャッシュ・タイムアウトつまり TTL (存続時間) は、60 秒から 1 時
+間 (60*60=3600 秒) です。 デフォルトでは、キャッシュ・エントリーの
+有効期限は 300 秒になっています。 キャッシュ・タイムアウトを 0 に設定すると、
+キャッシング機能が使用不可になります。</p>
+ <p><strong>secldapclntd
+</strong> デーモンと LDAP サーバー との通信は、非同期メソッドを使用して実行されます。 このため、デーモンは、サーバーに情報を要求しておき、要求が戻されるのを待つ間、他のステップを実行することができます。 クライアントがサーバーからの応答を待つ時間の長さは、管理者が構成できます。デフォルトは 60 秒です。</p>
+ <p>LDAP サーバーに接続する際、<strong>secldapclntd</strong> デーモンはホスト・ルックアップを行う必要があります。 <strong>nis_ldap</strong> リゾルバーが原因で、ルックアップの経路指定がデーモン自体に戻り、その結果ハング状態になることがあります。 この問題を避けるため、<strong>secldapclntd</strong> デーモンは、ネーム・レゾリューションのシステムの順序を無視します。 代わりに、<strong>/etc/security/ldap/ldap.cfg</strong> ファイルの <strong>nsorder</strong> 属性によって定義された順序を使用します。</p>
+</section>
+
+<section><h2>フラグ</h2> <div><div>
+        <div>
+          <div><span>注:</span> デフォルトでは、 <strong>secldapclntd</strong> デーモンは、始動時に <strong>/etc/security/ldap/ldap.cfg</strong> ファイルに指定された構成情報を読み取ります。 <strong>secldapclntd</strong> プロセスを
+開始するときに、コマンド・ラインで次のオプションを指定すると、コマンド・ラインのオプション
+が <strong>/etc/security/ldap/ldap.cfg</strong> ファイルの値をオーバーライドします。</div>
+        </div>
+      </div></div>
+ <div> 
+<div><div><table><thead>
+<tr>
+<th><div>フラグ</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><strong>-C</strong> <em>CacheSize</em></td>
+
+<td><strong>secldapclntd</strong> デーモンが使用するキャッシュ・エントリーの最大数を、<em>CacheSize</em> に指定された数に設定します。 ユーザー・キャッシュ・エントリー数の有効な範囲は 100 から 65536 です。 デフォルト値は 1000 です。 グループ・キャッシュ・エントリーの有効な範囲は 10 から 65536 です。 デフォルトは、値 100 です。 <strong>start-secldapclntd</strong> コマンドで <strong>-C</strong> オプションを使用してユーザー・キャッシュ・エントリーを設定すると、グループ・キャッシュ・エントリーはユーザー・キャッシュ・エントリーの 10% に設定されます。</td>
+
+</tr>
+
+<tr>
+<td><strong>-o</strong> <em>ldapTimeOut</em></td>
+
+<td>LDAP クライアントからサーバーへの要求のタイムアウト期間 (秒)。 この値は、クライアントが LDAP サーバーからの応答を待つ時間の長さを決定します。 有効範囲は 0 から 3600 (1 時間) です。 デフォルトは 60 秒です。 この値を 0 に設定すると、タイムアウトが使用不可になり、クライアントは無期限に待つことを強制されます。</td>
+
+</tr>
+
+<tr>
+<td><strong>-p</strong> <em>NumOfThread</em></td>
+
+<td><strong>secldapclntd</strong> デーモンが使用するスレッドの数を、<em>NumOfThread</em> に設定します。 有効範囲は 1 から 256 です。 デフォルトは 10 です。</td>
+
+</tr>
+
+<tr>
+<td><strong>-t</strong> <em>CacheTimeout</em></td>
+
+<td>キャッシュが <em>CacheTimeout</em> 秒で期限切れになるように設
+定します。 有効範囲は 60 から 3600 秒です。 デフォルトは 300 秒です。<div><div>
+        <div>
+          <div><span>注:</span> AIX® 7.3以降、 CacheTimeout 属性は非推奨になりました。</div>
+        </div>
+      </div></div>
+</td>
+
+</tr>
+
+<tr>
+<td><strong>-T</strong> <em>HeartBeatIntv</em></td>
+
+<td>このクライアントと LDAP サーバーの間の
+ハートビートの時間間隔を設定します。 有効な値は 60 から 3,600 秒です。 デフォルト値は 300 です。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+</section>
+
+<section><h2>例</h2> <ol>
+<li><strong>secldapclntd</strong> デーモンを開始するには、次のように入力します。<div><div><pre><code>/usr/sbin/secldapclntd</code></pre></div><div></div></div></li>
+
+<li>20 個のスレッドを使用して <strong>secldapclntd</strong> を開始するには、次のように入力します。<div><div><pre><code>/usr/sbin/secldapclntd -p 20</code></pre></div><div></div></div></li>
+
+</ol>
+ <p><strong>secldapclntd</strong> デーモンの起動には <strong>start-secldapclntd</strong> コマンドの使用をお勧めします。 また、コマンド・ライン・フラグを使用する代わりに、構成値を <strong>/etc/security/ldap/ldap.cfg</strong> ファイルに指定して、<strong>secldapclntd</strong> プロセスを開始するたびにこれらの値が使
+用されるようにすることをお勧めします。</p>
+</section>
+
+</div></div>

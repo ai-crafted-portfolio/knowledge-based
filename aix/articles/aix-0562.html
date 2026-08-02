@@ -1,0 +1,226 @@
+<div class="official-dom"><div>
+<section><h2>目的</h2>
+<p>指定した基準に一致するデバイス・クラスをリストします。</p>
+</section>
+
+<section><h2>構文</h2>
+<p><strong>getdgrp</strong> [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/g_commands/getdgrp.html#getdgrp__row-d3e138738" target="_blank" rel="noopener noreferrer"><strong>-a</strong></a> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/g_commands/getdgrp.html#getdgrp__row-d3e138747" target="_blank" rel="noopener noreferrer"><strong>-e</strong></a> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/g_commands/getdgrp.html#getdgrp__row-d3e138756" target="_blank" rel="noopener noreferrer"><strong>-l</strong></a> ][ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/g_commands/getdgrp.html#getdgrp__row-d3e138782" target="_blank" rel="noopener noreferrer"><em>クライテリア</em></a> ] [ ]。 <a href="https://www.ibm.com/docs/ja/ssw_aix_73/g_commands/getdgrp.html#getdgrp__row-d3e138894" target="_blank" rel="noopener noreferrer"><em>DeviceClassList</em></a> ]</p>
+</section>
+
+<section><h2>説明</h2>
+<p>指定した基準に一致するデバイスが含まれているデバイス・クラスをリストします。 基準は、式の形式で指定します。</p>
+</section>
+
+<section><h2>フラグ</h2>
+
+<div><div><table><thead> <tr> <th><div>項目</div></th>
+ <th><div>説明</div></th>
+ </tr>
+ </thead>
+<tbody>
+<tr>
+<td><strong>-a </strong></td>
+
+<td>すべての基準に一致するデバイスが含まれているデバイス・クラスが、このコマンドによって生成される
+レポートに組み込まれるように指示します。 基準が定義されていない場合には、<strong>-a
+</strong> フラグは無効になります。</td>
+
+</tr>
+
+<tr>
+<td><strong>-e </strong></td>
+
+<td>パラメーター・リストに指定されているデバイス・クラスを、このコマンドによって生成される
+レポートから除外するように指示します。 デバイスが指定されていない場合には、
+<strong>-e</strong> フラグは無効になります。</td>
+
+</tr>
+
+<tr>
+<td><strong>-l (英語) </strong></td>
+
+<td>デバイス・クラスに有効なデバイス・メンバーが含まれていない場合でも、
+<strong>-e</strong> オプションおよび <strong>dgroup</strong> リストに該当する
+すべてのデバイス・クラスをリストするように指示します。 このオプションは、
+コマンド・ラインに <em>Criteria</em> が指定されている場合には、無効になります。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</section>
+
+<section><h2>パラメーター</h2>
+
+<div><div><table><thead> <tr> <th><div>項目</div></th>
+ <th><div>説明</div></th>
+ </tr>
+ </thead>
+<tbody>
+<tr>
+<td><em>基準</em></td>
+
+<td>デバイスが属しているデバイス・クラスが、生成されるリストに組み込まれる前に、
+デバイスが一致していなければならない基準を定義します。 <em>Criteria</em> は、式または式のリストとして指定することができます。
+この基準に一致するデバイスが含まれているデバイス・クラスが、<strong>getdgrp</strong> に
+より生成されるリストに組み込まれます。 基準が指定されていない場合は、すべてのデバイス・クラスが
+リストに組み込まれます。<p>デバイスは、リスト内の基準のうち少なくとも 1 つは満たしている必要があります。 ただし、
+<strong>-a</strong> オプションを使用して、「論理 AND」操作を行うように指定する
+ことができます。 このオプションを指定すると、リスト内のすべての基準に一致するデバイスが
+含まれているデバイス・クラスのみが結果リストに組み込まれます。</p>
+
+<div><em>Criteria</em> パラメーターで指定される基準には、次の 4 つのタイプの式
+があります。<dl>
+<dt><em>属性</em>=<em>値</em></dt>
+
+<dd>定義された <em>Attribute</em> を持っており、それが <em>Value
+</em> に等しいメンバーが含まれているデバイス・クラスをすべて取り出します。</dd>
+
+
+<dt><em>属性</em>! =<em>値</em></dt>
+
+<dd>定義された <em>Attribute</em> を持っており、それが <em>Value
+</em> に等しくないメンバーが含まれているデバイス・クラスをすべて取り出します。</dd>
+
+
+<dt><em>属性</em>: *</dt>
+
+<dd>定義された <em>Attribute</em> を持っているメンバーが含まれている
+デバイス・クラスをすべて取り出します。</dd>
+
+
+<dt><em>属性</em>!: *</dt>
+
+<dd>定義された <em>Attribute</em> を持っていないメンバーが含まれている
+デバイス・クラスをすべて取り出します。</dd>
+
+</dl>
+</div>
+
+<div>有効なデバイス属性は、次のとおりです。<dl>
+<dt>alias</dt>
+
+<dd>デバイスが認識されている名前。</dd>
+
+
+<dt>desc</dt>
+
+<dd>デバイスの説明。</dd>
+
+
+<dt>タイプ</dt>
+
+<dd>デバイスのタイプを示すトークン。</dd>
+
+
+<dt>状況</dt>
+
+<dd>デバイスの現在の状態。可能な状態の値は、1.Defined (定義済み) 2.Available (使用可能) 3.Stopped (停止) 4.Diagnose (診断) です。<strong>status</strong> の値は大文字と小文字が区別されません。</dd>
+
+</dl>
+</div>
+</td>
+
+</tr>
+
+<tr>
+<td><em>DeviceClassList</em></td>
+
+<td>カスタマイズ・デバイス構成データベースまたは事前定義デバイス構成データベース
+内のデバイス・クラス名を指定します。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</section>
+
+<section><h2>終了状況</h2>
+<dl>
+<dt>0</dt>
+
+<dd>コマンドは正常に完了しました。</dd>
+
+
+<dt>1</dt>
+
+<dd>コマンド構文が間違っています。無効なオプションが使用されたか、または内部エラーが発生
+しました。</dd>
+
+
+<dt>2</dt>
+
+<dd>カスタマイズ・デバイス・オブジェクト・クラスまたは事前定義デバイス・オブジェクト・クラス
+を読み取りのためにオープンできませんでした。</dd>
+
+</dl>
+</section>
+
+<section><h2>例</h2>
+<ol>
+<li>すべてのデバイス・クラスを表示するには、次のように入力します。<div><div><pre><code>getdgrp</code></pre></div><div></div></div>出力は次のようになります。<div><div><pre><code>adapter 
+aio 
+bus 
+cdrom 
+disk 
+diskette 
+gxme 
+if 
+keyboard 
+lft 
+logical_volume 
+lvm 
+memory 
+mouse 
+planar 
+processor 
+pty 
+pwrmgt 
+rcm 
+sys 
+tape 
+tcpip 
+tty</code></pre></div><div></div></div></li>
+
+<li>タイプが「logical_volume」であるデバイスが含まれているデバイス・クラスをリストするには、次のように入力します。<div><div><pre><code>getdgrp type=logical_volume</code></pre></div><div></div></div>出力は次のようになります。<div><div><pre><code>logical_volume</code></pre></div><div></div></div></li>
+
+<li>タイプが「logical_volume」であるか、または別名が「sys0」であるデバイスが含まれている
+デバイス・クラスをリストするには、次のように入力します。<div><div><pre><code>getdgrp type=logical_volume alias=sys0</code></pre></div><div></div></div>出力は次のようになります。<div><div><pre><code>logical_volume
+sys</code></pre></div><div></div></div></li>
+
+<li>status 属性が定義されているデバイスが含まれているデバイス・クラスをリストするには、
+次のように入力します。<div><div><pre><code>getdgrp status=defined</code></pre></div><div></div></div>出力は次のようになります。<div><div><pre><code>logical_volume
+posix_aio 
+rcm</code></pre></div><div></div></div></li>
+
+<li><strong>status</strong> 属性が定義されており、「processor」デバイス・クラスに
+属しているデバイスが含まれているデバイス・クラスを表示するには、次のように入力します。<div><div><pre><code>getdgrp status:* processor </code></pre></div><div></div></div>出力は次のようになります。<div><div><pre><code>processor </code></pre></div><div></div></div></li>
+
+<li><strong>status</strong> 属性が定義されていないデバイスが含まれているデバイス・クラス
+を表示するには、次のように入力します。<div><div><pre><code>getdgrp status!:* processor</code></pre></div><div></div></div></li>
+
+</ol>
+</section>
+
+<section><h2>ファイル</h2>
+
+<div><div><table><thead> <tr> <th><div>項目</div></th>
+ <th><div>説明</div></th>
+ </tr>
+ </thead>
+<tbody>
+<tr>
+<td><strong>/usr/sbin/getdgrp</strong></td>
+
+<td><strong>getdgrp</strong> コマンドが入っています。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</section>
+
+</div></div>

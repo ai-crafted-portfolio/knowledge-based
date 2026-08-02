@@ -1,0 +1,126 @@
+<div class="official-dom"><div>
+<section><h2>目的</h2> <p>ローカル・ネットワークから BOOTP および動的ホスト構成プロトコル (DHCP) パケットを転送します。</p>
+</section>
+
+<section><h2>構文</h2><p>システム・リソース・コントローラー (SRC) を使用して DHCP サーバーに情報を転送する</p>
+ <p><strong>startsrc</strong><strong> -s dhcprd</strong> [ <strong>-a</strong>  Argument ]
+[ <strong>-a</strong>  Argument ] ...</p>
+<p>SRC を使用せずに DHCP サーバーに情報を転送する</p>
+ <p><strong>dhcprd </strong><a href="https://www.ibm.com/docs/ja/ssw_aix_73/d_commands/dhcprd.html#dhcprd__row-d3e26670" target="_blank" rel="noopener noreferrer"><strong>[-f</strong></a>ConfigurationFile ]</p>
+</section>
+
+<section><h2>説明</h2> <p><span>dhcprd</span> デーモンは、ブロードキャスト・パケットを listen し、それらを受信して、適切なサーバーに転送します。 それにより、ブロードキャストが他のネットワークに伝搬しないようにします。 DHCP リレー・エージェントは、ローカル・ネットワークから一連のサーバーへの DHCP および BOOTP クライアント・ブロードキャスト・パケットの転送を処理します。 BOOTP または DHCP クライアントから送信される最初のパケットは、このクライアント・システムからローカル・インターフェースを介して送られるブロードキャスト・ソケットです。 これらのパケットは、ネットワーク・ゲートウェイやルーターを介して渡すことはできません。 BOOTP または DHCP リレー・エージェントである <span>dhcprd</span> デーモンが、
+これらのパケットを該当するサーバーに送信します。</p>
+ <div>DHCP サーバーは、<span>/etc/services</span> ファイルを読み取って、要求の受信に使用する必要があるポートを判別します。 デフォルトのサービスは <span>dhcps</span> です。 これは、<span>bootpd</span> デーモンが使用するポートと同じなので、実行できるデーモンは 1 つだけ (<span>dhcprd</span> または <span>bootpd</span> のいずれか) です。 <span>dhcprd</span> デーモンを選択する場合は、 <span>/etc/inetd.conf</span> ファイルから <span>bootp</span> のコメントを外して、コマンド・ラインに refresh
+-s inetd と入力する必要があります。<div><div>
+        <div>
+          <div><span>注:</span> <span>bootpd</span> デーモンが実行中の場合は、デーモンを開始する前にこのプログラムを停止する必要があります。</div>
+        </div>
+      </div></div>
+</div>
+</section>
+
+<section><h2>フラグ</h2> <div> 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><span>-f</span> ConfigurationFile</td>
+
+<td>使用する構成ファイルを指定します。 デフォルトは <span>/etc/dhcprd.cnf</span> ファイルです。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+</section>
+
+<section><h2>終了状況</h2> <p>このコマンドは、以下の終了値を戻します。</p>
+ 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td>0</td>
+
+<td>正常終了。</td>
+
+</tr>
+
+<tr>
+<td>&gt;0</td>
+
+<td>エラーが発生しました。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</section>
+
+<section><h2>セキュリティー</h2> <p>アクセス制御: このコマンドを実行するには、root 権限を持っていなければなりません。</p>
+</section>
+
+<section><h2>ファイル</h2> <div> 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><span>/usr/sbin/dhcprd</span></td>
+
+<td><span>dhcprd</span> デーモンが入っています。</td>
+
+</tr>
+
+<tr>
+<td><span>/etc/dhcprd.cnf</span></td>
+
+<td>デフォルトの構成ファイルが入っています。</td>
+
+</tr>
+
+<tr>
+<td><a href="https://www.ibm.com/docs/ja/ssw_aix_73/filesreference/services.html" target="_blank" rel="noopener noreferrer"><span>/etc/services</span></a></td>
+
+<td>インターネット・サービスで使用するソケットおよびプロトコルを定義します。</td>
+
+</tr>
+
+<tr>
+<td><a href="https://www.ibm.com/docs/ja/ssw_aix_73/filesreference/inetd.conf.html" target="_blank" rel="noopener noreferrer"><span>/etc/inetd.conf</span></a></td>
+
+<td><span>inetd</span> デーモンにより制御されるサービスを定義します。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+</section>
+
+</div></div>

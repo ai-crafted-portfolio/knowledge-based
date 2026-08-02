@@ -1,0 +1,592 @@
+<div class="official-dom"><div>
+<section><h2>目的</h2> <p>トークンリング・デバイス・ドライバーとデバイスの統計情報を表示します。</p>
+</section>
+
+<section><h2>構文</h2> <p><strong>tokstat</strong> [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/t_commands/tokstat.html#tokstat__row-d3e94379" target="_blank" rel="noopener noreferrer"><strong>-d</strong></a> <a href="https://www.ibm.com/docs/ja/ssw_aix_73/t_commands/tokstat.html#tokstat__row-d3e94385" target="_blank" rel="noopener noreferrer"><strong>-r</strong></a> <a href="https://www.ibm.com/docs/ja/ssw_aix_73/t_commands/tokstat.html#tokstat__row-d3e94391" target="_blank" rel="noopener noreferrer"><strong>-t</strong></a> ] <em>Device_Name</em></p>
+</section>
+
+<section><h2>説明</h2> <p><strong>tokstat</strong> コマンドは、指定されたトークンリング・デバイス・ドライバーが収集した統計情報を表示します。 デバイス・ドライバー統計情報の他に、デバイス特定の統計情報を表示させるように指定することもできます。 フラグを指定しない場合は、デバイス・ドライバーの統計のみが表示されます。</p>
+ <p>このコマンドは、<strong>-v</strong> フラグを指定して <strong>netstat</strong> コマンドを実行するときにも呼び出されます。 <strong>netstat</strong>
+コマンドは、<strong>tokstat</strong> コマンドのフラグを実行しません。</p>
+ <p>無効な <em>Device_Name</em>
+を指定すると、<strong>tokstat</strong> コマンドはそのデバイスに接続できなかったことを示すエラー・メッセージを生成します。</p>
+</section>
+
+<section><h2>フラグ</h2> <div> 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><strong>-d</strong></td>
+
+<td>デバイス特性の統計情報を含め、すべてのデバイス・ドライバー統計情報が表示されます。</td>
+
+</tr>
+
+<tr>
+<td><strong>-r</strong></td>
+
+<td>すべての統計を初期値にリセットします。 このフラグは、特権ユーザーだけが発行できます。</td>
+
+</tr>
+
+<tr>
+<td><strong>-t</strong></td>
+
+<td>一部のデバイス・ドライバーでデバッグ・トレースを切り替えます。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+</section>
+
+<section><h2>パラメーター</h2> <div> 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><em>Device_name</em></td>
+
+<td>t<strong>ok0</strong> などのトークンリング・デバイス名</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+</section>
+
+<section><h2>統計フィールド</h2> <p></p><blockquote><span>“</span><span></span><strong>注:</strong> アダプターによっては、特定の統計情報をサポートしない場合があります。 サポートされない統計フィールドの値は、常に 0 です。<span>”</span></blockquote>
+<p></p>
+ <p><strong>toktstat</strong> コマンドの出力に表示される統計情報フィールドと、その内容は以下のとおりです。</p>
+<p><strong>タイトル・フィールド</strong></p>
+ <div> 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td>Device Type</td>
+
+<td>アダプター・タイプの記述が表示されます。</td>
+
+</tr>
+
+<tr>
+<td>Hardware Address</td>
+
+<td>現在デバイスが使用中のトークンリング・ネットワーク・アドレスが表示されます。</td>
+
+</tr>
+
+<tr>
+<td>Elapsed Time</td>
+
+<td>最後に統計情報がリセットされてから経過したリアルタイムが表示されます。 ハードウェア・エラーが検出されると、
+エラー・リカバリー処理中に統計情報の一部がデバイス・ドライバーによってリセットされることがあります。 このような状況が発生した場合は、2 つの統計情報の時間差を反映するために、出力の途中でもう 1 つの Elapsed Time が表示されます。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+<p><strong>送信統計フィールド</strong></p>
+ <div> 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td>Packets</td>
+
+<td>デバイスによって正常に送信されたパケットの数。</td>
+
+</tr>
+
+<tr>
+<td>Bytes</td>
+
+<td>デバイスによって正常に送信されたバイト数。</td>
+
+</tr>
+
+<tr>
+<td>Interrupts</td>
+
+<td>ドライバーがアダプターから受け取った送信割り込みの数。</td>
+
+</tr>
+
+<tr>
+<td>Transmit Errors</td>
+
+<td>このデバイス上で発生した出力エラーの数。 このフィールドは、
+ハードウェア/ネットワーク・エラーにより失敗した送信回数のカウンターです。</td>
+
+</tr>
+
+<tr>
+<td>Packets Dropped</td>
+
+<td>送信のためにデバイス・ドライバーが受け入れ、
+デバイスには (何らかの理由で) 提供されなかったパケットの数。</td>
+
+</tr>
+
+<tr>
+<td>Max Packets on S/W Transmit Queue</td>
+
+<td>ソフトウェア送信キューに入れられたことのある発信パケットの最大数。</td>
+
+</tr>
+
+<tr>
+<td>S/W Transmit Queue Overflow</td>
+
+<td>ソフトウェア送信キューからあふれた発信パケット数。</td>
+
+</tr>
+
+<tr>
+<td>Current S/W+H/W
+Transmit Queue Length</td>
+
+<td>ソフトウェア送信キューまたはハードウェア送信キュー上で保留されている発信パケットの数。</td>
+
+</tr>
+
+<tr>
+<td>Broadcast Packets</td>
+
+<td>エラーなしで送信されたブロードキャスト・パケット数。</td>
+
+</tr>
+
+<tr>
+<td>Multicast Packets</td>
+
+<td>エラーなしで送信されたマルチキャスト・パケット数。</td>
+
+</tr>
+
+<tr>
+<td>Timeout Errors</td>
+
+<td>アダプターがタイムアウト・エラーを報告したことにより失敗した送信回数。</td>
+
+</tr>
+
+<tr>
+<td>Current SW
+Transmit Queue Length</td>
+
+<td>ソフトウェア送信キューに現在入っている発信パケット数。</td>
+
+</tr>
+
+<tr>
+<td>Current HW
+Transmit Queue Length</td>
+
+<td>ハードウェア送信キューに現在入っている発信パケット数。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+<p><strong>受信統計フィールド</strong></p>
+ <div> 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td>Packets</td>
+
+<td>デバイスによって正常に受信されたパケット数。</td>
+
+</tr>
+
+<tr>
+<td>Bytes</td>
+
+<td>デバイスによって正常に受信されたバイト数。</td>
+
+</tr>
+
+<tr>
+<td>Interrupts</td>
+
+<td>ドライバーがアダプターから受け取った受信割り込みの数。</td>
+
+</tr>
+
+<tr>
+<td>Receive Errors</td>
+
+<td>このデバイス上で発生した入力エラーの数。 このフィールドは、ハードウェア/ネットワーク・エラーにより失敗した受信回数のカウンターです。</td>
+
+</tr>
+
+<tr>
+<td>Packets Dropped</td>
+
+<td>デバイス・ドライバーがこのデバイスから受信し、
+ネットワーク・デマルチプレクサーには (何らかの理由で) 提供されなかったパケットの数。</td>
+
+</tr>
+
+<tr>
+<td>Bad Packets</td>
+
+<td>デバイス・ドライバーが受信 (保管) した不良パケット数。</td>
+
+</tr>
+
+<tr>
+<td>Broadcast Packets</td>
+
+<td>エラーなしに受信されたブロードキャスト・パケット数。</td>
+
+</tr>
+
+<tr>
+<td>Multicast Packets</td>
+
+<td>エラーなしに受信されたマルチキャスト・パケット数。</td>
+
+</tr>
+
+<tr>
+<td>Receive Congestion Errors</td>
+
+<td>リソース・エラーが発生したため、ハードウェアが削除した着信パケット数。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+<p><strong>一般統計フィールド</strong></p>
+ <div> 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td>No mbuf Errors</td>
+
+<td>デバイス・ドライバーが mbuf を使用できなかった回数。 これは、通常、
+インバウンド・パケットを処理するためにドライバーで mbuf バッファーを取得しなければならない場合、
+受信操作時に発生します。 要求されたサイズの mbuf プールが空の場合には、パケットが廃棄されます。 <strong>netstat -m</strong> コマンドを使用すると、これを確認できます。</td>
+
+</tr>
+
+<tr>
+<td>Lobe Wire Faults</td>
+
+<td>アダプターがローブ・データ経路内で開路または短絡を検出した回数 (ケーブルがプラグから外れているなど)。</td>
+
+</tr>
+
+<tr>
+<td>Abort Errors</td>
+
+<td>アダプターに送信問題が発生した回数。</td>
+
+</tr>
+
+<tr>
+<td>AC Errors</td>
+
+<td>アドレスが認識され、フレーム・コピー・ビットがゼロに設定されている複数の AMP (Active Monitor Present) または SMP (Standby Monitor Present) フレームを、アダプターが受信した回数。 これは隣接ステーションへの通知の問題を示します。 各ステーションは、Nearest Active Upstream Neighbor (NAUN) が AMP フレームおよび SMP フレームから出ている近隣ステーションを認識し、記憶します。 ステーションは問題の報告時に、NAUN が出ているステーションも報告します。 これにより、<em>障害ドメイン</em> を定義しやすくなります。</td>
+
+</tr>
+
+<tr>
+<td>Burst Errors</td>
+
+<td>シグナルの極性が必要時に切り替わらなかったことを、アダプターが検出した回数。</td>
+
+</tr>
+
+<tr>
+<td>Frame Copy Errors</td>
+
+<td>特定のアドレスを持つフレームが別のアダプターによってコピーされたことをアダプターが検出した回数。</td>
+
+</tr>
+
+<tr>
+<td>Frequency Errors</td>
+
+<td>着信シグナルの周波数が IEEE 802.5 規格で許される周波数よりも大きく、期待した周波数とは異なることをアダプターが検出した回数。 リングのマスター・クロックと周波数ジッターの補正を行うアクティブ・モニターを検査してください。</td>
+
+</tr>
+
+<tr>
+<td>Hard Errors</td>
+
+<td>アダプターがビーコン MAC フレームを送受信した回数。</td>
+
+</tr>
+
+<tr>
+<td>Internal Errors</td>
+
+<td>アダプター内部にエラーが発生した回数。</td>
+
+</tr>
+
+<tr>
+<td>Line Errors</td>
+
+<td>フレームまたはトークン内で、アダプターが無効な文字を検出した回数。</td>
+
+</tr>
+
+<tr>
+<td>Lost Frame Errors</td>
+
+<td>アダプターがフレームを送信したが、そのコールバックを受信できなかった回数。</td>
+
+</tr>
+
+<tr>
+<td>Only Station</td>
+
+<td>アダプター自身が、リング上の唯一のアダプターであることを認識した回数。</td>
+
+</tr>
+
+<tr>
+<td>Token Errors</td>
+
+<td>アクティブ・モニターとして機能しているアダプターが、トークンが失われたことを検出した回数。 これは、リングの再構成が原因となっている場合があります。 このエラーが頻繁に発生する場合は、他のソフト・エラーが特定の問題を示していないかどうかを検査してください。</td>
+
+</tr>
+
+<tr>
+<td>Remove Received</td>
+
+<td>アダプターが Remove Ring Station MAC フレーム要求を受信した回数。</td>
+
+</tr>
+
+<tr>
+<td>Ring Recovered</td>
+
+<td>リングが削除され、通常の作動状態にリカバリーされた回数。</td>
+
+</tr>
+
+<tr>
+<td>Signal Loss Errors</td>
+
+<td>アダプターが受信シグナルがないことを検出した回数。</td>
+
+</tr>
+
+<tr>
+<td>Soft Errors</td>
+
+<td>アダプターがソフト・エラー (MAC 層プロトコルでリカバリー可能なエラー) を検出した回数。</td>
+
+</tr>
+
+<tr>
+<td>Transmit Beacon Errors</td>
+
+<td>アダプターがビーコン・フレームを送信した回数。</td>
+
+</tr>
+
+<tr>
+<td>Driver Flags</td>
+
+<td>現在オンになっているデバイス・ドライバーの内部状況フラグ。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+<p><strong>デバイス固有の統計情報フィールド</strong></p>
+ <p>表示画面のこの部分は、各種アダプターに応じて異なることがあります。 アダプター固有の情報や、汎用統計情報には含まれていなかった拡張統計情報が表示されることがあります。 アダプターによっては、デバイス特定の統計情報がないものもあります。 このセクションにリストされる可能性のあるフィールドは以下のとおりです。</p>
+ 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td>ARI/FCI Errors</td>
+
+<td>ARI/FCI ミスマッチも受信者の輻輳 (ふくそう) として参照されます。 アダプターがリング上を通過するフレームでマッチするアドレスを取得した場合の Address Recognized Indication(ARI) と、そのフレームのコピーを置く余裕を持たない場合の Frame Copied Indication(FCI) との間で、ARI/FCI ミスマッチが発生します。 アダプターは ARI ビットをオンにしますが、そのフレームの通過終了点での FS バイトの FCI ビットをオンにはしません。<p>つまり、アダプターは受信される予定のフレームに出会っても、受信バッファーが使い果たされているために受信できなかったことになります。 2 秒後にアダプターが受信者輻輳 (ふくそう) エラーを示す Report Soft Error MAC フレームを送信します。</p>
+</td>
+
+</tr>
+
+<tr>
+<td>DMA Bus Errors</td>
+
+<td>アダプターが DMA 転送を完了し、バス・エラーを検出した回数。</td>
+
+</tr>
+
+<tr>
+<td>DMA Parity Errors</td>
+
+<td>アダプターが DMA 転送を完了し、パリティー・エラーを検出した回数。</td>
+
+</tr>
+
+<tr>
+<td>Receive Overruns</td>
+
+<td>アダプターがフレームを受信しようとしたときに、その受信 FIFO がいっぱいになっていた回数。</td>
+
+</tr>
+
+<tr>
+<td>Receive Underruns</td>
+
+<td>フレーム記号の終わりが検出される前に、アダプターの送信 FIFO が空になった回数。</td>
+
+</tr>
+
+<tr>
+<td>Number of read log commands issued</td>
+
+<td>アダプターのエラー・カウンターがその上限を超過し (255 に達し)、デバイス・ドライバーが read log コマンドを実行してエラー・カウンターを読み取った (およびリセットした) 回数。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</section>
+
+<section><h2>例</h2> <ol>
+<li><span></span> <strong>tok0</strong>のデバイス・ドライバー統計情報を表示するには、次のように入力します。<div> <div><div><pre><code>tokstat tok0</code></pre></div><div></div></div>以下の出力が作成されます。<div><div><pre><code>TOKEN-RING STATISTICS (tok0) :
+Device Type: Token-Ring High-Performance Adapter (8fc8)
+Hardware Address: 10:00:5a:4f:26:c1
+Elapsed Time: 0 days 0 hours 8 minutes 33 seconds
+Transmit Statistics:                  Receive Statistics:
+--------------------                  -------------------
+Packets: 191                          Packets: 8342
+Bytes: 17081                          Bytes: 763227
+Interrupts: 156                       Interrupts: 8159
+Transmit Errors: 0                    Receive Errors: 0
+Packets Dropped: 0                    Packets Dropped: 0
+Max Packets on S/W Transmit Queue: 17 Bad Packets: 0
+S/W Transmit Queue Overflow: 0
+Current S/W+H/W Transmit Queue Length: 0</code></pre></div><div></div></div>  <div><div><pre><code>Broadcast Packets: 1                 Broadcast Packets: 8023
+Multicast Packets: 0                 Multicast Packets: 0
+Timeout Errors: 0                    Receive Congestion Errors: 0
+Current SW Transmit Queue Length: 0
+Current HW Transmit Queue Length: 0</code></pre></div><div></div></div>  <div><div><pre><code>General Statistics:
+-------------------
+No mbuf Errors: 0                    Lobe Wire Faults: 0
+Abort Errors: 0                      AC Errors: 0
+Burst Errors: 0                      Frame Copy Errors: 0
+Frequency Errors: 0                  Hard Errors: 0
+Internal Errors: 0                   Line Errors: 0
+Lost Frame Errors: 0                 Only Station: 0
+Token Errors: 0                      Remove Received: 0
+Ring Recovered: 0                    Signal Loss Errors: 0
+Soft Errors: 0                       Transmit Beacon Errors: 0
+Driver Flags: Up Broadcast Running 
+   AlternateAddress ReceiveFunctionalAddr </code></pre></div><div></div></div></div>
+</li>
+
+<li><span></span> <strong>tok0</strong>のトークンリング・デバイス・ドライバー統計情報およびトークンリング・デバイス固有の統計情報を表示するには、次のように入力します。<div> <div><div><pre><code>tokstat -d tok0</code></pre></div><div></div></div>以下の出力が作成されます。<div><div><pre><code>TOKEN-RING STATISTICS (tok0) :
+Device Type: Token-Ring High-Performance Adapter (8fc8)
+Hardware Address: 10:00:5a:4f:26:c1
+Elapsed Time: 0 days 2 hours 48 minutes 38 seconds</code></pre></div><div></div></div>  <div><div><pre><code>Transmit Statistics:                 Receive Statistics:
+--------------------                 -------------------
+Packets: 389                         Packets: 153216
+Bytes: 42270                         Bytes: 14583150
+Interrupts: 354                      Interrupts: 151025
+Transmit Errors: 0                   Receive Errors: 0
+Packets Dropped: 0                   Packets Dropped: 0
+Max Packets on S/W Transmit Queue:17 Bad Packets: 0
+S/W Transmit Queue Overflow: 0
+Current S/W+H/W Transmit Queue Length: 0</code></pre></div><div></div></div>  <div><div><pre><code>Broadcast Packets: 1                 Broadcast Packets: 152642
+Multicast Packets: 0                 Multicast Packets: 0
+Timeout Errors: 0                    Receive Congestion Errors: 0
+Current SW Transmit Queue Length: 0
+Current HW Transmit Queue Length: 0</code></pre></div><div></div></div>  <div><div><pre><code>General Statistics:
+-------------------
+No mbuf Errors: 0                    Lobe Wire Faults: 0
+Abort Errors: 0                      AC Errors: 0
+Burst Errors: 0                      Frame Copy Errors: 0
+Frequency Errors: 0                  Hard Errors: 0
+Internal Errors: 0                   Line Errors: 0
+Lost Frame Errors: 0                 Only Station: 0
+Token Errors: 0                      Remove Received: 0
+Ring Recovered: 0                    Signal Loss Errors: 0
+Soft Errors: 0                       Transmit Beacon Errors: 0
+Driver Flags: Up Broadcast Running 
+   AlternateAddress ReceiveFunctionalAddr </code></pre></div><div></div></div>  <div><div><pre><code>Token-Ring High-Performance Adapter (8fc8) Specific Statistics:
+--------------------------------------------------------------
+DMA Bus Errors: 0                       DMA Parity Errors: 0
+ARI/FCI Errors: 0</code></pre></div><div></div></div></div>
+</li>
+
+</ol>
+</section>
+
+</div></div>

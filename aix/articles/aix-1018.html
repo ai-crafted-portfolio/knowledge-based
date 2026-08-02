@@ -1,0 +1,79 @@
+<div class="official-dom"><div>
+<section><h2>目的</h2> <p><strong>/etc/publickey</strong> ファイル内に新しいキーを作成します。</p>
+</section>
+
+<section><h2>構文</h2> <p><strong>/usr/sbin/newkey</strong> [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/n_commands/newkey.html#newkey__row-d3e13437" target="_blank" rel="noopener noreferrer"><strong>-h</strong></a><em> HostName </em>] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/n_commands/newkey.html#newkey__row-d3e13451" target="_blank" rel="noopener noreferrer"><strong>-u</strong></a><em> UserName </em>]</p>
+</section>
+
+<section><h2>説明</h2> <p><strong>newkey</strong> コマンドは <strong>/etc/publickey</strong> ファイルに新しいキーを作成します。 このコマンドは通常、ネットワーク管理者が <span>Network Information Services</span> (<span>NIS</span>) マスター・マシン上で実行し、ネットワーク上のユーザーおよび root ユーザー用の公開鍵を設定します。 これらのキーは、セキュア・リモート・プロシージャー・コール (RPC) プロトコルまたはセキュア・ネットワーク・ファイルシステム (NFS) を使用するために必要です。</p>
+ <p><strong>newkey</strong> コマンドは、 <em>UserName</em> パラメーター<em>で指定されたユーザーのログイン・パスワードを求めるプロンプトを出します。</em> 次に、新しいキーのペアを <strong>/etc/publickey</strong> ファイルに作成し、<strong>publickey</strong> データベースを更新します。 キーのペアはユーザーの公開鍵と秘密鍵から構成され、指定ユーザーのログイン・パスワードとともに暗号化されます。</p>
+ <p>必ずしもこのプログラムを使う必要はありません。 <strong>chkey</strong> コマンドを使うとユーザー独自のキーを作成できます。</p>
+ <p>このコマンドは、System Management Interface Tool (SMIT) <strong>smit newkey</strong> 高速パスを使用して実行することができます。</p>
+</section>
+
+<section><h2>フラグ</h2> <div> 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><strong>-h</strong><em> HostName</em></td>
+
+<td><em>HostName</em> パラメーター<em>で指定されたマシンに、root ユーザー用の新しい公開鍵を作成します。</em> このパラメーターの root パスワードを入力するように求めるプロンプトを表示します。</td>
+
+</tr>
+
+<tr>
+<td><strong>-u</strong><em> UserName</em></td>
+
+<td><em>UserName</em> パラメーターで指定されたユーザー用の新しい公開鍵を作成します。 このパラメーターの <span>NIS</span> パスワードの入力を求めるプロンプトを出します。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+</section>
+
+<section><h2>例</h2> <ol>
+<li><span></span>ユーザー用の新しい公開鍵を作成するには、次のように入力します。<div> <div><div><pre><code>newkey -u john</code></pre></div><div></div></div>この例では、 <strong>newkey</strong> コマンドは、以下の名前のユーザーの新しい公開鍵を作成します。john.</div>
+</li>
+
+<li><span></span>ホスト上の root ユーザー用に新しい公開鍵を作成するには、以下のようにします。zeus次のように入力します。<div> <div><div><pre><code>newkey -h zeus</code></pre></div><div></div></div>この例では、<strong> newkey</strong> コマンドは、以下の名前のホスト上に root ユーザー用の新しい公開鍵を作成します。zeus.</div>
+</li>
+
+</ol>
+</section>
+
+<section><h2>ファイル</h2> <div> 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><strong>/etc/publickey</strong></td>
+
+<td>ユーザー用に暗号化されたキーを保存します。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+</section>
+
+</div></div>

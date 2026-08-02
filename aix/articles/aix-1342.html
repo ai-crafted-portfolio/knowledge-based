@@ -1,0 +1,96 @@
+<div class="official-dom"><div>
+<section><h2>目的</h2>
+
+<p>Server Message Block (SMB) クライアント・ファイルシステム・エントリーを <span>/etc/filesystems</span>
+ファイルから削除し、その SMB クライアント・ファイルシステムがマウントされている場合はアンマウントします。</p>
+
+</section>
+
+<section><h2>構文</h2>
+
+<div><div><pre><code>rmsmbcmnt -f MountPoint [-B | -N | -I]</code></pre></div><div></div></div>
+</section>
+
+<section><h2>説明</h2>
+
+<p><span>rmsmbcmnt</span> コマンドは、SMB クライアント・ファイルシステム・エントリーを <span>/etc/filesystems</span> ファイルから削除します。 SMB クライアント・ファイルシステムがマウントされている場合、<span>rmsmbcmnt</span> コマンドがそのファイルシステムをアンマウントします。</p>
+
+</section>
+
+<section><h2>フラグ</h2>
+
+<dl>
+
+<dt>-B</dt>
+
+<dd>対応する SMB クライアント・ファイルシステム・エントリーを <span>/etc/filesystems</span>
+ファイルから削除し、その SMB クライアント・ファイルシステムをアンマウントします。 これがデフォルト設定です。</dd>
+
+
+
+<dt>-f MountPoint</dt>
+
+<dd>SMB クライアント・マウント・ポイントのパス名を指定します。</dd>
+
+
+
+<dt>-I</dt>
+
+<dd>ファイル・システムをアンマウントしませんが、ファイル・システムが既にアンマウントされている場合にのみ、 <span>/etc/filesystems</span> ファイルからエントリーを除去します。</dd>
+
+
+
+<dt>-N</dt>
+
+<dd>SMB クライアント・ファイルシステムをアンマウントしますが、その SMB エントリーは <span>/etc/filesystems</span> ファイルから削除しません。</dd>
+
+
+</dl>
+
+</section>
+
+<section><h2>終了状況</h2>
+
+<dl>
+
+<dt>0</dt>
+
+<dd>コマンドは正常に完了しました。</dd>
+
+
+
+<dt>&gt;0</dt>
+
+<dd>エラーが発生しました。</dd>
+
+
+</dl>
+
+</section>
+
+<section><h2>例</h2>
+
+<div><code>/mnt</code> マウント・ポイントを使用してマウントされている SMB エントリーを削除し、その SMB クライアント・ファイルシステムをアンマウントするには、次のコマンドを入力します。<div><div><pre><code>rmsmbcmnt -f /mnt</code></pre></div><div></div></div></div>
+
+</section>
+
+<section><h2>場所</h2>
+
+<p><span>/usr/sbin/rmsmbcmnt</span></p>
+
+</section>
+
+<section><h2>ファイル</h2>
+
+<dl>
+
+<dt>/etc/filesystems</dt>
+
+<dd>SMB クライアント・マウント・ポイントが入っている SMB クライアント・ファイルシステム・エントリーを保管します。</dd>
+
+
+</dl>
+
+</section>
+
+</div></div>

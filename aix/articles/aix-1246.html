@@ -1,0 +1,97 @@
+<div class="official-dom"><div>
+<section><h2>目的</h2> <p>論理ボリュームの特定のミラー・コピーを読み取ります。</p>
+</section>
+
+<section><h2>構文</h2> <p><strong>readlvcopy</strong> <a href="https://www.ibm.com/docs/ja/ssw_aix_73/r_commands/readlvcopy.html#readlvcopy__row-d3e136386" target="_blank" rel="noopener noreferrer"><strong>-d 年</strong></a> <em> 装置</em> [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/r_commands/readlvcopy.html#readlvcopy__row-d3e136394" target="_blank" rel="noopener noreferrer"><strong>「-c」</strong></a> <em>コピー</em> | <a href="https://www.ibm.com/docs/ja/ssw_aix_73/r_commands/readlvcopy.html#readlvcopy__row-d3e136402" target="_blank" rel="noopener noreferrer"><strong>-C</strong></a> <em>コピー</em> | <a href="https://www.ibm.com/docs/ja/ssw_aix_73/r_commands/readlvcopy.html#readlvcopy__row-d3e136410" target="_blank" rel="noopener noreferrer"><strong>-b</strong></a> | <a href="https://www.ibm.com/docs/ja/ssw_aix_73/r_commands/readlvcopy.html#readlvcopy__mp" target="_blank" rel="noopener noreferrer"><strong>P-</strong></a><em> ミラー・プール</em> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/r_commands/readlvcopy.html#readlvcopy__row-d3e136416" target="_blank" rel="noopener noreferrer"><strong>N</strong></a> <em>ブロック数 (number_of_blocks)</em> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/r_commands/readlvcopy.html#readlvcopy__row-d3e136424" target="_blank" rel="noopener noreferrer"><strong>-</strong></a> <em>出力ファイル</em> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/r_commands/readlvcopy.html#readlvcopy__row-d3e136435" target="_blank" rel="noopener noreferrer"><strong>-s</strong></a> <em>スキップ</em>] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/r_commands/readlvcopy.html#readlvcopy__row-d3e136446" target="_blank" rel="noopener noreferrer"><strong>-S (S)</strong></a> <em>シーク</em> ]</p>
+</section>
+
+<section><h2>説明</h2> <p></p>
+</section>
+
+<section><h2>フラグ</h2> <div> 
+<div><div><table><thead> <tr> <th><div>項目</div></th>
+ <th><div>説明</div></th>
+ </tr>
+ </thead>
+<tbody>
+<tr>
+<td><strong>-d</strong><em> デバイス</em></td>
+
+<td>読み取り元の論理ボリューム特殊デバイス・ファイル</td>
+
+</tr>
+
+<tr>
+<td><strong>-c</strong><em> コピー</em></td>
+
+<td>読み取り元の要求されたミラー・コピー。 データの 1 番目のコピー、2 番目のコピー、
+3 番目のコピーに有効な値は、1、2、または 3。 データは、論理区画に期間切れというマークが付けられている場合でも読み取られます。 デフォルトは、データの 1 番目のコピーです。</td>
+
+</tr>
+
+<tr>
+<td><strong>-C</strong><em> コピー</em></td>
+
+<td>読み取り元の要求されたミラー・コピー。 データの 1 番目のコピー、2 番目のコピー、
+3 番目のコピーに有効な値は、1、2、または 3。 期間切れの論理区画は読み取られません。</td>
+
+</tr>
+
+<tr>
+<td><strong>-b</strong></td>
+
+<td>オンライン・バックアップのマークが付けられたミラー・コピーを読み取ります。</td>
+
+</tr>
+
+<tr>
+<td><strong>N</strong><em> ブロック数 (number_of_blocks)</em></td>
+
+<td>読み取る 128K ブロックの数。</td>
+
+</tr>
+
+<tr>
+<td><strong>-o</strong><em> 出力ファイル</em></td>
+
+<td>宛先ファイル。 デフォルトは <em>stdout</em> です。</td>
+
+</tr>
+
+<tr>
+<td><strong>-p</strong><em> ミラー・プール</em></td>
+
+<td><p>指定されたミラー・プールに関連付けられているデータのコピーから読み取ります。 データは、論理区画に期間切れというマークが付けられている場合でも読み取られます。 デフォルトは、データの 1 番目のコピーです。 指定されたミラー・プールがボリューム・グループに存在しない場合、<span>readlvcopy</span> コマンドは失敗します。</p>
+
+</td>
+
+</tr>
+
+<tr>
+<td><strong>-s</strong><em> スキップ</em></td>
+
+<td><em>device</em> にスキップする 128K ブロックの数。</td>
+
+</tr>
+
+<tr>
+<td><strong>-S (S)</strong><em> シーク</em></td>
+
+<td><em>outfile</em> にシークする 128K ブロックの数。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+</section>
+
+<section><h2>例</h2>
+
+
+<div>デバイス <strong>/dev/rlv00</strong> の、<strong>mp1</strong> ミラー・プールに関連付けられているコピーからデータの最初の 128 KB ブロックを読み取るには、次のコマンドを実行します。<div><div><pre><code>readlvcopy -d /dev/rlv00  -p mp1 -n 1</code></pre></div><div></div></div></div>
+
+</section>
+
+</div></div>

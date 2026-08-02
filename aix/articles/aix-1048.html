@@ -1,0 +1,219 @@
+<div class="official-dom"><div>
+<section><h2>目的</h2> <p>特定のクライアントマシンに<span>AIX</span>をインストールするために、設定されたNIMOLサーバーを設定する。</p>
+
+<div><div>
+        <div>
+          <div><span>注:</span> このコマンドは、 Hardware Management Console (HMC) から Virtual I/O Server (VIOS) または Integrated Virtualization Management (IVM) に対してのみ使用されます。</div>
+        </div>
+      </div></div>
+</section>
+
+<section><h2>構文</h2> <p><strong>インストール (nimol_install)</strong> <a href="https://www.ibm.com/docs/ja/ssw_aix_73/n_commands/nimol_install.html#nimol_install__row-d3e31825" target="_blank" rel="noopener noreferrer"><strong>「-c」</strong></a> <em>クライアント・ホスト名</em> [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/n_commands/nimol_install.html#nimol_install__row-d3e31840" target="_blank" rel="noopener noreferrer"><strong>-</strong></a> <em>ゲートウェイ</em> ] [<a href="https://www.ibm.com/docs/ja/ssw_aix_73/n_commands/nimol_install.html#nimol_install__row-d3e31869" target="_blank" rel="noopener noreferrer"><strong>-m (M)</strong></a> <em>MAC アドレス</em>] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/n_commands/nimol_install.html#nimol_install__row-d3e31887" target="_blank" rel="noopener noreferrer"><strong>P-</strong></a> <em>IP アドレス</em> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/n_commands/nimol_install.html#nimol_install__row-d3e31904" target="_blank" rel="noopener noreferrer"><strong>-s</strong></a> <em>サブネット・マスク</em> ] [<a href="https://www.ibm.com/docs/ja/ssw_aix_73/n_commands/nimol_install.html#nimol_install__row-d3e31857" target="_blank" rel="noopener noreferrer"><strong>-L (L)</strong></a> <em>ラベル</em>] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/n_commands/nimol_install.html#nimol_install__row-d3e31881" target="_blank" rel="noopener noreferrer"><strong>N</strong></a> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/n_commands/nimol_install.html#nimol_install__row-d3e31896" target="_blank" rel="noopener noreferrer"><strong>-</strong></a> ] [<a href="https://www.ibm.com/docs/ja/ssw_aix_73/n_commands/nimol_install.html#nimol_install__row-d3e31834" target="_blank" rel="noopener noreferrer"><strong>-D</strong></a>]</p>
+</section>
+
+<section><h2>説明</h2> <div><strong>nimol_install</strong> コマンドは、 <span>AIX</span>を使用してマシンをネットワーク・インストールするように、構成済みの NIMOL サーバーをセットアップします。 このコマンドは、次の構成を実行します。<ol>
+<li>コマンドは、クライアント IP アドレスが指定されていなければ、
+クライアント・ホスト名の IP アドレスを決定します。 クライアント・ホスト名が解決可能でなく、クライアント IP アドレス (ドット 10 進数) が指定されている場合、
+この対が存在していなければ <strong>/etc/hosts</strong> ファイルに追加されます。</li>
+
+<li>クライアントが <strong>/etc/nimol.conf</strong> ファイルに追加されます。</li>
+
+<li>リソース・ラベルのディレクトリーが、まだグローバルにエクスポートされていなければ、
+クライアントにエクスポートされます。</li>
+
+<li>クライアントのスタンザが、<strong>/etc/dhcpd.conf</strong> ファイルに追加されます。 クライアントのサブネットも、もし存在していなければ <strong>/etc/dhcpd.conf</strong> ファイルに
+追加されます。 クライアントまたはクライアントのサブネットが既に <strong>/etc/dhcpd.conf</strong> ファイルに
+存在する場合には、エラーが表示されます。</li>
+
+<li>ブート・イメージへのシンボリック・リンクが、
+クライアント用に、<strong>/tftpboot</strong> ディレクトリーに作成されます。</li>
+
+<li>クライアントが NIMOL サーバーと同じサブネット上にある場合は、静的 <code>arp</code> エントリーが
+追加されます。</li>
+
+<li>コマンドは、<strong>iptables</strong> コマンドが存在する場合、
+次のように実行することにより、インストール中のクライアントに対するファイアウォール・ルールを
+オフにします。<div><div><pre><code>iptables -I INPUT 1 -s client_hostname -j ACCEPT</code></pre></div><div></div></div>これにより、NIMOL が使用するさまざまなサービスが成功します。 クライアントが除去されるときは、<strong>nimol_install</strong> コマンドは、
+規則を削除するために次のコマンドを実行します。<code>iptables -D INPUT -s <em>client_hostname</em></code></li>
+
+<li>コマンドは、必要なリソースがリソース・ラベルのディレクトリーに存在していることを確認します。</li>
+
+<li><strong>resolv.conf</strong> またはカスタマイズ・スクリプトが指定された場合、
+またはクライアントがインストール後に NIMOL サーバーのクライアントのままである場合は、リソース・ラベルのディレクトリーの
+スクリプト・サブディレクトリーに nim_script が作成されます。 <strong>nimol_install</strong> コマンドは、<code>cust.script</code> という
+名前のリソース・ラベルのディレクトリー内、または <code><em>client_name</em>.script</code> という
+名前のクライアント用の特定のカスタマイズ・スクリプト内を、汎用カスタマイズ・スクリプトを求めて探索します。</li>
+
+<li>情報ファイルが、オペレーティング・システムのインストール時に使用される
+ことになる <strong>/tftpboot</strong> ディレクトリー内に作成されます。</li>
+
+<li><strong>-l</strong> フラグが指定されている場合、コマンドは、
+インストール用にセットアップされたクライアントをリストします。 クライアント名とともに <strong>-r</strong> フラグが指定されている場合は、
+クライアントは除去されます。</li>
+
+<li>クライアントがインストール用にセットアップされたら、
+ネットワーク・インストールを実行するよう、クライアントに伝える必要があります。 クライアントに <span>AIX</span> がインストールされ、実行されている場合は、 <strong>bootlist</strong> コマンドを使用します。 例えば、NIMOL サーバーが <code>192.168.1.20</code> であり、 <span>AIX</span> クライアントが <code>192.168.1.30</code>である場合、 <code>ent0</code> をブートするには、以下を実行します。<div><div><pre><code>bootlist -m normal -ent0 bserver=192.168.1.20 \\
+  gateway=0.0.0.0 client=192.168.1.30</code></pre></div><div></div></div>そして、次を実行することによりリブートします。<div><div><pre><code>shutdown -Fr</code></pre></div><div></div></div></li>
+
+<li>クライアントが稼働中でない場合は、SMS メニューにブートして
+ネットワーク・ブート・パラメーターとネットワーク・ブート・デバイスを指定します。 クライアントが NIMOL サーバーと同じサブネット上にある場合は、クライアントは
+ブロードキャスト <strong>bootp</strong> インストールを行うことができます。 ブロードキャスト <strong>bootp</strong> は IP パラメーターがセットされている必要はありません。
+bserver、ゲートウェイ、およびクライアントは、ブロードキャスト bootp インストールにおいて <code>0.0.0.0</code> となります。</li>
+
+</ol>
+</div>
+</section>
+
+<section><h2>フラグ</h2> 
+<div><div><table><thead> <tr> <th><div>項目</div></th>
+ <th><div>説明</div></th>
+ </tr>
+ </thead>
+<tbody>
+<tr>
+<td><strong>-c</strong> <em>クライアント・ホスト名</em></td>
+
+<td>インストール用にセットアップされるクライアント・ホスト名、
+または除去されるクライアント・ホスト名を、指定します。</td>
+
+</tr>
+
+<tr>
+<td><strong>-D</strong></td>
+
+<td>コマンドをデバッグ・モードで実行します。</td>
+
+</tr>
+
+<tr>
+<td><strong>-g</strong> <em>ゲートウェイ</em></td>
+
+<td>クライアントが <span>AIX</span>をインストールした後に構成されるゲートウェイを指定します。 これは、クライアントをインストールしているときには必要です。</td>
+
+</tr>
+
+<tr>
+<td><strong>-l</strong></td>
+
+<td>インストール用にセットアップされるクライアントをリストします。</td>
+
+</tr>
+
+<tr>
+<td><strong>-L</strong> <em>ラベル</em></td>
+
+<td>クライアントをインストールするのに使用されるリソースのラベルまたは名前を指定します。 デフォルトは <code>default</code>です。</td>
+
+</tr>
+
+<tr>
+<td><strong>-m</strong> <em>マックアドレス</em></td>
+
+<td>クライアントがインストールされるネットワーク・インターフェースの MAC アドレスを指定します。 これは、クライアントをインストールしているときには必要です。 MAC アドレスにはコロンを含める必要があります (例えば、<code>00:60:08:3F:E8:DF</code>)。</td>
+
+</tr>
+
+<tr>
+<td><strong>-n</strong></td>
+
+<td>インストールが完了した後に NIMOL サーバーのクライアントのままでいるために、マシンを構成しないよう指定します。 このオプションが指定されると、クライアントはインストール後に自身のネットワークを構成させることはありません。</td>
+
+</tr>
+
+<tr>
+<td><strong>-p</strong> <em>IP アドレス</em></td>
+
+<td>クライアントの IP アドレスを指定します。 クライアントのホスト名が解決可能でない場合に、
+このフラグを使用します。</td>
+
+</tr>
+
+<tr>
+<td><strong>-r</strong></td>
+
+<td>クライアントを除去します。 クライアントは、再構成されるまで <span>AIX</span> をインストールできません。 このフラグにはクライアント・ホスト名が必要です。</td>
+
+</tr>
+
+<tr>
+<td><strong>-s</strong> <em>サブネット・マスク</em></td>
+
+<td>クライアント・インターフェースのサブネット・マスクを指定します。 このフラグは、クライアントをインストールしているときは必須です。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</section>
+
+<section><h2>終了状況</h2> 
+<div><div><table><thead> <tr> <th><div>項目</div></th>
+ <th><div>説明</div></th>
+ </tr>
+ </thead>
+<tbody>
+<tr>
+<td><strong>0</strong></td>
+
+<td>コマンドは正常に完了しました。</td>
+
+</tr>
+
+<tr>
+<td><strong>&gt; 0</strong></td>
+
+<td>エラーが戻されました。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</section>
+
+<section><h2>セキュリティー</h2> <p>マシンが NIMOL サーバーのクライアントのままでいる場合 (<strong>
+-n</strong> フラグが指定されない場合)、NIMOL サーバーに <strong>/usr/bin/rsh</strong> 許可を
+与えることになり、サーバーはクライアント上でコマンドを実行することができます。</p>
+</section>
+
+<section><h2>例</h2> <ol>
+<li>クライアント <code>myclient</code> をセットアップして、
+ゲートウェイ <code>192.168.1.1</code>、MAC アドレス <code>00:60:08:3F:E8:DF</code>、
+およびサブネット・マスク <code>255.255.255.0</code> を持つ <code>aix530</code> リソース・ラベルを
+インストールするには、次のように入力します。<div><div><pre><code>nimol_install -c myclient -g 192.168.1.1 \\
+  -m 00:60:08:3F:E8:DF -s 255.255.255.0 -L aix530</code></pre></div><div></div></div></li>
+
+<li>クライアント <code>myclient</code> をセットアップし、インストール後は NIMOL サーバーに
+対するクライアントのままにはしないようにするには、次のように入力します。<div><div><pre><code>nimol_install -n -c myclient -g 192.168.1.1 \\
+  -m 00:60:08:3F:E8:DF -s 255.255.255.0 -L aix530</code></pre></div><div></div></div></li>
+
+<li>インストールするために構成されたクライアントをリストするには、次のように入力します。<div><div><pre><code>nimol_install -l</code></pre></div><div></div></div></li>
+
+<li><code>myclient</code> を除去するには、次のように入力します。<div><div><pre><code>nimol_config -c myclient -r</code></pre></div><div></div></div></li>
+
+</ol>
+</section>
+
+<section><h2>ロケーション</h2> <p><strong>/usr/sbin/nimol_install</strong></p>
+</section>
+
+<section><h2>ファイル</h2> 
+<div><div><table><thead> <tr> <th><div>項目</div></th>
+ <th><div>説明</div></th>
+ </tr>
+ </thead>
+<tbody>
+<tr>
+<td><strong>/etc/nimol.conf</strong></td>
+
+<td>コマンドの構成情報を保管します。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</section>
+
+</div></div>

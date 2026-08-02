@@ -1,0 +1,259 @@
+<div class="official-dom"><div>
+<section><h2>目的</h2> <p>リモート・マシンのデバイス上にファイルのバックアップを取ります。</p>
+ <div><div>
+        <div>
+          <div><span>注:</span> このコマンドを実行するには、ユーザーに root 権限が必要です。</div>
+        </div>
+      </div></div>
+</section>
+
+<section><h2>構文</h2> <p><strong>RDUMP</strong> [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/r_commands/rdump.html#rdump__row-d3e135532" target="_blank" rel="noopener noreferrer"><strong>-b (B)</strong></a><em> ブロック数</em> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/r_commands/rdump.html#rdump__row-d3e135549" target="_blank" rel="noopener noreferrer"><strong>-B </strong></a>] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/r_commands/rdump.html#rdump__row-d3e135561" target="_blank" rel="noopener noreferrer"><strong>「-c」 </strong></a>] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/r_commands/rdump.html#rdump__row-d3e135567" target="_blank" rel="noopener noreferrer"><strong>-d 年</strong></a><em> 密度</em> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/r_commands/rdump.html#rdump__row-d3e135606" target="_blank" rel="noopener noreferrer"><strong>-L (L)</strong></a> <em>長さ</em> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/r_commands/rdump.html#rdump__row-d3e135628" target="_blank" rel="noopener noreferrer"><strong>-s </strong></a><em>サイズ</em> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/r_commands/rdump.html#rdump__row-d3e135645" target="_blank" rel="noopener noreferrer"><strong>-ウー </strong></a>] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/r_commands/rdump.html#rdump__row-d3e135655" target="_blank" rel="noopener noreferrer"><strong>-w (W) </strong></a>] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/r_commands/rdump.html#rdump__row-d3e135661" target="_blank" rel="noopener noreferrer"><strong>-W (W) </strong></a>] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/r_commands/rdump.html#rdump__row-d3e135671" target="_blank" rel="noopener noreferrer"><strong>-</strong></a><em>レベル</em> ] <a href="https://www.ibm.com/docs/ja/ssw_aix_73/r_commands/rdump.html#rdump__row-d3e135582" target="_blank" rel="noopener noreferrer"><strong>「-f」</strong></a><em> マシン</em><strong>:</strong><em>装置</em> [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/r_commands/rdump.html#rdump__row-d3e135707" target="_blank" rel="noopener noreferrer"><em>FileSystem</em></a> | <a href="https://www.ibm.com/docs/ja/ssw_aix_73/r_commands/rdump.html#rdump__row-d3e135701" target="_blank" rel="noopener noreferrer"><em>DeviceName </em></a>]</p>
+</section>
+
+<section><h2>説明</h2> <p><strong>rdump</strong> コマンドは、ローカル・コンピューターのファイルシステムを i ノードによってリモート・コンピューターにコピーします。 ファイルは、<strong>backup</strong> コマンド・フォーマットを使用して、リモート・コンピューターのデバイスにコピーされます。 デバイスへのアクセスには、リモート・マシン上のリモート・サーバーを使います。 <strong>rdump</strong> コマンドを実行するには、root 権限を持っていなければなりません。 また、宛先のリモート・コンピューターの <strong>/.rhosts</strong> ファイル内に、<strong>rdump</strong> コマンドを実行するローカル・コンピューターを定義しておかなければなりません。</p>
+ <p>ファイルシステムをバックアップするには、 <a href="https://www.ibm.com/docs/ja/ssw_aix_73/r_commands/rdump.html#rdump__row-d3e135671" target="_blank" rel="noopener noreferrer"><strong>-</strong></a><em>Level</em> および <a href="https://www.ibm.com/docs/ja/ssw_aix_73/r_commands/rdump.html#rdump__row-d3e135707" target="_blank" rel="noopener noreferrer"><em>FileSystem</em></a> パラメーターを指定して、バックアップしたいファイルを指示します。 <strong>-</strong><em>Level</em> パラメーターを使用すると、システム上のすべてのファイルをバックアップするか (フル・バックアップ)、特定のフル・バックアップ以降に修正されたファイルのみをバックアップ (増分バックアップ) することができます。指定可能なレベルは 0 から 9 までです。 可能なレベルは 0 から 9 です。 レベルを指定しない場合、デフォルト・レベルは 9 です。 レベル 0 バックアップには、ファイル・システム上のすべてのファイルが含まれます。 レベル <em>n</em> のバックアップには、最後のレベル <em>n</em> - 1 (<em>n</em> マイナス 1) のバックアップ以降に修正されたすべてのファイルが含まれます。 これらのレベルは、 <a href="https://www.ibm.com/docs/ja/ssw_aix_73/r_commands/rdump.html#rdump__row-d3e135645" target="_blank" rel="noopener noreferrer"><strong>-ウー</strong></a> フラグとともに、各ファイル・システムの増分バックアップの階層を維持する方法を提供します。</p>
+ <div><div>
+        <div>
+          <div><span>注:</span><ol>
+<li><span></span>増分バックアップ ( <strong>-</strong><em>Level</em> パラメーター) の実行時に <a href="https://www.ibm.com/docs/ja/ssw_aix_73/r_commands/rdump.html#rdump__row-d3e135645" target="_blank" rel="noopener noreferrer"><strong>-u</strong></a> フラグを使用して、各増分バックアップの最後の日付、時刻、およびレベルに関する情報が <strong>/etc/dumpdates</strong> ファイルに書き込まれるようにします。</li>
+
+<li><span></span>リモート・マシン上の <strong>rmt</strong> コマンドが <strong>/usr/sbin/rmt</strong>にない場合は、リモート・マシン上で <strong>/usr/sbin/rmt</strong> からその実際のロケーション (通常は <strong>/etc/rmt</strong>) へのリンクを作成する必要があります。</li>
+
+</ol>
+ </div>
+        </div>
+      </div></div>
+</section>
+
+<section><h2>フラグ</h2> <div> 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><strong>-b</strong><em> Blocks</em></td>
+
+<td>一回の出力操作で書き込むブロック数を指定します。 <em>Blocks</em> 変数を指定しなければ、<strong>rdump</strong> コマンドは選択された物理デバイス用の適切なデフォルト値を使用します。 <em>Blocks</em>
+変数の値が大きくなるほど、テープ・デバイスへの物理的な転送は大きくなります。</td>
+
+</tr>
+
+<tr>
+<td><strong>-B</strong></td>
+
+<td>エラーの発生時に、ユーザーに照会せずにコマンドを終了させます。 <strong>-B</strong> フラグを指定した場合、<strong>rdump</strong> コマンドはゼロ以外の値を戻します。</td>
+
+</tr>
+
+<tr>
+<td><strong>-c</strong></td>
+
+<td>テープが 9 トラック・フォーマットではなくカートリッジ・フォーマットであることを指定します。</td>
+
+</tr>
+
+<tr>
+<td><strong>-d 年</strong><em> 密度</em><strong></strong></td>
+
+<td>テープ密度を 1 インチ当たりのビット数 (bpi) 単位で指定します。 この値は、ボリューム当たりのテープ使用量を計算するときに使われます。 <em>Density</em> 変数の値を指定しなければ、デフォルト密度は 1600 bpi となります。 テープ密度を指定せずに <strong>-c</strong> フラグを使用すると、デフォルト密度は 8000 bpi になります。</td>
+
+</tr>
+
+<tr>
+<td><strong>-f</strong><em> マシン</em><strong>:</strong><em>デバイス</em></td>
+
+<td><em>Machine</em> 変数をリモート・コンピューターのホスト名として指定します。 指定したデバイスに出力を送信するには、<em> Device</em> 変数をファイル名 (<strong>/dev/rmt0</strong> ファイルなど) として指定します。 <em>Device</em> 変数には、テープ・デバイスのみを指定してください。</td>
+
+</tr>
+
+<tr>
+<td><strong>-L (L)</strong><em> 長さ</em></td>
+
+<td>テープの長さをバイト単位で指定します。 このフラグを指定すると、<strong>-c</strong>、<strong>-d</strong>、および <strong>-s</strong> の各フラグは無効になります。 接尾辞として b、k、m、または g を付けることにより、それぞれブロック (512 バイト)、
+キロ (1024 バイト)、メガ (1024 K バイト)、ギガ (1024 M バイト) の単位で指定できます。 2 ギガバイトのテープ長を表すには、次のように入力します。-L 2g.</td>
+
+</tr>
+
+<tr>
+<td><strong>-s</strong><em> サイズ</em></td>
+
+<td><em>Size</em> 変数を使用して、テープのサイズをフィート単位で指定します。 テープ・サイズを指定しなければ、デフォルト・サイズは 2300 フィートとなります。 テープ・サイズを指定せずに <strong>-c</strong>  フラグを使用すると、デフォルト・サイズは 1700 フィートとなります。 テープ・ドライブが指定されたサイズに達すると、<strong>rdump</strong> コマンドはテープが交換されるまで待ちます。</td>
+
+</tr>
+
+<tr>
+<td><strong>-u</strong></td>
+
+<td><strong>/etc/dumpdates</strong> ファイル内でリモート・バックアップの時刻、日付、およびレベルを更新します。 このファイルには、増分バックアップの維持に必要な情報が入っています。</td>
+
+</tr>
+
+<tr>
+<td><strong>-w</strong></td>
+
+<td>現在使用禁止です。</td>
+
+</tr>
+
+<tr>
+<td><strong>-W</strong></td>
+
+<td><strong>/etc/dumpdates</strong> ファイルで検出されたファイルシステムを表示します。</td>
+
+</tr>
+
+<tr>
+<td><strong>-</strong><em>レベル</em></td>
+
+<td>リモート・バックアップ・レベル (0 から 9 まで) を指定します。 <em>Level</em> 変数のデフォルト値は 9 です。</td>
+
+</tr>
+
+<tr>
+<td><strong>-?</strong></td>
+
+<td>使用法のメッセージを表示します。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+</section>
+
+<section><h2>パラメーター</h2> <div> 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><em>DeviceName</em></td>
+
+<td>物理デバイス名 (ブロック名またはロー名) を指定します。</td>
+
+</tr>
+
+<tr>
+<td><em>FileSystem</em></td>
+
+<td>ファイルシステムが通常マウントされるディレクトリーの名前を指定します。 <strong>rdump</strong> コマンドは、物理デバイス名として <strong>/etc/filesystems</strong> を読み込みます。 ファイルシステムを指定しないと、デフォルトは、ルート (<strong>/</strong>) ファイルシステムになります。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+</section>
+
+<section><h2>終了状況</h2> <p>このコマンドは、以下の終了値を戻します。</p>
+ 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><strong>0</strong></td>
+
+<td>コマンドが正常終了したことを示します。</td>
+
+</tr>
+
+<tr>
+<td><strong>&gt;0</strong></td>
+
+<td>エラーが発生したことを示します。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</section>
+
+<section><h2>セキュリティー</h2> <p><strong>アテンション RBAC ユーザー</strong>: このコマンドは特権操作を実行できます。 特権命令を実行できるのは特権ユーザーのみです。 権限および特権について詳しくは、「<em>セキュリティー</em>」の『特権コマンド・データベース』を参照してください。 このコマンドに関連した特権および権限のリストについては、<strong>lssecattr</strong> コマンドまたは <strong>getcmdattr</strong> サブコマンドの項を参照してください。</p>
+</section>
+
+<section><h2>例</h2> <ol>
+<li><span></span>ローカル・マシン上の <strong>/usr</strong> ディレクトリー内のファイルをリモート・マシンにバックアップするには、次のように入力します。<div>rdump  <a href="https://www.ibm.com/docs/ja/ssw_aix_73/r_commands/rdump.html#rdump__row-d3e135645" target="_blank" rel="noopener noreferrer">-u </a> <a href="https://www.ibm.com/docs/ja/ssw_aix_73/r_commands/rdump.html#rdump__row-d3e135671" target="_blank" rel="noopener noreferrer">-0 </a> <a href="https://www.ibm.com/docs/ja/ssw_aix_73/r_commands/rdump.html#rdump__row-d3e135582" target="_blank" rel="noopener noreferrer">-f</a>canine:/dev/rmt0 /usr</div><strong>-u</strong> フラグは、システムに対して、
+<strong>/etc/dumpdates</strong> ファイル内の現行バックアップ・レベル・コードを更新するように指示します。 <strong>-</strong><em>Level</em> フラグをバックアップ・レベル 0 に設定すると、<strong>/usr</strong> ディレクトリー内のすべてのファイルをバックアップするように指定したことになります。 リモート・マシンの ID:canine装置は <strong>/dev/rmt0</strong> 装置です。</li>
+
+<li><span></span> 8mm、 2.3GB テープを使用して、ローカル・マシン上の <strong>/usr</strong> ディレクトリー内のファイルをリモート・マシンにバックアップするには、次のように入力します。<div> <div><div><pre><code>rdump -fcanine:/dev/rmt0 -L 2200m /usr</code></pre></div><div></div></div> <div><div>
+        <div>
+          <div>ここでは、テープの実際の終わりに達しないようにするために、 2.3GB の代わりに <span>注:</span> 2.2GB を使用します。</div>
+        </div>
+      </div></div>
+</div>
+</li>
+
+<li><span></span> 0.25-inch ・テープを使用して、ローカル・マシン上の <strong>/usr</strong> ディレクトリーにあるファイルをリモート・マシンにバックアップするには、次のように入力します。<div> <div><div><pre><code>rdump -fcanine:/dev/rmt0 -c /usr</code></pre></div><div></div></div><strong>-c</strong> フラグを使用すると、<strong>rdump</strong> コマンドはデフォルトとして 0.25 インチ・テープに合ったサイズ値と密度値を使用します。</div>
+</li>
+
+</ol>
+</section>
+
+<section><h2>ファイル</h2> <div> 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><strong>/etc/dumpdates</strong></td>
+
+<td>リモート・ダンプをとった最新の日付のログが入っています。</td>
+
+</tr>
+
+<tr>
+<td><strong>/etc/filesystems</strong></td>
+
+<td>ファイルシステムの情報が入っています。</td>
+
+</tr>
+
+<tr>
+<td><strong>/dev/rhd4</strong></td>
+
+<td>デフォルトのファイルシステム (ルート) が配置されているデバイスが入っています。</td>
+
+</tr>
+
+<tr>
+<td><strong>/usr/sbin/rdump</strong></td>
+
+<td><strong>rdump</strong> コマンドが入っています。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+</section>
+
+</div></div>

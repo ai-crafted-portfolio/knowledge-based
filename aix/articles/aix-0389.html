@@ -1,0 +1,156 @@
+<div class="official-dom"><div>
+<section><h2>目的</h2> <p>ユーザー ID ごとにディスク・アカウンティング・データを作成します。</p>
+</section>
+
+<section><h2>構文</h2> <p><strong>ディスカス</strong> [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/d_commands/diskusg.html#diskusg__row-d3e33083" target="_blank" rel="noopener noreferrer"><strong>-X</strong></a> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/d_commands/diskusg.html#diskusg__row-d3e33055" target="_blank" rel="noopener noreferrer"><strong>-U</strong></a> <em>MaxUsers</em> ] [  <a href="https://www.ibm.com/docs/ja/ssw_aix_73/d_commands/diskusg.html#diskusg__row-d3e33013" target="_blank" rel="noopener noreferrer"><strong>-i</strong></a><em> FileListName </em>] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/d_commands/diskusg.html#diskusg__row-d3e33028" target="_blank" rel="noopener noreferrer"><strong>-p</strong></a><em>ファイル </em>] [  <a href="https://www.ibm.com/docs/ja/ssw_aix_73/d_commands/diskusg.html#diskusg__row-d3e33066" target="_blank" rel="noopener noreferrer"><strong>-u</strong></a><em>ファイル </em>] [  <a href="https://www.ibm.com/docs/ja/ssw_aix_73/d_commands/diskusg.html#diskusg__row-d3e33077" target="_blank" rel="noopener noreferrer"><strong>-v </strong></a>] {  <a href="https://www.ibm.com/docs/ja/ssw_aix_73/d_commands/diskusg.html#diskusg__row-d3e33042" target="_blank" rel="noopener noreferrer"><strong>-s</strong></a><em> </em>[ <em>ファイル ... </em>] | <em>ファイルシステム ...</em> }</p>
+</section>
+
+<section><h2>説明</h2> <p><strong>diskusg</strong> コマンドは、<em>File</em> または <em>FileSystem</em> パラメーターで指定されたファイル内のデータか、または標準入力から中間ディスク・アカウンティング情報を作成します。 <strong>diskusg</strong> コマンドは、1 ユーザーあたり 1 レコードを標準出力に書き出します。 このコマンドは、<strong>cron</strong> デーモンの下で実行できる <strong>dodisk</strong> コマンドによって呼び出されます。 出力のフォーマットは次のとおりです。</p>
+ 
+<div><div><table><thead> <tr> <th><div>項目</div></th>
+ <th><div>説明</div></th>
+ </tr>
+ </thead>
+<tbody>
+<tr>
+<td><em>UID</em></td>
+
+<td>ユーザーの数字のユーザー ID。</td>
+
+</tr>
+
+<tr>
+<td><em>ログイン</em></td>
+
+<td>ユーザーのログイン名。</td>
+
+</tr>
+
+<tr>
+<td><em>ブロック</em></td>
+
+<td>ユーザーに割り当てられた 512 バイトのディスク・ブロックの合計数。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+ <p>このコマンドの出力は、 <a href="https://www.ibm.com/docs/ja/ssw_aix_73/a_commands/acctdisk.html" target="_blank" rel="noopener noreferrer"><strong>acctdisk</strong></a> コマンドの入力になります。このコマンドは、情報を合計アカウンティング・レコードに変換します。 この合計アカウンティング・レコードは、他の合計アカウンティング・レコードとマージされて、日次レポートを作成します。</p>
+ <p><em>FileSystem</em> パラメーターを指定すると、<strong>diskusg</strong> コマンドは指定されたファイルシステムの i ノードを読み取って、使用状況データを生成します。 <em>FileSystem</em> パラメーターはファイルシステム・デバイスのスペシャル・ファイル名でなければなりません。 例えば、以下の代わりに <strong>/dev/hd4</strong> デバイスを使用します。/(ルート) ルート・ファイル・システムの使用量データを生成するためのディレクトリー。</p>
+ <p><em>File</em> パラメーターを指定する場合は、入力が <strong>diskusg</strong> 出力フォーマットでなければなりません。</p>
+ <p>ディスク使用量について詳しくは、 <a href="https://www.ibm.com/docs/ja/ssw_aix_73/a_commands/acctdisk.html" target="_blank" rel="noopener noreferrer"><strong>acctdusg</strong></a> コマンドを参照してください。</p>
+ <div><div>
+        <div>
+          <div><span>注意:</span> このコマンドはローカル・デバイス専用です。</div>
+        </div>
+      </div></div>
+</section>
+
+<section><h2>フラグ</h2> <div> 
+<div><div><table><thead> <tr> <th><div>項目</div></th>
+ <th><div>説明</div></th>
+ </tr>
+ </thead>
+<tbody>
+<tr>
+<td><strong>-i</strong><em> FileListName</em></td>
+
+<td><em>FileListName</em> ファイルシステム内のデータを無視します。 <em>FileListName</em> 変数は、コンマで区切られているか、または引用符で囲まれているファイルシステム名のリストです。</td>
+
+</tr>
+
+<tr>
+<td><strong>-p</strong><em> ファイル</em></td>
+
+<td><em>File</em> 変数で指定されたパスワード・ファイルを使用して、ログイン名を生成します。 デフォルトは <strong>/etc/passwd</strong> ファイルです。</td>
+
+</tr>
+
+<tr>
+<td><strong>-s</strong> [<em>ファイル</em>]</td>
+
+<td>入力ファイルまたは標準入力のすべてのレコードを 1 つのレコードに結合します。 入力データは、既に <strong>diskusg</strong> の出力フォーマットになっています。</td>
+
+</tr>
+
+<tr>
+<td><strong>-U</strong><em> MaxUsers</em></td>
+
+<td><strong>diskusg</strong> コマンドで処理できるユーザーの最大数を設定します。 ユーザー数がデフォルトの 5000 よりも大きい場合にのみこのフラグが必要となります。</td>
+
+</tr>
+
+<tr>
+<td><strong>-u</strong><em> ファイル</em></td>
+
+<td>誰のユーザー ID にも課金されていない各ファイルのレコードを、指定された <em>File</em> 変数に書き込みます。 それぞれのレコードは、スペシャル・ファイル名、i ノード番号、およびユーザー ID から構成されます。</td>
+
+</tr>
+
+<tr>
+<td><strong>-v</strong></td>
+
+<td>誰にも課金されていないすべてのファイルのリストを標準エラー出力に書き出します。</td>
+
+</tr>
+
+<tr>
+<td><strong>-X</strong></td>
+
+<td>最初の 8 文字に切り捨てることをせずに、各ユーザー名の使用可能なすべての文字を印刷して処理します。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+</section>
+
+<section><h2>セキュリティー</h2> <p>アクセス制御: このコマンドは、<strong>adm</strong> グループのメンバーのみに実行 (x) アクセス権限を与えます。</p>
+ <div><div><div>
+        <div>
+          <div><span>RBAC ユーザーへの注意:</span> このコマンドは特権命令を実行できます。 特権命令を実行できるのは特権ユーザーのみです。 権限と特権の詳細については、<span>セキュリティ</span>の <a href="https://www.ibm.com/docs/ja/ssw_aix_73/security/rbac_priv_cmd_db.html" target="_blank" rel="noopener noreferrer">特権コマンドデータベース</a>を参照してください。 このコマンドに関連する特権と権限のリストについては、'<a href="https://www.ibm.com/docs/ja/ssw_aix_73/l_commands/lssecattr.html" target="_blank" rel="noopener noreferrer"><span>lssecattr</span></a>コマンドまたは'<a href="https://www.ibm.com/docs/ja/ssw_aix_73/g_bostechref/getcmdattr.html" target="_blank" rel="noopener noreferrer"><span>getcmdattr</span></a>サブコマンドを参照のこと。</div>
+        </div>
+      </div></div>
+</div>
+</section>
+
+<section><h2>例</h2> <p>日次ディスク・アカウンティング情報を作成するには、次のような行を <strong>/var/spool/cron/crontab/root</strong> ファイルに追加します。</p>
+ <div> <div><div><pre><code>0 2 * * 4 /usr/sbin/acct/dodisk</code></pre></div><div></div></div></div>
+ <p>このコマンドは、2 a.mで <strong>dodisk</strong> コマンドを実行するように <strong>cron</strong> デーモンに指示します。(02) 毎木曜日 (4)。 <strong>dodisk</strong> コマンドは、 <strong>diskusg</strong> コマンドと <strong>acctdisk</strong> コマンドの両方を呼び出します。</p>
+ <div><div>
+        <div>
+          <div><span>注:</span> この例を実行するには、root 権限が必要です。</div>
+        </div>
+      </div></div>
+</section>
+
+<section><h2>ファイル</h2> <div> 
+<div><div><table><thead> <tr> <th><div>項目</div></th>
+ <th><div>説明</div></th>
+ </tr>
+ </thead>
+<tbody>
+<tr>
+<td><strong>/usr/sbin/acct/diskusg</strong></td>
+
+<td><strong>diskusg</strong> コマンドが入っています。</td>
+
+</tr>
+
+<tr>
+<td><a href="https://www.ibm.com/docs/ja/ssw_aix_73/filesreference/passwd.html" target="_blank" rel="noopener noreferrer"><strong>/etc/passwd</strong></a><strong></strong></td>
+
+<td>ユーザーの基本属性が入っています。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+</section>
+
+</div></div>

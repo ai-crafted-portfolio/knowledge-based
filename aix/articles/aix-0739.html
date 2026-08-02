@@ -1,0 +1,664 @@
+<div class="official-dom"><div>
+<div>
+<p><strong>lp</strong>コマンドには、<span>AIX</span>Print Subsystem<a href="https://www.ibm.com/docs/ja/ssw_aix_73/l_commands/lp.html#lp__lpppc" target="_blank" rel="noopener noreferrer"><strong>lp</strong></a>と System V Print Subsystem<a href="https://www.ibm.com/docs/ja/ssw_aix_73/l_commands/lp.html#lp__lpia64" target="_blank" rel="noopener noreferrer"><strong>lp</strong></a> の情報が含まれています。</p>
+
+<p><strong><span>AIX</span> 印刷サブシステムの lp コマンド</strong></p>
+
+</div>
+
+<section><h2>目的</h2>
+
+<p>ライン・プリンターに要求を送信します。</p>
+
+<p></p>
+
+</section>
+
+<section><h2>構文</h2>
+
+<p><strong>LP</strong> [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/l_commands/lp.html#lp__row-d3e57598" target="_blank" rel="noopener noreferrer"><strong>「-c」 </strong></a>] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/l_commands/lp.html#lp__row-d3e57616" target="_blank" rel="noopener noreferrer"><strong>-d 年</strong></a><em>待ち行列</em> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/l_commands/lp.html#lp__row-d3e57624" target="_blank" rel="noopener noreferrer"><strong>-m (M) </strong></a>] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/l_commands/lp.html#lp__row-d3e57634" target="_blank" rel="noopener noreferrer"><strong>N</strong></a><em>数値</em> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/l_commands/lp.html#lp__row-d3e57642" target="_blank" rel="noopener noreferrer"><strong>-</strong></a><em>オプション</em> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/l_commands/lp.html#lp__row-d3e57664" target="_blank" rel="noopener noreferrer"><strong>-s </strong></a>] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/l_commands/lp.html#lp__row-d3e57676" target="_blank" rel="noopener noreferrer"><strong>T</strong></a><em>タイトル</em> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/l_commands/lp.html#lp__row-d3e57684" target="_blank" rel="noopener noreferrer"><strong>-w (W) </strong></a>] [ <em>ファイル</em> ]</p>
+
+</section>
+
+<section><h2>説明</h2>
+
+<p><strong>lp</strong> コマンドは、<em>Files</em> パラメーターにより指定されたファイルとそれらに関連した情報 (要求) がライン・プリンターで印刷されるようにします。 <em>Files</em> パラメーターの値を指定しないと、<strong>lp</strong> コマンドは標準入力を受け入れます。 ファイル名 <strong>-</strong> (ダッシュ) は標準入力を表し、ファイルの他にコマンド・ラインで指定できます。 <strong>lp</strong> コマンドは、指定された順序で要求を送ります。 ジョブがローカル印刷キューに実行を依頼されると、<strong>lp</strong> コマンドは次の行を標準出力に表示します。</p>
+
+<div>
+<div><div><pre><code>Job number is: nnn</code></pre></div><div></div></div>
+</div>
+
+<p>各項の説明は次のとおりです。nnn割り当てられたジョブ番号です。 ジョブ番号が表示されないようにするには、<strong>-s</strong> フラグを使用します。</p>
+
+</section>
+
+<section><h2>フラグ</h2>
+
+<div>
+
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><strong>-c</strong></td>
+
+<td><strong>lp</strong> コマンドの実行時に、印刷されるファイルを直ちにコピーします。 <strong>lp</strong> コマンドは、要求されないとファイルをコピーしません。 リンクは作成されません。 <strong>-c</strong> フラグを指定する場合は、印刷前にファイルを除去しないように注意してください。 <strong>-c</strong> フラグを指定しない場合は、要求後に行ったファイルの変更結果が印刷出力に表示されます。</td>
+
+</tr>
+
+<tr>
+<td><strong>-d</strong><em>キュー</em></td>
+
+<td>ジョブを送る印刷キューを指定します。</td>
+
+</tr>
+
+<tr>
+<td><strong>-m</strong></td>
+
+<td>ファイルが印刷された後で、メールを送ります (<strong>mail</strong> コマンドを参照)。 デフォルトでは、印刷要求が正常終了した後にメールは送られません。</td>
+
+</tr>
+
+<tr>
+<td><strong>-n</strong><em>数値</em></td>
+
+<td>印刷出力の部数を指定します。 デフォルトの部数は 1 です。</td>
+
+</tr>
+
+<tr>
+<td><strong>-o</strong><em>オプション</em></td>
+
+<td>バックエンドに固有のフラグをバックエンドに受け渡すように指定します。 したがって、それぞれのキューについて、この項目で説明されていない他のフラグを <strong>lp</strong>
+コマンドを用いて組み込むことができます。 これらのフラグのリストについては、 <a href="https://www.ibm.com/docs/ja/ssw_aix_73/p_commands/piobe.html" target="_blank" rel="noopener noreferrer"><strong>piobe</strong></a> コマンドを参照してください。 このフラグを指定することは、 <a href="https://www.ibm.com/docs/ja/ssw_aix_73/e_commands/enq.html" target="_blank" rel="noopener noreferrer"><strong>enq</strong></a> コマンドに <strong>-o</strong> フラグを指定することと同じです。</td>
+
+</tr>
+
+<tr>
+<td><strong>-s</strong></td>
+
+<td>ジョブ番号の自動表示を抑制します。 <strong>lp</strong> コマンドは、デフォルトではジョブ番号を表示しますが、<strong>-s</strong> フラグを指定するとデフォルトがオーバーライドされます。</td>
+
+</tr>
+
+<tr>
+<td><strong>-t</strong><em>タイトル</em></td>
+
+<td>出力のバナー・ページにファイルのタイトルを印刷することを指定します。</td>
+
+</tr>
+
+<tr>
+<td><strong>-w</strong></td>
+
+<td>ファイルの印刷後、印刷要求側の端末にメッセージを書き込みます。 要求側がログインしていないと、<strong>mail</strong> コマンドによってそのメッセージが送られます。 ユーザーが複数のウィンドウまたは端末にログインしている場合、コマンドが発行された LFT にメッセージが送信されないこともあります。 メッセージは、そのユーザーのログインが <strong>writesrv</strong> デーモンによって最初に見つけられた端末に送信されます。<p></p><blockquote><span>“</span><strong>注:</strong> <strong>-w</strong> フラグを、<strong>-m</strong> フラグと共に使用すると、印刷要求側は端末上のメールのみを受け取り、メッセージは受け取りません。<span>”</span></blockquote>
+
+<p></p>
+</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+
+</div>
+
+</section>
+
+<section><h2>セキュリティー</h2>
+
+<div>
+<div><div>
+        <div>
+          <div><span>RBAC ユーザーへの注意:</span> このコマンドは特権命令を実行できます。 特権命令を実行できるのは特権ユーザーのみです。 権限と特権の詳細については、<span>セキュリティ</span>の <a href="https://www.ibm.com/docs/ja/ssw_aix_73/security/rbac_priv_cmd_db.html" target="_blank" rel="noopener noreferrer">特権コマンドデータベース</a>を参照してください。 このコマンドに関連する特権と権限のリストについては、'<a href="https://www.ibm.com/docs/ja/ssw_aix_73/l_commands/lssecattr.html" target="_blank" rel="noopener noreferrer"><span>lssecattr</span></a>コマンドまたは'<a href="https://www.ibm.com/docs/ja/ssw_aix_73/g_bostechref/getcmdattr.html" target="_blank" rel="noopener noreferrer"><span>getcmdattr</span></a>サブコマンドを参照のこと。</div>
+        </div>
+      </div></div>
+
+</div>
+
+</section>
+
+<section><h2>例</h2>
+
+<ol>
+<li><strong>/etc/motd</strong> ファイルをプリンターで印刷するlp0装置への接続dlp0次のように入力します。<div>
+<div><div><pre><code>lp /etc/motd</code></pre></div><div></div></div>
+</div>
+</li>
+
+<li>ファイルのコピーを使って <strong>/etc/motd</strong> ファイルを 30 部印刷し、ジョブが完了したことをユーザーにメールで知らせるには、次のように入力します。<div>lp  <a href="https://www.ibm.com/docs/ja/ssw_aix_73/l_commands/lp.html#lp__row-d3e57598" target="_blank" rel="noopener noreferrer">-c</a>  <a href="https://www.ibm.com/docs/ja/ssw_aix_73/l_commands/lp.html#lp__row-d3e57624" target="_blank" rel="noopener noreferrer">-m</a>  <a href="https://www.ibm.com/docs/ja/ssw_aix_73/l_commands/lp.html#lp__row-d3e57634" target="_blank" rel="noopener noreferrer">-n</a>30  <a href="https://www.ibm.com/docs/ja/ssw_aix_73/l_commands/lp.html#lp__row-d3e57616" target="_blank" rel="noopener noreferrer">-d</a>lp0:lpd0 /etc/motd</div>
+</li>
+
+<li>バックエンド・フラグ <strong>-f</strong> および <strong>-a</strong>を使用し、ジョブ・タイトルを指定して、 <strong>/etc/motd</strong> ファイルを印刷します。blah次のように入力します。<div>lp  <a href="https://www.ibm.com/docs/ja/ssw_aix_73/l_commands/lp.html#lp__row-d3e57676" target="_blank" rel="noopener noreferrer">-t</a>"blah"  <a href="https://www.ibm.com/docs/ja/ssw_aix_73/l_commands/lp.html#lp__row-d3e57642" target="_blank" rel="noopener noreferrer">-o</a> -f  <a href="https://www.ibm.com/docs/ja/ssw_aix_73/l_commands/lp.html#lp__row-d3e57642" target="_blank" rel="noopener noreferrer">-o</a> -a /etc/motd</div>
+</li>
+
+<li>キューに入れるには、MyFileジョブ番号を戻すには、次のように入力します。<div>
+<div><div><pre><code>lp myfile</code></pre></div><div></div></div>
+</div>
+</li>
+
+<li>キューに入れるには、MyFileジョブ番号を抑止するには、次のように入力します。<div>lp  <a href="https://www.ibm.com/docs/ja/ssw_aix_73/l_commands/lp.html#lp__row-d3e57664" target="_blank" rel="noopener noreferrer">-s</a> myfile</div>
+</li>
+
+</ol>
+
+</section>
+
+<section><h2>終了状況</h2>
+
+<p>このコマンドは、以下の終了値を戻します。</p>
+
+
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><strong>0</strong></td>
+
+<td>すべての入力ファイルが正常に処理されました。</td>
+
+</tr>
+
+<tr>
+<td><strong>&gt;0</strong></td>
+
+<td>出力デバイスが使用できない、またはエラーが発生しました。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+
+</section>
+
+<section><h2>ファイル</h2>
+
+<div>
+
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><strong>/usr/sbin/</strong> <a href="https://www.ibm.com/docs/ja/ssw_aix_73/q_commands/qdaemon.html" target="_blank" rel="noopener noreferrer"><strong>qdaemon</strong></a></td>
+
+<td>キューイング・デーモンが入っています。</td>
+
+</tr>
+
+<tr>
+<td><strong>/var/spool/lpd/qdir/*</strong></td>
+
+<td>キュー要求が入っています。</td>
+
+</tr>
+
+<tr>
+<td><strong>/var/spool/lpd/stat/*</strong></td>
+
+<td>デバイスの状況に関する情報が入っています。</td>
+
+</tr>
+
+<tr>
+<td><strong>/var/spool/qdaemon/*</strong></td>
+
+<td>キューにあるファイルの一時コピーが入っています。</td>
+
+</tr>
+
+<tr>
+<td><strong>/etc/qconfig</strong></td>
+
+<td>キュー構成ファイルが入っています。</td>
+
+</tr>
+
+<tr>
+<td><strong>/etc/qconfig.bin</strong></td>
+
+<td><strong>/etc/qconfig</strong> ファイルのダイジェストのバイナリー・バージョンが入っています。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+
+</div>
+
+</section>
+
+<section><h2>System V 印刷サブシステムの lp コマンド</h2>
+
+
+</section>
+
+<section><h2>目的 (System V)</h2>
+
+<p>印刷要求を送信します。</p>
+
+</section>
+
+<section><h2>構文 (System V)</h2>
+
+<p><strong>lp</strong> [<em>print-options</em>] [<em>ファイル</em>]</p>
+
+<p><strong>lp-i</strong><em> request-ID プリントオプション</em></p>
+
+</section>
+
+<section><h2>説明 (System V)</h2>
+
+<p>1 つ目の形式の <strong>lp</strong> コマンドは、
+<em>files</em> により名前指定されたファイルと関連情報 (まとめて要求という) が印刷されるようにします。 コマンド・ラインでファイル名を指定しないと、標準入力が想定されます。 標準入力は、ファイル名をリストし、標準入力に <strong>-</strong> を指定することによって、コマンド行に名前付き <em>files</em> と一緒に指定することができます。 <em>ファイル</em> はコマンド・ラインに入力された順序で印刷されます。</p>
+
+<p>LP 印刷サービスは、固有の <em>request-ID</em> を各要求に関係付け、
+標準出力上に表示します。 この <em>request-ID</em> は、
+要求を取り消したり変更したりする際や、状況を判別する際に使用できます。 要求の取り消しについて詳しくは、 <a href="https://www.ibm.com/docs/ja/ssw_aix_73/c_commands/cancel.html" target="_blank" rel="noopener noreferrer"><strong>cancel</strong></a> コマンドを参照してください。印刷要求の状況の検査については、 <a href="https://www.ibm.com/docs/ja/ssw_aix_73/l_commands/lpstat.html" target="_blank" rel="noopener noreferrer"><strong>lpstat</strong></a> を参照してください。</p>
+
+<p>2 つ目の形式の <strong>lp</strong> は、
+以前に実行依頼された要求のオプションを変更するのに使用されます。 <em>request-ID</em> で識別される印刷要求は、
+このコマンドに指定される <em>print-options</em> に従って変更されます。 使用可能な <em>print-options</em> は、
+1 つ目の形式の <strong>lp</strong> コマンドと同様です。 要求の印刷が終了している場合は、変更はリジェクトされます。 要求の印刷が行われている場合は、
+(<strong>-P</strong> フラグを指定していなければ) 印刷は停止して先頭から再始動されます。</p>
+
+<p><code>lp -?</code> を入力した場合は、コマンド使用方法メッセージが表示され、0 が戻されます。</p>
+
+</section>
+
+<section><h2>印刷要求の送信 (System V)</h2>
+
+<p>1 つ目の形式の <strong>lp</strong> コマンドは、特定のプリンターか、
+印刷要求の要件をすべて満たせる任意のプリンターに印刷要求を送信するのに使用します。</p>
+
+<p>ファイル名の前に必ずフラグを付けなければなりませんが、
+指定する順序は任意です。</p>
+
+<p>宛先が <strong>any</strong> の場合に、
+要求を受け入れられないプリンターは考慮されません。 (要求を受け入れられるプリンターを判別するには、
+<strong>lpstat -a</strong> コマンドを使用してください。) しかしながら、要求の宛先としてプリンターのクラスを指定すると、
+クラス自体が要求を受け入れられる場合は、
+そのクラス中のプリンターは受け入れるかどうかに関係なくすべて考慮されます。</p>
+
+<p>マウント可能なプリント・ホイールかフォント・カートリッジを使用するプリンターの場合、
+<strong>-S</strong> フラグで特定のプリント・ホイールかフォントを指定しないと、
+要求を印刷する時点でマウントされているプリンターがどれでも使用されます。 <strong>lpstat -p</strong><em> printer</em><strong> -l</strong> コマンドを使用して、
+特定のプリンター上で使用可能なプリント・ホイールを判別します。 <strong>lpstat -S -l</strong> コマンドを使用して、
+使用可能なプリント・ホイールと、そのマウント場所のプリンターを判別します。 <strong>-S</strong> フラグを指定しないと、
+文字セットが選択できるプリンターの場合は標準文字セットが使用されます。</p>
+
+<p>普通は印刷できるが時折印刷できない時があるという問題が生じたら、
+プリンターとコンピューターとの間の物理接続を検査してください。 自動データ交換機か A/B 交換機を使用している場合は、
+その交換機を除去して、問題が取り除かれたかどうか調べてください。</p>
+
+</section>
+
+<section><h2>フラグ (System V)</h2>
+
+<dl>
+
+<dt><strong>-c</strong></dt>
+
+<dd><strong>lp</strong> が呼び出されたときにすぐに印刷される <em>ファイル</em> のコピーを作成します。 <em>ファイル</em> は通常はコピーされませんが、
+リンクできる場合は常にリンクされます。 <strong>-c</strong> フラグを指定しない場合は、要求が完全に印刷される前に、
+<em>files</em> で指定したどのファイルも除去しないよう注意する必要があります。 また、<strong>-c</strong> フラグを指定を指定しない場合は、
+要求してから印刷するまでの間に <em>files</em> ファイルに加えられた変更内容は、
+印刷出力に反映されることにも注意してください。</dd>
+
+
+
+<dt><strong>-d</strong><em> 宛先</em></dt>
+
+<dd>印刷を行うプリンターまたはプリンターのクラスとして <em>dest</em> を選択します。 <em>dest</em> がプリンターの場合は、
+要求は特定のプリンターだけで印刷されます。 <em>dest</em> がプリンターのクラスの場合は、
+要求はクラスのメンバーのうち 1 つ目の使用可能なプリンターで印刷されます。 <em>dest</em> が <strong>any</strong> の場合は、
+要求を処理できる任意のプリンターで印刷されます。 特定の条件 (プリンターが使用できない、ファイル・スペースの制限など) のもとでは、特定の宛先に対する要求が受け入れられない場合があります ( <a href="https://www.ibm.com/docs/ja/ssw_aix_73/l_commands/lpstat.html" target="_blank" rel="noopener noreferrer"><strong>lpstat</strong></a>を参照)。 デフォルトでは、
+<em>dest</em> は環境変数 <strong>LPDEST</strong> から入手します。 <strong>LPDEST</strong> が設定されていない場合は、
+<em>dest</em> は環境変数 <strong>PRINTER</strong> から入手します。 <strong>PRINTER</strong> が設定されていない場合は、
+コンピューター・システムのデフォルト宛先が (ある場合は) 使用されます。 システム・デフォルトが設定されておらず、 <strong>-T</strong> が使用されている場合は、 <em>dest</em> は、 <strong>-T</strong> フラグで指定された <em>content-type</em> に基づいて選択されます ( <strong>-T</strong>の説明を参照してください)。 宛先名はシステムによって異なります ( <a href="https://www.ibm.com/docs/ja/ssw_aix_73/l_commands/lpstat.html" target="_blank" rel="noopener noreferrer"><strong>lpstat</strong></a>を参照)。</dd>
+
+
+
+<dt><strong>-f</strong><em> form-name</em> [<strong>-d any</strong>]</dt>
+
+<dd>用紙 <em>form-name</em> 上に要求を印刷します。 LP 印刷サービスにより、この用紙が確実にプリンターに取り付けられます。 要求中に <em>form-name</em> とこの用紙をサポートできない印刷宛先とが共に指定されていると、
+その要求はリジェクトされます。 システムに <em>form-name</em> が定義されていない場合や、
+ユーザーがこの用紙を使用できない場合も、要求はリジェクトされます。 ( <a href="https://www.ibm.com/docs/ja/ssw_aix_73/l_commands/lpforms.html#lpforms" target="_blank" rel="noopener noreferrer"><strong>lpforms</strong></a>を参照してください。) <strong>-d any</strong> フラグを指定すると、
+要求された用紙が取り付けられており、
+印刷要求に関するその他の要件もすべて処理できる任意のプリンターで要求が印刷されます。</dd>
+
+
+
+<dt><strong>-H</strong><em> 特殊処理</em></dt>
+
+<dd><em>special-handling</em> の値に従って要求を印刷します。 <em>special-handling</em> の許容値を次に定義します。<dl>
+
+<dt><strong>保留</strong></dt>
+
+<dd>通知されるまで要求を印刷しません。 印刷が既に始まっている場合は停止します。 保留要求が再開されるまでは、その他の印刷要求が保留要求より先に印刷されます。</dd>
+
+
+
+<dt><strong>resume</strong></dt>
+
+<dd>保留要求を再開します。 印刷中に保留した場合は、
+その後 <strong>immediate</strong> 要求で先に割り込ませなければ、
+その要求は次の印刷に回されます。 この引数を指定する際には、
+必ず <strong>-i</strong> フラグを (後に <em>request-ID</em> を付けて) 使用しなければなりません。</dd>
+
+
+
+<dt><strong>即値</strong></dt>
+
+<dd>(LP 管理者だけが使用できます) 要求を次回に印刷します。 複数の要求に <strong>immediate</strong> を割り当てると、
+最新の要求が最初に印刷されます。 別の要求が現在印刷中の場合は、その要求は保留になり、
+即時要求が印刷できるようにされます。</dd>
+
+
+</dl>
+</dd>
+
+
+
+<dt> </dt>
+
+<dd></dd>
+
+
+
+<dt><strong>-L</strong><em> ロケール名</em></dt>
+
+<dd>この印刷要求で使用されるロケールとして <em>locale-name</em> を指定します。 デフォルトでは、
+<em>locale-name</em> は <strong>LC_CTYPE</strong> の値に設定されます。 <strong>LC_CTYPE</strong> が設定されていない場合は、
+<em>locale-name</em> のデフォルトは C ロケールになります。</dd>
+
+
+
+<dt><strong>-m</strong></dt>
+
+<dd>ファイルの印刷後にメールを送信します。 デフォルトでは、印刷要求が正常終了した後にメールは送られません。</dd>
+
+
+
+<dt><strong>-n</strong><em> 番号</em></dt>
+
+<dd>出力の部数を <em>number</em> に指定します。 デフォルトの部数は 1 です。</dd>
+
+
+
+<dt><strong>-o</strong><em> オプション</em></dt>
+
+<dd>プリンターに依存するオプションを <em>options</em> に指定します。 この種の <em>options</em> を複数収集するには、<strong>-o</strong> キー文字を複数回指定する
+(つまり、<strong>-o option[1]</strong> <strong>-o option[2]</strong> ... <strong>-o option[n]</strong>) か、
+またはオプションのリストを、1 つの <strong>-o</strong> キー文字を二重引用符で囲み、スペースで区切って指定します (つまり、<strong>-o "option[1]</strong> <em>option[2]</em> <strong>. . .</strong><em> option[n]</em><strong>"</strong>)。<dl>
+
+<dt><strong>バナーなし</strong></dt>
+
+<dd>この要求の印刷時にバナー・ページを印刷しません。 管理者はいつでもこのオプションを不許可にすることができます。</dd>
+
+
+
+<dt><strong>ファイルなし</strong></dt>
+
+<dd>複数のファイルを印刷するジョブが実行依頼された場合に、
+それらのファイルの間に用紙送りを挿入しません。 このオプションは、PS (PostScript) インターフェースを使用するように構成されたプリンターではサポートされません。</dd>
+
+
+
+<dt><strong>長さ =</strong><em> スケール付き小数点数</em></dt>
+
+<dd>長さ <em>scaled-decimal-number</em> のページでこの要求を印刷します。 <em>scaled-decimal-number</em> は、
+スケールをオプション指定できる 10 進数で、
+行数、文字数、インチ、またはセンチメートルのうち該当する単位でサイズを指定します。 スケールを指示するには、
+インチの場合は <strong>i</strong> 文字を付加し、
+センチメートルの場合は <strong>c</strong> 文字を付加します。 数値のスケールを指定しないと、長さの設定の場合は行数、
+幅の設定の場合は文字数、行ピッチの設定の場合は行/インチ、
+文字ピッチの設定の場合は字/インチを指示したことになります (<strong>i</strong> を付加して数値のスケールを指定した場合と同じになります)。 例えば、<strong>length=66</strong> はページの長さが 66 行になるよう指示し、
+<strong>length=11i</strong> はページの長さが 11 インチになるよう指示し、
+<strong>length=27.94c</strong> はページの長さが 27.94 センチメートルになるよう指示します。 このオプションは、 <strong>-f</strong> オプションと一緒に使用することはできません。また、PS (PostScript) ではサポートされません。</dd>
+
+
+
+<dt><strong>幅 =</strong><em> スケール付き小数点数</em></dt>
+
+<dd>幅 <em>scaled-decimal-number</em> のページでこの要求を印刷します。 (上記の <strong>length</strong>の説明の <em>scaled-decimal-numbers</em> の説明を参照してください。) このオプションは、 <strong>-f</strong> オプションと一緒に使用することはできません。また、PS (PostScript) ではサポートされません。</dd>
+
+
+
+<dt><strong>lpi =</strong><em> スケール付き10進数</em></dt>
+
+<dd>行ピッチを <em>scaled-decimal-number</em> に設定してこの要求を印刷します。 (上記の <strong>length</strong>の説明の <em>scaled-decimal-numbers</em> の説明を参照してください。) このオプションは、 <strong>-f</strong> フラグと一緒に使用することはできません。また、PS (PostScript) ではサポートされません。</dd>
+
+
+
+<dt><strong>cpi=ピカ|エリート|圧縮</strong></dt>
+
+<dd>文字ピッチを <strong>pica</strong> (10 文字/インチを表す)、
+<strong>elite</strong> (12 文字/インチを表す)、
+または <strong>compressed</strong> (プリンターで処理できる文字数/インチを表す) に設定してこの要求を印刷します。 すべてのプリンターについて、1 インチ当たりの標準文字数はありません。ご使用のプリンターのデフォルト文字ピッチについては、 <a href="https://www.ibm.com/docs/ja/ssw_aix_73/filesreference/terminfo.html" target="_blank" rel="noopener noreferrer"><strong>terminfo</strong></a> データベースを参照してください。 このオプションは、 <strong>-f</strong> フラグと一緒に使用することはできません。また、PS (PostScript) ではサポートされません。</dd>
+
+
+
+<dt><em>stty</em><strong> =sttyオプション・リスト</strong></dt>
+
+<dd><strong>stty</strong> コマンドにとって有効なオプションのリスト。
+ブランクが含まれる場合は、リストを単一引用符で囲んでください。</dd>
+
+
+</dl>
+</dd>
+
+
+
+<dt> </dt>
+
+<dd></dd>
+
+
+
+<dt><strong>-P</strong><em> ページ・リスト</em></dt>
+
+<dd><em>page-list</em> で指定されたページを印刷します。 このフラグは、このフラグを処理できるフィルターがある場合だけ使用できます。
+ない場合は、印刷要求はリジェクトされます。 <em>page-list</em> には、数値の範囲、1 つのページ番号、
+またはこれらの両方を組み合わせて指定できます。 ページは昇順に印刷されます。</dd>
+
+
+
+<dt><strong>-q</strong><em> 優先順位</em></dt>
+
+<dd>印刷キュー中におけるこの要求の優先順位の割り当てを <em>priority-level</em> に指定します。 <em>priority-level</em> の値の範囲は 0 (最高の優先順位) から 39 (最低の優先順位) です。 優先順位を指定しないと、
+システム管理者が割り当てた印刷サービスのデフォルトが使用されます。 システム管理者は、個々のユーザーに優先順位の制限を割り当てることもできます。</dd>
+
+
+
+<dt><strong>-R</strong></dt>
+
+<dd>印刷要求の実行依頼後に 1 つ以上のファイルを除去します。 このフラグを使用する際には注意してください。</dd>
+
+
+
+<dt><strong>-r</strong></dt>
+
+<dd>以下の <strong>-T</strong><em> content-type</em> [<strong>-r</strong>] を参照してください。</dd>
+
+
+
+<dt><strong>-s</strong></dt>
+
+<dd>` ` request id is ... '' を抑止します。 メッセージ。</dd>
+
+
+
+<dt><strong>-S</strong><em> character-set</em> [<strong>-d any</strong>]</dt>
+
+<dd></dd>
+
+
+
+<dt><strong>-S</strong><em> print-wheel</em> [<strong>-d any</strong>]</dt>
+
+<dd><em>character-set</em> または <em>print-wheel</em> の指定値を使用して、
+この要求を印刷します。 用紙が要求されている場合に、
+<strong>-S</strong> フラグの指定値以外の文字セットまたはプリント・ホイールが必要な場合は、
+要求はリジェクトされます。<p>プリント・ホイールを使用するプリンターの場合、
+この要求で指定されているプリンターで使用できるものとして管理者がリストしていないプリント・ホイールを指定すると、
+そのプリント・ホイールが既にプリンターにマウントされていなければこの要求はリジェクトされます。</p>
+
+<p>選択可能またはプログラマブル文字セットを使用するプリンターの場合: 指定された <em>character-set</em> がプリンターの Terminfo データベースで定義されたものでないか ( <a href="https://www.ibm.com/docs/ja/ssw_aix_73/filesreference/terminfo.html" target="_blank" rel="noopener noreferrer"><strong>terminfo</strong></a>を参照)、または管理者によって定義された別名でない場合、要求は拒否されます。</p>
+
+<p><strong>-d any</strong> フラグを指定すると、
+プリント・ホイールが取り付けられているかまたは文字セットを選択でき、
+しかも印刷要求に関するその他の要件もすべて処理できる任意のプリンターで要求が印刷されます。</p>
+</dd>
+
+
+
+<dt><strong>-t</strong><em> タイトル</em></dt>
+
+<dd>出力のバナー・ページに、<em>title</em> に指定したタイトルを印刷します。 デフォルトはタイトルなしです。 <em>title</em> にブランクが含まれている場合は、引用符で囲んでください。</dd>
+
+
+
+<dt><strong>-T</strong><em> content-type</em> [<strong>-r</strong>]</dt>
+
+<dd><em>content-type</em> に指定されたコンテンツ・タイプをサポートできるプリンターで要求を印刷します。 このタイプを直接受け入れられるプリンターがない場合は、
+フィルターを使用して、コンテンツを受け入れ可能なタイプに変換します。 <strong>-r</strong> フラグを指定すると、フィルターは使用されません。 <strong>-r</strong> を指定しない場合は、
+<em>content-type</em> を直接受け入れられるプリンターがなければ、
+要求はリジェクトされます。 <em>content-type</em> が直接にも、
+またフィルターを使用してもどのプリンターにも受け入れられなければ、
+要求はリジェクトされます。<p><strong>-r</strong> フラグは、
+フィルターが確実に使用されないようにするだけでなく、
+<strong>-o 'stty=-opost'</strong> フラグと同等の処理を強制実行します。</p>
+</dd>
+
+
+
+<dt><strong>-w</strong></dt>
+
+<dd><em>files</em> に指定されたファイルの印刷後、
+ユーザーの端末にメッセージを書き込みます。 ユーザーがログインしていなかったり、プリンターがリモート・システム上にあったりすると、
+代わりにメールが送られます。 元々コマンドを入力したウィンドウとは違うウィンドウにメッセージが送信されることがあるので注意してください。</dd>
+
+
+
+<dt><strong>-y</strong><em> mode-リスト</em></dt>
+
+<dd><em>mode-list</em> にリストされている印刷モードに従って、
+この要求を印刷します。 <em>mode-list</em> の有効値はローカルに定義されます。 このオプションは、このフラグを処理できるフィルターがある場合だけ使用できます。
+ない場合は、印刷要求はリジェクトされます。<p><em>mode-list</em> オプションの説明を次にリストします。</p>
+
+<dl>
+
+<dt><strong>-y 反転</strong></dt>
+
+<dd>ページの印刷順序を逆にします。 このフィルター・オプションは LP 印刷サービスではサポートされていません。</dd>
+
+
+
+<dt><strong>-y ランドスケープ</strong></dt>
+
+<dd>物理ページの向きをポートレイトからランドスケープに変更します。</dd>
+
+
+
+<dt><strong>-y x=</strong><em>number</em><strong>, y=</strong><em>number</em></dt>
+
+<dd>原点を移動して、
+物理ページ上の論理ページのデフォルトの位置を変更します。</dd>
+
+
+
+<dt><strong>-y group=</strong><em>番号</em></dt>
+
+<dd>1 物理ページ上の複数の論理ページをグループ化します。</dd>
+
+
+
+<dt><strong>-y 拡大率 =</strong><em>number</em></dt>
+
+<dd>ドキュメント中の各ページの論理サイズを変更します。</dd>
+
+
+
+<dt><strong>-o length=</strong><em>数値</em></dt>
+
+<dd>ドキュメントの各ページ中の行数を選択します。</dd>
+
+
+
+<dt><strong>-P</strong><em> 数値</em></dt>
+
+<dd>印刷されるドキュメントのサブセットをページ番号単位で選択します。</dd>
+
+
+
+<dt><strong>-n</strong><em> 番号</em></dt>
+
+<dd>ドキュメントを複数部印刷します。</dd>
+
+
+</dl>
+</dd>
+
+
+
+<dt> </dt>
+
+<dd></dd>
+
+
+</dl>
+
+</section>
+
+<section><h2>セキュリティー (System V)</h2>
+
+<div>
+<div><div>
+        <div>
+          <div><span>RBAC ユーザーへの注意:</span> このコマンドは特権命令を実行できます。 特権命令を実行できるのは特権ユーザーのみです。 権限と特権の詳細については、<span>セキュリティ</span>の <a href="https://www.ibm.com/docs/ja/ssw_aix_73/security/rbac_priv_cmd_db.html" target="_blank" rel="noopener noreferrer">特権コマンドデータベース</a>を参照してください。 このコマンドに関連する特権と権限のリストについては、'<a href="https://www.ibm.com/docs/ja/ssw_aix_73/l_commands/lssecattr.html" target="_blank" rel="noopener noreferrer"><span>lssecattr</span></a>コマンドまたは'<a href="https://www.ibm.com/docs/ja/ssw_aix_73/g_bostechref/getcmdattr.html" target="_blank" rel="noopener noreferrer"><span>getcmdattr</span></a>サブコマンドを参照のこと。</div>
+        </div>
+      </div></div>
+
+</div>
+
+</section>
+
+<section><h2>ファイル (System V)</h2>
+
+<dl>
+
+<dt><strong>/var/spool/lp/*</strong></dt>
+
+<dd></dd>
+
+
+</dl>
+
+</section>
+
+</div></div>
