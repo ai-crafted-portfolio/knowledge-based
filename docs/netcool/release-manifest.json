@@ -1,0 +1,12 @@
+{
+  "release_id": "netcool-omnibus-v81-technical-items-20260805-r1",
+  "source_release_id": "netcool-c23-20260716-r1",
+  "article_count": 50,
+  "source_gap_count": 0,
+  "assets": {
+    "index.html": "69de06dc2bed46ed12f302ced2256c77fb72f0f66bc38fa3f54e445e78091fc5",
+    "assets/site.css": "e939d16d1508c96b60800bdb7337d9af128b468ade54156fbc0b1e3db4a82560",
+    "assets/app.js": "c71ff29dea0600f7968c66c42aadc17dd9c2ae661d0f8c60a45f3dbaebb58358",
+    "assets/data.js": "85261b486c04629917d930c7b0a6344a969af73c2880072eba8fa7825f5e33ce"
+  }
+}

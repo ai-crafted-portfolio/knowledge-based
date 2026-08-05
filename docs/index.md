@@ -153,7 +153,7 @@ hide:
 
     QA 99.68% ／ 手順 98.71%
 
-- __[Netcool/OMNIbus V8.1](categories/c23/index.md)__
+- __[Netcool/OMNIbus V8.1](netcool/index.html)__
 
     技術項目 50 件
 

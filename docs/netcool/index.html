@@ -1,0 +1,57 @@
+<!doctype html>
+<html lang="ja" data-release="netcool-omnibus-v81-technical-items-20260805-r1">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Netcool/OMNIbus V8.1 Technical Item Library</title>
+  <link rel="stylesheet" href="assets/site.css?netcool-omnibus-v81-technical-items-20260805-r1">
+</head>
+<body>
+  <header>
+    <div class="mark">NETCOOL</div>
+    <div>
+      <strong>Netcool/OMNIbus V8.1</strong>
+      <small>TECHNICAL ITEM LIBRARY / PROCEDURE-LINKED</small>
+    </div>
+    <label>
+      <input id="search" type="search" placeholder="Search by title, category, difficulty, or source">
+    </label>
+    <div class="count">
+      <b>50</b>
+      <small>TECHNICAL ITEMS</small>
+    </div>
+  </header>
+
+  <div class="layout">
+    <aside>
+      <p class="eyebrow">TECHNICAL ITEM VIEW</p>
+      <h1>Category Collection</h1>
+      <button class="category active" data-category="">
+        All items <b>50</b>
+      </button>
+      <div id="categories"></div>
+      <p class="note">
+        This public route keeps the technical-item perspective. Items are grouped by Netcool functional area
+        and opened with the existing Netcool technical-item body. Each page keeps the source document names.
+      </p>
+    </aside>
+
+    <main>
+      <section class="list">
+        <div class="listhead">
+          <span id="listlabel">All technical items</span>
+          <b id="listcount">50</b>
+        </div>
+        <div id="items"></div>
+      </section>
+
+      <article id="reader">
+        <div class="empty">Select a technical item from the list.</div>
+      </article>
+    </main>
+  </div>
+
+  <script src="assets/data.js?netcool-omnibus-v81-technical-items-20260805-r1"></script>
+  <script src="assets/app.js?netcool-omnibus-v81-technical-items-20260805-r1"></script>
+</body>
+</html>

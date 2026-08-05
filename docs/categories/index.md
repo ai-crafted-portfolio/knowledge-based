@@ -29,7 +29,7 @@
 | [JCL PROC / 制御](../categories/c20/index.md) | 181 | 181 | 100.0% | 0 | 178 | 98.34% | 3 |
 | [JES2](../categories/c21/index.md) | 268 | 0 | 0.0% | 268 | 268 | 100.0% | 0 |
 | [MVS オペレータコマンド](../categories/c22/index.md) | 310 | 309 | 99.68% | 1 | 306 | 98.71% | 4 |
-| [Netcool/OMNIbus V8.1](../categories/c23/index.md) | 50 | 0 | 0.0% | 50 | 50 | 100.0% | 0 |
+| [Netcool/OMNIbus V8.1](../netcool/index.html) | 50 | 0 | 0.0% | 50 | 50 | 100.0% | 0 |
 | [PSF for z/OS 4.7](../categories/c24/index.md) | 240 | 140 | 58.33% | 100 | 240 | 100.0% | 0 |
 | [PowerHA SystemMirror 7.2](../categories/c25/index.md) | 540 | 540 | 100.0% | 0 | 540 | 100.0% | 0 |
 | [RACF SETROPTS/RDEFINE/RACDCERT](../categories/c26/index.md) | 390 | 164 | 42.05% | 226 | 385 | 98.72% | 5 |

@@ -1,0 +1,37 @@
+<!doctype html><html lang="ja"><body><div class="official-dom"><p>Netcool/OMNIbus V8.1 の alerts status table で扱う「secure mode 状態確認 履歴行」は、probe や gateway の接続にユーザー名とパスワードを要求する動作を状態確認の観点で確認する技術項目です。ObjectServer propertiesとNCOMS 029を同じ記録で見比べることで、secure mode の接続失敗を名前だけの確認にせず、処理結果・表名・メッセージの対応まで追跡します。</p><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>secure mode 状態確認 履歴行</strong></p><p>検証目的: alerts status tableのsecure mode 状態確認 履歴行について、Netcool/OMNIbus V8.1の資料に出る操作名・表名・メッセージ形式を机上で照合する。</p><p>前提条件: Netcool/OMNIbus V8.1の資料確認ができ、対象環境の表示例を机上証跡として記録できる。</p><p>セッション環境: 机上検証。製品資料に記載されたコマンド、メニュー、表名、メッセージ形式を使う。</p><pre class="kb-code">■ ステップ 1
+現在の画面はNetcool/OMNIbus V8.1の入力画面です。COMMAND ===&gt; または ?S に最初の確認操作を入れ、alerts status tableの対象へ進みます。
+［操作（入力）］
+Netcool/OMNIbus V8.1 操作画面
+COMMAND ===&gt; nco_sql -server NCOMS -user root
+→ Enter を押す
+［画面・出力］
+nco_sql session connected to ObjectServer NCOMS.
+画面・出力には session が表示され、最初の到達点を確認できます。
+――――
+■ ステップ 2
+現在の画面はNetcool/OMNIbus V8.1の確認画面です。ObjectServer propertiesを読むため、対象名を含む操作を入力します。
+［操作（入力）］
+Netcool/OMNIbus V8.1 操作画面
+SQL ===&gt; select Identifier, Severity, Node from alerts.status;
+→ Enter を押す
+［画面・出力］
+Identifier        Severity  Node
+NODE029:LINKDOWN    5         NODE029
+NODE029:RECOVER     2         NODE029
+画面・出力には Identifier が含まれ、secure mode 状態確認 履歴行の証跡を確認できます。
+――――
+■ ステップ 3
+現在の画面はNetcool/OMNIbus V8.1の詳細確認画面です。表示名とメッセージ形式を照合し、secure mode の接続失敗を切り分けます。
+［操作（入力）］
+Netcool/OMNIbus V8.1 操作画面
+SQL ===&gt; describe alerts.status;
+→ Enter を押す
+［画面・出力］
+Table alerts.status
+Column Identifier
+Column Severity
+Column Node
+画面・出力には Table が現れ、判定材料を記録できます。
+――――</pre><p>合格条件: ① ステップ1 の session が画面・出力に表示されること
+② ステップ2 の Identifier が画面・出力に表示されること
+③ ステップ3 の Table が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: Netcool_OMNIbus_BestPractices_v1.3 / Netcool OMNIbus V8.1 Administration Guide / Command Reference</p></div></details></div></body></html>
